@@ -48,7 +48,7 @@
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Configuración<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="themes">
-                  <li><a href="#">Proyectos</a></li>
+                  <li class=”{{ Request::is( 'PresupuestoPAA') ? 'active' : '' }}”><a href="{{ URL::to( 'PresupuestoPAA') }}">Presupuesto PAA</a></li>
                   <li><a href="#">Usuarios</a></li>
                   <li><a href="#">Permisos</a></li>
                 </ul>
