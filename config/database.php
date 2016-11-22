@@ -47,11 +47,11 @@ return [
     'connections' => [
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST'),
+            'host' => env('DB_HOST2'),
             'port' => env('DB_PORT'),
             'database' => env('DB_DATABASE'),
-            'username' => env('DB_USERNAME'),
-            'password' => env('DB_PASSWORD'),
+            'username' => env('DB_USERNAME_L'),
+            'password' => env('DB_PASSWORD_L'),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',

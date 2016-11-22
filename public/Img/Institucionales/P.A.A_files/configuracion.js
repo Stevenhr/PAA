@@ -11,35 +11,6 @@ $(function()
         popular_ciudades($(this).val());
     });
 
-    $('input[data-role="datepicker"]').datepicker({
-      dateFormat: 'yy-mm-dd',
-      yearRange: "-100:+0",
-      changeMonth: true,
-      changeYear: true,
-    });
-
-    $('#precio').keydown(function(event) {
-   if(event.shiftKey)
-   {
-        event.preventDefault();
-   }
- 
-   if (event.keyCode == 46 || event.keyCode == 8)    {
-   }
-   else {
-        if (event.keyCode < 95) {
-          if (event.keyCode < 48 || event.keyCode > 57) {
-                event.preventDefault();
-          }
-        } 
-        else {
-              if (event.keyCode < 96 || event.keyCode > 105) {
-                  event.preventDefault();
-              }
-        }
-      }
-   });
-
     //Submit formulario único de personas
     $('#Presupuesto').on('click', function(e){
         $(this).addClass("active");
@@ -111,41 +82,25 @@ $(function()
         $('#Actividad_dv').hide();
     });
 
-    $('#form_presupuesto').on('submit', function(e){
-        $.post(URL+'/validar/presupuesto',$(this).serialize(),function(data){
+    $('#form_persona').on('submit', function(e){
+        $("#guardar").button('loading');
+        $.post(URL+'/service/procesar',$(this).serialize(),function(data){
             if(data.status == 'error')
             {
-                validad_error(data.errors);
+                popular_errores_modal(data.errors);
             } else {
-                $('#mensaje_presupuesto').show();
+                $('#alerta').show();
+                $('#modal_form_persona').modal('hide');
+                $("#guardar").button('reset');
+
                 setTimeout(function(){
-                    $('#mensaje_presupuesto').hide();
+                    $('#alerta').hide();
                 }, 4000)
             }
         },'json');
 
         e.preventDefault();
     });
-
-    var validad_error = function(data)
-    {
-        $('#form_presupuesto .form-group').removeClass('has-error');
-        var selector = '';
-        for (var error in data){
-            if (typeof data[error] !== 'function') {
-                switch(error)
-                {
-                    case 'precio':
-                    case 'fecha_final_presupuesto':
-                    case 'fecha_inicial_presupuesto':
-                    case 'nombre_presupuesto':
-                        selector = 'input';
-                    break;
-                }
-                $('#form_presupuesto '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
-            }
-        }
-    }
     
 });
 

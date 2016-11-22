@@ -18,6 +18,7 @@ Route::post('/personas/service/procesar/', '\Idrd\Usuarios\Controllers\PersonaCo
 
 
 Route::get('/configuracionPaa/proyecto/{id}', 'PaaController@proyecto');
+Route::post('/configuracionPaa/validar/presupuesto/', 'PaaController@validar_presupuesto');
 Route::any('/PresupuestoPAA/', 'PaaController@index');
 Route::any('/', 'MainController@index');
 Route::any('/logout', 'MainController@logout');
@@ -26,4 +27,3 @@ Route::any('/logout', 'MainController@logout');
 Route::group(['middleware' => ['web']], function () {
 	Route::get('/welcome', 'MainController@welcome');
 });
-/*
