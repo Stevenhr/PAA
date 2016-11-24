@@ -12,7 +12,11 @@ class PaaController extends Controller
     //
     public function index()
 	{
-		return view('configuracionPAA');
+		$presupuesto = Presupuesto::all();
+        $datos = [        
+            'presupuesto' => $presupuesto
+        ];
+		return view('configuracionPAA',$datos);
 	}
 	public function proyecto()
 	{
@@ -31,15 +35,16 @@ class PaaController extends Controller
         	]
         );
 
-        if ($validator->fails())
+           if ($validator->fails())
             return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
 
-        	if($request->input('Id_presupuesto') == '0')
-        	$this->guardar($request->all());
-        	else
-        	$this->modificar($request->all());
-
-        return response()->json(array('status' => 'ok'));
+        	if($request->input('Id_presupuesto') == '0'){
+        		return response()->json($this->guardar($request->all()));
+        	}
+        	else{
+        		return response()->json($this->modificar($request->all()));	
+        	}
+        	
 	}
 
 	public function guardar($input)
@@ -50,9 +55,7 @@ class PaaController extends Controller
 
 	public function modificar($input)
 	{
-		
 		$modelo=Presupuesto::find($input["Id_presupuesto"]);
-		//var_dump($modelo);
 		return $this->modificar_actividad($modelo, $input);
 	}
 
@@ -64,8 +67,10 @@ class PaaController extends Controller
 		$model['presupuesto'] = $input['precio'];
 		$model->save();
 
-		return $model;
+		$Presupuesto = Presupuesto::all();
+		return $Presupuesto;
 	}
+
 	public function modificar_actividad($model, $input)
 	{
 		$model['Nombre_Actividad'] = $input['nombre_presupuesto'];
@@ -73,8 +78,40 @@ class PaaController extends Controller
 		$model['fecha_fin'] = $input['fecha_final_presupuesto'];
 		$model['presupuesto'] = $input['precio'];
 		$model->save();
+		$Presupuesto = Presupuesto::all();
+		return $Presupuesto;
+	}
 
-		return $model;
+
+	public function eliminar_presupuesto(Request $request, $id)
+	{
+		//$Presupuesto = Presupuesto::find($id);
+
+		$Presupuesto = Presupuesto::with('proyectos')->whereHas('proyectos', function($q) use ($id)
+		{
+		    $q->where('Id_presupuesto', '=', $id);
+
+		})->get();
+
+
+		if(count($Presupuesto)>0){
+			return response()->json(array('status' => 'error', 'datos' => $Presupuesto));
+		}
+		else
+		{
+			$user = Presupuesto::find($id);
+			$user->delete();
+			$Presupuesto = Presupuesto::all();
+			return $Presupuesto;
+		}
+
+	}
+
+
+	public function modificar_presupuesto(Request $request, $id)
+	{
+		$Presupuesto = Presupuesto::find($id);
+		return response()->json($Presupuesto);
 	}
 
 }

@@ -17,15 +17,18 @@
           <link rel="stylesheet" href="{{ asset('public/Css/bootstrap.min.css') }}" media="screen">    
           <link rel="stylesheet" href="{{ asset('public/Css/sticky-footer.css') }}" media="screen">  
           <link rel="shortcut icon" href="{{ asset('public/Img/Institucionales/iconoModulo.png') }}">  
+          <link rel="stylesheet" href="{{ asset('public/Css/css_datatable/jquery.dataTables.min.css') }}" media="screen">
+          <link rel="stylesheet" href="{{ asset('public/Css/css_datatable/buttons.dataTables.min.css') }}" media="screen">   
       @show
 
       @section('script')
+          <script src="{{ asset('public/Js/js_datatable/jquery-1.12.3.js') }}"></script>
           <script src="{{ asset('public/Js/jquery.js') }}"></script>
           <script src="{{ asset('public/Js/jquery-ui.js') }}"></script>
           <script src="{{ asset('public/Js/bootstrap.min.js') }}"></script>
           <script src="{{ asset('public/Js/main.js') }}"></script>
 
-          script src="{{ asset('public/Js/js_datatable/jquery.dataTables.min.js') }}"></script>
+          <script src="{{ asset('public/Js/js_datatable/jquery.dataTables.min.js') }}"></script>
           <script src="{{ asset('public/Js/js_datatable/dataTables.buttons.min.js') }}"></script>
           <script src="{{ asset('public/Js/js_datatable/jszip.min.js') }}"></script>
           <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>

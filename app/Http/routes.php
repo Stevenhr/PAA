@@ -19,6 +19,9 @@ Route::post('/personas/service/procesar/', '\Idrd\Usuarios\Controllers\PersonaCo
 
 Route::get('/configuracionPaa/proyecto/{id}', 'PaaController@proyecto');
 Route::post('/configuracionPaa/validar/presupuesto/', 'PaaController@validar_presupuesto');
+Route::get('/configuracionPaa/presupuesto/eliminar/{id}', 'PaaController@eliminar_presupuesto');
+Route::get('/configuracionPaa/presupuesto/modificar/{id}', 'PaaController@modificar_presupuesto');
+
 Route::any('/PresupuestoPAA/', 'PaaController@index');
 Route::any('/', 'MainController@index');
 Route::any('/logout', 'MainController@logout');
