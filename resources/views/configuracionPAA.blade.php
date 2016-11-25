@@ -22,16 +22,18 @@
 				<br>
 				
 
-
 				<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PRESUPUESTO  %%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 				<div id="Presupuesto_dv" style="display:none;">
+					
 					<h3>Presupuesto</h3>
+					<hr style="border: 0; border-top: 1px solid #F6CECE; height:0;">
 	            	<br>
 	                <p class="text-justify">Registro del prresupuesto total de los proyectos..</p>
 			        <br>
 			        <form id="form_presupuesto">
 			            <div id="div_form_presupuesto"><br></div>
 				        <div class="row" >
+
 						    <div class="col-xs-12 col-md-3 text-">
 						    	<div class="form-group">	
 						    		<label>Nombre</label>
@@ -56,8 +58,8 @@
 
 			        		<div class="col-xs-12 col-md-3 ">
 			        			<div class="form-group">
-			        				<label>Presupuesto </label>
-									<input type="text" class="form-control" id="precio" name="precio">
+			        				<label>Valor </label>
+									<input type="text" class="form-control precio" name="precio">
 								</div>
 			        		</div>
 						</div>
@@ -93,7 +95,7 @@
 								        <thead>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Nombre</th>
+								                <th>Nombre Presupuesto</th>
 								                <th>Fecha inicial de implementación</th>
 								                <th>Fecha final de implementación</th>
 								                <th>Presupuesto</th>
@@ -103,7 +105,7 @@
 								        <tfoot>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Nombre</th>
+								                <th>Nombre Presupuesto</th>
 								                <th>Fecha inicial de implementación</th>
 								                <th>Fecha final de implementación</th>
 								                <th>Presupuesto</th>
@@ -143,41 +145,56 @@
 						</div>
 		        </div>
 
+
 		        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PROYECTO  %%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 				<div id="Proyecto_dv" style="display:none;">
 					<h3>Proyecto</h3>
+					<hr style="border: 0; border-top: 1px solid #81DAF5; height:0;">
 	            	<br>
 	                <p class="text-justify">Registro de proyectos.</p>
 			        <br>
 			        <form id="form_proyecto">
 			            <div id="div_form_presupuesto"><br></div>
 				        <div class="row" >
-						    <div class="col-xs-12 col-md-3 text-">
+						    
+				        	<div class="col-xs-12 col-md-2 text-">
+						    	<div class="form-group">	
+						    		<label>Presupuesto</label>
+									<select class="form-control" name="idPresupuesto">
+											<option value="">Selecionar</option>
+										@foreach($presupuesto as $presupuestos)
+											<option value="{{ $presupuestos['Id'] }}" >{{ $presupuestos['Nombre_Actividad'] }}</option>
+									    @endforeach
+									</select>
+								</div>
+			        		</div>
+
+						    <div class="col-xs-12 col-md-2 text-">
 						    	<div class="form-group">	
 						    		<label>Nombre</label>
-						    		<input type="hidden" class="form-control" name="Id_presupuesto" value="0">
-									<input type="text" class="form-control" name="nombre_presupuesto">
+						    		<input type="hidden" class="form-control" name="Id_proyecto" value="0">
+									<input type="text" class="form-control" name="nombre_proyecto">
 								</div>
 			        		</div>
 
 						    <div class="col-xs-12 col-md-3 ">
 						    	<div class="form-group">
 						    		<label>Fecha inicial de implementación</label>
-									<input type="text" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_presupuesto">
+									<input type="text" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_proyecto">
 								</div>
 			        		</div>
 
 						    <div class="col-xs-12 col-md-3 ">
 			        			<div class="form-group">
 			        				<label>Fecha final de implementación</label>
-									<input type="text" class="form-control" data-role="datepicker" name="fecha_final_presupuesto">
+									<input type="text" class="form-control" data-role="datepicker" name="fecha_final_proyecto">
 								</div>
 			        		</div>
 
-			        		<div class="col-xs-12 col-md-3 ">
+			        		<div class="col-xs-12 col-md-2 ">
 			        			<div class="form-group">
-			        				<label>Presupuesto </label>
-									<input type="text" class="form-control" id="precio" name="precio">
+			        				<label>Valor </label>
+									<input type="text" class="form-control precio" name="precio_proyecto">
 								</div>
 			        		</div>
 						</div>
@@ -186,11 +203,11 @@
 						    <div class="col-xs-12 col-md-4">
 			        		</div>
 						    <div class="col-xs-12 col-md-4 text-center"><br>
-						    		<div class="alert alert-success" style="display:none;" id="mensaje_presupuesto">
+						    		<div class="alert alert-success" style="display:none;" id="mensaje_proyecto">
 									  <strong>Bien!</strong> Registro creado con exíto.
 									</div>
-									<button class="btn btn-primary" type="submit" id="id_btn_presupuesto">Registrar</button>
-									<button class="btn btn-danger" type="submit" id="id_btn_presup_canc" style="display:none;">Cancelar</button>
+									<button class="btn btn-primary" type="submit" id="id_btn_proyecto">Registrar</button>
+									<button class="btn btn-danger" type="submit" id="id_btn_proyect_canc" style="display:none;">Cancelar</button>
 			        		</div>
 			        		<div class="col-xs-12 col-md-4">
 			        		</div>
@@ -205,7 +222,7 @@
 			            		<hr><hr>
 					        </div>
             			    <div class="col-xs-12 col-md-12">
-			            		<h5>Listado de Presupuestos:</h5>
+			            		<h5>Listado de Proyectos:</h5>
 					        </div>
 						    <div class="col-xs-12 col-md-12">
 						    	<div class="table-responsive" id="div_Tabla4">
@@ -213,7 +230,8 @@
 								        <thead>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Nombre</th>
+								                <th>Presupuesto</th>
+								                <th>Nombre Proyecto</th>
 								                <th>Fecha inicial de implementación</th>
 								                <th>Fecha final de implementación</th>
 								                <th>Presupuesto</th>
@@ -223,7 +241,8 @@
 								        <tfoot>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Nombre</th>
+								                <th>Presupuesto</th>
+								                <th>Nombre Proyecto</th>
 								                <th>Fecha inicial de implementación</th>
 								                <th>Fecha final de implementación</th>
 								                <th>Presupuesto</th>
@@ -232,26 +251,34 @@
 								        </tfoot>
 								        <tbody i>
 								        		<?php $var=1; ?>
+
 								        		@foreach($presupuesto as $presupuestos)
-					        						<tr>
-					        						<th scope="row" class="text-center">{{ $var }}</th>
-							                        <td><h4>{{ $presupuestos['Nombre_Actividad'] }}</h4></td>
-							                        <td>{{ $presupuestos['fecha_fin'] }}</td>
-							                        <td>{{ $presupuestos['fecha_inicio'] }}</td>
-							                        <td>{{ $presupuestos['presupuesto'] }}</td>
-							                        <td>
-														<div class="btn-group btn-group-justified">
-														  <div class="btn-group">
-														    <button type="button" data-rel="{{ $presupuestos['Id'] }}" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>
-														  </div>
-														  <div class="btn-group">
-														    <button type="button" data-rel="{{ $presupuestos['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>
-														  </div>
-														</div>
-														<div id="espera{{ $presupuestos['Id'] }}"></div>
-							                        </td>
-							                        </tr>
-							                        <?php $var++; ?>
+					        							
+					        							@if(count($presupuestos->proyectos)!=0)
+					        								@foreach($presupuestos->proyectos as $proyecto)
+								        						<tr>
+								        						<th scope="row" class="text-center">{{ $var }}</th>
+								        						<th scope="row">{{ $presupuestos['Nombre_Actividad'] }}</th>
+										                        <td><h4>{{ $proyecto['Nombre'] }}</h4></td>
+										                        <td>{{ $proyecto['fecha_inicio'] }}</td>
+										                        <td>{{ $proyecto['fecha_fin'] }}</td>
+										                        <td>{{ $proyecto['valor'] }}</td>
+										                        <td>
+																	<div class="btn-group btn-group-justified">
+																	  <div class="btn-group">
+																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>
+																	  </div>
+																	  <div class="btn-group">
+																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>
+																	  </div>
+																	</div>
+																	<div id="espera{{ $proyecto['Id'] }}"></div>
+										                        </td>
+										                        </tr>
+										                        <?php $var++; ?>
+									                        @endforeach
+									                     @EndIf
+
 					        					@endforeach
 								        </tbody>
 								    </table>
@@ -267,6 +294,7 @@
 
 		        <div id="Meta_dv" style="display:none;">
 					<h3>Meta</h3>
+					<hr style="border: 0; border-top: 1px solid #81F79F; height:0;">
 	            	<br>
 	                <p class="text-justify">El principal objetivo del Plan Anual de Adquisiciones es permitir que la entidad estatal aumente la probabilidad de lograr mejores condiciones de competencia a través de la participación de un mayor número de operadores económicos interesados en los procesos de selección que se van a adelantar durante el año fiscal, y que el Estado cuente con información suficiente para realizar compras coordinadas.</p>
 			        <br>
@@ -275,6 +303,7 @@
 
 		        <div id="Actividad_dv" style="display:none;">
 					<h3>Actividad</h3>
+					<hr style="border: 0; border-top: 1px solid #642EFE; height:0;">
 	            	<br>
 	                <p class="text-justify">El principal objetivo del Plan Anual de Adquisiciones es permitir que la entidad estatal aumente la probabilidad de lograr mejores condiciones de competencia a través de la participación de un mayor número de operadores económicos interesados en los procesos de selección que se van a adelantar durante el año fiscal, y que el Estado cuente con información suficiente para realizar compras coordinadas.</p>
 			        <br>
@@ -283,6 +312,7 @@
 
 		        <div id="Componente_dv" style="display:none;">
 					<h3>Componente</h3>
+					<hr style="border: 0; border-top: 1px solid #DF013A; height:0;">
 	            	<br>
 	                <p class="text-justify">El principal objetivo del Plan Anual de Adquisiciones es permitir que la entidad estatal aumente la probabilidad de lograr mejores condiciones de competencia a través de la participación de un mayor número de operadores económicos interesados en los procesos de selección que se van a adelantar durante el año fiscal, y que el Estado cuente con información suficiente para realizar compras coordinadas.
 			        <br>

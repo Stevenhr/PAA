@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Http\Requests;
 use App\Presupuesto;
+use App\Proyecto;
 
 class PaaController extends Controller
 {
     //
     public function index()
 	{
-		$presupuesto = Presupuesto::all();
+		$presupuesto = Presupuesto::with('proyectos')->get();
         $datos = [        
             'presupuesto' => $presupuesto
         ];
@@ -111,6 +112,100 @@ class PaaController extends Controller
 	public function modificar_presupuesto(Request $request, $id)
 	{
 		$Presupuesto = Presupuesto::find($id);
+		return response()->json($Presupuesto);
+	}
+
+
+	public function validar_proyecto(Request $request)
+	{
+		$validator = Validator::make($request->all(),
+		    [
+	            'idPresupuesto' => 'required',
+				'precio_proyecto' => 'required',
+				'fecha_final_proyecto' => 'required',
+				'fecha_inicial_proyecto' => 'required',
+				'nombre_proyecto' => 'required',
+        	]
+        );
+
+           if ($validator->fails())
+            return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+
+        	if($request->input('Id_proyecto') == '0'){
+        		return response()->json($this->guardar_Proyecto($request->all()));
+        	}
+        	else{
+        		return response()->json($this->modificar_Proyecto($request->all()));	
+        	}
+        	
+	}
+
+	public function guardar_Proyecto($input)
+	{
+		$model_A = new Proyecto;
+		return $this->crear_proyect($model_A, $input);
+	}
+
+	public function modificar_Proyecto($input)
+	{
+		$modelo=Proyecto::find($input["Id_proyecto"]);
+		return $this->modificar_proyect($modelo, $input);
+	}
+
+	public function crear_proyect($model, $input)
+	{
+		$model['Id_presupuesto'] = $input['idPresupuesto'];
+		$model['Nombre'] = $input['nombre_proyecto'];
+		$model['fecha_inicio'] = $input['fecha_inicial_proyecto'];
+		$model['fecha_fin'] = $input['fecha_final_proyecto'];
+		$model['valor'] = $input['precio_proyecto'];
+		$model->save();
+
+		$presupuesto = Presupuesto::with('proyectos')->get();
+		return $presupuesto;
+	}
+
+	public function modificar_proyect($model, $input)
+	{
+
+		$model['Id_presupuesto'] = $input['idPresupuesto'];
+		$model['Nombre'] = $input['nombre_proyecto'];
+		$model['fecha_inicio'] = $input['fecha_inicial_proyecto'];
+		$model['fecha_fin'] = $input['fecha_final_proyecto'];
+		$model['valor'] = $input['precio_proyecto'];
+		$model->save();
+
+		$presupuesto = Presupuesto::with('proyectos')->get();
+		return $presupuesto;
+	}
+
+
+	public function eliminar_proyecto(Request $request, $id)
+	{
+
+		$Proyecto = Proyecto::with('metas')->whereHas('metas', function($q) use ($id)
+		{
+		    $q->where('Id_proyecto', '=', $id);
+
+		})->get();
+
+
+		if(count($Proyecto)>0){
+			return response()->json(array('status' => 'error', 'datos' => $Proyecto));
+		}
+		else
+		{
+			$user = Proyecto::find($id);
+			$user->delete();
+			$presupuesto = Presupuesto::with('proyectos')->get();
+			return $presupuesto;
+		}
+
+	}
+
+	public function modificar_proyecto2(Request $request, $id)
+	{
+		$Presupuesto = Proyecto::find($id);
 		return response()->json($Presupuesto);
 	}
 
