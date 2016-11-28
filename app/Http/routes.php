@@ -28,6 +28,11 @@ Route::post('/configuracionPaa/validar/presupuesto/', 'PaaController@validar_pre
 Route::get('/configuracionPaa/presupuesto/eliminar/{id}', 'PaaController@eliminar_presupuesto');
 Route::get('/configuracionPaa/presupuesto/modificar/{id}', 'PaaController@modificar_presupuesto');
 
+Route::post('/configuracionPaa/validar/meta/', 'PaaController@validar_meta');
+
+
+Route::get('/configuracionPaa/service/presupuesto/{id}', 'PaaController@listadoProyectos');
+
 Route::any('/PresupuestoPAA/', 'PaaController@index');
 Route::any('/', 'MainController@index');
 Route::any('/logout', 'MainController@logout');

@@ -135,39 +135,48 @@ $(function()
                 validad_error(data.errors);
            
             } else {
-                //console.log(data);
-                document.getElementById("form_presupuesto").reset();
-                
-                $("#div_Tabla3").show();
-                var num=1;
-                t.clear().draw();
-                $.each(data, function(i, e){
-                    t.row.add( [
-                        '<th scope="row" class="text-center">'+num+'</th>',
-                        '<td><h4>'+e['Nombre_Actividad']+'<h4></td>',
-                        '<td>'+e['fecha_fin']+'</td>',
-                        '<td>'+e['fecha_inicio']+'</td>',
-                        '<td>'+e['presupuesto']+'</td>',
-                        '<td><div class="btn-group btn-group-justified">'+
-                            '<div class="btn-group">'+
-                            '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
-                            '</div>'+
-                            '<div class="btn-group">'+
-                            '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
-                            '</div>'+
-                            '</div>'+
-                            '<div id="espera'+e['Id']+'"></div>'+
-                        '</td>'
-                    ] ).draw( false );
-                    num++;
 
-                });
-                $('#mensaje_presupuesto').show();
-                setTimeout(function(){
-                    $('#mensaje_presupuesto').hide();
-                    $("#id_btn_presupuesto").html('Registrar');
-                    $("#id_btn_presup_canc").hide();
-                }, 2000)
+                if(data.status == 'modelo')
+                {
+                    var datos=data.presupuesto;
+                    document.getElementById("form_presupuesto").reset();                
+                    $("#div_Tabla3").show();
+                    var num=1;
+                    t.clear().draw();
+                    $.each(datos, function(i, e){
+                        t.row.add( [
+                            '<th scope="row" class="text-center">'+num+'</th>',
+                            '<td><h4>'+e['Nombre_Actividad']+'<h4></td>',
+                            '<td>'+e['fecha_fin']+'</td>',
+                            '<td>'+e['fecha_inicio']+'</td>',
+                            '<td>'+e['presupuesto']+'</td>',
+                            '<td><div class="btn-group btn-group-justified">'+
+                                '<div class="btn-group">'+
+                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
+                                '</div>'+
+                                '<div class="btn-group">'+
+                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
+                                '</div>'+
+                                '</div>'+
+                                '<div id="espera'+e['Id']+'"></div>'+
+                            '</td>'
+                        ] ).draw( false );
+                        num++;
+
+                    });
+                    $('#mensaje_presupuesto').show();
+                    setTimeout(function(){
+                        $('#mensaje_presupuesto').hide();
+                        $("#id_btn_presupuesto").html('Registrar');
+                        $("#id_btn_presup_canc").hide();
+                    }, 2000)
+                }else{
+                    $('#mensaje_presupuesto2').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
+                    $('#mensaje_presupuesto2').show();
+                    setTimeout(function(){
+                        $('#mensaje_presupuesto2').hide();
+                    }, 6000)
+                }
                 
             }
         },'json');
@@ -307,52 +316,63 @@ $(function()
         ]
     });
 
-$('#form_proyecto').on('submit', function(e){
+    $('#form_proyecto').on('submit', function(e){
         $.post(URL+'/validar/proyecto',$(this).serialize(),function(data){
+
             if(data.status == 'error')
             {
                 validad_error2(data.errors);
-           
             } else {
-                //console.log(data);
-                document.getElementById("form_proyecto").reset();
                 
-                $("#div_Tabla4").show();
-                var num=1;
-                tt.clear().draw();
-                $.each(data, function(i, e){
-                    $.each(e.proyectos, function(i, ee){
-                        tt.row.add( [
-                            '<th scope="row" class="text-center">'+num+'</th>',
-                            '<td><h4>'+e['Nombre_Actividad']+'<h4></td>',
-                            '<td>'+ee['Nombre']+'</td>',
-                            '<td>'+ee['fecha_inicio']+'</td>',
-                            '<td>'+ee['fecha_fin']+'</td>',
-                            '<td>'+ee['valor']+'</td>',
-                            '<td><div class="btn-group btn-group-justified">'+
-                                '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
-                                '</div>'+
-                                '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
-                                '</div>'+
-                                '</div>'+
-                                '<div id="espera'+ee['Id']+'"></div>'+
-                            '</td>'
-                        ] ).draw( false );
-                        num++;
+                if(data.status == 'modelo')
+                {
+                    var datos=data.presupuesto;
+                    document.getElementById("form_proyecto").reset();
+                    $("#div_Tabla4").show();
+                    var num=1;
+                    tt.clear().draw();
+                    $.each(datos, function(i, e){
+                        $.each(e.proyectos, function(i, ee){
+                            tt.row.add( [
+                                '<th scope="row" class="text-center">'+num+'</th>',
+                                '<td><h4>'+e['Nombre_Actividad']+'<h4></td>',
+                                '<td>'+ee['Nombre']+'</td>',
+                                '<td>'+ee['fecha_inicio']+'</td>',
+                                '<td>'+ee['fecha_fin']+'</td>',
+                                '<td>'+ee['valor']+'</td>',
+                                '<td><div class="btn-group btn-group-justified">'+
+                                    '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
+                                    '</div>'+
+                                    '</div>'+
+                                    '<div id="espera'+ee['Id']+'"></div>'+
+                                '</td>'
+                            ] ).draw( false );
+                            num++;
+                        });
                     });
-                });
-                $('#mensaje_proyecto').show();
-                setTimeout(function(){
-                    $('#mensaje_proyecto').hide();
-                    $("#id_btn_proyecto").html('Registrar');
-                    $("#id_btn_proyect_canc").hide();
-                }, 2000)
+
+                    $('#mensaje_proyecto').html('<strong>Bien!</strong> Registro creado con exíto.');
+                    $('#mensaje_proyecto').show();
+                    setTimeout(function(){
+                        $('#mensaje_proyecto').hide();
+                        $("#id_btn_proyecto").html('Registrar');
+                        $("#id_btn_proyect_canc").hide();
+                    }, 2000)
+                    $('input[name="Id_proyecto"]').val('0');
+                }else{
+                    $('#mensaje_proyecto2').html('<strong>Error!</strong> el valor del proyecto que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
+                    $('#mensaje_proyecto2').show();
+                    setTimeout(function(){
+                        $('#mensaje_proyecto2').hide();
+                    }, 6000)
+                }
                 
             }
         },'json');
-
         e.preventDefault();
     });
 
@@ -446,7 +466,6 @@ $('#form_proyecto').on('submit', function(e){
             {},
             function(data)
             {   
-
                     $("#espera"+id).html("");
                     $('input[name="Id_proyecto"]').val(data.Id);
                     $('select[name="idPresupuesto"]').val(data.Id_presupuesto);
@@ -488,6 +507,133 @@ $('#form_proyecto').on('submit', function(e){
     }); 
 
 
+
+
+/*############################   META    ###########################*/
+
+
+ var ttt = $('#Tabla5').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+    });
+
+ $('select[name="idPresupuesto_M"]').on('change', function(e){
+    select_presupuesto($(this).val());
+ });
+
+ var select_presupuesto = function(id)
+    { 
+            $.ajax({
+                url: URL+'/service/presupuesto/'+id,
+                data: {},
+                dataType: 'json',
+                success: function(data)
+                {
+                    var html = '<option value="">Seleccionar</option>';
+                    if(data.length > 0)
+                    {
+                        $.each(data, function(i, e){
+                            html += '<option value="'+e['Id']+'">'+e['Nombre']+'</option>';
+                        });
+                    }
+                    $('select[name="idProyecto_M"]').html(html).val($('select[name="idProyecto_M"]').data('value'));
+                }
+            });
+    };
+
+
+     $('#form_metas').on('submit', function(e){
+        $.post(URL+'/validar/meta',$(this).serialize(),function(data){
+
+            if(data.status == 'error')
+            {
+                validad_error3(data.errors);
+            } else {
+                
+                if(data.status == 'modelo')
+                {
+                    var datos=data.presupuesto;
+                    document.getElementById("form_metas").reset();
+                    $("#div_Tabla5").show();
+                    var num=1;
+                    ttt.clear().draw();
+                    $.each(datos, function(i, e){
+                        $.each(e.proyectos, function(i, ee){
+                            $.each(ee.metas, function(i, eee){
+                                ttt.row.add( [
+                                    '<th scope="row" class="text-center">'+num+'</th>',
+                                    '<td>'+e['Nombre_Actividad']+'</td>',
+                                    '<td>'+ee['Nombre']+'</td>',
+                                    '<td><h4>'+eee['Nombre']+'</h4></td>',
+                                    '<td>'+eee['fecha_inicio']+'</td>',
+                                    '<td>'+eee['fecha_fin']+'</td>',
+                                    '<td>'+eee['valor']+'</td>',
+                                    '<td><div class="btn-group btn-group-justified">'+
+                                        '<div class="btn-group">'+
+                                        '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
+                                        '</div>'+
+                                        '<div class="btn-group">'+
+                                        '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '<div id="espera'+eee['Id']+'"></div>'+
+                                    '</td>'
+                                ] ).draw( false );
+                                num++;
+                            });
+                        });
+                    });
+                    $('#mensaje_meta').html('<strong>Bien!</strong> Registro creado con exíto.');
+                    $('#mensaje_meta').show();
+                    setTimeout(function(){
+                        $('#mensaje_meta').hide();
+                        $("#id_btn_meta").html('Registrar');
+                        $("#id_btn_meta_canc").hide();
+                    }, 2000)
+                    $('input[name="Id_meta"]').val('0');
+                }else{
+                    $('#mensaje_meta2').html('<strong>Error!</strong> el valor del proyecto que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
+                    $('#mensaje_meta2').show();
+                    setTimeout(function(){
+                        $('#mensaje_meta2').hide();
+                    }, 6000)
+                }
+                
+            }
+        },'json');
+        e.preventDefault();
+    });
+
+
+      var validad_error3 = function(data)
+    {
+        $('#form_metas .form-group').removeClass('has-error');
+        var selector = '';
+        for (var error in data){
+            if (typeof data[error] !== 'function') {
+                switch(error)
+                {
+                    case 'precio_meta':
+                    case 'fecha_final_meta':
+                    case 'fecha_inicial_meta':
+                    case 'nombre_meta':
+                        selector = 'input';
+                    break;
+
+                    case 'idPresupuesto_M':
+                    case 'idProyecto_M':
+                        selector = 'select';
+                    break;
+                }
+                $('#form_metas '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
+            }
+        }
+    }
 
    
 });

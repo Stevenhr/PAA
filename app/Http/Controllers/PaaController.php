@@ -7,18 +7,21 @@ use Validator;
 use App\Http\Requests;
 use App\Presupuesto;
 use App\Proyecto;
+use App\Meta;
 
 class PaaController extends Controller
 {
     //
     public function index()
 	{
-		$presupuesto = Presupuesto::with('proyectos')->get();
+		$presupuesto = Presupuesto::with('proyectos','proyectos.metas')->get();
         $datos = [        
             'presupuesto' => $presupuesto
         ];
+
 		return view('configuracionPAA',$datos);
 	}
+
 	public function proyecto()
 	{
 		return view('proyecto');
@@ -43,7 +46,7 @@ class PaaController extends Controller
         		return response()->json($this->guardar($request->all()));
         	}
         	else{
-        		return response()->json($this->modificar($request->all()));	
+        		return $this->modificar($request->all());	
         	}
         	
 	}
@@ -69,18 +72,25 @@ class PaaController extends Controller
 		$model->save();
 
 		$Presupuesto = Presupuesto::all();
-		return $Presupuesto;
+		return response()->json(array('status' => 'modelo', 'presupuesto' => $Presupuesto));
 	}
 
 	public function modificar_actividad($model, $input)
 	{
-		$model['Nombre_Actividad'] = $input['nombre_presupuesto'];
-		$model['fecha_inicio'] = $input['fecha_inicial_presupuesto'];
-		$model['fecha_fin'] = $input['fecha_final_presupuesto'];
-		$model['presupuesto'] = $input['precio'];
-		$model->save();
-		$Presupuesto = Presupuesto::all();
-		return $Presupuesto;
+		$proyectos = Proyecto::where('Id_presupuesto',$input['Id_presupuesto'])->get();
+		$sum = $proyectos->sum( 'valor' );
+
+		if($input['precio']>=$sum){
+			$model['Nombre_Actividad'] = $input['nombre_presupuesto'];
+			$model['fecha_inicio'] = $input['fecha_inicial_presupuesto'];
+			$model['fecha_fin'] = $input['fecha_final_presupuesto'];
+			$model['presupuesto'] = $input['precio'];
+			$model->save();
+			$Presupuesto = Presupuesto::all();
+			return response()->json(array('status' => 'modelo', 'presupuesto' => $Presupuesto));
+		}else{
+			return response()->json(array('status' => 'Saldo','sum_proyectos' => $sum));
+		}
 	}
 
 
@@ -116,6 +126,10 @@ class PaaController extends Controller
 	}
 
 
+
+
+
+//  #########################   PROYECTO  ################################
 	public function validar_proyecto(Request $request)
 	{
 		$validator = Validator::make($request->all(),
@@ -132,10 +146,10 @@ class PaaController extends Controller
             return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
 
         	if($request->input('Id_proyecto') == '0'){
-        		return response()->json($this->guardar_Proyecto($request->all()));
+        		return $this->guardar_Proyecto($request->all());
         	}
         	else{
-        		return response()->json($this->modificar_Proyecto($request->all()));	
+        		return $this->modificar_Proyecto($request->all());	
         	}
         	
 	}
@@ -154,41 +168,82 @@ class PaaController extends Controller
 
 	public function crear_proyect($model, $input)
 	{
-		$model['Id_presupuesto'] = $input['idPresupuesto'];
-		$model['Nombre'] = $input['nombre_proyecto'];
-		$model['fecha_inicio'] = $input['fecha_inicial_proyecto'];
-		$model['fecha_fin'] = $input['fecha_final_proyecto'];
-		$model['valor'] = $input['precio_proyecto'];
-		$model->save();
+		$proyectos = Proyecto::where('Id_presupuesto',$input['idPresupuesto'])->get();
+		$sum = $proyectos->sum( 'valor' );
+		$presupuestos = Presupuesto::find($input['idPresupuesto']);
+		$sum_proyectos = $proyectos->sum( 'valor' );
+		$sum_presupuesto = $presupuestos['presupuesto'];
+		$valor_nuevProyecto=$input['precio_proyecto'];
 
-		$presupuesto = Presupuesto::with('proyectos')->get();
-		return $presupuesto;
+		$Saldo=$sum_presupuesto-$sum_proyectos;
+
+		if($valor_nuevProyecto<=$Saldo){
+			$model['Id_presupuesto'] = $input['idPresupuesto'];
+			$model['Nombre'] = $input['nombre_proyecto'];
+			$model['fecha_inicio'] = $input['fecha_inicial_proyecto'];
+			$model['fecha_fin'] = $input['fecha_final_proyecto'];
+			$model['valor'] = $valor_nuevProyecto;
+			$model->save();
+			$presupuesto = Presupuesto::with('proyectos')->get();
+			return response()->json(array('status' => 'modelo', 'presupuesto' => $presupuesto));
+		}else{
+			return response()->json(array('status' => 'Saldo', 'saldo' => $Saldo, 'valorNuevo' => $valor_nuevProyecto,'mensaje'=>'es mayor al saldo del presupuesto que es de'));
+		}
+
+		
 	}
 
 	public function modificar_proyect($model, $input)
 	{
+		if($input['precio_proyecto']<$model['valor']){
 
-		$model['Id_presupuesto'] = $input['idPresupuesto'];
-		$model['Nombre'] = $input['nombre_proyecto'];
-		$model['fecha_inicio'] = $input['fecha_inicial_proyecto'];
-		$model['fecha_fin'] = $input['fecha_final_proyecto'];
-		$model['valor'] = $input['precio_proyecto'];
-		$model->save();
+			$metas = Meta::where('Id_proyecto',$input["Id_proyecto"])->get();
+		    $sum = $metas->sum( 'valor' );
 
-		$presupuesto = Presupuesto::with('proyectos')->get();
-		return $presupuesto;
+		    if($sum<=$input['precio_proyecto']){
+				$model['Id_presupuesto'] = $input['idPresupuesto'];
+				$model['Nombre'] = $input['nombre_proyecto'];
+				$model['fecha_inicio'] = $input['fecha_inicial_proyecto'];
+				$model['fecha_fin'] = $input['fecha_final_proyecto'];
+				$model['valor'] = $input['precio_proyecto'];
+				$model->save();
+				$presupuesto = Presupuesto::with('proyectos')->get();
+				return response()->json(array('status' => 'modelo', 'presupuesto' => $presupuesto,'mensaje'=>''));
+			}else{
+				return response()->json(array('status' => 'Saldo', 'saldo' => $sum, 'valorNuevo' => $input['precio_proyecto'],'mensaje'=>'es menor al valor de las metas que es de'));
+			}
+
+		}else{
+			$proyectos = Proyecto::where('Id_presupuesto',$input['idPresupuesto'])->get();
+			$sum = $proyectos->sum( 'valor' );
+			$presupuestos = Presupuesto::find($input['idPresupuesto']);
+			$sum_proyectos = $proyectos->sum( 'valor' );
+			$sum_presupuesto = $presupuestos['presupuesto'];
+			$valor_nuevProyecto=$input['precio_proyecto'];
+			$Saldo=$sum_presupuesto-$sum_proyectos;
+
+			if($valor_nuevProyecto<=$Saldo){
+				$model['Id_presupuesto'] = $input['idPresupuesto'];
+				$model['Nombre'] = $input['nombre_proyecto'];
+				$model['fecha_inicio'] = $input['fecha_inicial_proyecto'];
+				$model['fecha_fin'] = $input['fecha_final_proyecto'];
+				$model['valor'] = $valor_nuevProyecto;
+				$model->save();
+				$presupuesto = Presupuesto::with('proyectos')->get();
+				return response()->json(array('status' => 'modelo', 'presupuesto' => $presupuesto,'mensaje'=>'sobrepasa el presupuesto actual que tiene un saldo de'));
+			}else{
+				return response()->json(array('status' => 'Saldo', 'saldo' => $Saldo, 'valorNuevo' => $valor_nuevProyecto,'mensaje'=>' es mayor al presupuesto, el saldo del presupuesto total es'));
+			}
+		}
 	}
-
 
 	public function eliminar_proyecto(Request $request, $id)
 	{
-
 		$Proyecto = Proyecto::with('metas')->whereHas('metas', function($q) use ($id)
 		{
 		    $q->where('Id_proyecto', '=', $id);
 
 		})->get();
-
 
 		if(count($Proyecto)>0){
 			return response()->json(array('status' => 'error', 'datos' => $Proyecto));
@@ -200,7 +255,6 @@ class PaaController extends Controller
 			$presupuesto = Presupuesto::with('proyectos')->get();
 			return $presupuesto;
 		}
-
 	}
 
 	public function modificar_proyecto2(Request $request, $id)
@@ -208,5 +262,80 @@ class PaaController extends Controller
 		$Presupuesto = Proyecto::find($id);
 		return response()->json($Presupuesto);
 	}
+
+
+
+
+//  ######################### METAS  ##########################
+	public function listadoProyectos(Request $request, $id)
+	{
+		$Presupuesto = Presupuesto::find($id);
+		return response()->json($Presupuesto->proyectos);
+	}
+
+	public function validar_meta(Request $request)
+	{
+		$validator = Validator::make($request->all(),
+		    [
+	            'idPresupuesto_M' => 'required',
+	            'idProyecto_M' => 'required',
+				'precio_meta' => 'required',
+				'fecha_final_meta' => 'required',
+				'fecha_inicial_meta' => 'required',
+				'nombre_meta' => 'required',
+        	]
+        );
+
+           if ($validator->fails())
+            return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+
+        	if($request->input('Id_meta') == '0'){
+        		return $this->guardar_Meta($request->all());
+        	}
+        	else{
+        		return $this->modificar_Meta($request->all());	
+        	}
+	}
+
+	public function guardar_Meta($input)
+	{
+		$model_A = new Meta;
+		return $this->crear_meta($model_A, $input);
+	}
+
+	public function modificar_Meta($input)
+	{
+		$modelo=Meta::find($input["idProyecto_M"]);
+		return $this->modificar_proyect($modelo, $input);
+	}
+
+	public function crear_meta($model, $input)
+	{
+		$meta = Meta::where('Id_proyecto',$input['idProyecto_M'])->get();
+		$sum_meta = $meta->sum( 'valor' );
+		$proyecto = Proyecto::find($input['idProyecto_M']);
+		$sum_presupuesto = $proyecto['valor'];
+		$valor_nuevMeta=$input['precio_meta'];
+		
+		$Saldo=$sum_presupuesto-$sum_meta;
+
+		if($valor_nuevMeta<=$Saldo)
+		{
+			$model['Id_proyecto'] = $input['idProyecto_M'];
+			$model['Nombre'] = $input['nombre_meta'];
+			$model['fecha_inicio'] = $input['fecha_inicial_meta'];
+			$model['fecha_fin'] = $input['fecha_final_meta'];
+			$model['valor'] = $valor_nuevMeta;
+			$model->save();
+			$presupuesto = Presupuesto::with('proyectos','proyectos.metas')->get();
+			return response()->json(array('status' => 'modelo', 'presupuesto' => $presupuesto));
+		}
+		else
+		{
+			return response()->json(array('status' => 'Saldo', 'saldo' => $Saldo, 'valorNuevo' => $valor_nuevMeta,'mensaje'=>'es mayor al saldo del presupuesto que es de'));
+		}		
+	}
+
+
 
 }
