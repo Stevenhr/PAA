@@ -19,16 +19,17 @@ Route::post('/personas/service/procesar/', '\Idrd\Usuarios\Controllers\PersonaCo
 
 Route::get('/configuracionPaa/proyecto/{id}', 'PaaController@proyecto');
 
+Route::post('/configuracionPaa/validar/presupuesto/', 'PaaController@validar_presupuesto');
+Route::get('/configuracionPaa/presupuesto/eliminar/{id}', 'PaaController@eliminar_presupuesto');
+Route::get('/configuracionPaa/presupuesto/modificar/{id}', 'PaaController@modificar_presupuesto');
 
 Route::post('/configuracionPaa/validar/proyecto/', 'PaaController@validar_proyecto');
 Route::get('/configuracionPaa/proyecto/eliminar/{id}', 'PaaController@eliminar_proyecto');
 Route::get('/configuracionPaa/proyecto/modificar/{id}', 'PaaController@modificar_proyecto2');
 
-Route::post('/configuracionPaa/validar/presupuesto/', 'PaaController@validar_presupuesto');
-Route::get('/configuracionPaa/presupuesto/eliminar/{id}', 'PaaController@eliminar_presupuesto');
-Route::get('/configuracionPaa/presupuesto/modificar/{id}', 'PaaController@modificar_presupuesto');
-
 Route::post('/configuracionPaa/validar/meta/', 'PaaController@validar_meta');
+Route::get('/configuracionPaa/meta/eliminar/{id}', 'PaaController@eliminar_meta');
+Route::get('/configuracionPaa/meta/modificar/{id}', 'PaaController@modificar_meta2');
 
 
 Route::get('/configuracionPaa/service/presupuesto/{id}', 'PaaController@listadoProyectos');

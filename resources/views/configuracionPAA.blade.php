@@ -319,7 +319,7 @@
 						    <div class="col-xs-12 col-md-3 text-">
 						    	<div class="form-group">	
 						    		<label>Proyecto</label>
-									<select class="form-control" name="idProyecto_M">
+									<select class="form-control" name="idProyecto_M" id="idProyecto_M">
 											<option value="">Seleccionar</option>
 									</select>
 								</div>
@@ -388,7 +388,7 @@
 			            		<h5>Listado de Metas:</h5>
 					        </div>
 						    <div class="col-xs-12 col-md-12">
-						    	<div class="table-responsive" id="div_Tabla4">
+						    	<div class="table-responsive" id="div_Tabla5">
 							      		<table id="Tabla5" class="display" width="100%" cellspacing="0">
 								        <thead>
 								            <tr>
@@ -441,7 +441,7 @@
 																		    <button type="button" data-rel="{{ $meta['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>
 																		  </div>
 																		</div>
-																		<div id="espera{{ $meta['Id'] }}"></div>
+																		<div id="espera_m{{ $meta['Id'] }}"></div>
 											                        </td>
 											                        </tr>
 											                        <?php $var++; ?>

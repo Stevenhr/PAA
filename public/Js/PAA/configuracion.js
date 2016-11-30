@@ -549,7 +549,6 @@ $(function()
 
      $('#form_metas').on('submit', function(e){
         $.post(URL+'/validar/meta',$(this).serialize(),function(data){
-
             if(data.status == 'error')
             {
                 validad_error3(data.errors);
@@ -559,6 +558,7 @@ $(function()
                 {
                     var datos=data.presupuesto;
                     document.getElementById("form_metas").reset();
+                    $('select[name="idProyecto_M"]').val('');
                     $("#div_Tabla5").show();
                     var num=1;
                     ttt.clear().draw();
@@ -581,7 +581,7 @@ $(function()
                                         '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
                                         '</div>'+
                                         '</div>'+
-                                        '<div id="espera'+eee['Id']+'"></div>'+
+                                        '<div id="espera_m'+eee['Id']+'"></div>'+
                                     '</td>'
                                 ] ).draw( false );
                                 num++;
@@ -597,7 +597,7 @@ $(function()
                     }, 2000)
                     $('input[name="Id_meta"]').val('0');
                 }else{
-                    $('#mensaje_meta2').html('<strong>Error!</strong> el valor del proyecto que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
+                    $('#mensaje_meta2').html('<strong>Error!</strong> el valor de la meta que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
                     $('#mensaje_meta2').show();
                     setTimeout(function(){
                         $('#mensaje_meta2').hide();
@@ -634,6 +634,125 @@ $(function()
             }
         }
     }
+
+
+    $('#Tabla5').delegate('button[data-funcion="ver_eli"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        $("#espera_m"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/meta/eliminar/'+id,
+            {},
+            function(data)
+            {   
+                    if(data.status == 'error')
+                    {
+                        var actividades="";
+                        $.each(data.datos, function(i, e){
+                            actividades=actividades+'<br><li>'+e.actividades[i]['Nombre']+'</li>';
+                        });
+                        $("#espera_m"+id).html('<div class="alert alert-danger"><strong>Error!</strong> Posee los siguientes actividades activas.<br>'+actividades+'</div>');
+                        setTimeout(function(){
+                            $("#espera_m"+id).html('');
+                        }, 4000)
+                   
+                    } else {
+                        $("#espera_m"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino la meta correctamente.</div>');
+                        setTimeout(function(){
+                                $("#espera_m"+id).html('');
+                                var num=1;
+                                ttt.clear().draw();
+                                var datos=data.presupuesto;
+                                $.each(datos, function(i, e){
+                                    $.each(e.proyectos, function(i, ee){
+                                        $.each(ee.metas, function(i, eee){
+                                            ttt.row.add( [
+                                                '<th scope="row" class="text-center">'+num+'</th>',
+                                                '<td>'+e['Nombre_Actividad']+'</td>',
+                                                '<td>'+ee['Nombre']+'</td>',
+                                                '<td><h4>'+eee['Nombre']+'</h4></td>',
+                                                '<td>'+eee['fecha_inicio']+'</td>',
+                                                '<td>'+eee['fecha_fin']+'</td>',
+                                                '<td>'+eee['valor']+'</td>',
+                                                '<td><div class="btn-group btn-group-justified">'+
+                                                    '<div class="btn-group">'+
+                                                    '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
+                                                    '</div>'+
+                                                    '<div class="btn-group">'+
+                                                    '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
+                                                    '</div>'+
+                                                    '</div>'+
+                                                    '<div id="espera_m'+eee['Id']+'"></div>'+
+                                                '</td>'
+                                            ] ).draw( false );
+                                            num++;
+                                        });
+                                    });
+                                });
+                        }, 2000)
+                    }
+            }
+        );
+    }); 
+
+
+
+    $('#Tabla5').delegate('button[data-funcion="ver_upd"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        $("#espera_m"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/meta/modificar/'+id,
+            {},
+            function(data)
+            {   
+
+                        $("#espera_m"+id).html("");
+                        $('input[name="Id_meta"]').val(data.Id);
+                        $('select[name="idPresupuesto_M"]').val(data.proyecto.presupuesto.Id);//falta
+                        var x = document.getElementById("idProyecto_M");
+                        var option = document.createElement("option");
+                        option.text = data.proyecto.Nombre;
+                        option.value = data.proyecto.Id;
+                        x.add(option);
+                        $('#idProyecto_M > option[value="'+data.proyecto.Id+'"]').attr('selected', 'selected');
+                        $('input[name="nombre_meta"]').val(data.Nombre);
+                        $('input[name="fecha_inicial_meta"]').val(data.fecha_inicio);
+                        $('input[name="fecha_final_meta"]').val(data.fecha_fin);
+                        $('input[name="precio_meta"]').val(data.valor);
+                        $("#id_btn_meta").html('Modificar');
+                        $("#id_btn_meta_canc").show();
+                        $("#div_Tabla5").hide();
+
+
+                $('html,body').animate({
+                    scrollTop: $("#main_paa_configuracion").offset().top
+                }, 1000);
+                $( "#div_form_metas" ).toggle( "highlight");            
+            }
+        );
+    }); 
+
+
+
+     $('#id_btn_meta_canc').on('click', function(e){
+          
+                    $('input[name="Id_meta"]').val('0');
+                    $('select[name="idPresupuesto_M"]').val('');
+                    $('select[name="idProyecto_M"]').val('');
+                    $('input[name="nombre_meta"]').val('');
+                    $('input[name="fecha_inicial_meta"]').val('');
+                    $('input[name="fecha_final_meta"]').val('');
+                    $('input[name="precio_meta"]').val('');
+                    $("#id_btn_meta").html('Registrar');
+                    $("#id_btn_meta_canc").hide();
+                    $("#div_Tabla5").show();
+
+                    $('html,body').animate({
+                        scrollTop: $("#Tabla4").offset().top
+                    }, 1000);
+                    return false;
+
+    }); 
+
 
    
 });
