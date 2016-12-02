@@ -125,10 +125,10 @@
 							                        <td>
 														<div class="btn-group btn-group-justified">
 														  <div class="btn-group">
-														    <button type="button" data-rel="{{ $presupuestos['Id'] }}" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>
+														    <button type="button" data-rel="{{ $presupuestos['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 														  </div>
 														  <div class="btn-group">
-														    <button type="button" data-rel="{{ $presupuestos['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>
+														    <button type="button" data-rel="{{ $presupuestos['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 														  </div>
 														</div>
 														<div id="espera{{ $presupuestos['Id'] }}"></div>
@@ -273,10 +273,10 @@
 										                        <td>
 																	<div class="btn-group btn-group-justified">
 																	  <div class="btn-group">
-																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>
+																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 																	  </div>
 																	  <div class="btn-group">
-																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>
+																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 																	  </div>
 																	</div>
 																	<div id="espera{{ $proyecto['Id'] }}"></div>
@@ -442,10 +442,10 @@
 											                        <td>
 																		<div class="btn-group btn-group-justified">
 																		  <div class="btn-group">
-																		    <button type="button" data-rel="{{ $meta['Id'] }}" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>
+																		    <button type="button" data-rel="{{ $meta['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 																		  </div>
 																		  <div class="btn-group">
-																		    <button type="button" data-rel="{{ $meta['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>
+																		    <button type="button" data-rel="{{ $meta['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 																		  </div>
 																		</div>
 																		<div id="espera_m{{ $meta['Id'] }}"></div>
@@ -625,10 +625,11 @@
 													                        <td>
 																				<div class="btn-group btn-group-justified">
 																				  <div class="btn-group">
-																				    <button type="button" data-rel="{{ $actividad['Id'] }}" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>
+																				    <button type="button" data-rel="{{ $actividad['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs">
+																					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 																				  </div>
 																				  <div class="btn-group">
-																				    <button type="button" data-rel="{{ $actividad['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>
+																				    <button type="button" data-rel="{{ $actividad['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 																				  </div>
 																				</div>
 																				<div id="espera_a{{ $actividad['Id'] }}"></div>
@@ -821,10 +822,11 @@
 														                        <td>
 																					<div class="btn-group btn-group-justified">
 																					  <div class="btn-group">
-																					    <button type="button" data-rel="{{ $componente['Id'] }}" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>
+																					    <button type="button" data-rel="{{ $componente['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs">
+																					    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 																					  </div>
 																					  <div class="btn-group">
-																					    <button type="button" data-rel="{{ $componente['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>
+																					    <button type="button" data-rel="{{ $componente['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 																					  </div>
 																					</div>
 																					<div id="espera_c{{ $componente['Id'] }}"></div>
