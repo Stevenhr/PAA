@@ -35,8 +35,11 @@ Route::post('/configuracionPaa/validar/actividad/', 'PaaController@validar_activ
 Route::get('/configuracionPaa/actividad/eliminar/{id}', 'PaaController@eliminar_actividad');
 Route::get('/configuracionPaa/actividad/modificar/{id}', 'PaaController@modificar_actividad2');
 
+Route::post('/configuracionPaa/validar/componente/', 'PaaController@validar_componente');
+
 Route::get('/configuracionPaa/service/presupuesto/{id}', 'PaaController@listadoProyectos');
 Route::get('/configuracionPaa/service/meta/{id}', 'PaaController@listadoMetas');
+Route::get('/configuracionPaa/service/actividad/{id}', 'PaaController@listadoActividad');
 
 Route::any('/PresupuestoPAA/', 'PaaController@index');
 Route::any('/', 'MainController@index');

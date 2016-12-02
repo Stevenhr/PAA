@@ -156,9 +156,9 @@
 			        <br>
 			        <form id="form_proyecto">
 			            <div id="div_form_presupuesto"><br></div>
+				        
 				        <div class="row" >
-						    
-				        	<div class="col-xs-12 col-md-2 text-">
+				        	<div class="col-xs-12 col-md-3 text-">
 						    	<div class="form-group">	
 						    		<label>Presupuesto</label>
 									<select class="form-control" name="idPresupuesto">
@@ -169,8 +169,13 @@
 									</select>
 								</div>
 			        		</div>
+						    <div class="col-xs-12 col-md-3 "></div>
+						    <div class="col-xs-12 col-md-3 "></div>
+			        		<div class="col-xs-12 col-md-2 "></div>
+						</div>
 
-						    <div class="col-xs-12 col-md-2 text-">
+				        <div class="row" >
+						    <div class="col-xs-12 col-md-3 text-">
 						    	<div class="form-group">	
 						    		<label>Nombre</label>
 						    		<input type="hidden" class="form-control" name="Id_proyecto" value="0">
@@ -199,6 +204,8 @@
 								</div>
 			        		</div>
 						</div>
+
+						
 
 						<div class="row">
 						    <div class="col-xs-12 col-md-4">
@@ -650,11 +657,201 @@
 
 
 		        <div id="Componente_dv" style="display:none;">
-					<h3>Componente</h3>
-					<hr style="border: 0; border-top: 1px solid #DF013A; height:0;">
+		        	<h3>Componente</h3>
+					<hr style="border: 0; border-top: 1px solid #FF0040; height:0;">
 	            	<br>
-	                <p class="text-justify">El principal objetivo del Plan Anual de Adquisiciones es permitir que la entidad estatal aumente la probabilidad de lograr mejores condiciones de competencia a través de la participación de un mayor número de operadores económicos interesados en los procesos de selección que se van a adelantar durante el año fiscal, y que el Estado cuente con información suficiente para realizar compras coordinadas.
+	                <p class="text-justify">Registro de componente.</p>
 			        <br>
+
+			        <form id="form_componente">
+					<div id="div_form_componente"><br></div>
+				        
+				        <div class="row" >
+				        	<div class="col-xs-12 col-md-3 text-">
+						    	<div class="form-group">	
+						    		<label>Componente</label>
+									<select class="form-control" name="idPresupuesto_C">
+											<option value="">Seleccionar</option>
+										@foreach($presupuesto as $presupuestos)
+											<option value="{{ $presupuestos['Id'] }}" >{{ $presupuestos['Nombre_Actividad'] }}</option>
+									    @endforeach
+									</select>
+								</div>
+			        		</div>
+
+						    <div class="col-xs-12 col-md-3 text-">
+						    	<div class="form-group">	
+						    		<label>Proyecto</label>
+									<select class="form-control" name="idProyecto_C" id="idProyecto_C">
+											<option value="">Seleccionar</option>
+									</select>
+								</div>
+			        		</div>
+
+						    <div class="col-xs-12 col-md-3 ">
+						    	<div class="form-group">	
+						    		<label>Meta</label>
+									<select class="form-control" name="idMeta_C" id="idMeta_C">
+											<option value="">Seleccionar</option>
+									</select>
+								</div>
+			        		</div>
+
+						    <div class="col-xs-12 col-md-3 ">
+						    	<div class="form-group">	
+						    		<label>Actividad</label>
+									<select class="form-control" name="idActividad_C" id="idActividad_C">
+											<option value="">Seleccionar</option>
+									</select>
+								</div>
+			        		</div>
+						</div>
+
+						<div class="row" >
+						    <div class="col-xs-12 col-md-3 text-">
+						    	<div class="form-group">	
+						    		<label>Nombre</label>
+						    		<input type="hidden" class="form-control" name="Id_componente" value="0">
+									<input type="text" class="form-control" name="nombre_componente">
+								</div>
+			        		</div>
+
+						    <div class="col-xs-12 col-md-3 ">
+						    	<div class="form-group">
+						    		<label>Fecha inicial de implementación</label>
+									<input type="text" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_componente">
+								</div>
+			        		</div>
+
+						    <div class="col-xs-12 col-md-3 ">
+			        			<div class="form-group">
+			        				<label>Fecha final de implementación</label>
+									<input type="text" class="form-control" data-role="datepicker" name="fecha_final_componente">
+								</div>
+			        		</div>
+
+			        		<div class="col-xs-12 col-md-3 ">
+			        			<div class="form-group">
+			        				<label>Valor </label>
+									<input type="text" class="form-control precio" name="precio_componente">
+								</div>
+			        		</div>
+						</div>
+
+						<div class="row">
+						    <div class="col-xs-12 col-md-4">
+			        		</div>
+						    <div class="col-xs-12 col-md-4 text-center"><br>
+						    		<div class="alert alert-success" style="display:none;" id="mensaje_componente"></div>
+						    		<div class="alert alert-danger" style="display:none;" id="mensaje_componente2"></div>
+									<button class="btn btn-primary" type="submit" id="id_btn_componente">Registrar</button>
+									<button class="btn btn-danger" type="submit" id="id_btn_componente_canc" style="display:none;">Cancelar</button>
+			        		</div>
+			        		<div class="col-xs-12 col-md-4">
+			        		</div>
+						</div>
+					</form>
+
+	            	<br>
+
+            			<div class="row">
+            				<div class="col-xs-12 col-md-12">
+			            		<hr><hr>
+					        </div>
+            			    <div class="col-xs-12 col-md-12">
+			            		<h5>Listado de Metas:</h5>
+					        </div>
+						    <div class="col-xs-12 col-md-12">
+						    	<div class="table-responsive" id="div_Tabla6">
+							      		<table id="Tabla7" class="display" width="100%" cellspacing="0">
+								        <thead>
+								            <tr>
+								                <th class="text-center">N°</th>
+								                <th>Presupuesto</th>
+								                <th>Proyecto</th>
+								                <th>Meta</th>
+								                <th>Actividad</th>
+								                <th>Nombre Componente</th>
+								                <th>Fecha inicial de implementación</th>
+								                <th>Fecha final de implementación</th>
+								                <th>Presupuesto</th>
+								                <th>Opción</th>
+								            </tr>
+								        </thead>
+								        <tfoot>
+								            <tr>
+								                <th class="text-center">N°</th>
+								                <th>Presupuesto</th>
+								                <th>Proyecto</th>
+								                <th>Meta</th>
+								                <th>Actividad</th>
+								                <th>Nombre Componente</th>
+								                <th>Fecha inicial de implementación</th>
+								                <th>Fecha final de implementación</th>
+								                <th>Presupuesto</th>
+								                <th>Opción</th>
+								            </tr>
+								        </tfoot>
+								        <tbody i>
+								        		<?php $var=1; ?>
+
+								        		@foreach($presupuesto as $presupuestos)
+					        							
+					        							@if(count($presupuestos->proyectos)!=0)
+				        								@foreach($presupuestos->proyectos as $proyecto)
+					        								    
+					        								    @if(count($proyecto->metas)!=0)
+					        								    @foreach($proyecto->metas as $meta)
+									        						
+									        						    @if(count($meta->actividades)!=0)
+					        								    		@foreach($meta->actividades as $actividad)
+					        								    			
+					        								    			@if(count($actividad->componentes)!=0)
+					        								    			@foreach($actividad->componentes as $componente)
+												        						<tr>
+												        						<th scope="row" class="text-center">{{ $var }}</th>
+												        						<th scope="row">{{ $presupuestos['Nombre_Actividad'] }}</th>
+												        						<th scope="row">{{ $proyecto['Nombre'] }}</th>
+												        						<th scope="row">{{ $meta['Nombre'] }}</th>
+												        						<td>{{ $actividad['Nombre'] }}</td>
+														                        <td><h4>{{ $componente['Nombre'] }}</h4></td>
+														                        <td>{{ $componente['fecha_inicio'] }}</td>
+														                        <td>{{ $componente['fecha_fin'] }}</td>
+														                        <td>{{ $componente['valor'] }}</td>
+														                        <td>
+																					<div class="btn-group btn-group-justified">
+																					  <div class="btn-group">
+																					    <button type="button" data-rel="{{ $componente['Id'] }}" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>
+																					  </div>
+																					  <div class="btn-group">
+																					    <button type="button" data-rel="{{ $componente['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>
+																					  </div>
+																					</div>
+																					<div id="espera_c{{ $componente['Id'] }}"></div>
+														                        </td>
+														                        </tr>
+												                        		<?php $var++; ?>
+											                        		@endforeach
+									                        				@EndIf
+
+											                        	@endforeach
+									                        			@EndIf
+
+									                        	@endforeach
+									                        	@EndIf
+
+								                         @endforeach
+									                     @EndIf
+
+					        					@endforeach
+								        </tbody>
+								    </table>
+								</div>
+			        		</div>
+			        		<div class="col-xs-12 col-md-12">
+			            		<hr><hr>
+					        </div>
+						</div>
 		        </div>
 
             </div>

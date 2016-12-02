@@ -1024,5 +1024,196 @@ $(function()
 
 
 
+
+/*############################   COMPONENTE    ###########################*/
+
+
+    var ttttt = $('#Tabla7').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+    });
+
+    $('select[name="idPresupuesto_C"]').on('change', function(e){
+        select_proyecto_2($(this).val());
+    });
+
+    var select_proyecto_2 = function(id)
+    { 
+                $.ajax({
+                    url: URL+'/service/presupuesto/'+id,
+                    data: {},
+                    dataType: 'json',
+                    success: function(data)
+                    {
+                        var html = '<option value="">Seleccionar</option>';
+                        if(data.length > 0)
+                        {
+                            $.each(data, function(i, e){
+                                html += '<option value="'+e['Id']+'">'+e['Nombre']+'</option>';
+                            });
+                        }
+                        $('select[name="idProyecto_C"]').html(html).val($('select[name="idProyecto_C"]').data('value'));
+                    }
+                });
+    };
+
+
+
+
+    $('select[name="idProyecto_C"]').on('change', function(e){
+        select_meta_2($(this).val());
+    });
+
+    var select_meta_2 = function(id)
+    { 
+                $.ajax({
+                    url: URL+'/service/meta/'+id,
+                    data: {},
+                    dataType: 'json',
+                    success: function(data)
+                    {
+                        var html = '<option value="">Seleccionar</option>';
+                        if(data.length > 0)
+                        {
+                            $.each(data, function(i, e){
+                                html += '<option value="'+e['Id']+'">'+e['Nombre']+'</option>';
+                            });
+                        }
+                        $('select[name="idMeta_C"]').html(html).val($('select[name="idMeta_C"]').data('value'));
+                    }
+                });
+    };
+
+
+
+    $('select[name="idMeta_C"]').on('change', function(e){
+        select_actividad_2($(this).val());
+    });
+
+    var select_actividad_2 = function(id)
+    { 
+                $.ajax({
+                    url: URL+'/service/actividad/'+id,
+                    data: {},
+                    dataType: 'json',
+                    success: function(data)
+                    {
+                        var html = '<option value="">Seleccionar</option>';
+                        if(data.length > 0)
+                        {
+                            $.each(data, function(i, e){
+                                html += '<option value="'+e['Id']+'">'+e['Nombre']+'</option>';
+                            });
+                        }
+                        $('select[name="idActividad_C"]').html(html).val($('select[name="idActividad_C"]').data('value'));
+                    }
+                });
+    };
+
+    $('#form_componente').on('submit', function(e){
+        $.post(URL+'/validar/componente',$(this).serialize(),function(data){
+            if(data.status == 'error')
+            {
+                validad_error6(data.errors);
+            } else {
+                validad_error6(data.errors);
+                if(data.status == 'modelo')
+                {
+                    var datos=data.presupuesto;
+                    document.getElementById("form_componente").reset();
+                    $('select[name="idPresupuesto_A"]').val('');
+                    $('select[name="idProyecto_A"]').val('');
+                    $("#div_Tabla6").show();
+                    var num=1;
+                    ttttt.clear().draw();
+                    $.each(datos, function(i, e){
+                        $.each(e.proyectos, function(i, ee){
+                            $.each(ee.metas, function(i, eee){
+                                $.each(eee.actividades, function(i, eeee){
+                                    $.each(eeee.componentes, function(i, eeeee){
+                                        ttttt.row.add( [
+                                            '<th scope="row" class="text-center">'+num+'</th>',
+                                            '<td>'+e['Nombre_Actividad']+'</td>',
+                                            '<td>'+ee['Nombre']+'</td>',
+                                            '<td>'+eee['Nombre']+'</td>',
+                                            '<td>'+eeee['Nombre']+'</td>',
+                                            '<td><h4>'+eeeee['Nombre']+'</h4></td>',
+                                            '<td>'+eeeee['fecha_inicio']+'</td>',
+                                            '<td>'+eeeee['fecha_fin']+'</td>',
+                                            '<td>'+eeeee['valor']+'</td>',
+                                            '<td><div class="btn-group btn-group-justified">'+
+                                                '<div class="btn-group">'+
+                                                '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
+                                                '</div>'+
+                                                '<div class="btn-group">'+
+                                                '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
+                                                '</div>'+
+                                                '</div>'+
+                                                '<div id="espera_a'+eeeee['Id']+'"></div>'+
+                                            '</td>'
+                                        ] ).draw(false);
+                                        num++;
+                                    });
+                                });
+                            });
+                        });
+                    });
+                    $('#mensaje_componente').html('<strong>Bien!</strong> Registro creado con exíto.');
+                    $('#mensaje_componente').show();
+                    setTimeout(function(){
+                        $('#mensaje_componente').hide();
+                        $("#id_btn_componente").html('Registrar');
+                        $("#id_btn_componente_canc").hide();
+                    }, 2000)
+                    $('input[name="Id_actividad"]').val('0');
+                }else{
+                    $('#mensaje_componente2').html('<strong>Error!</strong> el valor del componente que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
+                    $('#mensaje_componente2').show();
+                    setTimeout(function(){
+                        $('#mensaje_componente2').hide();
+                    }, 6000)
+                }
+                
+            }
+        },'json');
+        e.preventDefault();
+    });
+
+
+     var validad_error6 = function(data)
+    {
+        $('#form_componente .form-group').removeClass('has-error');
+        var selector = '';
+        for (var error in data){
+            if (typeof data[error] !== 'function') {
+                switch(error)
+                {
+                    case 'precio_componente':
+                    case 'fecha_final_componente':
+                    case 'fecha_inicial_componente':
+                    case 'nombre_componente':
+                        selector = 'input';
+                    break;
+
+                    case 'idActividad_C':
+                    case 'idMeta_C':
+                    case 'idProyecto_C':
+                    case 'idPresupuesto_C':
+                        selector = 'select';
+                    break;
+                }
+                $('#form_componente '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
+            }
+        }
+    }
+
+
+
+
 });
 
