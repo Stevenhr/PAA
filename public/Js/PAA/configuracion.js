@@ -753,7 +753,7 @@ $(function()
                     $("#div_Tabla5").show();
 
                     $('html,body').animate({
-                        scrollTop: $("#Tabla4").offset().top
+                        scrollTop: $("#Tabla5").offset().top
                     }, 1000);
                     return false;
 
@@ -878,7 +878,7 @@ $(function()
                     }, 2000)
                     $('input[name="Id_actividad"]').val('0');
                 }else{
-                    $('#mensaje_actividad2').html('<strong>Error!</strong> el valor de la meta que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
+                    $('#mensaje_actividad2').html('<strong>Error!</strong> el valor de la actividad que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
                     $('#mensaje_actividad2').show();
                     setTimeout(function(){
                         $('#mensaje_actividad2').hide();
@@ -912,7 +912,7 @@ $(function()
                             $("#espera_a"+id).html('');
                         }, 4000)
                     } else {
-                        $("#espera_a"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino la meta correctamente.</div>');
+                        $("#espera_a"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino la actividad correctamente.</div>');
                         setTimeout(function(){
                                 $("#espera_a"+id).html('');
                                 var num=1;
@@ -956,37 +956,70 @@ $(function()
 
    $('#Tabla6').delegate('button[data-funcion="ver_upd"]','click',function (e){  
         var id = $(this).data('rel'); 
-        $("#espera_m"+id).html("<img src='public/Img/loading.gif'/>");
+        $("#espera_a"+id).html("<img src='public/Img/loading.gif'/>");
         $.get(
             URL+'/actividad/modificar/'+id,
             {},
             function(data)
             {   
-                        $("#espera_m"+id).html("");
-                        $('input[name="Id_meta"]').val(data.Id);
-                        $('select[name="idPresupuesto_M"]').val(data.proyecto.presupuesto.Id);//falta
-                        var x = document.getElementById("idProyecto_M");
-                        var option = document.createElement("option");
-                        option.text = data.proyecto.Nombre;
-                        option.value = data.proyecto.Id;
-                        x.add(option);
-                        $('#idProyecto_M > option[value="'+data.proyecto.Id+'"]').attr('selected', 'selected');
-                        $('input[name="nombre_meta"]').val(data.Nombre);
-                        $('input[name="fecha_inicial_meta"]').val(data.fecha_inicio);
-                        $('input[name="fecha_final_meta"]').val(data.fecha_fin);
-                        $('input[name="precio_meta"]').val(data.valor);
-                        $("#id_btn_meta").html('Modificar');
-                        $("#id_btn_meta_canc").show();
-                        $("#div_Tabla5").hide();
+                $("#espera_a"+id).html("");
 
+                $('input[name="Id_actividad"]').val(data.Id);
+                $('select[name="idPresupuesto_A"]').val(data.meta.proyecto.presupuesto.Id);//falta
+                
+                var x = document.getElementById("idProyecto_A");
+                var option = document.createElement("option");
+                option.text = data.meta.proyecto.Nombre;
+                option.value = data.meta.proyecto.Id;
+                x.add(option);
+                $('#idProyecto_A > option[value="'+data.meta.proyecto.Id+'"]').attr('selected', 'selected');
+
+                var y = document.getElementById("idMeta_A");
+                var option2 = document.createElement("option");
+                option2.text = data.meta.Nombre;
+                option2.value = data.meta.Id;
+                y.add(option2);
+                $('#idMeta_A > option[value="'+data.meta.Id+'"]').attr('selected', 'selected');
+
+                $('input[name="nombre_actividad"]').val(data.Nombre);
+                $('input[name="fecha_inicial_actividad"]').val(data.fecha_inicio);
+                $('input[name="fecha_final_actividad"]').val(data.fecha_fin);
+                $('input[name="precio_actividad"]').val(data.valor);
+                $("#id_btn_actividad").html('Modificar');
+                $("#id_btn_actividad_canc").show();
+                $("#div_Tabla6").hide();
 
                 $('html,body').animate({
                     scrollTop: $("#main_paa_configuracion").offset().top
                 }, 1000);
-                $( "#div_form_metas" ).toggle( "highlight");            
+                $( "#div_form_actividad" ).toggle( "highlight");            
             }
         );
     }); 
+
+
+    $('#id_btn_actividad_canc').on('click', function(e){
+          
+                    $('input[name="Id_actividad"]').val('0');
+                    $('select[name="idPresupuesto_A"]').val('');
+                    $('select[name="idProyecto_A"]').val('');
+                    $('select[name="idMeta_A"]').val('');
+
+                    $('input[name="nombre_actividad"]').val('');
+                    $('input[name="fecha_inicial_actividad"]').val('');
+                    $('input[name="fecha_final_actividad"]').val('');
+                    $('input[name="precio_actividad"]').val('');
+                    $("#id_btn_actividad").html('Registrar');
+                    $("#id_btn_actividad_canc").hide();
+                    $("#div_Tabla6").show();
+
+                    $('html,body').animate({
+                        scrollTop: $("#Tabla6").offset().top
+                    }, 1000);
+                    return false;
+
+    }); 
+
 
 
 

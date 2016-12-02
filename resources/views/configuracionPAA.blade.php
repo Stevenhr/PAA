@@ -471,7 +471,7 @@
 			        <br>
 
 			        <form id="form_actividad">
-			            <div id="div_form_metas"><br></div>
+			            <div id="div_form_actividad"><br></div>
 				        
 				        <div class="row" >
 				        	

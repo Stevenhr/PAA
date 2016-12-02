@@ -9,6 +9,7 @@ use App\Presupuesto;
 use App\Proyecto;
 use App\Meta;
 use App\Actividad;
+use App\Componente;
 
 class PaaController extends Controller
 {
@@ -460,6 +461,54 @@ class PaaController extends Controller
 		return $this->update_Actividad($modelo, $input);
 	}
 
+	public function update_Actividad($model, $input)
+	{
+		//var_dump($input['precio_meta']." ".$model['valor']." ".$input["Id_meta"]);
+		if($input['precio_actividad']<=$model['valor']){
+			$componente = Componente::where('Id_actividad',$input["Id_actividad"])->get();
+		    $sum = $componente->sum( 'valor' );
+
+		    if($sum<=$input['precio_actividad']){
+
+				$model['Id_meta'] = $input['idMeta_A'];
+				$model['Nombre'] = $input['nombre_actividad'];
+				$model['fecha_inicio'] = $input['fecha_inicial_actividad'];
+				$model['fecha_fin'] = $input['fecha_final_actividad'];
+				$model['valor'] = $input['precio_actividad'];
+				$model->save();
+				$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades')->get();
+				return response()->json(array('status' => 'modelo', 'presupuesto' => $presupuesto,'mensaje'=>''));
+			}else{
+				return response()->json(array('status' => 'Saldo', 'saldo' => $sum, 'valorNuevo' => $input['precio_actividad'],'mensaje'=>'es menor al valor de los componentes que es de'));
+			}
+
+		}else{
+			$actividad = Actividad::where('Id_meta',$input['idMeta_A'])->get();
+			//var_dump($meta->lists('Id'));
+			//exit();
+			$sum = $actividad->sum( 'valor' );
+			$metas = Meta::find($input['idMeta_A']);
+			$sum_presupuesto = $metas['valor'];
+
+			$valor_nuevProyecto=$input['precio_actividad'];
+			$Saldo=$sum_presupuesto-$sum;
+			$Saldo2=$Saldo+$model['valor'];
+
+			if($valor_nuevProyecto<=$Saldo2){
+				$model['Id_meta'] = $input['idMeta_A'];
+				$model['Nombre'] = $input['nombre_actividad'];
+				$model['fecha_inicio'] = $input['fecha_inicial_actividad'];
+				$model['fecha_fin'] = $input['fecha_final_actividad'];
+				$model['valor'] = $input['precio_actividad'];
+				$model->save();
+				$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades')->get();
+				return response()->json(array('status' => 'modelo', 'presupuesto' => $presupuesto,'mensaje'=>'sobrepasa el presupuesto del proyecto actual que tiene un saldo de'));
+			}else{
+				return response()->json(array('status' => 'Saldo', 'saldo' => $Saldo, 'valorNuevo' => $valor_nuevProyecto,'mensaje'=>' es mayor al presupuesto de la meta, el saldo del meta es'));
+			}
+		}
+	}
+
 	public function crear_Actividad($model, $input)
 	{
 		$actividad = Actividad::where('Id_meta',$input['idMeta_A'])->get();
@@ -512,10 +561,8 @@ class PaaController extends Controller
 
 	public function modificar_actividad2(Request $request, $id)
 	{
-		$Meta = Meta::with('proyecto','proyecto.presupuesto','proyectos.metas.actividades')->find($id);
-		return response()->json($Meta);
-		voy acá!!
+		$Actividad = Actividad::with('meta','meta.proyecto','meta.proyecto.presupuesto')->find($id);
+		return response()->json($Actividad);
 	}
-
 
 }
