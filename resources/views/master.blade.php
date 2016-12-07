@@ -18,7 +18,8 @@
           <link rel="stylesheet" href="{{ asset('public/Css/sticky-footer.css') }}" media="screen">  
           <link rel="shortcut icon" href="{{ asset('public/Img/Institucionales/iconoModulo.png') }}">  
           <link rel="stylesheet" href="{{ asset('public/Css/css_datatable/jquery.dataTables.min.css') }}" media="screen">
-          <link rel="stylesheet" href="{{ asset('public/Css/css_datatable/buttons.dataTables.min.css') }}" media="screen">   
+          <link rel="stylesheet" href="{{ asset('public/Css/css_datatable/buttons.dataTables.min.css') }}" media="screen"> 
+          <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.0.1/css/responsive.bootstrap.min.css">  
       @show
 
       @section('script')
@@ -34,7 +35,14 @@
           <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
           <script src="{{ asset('public/Js/js_datatable/vfs_fonts.js') }}"></script>
           <script src="{{ asset('public/Js/js_datatable/buttons.html5.min.js') }}"></script>  
+          <script src=" https://cdn.datatables.net/responsive/2.0.1/js/dataTables.responsive.min.js"></script>
+          <script src=" https://cdn.datatables.net/responsive/2.0.1/js/responsive.bootstrap.min.js"></script> 
+          
       @show
+
+
+          
+          
 
       <title>P.A.A</title>
   </head>
@@ -67,7 +75,7 @@
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">PAA<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
-                  <li><a href="#">Gestionar PAA</a></li>
+                  <li class=”{{ Request::is( 'GestionarPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'GestionarPaa') }}">Gestionar PAA</a></li>
                   <li><a href="#">Mis </a></li>
                 </ul>
               </li>

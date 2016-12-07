@@ -47,6 +47,10 @@ Route::any('/PresupuestoPAA/', 'PaaController@index');
 Route::any('/', 'MainController@index');
 Route::any('/logout', 'MainController@logout');
 
+//Crear Plan anual de adquisiones
+
+Route::any('/GestionarPaa/', 'PlanAnualAController@index');
+
 //rutas con filtro de autenticación
 Route::group(['middleware' => ['web']], function () {
 	Route::get('/welcome', 'MainController@welcome');
