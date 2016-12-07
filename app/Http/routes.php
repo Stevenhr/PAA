@@ -10,14 +10,28 @@ session_start();
 | and give it the controller to call when that URI is requested.
 |
 */
+
+
+// Rutas paquete usuario
 Route::get('/personas', '\Idrd\Usuarios\Controllers\PersonaController@index');
 Route::get('/personas/service/obtener/{id}', '\Idrd\Usuarios\Controllers\PersonaController@obtener');
 Route::get('/personas/service/buscar/{key}', '\Idrd\Usuarios\Controllers\PersonaController@buscar');
 Route::get('/personas/service/ciudad/{id_pais}', '\Idrd\Usuarios\Controllers\LocalizacionController@buscarCiudades');
 Route::post('/personas/service/procesar/', '\Idrd\Usuarios\Controllers\PersonaController@procesar');
+Route::get('/permisos', 'Persona@index');
+
+Route::get('/asignarActividad', '\Idrd\Usuarios\Controllers\AsignarActividadController@asignarActividades');
+Route::get('/actividadesModulo', '\Idrd\Usuarios\Controllers\AsignarActividadController@moduloActividades');
+Route::get('/actividadesPersona/{id}', '\Idrd\Usuarios\Controllers\AsignarActividadController@personaActividades');
+Route::post('PersonasActividadesProceso', '\Idrd\Usuarios\Controllers\AsignarActividadController@PersonasActividadesProceso');
+Route::get('/asignarTipoPersona', '\Idrd\Usuarios\Controllers\AsignarActividadController@asignarTipoPersona');
+Route::get('/tipo_modulo', '\Idrd\Usuarios\Controllers\AsignarActividadController@tipoModulo');
+Route::post('ProcesoTipoPersona', '\Idrd\Usuarios\Controllers\AsignarActividadController@AdicionTipoPersona');
 
 
-Route::get('/configuracionPaa/proyecto/{id}', 'PaaController@proyecto');
+// Rutas proyecto local
+Route::any('/GestionarPaa/', 'PlanAnualAController@index'); 
+Route::get('/configuracionPaa/proyecto/{id}', 'PaaController@proyecto'); 
 
 Route::post('/configuracionPaa/validar/presupuesto/', 'PaaController@validar_presupuesto');
 Route::get('/configuracionPaa/presupuesto/eliminar/{id}', 'PaaController@eliminar_presupuesto');
@@ -46,10 +60,6 @@ Route::get('/configuracionPaa/service/actividad/{id}', 'PaaController@listadoAct
 Route::any('/PresupuestoPAA/', 'PaaController@index');
 Route::any('/', 'MainController@index');
 Route::any('/logout', 'MainController@logout');
-
-//Crear Plan anual de adquisiones
-
-Route::any('/GestionarPaa/', 'PlanAnualAController@index');
 
 //rutas con filtro de autenticación
 Route::group(['middleware' => ['web']], function () {

@@ -67,8 +67,8 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Configuración<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="themes">
                   <li class=”{{ Request::is( 'PresupuestoPAA') ? 'active' : '' }}”><a href="{{ URL::to( 'PresupuestoPAA') }}">Presupuesto PAA</a></li>
-                  <li><a href="#">Usuarios</a></li>
-                  <li><a href="#">Permisos</a></li>
+                  <li class=”{{ Request::is( 'personas') ? 'active' : '' }}”><a href="{{ URL::to( 'personas') }}">Usuarios</a></li>
+                  <li class=”{{ Request::is( 'asignarActividad') ? 'active' : '' }}”><a href="{{ URL::to( 'asignarActividad') }}">Permisos</a></li>
                 </ul>
               </li>
 
@@ -76,7 +76,7 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">PAA<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
                   <li class=”{{ Request::is( 'GestionarPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'GestionarPaa') }}">Gestionar PAA</a></li>
-                  <li><a href="#">Mis </a></li>
+                  <li><a href="#">Mis Planes</a></li>
                 </ul>
               </li>
 

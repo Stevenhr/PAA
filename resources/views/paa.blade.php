@@ -281,6 +281,12 @@
 				</div>
 		  </div>
 		  <div class="col-xs-6 col-sm-4">
+		  		<div class="form-group">
+			    	<label>Componente</label>
+					<select class="form-control" name="idPresupuesto_M">
+						<option value="">Seleccionar</option>
+					</select>
+				</div>
 		  </div>
 		  <div class="col-xs-6 col-sm-4">
 		  </div>
