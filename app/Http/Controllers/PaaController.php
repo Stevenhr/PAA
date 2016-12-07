@@ -45,7 +45,7 @@ class PaaController extends Controller
             return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
 
         	if($request->input('Id_presupuesto') == '0'){
-        		return response()->json($this->guardar($request->all()));
+        		return $this->guardar($request->all());
         	}
         	else{
         		return $this->modificar($request->all());	
@@ -594,7 +594,7 @@ class PaaController extends Controller
         		return $this->guardar_Componente($request->all());
         	}
         	else{
-        		return $this->modificar_Actividades($request->all());	
+        		return $this->modificar_Componente($request->all());	
         	}
 	}
 
@@ -632,5 +632,70 @@ class PaaController extends Controller
 			return response()->json(array('status' => 'Saldo', 'saldo' => $Saldo, 'valorNuevo' => $valor_nuevMeta,'mensaje'=>'es mayor al saldo de la activdad que es de'));
 		}	
 	}
+
+	public function modificar_Componente($input)
+	{
+		$model_A =  Componente::find($input["Id_componente"]);
+		return $this->update_Componente($model_A, $input);
+	}
+
+	public function update_Componente($model, $input)
+	{
+		//var_dump($input['precio_meta']." ".$model['valor']." ".$input["Id_meta"]);
+		if($input['precio_componente']<=$model['valor']){
+				$model['Id_actividad'] = $input['idActividad_C'];
+				$model['Nombre'] = $input['nombre_componente'];
+				$model['fecha_inicio'] = $input['fecha_inicial_componente'];
+				$model['fecha_fin'] = $input['fecha_final_componente'];
+				$model['valor'] = $input['precio_componente'];
+				$model->save();
+				$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades.componentes')->get();
+				return response()->json(array('status' => 'modelo', 'presupuesto' => $presupuesto,'mensaje'=>''));
+		}else{
+
+			$componente = Componente::where('Id_actividad',$input['idActividad_C'])->get();
+			$sum = $componente->sum( 'valor' );
+
+			$actividad = Actividad::find($input['Id_componente']);
+			$sum_presupuesto = $actividad['valor'];
+
+			$valor_nuevProyecto=$input['precio_componente'];
+			$Saldo=$sum_presupuesto-$sum;
+			$Saldo2=$Saldo+$model['valor'];
+
+			if($valor_nuevProyecto<=$Saldo2){
+				$model['Id_actividad'] = $input['idActividad_C'];
+				$model['Nombre'] = $input['nombre_componente'];
+				$model['fecha_inicio'] = $input['fecha_inicial_componente'];
+				$model['fecha_fin'] = $input['fecha_final_componente'];
+				$model['valor'] = $input['precio_componente'];
+				$model->save();
+				$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades.componentes')->get();
+				return response()->json(array('status' => 'modelo', 'presupuesto' => $presupuesto,'mensaje'=>'sobrepasa el presupuesto del proyecto actual que tiene un saldo de'));
+			}else{
+				return response()->json(array('status' => 'Saldo', 'saldo' => $Saldo, 'valorNuevo' => $valor_nuevProyecto,'mensaje'=>' es mayor al presupuesto de la actividad, el saldo de la actividad es'));
+			}
+		}
+	}
+
+
+
+	public function eliminar_componente(Request $request, $id)
+	{
+		
+			$Componente = Componente::find($id);
+			$Componente->delete();
+			$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades.componentes')->get();
+			return response()->json(array('status' => 'modelo', 'presupuesto' => $presupuesto));
+		
+	}
+
+	public function modificar_componente2(Request $request, $id)
+	{
+		$Actividad = Componente::with('actividad','actividad.meta','actividad.meta.proyecto','actividad.meta.proyecto.presupuesto')->find($id);
+		return response()->json($Actividad);
+	}
+
+
 
 }

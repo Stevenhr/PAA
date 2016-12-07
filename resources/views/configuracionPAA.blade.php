@@ -763,7 +763,7 @@
 			            		<h5>Listado de Metas:</h5>
 					        </div>
 						    <div class="col-xs-12 col-md-12">
-						    	<div class="table-responsive" id="div_Tabla6">
+						    	<div class="table-responsive" id="div_Tabla7">
 							      		<table id="Tabla7" class="display" width="100%" cellspacing="0">
 								        <thead>
 								            <tr>

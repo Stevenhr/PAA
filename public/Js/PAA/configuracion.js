@@ -135,7 +135,7 @@ $(function()
                 validad_error(data.errors);
            
             } else {
-
+                console.log(data);
                 if(data.status == 'modelo')
                 {
                     var datos=data.presupuesto;
@@ -152,10 +152,10 @@ $(function()
                             '<td>'+e['presupuesto']+'</td>',
                             '<td><div class="btn-group btn-group-justified">'+
                                 '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
+                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                 '</div>'+
                                 '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
+                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                 '</div>'+
                                 '</div>'+
                                 '<div id="espera'+e['Id']+'"></div>'+
@@ -242,10 +242,10 @@ $(function()
                                         '<td>'+e['presupuesto']+'</td>',
                                         '<td><div class="btn-group btn-group-justified">'+
                                             '<div class="btn-group">'+
-                                            '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
+                                            '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                             '</div>'+
                                             '<div class="btn-group">'+
-                                            '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
+                                            '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                             '</div>'+
                                             '</div>'+
                                             '<div id="espera'+e['Id']+'"></div>'+
@@ -344,10 +344,10 @@ $(function()
                                 '<td>'+ee['valor']+'</td>',
                                 '<td><div class="btn-group btn-group-justified">'+
                                     '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
+                                    '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                     '</div>'+
                                     '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
+                                    '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                     '</div>'+
                                     '</div>'+
                                     '<div id="espera'+ee['Id']+'"></div>'+
@@ -443,10 +443,10 @@ $(function()
                                             '<td>'+ee['valor']+'</td>',
                                             '<td><div class="btn-group btn-group-justified">'+
                                                 '<div class="btn-group">'+
-                                                '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
+                                                '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                                 '</div>'+
                                                 '<div class="btn-group">'+
-                                                '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
+                                                '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                                 '</div>'+
                                                 '</div>'+
                                                 '<div id="espera'+ee['Id']+'"></div>'+
@@ -579,10 +579,10 @@ $(function()
                                     '<td>'+eee['valor']+'</td>',
                                     '<td><div class="btn-group btn-group-justified">'+
                                         '<div class="btn-group">'+
-                                        '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
+                                        '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                         '</div>'+
                                         '<div class="btn-group">'+
-                                        '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
+                                        '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                         '</div>'+
                                         '</div>'+
                                         '<div id="espera_m'+eee['Id']+'"></div>'+
@@ -681,10 +681,10 @@ $(function()
                                                 '<td>'+eee['valor']+'</td>',
                                                 '<td><div class="btn-group btn-group-justified">'+
                                                     '<div class="btn-group">'+
-                                                    '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
+                                                    '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                                     '</div>'+
                                                     '<div class="btn-group">'+
-                                                    '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
+                                                    '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                                     '</div>'+
                                                     '</div>'+
                                                     '<div id="espera_m'+eee['Id']+'"></div>'+
@@ -855,10 +855,10 @@ $(function()
                                         '<td>'+eeee['valor']+'</td>',
                                         '<td><div class="btn-group btn-group-justified">'+
                                             '<div class="btn-group">'+
-                                            '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
+                                            '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                             '</div>'+
                                             '<div class="btn-group">'+
-                                            '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
+                                            '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                             '</div>'+
                                             '</div>'+
                                             '<div id="espera_a'+eeee['Id']+'"></div>'+
@@ -933,10 +933,10 @@ $(function()
                                                     '<td>'+eeee['valor']+'</td>',
                                                     '<td><div class="btn-group btn-group-justified">'+
                                                         '<div class="btn-group">'+
-                                                        '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
+                                                        '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                                         '</div>'+
                                                         '<div class="btn-group">'+
-                                                        '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
+                                                        '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                                         '</div>'+
                                                         '</div>'+
                                                         '<div id="espera_a'+eeee['Id']+'"></div>'+
@@ -1128,7 +1128,7 @@ $(function()
                     document.getElementById("form_componente").reset();
                     $('select[name="idPresupuesto_A"]').val('');
                     $('select[name="idProyecto_A"]').val('');
-                    $("#div_Tabla6").show();
+                    $("#div_Tabla7").show();
                     var num=1;
                     ttttt.clear().draw();
                     $.each(datos, function(i, e){
@@ -1148,10 +1148,10 @@ $(function()
                                             '<td>'+eeeee['valor']+'</td>',
                                             '<td><div class="btn-group btn-group-justified">'+
                                                 '<div class="btn-group">'+
-                                                '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_eli" class="btn btn-default btn-xs">Eliminar</button>'+
+                                                '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                                 '</div>'+
                                                 '<div class="btn-group">'+
-                                                '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs">Modificar</button>'+
+                                                '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                                 '</div>'+
                                                 '</div>'+
                                                 '<div id="espera_a'+eeeee['Id']+'"></div>'+
@@ -1185,7 +1185,7 @@ $(function()
     });
 
 
-     var validad_error6 = function(data)
+    var validad_error6 = function(data)
     {
         $('#form_componente .form-group').removeClass('has-error');
         var selector = '';
@@ -1213,6 +1213,133 @@ $(function()
     }
 
 
+    $('#Tabla7').delegate('button[data-funcion="ver_eli"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        $("#espera_c"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/componente/eliminar/'+id,
+            {},
+            function(data)
+            {   
+                    
+                $("#espera_c"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino la actividad correctamente.</div>');
+                setTimeout(function(){
+                        $("#espera_c"+id).html('');
+                        var num=1;
+                        var datos=data.presupuesto;
+                        ttttt.clear().draw();
+                        $.each(datos, function(i, e){
+                            $.each(e.proyectos, function(i, ee){
+                                $.each(ee.metas, function(i, eee){
+                                    $.each(eee.actividades, function(i, eeee){
+                                        $.each(eeee.componentes, function(i, eeeee){
+                                            ttttt.row.add( [
+                                                '<th scope="row" class="text-center">'+num+'</th>',
+                                                '<td>'+e['Nombre_Actividad']+'</td>',
+                                                '<td>'+ee['Nombre']+'</td>',
+                                                '<td>'+eee['Nombre']+'</td>',
+                                                '<td>'+eeee['Nombre']+'</td>',
+                                                '<td><h4>'+eeeee['Nombre']+'</h4></td>',
+                                                '<td>'+eeeee['fecha_inicio']+'</td>',
+                                                '<td>'+eeeee['fecha_fin']+'</td>',
+                                                '<td>'+eeeee['valor']+'</td>',
+                                                '<td><div class="btn-group btn-group-justified">'+
+                                                    '<div class="btn-group">'+
+                                                    '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                                    '</div>'+
+                                                    '<div class="btn-group">'+
+                                                    '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                                    '</div>'+
+                                                    '</div>'+
+                                                    '<div id="espera_c'+eeeee['Id']+'"></div>'+
+                                                '</td>'
+                                            ] ).draw(false);
+                                            num++;
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                }, 2000)
+                    
+            }
+        );
+    }); 
+
+
+    $('#Tabla7').delegate('button[data-funcion="ver_upd"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        $("#espera_c"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/componente/modificar/'+id,
+            {},
+            function(data)
+            {   
+                $("#espera_c"+id).html("");
+
+                $('input[name="Id_componente"]').val(data.Id);
+                $('select[name="idPresupuesto_C"]').val(data.actividad.meta.proyecto.presupuesto.Id);//falta
+                
+                var x = document.getElementById("idProyecto_C");
+                var option = document.createElement("option");
+                option.text = data.actividad.meta.proyecto.Nombre;
+                option.value = data.actividad.meta.proyecto.Id;
+                x.add(option);
+                $('#idProyecto_C > option[value="'+data.actividad.meta.proyecto.Id+'"]').attr('selected', 'selected');
+
+                var y = document.getElementById("idMeta_C");
+                var option2 = document.createElement("option");
+                option2.text = data.actividad.meta.Nombre;
+                option2.value = data.actividad.meta.Id;
+                y.add(option2);
+                $('#idMeta_C > option[value="'+data.actividad.meta.Id+'"]').attr('selected', 'selected');
+
+                var z = document.getElementById("idActividad_C");
+                var option2 = document.createElement("option");
+                option2.text = data.actividad.Nombre;
+                option2.value = data.actividad.Id;
+                z.add(option2);
+                $('#idActividad_C > option[value="'+data.actividad.Id+'"]').attr('selected', 'selected');
+
+                $('input[name="nombre_componente"]').val(data.Nombre);
+                $('input[name="fecha_inicial_componente"]').val(data.fecha_inicio);
+                $('input[name="fecha_final_componente"]').val(data.fecha_fin);
+                $('input[name="precio_componente"]').val(data.valor);
+                $("#id_btn_componente").html('Modificar');
+                $("#id_btn_componente_canc").show();
+                $("#div_Tabla7").hide();
+
+                $('html,body').animate({
+                    scrollTop: $("#main_paa_configuracion").offset().top
+                }, 1000);
+                $( "#div_form_componente" ).toggle( "highlight");            
+            }
+        );
+    }); 
+
+
+    $('#id_btn_componente_canc').on('click', function(e){
+          
+                    $('input[name="Id_componente"]').val('0');
+                    $('select[name="idPresupuesto_C"]').val('');
+                    $('select[name="idProyecto_C"]').val('');
+                    $('select[name="idMeta_C"]').val('');
+                    $('select[name="idActividad_C"]').val('');
+
+                    $('input[name="nombre_componente"]').val('');
+                    $('input[name="fecha_inicial_componente"]').val('');
+                    $('input[name="fecha_final_componente"]').val('');
+                    $('input[name="precio_componente"]').val('');
+                    $("#id_btn_componente").html('Registrar');
+                    $("#id_btn_componente_canc").hide();
+                    $("#div_Tabla7").show();
+
+                    $('html,body').animate({
+                        scrollTop: $("#Tabla7").offset().top
+                    }, 1000);
+                    return false;
+
+    }); 
 
 
 });
