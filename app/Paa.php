@@ -13,8 +13,8 @@ class Paa extends Model
 	'Id_paa',
 	'Registro',
 	'CodigosU',
-	'ModalidadSeleccion',
-	'TipoContrato',
+	'Id_ModalidadSeleccion',
+	'Id_TipoContrato',
 	'ObjetoContractual',
 	'FuenteRecurso',
 	'ValorEstimado',
@@ -29,8 +29,8 @@ class Paa extends Model
 	'RecursoHumano',
 	'NumeroContratista',
 	'DatosResponsable',
-	'ProyectoRubro',
-	'Estado'];
+	'Id_ProyectoRubro',
+	'Estado',
+	'IdPersona'];
 	protected $connection = ''; 
-	public $timestamps = false;
 }
