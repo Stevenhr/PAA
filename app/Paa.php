@@ -33,4 +33,17 @@ class Paa extends Model
 	'Estado',
 	'IdPersona'];
 	protected $connection = ''; 
+
+	 public function modalidad()
+    {
+        return $this->belongsTo('App\ModalidadSeleccion','Id_ModalidadSeleccion');
+    }
+     public function tipocontrato()
+    {
+        return $this->belongsTo('App\TipoContrato','Id_TipoContrato');
+    }
+     public function rubro()
+    {
+        return $this->belongsTo('App\Rubro','Id_ProyectoRubro');
+    }
 }

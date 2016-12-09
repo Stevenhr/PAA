@@ -12,4 +12,9 @@ class ModalidadSeleccion extends Model
 	protected $fillable = ['Nombre'];
 	protected $connection = ''; 
 	public $timestamps = false;
+
+	public function paas()
+    {
+        return $this->hasMany('App\Paa','Id_ModalidadSeleccion');
+    }
 }

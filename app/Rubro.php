@@ -12,4 +12,9 @@ class Rubro extends Model
 	protected $fillable = ['Nombre','Codigo'];
 	protected $connection = ''; 
 	public $timestamps = false;
+
+	public function paas()
+    {
+        return $this->hasMany('App\Paa','Id_ProyectoRubro');
+    }
 }

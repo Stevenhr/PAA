@@ -128,6 +128,7 @@ $(function()
 
 
     $('#form_presupuesto').on('submit', function(e){
+      
         $.post(URL+'/validar/presupuesto',$(this).serialize(),function(data){
             if(data.status == 'error')
             {

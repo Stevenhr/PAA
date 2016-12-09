@@ -7,7 +7,7 @@
 @stop
 
 @section('content') 
-        
+        	<div class="content" id="main_paa_" class="row" data-url="paa" ></div>
             <div class="content">
             	<div class="row">
 	            	<div class="col-xs-12 col-md-12 ">
@@ -146,157 +146,174 @@
         <h4 class="modal-title" id="myModalLabel">Crear PAA</h4>
       </div>
       <div class="modal-body">
-        
-        <div class="row">
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			    	<label>Id Registro </label>
-					<input type="text" class="form-control precio" name="precio_proyecto">
+        <form id="form_paa">
+		        <div class="row">
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					    	<label>Id Registro </label>
+							<input type="text" class="form-control precio" name="id_registro">
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					    	<label>Códigos UNSPSC </label>
+							<input type="text" class="form-control precio" name="codigo_Unspsc">
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  		<label>Modalidad de selección</label>
+						<select class="form-control" name="modalidad_seleccion">
+								<option value="" >Selecionar</option>
+								@foreach($modalidades as $modalidad)
+									<option value="{{ $modalidad['Id'] }}" >{{ $modalidad['Nombre'] }}</option>
+							    @endforeach
+						</select>
+				  </div>
 				</div>
-		  </div>
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			    	<label>Códigos UNSPSC </label>
-					<input type="text" class="form-control precio" name="precio_proyecto">
-				</div>
-		  </div>
-		  <div class="col-xs-6 col-sm-4">
-		  		<label>Modalidad de selección</label>
-				<select class="form-control" name="idPresupuesto_M">
-						<option value="">Seleccionar</option>
-				</select>
-		  </div>
-		</div>
 
-		<div class="row">
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			    	<label>Tipo de contrato </label>
-					<select class="form-control" name="idPresupuesto_M">
-						<option value="">Seleccionar</option>
-					</select>
+				<div class="row">
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					    	<label>Tipo de contrato </label>
+							<select class="form-control" name="tipo_contrato">
+								<option value="" >Selecionar</option>
+								@foreach($tipoContratos as $tipoContrato)
+									<option value="{{ $tipoContrato['Id'] }}" >{{ $tipoContrato['Nombre'] }}</option>
+							    @endforeach
+							</select>
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					    	<label>Descripción/Objeto contractual </label>
+							<textarea class="form-control" rows="2" id="comment" name="objeto_contrato"></textarea>
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  		<label>Fuente de los recursos (Nombre de la Fuente (s))</label>
+						<input type="text" class="form-control precio" name="fuente_recurso">
+				  </div>
 				</div>
-		  </div>
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			    	<label>Descripción/Objeto contractual </label>
-					<textarea class="form-control" rows="2" id="comment"></textarea>
-				</div>
-		  </div>
-		  <div class="col-xs-6 col-sm-4">
-		  		<label>Fuente de los recursos (Nombre de la Fuente (s))</label>
-				<input type="text" class="form-control precio" name="precio_proyecto">
-		  </div>
-		</div>
 
-		<div class="row">
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			    	<label>Valor total estimado </label>
-					<input type="text" class="form-control precio" name="precio_proyecto">
+				<div class="row">
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					    	<label>Valor total estimado </label>
+							<input type="text" class="form-control precio" name="valor_estimado">
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					    	<label>Valor estimado en la vigencia actual </label>
+							<input type="text" class="form-control precio" name="valor_estimado_actualVigencia">
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  		<label>¿Se requieren vigencias futuras?</label>
+							<select class="form-control" name="vigencias_futuras">
+								<option value="" >Selecionar</option>
+								<option value="Si" >Si</option>
+								<option value="No" >No</option>
+							</select>
+				  </div>
 				</div>
-		  </div>
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			    	<label>Valor estimado en la vigencia actual </label>
-					<input type="text" class="form-control precio" name="precio_proyecto">
-				</div>
-		  </div>
-		  <div class="col-xs-6 col-sm-4">
-		  		<label>¿Se requieren vigencias futuras?</label>
-				<select class="form-control" name="idPresupuesto_M">
-					<option value="">Seleccionar</option>
-				</select>
-		  </div>
-		</div>
 
-		<div class="row">
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			    	<label>Estado de solicitud de vigencias futuras </label>
-					<select class="form-control" name="idPresupuesto_M">
-						<option value="">Seleccionar</option>
-					</select>
+				<div class="row">
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					    	<label>Estado de solicitud de vigencias futuras </label>
+							<select class="form-control" name="estado_solicitud">
+								<option value="">Seleccionar</option>
+								<option value="NO SOLICITADAS">NO SOLICITADAS</option>
+								<option value="SI SOLICITADAS">SI SOLICITADAS</option>
+								<option value="N/A">N/A</option>
+							</select>
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					    	<label>Estudio de  conveniencia </label><br><br>
+							<input type="text" class="form-control precio" name="estudio_conveniencia">
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  		<label> Fecha estimada de inicio de proceso de selección</label>
+						<input type="text" class="form-control precio" name="fecha_inicio">
+				  </div>
 				</div>
-		  </div>
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			    	<label>Estudio de  conveniencia </label>
-					<input type="text" class="form-control precio" name="precio_proyecto">
-				</div>
-		  </div>
-		  <div class="col-xs-6 col-sm-4">
-		  		<label> Fecha estimada de inicio de proceso de selección</label>
-				<input type="text" class="form-control precio" name="precio_proyecto">
-		  </div>
-		</div>
 
-		<div class="row">
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			    	<label>Fecha suscripción Contrato </label>
-					<input type="text" class="form-control precio" name="precio_proyecto">
+				<div class="row">
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					    	<label>Fecha suscripción Contrato </label>
+							<input type="text" class="form-control precio" name="fecha_suscripcion">
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					    	<label>Duración estimada del contrato (meses)</label>
+							<input type="text" class="form-control precio" name="duracion_estimada">
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  		<label>Meta plan</label>
+						<input type="text" class="form-control precio" name="meta_plan">
+				  </div>
 				</div>
-		  </div>
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			    	<label>Duración estimada del contrato (meses)</label>
-					<input type="text" class="form-control precio" name="precio_proyecto">
-				</div>
-		  </div>
-		  <div class="col-xs-6 col-sm-4">
-		  		<label>Meta plan</label>
-				<input type="text" class="form-control precio" name="precio_proyecto">
-		  </div>
-		</div>
 
-		<div class="row">
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			    	<label>Recurso Humano </label>
-					<input type="text" class="form-control precio" name="precio_proyecto">
+				<div class="row">
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					    	<label>Recurso Humano </label>
+							<input type="text" class="form-control precio" name="recurso_humano">
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					    	<label>Numero de Contratistas</label>
+							<input type="text" class="form-control precio" name="numero_contratista">
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					  		<label>Datos de contacto del responsable</label>
+							<input type="text" class="form-control precio" name="datos_contacto">
+						</div>
+				  </div>
 				</div>
-		  </div>
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			    	<label>Numero de Contratistas</label>
-					<input type="text" class="form-control precio" name="precio_proyecto">
-				</div>
-		  </div>
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			  		<label>Datos de contacto del responsable</label>
-					<input type="text" class="form-control precio" name="precio_proyecto">
-				</div>
-		  </div>
-		</div>
 
-		<div class="row">
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			    	<label>Proyecto de inversión o rubro de funcionamiento </label>
-					<select class="form-control" name="idPresupuesto_M">
-						<option value="">Seleccionar</option>
-					</select>
-				</div>
-		  </div>
-		  <div class="col-xs-6 col-sm-4">
-		  		<div class="form-group">
-			    	<label>Componente</label>
-					<select class="form-control" name="idPresupuesto_M">
-						<option value="">Seleccionar</option>
-					</select>
-				</div>
-		  </div>
-		  <div class="col-xs-6 col-sm-4">
-		  </div>
+				<div class="row">
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					    	<label>Proyecto de inversión o rubro de funcionamiento </label>
+							<select class="form-control" name="proyecto_inversion">
+								<option value="" >Selecionar</option>
+								@foreach($rubros as $rubro)
+									<option value="{{ $rubro['Id'] }}" >{{ $rubro['Nombre'] }}</option>
+							    @endforeach
+							</select>
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-8">
+				  		<div class="form-group">
+					    	<label>Componente</label><br><br>
+							<select class="form-control" name="componnente">
+								<option value="" >Selecionar</option>
+								@foreach($componentes as $componente)
+									<option value="{{ $componente['Id'] }}" >{{ $componente['Nombre'] }}</option>
+							    @endforeach
+							</select>
+						</div>
+				  </div>
+			
 		</div>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success">Crear</button>
+        <button  type="submit" class="btn btn-success">Crear</button>
       </div>
+     </form>
+
     </div>
   </div>
 </div>
