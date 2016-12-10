@@ -3,7 +3,7 @@ $(function()
   
   var URL = $('#main_paa_').data('url');
 
-  $('#TablaPAA').DataTable( {responsive: true,
+  var t = $('#TablaPAA').DataTable( {responsive: true,
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf']
@@ -21,50 +21,81 @@ $(function()
 	  $('#myInput').focus()
 	})
 
+  $('input[data-role="datepicker"]').datepicker({
+      dateFormat: 'yy-mm-dd',
+      yearRange: "-100:+0",
+      changeMonth: true,
+      changeYear: true,
+    });
+
  $('#form_paa').on('submit', function(e){
-  alert("fdasf");
-      $.post(URL+'/validar/paa/',$(this).serialize(),function(data){
+  
+      $.post(
+        URL+'/validar/paa',
+        $(this).serialize(),
+        function(data){
           if(data.status == 'error')
           {
          
               validad_error(data.errors);
          
           } else {
+
+              validad_error(data.errors);
               console.log(data);
               if(data.status == 'modelo')
               {
-                  var datos=data.presupuesto;
                   document.getElementById("form_paa").reset();                
-                  $("#div_Tabla3").show();
                   var num=1;
                   t.clear().draw();
-                  $.each(datos, function(i, e){
+                  $.each(data.datos, function(i, e){
                       t.row.add( [
                           '<th scope="row" class="text-center">'+num+'</th>',
-                          '<td><h4>'+e['Nombre_Actividad']+'<h4></td>',
-                          '<td>'+e['fecha_fin']+'</td>',
-                          '<td>'+e['fecha_inicio']+'</td>',
-                          '<td>'+e['presupuesto']+'</td>',
-                          '<td><div class="btn-group btn-group-justified">'+
+                          '<td>'+e['Registro']+'</td>',
+                          '<td>'+e['CodigosU']+'</td>',
+                          '<td>'+e.modalidad['Nombre']+'</td>',
+                          '<td>'+e.tipocontrato['Nombre']+'</td>',
+                          '<td>'+e['ObjetoContractual']+'</td>',
+                          '<td>'+e['FuenteRecurso']+'</td>',
+                          '<td>'+e['ValorEstimado']+'</td>',
+                          '<td>'+e['ValorEstimadoVigencia']+'</td>',
+                          '<td>'+e['VigenciaFutura']+'</td>',
+                          '<td>'+e['EstadoVigenciaFutura']+'</td>',
+                          '<td>'+e['FechaEstudioConveniencia']+'</td>',
+                          '<td>'+e['FechaInicioProceso']+'</td>',
+                          '<td>'+e['FechaSuscripcionContrato']+'</td>',
+                          '<td>'+e['DuracionContrato']+'</td>',
+                          '<td>'+e['MetaPlan']+'</td>',
+                          '<td>'+e['RecursoHumano']+'</td>',
+                          '<td>'+e['NumeroContratista']+'</td>',
+                          '<td>'+e['DatosResponsable']+'</td>',
+                          '<td>'+e.rubro['Nombre']+'</td>',
+
+                          '<td>'+
+                            '<div class="btn-group btn-group-justified">'+
                               '<div class="btn-group">'+
-                              '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                '<button type="button" data-rel="" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                               '</div>'+
                               '<div class="btn-group">'+
-                              '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                '<button type="button" data-rel="" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                               '</div>'+
+                              '<div class="btn-group">'+
+                                '<button type="button" data-rel="" data-funcion="ver_upd" class="btn btn-primary  btn-xs"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
                               '</div>'+
-                              '<div id="espera'+e['Id']+'"></div>'+
+                            '</div>'+
+                            '<div id=""></div>'+
                           '</td>'
+
+                        
                       ] ).draw( false );
                       num++;
 
                   });
-                  $('#mensaje_presupuesto').show();
+                  $('#mjs_registroPaa').html(' <strong>Registro Exitoso!</strong> Se realizo el resgistro de su PAA.');
+                  $('#mjs_registroPaa').show();
                   setTimeout(function(){
-                      $('#mensaje_presupuesto').hide();
-                      $("#id_btn_presupuesto").html('Registrar');
-                      $("#id_btn_presup_canc").hide();
-                  }, 2000)
+                      $('#mjs_registroPaa').hide();
+                  }, 3000)
               }else{
                   $('#mensaje_presupuesto2').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
                   $('#mensaje_presupuesto2').show();

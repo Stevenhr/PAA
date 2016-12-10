@@ -30,8 +30,12 @@ class Paa extends Model
 	'NumeroContratista',
 	'DatosResponsable',
 	'Id_ProyectoRubro',
+	'Id_Componente',
+	'IdPersona',
 	'Estado',
-	'IdPersona'];
+	'IdPersonaObservo',
+	'EsatdoObservo',
+	'Observacion'];
 	protected $connection = ''; 
 
 	 public function modalidad()

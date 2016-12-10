@@ -8,7 +8,7 @@
 
 @section('content') 
         
-            <div class="content" id="main_paa_configuracion" class="row" data-url="paa" >
+            <div class="content" id="main_paa_configuracion" class="row" data-url="configuracionPaa" >
             	
             	<div class="btn-group btn-group-justified">
 					  <a href="#" class="btn btn-primary" id="Presupuesto" data-role="Presupuesto">Presupuesto</a>

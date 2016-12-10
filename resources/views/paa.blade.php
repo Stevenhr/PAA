@@ -49,6 +49,7 @@
 					      		<table id="TablaPAA"  class="display nowrap" width="100%" cellspacing="0">
 						        <thead>
 						            <tr>
+						                <th>N°</th>
 						                <th>Id Registro</th>
 										<th>Códigos UNSPSC</th>
 										<th>Modalidad de selección</th>
@@ -73,6 +74,7 @@
 						        </thead>
 						        <tfoot>
 						            <tr>
+						            	<th>N°</th>
 						                <th>Id Registro</th>
 										<th>Códigos UNSPSC</th>
 										<th>Modalidad de selección</th>
@@ -96,26 +98,29 @@
 						            </tr>
 						        </tfoot>
 						        <tbody id="registros_actividades_responsable">
+						        	<?php $var=1; ?>
+						        	@foreach($paas as $paa)						    
 			        						<tr>
-			        						<th scope="row" class="text-center"></th>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
-					                        <td></td>
+			        						<th scope="row" class="text-center">{{$var}}</th>
+					                        <td>{{$paa['Registro']}}</td>
+					                        <td>{{$paa['CodigosU']}}</td>
+					                        <td>{{$paa->modalidad['Nombre']}}</td>
+					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
+					                        <td>{{$paa['ObjetoContractual']}}</td>
+					                        <td>{{$paa['FuenteRecurso']}}</td>
+					                        <td>{{$paa['ValorEstimado']}}</td>
+					                        <td>{{$paa['ValorEstimadoVigencia']}}</td>
+					                        <td>{{$paa['VigenciaFutura']}}</td>
+					                        <td>{{$paa['EstadoVigenciaFutura']}}</td>
+					                        <td>{{$paa['FechaEstudioConveniencia']}}</td>
+					                        <td>{{$paa['FechaInicioProceso']}}</td>
+					                        <td>{{$paa['FechaSuscripcionContrato']}}</td>
+					                        <td>{{$paa['DuracionContrato']}}</td>
+					                        <td>{{$paa['MetaPlan']}}</td>
+					                        <td>{{$paa['RecursoHumano']}}</td>
+					                        <td>{{$paa['NumeroContratista']}}</td>
+					                        <td>{{$paa['DatosResponsable']}}</td>
+					                        <td>{{$paa->rubro['Nombre']}}</td>
 					                        <td>
 												<div class="btn-group btn-group-justified">
 												  <div class="btn-group">
@@ -131,6 +136,8 @@
 												<div id=""></div>
 					                        </td>
 					                        </tr>
+					                        <?php $var++; ?>
+					                @endforeach
 						        </tbody>
 						    </table>
 						
@@ -147,27 +154,30 @@
       </div>
       <div class="modal-body">
         <form id="form_paa">
+        		<input type="hidden" class="form-control" name="id_Paa" value="0">
 		        <div class="row">
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Id Registro </label>
-							<input type="text" class="form-control precio" name="id_registro">
+							<input type="text" class="form-control" name="id_registro">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Códigos UNSPSC </label>
-							<input type="text" class="form-control precio" name="codigo_Unspsc">
+							<input type="text" class="form-control" name="codigo_Unspsc">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
-				  		<label>Modalidad de selección</label>
-						<select class="form-control" name="modalidad_seleccion">
-								<option value="" >Selecionar</option>
-								@foreach($modalidades as $modalidad)
-									<option value="{{ $modalidad['Id'] }}" >{{ $modalidad['Nombre'] }}</option>
-							    @endforeach
-						</select>
+				  		<div class="form-group">
+					  		<label>Modalidad de selección</label>
+							<select class="form-control" name="modalidad_seleccion">
+									<option value="" >Selecionar</option>
+									@foreach($modalidades as $modalidad)
+										<option value="{{ $modalidad['Id'] }}" >{{ $modalidad['Nombre'] }}</option>
+								    @endforeach
+							</select>
+						</div>
 				  </div>
 				</div>
 
@@ -190,8 +200,10 @@
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
-				  		<label>Fuente de los recursos (Nombre de la Fuente (s))</label>
-						<input type="text" class="form-control precio" name="fuente_recurso">
+				  		<div class="form-group">
+					  		<label>Fuente de los recursos (Nombre de la Fuente (s))</label>
+							<input type="text" class="form-control" name="fuente_recurso">
+						</div>
 				  </div>
 				</div>
 
@@ -199,22 +211,24 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Valor total estimado </label>
-							<input type="text" class="form-control precio" name="valor_estimado">
+							<input type="text" class="form-control" name="valor_estimado">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Valor estimado en la vigencia actual </label>
-							<input type="text" class="form-control precio" name="valor_estimado_actualVigencia">
+							<input type="text" class="form-control" name="valor_estimado_actualVigencia">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
-				  		<label>¿Se requieren vigencias futuras?</label>
+				  		<div class="form-group">	
+				  			<label>¿Se requieren vigencias futuras?</label>
 							<select class="form-control" name="vigencias_futuras">
 								<option value="" >Selecionar</option>
 								<option value="Si" >Si</option>
 								<option value="No" >No</option>
 							</select>
+						</div>
 				  </div>
 				</div>
 
@@ -233,12 +247,14 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Estudio de  conveniencia </label><br><br>
-							<input type="text" class="form-control precio" name="estudio_conveniencia">
+							<input type="text" class="form-control" name="estudio_conveniencia">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
-				  		<label> Fecha estimada de inicio de proceso de selección</label>
-						<input type="text" class="form-control precio" name="fecha_inicio">
+				  		<div class="form-group">
+					  		<label> Fecha estimada de inicio de proceso de selección</label>
+							<input type="text" class="form-control" name="fecha_inicio"  data-role="datepicker">
+						</div>
 				  </div>
 				</div>
 
@@ -246,18 +262,20 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Fecha suscripción Contrato </label>
-							<input type="text" class="form-control precio" name="fecha_suscripcion">
+							<input type="text" class="form-control" name="fecha_suscripcion"  data-role="datepicker">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Duración estimada del contrato (meses)</label>
-							<input type="text" class="form-control precio" name="duracion_estimada">
+							<input type="text" class="form-control" name="duracion_estimada">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
-				  		<label>Meta plan</label>
-						<input type="text" class="form-control precio" name="meta_plan">
+				  		<div class="form-group">
+					  		<label>Meta plan</label>
+							<input type="text" class="form-control" name="meta_plan">
+						</div>
 				  </div>
 				</div>
 
@@ -265,19 +283,19 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Recurso Humano </label>
-							<input type="text" class="form-control precio" name="recurso_humano">
+							<input type="text" class="form-control" name="recurso_humano">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Numero de Contratistas</label>
-							<input type="text" class="form-control precio" name="numero_contratista">
+							<input type="text" class="form-control" name="numero_contratista">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					  		<label>Datos de contacto del responsable</label>
-							<input type="text" class="form-control precio" name="datos_contacto">
+							<input type="text" class="form-control" name="datos_contacto">
 						</div>
 				  </div>
 				</div>
@@ -309,6 +327,7 @@
 		</div>
       </div>
       <div class="modal-footer">
+        <div id="mjs_registroPaa" class="alert alert-success" style="display: none"></div>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
         <button  type="submit" class="btn btn-success">Crear</button>
       </div>
