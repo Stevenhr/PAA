@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoContratoTablaSeeder::class);
         $this->call(RubroTablaSeeder::class);
         $this->call(ModalidadTablaSeeder::class);
+        $this->call(FuenteTablaSeeder::class);
     }
 }

@@ -13,10 +13,7 @@ class Actividad extends Model
 	protected $connection = ''; 
 	public $timestamps = false;
 
-	public function componentes()
-    {
-        return $this->hasMany('App\Componente','Id_actividad');
-    }
+	
 
     public function meta()
     {

@@ -54,7 +54,7 @@
 										<th>Códigos UNSPSC</th>
 										<th>Modalidad de selección</th>
 										<th>Tipo de contrato</th>
-										<th>Descripción/Objeto contractual</th>
+										<th>Descripción/Objeto</th>
 										<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
 										<th>Valor total estimado	</th>
 										<th>Valor estimado en la vigencia actual	</th>
@@ -79,7 +79,7 @@
 										<th>Códigos UNSPSC</th>
 										<th>Modalidad de selección</th>
 										<th>Tipo de contrato</th>
-										<th>Descripción/Objeto contractual</th>
+										<th>Descripción/Objeto</th>
 										<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
 										<th>Valor total estimado	</th>
 										<th>Valor estimado en la vigencia actual	</th>
@@ -150,7 +150,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Crear PAA</h4>
+        <h4 class="modal-title" id="myModalLabel">CREAR PAA</h4>
       </div>
       <div class="modal-body">
         <form id="form_paa">
@@ -247,13 +247,13 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Estudio de  conveniencia </label><br><br>
-							<input type="text" class="form-control" name="estudio_conveniencia">
+							<input type="text" class="form-control" name="estudio_conveniencia" data-role="datepicker" placeholder="aa/mm/dd">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					  		<label> Fecha estimada de inicio de proceso de selección</label>
-							<input type="text" class="form-control" name="fecha_inicio"  data-role="datepicker">
+							<input type="text" class="form-control" name="fecha_inicio"  data-role="datepicker" placeholder="aa/mm/dd">
 						</div>
 				  </div>
 				</div>
@@ -262,7 +262,7 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Fecha suscripción Contrato </label>
-							<input type="text" class="form-control" name="fecha_suscripcion"  data-role="datepicker">
+							<input type="text" class="form-control" name="fecha_suscripcion"  data-role="datepicker" placeholder="aa/mm/dd">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
@@ -283,7 +283,11 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Recurso Humano </label>
-							<input type="text" class="form-control" name="recurso_humano">
+							<select class="form-control" name="recurso_humano">
+								<option value="" >Selecionar</option>
+								<option value="Si" >Si</option>
+								<option value="No" >No</option>
+							</select>
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
@@ -301,9 +305,30 @@
 				</div>
 
 				<div class="row">
+				  	<div class="col-xs-12 col-sm-12">
+				  		<div class="form-group">
+					    	<label>Proyecto de inversión o rubro</label>
+							<select class="form-control" name="proyecto_inversion">
+								<option value="" >Selecionar</option>
+								@foreach($rubros as $rubro)
+									<option value="{{ $rubro['Id'] }}" >{{ $rubro['Nombre'] }}</option>
+							    @endforeach
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+				  	<div class="col-xs-12 col-sm-12">
+				  	<hr>
+				  		<h4 class="modal-title" id="myModalLabel">AGREGAR FINANCIACIÓN</h4>
+					</div>
+				</div>
+
+				<div class="row">
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					    	<label>Proyecto de inversión o rubro de funcionamiento </label>
+					    	<label>FUENTES DE FINANCIAMIENTO</label>
 							<select class="form-control" name="proyecto_inversion">
 								<option value="" >Selecionar</option>
 								@foreach($rubros as $rubro)
@@ -312,9 +337,9 @@
 							</select>
 						</div>
 				  </div>
-				  <div class="col-xs-6 col-sm-8">
+				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					    	<label>Componente</label><br><br>
+					    	<label>COMPONENTES DEL GASTO</label>
 							<select class="form-control" name="componnente">
 								<option value="" >Selecionar</option>
 								@foreach($componentes as $componente)
@@ -323,13 +348,26 @@
 							</select>
 						</div>
 				  </div>
-			
-		</div>
+				  <div class="col-xs-6 col-sm-4">
+				  	<div class="form-group">
+					  		<label>Valor</label>
+							<input type="text" class="form-control" name="valor_contrato">
+					</div>
+				  </div>
+				</div>
+
+				<div class="row">
+				  	<div class="col-xs-12 col-sm-12">
+				  		<button type="button" class="btn btn-primary" data-dismiss="modal">Agregar</button>
+        				<button  type="submit" class="btn btn-info">Ver</button>
+				  	<hr>
+					</div>
+				</div>
       </div>
       <div class="modal-footer">
         <div id="mjs_registroPaa" class="alert alert-success" style="display: none"></div>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button  type="submit" class="btn btn-success">Crear</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
+        <button  type="submit" class="btn btn-success">CREAR</button>
       </div>
      </form>
 

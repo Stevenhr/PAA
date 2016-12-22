@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TablaComponente extends Migration
+class TablaFuente extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,13 @@ class TablaComponente extends Migration
     public function up()
     {
         //
-        Schema::create('componente', function (Blueprint $table){
+        Schema::create('fuente', function (Blueprint $table){
             $table->increments('Id');
 
-            $table->string('Nombre');
-            $table->dateTime('fecha_inicio');
-            $table->dateTime('fecha_fin');
+            $table->string('nombre');
             $table->integer('valor');
             $table->string('descripcion');
             $table->string('codigo');
-
-          
-
         });
     }
 
@@ -36,6 +31,6 @@ class TablaComponente extends Migration
     public function down()
     {
         //
-        Schema::drop('componente');
+        Schema::drop('fuente');
     }
 }

@@ -15,13 +15,12 @@
 					  <a href="#" class="btn btn-primary" id="Proyecto">Proyecto</a>
 					  <a href="#" class="btn btn-primary" id="Meta">Meta</a>
 					  <a href="#" class="btn btn-primary" id="Actividad">Actividad</a>
-					  <a href="#" class="btn btn-primary" id="Componente">Componente</a>
+					  <a href="#" class="btn btn-primary" id="Componente">Crear Componente</a>
+					  <a href="#" class="btn btn-primary" id="Componente_Conf">Configurar Componente</a>
 				</div>
-				
 				
 				<br>
 				
-
 				<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PRESUPUESTO  %%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 				<div id="Presupuesto_dv" style="display:none;">
 					
@@ -664,13 +663,131 @@
 	                <p class="text-justify">Registro de componente.</p>
 			        <br>
 
+			        <form id="form_componente_crear">
+					<div id="div_form_componente_crear"><br></div>
+				        
+						<div class="row" >
+							<div class="col-xs-12 col-md-4">
+			        			<div class="form-group">
+			        				<label>Codigo</label>
+									<input type="text" class="form-control precio" name="codigo_componente">
+								</div>
+			        		</div>
+						    <div class="col-xs-12 col-md-4">
+						    	<div class="form-group">	
+						    		<label>Nombre Componente</label>
+						    		<input type="hidden" class="form-control" name="Id_componente_crear" value="0">
+									<input type="text" class="form-control" name="nombre_componente">
+								</div>
+			        		</div>
+						    <div class="col-xs-12 col-md-4">
+						    	<div class="form-group">
+						    		<label>Fuente de Financiamiento</label>
+									<input type="hidden" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_componente" value="0000-00-00">
+									<select class="form-control" name="idFuenteF_C">
+											<option value="">Seleccionar</option>
+										@foreach($fuentes as $fuente)
+											<option value="{{ $fuente['Id'] }}" >{{ $fuente['nombre'] }}</option>
+									    @endforeach
+									</select>
+								</div>
+			        		</div>
+						</div>
+
+						<div class="row">
+						    <div class="col-xs-12 col-md-4">
+			        		</div>
+						    <div class="col-xs-12 col-md-4 text-center"><br>
+						    		<div class="alert alert-success" style="display:none;" id="mensaje_componente_crear"></div>
+						    		<div class="alert alert-danger" style="display:none;" id="mensaje_componente2_crear"></div>
+									<button class="btn btn-primary" type="submit" id="id_btn_componente_crear">Registrar</button>
+									<button class="btn btn-danger" type="submit" id="id_btn_componente_canc_crear" style="display:none;">Cancelar</button>
+			        		</div>
+			        		<div class="col-xs-12 col-md-4">
+			        		</div>
+						</div>
+					</form>
+
+	            	<br>
+
+            			<div class="row">
+            				<div class="col-xs-12 col-md-12">
+			            		<hr><hr>
+					        </div>
+            			    <div class="col-xs-12 col-md-12">
+			            		<h5>Listado de Metas:</h5>
+					        </div>
+						    <div class="col-xs-12 col-md-12">
+						    	<div class="table-responsive" id="div_Tabla8">
+							      		<table id="Tabla8" class="display" width="100%" cellspacing="0">
+								        <thead>
+								            <tr>
+								                <th class="text-center">N°</th>
+								                <th>Codigo</th>
+								                <th>Componente</th>
+								                <th>Fuente</th>
+								                <th>Opción</th>
+								            </tr>
+								        </thead>
+								        <tfoot>
+								            <tr>
+								            	<th class="text-center">N°</th>
+								                <th>Codigo</th>
+								                <th>Componente</th>
+								                <th>Fuente</th>
+								                <th>Opción</th>
+								            </tr>
+								        </tfoot>
+								        <tbody i>
+								        		<?php $var=1; ?>
+
+								        		@foreach($componentes as $componente)
+								        			<tr>
+												    	<th scope="row" class="text-center">{{ $var }}</th>
+												        <td scope="row">{{ $componente['codigo'] }}</td>
+												        <td scope="row">{{ $componente['Nombre'] }}</td>
+												        <td scope="row">{{ $componente->fuente['nombre'] }}</td>
+												        <td>
+															<div class="btn-group btn-group-justified">
+															  <div class="btn-group">
+															    <button type="button" data-rel="{{ $componente['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs">
+															    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+															  </div>
+															  <div class="btn-group">
+															    <button type="button" data-rel="{{ $componente['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+															  </div>
+															</div>
+															<div id="espera_crear{{ $componente['Id'] }}"></div>
+								                        </td>
+												    </tr>
+												    <?php $var++; ?>
+					        					@endforeach
+								        </tbody>
+								    </table>
+								</div>
+			        		</div>
+			        		<div class="col-xs-12 col-md-12">
+			            		<hr><hr>
+					        </div>
+						</div>
+		        </div>
+
+
+
+		        <div id="Componente_Conf_dv" style="display:none;">
+		        	<h3>Componente</h3>
+					<hr style="border: 0; border-top: 1px solid #FF0040; height:0;">
+	            	<br>
+	                <p class="text-justify">Registro de componente.</p>
+			        <br>
+
 			        <form id="form_componente">
 					<div id="div_form_componente"><br></div>
 				        
 				        <div class="row" >
 				        	<div class="col-xs-12 col-md-3 text-">
 						    	<div class="form-group">	
-						    		<label>Componente</label>
+						    		<label>Presupuesto</label>
 									<select class="form-control" name="idPresupuesto_C">
 											<option value="">Seleccionar</option>
 										@foreach($presupuesto as $presupuestos)
@@ -711,7 +828,7 @@
 						<div class="row" >
 						    <div class="col-xs-12 col-md-3 text-">
 						    	<div class="form-group">	
-						    		<label>Nombre</label>
+						    		<label>Nombre Componente</label>
 						    		<input type="hidden" class="form-control" name="Id_componente" value="0">
 									<input type="text" class="form-control" name="nombre_componente">
 								</div>
@@ -719,24 +836,30 @@
 
 						    <div class="col-xs-12 col-md-3 ">
 						    	<div class="form-group">
-						    		<label>Fecha inicial de implementación</label>
-									<input type="text" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_componente">
-								</div>
-			        		</div>
-
-						    <div class="col-xs-12 col-md-3 ">
-			        			<div class="form-group">
-			        				<label>Fecha final de implementación</label>
-									<input type="text" class="form-control" data-role="datepicker" name="fecha_final_componente">
+						    		<label>Fuente de Financiamiento</label>
+									<input type="hidden" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_componente" value="0000-00-00">
+									<select class="form-control" name="idFuenteF_C">
+											<option value="">Seleccionar</option>
+										@foreach($presupuesto as $presupuestos)
+											<option value="{{ $presupuestos['Id'] }}" >{{ $presupuestos['Nombre_Actividad'] }}</option>
+									    @endforeach
+									</select>
 								</div>
 			        		</div>
 
 			        		<div class="col-xs-12 col-md-3 ">
 			        			<div class="form-group">
-			        				<label>Valor </label>
-									<input type="text" class="form-control precio" name="precio_componente">
+			        				<label>Codigo</label>
+									<input type="text" class="form-control precio" name="codigo_componente">
 								</div>
 			        		</div>
+
+			        		<div class="col-xs-12 col-md-3 ">
+			        			<div class="form-group">
+			        				<label>Valor</label>
+									<input type="text" class="form-control precio" name="precio_componente">
+								</div>
+			        		</div>		        		
 						</div>
 
 						<div class="row">

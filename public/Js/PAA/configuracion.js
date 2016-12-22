@@ -47,12 +47,14 @@ $(function()
         $('#Meta').removeClass("active");
         $('#Actividad').removeClass("active");
         $('#Componente').removeClass("active");
+        $('#Componente_Conf').removeClass("active");
 
         $('#Presupuesto_dv').show();
         $('#Proyecto_dv').hide();
         $('#Meta_dv').hide();
         $('#Actividad_dv').hide();
         $('#Componente_dv').hide();
+        $('#Componente_Conf_dv').hide();
     });
 
     $('#Proyecto').on('click', function(e){
@@ -61,12 +63,14 @@ $(function()
         $('#Meta').removeClass("active");
         $('#Actividad').removeClass("active");
         $('#Componente').removeClass("active");
+        $('#Componente_Conf').removeClass("active");
 
         $('#Proyecto_dv').show();
         $('#Presupuesto_dv').hide();
         $('#Meta_dv').hide();
         $('#Actividad_dv').hide();
         $('#Componente_dv').hide();
+        $('#Componente_Conf_dv').hide();
     });
 
     $('#Meta').on('click', function(e){
@@ -75,12 +79,14 @@ $(function()
         $('#Proyecto').removeClass("active");
         $('#Actividad').removeClass("active");
         $('#Componente').removeClass("active");
+        $('#Componente_Conf').removeClass("active");
 
         $('#Meta_dv').show();
         $('#Proyecto_dv').hide();
         $('#Presupuesto_dv').hide();
         $('#Actividad_dv').hide();
         $('#Componente_dv').hide();
+        $('#Componente_Conf_dv').hide();
     });
 
     $('#Actividad').on('click', function(e){
@@ -89,12 +95,14 @@ $(function()
         $('#Proyecto').removeClass("active");
         $('#Meta').removeClass("active");
         $('#Componente').removeClass("active");
+        $('#Componente_Conf').removeClass("active");
 
         $('#Actividad_dv').show();
         $('#Presupuesto_dv').hide();
         $('#Meta_dv').hide();
         $('#Proyecto_dv').hide();
         $('#Componente_dv').hide();
+        $('#Componente_Conf_dv').hide();
     });
 
     $('#Componente').on('click', function(e){
@@ -103,12 +111,30 @@ $(function()
         $('#Proyecto').removeClass("active");
         $('#Meta').removeClass("active");
         $('#Actividad').removeClass("active");
+        $('#Componente_Conf').removeClass("active");
 
         $('#Componente_dv').show();
         $('#Presupuesto_dv').hide();
         $('#Meta_dv').hide();
         $('#Proyecto_dv').hide();
         $('#Actividad_dv').hide();
+        $('#Componente_Conf_dv').hide();
+    });
+
+    $('#Componente_Conf').on('click', function(e){
+        $(this).addClass("active");
+        $('#Presupuesto').removeClass("active");
+        $('#Proyecto').removeClass("active");
+        $('#Meta').removeClass("active");
+        $('#Actividad').removeClass("active");
+        $('#Componente').removeClass("active");
+
+        $('#Componente_Conf_dv').show();
+        $('#Presupuesto_dv').hide();
+        $('#Meta_dv').hide();
+        $('#Proyecto_dv').hide();
+        $('#Actividad_dv').hide();
+        $('#Componente_dv').hide();
     });
 
     var t = $('#Tabla3').DataTable({
@@ -1341,6 +1367,146 @@ $(function()
                     return false;
 
     }); 
+
+
+
+    /*############################   CREAR COMPONENTE    ###########################*/
+
+
+    var ttTttt = $('#Tabla8').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+    });
+
+    $('#form_componente_crear').on('submit', function(e){
+        $.post(URL+'/validar/componente_crear',$(this).serialize(),function(data){
+            if(data.status == 'error')
+            {
+                validad_error8(data.errors);
+            }
+            else 
+            {
+                validad_error8(data.errors);
+                if(data.status == 'modelo')
+                {
+                    var datos=data.componentes;
+                    document.getElementById("form_componente_crear").reset();
+                    $("#div_Tabla8").show();
+                    var num=1;
+                    ttTttt.clear().draw();
+                    $.each(datos, function(i, e){
+                        
+                            ttTttt.row.add([
+                                '<th scope="row" class="text-center">'+num+'</th>',
+                                '<td>'+e['codigo']+'</td>',
+                                '<td>'+e['Nombre']+'</td>',
+                                '<td>'+e.fuente['nombre']+'</td>',
+                                '<td><div class="btn-group btn-group-justified">'+
+                                    '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '</div>'+
+                                    '<div id="espera_crear'+e['Id']+'"></div>'+
+                                '</td>'
+                            ]).draw(false);
+                            num++;
+                        
+                    });
+                    $('#mensaje_componente_crear').html('<strong>Bien!</strong> Registro creado con exíto.');
+                    $('#mensaje_componente_crear').show();
+                    setTimeout(function(){
+                        $('#mensaje_componente_crear').hide();
+                        $("#id_btn_componente_crear").html('Registrar');
+                        $("#id_btn_componente_canc_crear").hide();
+                    }, 2000)
+                    $('input[name="Id_componente_crear"]').val('0');
+                }else{
+                    $('#mensaje_componente2_crear').html('<strong>Error!</strong> el valor del componente que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
+                    $('#mensaje_componente2_crear').show();
+                    setTimeout(function(){
+                        $('#mensaje_componente2_crear').hide();
+                    }, 6000)
+                }
+            }
+        },'json');
+        e.preventDefault();
+    });
+
+
+    var validad_error8 = function(data)
+    {
+        $('#form_componente_crear .form-group').removeClass('has-error');
+        var selector = '';
+        for (var error in data){
+            if (typeof data[error] !== 'function') {
+                switch(error)
+                {
+
+                    case 'codigo_componente':
+                    case 'nombre_componente':
+                        selector = 'input';
+                    break;
+
+                    case 'idFuenteF_C':
+                        selector = 'select';
+                    break;
+                }
+                $('#form_componente_crear '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
+            }
+        }
+    }
+
+
+    $('#Tabla8').delegate('button[data-funcion="ver_eli"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        $("#espera_crear"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/componente_crear/eliminar/'+id,
+            {},
+            function(data)
+            {   
+                    
+                $("#espera_crear"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino la actividad correctamente.</div>');
+                setTimeout(function(){
+                        $("#espera_crear"+id).html('');
+                        var num=1;
+                        ttTttt.clear().draw();
+                        var datos=data.componentes;
+                        $.each(datos, function(i, e){
+                            
+                                ttTttt.row.add([
+                                    '<th scope="row" class="text-center">'+num+'</th>',
+                                    '<td>'+e['codigo']+'</td>',
+                                    '<td>'+e['Nombre']+'</td>',
+                                    '<td>'+e.fuente['nombre']+'</td>',
+                                    '<td><div class="btn-group btn-group-justified">'+
+                                        '<div class="btn-group">'+
+                                        '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                        '</div>'+
+                                        '<div class="btn-group">'+
+                                        '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '<div id="espera_crear'+e['Id']+'"></div>'+
+                                    '</td>'
+                                ]).draw(false);
+                                num++;
+                            
+                        });
+                }, 2000)
+                    
+            }
+        );
+    }); 
+
 
 
 });

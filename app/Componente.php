@@ -9,14 +9,14 @@ class Componente extends Model
     //
     protected $table = 'componente';
 	protected $primaryKey = 'Id';
-	protected $fillable = ['Id_actividad','Nombre','fecha_inicio','fecha_fin','valor','descripcion'];
+	protected $fillable = ['Nombre','fecha_inicio','fecha_fin','valor','descripcion','codigo','Id_fuente'];
 	protected $connection = ''; 
 	public $timestamps = false;
 
 
-	public function actividad()
+	public function fuente()
     {
-        return $this->belongsTo('App\Actividad','Id_actividad');
+        return $this->belongsTo('App\Fuente','Id_fuente');
     }
 
 }

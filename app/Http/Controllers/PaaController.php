@@ -10,6 +10,7 @@ use App\Proyecto;
 use App\Meta;
 use App\Actividad;
 use App\Componente;
+use App\Fuente;
 
 class PaaController extends Controller
 {
@@ -17,8 +18,13 @@ class PaaController extends Controller
     public function index()
 	{
 		$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades.componentes')->get();
+		$fuente = Fuente::all();
+		$componente = Componente::with('fuente')->get();
+
         $datos = [        
-            'presupuesto' => $presupuesto
+            'presupuesto' => $presupuesto,
+            'fuentes'=>$fuente,
+            'componentes'=>$componente            
         ];
 
 		return view('configuracionPAA',$datos);
@@ -695,6 +701,60 @@ class PaaController extends Controller
 		$Actividad = Componente::with('actividad','actividad.meta','actividad.meta.proyecto','actividad.meta.proyecto.presupuesto')->find($id);
 		return response()->json($Actividad);
 	}
+
+
+
+
+	//%%%%%%%%%%%%%%%%%%%%%%%%%%%   CREAR COMPONENTE
+
+
+	public function validar_componente_Crear(Request $request)
+	{
+		$validator = Validator::make($request->all(),
+		    [
+	            'codigo_componente' => 'required',
+	            'nombre_componente' => 'required',
+				'idFuenteF_C' => 'required'			
+        	]
+        );
+
+           if ($validator->fails())
+            return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+
+        	if($request->input('Id_componente_crear') == '0'){
+        		return $this->guardar_Componente_Crear($request->all());
+        	}
+        	else{
+        		return $this->modificar_Componente($request->all());	
+        	}
+	}
+
+	public function guardar_Componente_Crear($input)
+	{
+		$model_A = new Componente;
+		return $this->crear_Componente_crear($model_A, $input);
+	}
+
+	public function crear_Componente_crear($model, $input)
+	{
+			$model['codigo'] = $input['codigo_componente'];
+			$model['Nombre'] = $input['nombre_componente'];
+			$model['Id_fuente'] = $input['idFuenteF_C'];
+			$model->save();
+			$componente = Componente::with('fuente')->get();
+			return response()->json(array('status' => 'modelo', 'componentes' => $componente));
+	}
+
+	public function eliminar_componente_crear(Request $request, $id)
+	{
+		
+			$Componente = Componente::find($id);
+			$Componente->delete();
+			$componente = Componente::with('fuente')->get();
+			return response()->json(array('status' => 'modelo', 'componentes' => $componente));
+		
+	}
+
 
 
 
