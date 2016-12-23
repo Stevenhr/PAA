@@ -670,21 +670,21 @@
 							<div class="col-xs-12 col-md-4">
 			        			<div class="form-group">
 			        				<label>Codigo</label>
-									<input type="text" class="form-control precio" name="codigo_componente">
+									<input type="text" class="form-control precio" name="codigo_componente_crear">
 								</div>
 			        		</div>
 						    <div class="col-xs-12 col-md-4">
 						    	<div class="form-group">	
 						    		<label>Nombre Componente</label>
 						    		<input type="hidden" class="form-control" name="Id_componente_crear" value="0">
-									<input type="text" class="form-control" name="nombre_componente">
+									<input type="text" class="form-control" name="nombre_componente_crear">
 								</div>
 			        		</div>
 						    <div class="col-xs-12 col-md-4">
 						    	<div class="form-group">
 						    		<label>Fuente de Financiamiento</label>
 									<input type="hidden" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_componente" value="0000-00-00">
-									<select class="form-control" name="idFuenteF_C">
+									<select class="form-control" name="idFuenteF_C" id="idFuenteF_C">
 											<option value="">Seleccionar</option>
 										@foreach($fuentes as $fuente)
 											<option value="{{ $fuente['Id'] }}" >{{ $fuente['nombre'] }}</option>
@@ -830,27 +830,13 @@
 						    	<div class="form-group">	
 						    		<label>Nombre Componente</label>
 						    		<input type="hidden" class="form-control" name="Id_componente" value="0">
-									<input type="text" class="form-control" name="nombre_componente">
-								</div>
-			        		</div>
-
-						    <div class="col-xs-12 col-md-3 ">
-						    	<div class="form-group">
-						    		<label>Fuente de Financiamiento</label>
 									<input type="hidden" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_componente" value="0000-00-00">
-									<select class="form-control" name="idFuenteF_C">
+									<select class="form-control" name="nombre_componente" id="nombre_componente">
 											<option value="">Seleccionar</option>
-										@foreach($presupuesto as $presupuestos)
-											<option value="{{ $presupuestos['Id'] }}" >{{ $presupuestos['Nombre_Actividad'] }}</option>
-									    @endforeach
+											@foreach($componentes as $componente)
+											  <option value="{{ $componente['Id'] }}" >{{ $componente['Nombre'] }}</option>
+										    @endforeach
 									</select>
-								</div>
-			        		</div>
-
-			        		<div class="col-xs-12 col-md-3 ">
-			        			<div class="form-group">
-			        				<label>Codigo</label>
-									<input type="text" class="form-control precio" name="codigo_componente">
 								</div>
 			        		</div>
 
@@ -859,7 +845,13 @@
 			        				<label>Valor</label>
 									<input type="text" class="form-control precio" name="precio_componente">
 								</div>
-			        		</div>		        		
+			        		</div>	
+
+						    <div class="col-xs-12 col-md-3 ">
+			        		</div>
+
+			        		<div class="col-xs-12 col-md-3 ">
+			        		</div>        		
 						</div>
 
 						<div class="row">
@@ -868,8 +860,8 @@
 						    <div class="col-xs-12 col-md-4 text-center"><br>
 						    		<div class="alert alert-success" style="display:none;" id="mensaje_componente"></div>
 						    		<div class="alert alert-danger" style="display:none;" id="mensaje_componente2"></div>
-									<button class="btn btn-primary" type="submit" id="id_btn_componente">Registrar</button>
-									<button class="btn btn-danger" type="submit" id="id_btn_componente_canc" style="display:none;">Cancelar</button>
+									<button class="btn btn-primary" type="submit" id="id_btn_componente_crear">Registrar</button>
+									<button class="btn btn-danger" type="submit" id="id_btn_componente_canc_crear" style="display:none;">Cancelar</button>
 			        		</div>
 			        		<div class="col-xs-12 col-md-4">
 			        		</div>

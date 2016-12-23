@@ -20,4 +20,13 @@ class Actividad extends Model
         return $this->belongsTo('App\Meta','Id_meta');
     }
 
+
+    public function componentes()
+    {
+        return $this->belongsToMany('\App\Componente','actividadComponente')
+            ->withPivot('componente_id','estado');
+    }
+
+    
+
 }

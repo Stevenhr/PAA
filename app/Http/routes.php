@@ -55,6 +55,7 @@ Route::get('/configuracionPaa/componente/modificar/{id}', 'PaaController@modific
 
 Route::post('/configuracionPaa/validar/componente_crear/', 'PaaController@validar_componente_Crear');
 Route::get('/configuracionPaa/componente_crear/eliminar/{id}', 'PaaController@eliminar_componente_crear');
+Route::get('/configuracionPaa/componente_crear/modificar/{id}', 'PaaController@modificar_componente_crear');
 
 Route::post('/paa/validar/paa/', 'PlanAnualAController@validar_paa');
 

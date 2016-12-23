@@ -1223,7 +1223,6 @@ $(function()
                     case 'precio_componente':
                     case 'fecha_final_componente':
                     case 'fecha_inicial_componente':
-                    case 'nombre_componente':
                         selector = 'input';
                     break;
 
@@ -1231,6 +1230,7 @@ $(function()
                     case 'idMeta_C':
                     case 'idProyecto_C':
                     case 'idPresupuesto_C':
+                    case 'nombre_componente':
                         selector = 'select';
                     break;
                 }
@@ -1450,8 +1450,8 @@ $(function()
                 switch(error)
                 {
 
-                    case 'codigo_componente':
-                    case 'nombre_componente':
+                    case 'codigo_componente_crear':
+                    case 'nombre_componente_crear':
                         selector = 'input';
                     break;
 
@@ -1474,7 +1474,7 @@ $(function()
             function(data)
             {   
                     
-                $("#espera_crear"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino la actividad correctamente.</div>');
+                $("#espera_crear"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino el componente correctamente.</div>');
                 setTimeout(function(){
                         $("#espera_crear"+id).html('');
                         var num=1;
@@ -1505,6 +1505,63 @@ $(function()
                     
             }
         );
+    }); 
+
+
+
+    $('#Tabla8').delegate('button[data-funcion="ver_upd"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        $("#espera_crear"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/componente_crear/modificar/'+id,
+            {},
+            function(data)
+            {   
+
+                $("#espera_crear"+id).html("");
+
+                $('input[name="Id_componente_crear"]').val(data.Id);
+
+                var z = document.getElementById("idFuenteF_C");
+                var option2 = document.createElement("option");
+                option2.text = data.fuente.nombre;
+                option2.value = data.fuente.Id;
+                z.add(option2);
+                $('#idFuenteF_C > option[value="'+data.fuente.Id+'"]').attr('selected', 'selected');
+
+                $('input[name="nombre_componente_crear"]').val(data.Nombre);
+                $('input[name="codigo_componente_crear"]').val(data.codigo);
+         
+                $("#id_btn_componente_crear").html('Modificar');
+                $("#id_btn_componente_canc_crear").show();
+                $("#div_Tabla8").hide();
+
+                $('html,body').animate({
+                    scrollTop: $("#main_paa_configuracion").offset().top
+                }, 1000);
+                $( "#div_form_componente" ).toggle( "highlight");            
+            }
+        );
+    });
+
+
+    $('#id_btn_componente_canc_crear').on('click', function(e){
+          
+                    $('input[name="Id_componente_crear"]').val('0');
+         
+                    $('input[name="nombre_componente_crear"]').val('');
+                    $('input[name="codigo_componente_crear"]').val('');
+                    $('select[name="idFuenteF_C"]').val('');
+
+                    $("#id_btn_componente_crear").html('Registrar');
+                    $("#id_btn_componente_canc_crear").hide();
+                    $("#div_Tabla8").show();
+
+                    $('html,body').animate({
+                        scrollTop: $("#Tabla8").offset().top
+                    }, 1000);
+                    return false;
+
     }); 
 
 

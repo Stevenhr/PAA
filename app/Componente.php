@@ -19,4 +19,11 @@ class Componente extends Model
         return $this->belongsTo('App\Fuente','Id_fuente');
     }
 
+    public function actividades()
+    {
+        return $this->belongsToMany('\App\Actividad','actividadComponente')
+            ->withPivot('actividad_id','estado');
+    }
+
+
 }

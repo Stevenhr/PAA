@@ -17,7 +17,7 @@ class PaaController extends Controller
     //
     public function index()
 	{
-		$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades.componentes')->get();
+		$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades')->get();
 		$fuente = Fuente::all();
 		$componente = Componente::with('fuente')->get();
 
@@ -547,11 +547,11 @@ class PaaController extends Controller
 
 	public function eliminar_actividad(Request $request, $id)
 	{
-		$actividad = Actividad::with('componentes')->whereHas('componentes', function($q) use ($id)
+		$actividad =0; /*Actividad::with('componentes')->whereHas('componentes', function($q) use ($id)
 		{
 		    $q->where('Id_actividad', '=', $id);
 
-		})->get();
+		})->get();*/
 
 		if(count($actividad)>0){
 			return response()->json(array('status' => 'error', 'datos' => $actividad));
@@ -587,8 +587,8 @@ class PaaController extends Controller
 				'idMeta_C' => 'required',
 				'idActividad_C' => 'required',
 				'nombre_componente' => 'required',
-				'fecha_inicial_componente' => 'required',
-				'fecha_final_componente' => 'required',
+				//'fecha_inicial_componente' => 'required',
+				//'fecha_final_componente' => 'required',
 				'precio_componente' => 'required',
         	]
         );
@@ -612,6 +612,11 @@ class PaaController extends Controller
 
 	public function crear_Componente($model, $input)
 	{
+		
+
+		$activida= Actividad::find($input['idActividad_C']);
+		$activida->componentes()->attach($input['nombre_componente'],['estado'=>true]);
+
 		$componente = Componente::where('Id_actividad',$input['idActividad_C'])->get();
 		$sum_actividad = $componente->sum( 'valor' );
 
@@ -630,7 +635,7 @@ class PaaController extends Controller
 			$model['fecha_fin'] = $input['fecha_final_componente'];
 			$model['valor'] = $valor_nuevMeta;
 			$model->save();
-			$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades.componentes')->get();
+			$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades')->get();
 			return response()->json(array('status' => 'modelo', 'presupuesto' => $presupuesto));
 		}
 		else
@@ -655,7 +660,7 @@ class PaaController extends Controller
 				$model['fecha_fin'] = $input['fecha_final_componente'];
 				$model['valor'] = $input['precio_componente'];
 				$model->save();
-				$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades.componentes')->get();
+				$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades')->get();
 				return response()->json(array('status' => 'modelo', 'presupuesto' => $presupuesto,'mensaje'=>''));
 		}else{
 
@@ -676,7 +681,7 @@ class PaaController extends Controller
 				$model['fecha_fin'] = $input['fecha_final_componente'];
 				$model['valor'] = $input['precio_componente'];
 				$model->save();
-				$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades.componentes')->get();
+				$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades')->get();
 				return response()->json(array('status' => 'modelo', 'presupuesto' => $presupuesto,'mensaje'=>'sobrepasa el presupuesto del proyecto actual que tiene un saldo de'));
 			}else{
 				return response()->json(array('status' => 'Saldo', 'saldo' => $Saldo, 'valorNuevo' => $valor_nuevProyecto,'mensaje'=>' es mayor al presupuesto de la actividad, el saldo de la actividad es'));
@@ -691,7 +696,7 @@ class PaaController extends Controller
 		
 			$Componente = Componente::find($id);
 			$Componente->delete();
-			$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades.componentes')->get();
+			$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades')->get();
 			return response()->json(array('status' => 'modelo', 'presupuesto' => $presupuesto));
 		
 	}
@@ -712,8 +717,8 @@ class PaaController extends Controller
 	{
 		$validator = Validator::make($request->all(),
 		    [
-	            'codigo_componente' => 'required',
-	            'nombre_componente' => 'required',
+	            'codigo_componente_crear' => 'required',
+	            'nombre_componente_crear' => 'required',
 				'idFuenteF_C' => 'required'			
         	]
         );
@@ -725,8 +730,25 @@ class PaaController extends Controller
         		return $this->guardar_Componente_Crear($request->all());
         	}
         	else{
-        		return $this->modificar_Componente($request->all());	
+        		return $this->modificar_Componente_crear2($request->all());	
         	}
+	}
+
+	public function modificar_Componente_crear2($input)
+	{
+		$model_A =  Componente::find($input["Id_componente_crear"]);
+		return $this->update_Componente_crear($model_A, $input);
+	}
+
+	public function update_Componente_crear($model, $input)
+	{
+
+			$model['codigo'] = $input['codigo_componente_crear'];
+			$model['Nombre'] = $input['nombre_componente_crear'];
+			$model['Id_fuente'] = $input['idFuenteF_C'];
+			$model->save();
+			$componente = Componente::with('fuente')->get();
+			return response()->json(array('status' => 'modelo', 'componentes' => $componente));
 	}
 
 	public function guardar_Componente_Crear($input)
@@ -737,8 +759,8 @@ class PaaController extends Controller
 
 	public function crear_Componente_crear($model, $input)
 	{
-			$model['codigo'] = $input['codigo_componente'];
-			$model['Nombre'] = $input['nombre_componente'];
+			$model['codigo'] = $input['codigo_componente_crear'];
+			$model['Nombre'] = $input['nombre_componente_crear'];
 			$model['Id_fuente'] = $input['idFuenteF_C'];
 			$model->save();
 			$componente = Componente::with('fuente')->get();
@@ -755,7 +777,10 @@ class PaaController extends Controller
 		
 	}
 
-
-
+	public function modificar_componente_crear(Request $request, $id)
+	{
+		$Componente = Componente::with('fuente')->find($id);
+		return response()->json($Componente);
+	}
 
 }
