@@ -888,8 +888,6 @@
 								                <th>Meta</th>
 								                <th>Actividad</th>
 								                <th>Nombre Componente</th>
-								                <th>Fecha inicial de implementación</th>
-								                <th>Fecha final de implementación</th>
 								                <th>Presupuesto</th>
 								                <th>Opción</th>
 								            </tr>
@@ -902,8 +900,6 @@
 								                <th>Meta</th>
 								                <th>Actividad</th>
 								                <th>Nombre Componente</th>
-								                <th>Fecha inicial de implementación</th>
-								                <th>Fecha final de implementación</th>
 								                <th>Presupuesto</th>
 								                <th>Opción</th>
 								            </tr>
@@ -931,9 +927,7 @@
 												        						<th scope="row">{{ $meta['Nombre'] }}</th>
 												        						<td>{{ $actividad['Nombre'] }}</td>
 														                        <td><h4>{{ $componente['Nombre'] }}</h4></td>
-														                        <td>{{ $componente['fecha_inicio'] }}</td>
-														                        <td>{{ $componente['fecha_fin'] }}</td>
-														                        <td>{{ $componente['valor'] }}</td>
+														                        <td>{{ $componente->pivot['valor'] }}</td>
 														                        <td>
 																					<div class="btn-group btn-group-justified">
 																					  <div class="btn-group">

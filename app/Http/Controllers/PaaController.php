@@ -613,15 +613,17 @@ class PaaController extends Controller
 	public function crear_Componente($model, $input)
 	{
 		
-
 		$activida= Actividad::find($input['idActividad_C']);
-		$activida->componentes()->attach($input['nombre_componente'],['estado'=>true]);
+		$sum_actividad=0;
+		foreach ($activida->componentes as $componente) {
+		   $sum_actividad=$sum_actividad+$componente->pivot->valor;
+		}
 
-		$componente = Componente::where('Id_actividad',$input['idActividad_C'])->get();
-		$sum_actividad = $componente->sum( 'valor' );
+		
 
-		$actividad = Actividad::find($input['idActividad_C']);
-		$sum_presupuesto = $actividad['valor'];
+		//$componente = Componente::where('Id_actividad',$input['idActividad_C'])->get();
+		//$sum_actividad = $componente->sum( 'valor' );
+		$sum_presupuesto = $activida['valor'];
 
 		$valor_nuevMeta=$input['precio_componente'];
 
@@ -629,13 +631,10 @@ class PaaController extends Controller
 
 		if($valor_nuevMeta<=$Saldo)
 		{
-			$model['Id_actividad'] = $input['idActividad_C'];
-			$model['Nombre'] = $input['nombre_componente'];
-			$model['fecha_inicio'] = $input['fecha_inicial_componente'];
-			$model['fecha_fin'] = $input['fecha_final_componente'];
-			$model['valor'] = $valor_nuevMeta;
-			$model->save();
-			$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades')->get();
+			$activida= Actividad::find($input['idActividad_C']);
+		    $activida->componentes()->attach($input['nombre_componente'],['estado'=>true,'valor'=>$valor_nuevMeta]);
+
+			$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades','proyectos.metas.actividades.componentes')->get();
 			return response()->json(array('status' => 'modelo', 'presupuesto' => $presupuesto));
 		}
 		else

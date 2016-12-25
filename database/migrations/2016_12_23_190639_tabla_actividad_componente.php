@@ -20,6 +20,7 @@ class TablaActividadComponente extends Migration
             $table->foreign('componente_id')->references('Id')->on('componente');
             $table->integer('actividad_id')->unsigned();
             $table->foreign('actividad_id')->references('Id')->on('actividad');
+            $table->integer('valor');
             $table->timestamps();
         });
     }

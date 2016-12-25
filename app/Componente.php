@@ -22,7 +22,7 @@ class Componente extends Model
     public function actividades()
     {
         return $this->belongsToMany('\App\Actividad','actividadComponente')
-            ->withPivot('actividad_id','estado');
+            ->withPivot('actividad_id','estado','valor');
     }
 
 

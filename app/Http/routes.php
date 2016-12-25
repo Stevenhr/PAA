@@ -63,6 +63,9 @@ Route::get('/configuracionPaa/service/presupuesto/{id}', 'PaaController@listadoP
 Route::get('/configuracionPaa/service/meta/{id}', 'PaaController@listadoMetas');
 Route::get('/configuracionPaa/service/actividad/{id}', 'PaaController@listadoActividad');
 
+
+Route::get('/paa/service/fuenteComponente/{id}', 'PlanAnualAController@fuenteComponente');
+
 Route::any('/PresupuestoPAA/', 'PaaController@index');
 Route::any('/', 'MainController@index');
 Route::any('/logout', 'MainController@logout');

@@ -8,6 +8,7 @@ use App\ModalidadSeleccion;
 use App\Rubro;
 use App\TipoContrato;
 use App\Componente;
+use App\Fuente;
 use App\Paa;
 use Validator;
 
@@ -20,6 +21,7 @@ class PlanAnualAController extends Controller
 		$rubro = Rubro::all();
 		$tipoContrato = TipoContrato::all();
 		$componente = Componente::all();
+        $fuente = Fuente::all();
         $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->get();
 
         $datos = [        
@@ -27,6 +29,7 @@ class PlanAnualAController extends Controller
             'rubros' => $rubro,
             'tipoContratos' => $tipoContrato,
             'componentes' => $componente,
+            'fuentes'=>$fuente,
             'paas' => $paa
         ];
 
@@ -56,7 +59,6 @@ class PlanAnualAController extends Controller
                 'numero_contratista' =>'required',
                 'datos_contacto' =>'required',
                 'proyecto_inversion' =>'required',
-                'componnente' =>'required',
             ]
         );
 
@@ -120,6 +122,12 @@ class PlanAnualAController extends Controller
         $model->save();
         $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
+    }
+
+    public function fuenteComponente(Request $request, $id)
+    {
+        $Fuente = Fuente::with('componentes','componentes.actividades.meta.proyecto')->find($id);
+        return response()->json($Fuente->componentes);
     }
 
 }

@@ -329,10 +329,10 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>FUENTES DE FINANCIAMIENTO</label>
-							<select class="form-control" name="proyecto_inversion">
+							<select class="form-control" name="fuente_inversion">
 								<option value="" >Selecionar</option>
-								@foreach($rubros as $rubro)
-									<option value="{{ $rubro['Id'] }}" >{{ $rubro['Nombre'] }}</option>
+								@foreach($fuentes as $fuente)
+									<option value="{{ $fuente['Id'] }}" >{{ $fuente['nombre'] }}</option>
 							    @endforeach
 							</select>
 						</div>
@@ -340,11 +340,8 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>COMPONENTES DEL GASTO</label>
-							<select class="form-control" name="componnente">
+							<select class="form-control" name="componnente" id="componnente">
 								<option value="" >Selecionar</option>
-								@foreach($componentes as $componente)
-									<option value="{{ $componente['Id'] }}" >{{ $componente['Nombre'] }}</option>
-							    @endforeach
 							</select>
 						</div>
 				  </div>
@@ -358,8 +355,13 @@
 
 				<div class="row">
 				  	<div class="col-xs-12 col-sm-12">
-				  		<button type="button" class="btn btn-primary" data-dismiss="modal">Agregar</button>
-        				<button  type="submit" class="btn btn-info">Ver</button>
+				  		<button type="button" class="btn btn-primary" id="agregarFinanciacion">Agregar</button>
+        				<button  type="button" class="btn btn-info">Ver</button>
+					</div>
+					<div class="col-xs-12 col-sm-12">
+        				<div class="form-group"  id="mensaje_actividad" style="display: none;">
+        					<div id="alert_actividad"></div>
+        				</div>
 				  	<hr>
 					</div>
 				</div>

@@ -1152,6 +1152,7 @@ $(function()
                 if(data.status == 'modelo')
                 {
                     var datos=data.presupuesto;
+                    console.log(datos);
                     document.getElementById("form_componente").reset();
                     $('select[name="idPresupuesto_A"]').val('');
                     $('select[name="idProyecto_A"]').val('');
@@ -1170,9 +1171,7 @@ $(function()
                                             '<td>'+eee['Nombre']+'</td>',
                                             '<td>'+eeee['Nombre']+'</td>',
                                             '<td><h4>'+eeeee['Nombre']+'</h4></td>',
-                                            '<td>'+eeeee['fecha_inicio']+'</td>',
-                                            '<td>'+eeeee['fecha_fin']+'</td>',
-                                            '<td>'+eeeee['valor']+'</td>',
+                                            '<td>'+eeeee.pivot['valor']+'</td>',
                                             '<td><div class="btn-group btn-group-justified">'+
                                                 '<div class="btn-group">'+
                                                 '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
