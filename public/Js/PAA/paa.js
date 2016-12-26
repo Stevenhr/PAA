@@ -170,7 +170,7 @@ $(function()
     }
 
 
-    $('select[name="fuente_inversion"]').on('change', function(e){
+    $('select[name="Proyecto_inversion"]').on('change', function(e){
         select_fuente($(this).val());
     });
 
@@ -188,13 +188,17 @@ $(function()
                     {
 
                         var html = '<option value="">Seleccionar</option>';
-                        if(data.length > 0)
-                        {
-                          console.log(data);
-                            $.each(data, function(i, e){
-                                html += '<option value="'+e['Id']+'">'+e['Nombre']+'</option>';
-                            });
-                        }
+                        
+                                      $.each(data.metas, function(i, eee){
+                                          $.each(eee.actividades, function(i, eeee){
+                                              $.each(eeee.componentes, function(i, eeeee){                                         
+                                                  html += '<option value="'+eeeee['Id']+'">'+eeeee['Nombre']+"<b> ACTIVIDAD:</b>"+eeee['Nombre'].toLowerCase()+"<br> FUENTE:"+eeeee.fuente['nombre'].toLowerCase()+'</option>';
+                                              });
+                                          });
+                                      });
+                            
+                              
+                        
                         $('select[name="componnente"]').html(html).val($('select[name="componnente"]').data('value'));
                     }
                 });
@@ -204,10 +208,18 @@ $(function()
   $('#agregarFinanciacion').on('click', function(e)
     {
 
-        var fuente_inversion=$('select[name="fuente_inversion"]').val();
+        var Proyecto_inversion=$('select[name="Proyecto_inversion"]').val();
+        var indice = form_paa.Proyecto_inversion.selectedIndex;
+        var Nom_Proyecto_inversion= form_paa.Proyecto_inversion.options[indice].text ;
+
+
+
         var componnente=$('select[name="componnente"]').val();
+        var indice = form_paa.componnente.selectedIndex;
+        var Nombre_componnente= form_paa.componnente.options[indice].text ;
+
         var valor_contrato = $('input[name="valor_contrato"]').val();
-        if(fuente_inversion===''){
+        if(Proyecto_inversion===''){
           $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe seleccionar un fuente de financiación para poder realizar el registro.</div>');
           $('#mensaje_actividad').show(60);
           $('#mensaje_actividad').delay(2500).hide(600);
@@ -228,11 +240,51 @@ $(function()
                     $('#alert_actividad').html('<div class="alert alert-dismissible alert-success" ><strong>Exito!</strong> Dato registrados con éxito. </div>');
                     $('#mensaje_actividad').show(60);
                     $('#mensaje_actividad').delay(1500).hide(600);
-                    vector_datos_actividad.push({"id_fuente": fuente_inversion, "id_componente": componnente, "valor": valor_contrato});
+                    vector_datos_actividad.push({"id_Proyecto": Proyecto_inversion, "Nom_Proyecto":Nom_Proyecto_inversion, "id_componente": componnente, "Nom_Componente":Nombre_componnente,"valor": valor_contrato});
               }
           }
         }
         console.log(vector_datos_actividad);
     });
+
+
+    $('#VerAgregarFinanciacion').on('click', function(e)
+    {
+
+      console.log(vector_datos_actividad);
+        var html = '';
+            if(vector_datos_actividad.length > 0)
+            {
+              var num=1;
+              $.each(vector_datos_actividad, function(i, e){
+                html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['Nom_Proyecto']+'</td><td>'+e['Nom_Componente']+'</td><td>'+e['valor']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                num++;
+              });
+            }
+            $('#registros').html(html);
+
+        $('#ver_registros').modal('show');
+        return false;
+    });
+
+    $('#datos_actividad').delegate('button[data-funcion="crear"]','click',function (e) {   
+      var id = $(this).data('rel'); 
+      vector_datos_actividad.splice(id, 1);
+          
+          $('#mensaje_eliminar').html('<div class="alert alert-dismissible alert-success" ><strong>Exito!</strong> Dato eliminado de la actividad con exito. </div>');
+          $('#mensaje_eliminar').show(60);
+          $('#mensaje_eliminar').delay(1500).hide(600);
+          var html = '';
+            if(vector_datos_actividad.length > 0)
+            {
+              var num=1;
+              $.each(vector_datos_actividad, function(i, e){
+                html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['Nom_Proyecto']+'</td><td>'+e['Nom_Componente']+'</td><td>'+e['valor']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                num++;
+              });
+            }
+          $('#registros').html(html);
+
+     }); 
 
 });

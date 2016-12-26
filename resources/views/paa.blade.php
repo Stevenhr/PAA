@@ -306,38 +306,24 @@
 
 				<div class="row">
 				  	<div class="col-xs-12 col-sm-12">
-				  		<div class="form-group">
-					    	<label>Proyecto de inversión o rubro</label>
-							<select class="form-control" name="proyecto_inversion">
-								<option value="" >Selecionar</option>
-								@foreach($rubros as $rubro)
-									<option value="{{ $rubro['Id'] }}" >{{ $rubro['Nombre'] }}</option>
-							    @endforeach
-							</select>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-				  	<div class="col-xs-12 col-sm-12">
 				  	<hr>
 				  		<h4 class="modal-title" id="myModalLabel">AGREGAR FINANCIACIÓN</h4>
 					</div>
 				</div>
 
 				<div class="row">
-				  <div class="col-xs-6 col-sm-4">
+				  <div class="col-xs-12 col-sm-12">
 				  		<div class="form-group">
-					    	<label>FUENTES DE FINANCIAMIENTO</label>
-							<select class="form-control" name="fuente_inversion">
+					    	<label>Proyecto de inversión o rubro</label>
+							<select class="form-control" name="Proyecto_inversion" id="Proyecto_inversion">
 								<option value="" >Selecionar</option>
-								@foreach($fuentes as $fuente)
-									<option value="{{ $fuente['Id'] }}" >{{ $fuente['nombre'] }}</option>
+								@foreach($proyectos as $proyecto)
+									<option value="{{ $proyecto['Id'] }}" >{{ $proyecto['Nombre'] }}</option>
 							    @endforeach
 							</select>
 						</div>
 				  </div>
-				  <div class="col-xs-6 col-sm-4">
+				  <div class="col-xs-12 col-sm-12">
 				  		<div class="form-group">
 					    	<label>COMPONENTES DEL GASTO</label>
 							<select class="form-control" name="componnente" id="componnente">
@@ -345,7 +331,7 @@
 							</select>
 						</div>
 				  </div>
-				  <div class="col-xs-6 col-sm-4">
+				  <div class="col-xs-12 col-sm-4">
 				  	<div class="form-group">
 					  		<label>Valor</label>
 							<input type="text" class="form-control" name="valor_contrato">
@@ -356,7 +342,7 @@
 				<div class="row">
 				  	<div class="col-xs-12 col-sm-12">
 				  		<button type="button" class="btn btn-primary" id="agregarFinanciacion">Agregar</button>
-        				<button  type="button" class="btn btn-info">Ver</button>
+        				<button  type="button" class="btn btn-info" id="VerAgregarFinanciacion">Ver</button>
 					</div>
 					<div class="col-xs-12 col-sm-12">
         				<div class="form-group"  id="mensaje_actividad" style="display: none;">
@@ -364,10 +350,26 @@
         				</div>
 				  	<hr>
 					</div>
+					<div class="col-xs-12 col-sm-12">
+				  		<table class="table table-bordered" id="datos_actividad" > 
+							<thead>
+							<tr>
+							<th>#</th>
+							<th>Proyecto</th>
+							<th>Componente</th>
+							<th>Valor</th>
+							<th>Eliminar</th>
+							</tr>
+							</thead>
+							<tbody id="registros"> 
+							</tbody> 
+						</table>
+					</div>
 				</div>
       </div>
       <div class="modal-footer">
         <div id="mjs_registroPaa" class="alert alert-success" style="display: none"></div>
+        <input type="hidden" name="Dato_Actividad" class="form-control">
         <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
         <button  type="submit" class="btn btn-success">CREAR</button>
       </div>

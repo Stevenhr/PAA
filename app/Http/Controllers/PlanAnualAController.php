@@ -11,6 +11,7 @@ use App\Componente;
 use App\Fuente;
 use App\Paa;
 use Validator;
+use App\Proyecto;
 
 class PlanAnualAController extends Controller
 {
@@ -18,7 +19,7 @@ class PlanAnualAController extends Controller
     public function index()
 	{
 		$modalidadSeleccion = ModalidadSeleccion::all();
-		$rubro = Rubro::all();
+		$proyecto = Proyecto::all();
 		$tipoContrato = TipoContrato::all();
 		$componente = Componente::all();
         $fuente = Fuente::all();
@@ -26,7 +27,7 @@ class PlanAnualAController extends Controller
 
         $datos = [        
             'modalidades' => $modalidadSeleccion,
-            'rubros' => $rubro,
+            'proyectos' => $proyecto,
             'tipoContratos' => $tipoContrato,
             'componentes' => $componente,
             'fuentes'=>$fuente,
@@ -126,8 +127,9 @@ class PlanAnualAController extends Controller
 
     public function fuenteComponente(Request $request, $id)
     {
-        $Fuente = Fuente::with('componentes','componentes.actividades.meta.proyecto')->find($id);
-        return response()->json($Fuente->componentes);
+        $proyecto = Proyecto::with('metas','metas.actividades','metas.actividades.componentes','metas.actividades.componentes.fuente')->find($id);
+        //$Fuente = Fuente::with('componentes','componentes.actividades.meta.proyecto.')->find($id);
+        return response()->json($proyecto);
     }
 
 }
