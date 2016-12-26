@@ -59,7 +59,7 @@ class PlanAnualAController extends Controller
                 'recurso_humano' =>'required',
                 'numero_contratista' =>'required',
                 'datos_contacto' =>'required',
-                'proyecto_inversion' =>'required',
+
             ]
         );
 
@@ -93,7 +93,7 @@ class PlanAnualAController extends Controller
 
     public function gestionar_Paa($model, $input,$estado,$estadoObservo)
     {
-    
+
         $model['Id_paa'] = 1;
         $model['Registro'] = $input['id_registro'];
         $model['CodigosU'] = $input['codigo_Unspsc'];
@@ -113,14 +113,24 @@ class PlanAnualAController extends Controller
         $model['RecursoHumano'] = $input['recurso_humano'];
         $model['NumeroContratista'] = $input['numero_contratista'];
         $model['DatosResponsable'] = $input['datos_contacto'];
-        $model['Id_ProyectoRubro'] = $input['proyecto_inversion'];
-        $model['Id_Componente'] = $input['componnente'];
+        $model['Id_ProyectoRubro'] = 1;
         $model['IdPersona'] = '1046';
         $model['Estado'] = $estado;
         $model['IdPersonaObservo'] = '1046';
         $model['EsatdoObservo'] = $estadoObservo;
         $model['Observacion'] = '';
         $model->save();
+        
+        
+        $id_paa=$model->Id;
+        $data0 = json_decode($input['Dato_Actividad']);
+        foreach($data0 as $obj){
+            $model->actividadComponentes()->attach($obj->id_pivot_comp,[
+                'paa_id'=>$id_paa,
+                'valor'=>$obj->valor
+                ]);
+        }
+
         $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }

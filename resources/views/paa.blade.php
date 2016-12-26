@@ -315,6 +315,7 @@
 				  <div class="col-xs-12 col-sm-12">
 				  		<div class="form-group">
 					    	<label>Proyecto de inversión o rubro</label>
+					    	<input type="hidden" name="id_pivot_comp" id="id_pivot_comp"></input>
 							<select class="form-control" name="Proyecto_inversion" id="Proyecto_inversion">
 								<option value="" >Selecionar</option>
 								@foreach($proyectos as $proyecto)

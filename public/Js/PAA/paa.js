@@ -50,7 +50,9 @@ $(function()
 
                   if(data.status == 'modelo')
                   {
-                      document.getElementById("form_paa").reset();                
+                      document.getElementById("form_paa").reset(); 
+                      vector_datos_actividad=[];
+                      $('#registros').html('');               
                       var num=1;
                       t.clear().draw();
                       $.each(data.datos, function(i, e){
@@ -186,19 +188,18 @@ $(function()
                     dataType: 'json',
                     success: function(data)
                     {
-
+                        //console.log(data);
                         var html = '<option value="">Seleccionar</option>';
-                        
-                                      $.each(data.metas, function(i, eee){
-                                          $.each(eee.actividades, function(i, eeee){
-                                              $.each(eeee.componentes, function(i, eeeee){                                         
-                                                  html += '<option value="'+eeeee['Id']+'">'+eeeee['Nombre']+"<b> ACTIVIDAD:</b>"+eeee['Nombre'].toLowerCase()+"<br> FUENTE:"+eeeee.fuente['nombre'].toLowerCase()+'</option>';
-                                              });
-                                          });
-                                      });
-                            
-                              
-                        
+                  
+                                $.each(data.metas, function(i, eee){
+                                    $.each(eee.actividades, function(i, eeee){
+                                        $.each(eeee.componentes, function(i, eeeee){   
+
+                                            html += '<option value="'+eeeee['Id']+'">'+eeeee.pivot['id']+"<b> ACTIVIDAD:</b>"+eeee['Nombre'].toLowerCase()+"<br> FUENTE:"+eeeee.fuente['nombre'].toLowerCase()+'</option>';
+                                            $('input[name="id_pivot_comp"]').val(eeeee.pivot['id']);
+                                        });
+                                    });
+                                });
                         $('select[name="componnente"]').html(html).val($('select[name="componnente"]').data('value'));
                     }
                 });
@@ -207,12 +208,12 @@ $(function()
   
   $('#agregarFinanciacion').on('click', function(e)
     {
+        
+        var id_pivot_comp=$('input[name="id_pivot_comp"]').val();
 
         var Proyecto_inversion=$('select[name="Proyecto_inversion"]').val();
         var indice = form_paa.Proyecto_inversion.selectedIndex;
         var Nom_Proyecto_inversion= form_paa.Proyecto_inversion.options[indice].text ;
-
-
 
         var componnente=$('select[name="componnente"]').val();
         var indice = form_paa.componnente.selectedIndex;
@@ -237,21 +238,25 @@ $(function()
                 $('#mensaje_actividad').delay(2500).hide(600);
                 return false;
               }else{
+                    $('input[name="valor_contrato"]').val('');
+                    $('select[name="Proyecto_inversion"]').val('');
+                    $('select[name="componnente"]').val('');
+
                     $('#alert_actividad').html('<div class="alert alert-dismissible alert-success" ><strong>Exito!</strong> Dato registrados con éxito. </div>');
                     $('#mensaje_actividad').show(60);
                     $('#mensaje_actividad').delay(1500).hide(600);
-                    vector_datos_actividad.push({"id_Proyecto": Proyecto_inversion, "Nom_Proyecto":Nom_Proyecto_inversion, "id_componente": componnente, "Nom_Componente":Nombre_componnente,"valor": valor_contrato});
+                    vector_datos_actividad.push({"id_Proyecto": Proyecto_inversion, "Nom_Proyecto":Nom_Proyecto_inversion, "id_componente": componnente, "Nom_Componente":Nombre_componnente,"valor": valor_contrato,"id_pivot_comp":id_pivot_comp});
               }
           }
         }
-        console.log(vector_datos_actividad);
+        //console.log(vector_datos_actividad);
     });
 
 
     $('#VerAgregarFinanciacion').on('click', function(e)
     {
 
-      console.log(vector_datos_actividad);
+      //console.log(vector_datos_actividad);
         var html = '';
             if(vector_datos_actividad.length > 0)
             {

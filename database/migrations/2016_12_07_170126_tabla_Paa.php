@@ -43,9 +43,6 @@ class TablaPaa extends Migration
             $table->integer('Id_ProyectoRubro')->unsigned();
             $table->foreign('Id_ProyectoRubro')->references('Id')->on('rubro')->onDelete('cascade');
             
-            $table->integer('Id_Componente')->unsigned();
-            $table->foreign('Id_Componente')->references('Id')->on('componente')->onDelete('cascade');
-
             $table->integer('IdPersona');
             $table->string('Estado');
             $table->integer('IdPersonaObservo');

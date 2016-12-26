@@ -30,7 +30,6 @@ class Paa extends Model
 	'NumeroContratista',
 	'DatosResponsable',
 	'Id_ProyectoRubro',
-	'Id_Componente',
 	'IdPersona',
 	'Estado',
 	'IdPersonaObservo',
@@ -49,5 +48,12 @@ class Paa extends Model
      public function rubro()
     {
         return $this->belongsTo('App\Rubro','Id_ProyectoRubro');
+    }
+
+
+    public function actividadComponentes()
+    {
+        return $this->belongsToMany('\App\ActividadComponente','PaaActividadCompoenente','paa_id','actividadComponente_id')
+            ->withPivot('actividadComponente_id','estado','valor');
     }
 }

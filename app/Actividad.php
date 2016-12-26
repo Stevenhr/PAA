@@ -14,19 +14,15 @@ class Actividad extends Model
 	public $timestamps = false;
 
 	
-
     public function meta()
     {
         return $this->belongsTo('App\Meta','Id_meta');
     }
 
-
     public function componentes()
     {
         return $this->belongsToMany('\App\Componente','actividadComponente')
-            ->withPivot('componente_id','estado','valor');
+            ->withPivot('id','componente_id','estado','valor');
     }
-
     
-
 }
