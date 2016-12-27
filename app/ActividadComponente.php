@@ -8,8 +8,8 @@ class ActividadComponente extends Model
 {
     //
     protected $table = 'actividadComponente';
-	protected $primaryKey = 'Id';
-	protected $fillable = ['actividadComponente_id','paa_id','valor','estado'];
+	protected $primaryKey = 'id';
+	protected $fillable = ['componente_id','actividad_id','valor','estado'];
 	protected $connection = ''; 
 	public $timestamps = false;
 
@@ -19,4 +19,15 @@ class ActividadComponente extends Model
         return $this->belongsToMany('\App\Paa','PaaActividadCompoenente')
             ->withPivot('paa_id','estado','valor');
     }
+
+    public function actividad()
+    {
+        return $this->belongsTo('App\Actividad','actividad_id');
+    }
+
+    public function componente()
+    {
+        return $this->belongsTo('App\Componente','componente_id');
+    }
+
 }

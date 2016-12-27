@@ -25,5 +25,10 @@ class Componente extends Model
             ->withPivot('id','actividad_id','estado','valor');
     }
 
+    public function actividadescomponetes()
+    {
+        return $this->hasMany('App\ActividadComponente','actividad_id');
+    }
+
 
 }

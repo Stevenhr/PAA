@@ -142,4 +142,17 @@ class PlanAnualAController extends Controller
         return response()->json($proyecto);
     }
 
+
+    public function verFinanciacion(Request $request, $id)
+    {
+        $model_A = Paa::with('actividadComponentes','actividadComponentes.actividad','actividadComponentes.componente','actividadComponentes.componente.fuente','actividadComponentes.actividad.meta','actividadComponentes.actividad.meta.proyecto')->find($id);
+        return response()->json($model_A->actividadComponentes);
+    }
+
+    public function obtenerPaa(Request $request, $id)
+    {
+        $model_A = Paa::with('rubro')->find($id);
+        return response()->json($model_A);
+    }
+
 }

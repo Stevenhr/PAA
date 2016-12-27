@@ -121,16 +121,20 @@
 					                        <td>{{$paa['NumeroContratista']}}</td>
 					                        <td>{{$paa['DatosResponsable']}}</td>
 					                        <td>{{$paa->rubro['Nombre']}}</td>
+					                  
 					                        <td>
 												<div class="btn-group btn-group-justified">
 												  <div class="btn-group">
-												    <button type="button" data-rel="" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="ver_eli" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#Modal_Eliminar" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span></button>
 												  </div>
 												  <div class="btn-group">
-												    <button type="button" data-rel="" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-default btn-xs" data-toggle="modal" data-target="#Modal_Editar" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 												  </div>
 												  <div class="btn-group">
-												    <button type="button" data-rel="" data-funcion="ver_upd" class="btn btn-primary  btn-xs"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="" data-funcion="ver_upd" class="btn btn-primary  btn-xs" data-toggle="modal" data-target="#Modal_Historial" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
+												  </div>
+												  <div class="btn-group">
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 												  </div>
 												</div>
 												<div id=""></div>
@@ -407,13 +411,13 @@
 
 
 
-<!-- MODAL HISTORIAL ELIMINADOS-->
-<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Historiaeliminado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- MODAL FIANANCIACION-->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_AprobarCambios" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Historial Eliminados</h4>
+        <h4 class="modal-title" id="myModalLabel">Aprobar Cambios</h4>
       </div>
       <div class="modal-body">
       </div>
@@ -424,4 +428,122 @@
     </div>
   </div>
 </div>
+
+
+<!-- MODAL FIANANCIACION-->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_AprobarCambios" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Aprobar Cambios</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success">Crear</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- MODAL FIANANCIACION-->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Financiacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Financiación PAA</h4>
+      </div>
+      <div class="modal-body">
+      		<div class="row">
+					<div class="col-xs-12 col-sm-12">
+				  		<table class="table table-bordered" id="datos_actividad" > 
+							<thead>
+							<tr>
+							<th>#</th>
+							<th>Proyecto</th>
+							<th>Meta</th>
+							<th>Actividad</th>
+							<th>Componente</th>
+							<th>Fuente</th>
+							<th>Valor</th>
+							<th>Eliminar</th>
+							</tr>
+							</thead>
+							<tbody id="registrosFinanzas"> 
+							</tbody> 
+						</table>
+					</div>
+				</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL FIANANCIACION-->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Historial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Historial</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success">Crear</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL EDITAR-->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Editar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Formulario Editable</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success">Crear</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- MODAL ELIMINAR-->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Eliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Eliminar PAA</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success">Crear</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 @stop

@@ -22,6 +22,22 @@ $(function()
 	  $('#myInput').focus()
 	})
 
+  $('#Modal_Financiacion').on('shown.bs.modal', function () {
+    $('#myInput').focus()
+  })
+
+  $('#Modal_Historial').on('shown.bs.modal', function () {
+    $('#myInput').focus()
+  })
+
+  $('#Modal_Editar').on('shown.bs.modal', function () {
+    $('#myInput').focus()
+  })
+
+  $('#Modal_Eliminar').on('shown.bs.modal', function () {
+    $('#myInput').focus()
+  })
+
   $('input[data-role="datepicker"]').datepicker({
       dateFormat: 'yy-mm-dd',
       yearRange: "-100:+0",
@@ -292,4 +308,87 @@ $(function()
 
      }); 
 
+
+     $('#TablaPAA').delegate('button[data-funcion="Financiacion"]','click',function (e){   
+          var id = $(this).data('rel'); 
+          $.ajax({
+              url: URL+'/service/VerFinanciamiento/'+id,
+              data: {},
+              dataType: 'json',
+              success: function(data)
+              {   
+                  var html = '';
+                  $.each(data, function(i, dato){
+                    var num=1;
+                    html += '<tr>'+
+                            '<th scope="row" class="text-center">'+num+'</th>'+
+                            '<td>'+dato.actividad.meta.proyecto['Nombre']+'</td>'+
+                            '<td>'+dato.actividad.meta['Nombre']+'</td>'+
+                            '<td>'+dato.actividad['Nombre']+'</td>'+
+                            '<td>'+dato.componente['Nombre']+'</td>'+
+                            '<td>'+dato.componente.fuente['nombre']+'</td>'+
+                            '<td>'+dato.pivot['valor']+'</td>'+
+                            '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                    num++;
+                  });
+                  console.log('html', html);
+                  $('#registrosFinanzas').html(html);
+              }
+          });
+     }); 
+
+
+    $('#TablaPAA').delegate('button[data-funcion="Modificacion"]','click',function (e) {  
+
+        var id = $(this).data('rel'); 
+        //$("#espera_3_"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/service/obtenerPaa/'+id,
+            {},
+            function(data)
+            {
+                if(data)
+                {
+                    console.log(data);
+                    $("#espera_3_"+id).html("");
+                }
+            },
+            'json'
+        );
+    }); 
+
+
+    var actividad_datos = function(datos)
+    {
+        
+       
+//aca voy 
+        $('input[name="id_registro"]').val(datos.datosActividad['Localidad']);
+        $('input[name="codigo_Unspsc"]').val(datos.datosActividad['Localidad']);
+        $('input[name="fecha_inicial_presupuesto"]').val(datos.datosActividad['Localidad']);
+        $('input[name="nombre_presupuesto"]').val(datos.datosActividad['Localidad']);
+        $('input[name="fuente_recurso"]').val(datos.datosActividad['Localidad']);
+        $('input[name="valor_estimado"]').val(datos.datosActividad['Localidad']);
+        $('input[name="valor_estimado_actualVigencia"]').val(datos.datosActividad['Localidad']);
+        $('input[name="estudio_conveniencia"]').val(datos.datosActividad['Localidad']);
+        $('input[name="fecha_inicio"]').val(datos.datosActividad['Localidad']);
+        $('input[name="fecha_suscripcion"]').val(datos.datosActividad['Localidad']);
+        $('input[name="duracion_estimada"]').val(datos.datosActividad['Localidad']);
+        $('input[name="meta_plan"]').val(datos.datosActividad['Localidad']);
+        $('input[name="numero_contratista"]').val(datos.datosActividad['Localidad']);
+        $('input[name="datos_contacto"]').val(datos.datosActividad['Localidad']);
+
+        $('select[name="recurso_humano"]').val(datos.datosActividad['Id_Responsable']);
+        $('select[name="modalidad_seleccion"]').val(datos.datosActividad['Id_Responsable']);
+        $('select[name="tipo_contrato"]').val(datos.datosActividad['Id_Responsable']);
+        $('select[name="vigencias_futuras"]').val(datos.datosActividad['Id_Responsable']);
+        $('select[name="estado_solicitud"]').val(datos.datosActividad['Id_Responsable']);
+        $('select[name="proyecto_inversion"]').val(datos.datosActividad['Id_Responsable']);
+        //$('select[name="Id_Localidad"]').val(datos.datosActividad['Localidad']).change();
+
+        $('textarea[name="objeto_contrato"]').val(datos.datosActividad['Caracteristica_Poblacion']);
+       
+        $('#modal_form_actividades').modal('show');
+    };
+                  
 });

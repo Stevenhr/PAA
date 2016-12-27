@@ -24,5 +24,10 @@ class Actividad extends Model
         return $this->belongsToMany('\App\Componente','actividadComponente')
             ->withPivot('id','componente_id','estado','valor');
     }
+
+    public function actividadescomponetes()
+    {
+        return $this->hasMany('App\ActividadComponente','actividad_id');
+    }
     
 }
