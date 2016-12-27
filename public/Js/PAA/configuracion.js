@@ -197,6 +197,7 @@ $(function()
                         $("#id_btn_presupuesto").html('Registrar');
                         $("#id_btn_presup_canc").hide();
                     }, 2000)
+                    location.reload();
                 }else{
                     $('#mensaje_presupuesto2').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
                     $('#mensaje_presupuesto2').show();
@@ -1427,6 +1428,7 @@ $(function()
                         $("#id_btn_componente_canc_crear").hide();
                     }, 2000)
                     $('input[name="Id_componente_crear"]').val('0');
+                    location.reload();
                 }else{
                     $('#mensaje_componente2_crear').html('<strong>Error!</strong> el valor del componente que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
                     $('#mensaje_componente2_crear').show();
