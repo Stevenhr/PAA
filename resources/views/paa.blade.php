@@ -128,7 +128,7 @@
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="ver_eli" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#Modal_Eliminar" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span></button>
 												  </div>
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-default btn-xs" data-toggle="modal" data-target="#Modal_Editar" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-default btn-xs"  title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 												  </div>
 												  <div class="btn-group">
 												    <button type="button" data-rel="" data-funcion="ver_upd" class="btn btn-primary  btn-xs" data-toggle="modal" data-target="#Modal_Historial" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
@@ -307,7 +307,7 @@
 						</div>
 				  </div>
 				</div>
-
+				<div id="div_finaciacion">
 				<div class="row">
 				  	<div class="col-xs-12 col-sm-12">
 				  	<hr>
@@ -370,6 +370,7 @@
 							</tbody> 
 						</table>
 					</div>
+				</div>
 				</div>
       </div>
       <div class="modal-footer">

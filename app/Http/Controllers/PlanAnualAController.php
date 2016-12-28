@@ -80,7 +80,8 @@ class PlanAnualAController extends Controller
         $model_A = new Paa;
         $estado=0;
         $estadoObservo=0;
-        return $this->gestionar_Paa($model_A, $input,$estado,$estadoObservo);
+        $Modifica=0;
+        return $this->gestionar_Paa($model_A, $input,$estado,$estadoObservo,$Modifica);
     }
     public function modificar_Paa($input)
     {
@@ -88,10 +89,11 @@ class PlanAnualAController extends Controller
         $model_A = Paa::find($input["id_Paa"]);
         $estado=1;
         $estadoObservo=0;
-        return $this->gestionar_Paa($model_A, $input,$estado,$estadoObservo);
+        $Modifica=1;
+        return $this->gestionar_Paa($model_A, $input,$estado,$estadoObservo,$Modifica);
     }
 
-    public function gestionar_Paa($model, $input,$estado,$estadoObservo)
+    public function gestionar_Paa($model, $input,$estado,$estadoObservo,$Modifica)
     {
 
         $model['Id_paa'] = 1;
@@ -121,14 +123,15 @@ class PlanAnualAController extends Controller
         $model['Observacion'] = '';
         $model->save();
         
-        
-        $id_paa=$model->Id;
-        $data0 = json_decode($input['Dato_Actividad']);
-        foreach($data0 as $obj){
-            $model->actividadComponentes()->attach($obj->id_pivot_comp,[
-                'paa_id'=>$id_paa,
-                'valor'=>$obj->valor
-                ]);
+        if($Modifica==0){
+            $id_paa=$model->Id;
+            $data0 = json_decode($input['Dato_Actividad']);
+            foreach($data0 as $obj){
+                $model->actividadComponentes()->attach($obj->id_pivot_comp,[
+                    'paa_id'=>$id_paa,
+                    'valor'=>$obj->valor
+                    ]);
+            }
         }
 
         $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->get();

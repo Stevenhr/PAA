@@ -97,13 +97,16 @@ $(function()
                               '<td>'+
                                 '<div class="btn-group btn-group-justified">'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="" data-funcion="ver_upd" class="btn btn-primary  btn-xs"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-primary  btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                                  '</div>'+
+                                  '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                 '</div>'+
                                 '<div id=""></div>'+
@@ -349,7 +352,7 @@ $(function()
             {
                 if(data)
                 {
-                    console.log(data);
+                    actividad_datos(data);
                     $("#espera_3_"+id).html("");
                 }
             },
@@ -363,32 +366,34 @@ $(function()
         
        
 //aca voy 
-        $('input[name="id_registro"]').val(datos.datosActividad['Localidad']);
-        $('input[name="codigo_Unspsc"]').val(datos.datosActividad['Localidad']);
-        $('input[name="fecha_inicial_presupuesto"]').val(datos.datosActividad['Localidad']);
-        $('input[name="nombre_presupuesto"]').val(datos.datosActividad['Localidad']);
-        $('input[name="fuente_recurso"]').val(datos.datosActividad['Localidad']);
-        $('input[name="valor_estimado"]').val(datos.datosActividad['Localidad']);
-        $('input[name="valor_estimado_actualVigencia"]').val(datos.datosActividad['Localidad']);
-        $('input[name="estudio_conveniencia"]').val(datos.datosActividad['Localidad']);
-        $('input[name="fecha_inicio"]').val(datos.datosActividad['Localidad']);
-        $('input[name="fecha_suscripcion"]').val(datos.datosActividad['Localidad']);
-        $('input[name="duracion_estimada"]').val(datos.datosActividad['Localidad']);
-        $('input[name="meta_plan"]').val(datos.datosActividad['Localidad']);
-        $('input[name="numero_contratista"]').val(datos.datosActividad['Localidad']);
-        $('input[name="datos_contacto"]').val(datos.datosActividad['Localidad']);
+        $('input[name="id_Paa"]').val(datos['Id']);
+        $('input[name="id_registro"]').val(datos['Registro']);
+        $('input[name="codigo_Unspsc"]').val(datos['CodigosU']);
+        $('input[name="fecha_inicial_presupuesto"]').val(datos['FechaEstudioConveniencia']);
+        $('input[name="fuente_recurso"]').val(datos['FuenteRecurso']);
+        $('input[name="valor_estimado"]').val(datos['ValorEstimado']);
+        $('input[name="valor_estimado_actualVigencia"]').val(datos['ValorEstimadoVigencia']);
+        $('input[name="estudio_conveniencia"]').val(datos['FechaEstudioConveniencia']);
+        $('input[name="fecha_inicio"]').val(datos['FechaInicioProceso']);
+        $('input[name="fecha_suscripcion"]').val(datos['FechaSuscripcionContrato']);
+        $('input[name="duracion_estimada"]').val(datos['DuracionContrato']);
+        $('input[name="meta_plan"]').val(datos['MetaPlan']);
+        $('input[name="numero_contratista"]').val(datos['NumeroContratista']);
+        $('input[name="datos_contacto"]').val(datos['DatosResponsable']);
 
-        $('select[name="recurso_humano"]').val(datos.datosActividad['Id_Responsable']);
-        $('select[name="modalidad_seleccion"]').val(datos.datosActividad['Id_Responsable']);
-        $('select[name="tipo_contrato"]').val(datos.datosActividad['Id_Responsable']);
-        $('select[name="vigencias_futuras"]').val(datos.datosActividad['Id_Responsable']);
-        $('select[name="estado_solicitud"]').val(datos.datosActividad['Id_Responsable']);
-        $('select[name="proyecto_inversion"]').val(datos.datosActividad['Id_Responsable']);
-        //$('select[name="Id_Localidad"]').val(datos.datosActividad['Localidad']).change();
+        $('select[name="recurso_humano"]').val(datos['RecursoHumano']);
+        $('select[name="modalidad_seleccion"]').val(datos['Id_ModalidadSeleccion']);
+        $('select[name="tipo_contrato"]').val(datos['Id_TipoContrato']);
+        $('select[name="vigencias_futuras"]').val(datos['VigenciaFutura']);
+        $('select[name="estado_solicitud"]').val(datos['EstadoVigenciaFutura']);
+        $('select[name="proyecto_inversion"]').val(datos['Id_ProyectoRubro']);
+        //$('select[name="Id_Localidad"]').val(datos['Localidad']).change();
 
-        $('textarea[name="objeto_contrato"]').val(datos.datosActividad['Caracteristica_Poblacion']);
-       
-        $('#modal_form_actividades').modal('show');
+        $('textarea[name="objeto_contrato"]').val(datos['ObjetoContractual']);
+        vector_datos_actividad.length=1;
+        $('#div_finaciacion').hide();
+        $('#Modal_AgregarNuevo').modal('show');      
+
     };
                   
 });
