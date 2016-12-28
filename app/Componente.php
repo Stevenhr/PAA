@@ -13,7 +13,6 @@ class Componente extends Model
 	protected $connection = ''; 
 	public $timestamps = false;
 
-
 	public function fuente()
     {
         return $this->belongsTo('App\Fuente','Id_fuente');

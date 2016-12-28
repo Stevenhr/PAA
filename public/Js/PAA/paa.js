@@ -67,6 +67,7 @@ $(function()
                   if(data.status == 'modelo')
                   {
                       document.getElementById("form_paa").reset(); 
+                      $('#crear_paa_btn').html("Agregar");
                       vector_datos_actividad=[];
                       $('#registros').html('');               
                       var num=1;
@@ -271,6 +272,38 @@ $(function()
         //console.log(vector_datos_actividad);
     });
 
+   $('#Btn_Agregar_Nuevo').on('click', function(e)
+    {
+        $('input[name="id_Paa"]').val("0").closest('.form-group').removeClass('has-error');
+        $('input[name="id_registro"]').val("").closest('.form-group').removeClass('has-error');
+        $('input[name="codigo_Unspsc"]').val("").closest('.form-group').removeClass('has-error');;
+        $('input[name="fecha_inicial_presupuesto"]').val("").closest('.form-group').removeClass('has-error');;
+        $('input[name="fuente_recurso"]').val("").closest('.form-group').removeClass('has-error');;
+        $('input[name="valor_estimado"]').val("").closest('.form-group').removeClass('has-error');;
+        $('input[name="valor_estimado_actualVigencia"]').val("").closest('.form-group').removeClass('has-error');;
+        $('input[name="estudio_conveniencia"]').val("").closest('.form-group').removeClass('has-error');;
+        $('input[name="fecha_inicio"]').val("").closest('.form-group').removeClass('has-error');;
+        $('input[name="fecha_suscripcion"]').val("").closest('.form-group').removeClass('has-error');;
+        $('input[name="duracion_estimada"]').val("").closest('.form-group').removeClass('has-error');;
+        $('input[name="meta_plan"]').val("").closest('.form-group').removeClass('has-error');;
+        $('input[name="numero_contratista"]').val("").closest('.form-group').removeClass('has-error');;
+        $('input[name="datos_contacto"]').val("").closest('.form-group').removeClass('has-error');;
+
+        $('select[name="recurso_humano"]').val("").closest('.form-group').removeClass('has-error');;
+        $('select[name="modalidad_seleccion"]').val("").closest('.form-group').removeClass('has-error');;
+        $('select[name="tipo_contrato"]').val("").closest('.form-group').removeClass('has-error');
+        $('select[name="vigencias_futuras"]').val("").closest('.form-group').removeClass('has-error');;
+        $('select[name="estado_solicitud"]').val("").closest('.form-group').removeClass('has-error');;
+        $('select[name="proyecto_inversion"]').val("").closest('.form-group').removeClass('has-error');;
+
+        $('textarea[name="objeto_contrato"]').val("").closest('.form-group').removeClass('has-error');;
+        vector_datos_actividad.length=0;
+        $('#div_finaciacion').show();
+        $('#crear_paa_btn').html("Agregar");
+
+    });
+       
+
 
     $('#VerAgregarFinanciacion').on('click', function(e)
     {
@@ -334,10 +367,77 @@ $(function()
                             '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
                   });
-                  console.log('html', html);
                   $('#registrosFinanzas').html(html);
               }
           });
+     }); 
+
+
+     $('#TablaPAA').delegate('button[data-funcion="Historial"]','click',function (e){   
+          var id = $(this).data('rel'); 
+          $.get(
+              URL+'/service/obtenerHistorialPaa/'+id,
+              {},
+              function(data)
+              {
+                  if(data)
+                  {
+                      var num=1;
+                      var num1=1;
+                      var num2=1;
+                      var html = '';
+                      var html1 = '';
+                      var html2 = '';
+                      $.each(data, function(i, dato){
+                        console.log(dato);
+                        if(dato['Estado']==0){
+                          html += '<tr>'+
+                          '<th scope="row" class="text-center">'+num+'</th>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                          num++;
+                        }
+
+                        if(dato['Estado']==1){
+                          html1 += '<tr>'+
+                          '<th scope="row" class="text-center">'+num2+'</th>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                          num1++;
+                        }
+
+                        if(dato['Estado']==2){
+                          html2 += '<tr>'+
+                          '<th scope="row" class="text-center">'+num2+'</th>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td>'+dato['Estado']+'</td>'+
+                          '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                          num2++;
+                        }
+
+                      });
+                      $('#registrosHtml').html(html);
+                      $('#registrosHtml1').html(html1);
+                      $('#Modal_Historial').modal('show'); 
+                  }
+              },
+              'json'
+          );
+           
      }); 
 
 
@@ -364,34 +464,34 @@ $(function()
     var actividad_datos = function(datos)
     {
         
-       
-//aca voy 
-        $('input[name="id_Paa"]').val(datos['Id']);
-        $('input[name="id_registro"]').val(datos['Registro']);
-        $('input[name="codigo_Unspsc"]').val(datos['CodigosU']);
-        $('input[name="fecha_inicial_presupuesto"]').val(datos['FechaEstudioConveniencia']);
-        $('input[name="fuente_recurso"]').val(datos['FuenteRecurso']);
-        $('input[name="valor_estimado"]').val(datos['ValorEstimado']);
-        $('input[name="valor_estimado_actualVigencia"]').val(datos['ValorEstimadoVigencia']);
-        $('input[name="estudio_conveniencia"]').val(datos['FechaEstudioConveniencia']);
-        $('input[name="fecha_inicio"]').val(datos['FechaInicioProceso']);
-        $('input[name="fecha_suscripcion"]').val(datos['FechaSuscripcionContrato']);
-        $('input[name="duracion_estimada"]').val(datos['DuracionContrato']);
-        $('input[name="meta_plan"]').val(datos['MetaPlan']);
-        $('input[name="numero_contratista"]').val(datos['NumeroContratista']);
-        $('input[name="datos_contacto"]').val(datos['DatosResponsable']);
 
-        $('select[name="recurso_humano"]').val(datos['RecursoHumano']);
-        $('select[name="modalidad_seleccion"]').val(datos['Id_ModalidadSeleccion']);
-        $('select[name="tipo_contrato"]').val(datos['Id_TipoContrato']);
-        $('select[name="vigencias_futuras"]').val(datos['VigenciaFutura']);
-        $('select[name="estado_solicitud"]').val(datos['EstadoVigenciaFutura']);
-        $('select[name="proyecto_inversion"]').val(datos['Id_ProyectoRubro']);
+        $('input[name="id_Paa"]').val(datos['Id']).closest('.form-group').removeClass('has-error');;;
+        $('input[name="id_registro"]').val(datos['Registro']).closest('.form-group').removeClass('has-error');;
+        $('input[name="codigo_Unspsc"]').val(datos['CodigosU']).closest('.form-group').removeClass('has-error');;
+        $('input[name="fecha_inicial_presupuesto"]').val(datos['FechaEstudioConveniencia']).closest('.form-group').removeClass('has-error');;
+        $('input[name="fuente_recurso"]').val(datos['FuenteRecurso']).closest('.form-group').removeClass('has-error');;
+        $('input[name="valor_estimado"]').val(datos['ValorEstimado']).closest('.form-group').removeClass('has-error');;
+        $('input[name="valor_estimado_actualVigencia"]').val(datos['ValorEstimadoVigencia']).closest('.form-group').removeClass('has-error');;
+        $('input[name="estudio_conveniencia"]').val(datos['FechaEstudioConveniencia']).closest('.form-group').removeClass('has-error');;
+        $('input[name="fecha_inicio"]').val(datos['FechaInicioProceso']).closest('.form-group').removeClass('has-error');;
+        $('input[name="fecha_suscripcion"]').val(datos['FechaSuscripcionContrato']).closest('.form-group').removeClass('has-error');;
+        $('input[name="duracion_estimada"]').val(datos['DuracionContrato']).closest('.form-group').removeClass('has-error');;
+        $('input[name="meta_plan"]').val(datos['MetaPlan']).closest('.form-group').removeClass('has-error');;
+        $('input[name="numero_contratista"]').val(datos['NumeroContratista']).closest('.form-group').removeClass('has-error');;
+        $('input[name="datos_contacto"]').val(datos['DatosResponsable']).closest('.form-group').removeClass('has-error');;
+
+        $('select[name="recurso_humano"]').val(datos['RecursoHumano']).closest('.form-group').removeClass('has-error');;
+        $('select[name="modalidad_seleccion"]').val(datos['Id_ModalidadSeleccion']).closest('.form-group').removeClass('has-error');;
+        $('select[name="tipo_contrato"]').val(datos['Id_TipoContrato']).closest('.form-group').removeClass('has-error');;
+        $('select[name="vigencias_futuras"]').val(datos['VigenciaFutura']).closest('.form-group').removeClass('has-error');;
+        $('select[name="estado_solicitud"]').val(datos['EstadoVigenciaFutura']).closest('.form-group').removeClass('has-error');;
+        $('select[name="proyecto_inversion"]').val(datos['Id_ProyectoRubro']).closest('.form-group').removeClass('has-error');;
         //$('select[name="Id_Localidad"]').val(datos['Localidad']).change();
 
-        $('textarea[name="objeto_contrato"]').val(datos['ObjetoContractual']);
+        $('textarea[name="objeto_contrato"]').val(datos['ObjetoContractual']).closest('.form-group').removeClass('has-error');;
         vector_datos_actividad.length=1;
         $('#div_finaciacion').hide();
+        $('#crear_paa_btn').html("Modificar");
         $('#Modal_AgregarNuevo').modal('show');      
 
     };

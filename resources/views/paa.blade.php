@@ -19,7 +19,7 @@
 	                <div class="col-xs-12 col-md-12 text-">
 				    	<div class="form-group">	
 							<div class="btn-group" role="group" aria-label="...">
-							  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Modal_AgregarNuevo">
+							  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Modal_AgregarNuevo" id="Btn_Agregar_Nuevo">
 							  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar nuevo
 							  </button>
 
@@ -131,7 +131,7 @@
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-default btn-xs"  title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 												  </div>
 												  <div class="btn-group">
-												    <button type="button" data-rel="" data-funcion="ver_upd" class="btn btn-primary  btn-xs" data-toggle="modal" data-target="#Modal_Historial" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary  btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
 												  </div>
 												  <div class="btn-group">
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
@@ -377,7 +377,7 @@
         <div id="mjs_registroPaa" class="alert alert-success" style="display: none"></div>
         <input type="hidden" name="Dato_Actividad" class="form-control">
         <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
-        <button  type="submit" class="btn btn-success">CREAR</button>
+        <button  type="submit" class="btn btn-success" id="crear_paa_btn">CREAR</button>
       </div>
      </form>
 
@@ -498,6 +498,45 @@
         <h4 class="modal-title" id="myModalLabel">Historial</h4>
       </div>
       <div class="modal-body">
+      			<div class="row">
+					<div class="col-xs-12 col-sm-12">
+				  		<table class="table table-bordered" id="datos_actividad" > 
+							<thead>
+							<tr>
+							<th>#</th>
+							<th>Proyecto</th>
+							<th>Meta</th>
+							<th>Actividad</th>
+							<th>Componente</th>
+							<th>Fuente</th>
+							<th>Valor</th>
+							<th>Eliminar</th>
+							</tr>
+							</thead>
+							<tbody id="registrosHtml"> 
+							</tbody> 
+						</table>
+					</div>
+
+					<div class="col-xs-12 col-sm-12">
+				  		<table class="table table-bordered" id="datos_actividad" > 
+							<thead>
+							<tr>
+							<th>#</th>
+							<th>Proyecto</th>
+							<th>Meta</th>
+							<th>Actividad</th>
+							<th>Componente</th>
+							<th>Fuente</th>
+							<th>Valor</th>
+							<th>Eliminar</th>
+							</tr>
+							</thead>
+							<tbody id="registrosHtml1"> 
+							</tbody> 
+						</table>
+					</div>
+				</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

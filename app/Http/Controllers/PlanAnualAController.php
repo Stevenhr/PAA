@@ -23,7 +23,7 @@ class PlanAnualAController extends Controller
 		$tipoContrato = TipoContrato::all();
 		$componente = Componente::all();
         $fuente = Fuente::all();
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','0')->where('EsatdoObservo','0')->get();
 
         $datos = [        
             'modalidades' => $modalidadSeleccion,
@@ -88,53 +88,67 @@ class PlanAnualAController extends Controller
 
         $model_A = Paa::find($input["id_Paa"]);
         $estado=1;
-        $estadoObservo=0;
+        $estadoObservo=1;
         $Modifica=1;
         return $this->gestionar_Paa($model_A, $input,$estado,$estadoObservo,$Modifica);
     }
 
     public function gestionar_Paa($model, $input,$estado,$estadoObservo,$Modifica)
     {
+        $modeloPA = new Paa;
+        $modeloPA['Id_paa'] = 0;
+        $modeloPA['Registro'] = $input['id_registro'];
+        $modeloPA['CodigosU'] = $input['codigo_Unspsc'];
+        $modeloPA['Id_ModalidadSeleccion'] = $input['modalidad_seleccion'];
+        $modeloPA['Id_TipoContrato'] = $input['tipo_contrato'];
+        $modeloPA['ObjetoContractual'] = $input['objeto_contrato'];
+        $modeloPA['FuenteRecurso'] = $input['fuente_recurso'];
+        $modeloPA['ValorEstimado'] = $input['valor_estimado'];
+        $modeloPA['ValorEstimadoVigencia'] = $input['valor_estimado_actualVigencia'];
+        $modeloPA['VigenciaFutura'] = $input['vigencias_futuras'];
+        $modeloPA['EstadoVigenciaFutura'] = $input['estado_solicitud'];
+        $modeloPA['FechaEstudioConveniencia'] = $input['estudio_conveniencia'];
+        $modeloPA['FechaInicioProceso'] = $input['fecha_inicio'];
+        $modeloPA['FechaSuscripcionContrato'] = $input['fecha_suscripcion'];
+        $modeloPA['DuracionContrato'] = $input['duracion_estimada'];
+        $modeloPA['MetaPlan'] = $input['meta_plan'];
+        $modeloPA['RecursoHumano'] = $input['recurso_humano'];
+        $modeloPA['NumeroContratista'] = $input['numero_contratista'];
+        $modeloPA['DatosResponsable'] = $input['datos_contacto'];
+        $modeloPA['Id_ProyectoRubro'] = 1;
+        $modeloPA['IdPersona'] = '1046';
+        $modeloPA['Estado'] = $estado;
+        $modeloPA['IdPersonaObservo'] = '1046';
+        $modeloPA['EsatdoObservo'] = $estadoObservo;
+        $modeloPA['Observacion'] = '';
+        $modeloPA->save();
 
-        $model['Id_paa'] = 1;
-        $model['Registro'] = $input['id_registro'];
-        $model['CodigosU'] = $input['codigo_Unspsc'];
-        $model['Id_ModalidadSeleccion'] = $input['modalidad_seleccion'];
-        $model['Id_TipoContrato'] = $input['tipo_contrato'];
-        $model['ObjetoContractual'] = $input['objeto_contrato'];
-        $model['FuenteRecurso'] = $input['fuente_recurso'];
-        $model['ValorEstimado'] = $input['valor_estimado'];
-        $model['ValorEstimadoVigencia'] = $input['valor_estimado_actualVigencia'];
-        $model['VigenciaFutura'] = $input['vigencias_futuras'];
-        $model['EstadoVigenciaFutura'] = $input['estado_solicitud'];
-        $model['FechaEstudioConveniencia'] = $input['estudio_conveniencia'];
-        $model['FechaInicioProceso'] = $input['fecha_inicio'];
-        $model['FechaSuscripcionContrato'] = $input['fecha_suscripcion'];
-        $model['DuracionContrato'] = $input['duracion_estimada'];
-        $model['MetaPlan'] = $input['meta_plan'];
-        $model['RecursoHumano'] = $input['recurso_humano'];
-        $model['NumeroContratista'] = $input['numero_contratista'];
-        $model['DatosResponsable'] = $input['datos_contacto'];
-        $model['Id_ProyectoRubro'] = 1;
-        $model['IdPersona'] = '1046';
-        $model['Estado'] = $estado;
-        $model['IdPersonaObservo'] = '1046';
-        $model['EsatdoObservo'] = $estadoObservo;
-        $model['Observacion'] = '';
-        $model->save();
-        
         if($Modifica==0){
-            $id_paa=$model->Id;
+            $id_paa=$modeloPA->Id;
+            $modeloP = Paa::find($id_paa);
+            $modeloP['Id_paa'] = $id_paa;
+            $modeloP['Registro'] = $id_paa;
+            $modeloP->save();
+
             $data0 = json_decode($input['Dato_Actividad']);
             foreach($data0 as $obj){
-                $model->actividadComponentes()->attach($obj->id_pivot_comp,[
+                $modeloPA->actividadComponentes()->attach($obj->id_pivot_comp,[
                     'paa_id'=>$id_paa,
                     'valor'=>$obj->valor
                     ]);
             }
-        }
+        }else{
+            $id_paa2=$model->Id;
+            $id_paa=$modeloPA->Id;
+            $modeloP = Paa::find($id_paa);
+            $modeloP['Registro'] = $model->Registro;
 
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->get();
+            $modeloultimo = Paa::where('Registro','=',$model->Registro)->orderby('created_at','DESC')->take(2)->get();
+            
+            $modeloP['Id_paa'] = $modeloultimo[1]['Id'];
+            $modeloP->save();
+        }
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','0')->where('EsatdoObservo','0')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
@@ -155,6 +169,13 @@ class PlanAnualAController extends Controller
     public function obtenerPaa(Request $request, $id)
     {
         $model_A = Paa::with('rubro')->find($id);
+        return response()->json($model_A);
+    }
+
+
+    public function obtenerHistorialPaa(Request $request, $id)
+    {
+        $model_A = Paa::with('modalidad','tipocontrato','rubro')->where('Registro',$id)->get();
         return response()->json($model_A);
     }
 
