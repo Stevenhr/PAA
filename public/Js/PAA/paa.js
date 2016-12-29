@@ -10,6 +10,14 @@ $(function()
             'copy', 'csv', 'excel', 'pdf']
   } );
 
+   var t = $('#Tabla1').DataTable( {responsive: true,
+
+  } );
+
+   var t = $('#Tabla2').DataTable( {responsive: true,
+        
+  } );
+
   $('#Modal_AgregarNuevo').on('shown.bs.modal', function () {
 	  $('#myInput').focus()
 	})
@@ -389,7 +397,7 @@ $(function()
                       var html1 = '';
                       var html2 = '';
                       $.each(data, function(i, dato){
-                        console.log(dato);
+                        
                         if(dato['Estado']==0){
                           html += '<tr>'+
                           '<th scope="row" class="text-center">'+num+'</th>'+

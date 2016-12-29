@@ -495,47 +495,83 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Historial</h4>
+        <h4 class="modal-title" id="myModalLabel">Historial de modificaciones</h4>
       </div>
       <div class="modal-body">
       			<div class="row">
+      				<div class="col-xs-12 col-sm-12">
+					 	<h4 class="modal-title" id="myModalLabel">Cambios</h4>
+					 	<hr>
+					 </div>
 					<div class="col-xs-12 col-sm-12">
-				  		<table class="table table-bordered" id="datos_actividad" > 
-							<thead>
-							<tr>
-							<th>#</th>
-							<th>Proyecto</th>
-							<th>Meta</th>
-							<th>Actividad</th>
-							<th>Componente</th>
-							<th>Fuente</th>
-							<th>Valor</th>
-							<th>Eliminar</th>
-							</tr>
-							</thead>
-							<tbody id="registrosHtml"> 
-							</tbody> 
-						</table>
+						<div class="table-responsive"> 
+							<table  class="table table-bordered table-condensed">
+							        <thead>
+							            <tr>
+											<th>#</th>
+											<th>Proyecto</th>
+											<th>Meta</th>
+											<th>Actividad</th>
+											<th>Componente</th>
+											<th>Fuente</th>
+											<th>Valor</th>
+											<th>Eliminar</th>
+										</tr>
+							        </thead>						       
+							        <tbody id="registrosHtml">
+							        </tbody>
+							</table>
+						</div>
 					</div>
-
+					<br><br>
 					<div class="col-xs-12 col-sm-12">
-				  		<table class="table table-bordered" id="datos_actividad" > 
-							<thead>
-							<tr>
-							<th>#</th>
-							<th>Proyecto</th>
-							<th>Meta</th>
-							<th>Actividad</th>
-							<th>Componente</th>
-							<th>Fuente</th>
-							<th>Valor</th>
-							<th>Eliminar</th>
-							</tr>
-							</thead>
-							<tbody id="registrosHtml1"> 
-							</tbody> 
-						</table>
+					 	<h4 class="modal-title" id="myModalLabel">Actual</h4>
+					 	<hr>
 					</div>
+					<div class="col-xs-12 col-sm-12">
+				  		<div class="table-responsive"> 
+					  		<table  class="table table-bordered table-condensed0">
+							        <thead>
+							            <tr class="success">
+											<th>#</th>
+											<th>Proyecto</th>
+											<th>Meta</th>
+											<th>Actividad</th>
+											<th>Componente</th>
+											<th>Fuente</th>
+											<th>Valor</th>
+											<th>Eliminar</th>
+										</tr>
+							        </thead>
+							        <tbody id="registrosHtml1">
+							        </tbody>
+							</table>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12">
+					 	<h4 class="modal-title" id="myModalLabel">Cambios por aprobar</h4>
+					 	<hr>
+					</div>
+					<div class="col-xs-12 col-sm-12">
+						<div class="table-responsive"> 
+					  		<table  class="table table-bordered table-condensed0">
+							        <thead>
+							            <tr>
+											<th>#</th>
+											<th>Proyecto</th>
+											<th>Meta</th>
+											<th>Actividad</th>
+											<th>Componente</th>
+											<th>Fuente</th>
+											<th>Valor</th>
+											<th>Eliminar</th>
+										</tr>
+							        </thead>
+							        <tbody id="registrosHtml1">
+							        </tbody>
+							</table>
+						</div>
+					</div>	
 				</div>
       </div>
       <div class="modal-footer">
