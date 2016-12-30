@@ -114,7 +114,7 @@ $(function()
                                     '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-primary  btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
                                     '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
@@ -208,31 +208,27 @@ $(function()
 
     var select_fuente = function(id)
     { 
+        $.ajax({
+            url: URL+'/service/fuenteComponente/'+id,
+            data: {},
+            dataType: 'json',
+            success: function(data)
+            {
+                //console.log(data);
+                var html = '<option value="">Seleccionar</option>';
+          
+                        $.each(data.metas, function(i, eee){
+                            $.each(eee.actividades, function(i, eeee){
+                                $.each(eeee.componentes, function(i, eeeee){   
 
-                 /* @foreach($componentes as $componente)
-                            <option value="{{ $componente['Id'] }}" >{{ $componente['Nombre'] }}</option>
-                  @endforeach*/
-                $.ajax({
-                    url: URL+'/service/fuenteComponente/'+id,
-                    data: {},
-                    dataType: 'json',
-                    success: function(data)
-                    {
-                        //console.log(data);
-                        var html = '<option value="">Seleccionar</option>';
-                  
-                                $.each(data.metas, function(i, eee){
-                                    $.each(eee.actividades, function(i, eeee){
-                                        $.each(eeee.componentes, function(i, eeeee){   
-
-                                            html += '<option value="'+eeeee['Id']+'">'+eeeee.pivot['id']+"<b> ACTIVIDAD:</b>"+eeee['Nombre'].toLowerCase()+"<br> FUENTE:"+eeeee.fuente['nombre'].toLowerCase()+'</option>';
-                                            $('input[name="id_pivot_comp"]').val(eeeee.pivot['id']);
-                                        });
-                                    });
+                                    html += '<option value="'+eeeee['Id']+'">'+eeeee.pivot['id']+"<b> ACTIVIDAD:</b>"+eeee['Nombre'].toLowerCase()+"<br> FUENTE:"+eeeee.fuente['nombre'].toLowerCase()+'</option>';
+                                    $('input[name="id_pivot_comp"]').val(eeeee.pivot['id']);
                                 });
-                        $('select[name="componnente"]').html(html).val($('select[name="componnente"]').data('value'));
-                    }
-                });
+                            });
+                        });
+                $('select[name="componnente"]').html(html).val($('select[name="componnente"]').data('value'));
+            }
+        });
     };
 
   
@@ -240,7 +236,6 @@ $(function()
     {
         
         var id_pivot_comp=$('input[name="id_pivot_comp"]').val();
-
         var Proyecto_inversion=$('select[name="Proyecto_inversion"]').val();
         var indice = form_paa.Proyecto_inversion.selectedIndex;
         var Nom_Proyecto_inversion= form_paa.Proyecto_inversion.options[indice].text ;
@@ -285,7 +280,7 @@ $(function()
    $('#Btn_Agregar_Nuevo').on('click', function(e)
     {
         $('input[name="id_Paa"]').val("0").closest('.form-group').removeClass('has-error');
-        $('input[name="id_registro"]').val("").closest('.form-group').removeClass('has-error');
+        $('input[name="id_registro"]').val("0").closest('.form-group').removeClass('has-error');
         $('input[name="codigo_Unspsc"]').val("").closest('.form-group').removeClass('has-error');;
         $('input[name="fecha_inicial_presupuesto"]').val("").closest('.form-group').removeClass('has-error');;
         $('input[name="fuente_recurso"]').val("").closest('.form-group').removeClass('has-error');;
@@ -385,6 +380,7 @@ $(function()
 
      $('#TablaPAA').delegate('button[data-funcion="Historial"]','click',function (e){   
           var id = $(this).data('rel'); 
+
           $.get(
               URL+'/service/obtenerHistorialPaa/'+id,
               {},
@@ -399,7 +395,7 @@ $(function()
                       var html1 = '';
                       var html2 = '';
 
-                      console.log(data);
+                      //console.log(data);
                       tb1.clear().draw();
                       tb2.clear().draw();
                       tb3.clear().draw();

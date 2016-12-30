@@ -157,14 +157,10 @@
       </div>
       <div class="modal-body">
         <form id="form_paa">
+        
         		<input type="hidden" class="form-control" name="id_Paa" value="0">
+        		<input type="hidden" class="form-control" name="id_registro" value="0">
 		        <div class="row">
-				  <div class="col-xs-6 col-sm-4">
-				  		<div class="form-group">
-					    	<label>Id Registro </label>
-							<input type="text" class="form-control" name="id_registro">
-						</div>
-				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Códigos UNSPSC </label>
@@ -181,6 +177,8 @@
 								    @endforeach
 							</select>
 						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
 				  </div>
 				</div>
 
