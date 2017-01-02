@@ -19,13 +19,9 @@
 	                <div class="col-xs-12 col-md-12 text-">
 				    	<div class="form-group">	
 							<div class="btn-group" role="group" aria-label="...">
-							  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Modal_AgregarNuevo" id="Btn_Agregar_Nuevo">
-							  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar nuevo
-							  </button>
-
-							  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Modal_AprobarCambios"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> Historial de Cambios</button>
+						
+							  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Modal_AprobarCambios"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> Aprobar cambios</button>
 							  
-							  <button type="button" class="btn btn-danger" id="Modal_HistorialEliminar_btn"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Historial eliminados</button>
 							</div>
 						</div>
 		    		</div>

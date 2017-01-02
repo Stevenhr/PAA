@@ -31,6 +31,7 @@ Route::post('ProcesoTipoPersona', '\Idrd\Usuarios\Controllers\AsignarActividadCo
 
 // Rutas proyecto local
 Route::any('/GestionarPaa/', 'PlanAnualAController@index'); 
+Route::any('/AprobacionPaa/', 'ConsolidadoController@index'); 
 Route::get('/configuracionPaa/proyecto/{id}', 'PaaController@proyecto'); 
 
 Route::post('/configuracionPaa/validar/presupuesto/', 'PaaController@validar_presupuesto');
@@ -71,6 +72,7 @@ Route::get('/paa/service/obtenerHistorialPaa/{id}', 'PlanAnualAController@obtene
 
 
 Route::get('/paa/service/EliminarPaa/{id}', 'PlanAnualAController@EliminarPaa');
+Route::get('/paa/service/HistorialEliminarPaa/{id}', 'PlanAnualAController@HistorialEliminarPaa');
 
 Route::any('/PresupuestoPAA/', 'PaaController@index');
 Route::any('/', 'MainController@index');

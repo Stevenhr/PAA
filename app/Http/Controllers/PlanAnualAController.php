@@ -10,6 +10,7 @@ use App\TipoContrato;
 use App\Componente;
 use App\Fuente;
 use App\Paa;
+use App\Utilidades\Comparador;
 use Validator;
 use App\Proyecto;
 
@@ -171,22 +172,39 @@ class PlanAnualAController extends Controller
         return response()->json($model_A);
     }
 
-
     public function obtenerHistorialPaa(Request $request, $id)
     {
         $model_A = Paa::with('modalidad','tipocontrato','rubro')->where('Registro',$id)->get();
         return response()->json($model_A);
     }
 
-
     public function EliminarPaa(Request $request, $id)
     {
         $modeloPA = Paa::find($id);
-        $modeloPA['Estado'] = 2;
-        $modeloPA['EsatdoObservo'] = 2;
+        $modeloPA['Estado'] = 3;
+        $modeloPA['EsatdoObservo'] = 3;
         $modeloPA->save();
 
         $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','0')->where('EsatdoObservo','0')->get();
+        return response()->json(array('status' => 'modelo', 'datos' => $paa));
+    }
+
+    public function HistorialEliminarPaa(Request $request, $id)
+    {
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','3')->where('EsatdoObservo','3')->get();
+        return response()->json(array('status' => 'modelo', 'datos' => $paa));
+    }
+
+    public function HistorialEliminarPaaEspecifico(Request $request, $id)
+    {
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','0')->where('EsatdoObservo','0')->find(41);
+        $paas = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Registro',41)->where('Estado','1')->where('EsatdoObservo','1')->get();
+        foreach ($paas as &$temp) 
+        {
+            $temp->cambios = Comparador::comparar($temp->toArray(), $paa->toArray());
+        }
+
+        dd($paas);
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 

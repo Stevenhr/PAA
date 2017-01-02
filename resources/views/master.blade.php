@@ -80,6 +80,14 @@
                 </ul>
               </li>
 
+
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Consolidador<span class="caret"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="download">
+                  <li class=”{{ Request::is( 'AprobacionPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'AprobacionPaa') }}">Aprobación</a></li>
+                </ul>
+              </li>
+
             </ul>
 
             <form class="navbar-form navbar-left" role="search">

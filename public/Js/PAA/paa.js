@@ -26,7 +26,7 @@ $(function()
 	  $('#myInput').focus()
 	})
 
-  $('#Modal_Historiaeliminado').on('shown.bs.modal', function () {
+  $('#Modal_HistorialEliminar').on('shown.bs.modal', function () {
 	  $('#myInput').focus()
 	})
 
@@ -399,7 +399,7 @@ $(function()
                       tb3.clear().draw();
                       $.each(data, function(i, dato){
                         
-                        if(dato['Estado']==0){
+                        if(dato['Estado']==0){ // Registro Actual
                             tb1.row.add( [
                                 '<th scope="row" class="text-center">'+num+'</th>',
                                 '<td>'+dato['Registro']+'</td>',
@@ -425,7 +425,7 @@ $(function()
                             num++;
                         }
 
-                        if(dato['Estado']==1){
+                        if(dato['Estado']==1){ //Cambios aporbados
                             tb2.row.add( [
                                   '<th scope="row" class="text-center">'+num1+'</th>',
                                   '<td>'+dato['Registro']+'</td>',
@@ -451,7 +451,7 @@ $(function()
                           num1++;
                         }
 
-                        if(dato['Estado']==2){
+                        if(dato['Estado']==2){  //Por Aprobar
                               tb3.row.add( [
                                   '<th scope="row" class="text-center">'+num2+'</th>',
                                   '<td>'+dato['Registro']+'</td>',
@@ -617,12 +617,79 @@ $(function()
     });
 
     $('#TablaPAA').delegate('button[data-funcion="ver_eli"]','click',function (e) {  
-
         var id = $(this).data('rel');
         $('#idRegist_inpt').val(id); 
         $('#idRegist').text(id); 
         $('#Modal_Eliminar').modal('show'); 
-     }); 
+    }); 
+
+
+    $('#Modal_HistorialEliminar_btn').on('click', function(e)
+    {
+        
+       $.get(
+            URL+'/service/HistorialEliminarPaa/1',
+            $(this).serialize(),
+            function(data){
+                  if(data.status == 'modelo')
+                  {           
+                      var num=1;
+                      tb4.clear().draw();
+                      $.each(data.datos, function(i, e){
+                          tb4.row.add( [
+                              '<th scope="row" class="text-center">'+num+'</th>',
+                              '<td>'+e['Registro']+'</td>',
+                              '<td>'+e['CodigosU']+'</td>',
+                              '<td>'+e.modalidad['Nombre']+'</td>',
+                              '<td>'+e.tipocontrato['Nombre']+'</td>',
+                              '<td>'+e['ObjetoContractual']+'</td>',
+                              '<td>'+e['FuenteRecurso']+'</td>',
+                              '<td>'+e['ValorEstimado']+'</td>',
+                              '<td>'+e['ValorEstimadoVigencia']+'</td>',
+                              '<td>'+e['VigenciaFutura']+'</td>',
+                              '<td>'+e['EstadoVigenciaFutura']+'</td>',
+                              '<td>'+e['FechaEstudioConveniencia']+'</td>',
+                              '<td>'+e['FechaInicioProceso']+'</td>',
+                              '<td>'+e['FechaSuscripcionContrato']+'</td>',
+                              '<td>'+e['DuracionContrato']+'</td>',
+                              '<td>'+e['MetaPlan']+'</td>',
+                              '<td>'+e['RecursoHumano']+'</td>',
+                              '<td>'+e['NumeroContratista']+'</td>',
+                              '<td>'+e['DatosResponsable']+'</td>',
+                              '<td>'+e.rubro['Nombre']+'</td>',
+
+                              '<td>'+
+                                '<div class="btn-group btn-group-justified">'+
+                                  '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                  '</div>'+
+                                  '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                  '</div>'+
+                                  '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                                  '</div>'+
+                                  '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
+                                  '</div>'+
+                                '</div>'+
+                                '<div id=""></div>'+
+                              '</td>'
+                          ] ).draw( false );
+                          num++;
+                      });
+                      $('#Modal_HistorialEliminar').modal('show');
+                  }else{
+                      $('#mjs_ElimRegistro').html('<strong>Error!</strong> el valor del presupuesto que intenta eliminar tiene problemas.');
+                      $('#mjs_ElimRegistro').show();
+                      setTimeout(function(){
+                          $('#mjs_ElimRegistro').hide();
+                          $('#Modal_Eliminar').modal('hide'); 
+                      }, 6000)
+                  }
+          },'json');
+        
+    });
 
 
                   
