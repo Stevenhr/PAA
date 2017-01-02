@@ -69,6 +69,9 @@ Route::get('/paa/service/VerFinanciamiento/{id}', 'PlanAnualAController@verFinan
 Route::get('/paa/service/obtenerPaa/{id}', 'PlanAnualAController@obtenerPaa');
 Route::get('/paa/service/obtenerHistorialPaa/{id}', 'PlanAnualAController@obtenerHistorialPaa');
 
+
+Route::get('/paa/service/EliminarPaa/{id}', 'PlanAnualAController@EliminarPaa');
+
 Route::any('/PresupuestoPAA/', 'PaaController@index');
 Route::any('/', 'MainController@index');
 Route::any('/logout', 'MainController@logout');

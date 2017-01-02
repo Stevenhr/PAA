@@ -12,13 +12,11 @@ $(function()
 
   var tb1 = $('#Tabla1').DataTable( {responsive: true  } );
 
-  var tb2 = $('#Tabla2').DataTable( {responsive: true,
-        
-  } );
+  var tb2 = $('#Tabla2').DataTable( {responsive: true,  } );
 
-  var tb3 = $('#Tabla3').DataTable( {responsive: true,
-        
-  } );
+  var tb3 = $('#Tabla3').DataTable( {responsive: true,  } );
+
+  var tb4 = $('#Tabla4').DataTable( {responsive: true,  } );
 
   $('#Modal_AgregarNuevo').on('shown.bs.modal', function () {
 	  $('#myInput').focus()
@@ -512,7 +510,6 @@ $(function()
     var actividad_datos = function(datos)
     {
         
-
         $('input[name="id_Paa"]').val(datos['Id']).closest('.form-group').removeClass('has-error');;;
         $('input[name="id_registro"]').val(datos['Registro']).closest('.form-group').removeClass('has-error');;
         $('input[name="codigo_Unspsc"]').val(datos['CodigosU']).closest('.form-group').removeClass('has-error');;
@@ -543,5 +540,90 @@ $(function()
         $('#Modal_AgregarNuevo').modal('show');      
 
     };
+
+
+    
+    $('#ElimianrPAA_btn').on('click', function(e)
+    {
+       
+       var id = $('#idRegist_inpt').val();
+
+       $.get(
+            URL+'/service/EliminarPaa/'+id,
+            $(this).serialize(),
+            function(data){
+                  if(data.status == 'modelo')
+                  {           
+                      var num=1;
+                      t.clear().draw();
+                      $.each(data.datos, function(i, e){
+                          t.row.add( [
+                              '<th scope="row" class="text-center">'+num+'</th>',
+                              '<td>'+e['Registro']+'</td>',
+                              '<td>'+e['CodigosU']+'</td>',
+                              '<td>'+e.modalidad['Nombre']+'</td>',
+                              '<td>'+e.tipocontrato['Nombre']+'</td>',
+                              '<td>'+e['ObjetoContractual']+'</td>',
+                              '<td>'+e['FuenteRecurso']+'</td>',
+                              '<td>'+e['ValorEstimado']+'</td>',
+                              '<td>'+e['ValorEstimadoVigencia']+'</td>',
+                              '<td>'+e['VigenciaFutura']+'</td>',
+                              '<td>'+e['EstadoVigenciaFutura']+'</td>',
+                              '<td>'+e['FechaEstudioConveniencia']+'</td>',
+                              '<td>'+e['FechaInicioProceso']+'</td>',
+                              '<td>'+e['FechaSuscripcionContrato']+'</td>',
+                              '<td>'+e['DuracionContrato']+'</td>',
+                              '<td>'+e['MetaPlan']+'</td>',
+                              '<td>'+e['RecursoHumano']+'</td>',
+                              '<td>'+e['NumeroContratista']+'</td>',
+                              '<td>'+e['DatosResponsable']+'</td>',
+                              '<td>'+e.rubro['Nombre']+'</td>',
+
+                              '<td>'+
+                                '<div class="btn-group btn-group-justified">'+
+                                  '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                  '</div>'+
+                                  '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                  '</div>'+
+                                  '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                                  '</div>'+
+                                  '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
+                                  '</div>'+
+                                '</div>'+
+                                '<div id=""></div>'+
+                              '</td>'
+                          ] ).draw( false );
+                          num++;
+                      });
+                      $('#mjs_ElimRegistro').html(' <strong>Registro Eliminado con Exitoso!</strong> Se realizo la eliminación del resgistro de su PAA.');
+                      $('#mjs_ElimRegistro').show();
+                      setTimeout(function(){
+                          $('#mjs_ElimRegistro').hide();
+                          $('#Modal_Eliminar').modal('hide'); 
+                      }, 3000)
+                  }else{
+                      $('#mjs_ElimRegistro').html('<strong>Error!</strong> el valor del presupuesto que intenta eliminar tiene problemas.');
+                      $('#mjs_ElimRegistro').show();
+                      setTimeout(function(){
+                          $('#mjs_ElimRegistro').hide();
+                          $('#Modal_Eliminar').modal('hide'); 
+                      }, 6000)
+                  }
+          },'json');
+    });
+
+    $('#TablaPAA').delegate('button[data-funcion="ver_eli"]','click',function (e) {  
+
+        var id = $(this).data('rel');
+        $('#idRegist_inpt').val(id); 
+        $('#idRegist').text(id); 
+        $('#Modal_Eliminar').modal('show'); 
+     }); 
+
+
                   
 });

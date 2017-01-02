@@ -33,7 +33,6 @@ class PlanAnualAController extends Controller
             'fuentes'=>$fuente,
             'paas' => $paa
         ];
-
 		return view('paa',$datos);
 	}
     
@@ -177,6 +176,18 @@ class PlanAnualAController extends Controller
     {
         $model_A = Paa::with('modalidad','tipocontrato','rubro')->where('Registro',$id)->get();
         return response()->json($model_A);
+    }
+
+
+    public function EliminarPaa(Request $request, $id)
+    {
+        $modeloPA = Paa::find($id);
+        $modeloPA['Estado'] = 2;
+        $modeloPA['EsatdoObservo'] = 2;
+        $modeloPA->save();
+
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','0')->where('EsatdoObservo','0')->get();
+        return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
 }
