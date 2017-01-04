@@ -13,6 +13,7 @@ use App\Paa;
 use App\Utilidades\Comparador;
 use Validator;
 use App\Proyecto;
+use App\CambioPaa;
 
 class PlanAnualAController extends Controller
 {
@@ -206,6 +207,33 @@ class PlanAnualAController extends Controller
 
         dd($paas);
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
+    }
+
+
+     public function DatosAprobacion(Request $request)
+    {
+        $id=$request['id'];
+        $resposanble=$request['resposanble'];
+
+        $max = sizeof($id);
+        $res="";
+        for($i = 0; $i < $max;$i++)
+        {
+          
+          $modeloCambioPaa = CambioPaa::find($id[$i]);
+          $item=0;         
+          
+          if($resposanble[$i]!=0){
+            $modeloCambioPaa['cambio'] = $resposanble[$i];
+            $item++;
+          }
+
+          if($item>0){
+            $modeloCambioPaa->save();
+          }
+
+        }
+        return response()->json($res);
     }
 
 }

@@ -682,52 +682,54 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Historial de Eliminación</h4>
       </div>
-      <div class="modal-body">
-      		<div class="row">
-      			<div class="col-xs-12 col-sm-12">
-					<div class="panel panel-danger">
-						<div class="panel-heading">Historial de Registros Eliminados</div>
-						<div class="panel-body">
-						    <p>Los siguientes registros estan en estado eliminado.</p>
-						</div>	
-						<div class="table-responsive"> 
-					  		<table  id="Tabla4" class="display nowrap table-bordered" width="780px" cellspacing="0">
-							        <thead>
-										<tr class="success">
-							                <th>N°</th>
-							                <th>Id Registro</th>
-											<th>Códigos UNSPSC</th>
-											<th>Modalidad de selección</th>
-											<th>Tipo de contrato</th>
-											<th>Descripción/Objeto</th>
-											<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
-											<th>Valor total estimado	</th>
-											<th>Valor estimado en la vigencia actual	</th>
-											<th>¿Se requieren vigencias futuras?	</th>
-											<th>Estado de solicitud de vigencias futuras	</th>
-											<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
-											<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
-											<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-											<th>Duración estimada del contrato (meses)	</th>
-											<th>Meta plan	</th>
-											<th>Recurso Humano (Si / No)</th>
-											<th>Numero de Contratistas	</th>
-											<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
-											<th>Proyecto de inversión o rubro de funcionamiento</th>
-							            </tr>
-							        </thead>	
-							        <tbody id="registrosHtml1">
-							        </tbody>
-							</table>
+      
+	      <div class="modal-body">
+	      		<div class="row">
+	      			<div class="col-xs-12 col-sm-12">
+						<div class="panel panel-danger">
+							<div class="panel-heading">Historial de Registros Eliminados</div>
+							<div class="panel-body">
+							    <p>Los siguientes registros estan en estado eliminado.</p>
+							</div>	
+							<div class="table-responsive"> 
+						  		<table  id="Tabla4" class="display nowrap table-bordered" width="780px" cellspacing="0">
+								        <thead>
+											<tr class="success">
+								                <th>N°</th>
+								                <th>Id Registro</th>
+												<th>Códigos UNSPSC</th>
+												<th>Modalidad de selección</th>
+												<th>Tipo de contrato</th>
+												<th>Descripción/Objeto</th>
+												<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
+												<th>Valor total estimado	</th>
+												<th>Valor estimado en la vigencia actual	</th>
+												<th>¿Se requieren vigencias futuras?	</th>
+												<th>Estado de solicitud de vigencias futuras	</th>
+												<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
+												<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
+												<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
+												<th>Duración estimada del contrato (meses)	</th>
+												<th>Meta plan	</th>
+												<th>Recurso Humano (Si / No)</th>
+												<th>Numero de Contratistas	</th>
+												<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
+												<th>Proyecto de inversión o rubro de funcionamiento</th>
+								            </tr>
+								        </thead>	
+								        <tbody id="registrosHtml1">
+								        </tbody>
+								</table>
+							</div>
 						</div>
 					</div>
-				</div>
-      		</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success">Crear</button>
-      </div>
+	      		</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	        <button type="button" class="btn btn-success">Crear</button>
+	      </div>
+      
     </div>
   </div>
 </div>

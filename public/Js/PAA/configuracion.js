@@ -250,7 +250,7 @@ $(function()
                                 proyects=proyects+'<br><li>'+ee['Nombre']+'</li>';
                             });
                         });
-                        $("#espera"+id).html('<div class="alert alert-danger"><strong>Error!</strong> Posee los siguientes proyectos activos.<br>'+proyects+'</div>');
+                        $("#espera"+id).html('<div class="form_paaalert alert-danger"><strong>Error!</strong> Posee los siguientes proyectos activos.<br>'+proyects+'</div>');
                         setTimeout(function(){
                             $("#espera"+id).html('');
                         }, 4000)

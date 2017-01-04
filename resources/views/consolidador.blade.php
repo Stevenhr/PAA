@@ -1,18 +1,17 @@
 @extends('master')             
 
-
 @section('script')
 	@parent
-    <script src="{{ asset('public/Js/PAA/paa.js') }}"></script>	
+    <script src="{{ asset('public/Js/PAA/aprobar.js') }}"></script>	
 @stop
 
 @section('content') 
-        	<div class="content" id="main_paa_" class="row" data-url="paa" ></div>
+        	<div class="content" id="main_paa_Aprobar" class="row" data-url="aprobar" ></div>
             <div class="content">
             	<div class="row">
 	            	<div class="col-xs-12 col-md-12 ">
 				    	<br>
-						<h4>Gestionar PAA</h4>
+						<h4>Gestionar y aprobación PAA</h4>
 		            	<br>
 		    		</div>
 
@@ -26,16 +25,16 @@
 						</div>
 		    		</div>
 
-				    <div class="col-xs-12 col-md-12 ">
+				    <div class="col-xs-12 col-md-12">
 				    	<hr style="border: 0; border-top: 2px solid #CEECF5; height:0;">
 		    		</div>
 
-	    			<div class="col-xs-12 col-md-12 ">
+	    			<div class="col-xs-12 col-md-12">
 						<h4>LISTADO ACTIVO PAA</h4>
 		            	<br>
 		    		</div>
 	    		
-	            	<div class="col-xs-12 col-md-12 ">
+	            	<div class="col-xs-12 col-md-12">
 				    	
 					      		<table id="TablaPAA"  class="display nowrap" width="100%" cellspacing="0">
 						        <thead>
@@ -116,16 +115,13 @@
 					                        <td>
 												<div class="btn-group btn-group-justified">
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="ver_eli" class="btn btn-danger btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span></button>
-												  </div>
-												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-default btn-xs"  title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-												  </div>
-												  <div class="btn-group">
 												    <button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary  btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
 												  </div>
 												  <div class="btn-group">
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
+												  </div>
+												  <div class="btn-group">
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Aprobacion" class="btn btn-warning btn-xs"  title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
 												  </div>
 												</div>
 												<div id=""></div>
@@ -671,6 +667,7 @@
 
 
 <!-- MODAL HISTORIAL DE ELIMIANCION-->
+
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_HistorialEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -728,5 +725,65 @@
   </div>
 </div>
 
+<!-- MODAL APRIOBACION CAMBIOS-->
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_AprobarCambiosH" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Historial de modificaciones</h4>
+      </div>
+      <form id="form_aprobacion">
+	      <div class="modal-body">
+	      			<div class="row">
+						<div class="col-xs-12 col-sm-12">
+							<div class="panel panel-warning">
+							  <!-- Default panel contents -->
+								<div class="panel-heading">Aprobación de cambios</div>
+								<div class="panel-body">
+								    <p>Registro que actualmente es valido para todos los usuarios.</p>
+								</div>						 
+								<div class="table-responsive">
+									<table  id="Tabla5" class="display nowrap cell-border compact" width="100%" cellspacing="0">
+									        <thead>
+												<tr class="success">
+									                <th>N°</th>
+													<th>Códigos UNSPSC</th>
+													<th>Modalidad de selección</th>
+													<th>Tipo de contrato</th>
+													<th>Descripción/Objeto</th>
+													<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
+													<th>Valor total estimado	</th>
+													<th>Valor estimado en la vigencia actual	</th>
+													<th>¿Se requieren vigencias futuras?	</th>
+													<th>Estado de solicitud de vigencias futuras	</th>
+													<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
+													<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
+													<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
+													<th>Duración estimada del contrato (meses)	</th>
+													<th>Meta plan	</th>
+													<th>Recurso Humano (Si / No)</th>
+													<th>Numero de Contratistas	</th>
+													<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
+													<th>Proyecto de inversión o rubro de funcionamiento</th>
+									            </tr>
+									        </thead>						       
+									        <tbody>
+									        </tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	        <button type="submit" class="btn btn-success">Crear</button>
+	      </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 @stop
