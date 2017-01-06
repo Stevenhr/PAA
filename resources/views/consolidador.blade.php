@@ -577,9 +577,9 @@
 					<div class="col-xs-12 col-sm-12">
 						<div class="panel panel-danger">
 						  <!-- Default panel contents -->
-							<div class="panel-heading">Registros pendientes por aprobación</div>
+							<div class="panel-heading">Registros pendientes por revision</div>
 							<div class="panel-body">
-							    <p>Los siguientes registros estan pedintes de aprobación.</p>
+							    <p>Los siguientes registros estan pedintes de revision.</p>
 							</div>	
 							<div class="table-responsive"> 
 						  		<table  id="Tabla3" class="display nowrap table-bordered" width="780px" cellspacing="0">
@@ -773,13 +773,15 @@
 									        </tbody>
 									</table>
 								</div>
+								<br><br>
 							</div>
+							<div id="mensaje_aprobacion" class="alert alert-success" style="display: none"></div>
 						</div>
 					</div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-	        <button type="submit" class="btn btn-success">Crear</button>
+	        <button type="submit" class="btn btn-success">Aprobar</button>
 	      </div>
       </form>
     </div>

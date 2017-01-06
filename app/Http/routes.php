@@ -78,6 +78,7 @@ Route::get('/aprobar/service/HistorialEliminarPaa/{id}', 'PlanAnualAController@H
 Route::get('/aprobar/service/obtenerHistorialPaa/{id}', 'PlanAnualAController@obtenerHistorialPaa');
 Route::get('/aprobar/service/VerFinanciamiento/{id}', 'PlanAnualAController@verFinanciacion');
 Route::post('/aprobar/service/DatosAprobacion', 'PlanAnualAController@DatosAprobacion');
+Route::get('/aprobar/service/obtenerHistorialPaaTodo/{id}', 'PlanAnualAController@obtenerHistorialPaaTodo');
 
 Route::any('/PresupuestoPAA/', 'PaaController@index');
 Route::any('/', 'MainController@index');

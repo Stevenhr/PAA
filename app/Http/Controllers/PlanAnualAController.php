@@ -175,7 +175,13 @@ class PlanAnualAController extends Controller
 
     public function obtenerHistorialPaa(Request $request, $id)
     {
-        $model_A = Paa::with('modalidad','tipocontrato','rubro')->where('Registro',$id)->get();
+        $model_A = Paa::with('modalidad','tipocontrato','rubro','cambiosPaa')->whereDoesnthave('cambiosPaa')->where('Registro', '=', $id)->get();
+        return response()->json($model_A);
+    }
+
+     public function obtenerHistorialPaaTodo(Request $request, $id)
+    {
+        $model_A = Paa::with('modalidad','tipocontrato','rubro','cambiosPaa')->where('Registro', '=', $id)->get();
         return response()->json($model_A);
     }
 
@@ -210,26 +216,225 @@ class PlanAnualAController extends Controller
     }
 
 
-     public function DatosAprobacion(Request $request)
+    public function DatosAprobacion(Request $request)
     {
         $id=$request['id'];
         $resposanble=$request['resposanble'];
+        $CodigosU=$request['CodigosU'];
+        $Nombre_m=$request['Nombre_m'];
+        $Nombre_t=$request['Nombre_t'];
+        $ObjetoContractual=$request['ObjetoContractual'];
+        $FuenteRecurso=$request['FuenteRecurso'];
+        $ValorEstimado=$request['ValorEstimado'];
+        $ValorEstimadoVigencia=$request['ValorEstimadoVigencia'];
+        $VigenciaFutura=$request['VigenciaFutura'];
+        $EstadoVigenciaFutura=$request['EstadoVigenciaFutura'];
+        $FechaEstudioConveniencia=$request['FechaEstudioConveniencia'];
+        $FechaInicioProceso=$request['FechaInicioProceso'];
+        $FechaSuscripcionContrato=$request['FechaSuscripcionContrato'];
+        $DuracionContrato=$request['DuracionContrato'];
+        $MetaPlan=$request['MetaPlan'];
+        $RecursoHumano=$request['RecursoHumano'];
+        $NumeroContratista=$request['NumeroContratista'];
+        $Nombre_r=$request['Nombre_r'];
 
         $max = sizeof($id);
+
         $res="";
         for($i = 0; $i < $max;$i++)
         {
-          
-          $modeloCambioPaa = CambioPaa::find($id[$i]);
-          $item=0;         
-          
-          if($resposanble[$i]!=0){
-            $modeloCambioPaa['cambio'] = $resposanble[$i];
-            $item++;
+          if($id[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = 'Reviso';
+                $modeloCambioPaa['campo'] = 'Reviso';
+                $modeloCambioPaa->save();
+                $paas = Paa::find($id[$i]);
+                $paas['Estado'] = '2';
+                $paas->save();
           }
 
-          if($item>0){
-            $modeloCambioPaa->save();
+          if(sizeof($CodigosU)>0){
+              if($CodigosU[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $CodigosU[$i];
+                $modeloCambioPaa['campo'] = 'CodigosU';
+                $modeloCambioPaa->save();
+              }
+          }
+
+          if(sizeof($Nombre_m)>0){
+              if($Nombre_m[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $Nombre_m[$i];
+                $modeloCambioPaa['campo'] = 'Id_ModalidadSeleccion';
+                $modeloCambioPaa->save();
+              }
+          }
+
+
+          if(sizeof($Nombre_t)>0){
+              if($Nombre_t[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $Nombre_t[$i];
+                $modeloCambioPaa['campo'] = 'Id_TipoContrato';
+                $modeloCambioPaa->save();
+              }
+          }
+
+
+          if(sizeof($ObjetoContractual)>0){
+              if($ObjetoContractual[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $ObjetoContractual[$i];
+                $modeloCambioPaa['campo'] = 'ObjetoContractual';
+                $modeloCambioPaa->save();
+              }
+          }
+
+          if(sizeof($FuenteRecurso)>0){
+              if($FuenteRecurso[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $FuenteRecurso[$i];
+                $modeloCambioPaa['campo'] = 'FuenteRecurso';
+                $modeloCambioPaa->save();
+              }
+          }
+
+          if(sizeof($ValorEstimado)>0){
+              if($ValorEstimado[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $ValorEstimado[$i];
+                $modeloCambioPaa['campo'] = 'ValorEstimado';
+                $modeloCambioPaa->save();
+              }
+          }
+
+          if(sizeof($ValorEstimadoVigencia)>0){
+              if($ValorEstimadoVigencia[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $ValorEstimadoVigencia[$i];
+                $modeloCambioPaa['campo'] = 'ValorEstimadoVigencia';
+                $modeloCambioPaa->save();
+              }
+          }
+
+          if(sizeof($VigenciaFutura)>0){
+              if($VigenciaFutura[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $VigenciaFutura[$i];
+                $modeloCambioPaa['campo'] = 'VigenciaFutura';
+                $modeloCambioPaa->save();
+              }
+          }
+
+
+          if(sizeof($EstadoVigenciaFutura)>0){
+              if($EstadoVigenciaFutura[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $EstadoVigenciaFutura[$i];
+                $modeloCambioPaa['campo'] = 'EstadoVigenciaFutura';
+                $modeloCambioPaa->save();
+              }
+          }
+
+          if(sizeof($FechaEstudioConveniencia)>0){
+              if($FechaEstudioConveniencia[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $FechaEstudioConveniencia[$i];
+                $modeloCambioPaa['campo'] = 'FechaEstudioConveniencia';
+                $modeloCambioPaa->save();
+              }
+          }
+
+          if(sizeof($FechaInicioProceso)>0){
+              if($FechaInicioProceso[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $FechaInicioProceso[$i];
+                $modeloCambioPaa['campo'] = 'FechaInicioProceso';
+                $modeloCambioPaa->save();
+              }
+          }
+
+          if(sizeof($FechaSuscripcionContrato)>0){
+              if($FechaSuscripcionContrato[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $FechaSuscripcionContrato[$i];
+                $modeloCambioPaa['campo'] = 'FechaSuscripcionContrato';
+                $modeloCambioPaa->save();
+              }
+          }
+
+          if(sizeof($DuracionContrato)>0){
+              if($DuracionContrato[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $DuracionContrato[$i];
+                $modeloCambioPaa['campo'] = 'DuracionContrato';
+                $modeloCambioPaa->save();
+              }
+          }
+
+          if(sizeof($MetaPlan)>0){
+              if($MetaPlan[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $MetaPlan[$i];
+                $modeloCambioPaa['campo'] = 'MetaPlan';
+                $modeloCambioPaa->save();
+              }
+          }
+
+          if(sizeof($RecursoHumano)>0){
+              if($RecursoHumano[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $RecursoHumano[$i];
+                $modeloCambioPaa['campo'] = 'RecursoHumano';
+                $modeloCambioPaa->save();
+              }
+          }
+
+          if(sizeof($NumeroContratista)>0){
+              if($NumeroContratista[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $NumeroContratista[$i];
+                $modeloCambioPaa['campo'] = 'NumeroContratista';
+                $modeloCambioPaa->save();
+              }
+          }
+
+          if(sizeof($resposanble)>0){
+              if($resposanble[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $resposanble[$i];
+                $modeloCambioPaa['campo'] = 'DatosResponsable';
+                $modeloCambioPaa->save();
+              }
+          }
+
+          if(sizeof($Nombre_r)>0){
+              if($Nombre_r[$i]!="0"){
+                $modeloCambioPaa = new CambioPaa;
+                $modeloCambioPaa['id_paa'] = $id[$i];
+                $modeloCambioPaa['cambio'] = $Nombre_r[$i];
+                $modeloCambioPaa['campo'] = 'Id_ProyectoRubro';
+                $modeloCambioPaa->save();
+              }
           }
 
         }

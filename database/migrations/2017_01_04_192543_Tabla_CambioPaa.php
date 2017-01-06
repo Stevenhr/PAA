@@ -22,6 +22,7 @@ class TablaCambioPaa extends Migration
             $table->string('cambio');
             $table->string('campo');
             $table->integer('persona');
+            $table->timestamps();
 
         });
     }

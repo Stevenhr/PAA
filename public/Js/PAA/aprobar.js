@@ -59,7 +59,7 @@ $(function()
           var id = $(this).data('rel'); 
 
           $.get(
-              URL+'/service/obtenerHistorialPaa/'+id,
+              URL+'/service/obtenerHistorialPaaTodo/'+id,
               {},
               function(data)
               {
@@ -104,7 +104,7 @@ $(function()
                             num++;
                         }
 
-                        if(dato['Estado']==1){ //Cambios aporbados
+                        if(dato['Estado']==1){ //Ya revisados
                             tb2.row.add( [
                                   '<th scope="row" class="text-center">'+num1+'</th>',
                                   '<td>'+dato['Registro']+'</td>',
@@ -155,6 +155,7 @@ $(function()
                               ] ).draw( false );
                           num2++;
                         }
+
                       });
 
                       $('#Modal_Historial').modal('show'); 
@@ -252,7 +253,7 @@ $(function()
                           '<td><h5>'+$MetaPlan+'</h5></td>',
                           '<td><h5>'+$RecursoHumano+'</h5></td>',
                           '<td><h5>'+$NumeroContratista+'</h5></td>',
-                          '<td><h5>'+$DatosResponsable+'</h5><hr></td>',
+                          '<td><h5>'+$DatosResponsable+'</h5></td>',
                           '<td><h5>'+$Nombre_r+'</h5></td>'
                       ] ).draw( false );
                      
@@ -260,24 +261,24 @@ $(function()
                         if(dato['Estado']==1){ //Cambios aporbados
                             tb5.row.add( [
                                   '<th scope="row" class="text-center">'+num1+'<input type="hidden" value="'+dato['Id']+'" name="Id[]"></th>',
-                                  '<td>'+dato['CodigosU']+'<br><label class="radio-inline"><input type="radio" value="'+dato['CodigosU']+'" name="CodigosU">Selecionar</label></td>',
-                                  '<td>'+dato.modalidad['Nombre']+'<br><label class="radio-inline"><input type="radio" value="'+dato.modalidad['Nombre']+'" name="Nombre_m" >Selecionar</label></td>',
-                                  '<td>'+dato.tipocontrato['Nombre']+'<br><label class="radio-inline"><input type="radio" value="'+dato.tipocontrato['Nombre']+'" name="Nombre_t">Selecionar</label></td>',
-                                  '<td>'+dato['ObjetoContractual']+'<br><label class="radio-inline"><input type="radio" value="'+dato['ObjetoContractual']+'" name="ObjetoContractual">Selecionar</label></td>',
-                                  '<td>'+dato['FuenteRecurso']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FuenteRecurso']+'" name="FuenteRecurso">Selecionar</label></td>',
-                                  '<td>'+dato['ValorEstimado']+'<br><label class="radio-inline"><input type="radio" value="'+dato['ValorEstimado']+'" name="ValorEstimado">Selecionar</label></td>',
-                                  '<td>'+dato['ValorEstimadoVigencia']+'<br><label class="radio-inline"><input type="radio" value="'+dato['ValorEstimadoVigencia']+'" name="ValorEstimadoVigencia">Selecionar</label></td>',
-                                  '<td>'+dato['VigenciaFutura']+'<br><label class="radio-inline"><input type="radio" value="'+dato['VigenciaFutura']+'" name="VigenciaFutura">Selecionar</label></td>',
-                                  '<td>'+dato['EstadoVigenciaFutura']+'<br><label class="radio-inline"><input type="radio" value="'+dato['EstadoVigenciaFutura']+'" name="EstadoVigenciaFutura">Selecionar</label></td>',
-                                  '<td>'+dato['FechaEstudioConveniencia']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FechaEstudioConveniencia']+'" name="FechaEstudioConveniencia">Selecionar</label></td>',
-                                  '<td>'+dato['FechaInicioProceso']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FechaInicioProceso']+'" name="FechaInicioProceso">Selecionar</label></td>',
-                                  '<td>'+dato['FechaSuscripcionContrato']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FechaSuscripcionContrato']+'" name="FechaSuscripcionContrato">Selecionar</label></td>',
-                                  '<td>'+dato['DuracionContrato']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FechaSuscripcionContrato']+'" name="DuracionContrato">Selecionar</label></td>',
-                                  '<td>'+dato['MetaPlan']+'<br><label class="radio-inline"><input type="radio" value="" name="MetaPlan">Selecionar</label></td>',
-                                  '<td>'+dato['RecursoHumano']+'<br><label class="radio-inline"><input type="radio" value="" name="RecursoHumano">Selecionar</label></td>',
-                                  '<td>'+dato['NumeroContratista']+'<br><label class="radio-inline"><input type="radio" value="" name="NumeroContratista">Selecionar</label></td>',
+                                  '<td>'+dato['CodigosU']+'<br><label class="radio-inline"><input type="radio" value="'+dato['CodigosU']+'" name="CodigosU[]">Selecionar</label></td>',
+                                  '<td>'+dato.modalidad['Nombre']+'<br><label class="radio-inline"><input type="radio" value="'+dato.modalidad['Id']+'" name="Nombre_m[]" >Selecionar</label></td>',
+                                  '<td>'+dato.tipocontrato['Nombre']+'<br><label class="radio-inline"><input type="radio" value="'+dato.tipocontrato['Id']+'" name="Nombre_t[]">Selecionar</label></td>',
+                                  '<td>'+dato['ObjetoContractual']+'<br><label class="radio-inline"><input type="radio" value="'+dato['ObjetoContractual']+'" name="ObjetoContractual[]">Selecionar</label></td>',
+                                  '<td>'+dato['FuenteRecurso']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FuenteRecurso']+'" name="FuenteRecurso[]">Selecionar</label></td>',
+                                  '<td>'+dato['ValorEstimado']+'<br><label class="radio-inline"><input type="radio" value="'+dato['ValorEstimado']+'" name="ValorEstimado[]">Selecionar</label></td>',
+                                  '<td>'+dato['ValorEstimadoVigencia']+'<br><label class="radio-inline"><input type="radio" value="'+dato['ValorEstimadoVigencia']+'" name="ValorEstimadoVigencia[]">Selecionar</label></td>',
+                                  '<td>'+dato['VigenciaFutura']+'<br><label class="radio-inline"><input type="radio" value="'+dato['VigenciaFutura']+'" name="VigenciaFutura[]">Selecionar</label></td>',
+                                  '<td>'+dato['EstadoVigenciaFutura']+'<br><label class="radio-inline"><input type="radio" value="'+dato['EstadoVigenciaFutura']+'" name="EstadoVigenciaFutura[]">Selecionar</label></td>',
+                                  '<td>'+dato['FechaEstudioConveniencia']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FechaEstudioConveniencia']+'" name="FechaEstudioConveniencia[]">Selecionar</label></td>',
+                                  '<td>'+dato['FechaInicioProceso']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FechaInicioProceso']+'" name="FechaInicioProceso[]">Selecionar</label></td>',
+                                  '<td>'+dato['FechaSuscripcionContrato']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FechaSuscripcionContrato']+'" name="FechaSuscripcionContrato[]">Selecionar</label></td>',
+                                  '<td>'+dato['DuracionContrato']+'<br><label class="radio-inline"><input type="radio" value="'+dato['DuracionContrato']+'" name="DuracionContrato[]">Selecionar</label></td>',
+                                  '<td>'+dato['MetaPlan']+'<br><label class="radio-inline"><input type="radio" value="'+dato['MetaPlan']+'" name="MetaPlan[]">Selecionar</label></td>',
+                                  '<td>'+dato['RecursoHumano']+'<br><label class="radio-inline"><input type="radio" value="'+dato['RecursoHumano']+'" name="RecursoHumano[]">Selecionar</label></td>',
+                                  '<td>'+dato['NumeroContratista']+'<br><label class="radio-inline"><input type="radio" value="'+dato['NumeroContratista']+'" name="NumeroContratista[]">Selecionar</label></td>',
                                   '<td>'+dato['DatosResponsable']+'<br><label class="radio-inline"><input type="radio" value="'+dato['DatosResponsable']+'" name="DatosResponsable[]">Selecionar</label></td>',
-                                  '<td>'+dato.rubro['Nombre']+'<br><label class="radio-inline"><input type="radio" value="" name="Nombre_r">Selecionar</label></td>',
+                                  '<td>'+dato.rubro['Nombre']+'<br><label class="radio-inline"><input type="radio" value="'+dato.rubro['Id']+'" name="Nombre_r[]">Selecionar</label></td>',
                               ] ).draw( false );
                           num1++;
                         }
@@ -294,12 +295,40 @@ $(function()
     $('#form_aprobacion').on('submit', function(e){
   
   //  console.log($('input[name="registro"]').val()+' - '+$('input[name="DatosResponsable"]:checked').val());
-    var id= new Array();
+    var id = new Array();
     $('input[name="Id[]"]').each(function(){
                 id.push($(this).val());
     });
+
+    var CodigosU = new Array();
+    $('input[name="CodigosU[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    CodigosU.push($(this).val());
+                }else{
+                    CodigosU.push(0);
+                }
+    });
+
+    var Nombre_m = new Array();
+    $('input[name="Nombre_m[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    Nombre_m.push($(this).val());
+                }else{
+                    Nombre_m.push(0);
+                }
+    });
+
+
+    var Nombre_t = new Array();
+    $('input[name="Nombre_t[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    Nombre_t.push($(this).val());
+                }else{
+                    Nombre_t.push(0);
+                }
+    });
     
-    var responsble= new Array();
+    var responsble = new Array();
     $('input[name="DatosResponsable[]"]').each(function(){
                 if( $(this).is(':checked') ){
                     responsble.push($(this).val());
@@ -309,76 +338,156 @@ $(function()
     });
 
 
-
-    $.post(
-            URL+'/service/DatosAprobacion',
-            {id: id, resposanble : responsble},
-            function(data){
-              alert(data);
-          },'json');
-
-      
-
-        /*$.post(URL+'/validar/proyecto',$(this).serialize(),function(data){
-            if(data.status == 'error')
-            {
-                validad_error2(data.errors);
-            } else {
-                
-                if(data.status == 'modelo')
-                {
-                    var datos=data.presupuesto;
-                    document.getElementById("form_proyecto").reset();
-                    $("#div_Tabla4").show();
-                    var num=1;
-                    tt.clear().draw();
-                    $.each(datos, function(i, e){
-                        $.each(e.proyectos, function(i, ee){
-                            tt.row.add( [
-                                '<th scope="row" class="text-center">'+num+'</th>',
-                                '<td><h4>'+e['Nombre_Actividad']+'<h4></td>',
-                                '<td>'+ee['Nombre']+'</td>',
-                                '<td>'+ee['fecha_inicio']+'</td>',
-                                '<td>'+ee['fecha_fin']+'</td>',
-                                '<td>'+ee['valor']+'</td>',
-                                '<td><div class="btn-group btn-group-justified">'+
-                                    '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
-                                    '</div>'+
-                                    '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                    '</div>'+
-                                    '</div>'+
-                                    '<div id="espera'+ee['Id']+'"></div>'+
-                                '</td>'
-                            ] ).draw( false );
-                            num++;
-                        });
-                    });
-
-                    $('#mensaje_proyecto').html('<strong>Bien!</strong> Registro creado con exíto.');
-                    $('#mensaje_proyecto').show();
-                    setTimeout(function(){
-                        $('#mensaje_proyecto').hide();
-                        $("#id_btn_proyecto").html('Registrar');
-                        $("#id_btn_proyect_canc").hide();
-                    }, 2000)
-                    $('input[name="Id_proyecto"]').val('0');
+     var ObjetoContractual = new Array();
+    $('input[name="ObjetoContractual[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    ObjetoContractual.push($(this).val());
                 }else{
-                    $('#mensaje_proyecto2').html('<strong>Error!</strong> el valor del proyecto que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
-                    $('#mensaje_proyecto2').show();
-                    setTimeout(function(){
-                        $('#mensaje_proyecto2').hide();
-                    }, 6000)
+                    ObjetoContractual.push(0);
                 }
-                
-            }
-        },'json');*/
-
-        e.preventDefault();
     });
 
 
+    var FuenteRecurso = new Array();
+    $('input[name="FuenteRecurso[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    FuenteRecurso.push($(this).val());
+                }else{
+                    FuenteRecurso.push(0);
+                }
+    });
+
+    var ValorEstimado = new Array();
+    $('input[name="ValorEstimado[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    ValorEstimado.push($(this).val());
+                }else{
+                    ValorEstimado.push(0);
+                }
+    });
+
+
+    var ValorEstimadoVigencia = new Array();
+    $('input[name="ValorEstimadoVigencia[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    ValorEstimadoVigencia.push($(this).val());
+                }else{
+                    ValorEstimadoVigencia.push(0);
+                }
+    });
+
+
+    var VigenciaFutura = new Array();
+    $('input[name="VigenciaFutura[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    VigenciaFutura.push($(this).val());
+                }else{
+                    VigenciaFutura.push(0);
+                }
+    });
+
+
+    var EstadoVigenciaFutura = new Array();
+    $('input[name="EstadoVigenciaFutura[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    EstadoVigenciaFutura.push($(this).val());
+                }else{
+                    EstadoVigenciaFutura.push(0);
+                }
+    });
+
+
+    var FechaEstudioConveniencia = new Array();
+    $('input[name="FechaEstudioConveniencia[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    FechaEstudioConveniencia.push($(this).val());
+                }else{
+                    FechaEstudioConveniencia.push(0);
+                }
+    });
+
+
+    var FechaInicioProceso = new Array();
+    $('input[name="FechaInicioProceso[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    FechaInicioProceso.push($(this).val());
+                }else{
+                    FechaInicioProceso.push(0);
+                }
+    });
+
+
+    var FechaSuscripcionContrato = new Array();
+    $('input[name="FechaSuscripcionContrato[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    FechaSuscripcionContrato.push($(this).val());
+                }else{
+                    FechaSuscripcionContrato.push(0);
+                }
+    });
+
+    var DuracionContrato = new Array();
+    $('input[name="DuracionContrato[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    DuracionContrato.push($(this).val());
+                }else{
+                    DuracionContrato.push(0);
+                }
+    });
+
+
+    var MetaPlan = new Array();
+    $('input[name="MetaPlan[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    MetaPlan.push($(this).val());
+                }else{
+                    MetaPlan.push(0);
+                }
+    });
+
+
+    var RecursoHumano = new Array();
+    $('input[name="RecursoHumano[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    RecursoHumano.push($(this).val());
+                }else{
+                    RecursoHumano.push(0);
+                }
+    });
+
+
+    var NumeroContratista = new Array();
+    $('input[name="NumeroContratista[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    NumeroContratista.push($(this).val());
+                }else{
+                    NumeroContratista.push(0);
+                }
+    });
+
+    var Nombre_r = new Array();
+    $('input[name="Nombre_r[]"]').each(function(){
+                if( $(this).is(':checked') ){
+                    Nombre_r.push($(this).val());
+                }else{
+                    Nombre_r.push(0);
+                }
+    });
+
+    $.post(
+      URL+'/service/DatosAprobacion',
+      {id: id, CodigosU:CodigosU, Nombre_m:Nombre_m ,Nombre_t:Nombre_t, ObjetoContractual:ObjetoContractual, FuenteRecurso:FuenteRecurso, ValorEstimado:ValorEstimado, ValorEstimadoVigencia:ValorEstimadoVigencia, VigenciaFutura:VigenciaFutura, EstadoVigenciaFutura:EstadoVigenciaFutura, FechaEstudioConveniencia:FechaEstudioConveniencia, FechaInicioProceso:FechaInicioProceso, FechaSuscripcionContrato:FechaSuscripcionContrato, DuracionContrato:DuracionContrato , MetaPlan:MetaPlan, RecursoHumano:RecursoHumano, NumeroContratista:NumeroContratista ,  Nombre_r:Nombre_r, resposanble : responsble },
+      function(data){
+            $('#mensaje_aprobacion').html('<strong>Registro de datos!</strong> Los datos se registraron exitosamente.');
+            $('#mensaje_aprobacion').show();
+            setTimeout(function(){
+               $('#mensaje_aprobacion').hide();
+                $('#Modal_AprobarCambiosH').modal('hide');
+            }, 6000)
+    },'json');
+
+        e.preventDefault();
+    });
 
                   
 });
