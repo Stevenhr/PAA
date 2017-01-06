@@ -526,6 +526,7 @@
 								</table>
 							</div>
 						</div>
+						<div id="mensaje_justi" class="alert alert-success" style="display: none"></div>
 					</div>
 
 					<div class="col-xs-12 col-sm-12">
