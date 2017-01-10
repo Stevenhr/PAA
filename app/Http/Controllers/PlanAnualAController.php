@@ -143,6 +143,7 @@ class PlanAnualAController extends Controller
             $id_paa=$modeloPA->Id;
             $modeloP = Paa::find($id_paa);
             $modeloP['Registro'] = $model->Registro;
+            //$modeloP['Observacion'] =$id_paa2;
 
             $modeloultimo = Paa::where('Registro','=',$model->Registro)->orderby('created_at','DESC')->take(2)->get();
             
@@ -219,6 +220,7 @@ class PlanAnualAController extends Controller
     public function DatosAprobacion(Request $request)
     {
         $id=$request['id'];
+        $Registro=$request['Registro'];
         $resposanble=$request['resposanble'];
         $CodigosU=$request['CodigosU'];
         $Nombre_m=$request['Nombre_m'];
@@ -261,6 +263,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $CodigosU[$i];
                 $modeloCambioPaa['campo'] = 'CodigosU';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['CodigosU'] = $CodigosU[$i];
+                $paas->save();
               }
           }
 
@@ -271,6 +276,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $Nombre_m[$i];
                 $modeloCambioPaa['campo'] = 'Id_ModalidadSeleccion';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['Id_ModalidadSeleccion'] = $Nombre_m[$i];
+                $paas->save();
               }
           }
 
@@ -282,6 +290,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $Nombre_t[$i];
                 $modeloCambioPaa['campo'] = 'Id_TipoContrato';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['Id_TipoContrato'] = $Nombre_t[$i];
+                $paas->save();
               }
           }
 
@@ -293,6 +304,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $ObjetoContractual[$i];
                 $modeloCambioPaa['campo'] = 'ObjetoContractual';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['ObjetoContractual'] = $ObjetoContractual[$i];
+                $paas->save();
               }
           }
 
@@ -303,6 +317,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $FuenteRecurso[$i];
                 $modeloCambioPaa['campo'] = 'FuenteRecurso';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['FuenteRecurso'] = $FuenteRecurso[$i];
+                $paas->save();
               }
           }
 
@@ -313,6 +330,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $ValorEstimado[$i];
                 $modeloCambioPaa['campo'] = 'ValorEstimado';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['ValorEstimado'] = $ValorEstimado[$i];
+                $paas->save();
               }
           }
 
@@ -323,6 +343,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $ValorEstimadoVigencia[$i];
                 $modeloCambioPaa['campo'] = 'ValorEstimadoVigencia';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['ValorEstimadoVigencia'] = $ValorEstimadoVigencia[$i];
+                $paas->save();
               }
           }
 
@@ -333,6 +356,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $VigenciaFutura[$i];
                 $modeloCambioPaa['campo'] = 'VigenciaFutura';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['VigenciaFutura'] = $VigenciaFutura[$i];
+                $paas->save();
               }
           }
 
@@ -344,6 +370,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $EstadoVigenciaFutura[$i];
                 $modeloCambioPaa['campo'] = 'EstadoVigenciaFutura';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['EstadoVigenciaFutura'] = $EstadoVigenciaFutura[$i];
+                $paas->save();
               }
           }
 
@@ -354,6 +383,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $FechaEstudioConveniencia[$i];
                 $modeloCambioPaa['campo'] = 'FechaEstudioConveniencia';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['FechaEstudioConveniencia'] = $FechaEstudioConveniencia[$i];
+                $paas->save();
               }
           }
 
@@ -364,6 +396,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $FechaInicioProceso[$i];
                 $modeloCambioPaa['campo'] = 'FechaInicioProceso';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['FechaInicioProceso'] = $FechaInicioProceso[$i];
+                $paas->save();
               }
           }
 
@@ -374,6 +409,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $FechaSuscripcionContrato[$i];
                 $modeloCambioPaa['campo'] = 'FechaSuscripcionContrato';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['FechaSuscripcionContrato'] = $FechaSuscripcionContrato[$i];
+                $paas->save();
               }
           }
 
@@ -384,6 +422,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $DuracionContrato[$i];
                 $modeloCambioPaa['campo'] = 'DuracionContrato';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['DuracionContrato'] = $DuracionContrato[$i];
+                $paas->save();
               }
           }
 
@@ -394,6 +435,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $MetaPlan[$i];
                 $modeloCambioPaa['campo'] = 'MetaPlan';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['MetaPlan'] = $MetaPlan[$i];
+                $paas->save();
               }
           }
 
@@ -404,6 +448,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $RecursoHumano[$i];
                 $modeloCambioPaa['campo'] = 'RecursoHumano';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['RecursoHumano'] = $RecursoHumano[$i];
+                $paas->save();
               }
           }
 
@@ -414,6 +461,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $NumeroContratista[$i];
                 $modeloCambioPaa['campo'] = 'NumeroContratista';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['NumeroContratista'] = $NumeroContratista[$i];
+                $paas->save();
               }
           }
 
@@ -424,6 +474,9 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $resposanble[$i];
                 $modeloCambioPaa['campo'] = 'DatosResponsable';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['DatosResponsable'] = $resposanble[$i];
+                $paas->save();
               }
           }
 
@@ -434,11 +487,16 @@ class PlanAnualAController extends Controller
                 $modeloCambioPaa['cambio'] = $Nombre_r[$i];
                 $modeloCambioPaa['campo'] = 'Id_ProyectoRubro';
                 $modeloCambioPaa->save();
+                $paas = Paa::find($Registro[$i]);
+                $paas['Id_ProyectoRubro'] = $Nombre_r[$i];
+                $paas->save();
               }
           }
 
         }
-        return response()->json($res);
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','0')->where('EsatdoObservo','0')->get();
+        return response()->json(array('status' => 'modelo', 'datos' => $paa));
+
     }
 
 }

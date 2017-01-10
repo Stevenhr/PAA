@@ -261,29 +261,123 @@ $(function()
                           '<td><h5>'+$DatosResponsable+'</h5></td>',
                           '<td><h5>'+$Nombre_r+'</h5></td>'
                       ] ).draw( false );
-                     
+
                       $.each(data, function(i, dato){
+
                         if(dato['Estado']==1){ //Cambios aporbados
+                             $(this).children('td').eq(0).css('background-color', 'red');
+                             
+                             if(dato['CodigosU']===$CodigosU)
+                              $estilo="";
+                             else
+                              $estilo="color: red !important;";
+
+                            if(dato.modalidad['Nombre']===$Nombre_m)
+                              $estilo1="";
+                             else
+                              $estilo1="color: red !important;";
+
+                            if(dato.tipocontrato['Nombre']===$Nombre_t)
+                              $estilo2="";
+                             else
+                              $estilo2="color: red !important;";
+
+                             if(dato['ObjetoContractual']===$ObjetoContractual)
+                              $estilo3="";
+                             else
+                              $estilo3="color: red !important;";
+
+                            if(dato['FuenteRecurso']===$FuenteRecurso)
+                              $estilo4="";
+                             else
+                              $estilo4="color: red !important;";
+
+                            if(dato['ValorEstimado']===$ValorEstimado)
+                              $estilo5="";
+                             else
+                              $estilo5="color: red !important;";
+
+                            if(dato['ValorEstimadoVigencia']===$ValorEstimadoVigencia)
+                              $estilo6="";
+                             else
+                              $estilo6="color: red !important;";
+
+                             if(dato['VigenciaFutura']===$VigenciaFutura)
+                              $estilo7="";
+                             else
+                              $estilo7="color: red !important;";
+
+                            if(dato['EstadoVigenciaFutura']===$EstadoVigenciaFutura)
+                              $estilo8="";
+                             else
+                              $estilo8="color: red !important;";
+
+                            if(dato['FechaEstudioConveniencia']===$FechaEstudioConveniencia)
+                              $estilo9="";
+                             else
+                              $estilo9="color: red !important;";
+
+                            if(dato['FechaInicioProceso']===$FechaInicioProceso)
+                              $estilo10="";
+                             else
+                              $estilo10="color: red !important;";
+
+                            if(dato['FechaSuscripcionContrato']===$FechaSuscripcionContrato)
+                              $estilo11="";
+                             else
+                              $estilo11="color: red !important;";
+
+                            if(dato['DuracionContrato']===$DuracionContrato)
+                              $estilo12="";
+                             else
+                              $estilo12="color: red !important;";
+
+                            if(dato['MetaPlan']===$MetaPlan)
+                              $estilo13="";
+                             else
+                              $estilo13="color: red !important;";
+
+                             if(dato['RecursoHumano']===$RecursoHumano)
+                              $estilo14="";
+                             else
+                              $estilo14="color: red !important;";
+
+                            if(dato['NumeroContratista']===$NumeroContratista)
+                              $estilo15="";
+                             else
+                              $estilo15="color: red !important;";
+
+                            if(dato['DatosResponsable']===$DatosResponsable)
+                              $estilo16="";
+                             else
+                              $estilo16="color: red !important;";
+
+                            if(dato.rubro['Nombre']===$Nombre_r)
+                              $estilo17="";
+                             else
+                              $estilo17="color: red !important;";                            
+
+
                             tb5.row.add( [
-                                  '<th scope="row" class="text-center">'+num1+'<input type="hidden" value="'+dato['Id']+'" name="Id[]"></th>',
-                                  '<td>'+dato['CodigosU']+'<br><label class="radio-inline"><input type="radio" value="'+dato['CodigosU']+'" name="CodigosU[]">Selecionar</label></td>',
-                                  '<td>'+dato.modalidad['Nombre']+'<br><label class="radio-inline"><input type="radio" value="'+dato.modalidad['Id']+'" name="Nombre_m[]" >Selecionar</label></td>',
-                                  '<td>'+dato.tipocontrato['Nombre']+'<br><label class="radio-inline"><input type="radio" value="'+dato.tipocontrato['Id']+'" name="Nombre_t[]">Selecionar</label></td>',
-                                  '<td>'+dato['ObjetoContractual']+'<br><label class="radio-inline"><input type="radio" value="'+dato['ObjetoContractual']+'" name="ObjetoContractual[]">Selecionar</label></td>',
-                                  '<td>'+dato['FuenteRecurso']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FuenteRecurso']+'" name="FuenteRecurso[]">Selecionar</label></td>',
-                                  '<td>'+dato['ValorEstimado']+'<br><label class="radio-inline"><input type="radio" value="'+dato['ValorEstimado']+'" name="ValorEstimado[]">Selecionar</label></td>',
-                                  '<td>'+dato['ValorEstimadoVigencia']+'<br><label class="radio-inline"><input type="radio" value="'+dato['ValorEstimadoVigencia']+'" name="ValorEstimadoVigencia[]">Selecionar</label></td>',
-                                  '<td>'+dato['VigenciaFutura']+'<br><label class="radio-inline"><input type="radio" value="'+dato['VigenciaFutura']+'" name="VigenciaFutura[]">Selecionar</label></td>',
-                                  '<td>'+dato['EstadoVigenciaFutura']+'<br><label class="radio-inline"><input type="radio" value="'+dato['EstadoVigenciaFutura']+'" name="EstadoVigenciaFutura[]">Selecionar</label></td>',
-                                  '<td>'+dato['FechaEstudioConveniencia']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FechaEstudioConveniencia']+'" name="FechaEstudioConveniencia[]">Selecionar</label></td>',
-                                  '<td>'+dato['FechaInicioProceso']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FechaInicioProceso']+'" name="FechaInicioProceso[]">Selecionar</label></td>',
-                                  '<td>'+dato['FechaSuscripcionContrato']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FechaSuscripcionContrato']+'" name="FechaSuscripcionContrato[]">Selecionar</label></td>',
-                                  '<td>'+dato['DuracionContrato']+'<br><label class="radio-inline"><input type="radio" value="'+dato['DuracionContrato']+'" name="DuracionContrato[]">Selecionar</label></td>',
-                                  '<td>'+dato['MetaPlan']+'<br><label class="radio-inline"><input type="radio" value="'+dato['MetaPlan']+'" name="MetaPlan[]">Selecionar</label></td>',
-                                  '<td>'+dato['RecursoHumano']+'<br><label class="radio-inline"><input type="radio" value="'+dato['RecursoHumano']+'" name="RecursoHumano[]">Selecionar</label></td>',
-                                  '<td>'+dato['NumeroContratista']+'<br><label class="radio-inline"><input type="radio" value="'+dato['NumeroContratista']+'" name="NumeroContratista[]">Selecionar</label></td>',
-                                  '<td>'+dato['DatosResponsable']+'<br><label class="radio-inline"><input type="radio" value="'+dato['DatosResponsable']+'" name="DatosResponsable[]">Selecionar</label></td>',
-                                  '<td>'+dato.rubro['Nombre']+'<br><label class="radio-inline"><input type="radio" value="'+dato.rubro['Id']+'" name="Nombre_r[]">Selecionar</label></td>',
+                                  '<th scope="row" class="text-center">'+num1+'<input type="hidden" value="'+dato['Id']+'" name="Id[]"><input type="hidden" value="'+dato['Registro']+'" name="Registro[]"></th>',
+                                  '<td style=""><div style="'+$estilo+'">'+dato['CodigosU']+'<br><label class="radio-inline"><input type="radio" value="'+dato['CodigosU']+'" name="CodigosU[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo1+'">'+dato.modalidad['Nombre']+'<br><label class="radio-inline"><input type="radio" value="'+dato.modalidad['Id']+'" name="Nombre_m[]" >Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo2+'">'+dato.tipocontrato['Nombre']+'<br><label class="radio-inline"><input type="radio" value="'+dato.tipocontrato['Id']+'" name="Nombre_t[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo3+'">'+dato['ObjetoContractual']+'<br><label class="radio-inline"><input type="radio" value="'+dato['ObjetoContractual']+'" name="ObjetoContractual[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo4+'">'+dato['FuenteRecurso']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FuenteRecurso']+'" name="FuenteRecurso[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo5+'">'+dato['ValorEstimado']+'<br><label class="radio-inline"><input type="radio" value="'+dato['ValorEstimado']+'" name="ValorEstimado[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo6+'">'+dato['ValorEstimadoVigencia']+'<br><label class="radio-inline"><input type="radio" value="'+dato['ValorEstimadoVigencia']+'" name="ValorEstimadoVigencia[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo7+'">'+dato['VigenciaFutura']+'<br><label class="radio-inline"><input type="radio" value="'+dato['VigenciaFutura']+'" name="VigenciaFutura[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo8+'">'+dato['EstadoVigenciaFutura']+'<br><label class="radio-inline"><input type="radio" value="'+dato['EstadoVigenciaFutura']+'" name="EstadoVigenciaFutura[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo9+'">'+dato['FechaEstudioConveniencia']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FechaEstudioConveniencia']+'" name="FechaEstudioConveniencia[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo10+'">'+dato['FechaInicioProceso']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FechaInicioProceso']+'" name="FechaInicioProceso[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo11+'">'+dato['FechaSuscripcionContrato']+'<br><label class="radio-inline"><input type="radio" value="'+dato['FechaSuscripcionContrato']+'" name="FechaSuscripcionContrato[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo12+'">'+dato['DuracionContrato']+'<br><label class="radio-inline"><input type="radio" value="'+dato['DuracionContrato']+'" name="DuracionContrato[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo13+'">'+dato['MetaPlan']+'<br><label class="radio-inline"><input type="radio" value="'+dato['MetaPlan']+'" name="MetaPlan[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo14+'">'+dato['RecursoHumano']+'<br><label class="radio-inline"><input type="radio" value="'+dato['RecursoHumano']+'" name="RecursoHumano[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo15+'">'+dato['NumeroContratista']+'<br><label class="radio-inline"><input type="radio" value="'+dato['NumeroContratista']+'" name="NumeroContratista[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo16+'">'+dato['DatosResponsable']+'<br><label class="radio-inline"><input type="radio" value="'+dato['DatosResponsable']+'" name="DatosResponsable[]">Selecionar</label></div></td>',
+                                  '<td><div style="'+$estilo17+'">'+dato.rubro['Nombre']+'<br><label class="radio-inline"><input type="radio" value="'+dato.rubro['Id']+'" name="Nombre_r[]">Selecionar</label></div></td>',
                               ] ).draw( false );
                           num1++;
                         }
@@ -303,6 +397,11 @@ $(function()
     var id = new Array();
     $('input[name="Id[]"]').each(function(){
                 id.push($(this).val());
+    });
+
+     var Registro = new Array();
+    $('input[name="Registro[]"]').each(function(){
+                Registro.push($(this).val());
     });
 
     var CodigosU = new Array();
@@ -481,14 +580,59 @@ $(function()
 
     $.post(
       URL+'/service/DatosAprobacion',
-      {id: id, CodigosU:CodigosU, Nombre_m:Nombre_m ,Nombre_t:Nombre_t, ObjetoContractual:ObjetoContractual, FuenteRecurso:FuenteRecurso, ValorEstimado:ValorEstimado, ValorEstimadoVigencia:ValorEstimadoVigencia, VigenciaFutura:VigenciaFutura, EstadoVigenciaFutura:EstadoVigenciaFutura, FechaEstudioConveniencia:FechaEstudioConveniencia, FechaInicioProceso:FechaInicioProceso, FechaSuscripcionContrato:FechaSuscripcionContrato, DuracionContrato:DuracionContrato , MetaPlan:MetaPlan, RecursoHumano:RecursoHumano, NumeroContratista:NumeroContratista ,  Nombre_r:Nombre_r, resposanble : responsble },
+      {id: id, Registro:Registro, CodigosU:CodigosU, Nombre_m:Nombre_m ,Nombre_t:Nombre_t, ObjetoContractual:ObjetoContractual, FuenteRecurso:FuenteRecurso, ValorEstimado:ValorEstimado, ValorEstimadoVigencia:ValorEstimadoVigencia, VigenciaFutura:VigenciaFutura, EstadoVigenciaFutura:EstadoVigenciaFutura, FechaEstudioConveniencia:FechaEstudioConveniencia, FechaInicioProceso:FechaInicioProceso, FechaSuscripcionContrato:FechaSuscripcionContrato, DuracionContrato:DuracionContrato , MetaPlan:MetaPlan, RecursoHumano:RecursoHumano, NumeroContratista:NumeroContratista ,  Nombre_r:Nombre_r, resposanble : responsble },
       function(data){
-            $('#mensaje_aprobacion').html('<strong>Registro de datos!</strong> Los datos se registraron exitosamente.');
-            $('#mensaje_aprobacion').show();
-            setTimeout(function(){
-               $('#mensaje_aprobacion').hide();
-                $('#Modal_AprobarCambiosH').modal('hide');
-            }, 6000)
+
+
+             var num=1;
+                t.clear().draw();
+                $.each(data.datos, function(i, e){
+                    t.row.add( [
+                        '<th scope="row" class="text-center">'+num+'</th>',
+                        '<td>'+e['Registro']+'</td>',
+                        '<td>'+e['CodigosU']+'</td>',
+                        '<td>'+e.modalidad['Nombre']+'</td>',
+                        '<td>'+e.tipocontrato['Nombre']+'</td>',
+                        '<td>'+e['ObjetoContractual']+'</td>',
+                        '<td>'+e['FuenteRecurso']+'</td>',
+                        '<td>'+e['ValorEstimado']+'</td>',
+                        '<td>'+e['ValorEstimadoVigencia']+'</td>',
+                        '<td>'+e['VigenciaFutura']+'</td>',
+                        '<td>'+e['EstadoVigenciaFutura']+'</td>',
+                        '<td>'+e['FechaEstudioConveniencia']+'</td>',
+                        '<td>'+e['FechaInicioProceso']+'</td>',
+                        '<td>'+e['FechaSuscripcionContrato']+'</td>',
+                        '<td>'+e['DuracionContrato']+'</td>',
+                        '<td>'+e['MetaPlan']+'</td>',
+                        '<td>'+e['RecursoHumano']+'</td>',
+                        '<td>'+e['NumeroContratista']+'</td>',
+                        '<td>'+e['DatosResponsable']+'</td>',
+                        '<td>'+e.rubro['Nombre']+'</td>',
+
+                        '<td>'+
+                          '<div class="btn-group btn-group-justified">'+
+                            '<div class="btn-group">'+
+                              '<button type="button" data-rel="'+e['Registro']+'" data-funcion="Historial" class="btn btn-primary btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                            '</div>'+
+                            '<div class="btn-group">'+
+                              '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs" title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
+                            '</div>'+
+                            '<div class="btn-group">'+
+                              '<button type="button" data-rel="'+e['Id']+'" data-funcion="Aprobacion" class="btn btn-warning  btn-xs" title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>'+
+                            '</div>'+
+                          '</div>'+
+                          '<div id=""></div>'+
+                        '</td>'
+                    ] ).draw( false );
+                    num++;
+                });
+
+              $('#mensaje_aprobacion').html('<strong>Registrossss de datos!</strong> Los datos se registraron exitosamente.');
+              $('#mensaje_aprobacion').show();
+              setTimeout(function(){
+                 $('#mensaje_aprobacion').hide();
+                  $('#Modal_AprobarCambiosH').modal('hide');
+              }, 6000)
     },'json');
 
         e.preventDefault();

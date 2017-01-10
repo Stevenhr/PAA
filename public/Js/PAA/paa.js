@@ -399,7 +399,7 @@ $(function()
                       tb3.clear().draw();
                       $.each(data, function(i, dato){
                         
-                        if(dato['Estado']==0){ // Registro Actual
+                       if(dato['Estado']==0){ // Registro Actual
                             tb1.row.add( [
                                 '<th scope="row" class="text-center">'+num+'</th>',
                                 '<td>'+dato['Registro']+'</td>',
@@ -425,33 +425,7 @@ $(function()
                             num++;
                         }
 
-                        if(dato['Estado']==1){ //Cambios aporbados
-                            tb2.row.add( [
-                                  '<th scope="row" class="text-center">'+num1+'</th>',
-                                  '<td>'+dato['Registro']+'</td>',
-                                  '<td>'+dato['CodigosU']+'</td>',
-                                  '<td>'+dato.modalidad['Nombre']+'</td>',
-                                  '<td>'+dato.tipocontrato['Nombre']+'</td>',
-                                  '<td>'+dato['ObjetoContractual']+'</td>',
-                                  '<td>'+dato['FuenteRecurso']+'</td>',
-                                  '<td>'+dato['ValorEstimado']+'</td>',
-                                  '<td>'+dato['ValorEstimadoVigencia']+'</td>',
-                                  '<td>'+dato['VigenciaFutura']+'</td>',
-                                  '<td>'+dato['EstadoVigenciaFutura']+'</td>',
-                                  '<td>'+dato['FechaEstudioConveniencia']+'</td>',
-                                  '<td>'+dato['FechaInicioProceso']+'</td>',
-                                  '<td>'+dato['FechaSuscripcionContrato']+'</td>',
-                                  '<td>'+dato['DuracionContrato']+'</td>',
-                                  '<td>'+dato['MetaPlan']+'</td>',
-                                  '<td>'+dato['RecursoHumano']+'</td>',
-                                  '<td>'+dato['NumeroContratista']+'</td>',
-                                  '<td>'+dato['DatosResponsable']+'</td>',
-                                  '<td>'+dato.rubro['Nombre']+'</td>'
-                              ] ).draw( false );
-                          num1++;
-                        }
-
-                        if(dato['Estado']==2){  //Por Aprobar
+                        if(dato['Estado']==1){  //Por Aprobar
                               tb3.row.add( [
                                   '<th scope="row" class="text-center">'+num2+'</th>',
                                   '<td>'+dato['Registro']+'</td>',
@@ -476,6 +450,32 @@ $(function()
                               ] ).draw( false );
                           num2++;
                         }
+
+                        if(dato['Estado']==2){ //Ya revisados
+                            tb2.row.add( [
+                                  '<th scope="row" class="text-center">'+num1+'</th>',
+                                  '<td>'+dato['Registro']+'</td>',
+                                  '<td>'+dato['CodigosU']+'</td>',
+                                  '<td>'+dato.modalidad['Nombre']+'</td>',
+                                  '<td>'+dato.tipocontrato['Nombre']+'</td>',
+                                  '<td>'+dato['ObjetoContractual']+'</td>',
+                                  '<td>'+dato['FuenteRecurso']+'</td>',
+                                  '<td>'+dato['ValorEstimado']+'</td>',
+                                  '<td>'+dato['ValorEstimadoVigencia']+'</td>',
+                                  '<td>'+dato['VigenciaFutura']+'</td>',
+                                  '<td>'+dato['EstadoVigenciaFutura']+'</td>',
+                                  '<td>'+dato['FechaEstudioConveniencia']+'</td>',
+                                  '<td>'+dato['FechaInicioProceso']+'</td>',
+                                  '<td>'+dato['FechaSuscripcionContrato']+'</td>',
+                                  '<td>'+dato['DuracionContrato']+'</td>',
+                                  '<td>'+dato['MetaPlan']+'</td>',
+                                  '<td>'+dato['RecursoHumano']+'</td>',
+                                  '<td>'+dato['NumeroContratista']+'</td>',
+                                  '<td>'+dato['DatosResponsable']+'</td>',
+                                  '<td>'+dato.rubro['Nombre']+'</td>'
+                              ] ).draw( false );
+                          num1++;
+                        } 
                       });
 
                       $('#Modal_Historial').modal('show'); 
