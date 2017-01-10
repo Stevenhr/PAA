@@ -81,12 +81,23 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                       tb1.clear().draw();
                       tb2.clear().draw();
                       tb3.clear().draw();
+
                       $.each(data, function(i, dato){
-                        
+                        var campos =new Array();
+                        $.each(dato.cambios_paa, function(ii, cambio){
+                            if(cambio.campo){
+                               campos[ii]=cambio.campo;
+                            }
+                        });  
+                        /*$.each(cambios, function(ii2, camb){
+                          console.log(camb);
+                        });  */
+
                         if(dato['Estado']==0){ // Registro Actual
+                            $regis=dato['DatosResponsable'];
                             tb1.row.add( [
                                 '<th scope="row" class="text-center">'+num+'</th>',
-                                '<td>'+dato['Registro']+'</td>',
+                                '<td>'+$regis+'</td>',
                                 '<td>'+dato['CodigosU']+'</td>',
                                 '<td>'+dato.modalidad['Nombre']+'</td>',
                                 '<td>'+dato.tipocontrato['Nombre']+'</td>',
@@ -135,28 +146,140 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           num2++;
                         }
 
+
                         if(dato['Estado']==2){ //Ya revisados
+
+                            $estilo="";
+                            $estilo1="";
+                            $estilo2="";
+                            $estilo3="";
+                            $estilo4="";
+                            $estilo5="";
+                            $estilo6="";
+                            $estilo7="";
+                            $estilo8="";
+                            $estilo9="";
+                            $estilo10="";
+                            $estilo11="";
+                            $estilo12="";
+                            $estilo13="";
+                            $estilo14="";
+                            $estilo15="";
+                            $estilo16="";
+                            $estilo17="";
+                            $estilo18="";
+
+                             if(campos.indexOf("CodigosU")=='-1')
+                              $estilo1="";
+                             else
+                              $estilo1="color: green !important;";
+
+                             if(campos.indexOf("Id_ModalidadSeleccion")=='-1')
+                              $estilo2="";
+                             else
+                              $estilo2="color: green !important;";
+
+                             if(campos.indexOf("Id_TipoContrato")=='-1')
+                              $estilo3="";
+                             else
+                              $estilo3="color: green !important;";
+
+                             if(campos.indexOf("ObjetoContractual")=='-1')
+                              $estilo4="";
+                             else
+                              $estilo4="color: green !important;";
+
+                             if(campos.indexOf("FuenteRecurso")=='-1')
+                              $estilo5="";
+                             else
+                              $estilo5="color: green !important;";
+
+                             if(campos.indexOf("ValorEstimado")=='-1')
+                              $estilo6="";
+                             else
+                              $estilo6="color: green !important;";
+
+                             if(campos.indexOf("ValorEstimadoVigencia")=='-1')
+                              $estilo7="";
+                             else
+                              $estilo7="color: green !important;";
+
+                             if(campos.indexOf("VigenciaFutura")=='-1')
+                              $estilo8="";
+                             else
+                              $estilo8="color: green !important;";
+
+                             if(campos.indexOf("EstadoVigenciaFutura")=='-1')
+                              $estilo9="";
+                             else
+                              $estilo9="color: green !important;";
+
+                             if(campos.indexOf("FechaEstudioConveniencia")=='-1')
+                              $estilo10="";
+                             else
+                              $estilo10="color: green !important;";
+
+                             if(campos.indexOf("FechaInicioProceso")=='-1')
+                              $estilo11="";
+                             else
+                              $estilo11="color: green !important;";
+
+                             if(campos.indexOf("FechaSuscripcionContrato")=='-1')
+                              $estilo12="";
+                             else
+                              $estilo12="color: green !important;";
+
+                             if(campos.indexOf("DuracionContrato")=='-1')
+                              $estilo13="";
+                             else
+                              $estilo13="color: green !important;";
+
+                             if(campos.indexOf("MetaPlan")=='-1')
+                              $estilo14="";
+                             else
+                              $estilo14="color: green !important;";
+
+                             if(campos.indexOf("RecursoHumano")=='-1')
+                              $estilo15="";
+                             else
+                              $estilo15="color: green !important;";
+
+                             if(campos.indexOf("NumeroContratista")=='-1')
+                              $estilo16="";
+                             else
+                              $estilo16="color: green !important;";
+
+                            if(campos.indexOf("DatosResponsable")=='-1')
+                              $estilo17="";
+                             else
+                              $estilo17="color: green !important;";
+
+                            if(campos.indexOf("Id_ProyectoRubro")=='-1')
+                              $estilo18="";
+                             else
+                              $estilo18="color: green !important;";
+
                             tb2.row.add( [
                                   '<th scope="row" class="text-center">'+num1+'</th>',
-                                  '<td>'+dato['Registro']+'</td>',
-                                  '<td>'+dato['CodigosU']+'</td>',
-                                  '<td>'+dato.modalidad['Nombre']+'</td>',
-                                  '<td>'+dato.tipocontrato['Nombre']+'</td>',
-                                  '<td>'+dato['ObjetoContractual']+'</td>',
-                                  '<td>'+dato['FuenteRecurso']+'</td>',
-                                  '<td>'+dato['ValorEstimado']+'</td>',
-                                  '<td>'+dato['ValorEstimadoVigencia']+'</td>',
-                                  '<td>'+dato['VigenciaFutura']+'</td>',
-                                  '<td>'+dato['EstadoVigenciaFutura']+'</td>',
-                                  '<td>'+dato['FechaEstudioConveniencia']+'</td>',
-                                  '<td>'+dato['FechaInicioProceso']+'</td>',
-                                  '<td>'+dato['FechaSuscripcionContrato']+'</td>',
-                                  '<td>'+dato['DuracionContrato']+'</td>',
-                                  '<td>'+dato['MetaPlan']+'</td>',
-                                  '<td>'+dato['RecursoHumano']+'</td>',
-                                  '<td>'+dato['NumeroContratista']+'</td>',
-                                  '<td>'+dato['DatosResponsable']+'</td>',
-                                  '<td>'+dato.rubro['Nombre']+'</td>'
+                                  '<td><div style="'+$estilo+'">'+dato['Registro']+'</div></td>',
+                                  '<td><div style="'+$estilo1+'">'+dato['CodigosU']+'</div></td>',
+                                  '<td><div style="'+$estilo2+'">'+dato.modalidad['Nombre']+'</div></td>',
+                                  '<td><div style="'+$estilo3+'">'+dato.tipocontrato['Nombre']+'</div></td>',
+                                  '<td><div style="'+$estilo4+'">'+dato['ObjetoContractual']+'</div></td>',
+                                  '<td><div style="'+$estilo5+'">'+dato['FuenteRecurso']+'</div></td>',
+                                  '<td><div style="'+$estilo6+'">'+dato['ValorEstimado']+'</div></td>',
+                                  '<td><div style="'+$estilo7+'">'+dato['ValorEstimadoVigencia']+'</div></td>',
+                                  '<td><div style="'+$estilo8+'">'+dato['VigenciaFutura']+'</div></td>',
+                                  '<td><div style="'+$estilo9+'">'+dato['EstadoVigenciaFutura']+'</div></td>',
+                                  '<td><div style="'+$estilo10+'">'+dato['FechaEstudioConveniencia']+'</div></td>',
+                                  '<td><div style="'+$estilo11+'">'+dato['FechaInicioProceso']+'</div></td>',
+                                  '<td><div style="'+$estilo12+'">'+dato['FechaSuscripcionContrato']+'</div></td>',
+                                  '<td><div style="'+$estilo13+'">'+dato['DuracionContrato']+'</div></td>',
+                                  '<td><div style="'+$estilo14+'">'+dato['MetaPlan']+'</div></td>',
+                                  '<td><div style="'+$estilo15+'">'+dato['RecursoHumano']+'</div></td>',
+                                  '<td><div style="'+$estilo16+'">'+dato['NumeroContratista']+'</div></td>',
+                                  '<td><div style="'+$estilo17+'">'+dato['DatosResponsable']+'</div></td>',
+                                  '<td><div style="'+$estilo18+'">'+dato.rubro['Nombre']+'</div></td>'
                               ] ).draw( false );
                           num1++;
                         }                       
