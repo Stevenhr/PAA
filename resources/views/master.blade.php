@@ -13,6 +13,7 @@
 
       @section('style')
           <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+          <link rel="stylesheet" href="{{ asset('public/Css/main.css') }}" media="screen">  
           <link rel="stylesheet" href="{{ asset('public/Css/jquery-ui.css') }}" media="screen">    
           <link rel="stylesheet" href="{{ asset('public/Css/bootstrap.min.css') }}" media="screen">    
           <link rel="stylesheet" href="{{ asset('public/Css/sticky-footer.css') }}" media="screen">  
