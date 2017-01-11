@@ -40,20 +40,20 @@
 						        <thead>
 						            <tr>
 						                <th>N°</th>
-						                <th>Id Registro</th>
-										<th>Códigos UNSPSC</th>
-										<th>Modalidad de selección</th>
-										<th>Tipo de contrato</th>
-										<th>Descripción/Objeto</th>
+						                <th><h4>ID</h4></th>
+										<th>Códigos<br>UNSPSC</th>
+										<th>Modalidad<br>Selección</th>
+										<th>Tipo<br>Contrato</th>
+										<th>Descripción<br>Objeto</th>
+										<th>Valor<br>Estimado</th>
+										<th>Duración<br>Estimada (mes)</th>
 										<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
-										<th>Valor total estimado	</th>
 										<th>Valor estimado en la vigencia actual	</th>
 										<th>¿Se requieren vigencias futuras?	</th>
 										<th>Estado de solicitud de vigencias futuras	</th>
 										<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
 										<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 										<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-										<th>Duración estimada del contrato (meses)	</th>
 										<th>Meta plan	</th>
 										<th>Recurso Humano (Si / No)</th>
 										<th>Numero de Contratistas	</th>
@@ -65,20 +65,20 @@
 						        <tfoot>
 						            <tr>
 						            	<th>N°</th>
-						                <th>Id Registro</th>
-										<th>Códigos UNSPSC</th>
-										<th>Modalidad de selección</th>
-										<th>Tipo de contrato</th>
-										<th>Descripción/Objeto</th>
+						                <th><h4>ID</h4></th>
+										<th>Códigos<br>UNSPSC</th>
+										<th>Modalidad<br>Selección</th>
+										<th>Tipo<br>Contrato</th>
+										<th>Descripción<br>Objeto</th>
+										<th>Valor<br>Estimado</th>
+										<th>Duración<br>Estimada (mes)</th>
 										<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
-										<th>Valor total estimado	</th>
 										<th>Valor estimado en la vigencia actual	</th>
 										<th>¿Se requieren vigencias futuras?	</th>
 										<th>Estado de solicitud de vigencias futuras	</th>
 										<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
 										<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 										<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-										<th>Duración estimada del contrato (meses)	</th>
 										<th>Meta plan	</th>
 										<th>Recurso Humano (Si / No)</th>
 										<th>Numero de Contratistas	</th>
@@ -92,20 +92,20 @@
 						        	@foreach($paas as $paa)						    
 			        						<tr>
 			        						<th scope="row" class="text-center">{{$var}}</th>
-					                        <td>{{$paa['Registro']}}</td>
+					                        <td><h5>{{$paa['Registro']}}</h5></td>
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
 					                        <td>{{$paa['ObjetoContractual']}}</td>
-					                        <td>{{$paa['FuenteRecurso']}}</td>
 					                        <td>{{$paa['ValorEstimado']}}</td>
+					                        <td>{{$paa['DuracionContrato']}}</td>
+					                        <td>{{$paa['FuenteRecurso']}}</td>
 					                        <td>{{$paa['ValorEstimadoVigencia']}}</td>
 					                        <td>{{$paa['VigenciaFutura']}}</td>
 					                        <td>{{$paa['EstadoVigenciaFutura']}}</td>
 					                        <td>{{$paa['FechaEstudioConveniencia']}}</td>
 					                        <td>{{$paa['FechaInicioProceso']}}</td>
 					                        <td>{{$paa['FechaSuscripcionContrato']}}</td>
-					                        <td>{{$paa['DuracionContrato']}}</td>
 					                        <td>{{$paa['MetaPlan']}}</td>
 					                        <td>{{$paa['RecursoHumano']}}</td>
 					                        <td>{{$paa['NumeroContratista']}}</td>
@@ -113,15 +113,18 @@
 					                        <td>{{$paa->rubro['Nombre']}}</td>
 					                  
 					                        <td>
-												<div class="btn-group btn-group-justified">
+												<div class="btn-group tama">
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary  btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
 												  </div>
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 												  </div>
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Aprobacion" class="btn btn-warning btn-xs"  title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Aprobacion" class="btn btn-warning btn-xs2 btn-xs"  title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
+												  </div>
+												  <div class="btn-group">
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Aprobacion" class="btn btn-default btn-xs2 btn-xs"  title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
 												  </div>
 												</div>
 												<div id=""></div>

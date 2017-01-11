@@ -118,18 +118,18 @@
 					                        <td>{{$paa->rubro['Nombre']}}</td>
 					                  
 					                        <td>
-												<div class="btn-group btn-group-justified">
+												<div class="btn-group tama">
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="ver_eli" class="btn btn-danger btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span></button>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span></button>
 												  </div>
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-default btn-xs"  title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs"  title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 												  </div>
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary  btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
 												  </div>
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 												  </div>
 												</div>
 												<div id=""></div>

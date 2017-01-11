@@ -9,11 +9,33 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
   var URL = $('#main_paa_Aprobar').data('url');
   vector_datos_actividad = new Array();
 
-  var t = $('#TablaPAA').DataTable( {responsive: true,
+  
+
+   $('#TablaPAA tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Menu" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar" />' );
+        }
+    } );
+ 
+    // DataTable
+    var t = $('#TablaPAA').DataTable( {responsive: true,
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf']
-  } );
+    });
+ 
+    // Apply the search
+    t.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    });
 
   var tb1 = $('#Tabla1').DataTable( {responsive: true  } );
 
@@ -266,15 +288,15 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   '<td><div style="'+$estilo2+'">'+dato.modalidad['Nombre']+'</div></td>',
                                   '<td><div style="'+$estilo3+'">'+dato.tipocontrato['Nombre']+'</div></td>',
                                   '<td><div style="'+$estilo4+'">'+dato['ObjetoContractual']+'</div></td>',
-                                  '<td><div style="'+$estilo5+'">'+dato['FuenteRecurso']+'</div></td>',
                                   '<td><div style="'+$estilo6+'">'+dato['ValorEstimado']+'</div></td>',
+                                  '<td><div style="'+$estilo13+'">'+dato['DuracionContrato']+'</div></td>',
+                                  '<td><div style="'+$estilo5+'">'+dato['FuenteRecurso']+'</div></td>',
                                   '<td><div style="'+$estilo7+'">'+dato['ValorEstimadoVigencia']+'</div></td>',
                                   '<td><div style="'+$estilo8+'">'+dato['VigenciaFutura']+'</div></td>',
                                   '<td><div style="'+$estilo9+'">'+dato['EstadoVigenciaFutura']+'</div></td>',
                                   '<td><div style="'+$estilo10+'">'+dato['FechaEstudioConveniencia']+'</div></td>',
                                   '<td><div style="'+$estilo11+'">'+dato['FechaInicioProceso']+'</div></td>',
                                   '<td><div style="'+$estilo12+'">'+dato['FechaSuscripcionContrato']+'</div></td>',
-                                  '<td><div style="'+$estilo13+'">'+dato['DuracionContrato']+'</div></td>',
                                   '<td><div style="'+$estilo14+'">'+dato['MetaPlan']+'</div></td>',
                                   '<td><div style="'+$estilo15+'">'+dato['RecursoHumano']+'</div></td>',
                                   '<td><div style="'+$estilo16+'">'+dato['NumeroContratista']+'</div></td>',

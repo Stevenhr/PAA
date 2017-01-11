@@ -71,3 +71,34 @@ input[type=radio]:not(old):checked +  label > span > span{
   background-image : -webkit-linear-gradient(rgb(179,217,140),rgb(153,204,102));
   background-image :         linear-gradient(rgb(179,217,140),rgb(153,204,102));
 }
+
+.container {
+  width: 1280px;
+}
+
+tfoot input 
+    {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+
+.tama{
+  width: 200px;
+}   
+
+
+.btn-xs2{
+  width: 50px;
+}   
+
+tbody th,td 
+{
+    font-size: 90%;
+    padding: 22px;
+}
+
+
+.tama{
+  width: 200px;
+} 

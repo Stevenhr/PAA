@@ -13,7 +13,6 @@
 
       @section('style')
           <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-          <link rel="stylesheet" href="{{ asset('public/Css/main.css') }}" media="screen">  
           <link rel="stylesheet" href="{{ asset('public/Css/jquery-ui.css') }}" media="screen">    
           <link rel="stylesheet" href="{{ asset('public/Css/bootstrap.min.css') }}" media="screen">    
           <link rel="stylesheet" href="{{ asset('public/Css/sticky-footer.css') }}" media="screen">  
@@ -21,6 +20,7 @@
           <link rel="stylesheet" href="{{ asset('public/Css/css_datatable/jquery.dataTables.min.css') }}" media="screen">
           <link rel="stylesheet" href="{{ asset('public/Css/css_datatable/buttons.dataTables.min.css') }}" media="screen"> 
           <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.0.1/css/responsive.bootstrap.min.css">  
+          <link rel="stylesheet" href="{{ asset('public/Css/main.css') }}" media="screen">  
       @show
 
       @section('script')
@@ -74,7 +74,7 @@
               </li>
 
               <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">PAA<span class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Operador<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
                   <li class=”{{ Request::is( 'GestionarPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'GestionarPaa') }}">Gestionar PAA</a></li>
                   <li><a href="#">Mis Planes</a></li>
@@ -87,6 +87,15 @@
                 <ul class="dropdown-menu" aria-labelledby="download">
                   <li class=”{{ Request::is( 'AprobacionPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'AprobacionPaa') }}">Aprobación</a></li>
                 </ul>
+              </li>
+
+
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Sub Dirección<span class="caret"></span></a>
+              </li>
+
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Planeación<span class="caret"></span></a>
               </li>
 
             </ul>
