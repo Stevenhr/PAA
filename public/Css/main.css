@@ -3,7 +3,6 @@
     background-color: rgba(0, 243, 7, 0.08);
 }
 
-input[type=checkbox]:not(old),
 input[type=radio   ]:not(old){
   width     : 2em;
   margin    : 0;
@@ -76,6 +75,10 @@ input[type=radio]:not(old):checked +  label > span > span{
   width: 1280px;
 }
 
+.center {
+  text-align: center !important;
+}
+
 tfoot input 
     {
         width: 100%;
@@ -89,7 +92,7 @@ tfoot input
 
 
 .btn-xs2{
-  width: 50px;
+  width: 40px;
 }   
 
 tbody th,td 
@@ -97,7 +100,21 @@ tbody th,td
     font-size: 90%;
 }
 
-
 .tama{
   width: 200px;
+}
+
+table.table-min {
+  font-size: 12px;
 } 
+
+table.dataTable tfoot th, 
+table.dataTable tfoot td,
+table.dataTable thead th, 
+table.dataTable thead td {
+  padding: 6px 8px;
+}
+
+.dataTables_wrapper table {
+  padding-top: 20px;
+}
