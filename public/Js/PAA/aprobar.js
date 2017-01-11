@@ -84,7 +84,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
 
      $('#TablaPAA').delegate('button[data-funcion="Historial"]','click',function (e){   
           var id = $(this).data('rel'); 
-
           $.get(
               URL+'/service/obtenerHistorialPaaTodo/'+id,
               {},
@@ -317,8 +316,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                   }
               },
               'json'
-          );
-           
+          ); 
      }); 
 
     
