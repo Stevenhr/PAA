@@ -185,6 +185,15 @@ class PlanAnualAController extends Controller
         $model_A = Paa::with('modalidad','tipocontrato','rubro','cambiosPaa')->where('Registro', '=', $id)->get();
         return response()->json($model_A);
     }
+    public function aprobarSubDireccion($id)
+    {
+        $model_A = Paa::find($id);
+        $model_A['Estado'] = 4;
+        $model_A->save();
+        
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4'])->where('EsatdoObservo','0')->get();
+        return response()->json(array('status' => 'modelo', 'datos' => $paa));
+    }
 
     public function EliminarPaa(Request $request, $id)
     {

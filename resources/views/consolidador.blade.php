@@ -36,7 +36,7 @@
 	    		
 	            	<div class="col-xs-12 col-md-12">
 				    	
-					      		<table id="TablaPAA"  class="display nowrap" width="100%" cellspacing="0">
+					      		<table id="TablaPAA"  class="display nowrap table" width="100%" cellspacing="0">
 						        <thead>
 						            <tr>
 						                <th>N°</th>
@@ -124,7 +124,7 @@
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Aprobacion" class="btn btn-warning btn-xs2 btn-xs"  title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
 												  </div>
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Aprobacion" class="btn btn-default btn-xs2 btn-xs"  title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
 												  </div>
 												</div>
 												<div id=""></div>
@@ -786,6 +786,41 @@
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 	        <button type="submit" class="btn btn-success">Aprobar</button>
+	      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL APRIOBACION CAMBIOS-->
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_AprobarCambiosFinal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Paso a Sub Dirección</h4>
+      </div>
+      <form id="form_aprobacion">
+	      <div class="modal-body">
+	      			<div class="row">
+						<div class="col-xs-12 col-sm-12">
+							<div class="panel panel-warning">
+							  <!-- Default panel contents -->
+								<div class="panel-heading">Aprobación final de PAA N° <label class="NumPaa"></label></div>
+								<div class="panel-body">
+								    <p>La aprobación final del PAA da paso a la sub dirección de aprobar o denegar el PAA N° <label class="NumPaa"></label>. Ya no podra realizar cambios mientras este en la sub dirección.</p>
+								    <div class="text-center"><button type="submit" id="aprobacion_Sub_Direccion" class="btn btn-success">Enviar a Sub Dirección</button></div>
+								</div>						 
+							</div>
+							<input type="hidden" name="paa_subDirecion" id="paa_subDirecion"></input>
+							<div id="mensaje_aprobacion_final" class="alert alert-success" style="display: none"></div>
+						</div>
+					</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 	      </div>
       </form>
     </div>
