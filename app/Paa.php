@@ -35,21 +35,23 @@ class Paa extends Model
 	'IdPersonaObservo',
 	'EsatdoObservo',
 	'Observacion'];
+	
 	protected $connection = ''; 
-
-	 public function modalidad()
+	 
+	public function modalidad()
     {
         return $this->belongsTo('App\ModalidadSeleccion','Id_ModalidadSeleccion');
     }
-     public function tipocontrato()
+     
+    public function tipocontrato()
     {
         return $this->belongsTo('App\TipoContrato','Id_TipoContrato');
     }
-     public function rubro()
+    
+    public function rubro()
     {
         return $this->belongsTo('App\Rubro','Id_ProyectoRubro');
     }
-
 
     public function actividadComponentes()
     {

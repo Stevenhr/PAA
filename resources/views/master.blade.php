@@ -29,22 +29,15 @@
           <script src="{{ asset('public/Js/jquery-ui.js') }}"></script>
           <script src="{{ asset('public/Js/bootstrap.min.js') }}"></script>
           <script src="{{ asset('public/Js/main.js') }}"></script>
-
           <script src="{{ asset('public/Js/js_datatable/jquery.dataTables.min.js') }}"></script>
           <script src="{{ asset('public/Js/js_datatable/dataTables.buttons.min.js') }}"></script>
           <script src="{{ asset('public/Js/js_datatable/jszip.min.js') }}"></script>
           <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
           <script src="{{ asset('public/Js/js_datatable/vfs_fonts.js') }}"></script>
           <script src="{{ asset('public/Js/js_datatable/buttons.html5.min.js') }}"></script>  
-          <script src=" https://cdn.datatables.net/responsive/2.0.1/js/dataTables.responsive.min.js"></script>
-          <script src=" https://cdn.datatables.net/responsive/2.0.1/js/responsive.bootstrap.min.js"></script> 
-          
+          <script src="https://cdn.datatables.net/responsive/2.0.1/js/dataTables.responsive.min.js"></script>
+          <script src="https://cdn.datatables.net/responsive/2.0.1/js/responsive.bootstrap.min.js"></script>
       @show
-
-
-          
-          
-
       <title>P.A.A</title>
   </head>
 
@@ -92,6 +85,9 @@
 
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Sub Dirección<span class="caret"></span></a>
+                 <ul class="dropdown-menu" aria-labelledby="download">
+                  <li class=”{{ Request::is('AprobacionPaaSubDireccion') ? 'active' : '' }}”><a href="{{ URL::to('AprobacionPaaSubDireccion') }}">Aprobación</a></li>
+                </ul>
               </li>
 
               <li class="dropdown">
