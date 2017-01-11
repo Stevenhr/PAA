@@ -606,28 +606,27 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                     }
 
                     if(e['Estado']==4){
-                      t.row.add( [
-                          '<th scope="row" class="text-center">'+num+'</th>',
-                          '<td data-row="'+num+'">'+e['Registro']+'</td>',
-                          '<td>'+e['CodigosU']+'</td>',
-                          '<td>'+e.modalidad['Nombre']+'</td>',
-                          '<td>'+e.tipocontrato['Nombre']+'</td>',
-                          '<td>'+e['ObjetoContractual']+'</td>',
-                          '<td>'+e['FuenteRecurso']+'</td>',
-                          '<td>'+e['ValorEstimado']+'</td>',
-                          '<td>'+e['ValorEstimadoVigencia']+'</td>',
-                          '<td>'+e['VigenciaFutura']+'</td>',
-                          '<td>'+e['EstadoVigenciaFutura']+'</td>',
-                          '<td>'+e['FechaEstudioConveniencia']+'</td>',
-                          '<td>'+e['FechaInicioProceso']+'</td>',
-                          '<td>'+e['FechaSuscripcionContrato']+'</td>',
-                          '<td>'+e['DuracionContrato']+'</td>',
-                          '<td>'+e['MetaPlan']+'</td>',
-                          '<td>'+e['RecursoHumano']+'</td>',
-                          '<td>'+e['NumeroContratista']+'</td>',
-                          '<td>'+e['DatosResponsable']+'</td>',
-                          '<td>'+e.rubro['Nombre']+'</td>',
-
+                      var $tr = $('<tr></tr>').html(
+                        '<th scope="row" class="text-center">'+num+'</th>'+
+                          '<td data-row="'+num+'">'+e['Registro']+'</td>'+
+                          '<td>'+e['CodigosU']+'</td>'+
+                          '<td>'+e.modalidad['Nombre']+'</td>'+
+                          '<td>'+e.tipocontrato['Nombre']+'</td>'+
+                          '<td>'+e['ObjetoContractual']+'</td>'+
+                          '<td>'+e['FuenteRecurso']+'</td>'+
+                          '<td>'+e['ValorEstimado']+'</td>'+
+                          '<td>'+e['ValorEstimadoVigencia']+'</td>'+
+                          '<td>'+e['VigenciaFutura']+'</td>'+
+                          '<td>'+e['EstadoVigenciaFutura']+'</td>'+
+                          '<td>'+e['FechaEstudioConveniencia']+'</td>'+
+                          '<td>'+e['FechaInicioProceso']+'</td>'+
+                          '<td>'+e['FechaSuscripcionContrato']+'</td>'+
+                          '<td>'+e['DuracionContrato']+'</td>'+
+                          '<td>'+e['MetaPlan']+'</td>'+
+                          '<td>'+e['RecursoHumano']+'</td>'+
+                          '<td>'+e['NumeroContratista']+'</td>'+
+                          '<td>'+e['DatosResponsable']+'</td>'+
+                          '<td>'+e.rubro['Nombre']+'</td>'+
                           '<td>'+
                             '<div class="btn-group tama">'+
                               '<div class="btn-group">'+
@@ -645,11 +644,11 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                             '</div>'+
                             '<div id=""></div>'+
                           '</td>'
-                      ] ).draw( false );
-                    
-                      //console.log(registro);
-                      //$('tr', 0).addClass('success');
-                      $('tbody tr td[data-row="'+num+'"]').closest('tr').addClass('success');
+                      );
+                      $tr.addClass('success');
+                      
+                      t.row.add($tr).draw( false );
+
                     }
                       num++;
                   });
