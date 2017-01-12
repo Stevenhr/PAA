@@ -27,6 +27,8 @@ class PlanAnualAController extends Controller
         $fuente = Fuente::all();
         $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','0')->where('EsatdoObservo','0')->get();
 
+        
+
         $datos = [        
             'modalidades' => $modalidadSeleccion,
             'proyectos' => $proyecto,
@@ -126,9 +128,44 @@ class PlanAnualAController extends Controller
 
         if($Modifica==0){
             $id_paa=$modeloPA->Id;
+            $id_paa2=$modeloPA->Id;
             $modeloP = Paa::find($id_paa);
             $modeloP['Id_paa'] = $id_paa;
             $modeloP['Registro'] = $id_paa;
+            $modeloP->save();
+
+            $modeloPA = new Paa;
+            $modeloPA['Id_paa'] = 0;
+            $modeloPA['Registro'] = $input['id_registro'];
+            $modeloPA['CodigosU'] = $input['codigo_Unspsc'];
+            $modeloPA['Id_ModalidadSeleccion'] = $input['modalidad_seleccion'];
+            $modeloPA['Id_TipoContrato'] = $input['tipo_contrato'];
+            $modeloPA['ObjetoContractual'] = $input['objeto_contrato'];
+            $modeloPA['FuenteRecurso'] = $input['fuente_recurso'];
+            $modeloPA['ValorEstimado'] = $input['valor_estimado'];
+            $modeloPA['ValorEstimadoVigencia'] = $input['valor_estimado_actualVigencia'];
+            $modeloPA['VigenciaFutura'] = $input['vigencias_futuras'];
+            $modeloPA['EstadoVigenciaFutura'] = $input['estado_solicitud'];
+            $modeloPA['FechaEstudioConveniencia'] = $input['estudio_conveniencia'];
+            $modeloPA['FechaInicioProceso'] = $input['fecha_inicio'];
+            $modeloPA['FechaSuscripcionContrato'] = $input['fecha_suscripcion'];
+            $modeloPA['DuracionContrato'] = $input['duracion_estimada'];
+            $modeloPA['MetaPlan'] = $input['meta_plan'];
+            $modeloPA['RecursoHumano'] = $input['recurso_humano'];
+            $modeloPA['NumeroContratista'] = $input['numero_contratista'];
+            $modeloPA['DatosResponsable'] = $input['datos_contacto'];
+            $modeloPA['Id_ProyectoRubro'] = 1;
+            $modeloPA['IdPersona'] = '1046';
+            $modeloPA['Estado'] = 2;
+            $modeloPA['IdPersonaObservo'] = '1046';
+            $modeloPA['EsatdoObservo'] = 2;
+            $modeloPA['Observacion'] = '';
+            $modeloPA->save();
+
+            $id_paa=$modeloPA->Id;
+            $modeloP = Paa::find($id_paa);
+            $modeloP['Id_paa'] = $id_paa2;
+            $modeloP['Registro'] = $id_paa2;
             $modeloP->save();
 
             $data0 = json_decode($input['Dato_Actividad']);

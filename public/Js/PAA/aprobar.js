@@ -561,6 +561,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                   $.each(data.datos, function(i, e){
                       
                     if(e['Estado']==0){
+
                       t.row.add( [
                           '<th scope="row" class="text-center">'+num+'</th>',
                           '<td>'+e['Registro']+'</td>',
@@ -568,15 +569,15 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td>'+e.modalidad['Nombre']+'</td>',
                           '<td>'+e.tipocontrato['Nombre']+'</td>',
                           '<td>'+e['ObjetoContractual']+'</td>',
-                          '<td>'+e['FuenteRecurso']+'</td>',
                           '<td>'+e['ValorEstimado']+'</td>',
+                          '<td>'+e['DuracionContrato']+'</td>',
+                          '<td>'+e['FuenteRecurso']+'</td>',
                           '<td>'+e['ValorEstimadoVigencia']+'</td>',
                           '<td>'+e['VigenciaFutura']+'</td>',
                           '<td>'+e['EstadoVigenciaFutura']+'</td>',
                           '<td>'+e['FechaEstudioConveniencia']+'</td>',
                           '<td>'+e['FechaInicioProceso']+'</td>',
                           '<td>'+e['FechaSuscripcionContrato']+'</td>',
-                          '<td>'+e['DuracionContrato']+'</td>',
                           '<td>'+e['MetaPlan']+'</td>',
                           '<td>'+e['RecursoHumano']+'</td>',
                           '<td>'+e['NumeroContratista']+'</td>',
@@ -586,13 +587,13 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td>'+
                             '<div class="btn-group tama">'+
                               '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Registro']+'" data-funcion="Historial" class="btn btn-primary btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                                '<button type="button" data-rel="'+e['Registro']+'" data-funcion="Historial" class="btn btn-primary btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
                               '</div>'+
                               '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs" title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
+                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs" title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
                               '</div>'+
                               '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Aprobacion" class="btn btn-warning  btn-xs" title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>'+
+                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Aprobacion" class="btn btn-warning  btn-xs2 btn-xs" title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>'+
                               '</div>'+
                               '<div class="btn-group">'+
                                 '<button type="button" data-rel="'+e['Id']+'" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
@@ -605,21 +606,21 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
 
                     if(e['Estado']==4){
                       var $tr = $('<tr></tr>').html(
-                        '<th scope="row" class="text-center">'+num+'</th>'+
+                        '<td scope="row" class="text-center">'+num+'</t>'+
                           '<td data-row="'+num+'">'+e['Registro']+'</td>'+
                           '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e.modalidad['Nombre']+'</td>'+
                           '<td>'+e.tipocontrato['Nombre']+'</td>'+
                           '<td>'+e['ObjetoContractual']+'</td>'+
-                          '<td>'+e['FuenteRecurso']+'</td>'+
                           '<td>'+e['ValorEstimado']+'</td>'+
+                          '<td>'+e['DuracionContrato']+'</td>'+                          
+                          '<td>'+e['FuenteRecurso']+'</td>'+
                           '<td>'+e['ValorEstimadoVigencia']+'</td>'+
                           '<td>'+e['VigenciaFutura']+'</td>'+
                           '<td>'+e['EstadoVigenciaFutura']+'</td>'+
                           '<td>'+e['FechaEstudioConveniencia']+'</td>'+
                           '<td>'+e['FechaInicioProceso']+'</td>'+
                           '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                          '<td>'+e['DuracionContrato']+'</td>'+
                           '<td>'+e['MetaPlan']+'</td>'+
                           '<td>'+e['RecursoHumano']+'</td>'+
                           '<td>'+e['NumeroContratista']+'</td>'+
@@ -628,13 +629,13 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td>'+
                             '<div class="btn-group tama">'+
                               '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Registro']+'" data-funcion="Historial" class="btn btn-primary btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                                '<button type="button" data-rel="'+e['Registro']+'" data-funcion="Historial" class="btn btn-primary btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
                               '</div>'+
                               '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs" title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
+                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs" title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
                               '</div>'+
                               '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Aprobacion" class="btn btn-warning  btn-xs" title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>'+
+                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Aprobacion" class="btn btn-warning  btn-xs2 btn-xs" title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>'+
                               '</div>'+
                               '<div class="btn-group">'+
                                 '<button type="button" data-rel="'+e['Id']+'" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
@@ -855,42 +856,44 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
       {id: id, Registro:Registro, CodigosU:CodigosU, Nombre_m:Nombre_m ,Nombre_t:Nombre_t, ObjetoContractual:ObjetoContractual, FuenteRecurso:FuenteRecurso, ValorEstimado:ValorEstimado, ValorEstimadoVigencia:ValorEstimadoVigencia, VigenciaFutura:VigenciaFutura, EstadoVigenciaFutura:EstadoVigenciaFutura, FechaEstudioConveniencia:FechaEstudioConveniencia, FechaInicioProceso:FechaInicioProceso, FechaSuscripcionContrato:FechaSuscripcionContrato, DuracionContrato:DuracionContrato , MetaPlan:MetaPlan, RecursoHumano:RecursoHumano, NumeroContratista:NumeroContratista ,  Nombre_r:Nombre_r, resposanble : responsble },
       function(data){
 
-
              var num=1;
                 t.clear().draw();
                 $.each(data.datos, function(i, e){
                     t.row.add( [
-                        '<th scope="row" class="text-center">'+num+'</th>',
-                        '<td>'+e['Registro']+'</td>',
-                        '<td>'+e['CodigosU']+'</td>',
-                        '<td>'+e.modalidad['Nombre']+'</td>',
-                        '<td>'+e.tipocontrato['Nombre']+'</td>',
-                        '<td>'+e['ObjetoContractual']+'</td>',
-                        '<td>'+e['FuenteRecurso']+'</td>',
-                        '<td>'+e['ValorEstimado']+'</td>',
-                        '<td>'+e['ValorEstimadoVigencia']+'</td>',
-                        '<td>'+e['VigenciaFutura']+'</td>',
-                        '<td>'+e['EstadoVigenciaFutura']+'</td>',
-                        '<td>'+e['FechaEstudioConveniencia']+'</td>',
-                        '<td>'+e['FechaInicioProceso']+'</td>',
-                        '<td>'+e['FechaSuscripcionContrato']+'</td>',
-                        '<td>'+e['DuracionContrato']+'</td>',
-                        '<td>'+e['MetaPlan']+'</td>',
-                        '<td>'+e['RecursoHumano']+'</td>',
-                        '<td>'+e['NumeroContratista']+'</td>',
-                        '<td>'+e['DatosResponsable']+'</td>',
-                        '<td>'+e.rubro['Nombre']+'</td>',
+                          '<th scope="row" class="text-center">'+num+'</th>',
+                          '<td>'+e['Registro']+'</td>',
+                          '<td>'+e['CodigosU']+'</td>',
+                          '<td>'+e.modalidad['Nombre']+'</td>',
+                          '<td>'+e.tipocontrato['Nombre']+'</td>',
+                          '<td>'+e['ObjetoContractual']+'</td>',
+                          '<td>'+e['ValorEstimado']+'</td>',
+                          '<td>'+e['DuracionContrato']+'</td>',
+                          '<td>'+e['FuenteRecurso']+'</td>',
+                          '<td>'+e['ValorEstimadoVigencia']+'</td>',
+                          '<td>'+e['VigenciaFutura']+'</td>',
+                          '<td>'+e['EstadoVigenciaFutura']+'</td>',
+                          '<td>'+e['FechaEstudioConveniencia']+'</td>',
+                          '<td>'+e['FechaInicioProceso']+'</td>',
+                          '<td>'+e['FechaSuscripcionContrato']+'</td>',
+                          '<td>'+e['MetaPlan']+'</td>',
+                          '<td>'+e['RecursoHumano']+'</td>',
+                          '<td>'+e['NumeroContratista']+'</td>',
+                          '<td>'+e['DatosResponsable']+'</td>',
+                          '<td>'+e.rubro['Nombre']+'</td>',
 
                         '<td>'+
-                          '<div class="btn-group btn-group-justified">'+
+                          '<div class="btn-group tama">'+
                             '<div class="btn-group">'+
-                              '<button type="button" data-rel="'+e['Registro']+'" data-funcion="Historial" class="btn btn-primary btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                              '<button type="button" data-rel="'+e['Registro']+'" data-funcion="Historial" class="btn btn-primary btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
                             '</div>'+
                             '<div class="btn-group">'+
-                              '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs" title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
+                              '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs" title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
                             '</div>'+
                             '<div class="btn-group">'+
-                              '<button type="button" data-rel="'+e['Id']+'" data-funcion="Aprobacion" class="btn btn-warning  btn-xs" title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>'+
+                              '<button type="button" data-rel="'+e['Id']+'" data-funcion="Aprobacion" class="btn btn-warning  btn-xs2 btn-xs" title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>'+
+                            '</div>'+
+                            '<div class="btn-group">'+
+                              '<button type="button" data-rel="'+e['Id']+'" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
                             '</div>'+
                           '</div>'+
                           '<div id=""></div>'+

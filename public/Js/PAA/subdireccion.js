@@ -36,37 +36,61 @@ $(function()
 		}
 	};
 
-	var table = $('#TablaPAA').DataTable({
-		responsive: true,
-		columnDefs: [
-			{
-				targets: 20,
-        		searchable: false,
-        		orderable: false
-        	},{
-	        	targets: 21,
-	        	searchable: false,
-	        	orderable: false,
-	        	width: '1%',
-	        	className: 'dt-body-center',
-	        	render: function (data, type, full, meta) {
-	            	return '<input type="checkbox" class="default">';
-	        	}
-      		}
-      	],
-      	rowCallback: function(row, data, dataIndex)
-      	{
-        	var rowId = data[1];
-        	
-        	if($.inArray(rowId, rows_selected) !== -1)
-        	{
-				$(row).find('input[type="checkbox"]').prop('checked', true);
-				$(row).addClass('selected');
-			}
-		},
+	
+
+  $('#TablaPAA tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Menu" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar" />' );
+        }
+    } );
+ 
+    // DataTable
+    var table = $('#TablaPAA').DataTable({
+    responsive: true,
+    columnDefs: [
+      {
+        targets: 20,
+            searchable: false,
+            orderable: false
+          },{
+            targets: 21,
+            searchable: false,
+            orderable: false,
+            width: '1%',
+            className: 'dt-body-center',
+            render: function (data, type, full, meta) {
+                return '<input type="checkbox" class="default">';
+            }
+          }
+        ],
+        rowCallback: function(row, data, dataIndex)
+        {
+          var rowId = data[1];
+          
+          if($.inArray(rowId, rows_selected) !== -1)
+          {
+        $(row).find('input[type="checkbox"]').prop('checked', true);
+        $(row).addClass('selected');
+      }
+    },
         dom: 'Bfrtip',
         buttons: ['copy', 'csv', 'excel', 'pdf']
-  	});
+    });
+ 
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    });
+
+
 
   	var tb1 = $('#Tabla1').DataTable({
   		responsive: true

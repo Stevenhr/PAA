@@ -22,8 +22,6 @@
 							  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Modal_AgregarNuevo" id="Btn_Agregar_Nuevo">
 							  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar nuevo
 							  </button>
-
-							  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Modal_AprobarCambios"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> Historial de Cambios</button>
 							  
 							  <button type="button" class="btn btn-danger" id="Modal_HistorialEliminar_btn"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Historial eliminados</button>
 							</div>
@@ -33,32 +31,27 @@
 				    <div class="col-xs-12 col-md-12 ">
 				    	<hr style="border: 0; border-top: 2px solid #CEECF5; height:0;">
 		    		</div>
-
-	    			<div class="col-xs-12 col-md-12 ">
-						<h4>LISTADO ACTIVO PAA</h4>
-		            	<br>
-		    		</div>
 	    		
 	            	<div class="col-xs-12 col-md-12 ">
 				    	
-					      		<table id="TablaPAA"  class="display nowrap" width="100%" cellspacing="0">
+					      		<table id="TablaPAA"  class="display nowrap table table-min" width="100%" cellspacing="0">
 						        <thead>
 						            <tr>
 						                <th>N°</th>
-						                <th>Id Registro</th>
-										<th>Códigos UNSPSC</th>
-										<th>Modalidad de selección</th>
-										<th>Tipo de contrato</th>
-										<th>Descripción/Objeto</th>
+						                <th class="info">ID</th>
+										<th>Códigos<br>UNSPSC</th>
+										<th>Modalidad<br>Selección</th>
+										<th>Tipo<br>Contrato</th>
+										<th>Descripción<br>Objeto</th>
+										<th>Valor<br>Estimado</th>
+										<th>Duración<br>Estimada (mes)</th>
 										<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
-										<th>Valor total estimado	</th>
 										<th>Valor estimado en la vigencia actual	</th>
 										<th>¿Se requieren vigencias futuras?	</th>
 										<th>Estado de solicitud de vigencias futuras	</th>
 										<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
 										<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 										<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-										<th>Duración estimada del contrato (meses)	</th>
 										<th>Meta plan	</th>
 										<th>Recurso Humano (Si / No)</th>
 										<th>Numero de Contratistas	</th>
@@ -70,20 +63,20 @@
 						        <tfoot>
 						            <tr>
 						            	<th>N°</th>
-						                <th>Id Registro</th>
-										<th>Códigos UNSPSC</th>
-										<th>Modalidad de selección</th>
-										<th>Tipo de contrato</th>
-										<th>Descripción/Objeto</th>
+						                <th class="info">ID</th>
+										<th>Códigos<br>UNSPSC</th>
+										<th>Modalidad<br>Selección</th>
+										<th>Tipo<br>Contrato</th>
+										<th>Descripción<br>Objeto</th>
+										<th>Valor<br>Estimado</th>
+										<th>Duración<br>Estimada (mes)</th>
 										<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
-										<th>Valor total estimado	</th>
 										<th>Valor estimado en la vigencia actual	</th>
 										<th>¿Se requieren vigencias futuras?	</th>
 										<th>Estado de solicitud de vigencias futuras	</th>
 										<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
 										<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 										<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-										<th>Duración estimada del contrato (meses)	</th>
 										<th>Meta plan	</th>
 										<th>Recurso Humano (Si / No)</th>
 										<th>Numero de Contratistas	</th>
@@ -97,20 +90,20 @@
 						        	@foreach($paas as $paa)						    
 			        						<tr>
 			        						<th scope="row" class="text-center">{{$var}}</th>
-					                        <td>{{$paa['Registro']}}</td>
+					                        <td class="info">{{$paa['Registro']}}</td>
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
 					                        <td>{{$paa['ObjetoContractual']}}</td>
-					                        <td>{{$paa['FuenteRecurso']}}</td>
 					                        <td>{{$paa['ValorEstimado']}}</td>
+					                        <td>{{$paa['DuracionContrato']}}</td>
+					                        <td>{{$paa['FuenteRecurso']}}</td>
 					                        <td>{{$paa['ValorEstimadoVigencia']}}</td>
 					                        <td>{{$paa['VigenciaFutura']}}</td>
 					                        <td>{{$paa['EstadoVigenciaFutura']}}</td>
 					                        <td>{{$paa['FechaEstudioConveniencia']}}</td>
 					                        <td>{{$paa['FechaInicioProceso']}}</td>
 					                        <td>{{$paa['FechaSuscripcionContrato']}}</td>
-					                        <td>{{$paa['DuracionContrato']}}</td>
 					                        <td>{{$paa['MetaPlan']}}</td>
 					                        <td>{{$paa['RecursoHumano']}}</td>
 					                        <td>{{$paa['NumeroContratista']}}</td>
@@ -386,65 +379,6 @@
 
 
 
-<!-- MODAL APROBAR CAMBIOS-->
-<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_AprobarCambios" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Aprobar Cambios</h4>
-      </div>
-      <div class="modal-body">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success">Crear</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-<!-- MODAL FIANANCIACION-->
-<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_AprobarCambios" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Aprobar Cambios</h4>
-      </div>
-      <div class="modal-body">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success">Crear</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- MODAL FIANANCIACION-->
-<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_AprobarCambios" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Aprobar Cambios</h4>
-      </div>
-      <div class="modal-body">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success">Crear</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 

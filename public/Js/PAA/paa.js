@@ -4,11 +4,33 @@ $(function()
   var URL = $('#main_paa_').data('url');
   vector_datos_actividad = new Array();
 
-  var t = $('#TablaPAA').DataTable( {responsive: true,
+  
+  $('#TablaPAA tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Menu" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar" />' );
+        }
+    } );
+ 
+    // DataTable
+    var t = $('#TablaPAA').DataTable( {responsive: true,
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf']
-  } );
+    });
+ 
+    // Apply the search
+    t.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    });
+
 
   var tb1 = $('#Tabla1').DataTable( {responsive: true  } );
 
@@ -104,18 +126,18 @@ $(function()
                               '<td>'+e.rubro['Nombre']+'</td>',
 
                               '<td>'+
-                                '<div class="btn-group btn-group-justified">'+
+                                '<div class="btn-group tama">'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                 '</div>'+
                                 '<div id=""></div>'+
@@ -580,18 +602,18 @@ $(function()
                               '<td>'+e.rubro['Nombre']+'</td>',
 
                               '<td>'+
-                                '<div class="btn-group btn-group-justified">'+
+                                '<div class="btn-group tama">'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                 '</div>'+
                                 '<div id=""></div>'+
@@ -659,18 +681,18 @@ $(function()
                               '<td>'+e.rubro['Nombre']+'</td>',
 
                               '<td>'+
-                                '<div class="btn-group btn-group-justified">'+
+                                '<div class="btn-group tama">'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                 '</div>'+
                                 '<div id=""></div>'+

@@ -11,11 +11,11 @@
             	<div class="row">
 	            	<div class="col-xs-12 col-md-12 ">
 				    	<br>
-						<h4>Gestionar y aprobación PAA</h4>
+						<h4>Consolidación y aprobación PAA</h4>
 		            	<br>
 		    		</div>
 
-	                <div class="col-xs-12 col-md-12 text-">
+	                <!--<div class="col-xs-12 col-md-12 text-">
 				    	<div class="form-group">	
 							<div class="btn-group" role="group" aria-label="...">
 						
@@ -23,24 +23,19 @@
 							  
 							</div>
 						</div>
-		    		</div>
+		    		</div>-->
 
 				    <div class="col-xs-12 col-md-12">
 				    	<hr style="border: 0; border-top: 2px solid #CEECF5; height:0;">
 		    		</div>
-
-	    			<div class="col-xs-12 col-md-12">
-						<h4>LISTADO ACTIVO PAA</h4>
-		            	<br>
-		    		</div>
 	    		
 	            	<div class="col-xs-12 col-md-12">
 				    	
-					      		<table id="TablaPAA"  class="display nowrap table" width="100%" cellspacing="0">
+					      		<table id="TablaPAA"  class="display nowrap table table-min" width="100%" cellspacing="0">
 						        <thead>
 						            <tr>
 						                <th>N°</th>
-						                <th><h4>ID</h4></th>
+						                <th class="info">ID</th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
@@ -92,7 +87,7 @@
 						        	@foreach($paas as $paa)						    
 			        						<tr>
 			        						<th scope="row" class="text-center">{{$var}}</th>
-					                        <td><h5>{{$paa['Registro']}}</h5></td>
+					                        <td class="info">{{$paa['Registro']}}</td>
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
@@ -126,6 +121,19 @@
 												  <div class="btn-group">
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
 												  </div>
+												  <?php $var = 0; ?>
+												  @foreach($paas2 as $paa2)	
+											  		@if($paa2['Registro']==$paa['Registro'])
+											  			<?php $var = 1; ?>
+											  		@endif
+
+												  @endforeach
+
+												  @if($var==1)
+												  <div class="btn-group">
+												  	  <button type="button" data-rel="{{$paa['Id']}}" data-funcion="AprobacionFinal" class="btn btn-danger btn-xs2 btn-xs"  title="Cambios Pendientes" disabled><span class="glyphicon glyphicon-alert" aria-hidden="true"></span></button>
+												  </div>
+												  @endif
 												</div>
 												<div id=""></div>
 					                        </td>
