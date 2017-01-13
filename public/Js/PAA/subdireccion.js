@@ -35,11 +35,9 @@ $(function()
 			}
 		}
 	};
-
-<<<<<<< HEAD
 	
 
-  $('#TablaPAA tfoot th').each( function () {
+  	$('#TablaPAA tfoot th').each( function () {
         var title = $(this).text();
         if(title!="Menu" && title!="N°"){
           $(this).html( '<input type="text" placeholder="Buscar" />' );
