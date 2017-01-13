@@ -39,7 +39,7 @@
 		        <tbody id="registros_actividades_responsable">
 		        	<?php $var=1; ?>
 		        	@foreach($paas as $paa)						    
-						<tr>
+						<tr data-row="{{ $paa['Id'] }}">
     						<td scope="row" class="text-center">{{$var}}</th>
 	                        <td class="info">{{$paa['Registro']}}</td>
 	                        <td>{{$paa['CodigosU']}}</td>
@@ -69,7 +69,7 @@
 										<button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 									</div>
 									<div class="btn-group">
-										<button type="button" data-rel="{{$paa['Id']}}" data-funcion="Devolver" class="btn btn-danger btn-xs2 btn-xs"  title="Anular" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+										<button type="button" data-rel="{{$paa['Id']}}" data-funcion="Rechazar" class="btn btn-danger btn-xs2 btn-xs"  title="Rechazar" id="Btn_modal_rechazar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 									</div>
 								</div>
 	                        </td>
@@ -95,7 +95,7 @@
 						<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
 						<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 						<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-						<th>Meta plan	</th>
+						<th>Meta plan</th>
 						<th>Recurso Humano (Si / No)</th>
 						<th>Numero de Contratistas	</th>
 						<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
@@ -281,5 +281,35 @@
 	      	</div>
     	</div>
   	</div>
+</div>
+<!--- modal eliminar -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Eliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Rechazar PAA</h4>
+			</div>
+			<form id="rechazar_paa" action="{{ url('rechazar/paa') }}" method="post">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12">
+				  			<div class="row">
+				  				<div class="col-md-12 form-group">
+				  					<label for="">Observaciones</label>
+				  					<textarea name="Observaciones" class="form-control"></textarea>
+				  				</div>
+				  			</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" name="Id" value="">
+					<input type="submit" class="btn btn-danger" value="Rechazar">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 @stop
