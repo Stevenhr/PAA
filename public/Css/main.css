@@ -119,3 +119,7 @@ table.dataTable thead td {
 .dataTables_wrapper table {
   padding-top: 20px;
 }
+
+#alertas p {
+  padding: 15px;
+}

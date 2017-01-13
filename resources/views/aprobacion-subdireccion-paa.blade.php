@@ -9,12 +9,25 @@
 <div id="main" class="content" data-url="aprobar">
 	<div class="row">
 		<div class="col-md-12">
+			<p class="lead">
+				<br>
+				Seleccione <small><span class="glyphicon glyphicon-check" aria-hidden="true"></span></small> los planes de adquisión que desea enviar a planeación y luego haga click en el botón "Enviar".
+				<br>
+				<br>
+			</p>
+		</div>
+		<div class="col-md-12" id="alertas">
+			<p class="bg-success" style="display:none;">Los planes de adquisión fueron enviados satisfactoriamente.</p>
+			<p class="bg-danger" style="display:none;">Debe seleccionar al menos un plan de adquisición para enviar.</p>
+		</div>
+		<div class="col-md-12">
 			<table id="TablaPAA" class="display nowrap table table-min" width="100%" cellspacing="0">
 		        <thead>
 		            <tr>
 		                <th>N°</th>
 		                <th class="info">ID</th>
 						<th>Códigos<br>UNSPSC</th>
+						<th>Estado</th>
 						<th>Modalidad<br>Selección</th>
 						<th>Tipo<br>Contrato</th>
 						<th>Descripción<br>Objeto</th>
@@ -27,22 +40,34 @@
 						<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
 						<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 						<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-						<th>Meta plan	</th>
+						<th>Meta plan</th>
 						<th>Recurso Humano (Si / No)</th>
 						<th>Numero de Contratistas	</th>
 						<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 						<th>Proyecto de inversión o rubro de funcionamiento</th>
-						<th style="width:30px;" data-priority="2"></th>
+						<th data-priority="2"></th>
 						<th style="width:30px;" data-priority="2" class="center"><input name="select_all" value="1" type="checkbox"></th>
 		            </tr>
 		        </thead>
 		        <tbody id="registros_actividades_responsable">
 		        	<?php $var=1; ?>
 		        	@foreach($paas as $paa)						    
-						<tr data-row="{{ $paa['Id'] }}">
+						<tr data-row="{{ $paa['Id'] }}" class="{{ $paa['Estado'] == 5 ? 'success' : ''}}">
     						<td scope="row" class="text-center">{{$var}}</th>
 	                        <td class="info">{{$paa['Registro']}}</td>
 	                        <td>{{$paa['CodigosU']}}</td>
+	                        <td>
+	                        <?php
+	                        	switch ($paa['Estado']) {
+	                        		case '4':
+	                        			echo 'En subdirección';
+	                        			break;
+	                        		case '5':
+	                        			echo 'En planeación';
+	                        			break;
+	                        	}
+	                        ?>	
+	                        </td>
 	                        <td>{{$paa->modalidad['Nombre']}}</td>
 	                        <td>{{$paa->tipocontrato['Nombre']}}</td>
 	                        <td>{{$paa['ObjetoContractual']}}</td>
@@ -60,16 +85,16 @@
 	                        <td>{{$paa['NumeroContratista']}}</td>
 	                        <td>{{$paa['DatosResponsable']}}</td>
 	                        <td>{{$paa->rubro['Nombre']}}</td>
-	                        <td data-priority="2" style="width: 130px; text-align: right;">
-	                        	<div class="btn-group">
+	                        <td data-priority="2" align="right">
+	                        	<div class="btn-group" style="width: 120px;">
 									<div class="btn-group">
-										<button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
+										<button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary btn-xs2 btn-xs" title="Historial" {{ $paa['Estado'] == '5' ? 'disabled' : '' }}><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
 									</div>
 									<div class="btn-group">
-										<button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
+										<button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" {{ $paa['Estado'] == '5' ? 'disabled' : '' }} data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 									</div>
 									<div class="btn-group">
-										<button type="button" data-rel="{{$paa['Id']}}" data-funcion="Rechazar" class="btn btn-danger btn-xs2 btn-xs"  title="Rechazar" id="Btn_modal_rechazar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+										<button type="button" data-rel="{{$paa['Id']}}" data-funcion="Rechazar" class="btn btn-danger btn-xs2 btn-xs"  title="Rechazar"  {{ $paa['Estado'] == '5' ? 'disabled' : '' }} id="Btn_modal_rechazar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 									</div>
 								</div>
 	                        </td>
@@ -83,6 +108,7 @@
 		            	<th>N°</th>
 		                <th class="info">ID</th>
 						<th>Códigos<br>UNSPSC</th>
+						<th>Estado</th>
 						<th>Modalidad<br>Selección</th>
 						<th>Tipo<br>Contrato</th>
 						<th>Descripción<br>Objeto</th>
@@ -105,6 +131,15 @@
 		            </tr>
 		        </tfoot>
 		    </table>
+		</div>
+		<div class="col-md-12">
+			<hr>
+		</div>
+		<div class="col-md-12">
+			<form id="envia_paa" action="{{ url('enviar/paa') }}" method="post">
+				<input type="hidden" name="paas" value="">
+				<input type="submit" value="Enviar" class="btn btn-primary">
+			</form>
 		</div>
 	</div>
 </div>

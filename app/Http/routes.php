@@ -86,6 +86,7 @@ Route::any('/logout', 'MainController@logout');
 
 Route::get('AprobacionPaaSubDireccion', 'DireccionController@index');
 Route::post('/rechazar/paa', 'DireccionController@rechazar');
+Route::post('/enviar/paa', 'DireccionController@enviar');
 
 //rutas con filtro de autenticación
 Route::group(['middleware' => ['web']], function () {

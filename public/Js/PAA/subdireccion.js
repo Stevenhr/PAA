@@ -40,17 +40,18 @@ $(function()
 		responsive: true,
 		columnDefs: [
 			{
-				targets: 20,
+				targets: 21,
 				searchable: false,
 				orderable: false
 			},{
-				targets: 21,
+				targets: 22,
 				searchable: false,
 				orderable: false,
 				width: '1%',
 				className: 'dt-body-center',
-				render: function (data, type, full, meta) {
-					return '<input type="checkbox" class="default">';
+				render: function (data, type, row) 
+				{
+					return '<input type="checkbox" class="default" '+(row[3] == 'En plneación' ? 'disabled' : '')+'>';
 				}
 			}
 		],
@@ -88,7 +89,7 @@ $(function()
 		var data = table.row($row).data();
 
 		// Get row ID
-		var rowId = data[1];
+		var rowId = $row.data('row');
 
 		// Determine whether row ID is in the list of selected row IDs 
 		var index = $.inArray(rowId, rows_selected);
@@ -111,6 +112,7 @@ $(function()
 
 		// Update state of "Select all" control
 		updateDataTableSelectAllCtrl(table);
+		console.log(rows_selected);
 
 		// Prevent click event from propagating to parent
 		e.stopPropagation();
@@ -132,7 +134,7 @@ $(function()
 						$('#TablaPAA').find('tr[data-row="'+id+'"]').remove();
 						var temp = $.grep(rows_selected, function(n, i)
 						{
-							return n !== id;
+							return n != id;
 						});
 						rows_selected = temp;
 					}
@@ -144,6 +146,39 @@ $(function()
 		} else {
 			$('#rechazar_paa textarea[name="Observaciones"]').closest('.form-group').addClass('has-error');
 		}
+
+		e.preventDefault();
+	});
+
+	$('#envia_paa').on('submit', function(e)
+	{
+		if (rows_selected.length > 0)
+		{
+			$('#envia_paa input[name="paas"]').val(rows_selected.join());
+			$.post(
+				$(this).attr('action'),
+				$(this).serialize(),
+				function(e){
+					if(e)
+					{
+						$('#alertas .bg-success').fadeIn();
+					}
+				}
+			).done(function(){
+				$.each(rows_selected, function(i, e)
+				{
+					$('#TablaPAA').find('tr[data-row="'+e+'"]').remove();
+				});
+
+				rows_selected = [];
+			});
+		} else {
+			$('#alertas .bg-danger').fadeIn();
+		}
+
+		setTimeout(function(){
+			$('#alertas p').fadeOut();
+		}, 5000);
 
 		e.preventDefault();
 	});

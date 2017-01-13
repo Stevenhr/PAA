@@ -17,7 +17,8 @@ class DireccionController extends BaseController
 	public function index()
 	{
 		$paas = Paa::with('modalidad', 'tipocontrato', 'rubro')
-						->where('Estado', 4)
+						->whereIn('Estado', [4, 5])
+						->orderBy('Estado')
 						->get();
 
 		$datos = [
@@ -33,6 +34,20 @@ class DireccionController extends BaseController
 		$paa->Estado = 3;
 		$paa->Observacion = $request->input('Observaciones');
 		$paa->save();
+
+		return response()->json(true);
+	}
+
+	public function enviar(Request $request)
+	{
+		$paas = explode(',', $request->input('paas'));
+
+		foreach ($paas as $id) 
+		{
+			$paa = Paa::where('Id', $id)->first();
+			$paa->Estado = 5;
+			$paa->save();
+		}
 
 		return response()->json(true);
 	}
