@@ -62,7 +62,7 @@ $(function()
             className: 'dt-body-center',
             render: function (data, type, row) 
 			{
-				return '<input type="checkbox" class="default" '+(row[3] == 'En plneación' ? 'disabled' : '')+'>';
+				return '<input type="checkbox" class="default" '+(row[3] == 'En planeación' ? 'disabled' : '')+'>';
 			}
           }
         ],
