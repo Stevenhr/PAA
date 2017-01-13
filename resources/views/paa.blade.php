@@ -362,6 +362,13 @@
 					</div>
 				</div>
 				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12">
+				  		<div class="alert alert-info" id="mjs_mod_denegada" style="display: none">
+						  <strong>Información</strong> Actualmente se encuentra en aprobación por la Sub Dirección y no puede ser modificada. 
+						</div>
+					</div>
+				</div>
       </div>
       <div class="modal-footer">
         <div id="mjs_registroPaa" class="alert alert-success" style="display: none"></div>

@@ -70,7 +70,6 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Operador<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
                   <li class=”{{ Request::is( 'GestionarPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'GestionarPaa') }}">Gestionar PAA</a></li>
-                  <li><a href="#">Mis Planes</a></li>
                 </ul>
               </li>
 

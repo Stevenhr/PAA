@@ -559,6 +559,14 @@ $(function()
         vector_datos_actividad.length=1;
         $('#div_finaciacion').hide();
         $('#crear_paa_btn').html("Modificar");
+
+        if(datos['Estado']==4 || datos['Estado'] ==5){
+          $('#crear_paa_btn').hide();
+          $('#mjs_mod_denegada').show();    
+        }else{
+          $('#crear_paa_btn').show();
+          $('#mjs_mod_denegada').hide();
+        }
         $('#Modal_AgregarNuevo').modal('show');      
 
     };

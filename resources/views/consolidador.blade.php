@@ -84,8 +84,15 @@
 						        </tfoot>
 						        <tbody id="registros_actividades_responsable">
 						        	<?php $var=1; ?>
-						        	@foreach($paas as $paa)						    
+						        	@foreach($paas as $paa)	
+						        			<?php $disable="";?>
+						        			@if($paa['Estado']==4)					    
+			        						<tr class="success">
+			        						<?php $disable="disabled"?>
+			        						@else
 			        						<tr>
+			        						@endif
+
 			        						<th scope="row" class="text-center">{{$var}}</th>
 					                        <td class="info">{{$paa['Registro']}}</td>
 					                        <td>{{$paa['CodigosU']}}</td>
@@ -118,20 +125,20 @@
 												  <div class="btn-group">
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Aprobacion" class="btn btn-warning btn-xs2 btn-xs"  title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
 												  </div>
-												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
-												  </div>
-												  <?php $var = 0; ?>
+												  
+												  <?php $var2 = 0;?>
 												  @foreach($paas2 as $paa2)	
 											  		@if($paa2['Registro']==$paa['Registro'])
-											  			<?php $var = 1; ?>
+											  			<?php $var2 = 1; ?>
 											  		@endif
 
 												  @endforeach
-
-												  @if($var==1)
 												  <div class="btn-group">
-												  	  <button type="button" data-rel="{{$paa['Id']}}" data-funcion="AprobacionFinal" class="btn btn-danger btn-xs2 btn-xs"  title="Cambios Pendientes" disabled><span class="glyphicon glyphicon-alert" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="AprobacionFinal" data-rol="{{$var2}}" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion" {{$disable}}><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+												  </div>
+												  @if($var2==1)
+												  <div class="btn-group">
+												  	  <button type="button" data-rel="{{$paa['Id']}}" data-funcion="CabiosPendientes" class="btn btn-danger btn-xs2 btn-xs"  title="Cambios Pendientes" disabled><span class="glyphicon glyphicon-alert" aria-hidden="true"></span></button>
 												  </div>
 												  @endif
 												</div>
@@ -824,6 +831,9 @@
 							</div>
 							<input type="hidden" name="paa_subDirecion" id="paa_subDirecion"></input>
 							<div id="mensaje_aprobacion_final" class="alert alert-success" style="display: none"></div>
+							<div id="mensaje_aprobacion_final2" class="alert alert-info" style="display: none">
+								<strong>Cambios Pendiente!</strong> Antes de enviar a Sub. Dirección debe revisar los cambios pendientes.
+							</div>
 						</div>
 					</div>
 	      </div>
