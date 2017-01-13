@@ -119,7 +119,6 @@ table.dataTable thead td {
   padding-top: 20px;
 }
 
-
-
-
-
+#alertas p {
+  padding: 15px;
+}
