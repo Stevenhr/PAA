@@ -49,11 +49,11 @@ $(function()
     responsive: true,
     columnDefs: [
       {
-        targets: 21,
+        targets: 20,
             searchable: false,
             orderable: false
           },{
-            targets: 22,
+            targets: 21,
             searchable: false,
             orderable: false,
             width: '1%',
@@ -188,7 +188,7 @@ $(function()
 			).done(function(){
 				$.each(rows_selected, function(i, e)
 				{
-					$('#TablaPAA').find('tr[data-row="'+e+'"]').remove();
+					$('#TablaPAA').find('tr[data-row="'+e+'"]').addClass('success');
 				});
 
 				rows_selected = [];

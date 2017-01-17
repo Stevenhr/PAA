@@ -57,7 +57,7 @@
 										<th>Numero de Contratistas	</th>
 										<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 										<th>Proyecto de inversión o rubro de funcionamiento</th>
-										<th  data-priority="2">Menu</th>
+										<th  data-priority="2">Menú</th>
 						            </tr>
 						        </thead>
 						        <tfoot>
@@ -82,7 +82,7 @@
 										<th>Numero de Contratistas	</th>
 										<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 										<th>Proyecto de inversión o rubro de funcionamiento</th>
-										<th  data-priority="2">Menu</th>
+										<th  data-priority="2">Menú</th>
 						            </tr>
 						        </tfoot>
 						        <tbody id="registros_actividades_responsable">

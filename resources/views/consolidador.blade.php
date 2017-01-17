@@ -31,7 +31,7 @@
 	    		
 	            	<div class="col-xs-12 col-md-12">
 				    	
-					      		<table id="TablaPAA"  class="display nowrap table table-min" width="100%" cellspacing="0">
+					      		<table id="TablaPAA"  class="display responsive no-wrap table table-min" width="100%" cellspacing="0">
 						        <thead>
 						            <tr>
 						                <th>N°</th>
@@ -39,47 +39,47 @@
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
-										<th>Descripción<br>Objeto</th>
+										<th data-priority="3">Descripción<br>Objeto</th>
 										<th>Valor<br>Estimado</th>
 										<th>Duración<br>Estimada (mes)</th>
-										<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
-										<th>Valor estimado en la vigencia actual	</th>
-										<th>¿Se requieren vigencias futuras?	</th>
-										<th>Estado de solicitud de vigencias futuras	</th>
-										<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
-										<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
-										<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-										<th>Meta plan	</th>
+										<!--<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>-->
+										<th>Valor estimado <br> vigencia actual	</th>
+										<th>¿Se requieren <br>vigencias futuras?	</th>
+										<th>Estado de solicitud <br> vigencias futuras	</th>
+										<th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
+										<th>Fecha estimada de inicio de <br>proceso de selección - Fecha  (dd/mm/aaaa)	</th>
+										<th>Fecha suscripción <br>Contrato (dd/mm/aaaa)	</th>
+										<!--<th>Meta plan	</th>-->
 										<th>Recurso Humano (Si / No)</th>
 										<th>Numero de Contratistas	</th>
 										<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 										<th>Proyecto de inversión o rubro de funcionamiento</th>
-										<th  data-priority="2">Menu</th>
+										<th  data-priority="2">Menú</th>
 						            </tr>
 						        </thead>
 						        <tfoot>
 						            <tr>
 						            	<th>N°</th>
-						                <th><h4>ID</h4></th>
+						                <th class="info">ID</th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
 										<th>Descripción<br>Objeto</th>
 										<th>Valor<br>Estimado</th>
 										<th>Duración<br>Estimada (mes)</th>
-										<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
-										<th>Valor estimado en la vigencia actual	</th>
-										<th>¿Se requieren vigencias futuras?	</th>
-										<th>Estado de solicitud de vigencias futuras	</th>
-										<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
-										<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
-										<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-										<th>Meta plan	</th>
+										<!--<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>-->
+										<th>Valor estimado <br> vigencia actual	</th>
+										<th>¿Se requieren <br>vigencias futuras?	</th>
+										<th>Estado de solicitud <br> vigencias futuras	</th>
+										<th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
+										<th>Fecha estimada de inicio de <br>proceso de selección - Fecha  (dd/mm/aaaa)	</th>
+										<th>Fecha suscripción <br>Contrato (dd/mm/aaaa)	</th>
+										<!--<th>Meta plan	</th>-->
 										<th>Recurso Humano (Si / No)</th>
 										<th>Numero de Contratistas	</th>
 										<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 										<th>Proyecto de inversión o rubro de funcionamiento</th>
-										<th  data-priority="2">Menu</th>
+										<th  data-priority="2">Menú</th>
 						            </tr>
 						        </tfoot>
 						        <tbody id="registros_actividades_responsable">
@@ -87,28 +87,31 @@
 						        	@foreach($paas as $paa)	
 						        			<?php $disable="";?>
 						        			@if($paa['Estado']==4)					    
-			        						<tr class="success">
-			        						<?php $disable="disabled"?>
+			        							<tr class="success">
+			        						    <?php $disable="disabled"?>
+			        						@elseif($paa['Estado']==5)	
+			        							<tr class="warning">
+			        							<?php $disable="disabled"?>
 			        						@else
-			        						<tr>
+			        							<tr>
 			        						@endif
 
 			        						<th scope="row" class="text-center">{{$var}}</th>
-					                        <td class="info">{{$paa['Registro']}}</td>
+					                        <td class="info"><b>{{$paa['Registro']}}</b></td>
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
 					                        <td>{{$paa['ObjetoContractual']}}</td>
 					                        <td>{{$paa['ValorEstimado']}}</td>
 					                        <td>{{$paa['DuracionContrato']}}</td>
-					                        <td>{{$paa['FuenteRecurso']}}</td>
+					                        <!--<td>{{$paa['FuenteRecurso']}}</td>-->
 					                        <td>{{$paa['ValorEstimadoVigencia']}}</td>
 					                        <td>{{$paa['VigenciaFutura']}}</td>
 					                        <td>{{$paa['EstadoVigenciaFutura']}}</td>
 					                        <td>{{$paa['FechaEstudioConveniencia']}}</td>
 					                        <td>{{$paa['FechaInicioProceso']}}</td>
 					                        <td>{{$paa['FechaSuscripcionContrato']}}</td>
-					                        <td>{{$paa['MetaPlan']}}</td>
+					                        <!--<td>{{$paa['MetaPlan']}}</td>-->
 					                        <td>{{$paa['RecursoHumano']}}</td>
 					                        <td>{{$paa['NumeroContratista']}}</td>
 					                        <td>{{$paa['DatosResponsable']}}</td>

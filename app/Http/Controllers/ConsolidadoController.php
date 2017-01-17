@@ -27,7 +27,7 @@ class ConsolidadoController extends Controller
 		$tipoContrato = TipoContrato::all();
 		$componente = Componente::all();
         $fuente = Fuente::all();
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4','5'])->get();
 
         $paa2 = Paa::where('IdPersona','1046')->where('Estado','1')->get();
 
@@ -44,7 +44,7 @@ class ConsolidadoController extends Controller
 	}
 
 
-     public function aprobarSubDireccion($id)
+    public function aprobarSubDireccion($id)
     {
         $model_A = Paa::find($id);
         $model_A['Estado'] = 4;

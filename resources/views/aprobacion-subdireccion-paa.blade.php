@@ -21,7 +21,7 @@
 			<p class="bg-danger" style="display:none;">Debe seleccionar al menos un plan de adquisición para enviar.</p>
 		</div>
 		<div class="col-md-12">
-			<table id="TablaPAA" class="display nowrap table table-min" width="100%" cellspacing="0">
+			<table id="TablaPAA" class="display responsive no-wrap table table-min" width="100%" cellspacing="0">
 		        <thead>
 		            <tr>
 		                <th>N°</th>
@@ -33,7 +33,7 @@
 						<th>Descripción<br>Objeto</th>
 						<th>Valor<br>Estimado</th>
 						<th>Duración<br>Estimada (mes)</th>
-						<th>Fuente de los recursos <br> (Nombre de la Fuente (s))</th>
+						<!--<th>Fuente de los recursos <br> (Nombre de la Fuente (s))</th>-->
 						<th>Valor estimado en <br> la vigencia actual</th>
 						<th>¿Se requieren vigencias futuras?</th>
 						<th>Estado de solicitud de vigencias futuras	</th>
@@ -45,7 +45,7 @@
 						<th>Numero de Contratistas	</th>
 						<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 						<th>Proyecto de inversión o rubro de funcionamiento</th>
-						<th data-priority="2"></th>
+						<th data-priority="2">Menú</th>
 						<th style="width:30px;" data-priority="2" class="center"><input name="select_all" value="1" type="checkbox"></th>
 		            </tr>
 		        </thead>
@@ -73,7 +73,7 @@
 	                        <td>{{$paa['ObjetoContractual']}}</td>
 	                        <td>{{$paa['ValorEstimado']}}</td>
 	                        <td>{{$paa['DuracionContrato']}}</td>
-	                        <td>{{$paa['FuenteRecurso']}}</td>
+	                        <!--<td>{{$paa['FuenteRecurso']}}</td>-->
 	                        <td>{{$paa['ValorEstimadoVigencia']}}</td>
 	                        <td>{{$paa['VigenciaFutura']}}</td>
 	                        <td>{{$paa['EstadoVigenciaFutura']}}</td>
@@ -114,7 +114,7 @@
 						<th>Descripción<br>Objeto</th>
 						<th>Valor<br>Estimado</th>
 						<th>Duración<br>Estimada (mes)</th>
-						<th>Fuente de los recursos <br> (Nombre de la Fuente (s))	</th>
+						<!--<th>Fuente de los recursos <br> (Nombre de la Fuente (s))	</th>-->
 						<th>Valor estimado en <br> la vigencia actual	</th>
 						<th>¿Se requieren vigencias futuras?	</th>
 						<th>Estado de solicitud de vigencias futuras	</th>

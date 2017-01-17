@@ -588,21 +588,21 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                     if(e['Estado']==0){
                       var $tr1 = $('<tr></tr>').html(
                           '<th scope="row" class="text-center"><b>'+num+'<b></th>'+
-                          '<td class="info">'+e['Registro']+'</td>'+
+                          '<td class="info"><b>'+e['Registro']+'</b></td>'+
                           '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e.modalidad['Nombre']+'</td>'+
                           '<td>'+e.tipocontrato['Nombre']+'</td>'+
                           '<td>'+e['ObjetoContractual']+'</td>'+
                           '<td>'+e['ValorEstimado']+'</td>'+
                           '<td>'+e['DuracionContrato']+'</td>'+
-                          '<td>'+e['FuenteRecurso']+'</td>'+
+                          //'<td>'+e['FuenteRecurso']+'</td>'+
                           '<td>'+e['ValorEstimadoVigencia']+'</td>'+
                           '<td>'+e['VigenciaFutura']+'</td>'+
                           '<td>'+e['EstadoVigenciaFutura']+'</td>'+
                           '<td>'+e['FechaEstudioConveniencia']+'</td>'+
                           '<td>'+e['FechaInicioProceso']+'</td>'+
                           '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                          '<td>'+e['MetaPlan']+'</td>'+
+                          //'<td>'+e['MetaPlan']+'</td>'+
                           '<td>'+e['RecursoHumano']+'</td>'+
                           '<td>'+e['NumeroContratista']+'</td>'+
                           '<td>'+e['DatosResponsable']+'</td>'+
@@ -632,21 +632,21 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                     if(e['Estado']==4){
                       var $tr = $('<tr></tr>').html(
                         '<td scope="row" class="text-center">'+num+'</t>'+
-                          '<td data-row="'+num+'" class="info">'+e['Registro']+'</td>'+
+                          '<td data-row="'+num+'" class="info"><b>'+e['Registro']+'</b></td>'+
                           '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e.modalidad['Nombre']+'</td>'+
                           '<td>'+e.tipocontrato['Nombre']+'</td>'+
                           '<td>'+e['ObjetoContractual']+'</td>'+
                           '<td>'+e['ValorEstimado']+'</td>'+
                           '<td>'+e['DuracionContrato']+'</td>'+                          
-                          '<td>'+e['FuenteRecurso']+'</td>'+
+                          //'<td>'+e['FuenteRecurso']+'</td>'+
                           '<td>'+e['ValorEstimadoVigencia']+'</td>'+
                           '<td>'+e['VigenciaFutura']+'</td>'+
                           '<td>'+e['EstadoVigenciaFutura']+'</td>'+
                           '<td>'+e['FechaEstudioConveniencia']+'</td>'+
                           '<td>'+e['FechaInicioProceso']+'</td>'+
                           '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                          '<td>'+e['MetaPlan']+'</td>'+
+                          //'<td>'+e['MetaPlan']+'</td>'+
                           '<td>'+e['RecursoHumano']+'</td>'+
                           '<td>'+e['NumeroContratista']+'</td>'+
                           '<td>'+e['DatosResponsable']+'</td>'+
@@ -904,21 +904,21 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                     if(e['Estado']==0){
                       var $tr1 = $('<tr></tr>').html(
                           '<th scope="row" class="text-center">'+num+'</th>'+
-                          '<td class="info">'+e['Registro']+'</td>'+
+                          '<td class="info"><b>'+e['Registro']+'</b></td>'+
                           '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e.modalidad['Nombre']+'</td>'+
                           '<td>'+e.tipocontrato['Nombre']+'</td>'+
                           '<td>'+e['ObjetoContractual']+'</td>'+
                           '<td>'+e['ValorEstimado']+'</td>'+
                           '<td>'+e['DuracionContrato']+'</td>'+
-                          '<td>'+e['FuenteRecurso']+'</td>'+
+                          //'<td>'+e['FuenteRecurso']+'</td>'+
                           '<td>'+e['ValorEstimadoVigencia']+'</td>'+
                           '<td>'+e['VigenciaFutura']+'</td>'+
                           '<td>'+e['EstadoVigenciaFutura']+'</td>'+
                           '<td>'+e['FechaEstudioConveniencia']+'</td>'+
                           '<td>'+e['FechaInicioProceso']+'</td>'+
                           '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                          '<td>'+e['MetaPlan']+'</td>'+
+                          //'<td>'+e['MetaPlan']+'</td>'+
                           '<td>'+e['RecursoHumano']+'</td>'+
                           '<td>'+e['NumeroContratista']+'</td>'+
                           '<td>'+e['DatosResponsable']+'</td>'+
@@ -948,21 +948,21 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                     if(e['Estado']==4){
                       var $tr = $('<tr></tr>').html(
                         '<td scope="row" class="text-center">'+num+'</t>'+
-                          '<td data-row="'+num+'" class="info">'+e['Registro']+'</td>'+
+                          '<td data-row="'+num+'" class="info"><b>'+e['Registro']+'</b></td>'+
                           '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e.modalidad['Nombre']+'</td>'+
                           '<td>'+e.tipocontrato['Nombre']+'</td>'+
                           '<td>'+e['ObjetoContractual']+'</td>'+
                           '<td>'+e['ValorEstimado']+'</td>'+
                           '<td>'+e['DuracionContrato']+'</td>'+                          
-                          '<td>'+e['FuenteRecurso']+'</td>'+
+                          //'<td>'+e['FuenteRecurso']+'</td>'+
                           '<td>'+e['ValorEstimadoVigencia']+'</td>'+
                           '<td>'+e['VigenciaFutura']+'</td>'+
                           '<td>'+e['EstadoVigenciaFutura']+'</td>'+
                           '<td>'+e['FechaEstudioConveniencia']+'</td>'+
                           '<td>'+e['FechaInicioProceso']+'</td>'+
                           '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                          '<td>'+e['MetaPlan']+'</td>'+
+                          //'<td>'+e['MetaPlan']+'</td>'+
                           '<td>'+e['RecursoHumano']+'</td>'+
                           '<td>'+e['NumeroContratista']+'</td>'+
                           '<td>'+e['DatosResponsable']+'</td>'+
