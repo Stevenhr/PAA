@@ -36,6 +36,7 @@
 						            <tr>
 						                <th>N°</th>
 						                <th class="info">ID</th>
+						                <th class="info">Estado</th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
@@ -61,6 +62,7 @@
 						            <tr>
 						            	<th>N°</th>
 						                <th class="info">ID</th>
+						                <th class="info">Estado</th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
@@ -85,19 +87,21 @@
 						        <tbody id="registros_actividades_responsable">
 						        	<?php $var=1; ?>
 						        	@foreach($paas as $paa)	
-						        			<?php $disable="";?>
+						        			<?php $disable=""; $estado="";?>
 						        			@if($paa['Estado']==4)					    
-			        							<tr class="success">
-			        						    <?php $disable="disabled"?>
-			        						@elseif($paa['Estado']==5)	
 			        							<tr class="warning">
-			        							<?php $disable="disabled"?>
+			        						    <?php $disable="disabled"; $estado="En Subdireción";?>
+			        						@elseif($paa['Estado']==5)	
+			        							<tr class="success">
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción"; ?>
 			        						@else
 			        							<tr>
+			        							<?php $estado="Por revisión"; ?>
 			        						@endif
 
 			        						<th scope="row" class="text-center">{{$var}}</th>
-					                        <td class="info"><b>{{$paa['Registro']}}</b></td>
+					                        <td><b><p class="text-info text-center">{{$paa['Registro']}}</p></b></td>
+					                        <td><?php echo "<b>".$estado."</b>" ?></td>
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
@@ -775,7 +779,6 @@
 													<th>Modalidad de selección</th>
 													<th>Tipo de contrato</th>
 													<th>Descripción/Objeto</th>
-													<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
 													<th>Valor total estimado	</th>
 													<th>Valor estimado en la vigencia actual	</th>
 													<th>¿Se requieren vigencias futuras?	</th>
@@ -784,7 +787,6 @@
 													<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 													<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
 													<th>Duración estimada del contrato (meses)	</th>
-													<th>Meta plan	</th>
 													<th>Recurso Humano (Si / No)</th>
 													<th>Numero de Contratistas	</th>
 													<th>Datos de contacto del responsable (Ordenador del Gasto)</th>

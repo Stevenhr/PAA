@@ -102,7 +102,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                       tb1.clear().draw();
                       tb2.clear().draw();
                       tb3.clear().draw();
-
+                      console.log(data);
                       $.each(data, function(i, dato){
                         var campos =new Array();
                         $.each(dato.cambios_paa, function(ii, cambio){
@@ -114,11 +114,11 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           console.log(camb);
                         });  */
 
-                        if(dato['Estado']==0){ // Registro Actual
+                        if(dato['Estado']==0 || dato['Estado']==4 || dato['Estado']==5){ // Registro Actual
                             $regis=dato['DatosResponsable'];
                             tb1.row.add( [
                                 '<th scope="row" class="text-center">'+num+'</th>',
-                                '<td>'+$regis+'</td>',
+                                '<td>'+dato['Registro']+'</td>',
                                 '<td>'+dato['CodigosU']+'</td>',
                                 '<td>'+dato.modalidad['Nombre']+'</td>',
                                 '<td>'+dato.tipocontrato['Nombre']+'</td>',
@@ -368,7 +368,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   $Nombre_m=dato.modalidad['Nombre'];
                                   $Nombre_t=dato.tipocontrato['Nombre'];
                                   $ObjetoContractual=dato['ObjetoContractual'];
-                                  $FuenteRecurso=dato['FuenteRecurso'];
                                   $ValorEstimado=dato['ValorEstimado'];
                                   $ValorEstimadoVigencia=dato['ValorEstimadoVigencia'];
                                   $VigenciaFutura=dato['VigenciaFutura'];
@@ -377,7 +376,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   $FechaInicioProceso=dato['FechaInicioProceso'];
                                   $FechaSuscripcionContrato=dato['FechaSuscripcionContrato'];
                                   $DuracionContrato=dato['DuracionContrato'];
-                                  $MetaPlan=dato['MetaPlan'];
                                   $RecursoHumano=dato['RecursoHumano'];
                                   $NumeroContratista=dato['NumeroContratista'];
                                   $DatosResponsable=dato['DatosResponsable'];
@@ -394,7 +392,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td><h5>'+$Nombre_m+'</h5></td>',
                           '<td><h5>'+$Nombre_t+'</h5></td>',
                           '<td><h5>'+$ObjetoContractual+'</h5></td>',
-                          '<td><h5>'+$FuenteRecurso+'</h5></td>',
                           '<td><h5>'+$ValorEstimado+'</h5></td>',
                           '<td><h5>'+$ValorEstimadoVigencia+'</h5></td>',
                           '<td><h5>'+$VigenciaFutura+'</h5></td>',
@@ -403,7 +400,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td><h5>'+$FechaInicioProceso+'</h5></td>',
                           '<td><h5>'+$FechaSuscripcionContrato+'</h5></td>',
                           '<td><h5>'+$DuracionContrato+'</h5></td>',
-                          '<td><h5>'+$MetaPlan+'</h5></td>',
                           '<td><h5>'+$RecursoHumano+'</h5></td>',
                           '<td><h5>'+$NumeroContratista+'</h5></td>',
                           '<td><h5>'+$DatosResponsable+'</h5></td>',
@@ -512,7 +508,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   '<td><div style="'+$estilo1+'">'+dato.modalidad['Nombre']+'<br><input type="radio" value="'+dato.modalidad['Id']+'" name="Nombre_m[]" ><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo2+'">'+dato.tipocontrato['Nombre']+'<br><input type="radio" value="'+dato.tipocontrato['Id']+'" name="Nombre_t[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo3+'">'+dato['ObjetoContractual']+'<br><input type="radio" value="'+dato['ObjetoContractual']+'" name="ObjetoContractual[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
-                                  '<td><div style="'+$estilo4+'">'+dato['FuenteRecurso']+'<br><input type="radio" value="'+dato['FuenteRecurso']+'" name="FuenteRecurso[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo5+'">'+dato['ValorEstimado']+'<br><input type="radio" value="'+dato['ValorEstimado']+'" name="ValorEstimado[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo6+'">'+dato['ValorEstimadoVigencia']+'<br><input type="radio" value="'+dato['ValorEstimadoVigencia']+'" name="ValorEstimadoVigencia[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo7+'">'+dato['VigenciaFutura']+'<br><input type="radio" value="'+dato['VigenciaFutura']+'" name="VigenciaFutura[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
@@ -521,7 +516,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   '<td><div style="'+$estilo10+'">'+dato['FechaInicioProceso']+'<br><input type="radio" value="'+dato['FechaInicioProceso']+'" name="FechaInicioProceso[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo11+'">'+dato['FechaSuscripcionContrato']+'<br><input type="radio" value="'+dato['FechaSuscripcionContrato']+'" name="FechaSuscripcionContrato[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo12+'">'+dato['DuracionContrato']+'<br><input type="radio" value="'+dato['DuracionContrato']+'" name="DuracionContrato[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
-                                  '<td><div style="'+$estilo13+'">'+dato['MetaPlan']+'<br><input type="radio" value="'+dato['MetaPlan']+'" name="MetaPlan[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo14+'">'+dato['RecursoHumano']+'<br><input type="radio" value="'+dato['RecursoHumano']+'" name="RecursoHumano[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo15+'">'+dato['NumeroContratista']+'<br><input type="radio" value="'+dato['NumeroContratista']+'" name="NumeroContratista[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo16+'">'+dato['DatosResponsable']+'<br><input type="radio" value="'+dato['DatosResponsable']+'" name="DatosResponsable[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
@@ -751,14 +745,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
     });
 
 
-    var FuenteRecurso = new Array();
-    $('input[name="FuenteRecurso[]"]').each(function(){
-                if( $(this).is(':checked') ){
-                    FuenteRecurso.push($(this).val());
-                }else{
-                    FuenteRecurso.push(0);
-                }
-    });
+
 
     var ValorEstimado = new Array();
     $('input[name="ValorEstimado[]"]').each(function(){
@@ -839,15 +826,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
     });
 
 
-    var MetaPlan = new Array();
-    $('input[name="MetaPlan[]"]').each(function(){
-                if( $(this).is(':checked') ){
-                    MetaPlan.push($(this).val());
-                }else{
-                    MetaPlan.push(0);
-                }
-    });
-
 
     var RecursoHumano = new Array();
     $('input[name="RecursoHumano[]"]').each(function(){
@@ -879,7 +857,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
 
     $.post(
       URL+'/service/DatosAprobacion',
-      {id: id, Registro:Registro, CodigosU:CodigosU, Nombre_m:Nombre_m ,Nombre_t:Nombre_t, ObjetoContractual:ObjetoContractual, FuenteRecurso:FuenteRecurso, ValorEstimado:ValorEstimado, ValorEstimadoVigencia:ValorEstimadoVigencia, VigenciaFutura:VigenciaFutura, EstadoVigenciaFutura:EstadoVigenciaFutura, FechaEstudioConveniencia:FechaEstudioConveniencia, FechaInicioProceso:FechaInicioProceso, FechaSuscripcionContrato:FechaSuscripcionContrato, DuracionContrato:DuracionContrato , MetaPlan:MetaPlan, RecursoHumano:RecursoHumano, NumeroContratista:NumeroContratista ,  Nombre_r:Nombre_r, resposanble : responsble },
+      {id: id, Registro:Registro, CodigosU:CodigosU, Nombre_m:Nombre_m ,Nombre_t:Nombre_t, ObjetoContractual:ObjetoContractual, FuenteRecurso:0, ValorEstimado:ValorEstimado, ValorEstimadoVigencia:ValorEstimadoVigencia, VigenciaFutura:VigenciaFutura, EstadoVigenciaFutura:EstadoVigenciaFutura, FechaEstudioConveniencia:FechaEstudioConveniencia, FechaInicioProceso:FechaInicioProceso, FechaSuscripcionContrato:FechaSuscripcionContrato, DuracionContrato:DuracionContrato , MetaPlan:0, RecursoHumano:RecursoHumano, NumeroContratista:NumeroContratista ,  Nombre_r:Nombre_r, resposanble : responsble },
       function(data){
 
              var num=1;
@@ -905,6 +883,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                       var $tr1 = $('<tr></tr>').html(
                           '<th scope="row" class="text-center">'+num+'</th>'+
                           '<td class="info"><b>'+e['Registro']+'</b></td>'+
+                          '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e.modalidad['Nombre']+'</td>'+
                           '<td>'+e.tipocontrato['Nombre']+'</td>'+
@@ -949,6 +928,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                       var $tr = $('<tr></tr>').html(
                         '<td scope="row" class="text-center">'+num+'</t>'+
                           '<td data-row="'+num+'" class="info"><b>'+e['Registro']+'</b></td>'+
+                          '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e.modalidad['Nombre']+'</td>'+
                           '<td>'+e.tipocontrato['Nombre']+'</td>'+
