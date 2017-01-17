@@ -587,7 +587,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                       
                     if(e['Estado']==0){
                       var $tr1 = $('<tr></tr>').html(
-                          '<th scope="row" class="text-center">'+num+'</th>'+
+                          '<th scope="row" class="text-center"><b>'+num+'<b></th>'+
                           '<td class="info">'+e['Registro']+'</td>'+
                           '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e.modalidad['Nombre']+'</td>'+
