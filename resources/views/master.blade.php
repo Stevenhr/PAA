@@ -62,7 +62,8 @@
                 <ul class="dropdown-menu" aria-labelledby="themes">
                   <li class=”{{ Request::is( 'PresupuestoPAA') ? 'active' : '' }}”><a href="{{ URL::to( 'PresupuestoPAA') }}">Presupuesto PAA</a></li>
                   <li class=”{{ Request::is( 'personas') ? 'active' : '' }}”><a href="{{ URL::to( 'personas') }}">Usuarios</a></li>
-                  <li class=”{{ Request::is( 'asignarActividad') ? 'active' : '' }}”><a href="{{ URL::to( 'asignarActividad') }}">Permisos</a></li>
+                  <li class=”{{ Request::is( 'asignarActividad') ? 'active' : '' }}”><a href="{{ URL::to( 'actividad_usuario') }}">Permisos</a></li>
+                  
                 </ul>
               </li>
 
