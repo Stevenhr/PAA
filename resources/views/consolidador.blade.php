@@ -35,8 +35,8 @@
 						        <thead>
 						            <tr>
 						                <th>N°</th>
-						                <th class="info">ID</th>
-						                <th class="info">Estado</th>
+						                <th>ID</th>
+						                <th>Estado</th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
@@ -61,8 +61,8 @@
 						        <tfoot>
 						            <tr>
 						            	<th>N°</th>
-						                <th class="info">ID</th>
-						                <th class="info">Estado</th>
+						                <th>ID</th>
+						                <th>Estado</th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
@@ -94,6 +94,12 @@
 			        						@elseif($paa['Estado']==5)	
 			        							<tr class="success">
 			        							<?php $disable="disabled"; $estado="Aprobado Subdireción"; ?>
+			        						@elseif($paa['Estado']==6)	
+			        							<tr class="danger">
+			        							<?php $disable=""; $estado="Denegado Subdireción"; ?>
+			        						@elseif($paa['Estado']==7)	
+			        							<tr class="danger">
+			        							<?php $disable="disabled"; $estado="CANCELADO"; ?>
 			        						@else
 			        							<tr>
 			        							<?php $estado="Por revisión"; ?>
@@ -643,7 +649,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success">Crear</button>
+        <!--<button type="button" class="btn btn-success">Crear</button>-->
       </div>
     </div>
   </div>
@@ -800,12 +806,13 @@
 								<br><br>
 							</div>
 							<div id="mensaje_aprobacion" class="alert alert-success" style="display: none"></div>
+							<div id="mensaje_NoCasos" class="alert alert-success" style="display: none"></div>
 						</div>
 					</div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-	        <button type="submit" class="btn btn-success">Aprobar</button>
+	        <button type="submit" class="btn btn-success" id="id_aprobar">Aprobar</button>
 	      </div>
       </form>
     </div>

@@ -100,44 +100,69 @@ $(function()
                       var num=1;
                       t.clear().draw();
                       $.each(data.datos, function(i, e){
-                        
-                        var $tr1 = $('<tr></tr>').html(
-                          '<th scope="row" class="text-center">'+num+'</th>'+
-                              '<td class="info"><b>'+e['Registro']+'</b></td>'+
-                              '<td>'+e['CodigosU']+'</td>'+
-                              '<td>'+e.modalidad['Nombre']+'</td>'+
-                              '<td>'+e.tipocontrato['Nombre']+'</td>'+
-                              '<td>'+e['ObjetoContractual']+'</td>'+
-                              '<td>'+e['ValorEstimado']+'</td>'+
-                              '<td>'+e['ValorEstimadoVigencia']+'</td>'+
-                              '<td>'+e['VigenciaFutura']+'</td>'+
-                              '<td>'+e['EstadoVigenciaFutura']+'</td>'+
-                              '<td>'+e['FechaEstudioConveniencia']+'</td>'+
-                              '<td>'+e['FechaInicioProceso']+'</td>'+
-                              '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                              '<td>'+e['DuracionContrato']+'</td>'+
-                              '<td>'+e['RecursoHumano']+'</td>'+
-                              '<td>'+e['NumeroContratista']+'</td>'+
-                              '<td>'+e['DatosResponsable']+'</td>'+
-                              '<td>'+e.rubro['Nombre']+'</td>'+
-                              '<td>'+
-                                '<div class="btn-group tama">'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+
+                        var disable=""; 
+                      var estado="";
+                      var clase="";
+                          if(e['Estado']==4){              
+                            clase="warning";
+                            disable="disabled"; 
+                            estado="En Subdireción";
+                          }else if(e['Estado']==5){  
+                            clase="success";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción"; 
+                          }else if(e['Estado']==6){  
+                            clase="danger";
+                            disable=""; 
+                            estado="Denegado Subdireción"; 
+                          }else if(e['Estado']==7){  
+                            clase="danger";
+                            disable="disabled"; 
+                            estado="CANCELADO"; 
+                          }else{
+                            estado="Por revisión";
+                            disable="";
+                          }
+    
+                          var $tr1 = $('<tr class="'+clase+'"></tr>').html(
+                            '<th scope="row" class="text-center">'+num+'</th>'+
+                                '<td><b><p class="text-info text-center">'+e['Registro']+'</p></b></td>'+
+                                '<td><b>'+estado+'</b></td>'+
+                                '<td>'+e['CodigosU']+'</td>'+
+                                '<td>'+e.modalidad['Nombre']+'</td>'+
+                                '<td>'+e.tipocontrato['Nombre']+'</td>'+
+                                '<td>'+e['ObjetoContractual']+'</td>'+
+                                '<td>'+e['ValorEstimado']+'</td>'+
+                                '<td>'+e['ValorEstimadoVigencia']+'</td>'+
+                                '<td>'+e['VigenciaFutura']+'</td>'+
+                                '<td>'+e['EstadoVigenciaFutura']+'</td>'+
+                                '<td>'+e['FechaEstudioConveniencia']+'</td>'+
+                                '<td>'+e['FechaInicioProceso']+'</td>'+
+                                '<td>'+e['FechaSuscripcionContrato']+'</td>'+
+                                '<td>'+e['DuracionContrato']+'</td>'+
+                                '<td>'+e['RecursoHumano']+'</td>'+
+                                '<td>'+e['NumeroContratista']+'</td>'+
+                                '<td>'+e['DatosResponsable']+'</td>'+
+                                '<td>'+e.rubro['Nombre']+'</td>'+
+                                '<td>'+
+                                  '<div class="btn-group tama">'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
+                                    '</div>'+
                                   '</div>'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                  '</div>'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
-                                  '</div>'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
-                                  '</div>'+
-                                '</div>'+
-                                '<div id=""></div>'+
-                              '</td>'
-                        );
+                                  '<div id=""></div>'+
+                                '</td>'
+                          );
                           t.row.add($tr1).draw( false );
                           num++;
 
@@ -582,43 +607,69 @@ $(function()
                       var num=1;
                       t.clear().draw();
                       $.each(data.datos, function(i, e){
-                          var $tr1 = $('<tr></tr>').html(
-                          '<th scope="row" class="text-center">'+num+'</th>'+
-                              '<td class="info"><b>'+e['Registro']+'</b></td>'+
-                              '<td>'+e['CodigosU']+'</td>'+
-                              '<td>'+e.modalidad['Nombre']+'</td>'+
-                              '<td>'+e.tipocontrato['Nombre']+'</td>'+
-                              '<td>'+e['ObjetoContractual']+'</td>'+
-                              '<td>'+e['ValorEstimado']+'</td>'+
-                              '<td>'+e['ValorEstimadoVigencia']+'</td>'+
-                              '<td>'+e['VigenciaFutura']+'</td>'+
-                              '<td>'+e['EstadoVigenciaFutura']+'</td>'+
-                              '<td>'+e['FechaEstudioConveniencia']+'</td>'+
-                              '<td>'+e['FechaInicioProceso']+'</td>'+
-                              '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                              '<td>'+e['DuracionContrato']+'</td>'+
-                              '<td>'+e['RecursoHumano']+'</td>'+
-                              '<td>'+e['NumeroContratista']+'</td>'+
-                              '<td>'+e['DatosResponsable']+'</td>'+
-                              '<td>'+e.rubro['Nombre']+'</td>'+
-                              '<td>'+
-                                '<div class="btn-group tama">'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                          var disable=""; 
+                          var estado="";
+                          var clase="";
+                          
+                          if(e['Estado']==4){              
+                            clase="warning";
+                            disable="disabled"; 
+                            estado="En Subdireción";
+                          }else if(e['Estado']==5){  
+                            clase="success";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción"; 
+                          }else if(e['Estado']==6){  
+                            clase="danger";
+                            disable=""; 
+                            estado="Denegado Subdireción"; 
+                          }else if(e['Estado']==7){  
+                            clase="danger";
+                            disable="disabled"; 
+                            estado="CANCELADO"; 
+                          }else{
+                            estado="Por revisión";
+                            disable="";
+                          }
+    
+                          var $tr1 = $('<tr class="'+clase+'"></tr>').html(
+                            '<th scope="row" class="text-center">'+num+'</th>'+
+                                '<td><b><p class="text-info text-center">'+e['Registro']+'</p></b></td>'+
+                                '<td><b>'+estado+'</b></td>'+
+                                '<td>'+e['CodigosU']+'</td>'+
+                                '<td>'+e.modalidad['Nombre']+'</td>'+
+                                '<td>'+e.tipocontrato['Nombre']+'</td>'+
+                                '<td>'+e['ObjetoContractual']+'</td>'+
+                                '<td>'+e['ValorEstimado']+'</td>'+
+                                '<td>'+e['ValorEstimadoVigencia']+'</td>'+
+                                '<td>'+e['VigenciaFutura']+'</td>'+
+                                '<td>'+e['EstadoVigenciaFutura']+'</td>'+
+                                '<td>'+e['FechaEstudioConveniencia']+'</td>'+
+                                '<td>'+e['FechaInicioProceso']+'</td>'+
+                                '<td>'+e['FechaSuscripcionContrato']+'</td>'+
+                                '<td>'+e['DuracionContrato']+'</td>'+
+                                '<td>'+e['RecursoHumano']+'</td>'+
+                                '<td>'+e['NumeroContratista']+'</td>'+
+                                '<td>'+e['DatosResponsable']+'</td>'+
+                                '<td>'+e.rubro['Nombre']+'</td>'+
+                                '<td>'+
+                                  '<div class="btn-group tama">'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
+                                    '</div>'+
                                   '</div>'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                  '</div>'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
-                                  '</div>'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
-                                  '</div>'+
-                                '</div>'+
-                                '<div id=""></div>'+
-                              '</td>'
-                        );
+                                  '<div id=""></div>'+
+                                '</td>'
+                          );
                           t.row.add($tr1).draw( false );
                           num++;
                       });

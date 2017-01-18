@@ -25,7 +25,7 @@ class PlanAnualAController extends Controller
 		$tipoContrato = TipoContrato::all();
 		$componente = Componente::all();
         $fuente = Fuente::all();
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7'])->get();
 
         
 
@@ -187,7 +187,7 @@ class PlanAnualAController extends Controller
             $modeloP['Id_paa'] = $modeloultimo[1]['Id'];
             $modeloP->save();
         }
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7'])->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
@@ -231,20 +231,20 @@ class PlanAnualAController extends Controller
         $modeloPA['EsatdoObservo'] = 3;
         $modeloPA->save();
 
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7'])->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
     public function HistorialEliminarPaa(Request $request, $id)
     {
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','3')->where('EsatdoObservo','3')->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','3')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
     public function HistorialEliminarPaaEspecifico(Request $request, $id)
     {
         $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','0')->where('EsatdoObservo','0')->find(41);
-        $paas = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Registro',41)->where('Estado','1')->where('EsatdoObservo','1')->get();
+        $paas = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Registro',41)->where('Estado','1')->get();
         foreach ($paas as &$temp) 
         {
             $temp->cambios = Comparador::comparar($temp->toArray(), $paa->toArray());

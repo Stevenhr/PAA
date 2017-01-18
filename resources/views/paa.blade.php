@@ -38,7 +38,8 @@
 						        <thead>
 						            <tr>
 						                <th>N°</th>
-						                <th class="info">ID</th>
+						                <th>ID</th>
+						                <th>Estado</th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
@@ -63,7 +64,8 @@
 						        <tfoot>
 						            <tr>
 						            	<th>N°</th>
-						                <th class="info">ID</th>
+						                <th>ID</th>
+						                <th>Estado</th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
@@ -87,10 +89,28 @@
 						        </tfoot>
 						        <tbody id="registros_actividades_responsable">
 						        	<?php $var=1; ?>
-						        	@foreach($paas as $paa)						    
-			        						<tr>
+						        	@foreach($paas as $paa)	
+
+			        						<?php $disable=""; $estado="";?>
+						        			@if($paa['Estado']==4)					    
+			        							<tr class="warning">
+			        						    <?php $disable="disabled"; $estado="En Subdireción";?>
+			        						@elseif($paa['Estado']==5)	
+			        							<tr class="success">
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción"; ?>
+			        						@elseif($paa['Estado']==6)	
+			        							<tr class="danger">
+			        							<?php $disable=""; $estado="Denegado Subdireción"; ?>
+			        						@elseif($paa['Estado']==7)	
+			        							<tr class="danger">
+			        							<?php $disable="disabled"; $estado="CANCELADO"; ?>
+			        						@else
+			        							<tr>
+			        							<?php $estado="En Consolidación"; ?>
+			        						@endif
 			        						<th scope="row" class="text-center">{{$var}}</th>
-					                        <td class="info"><b>{{$paa['Registro']}}</b></td>
+					                        <td><b><p class="text-info text-center">{{$paa['Registro']}}</p></b></td>
+					                        <td><?php echo "<b>".$estado."</b>" ?></td>
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
