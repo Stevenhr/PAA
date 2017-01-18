@@ -10,7 +10,12 @@ session_start();
 | and give it the controller to call when that URI is requested.
 |
 */
-
+Route::get('/actividad_usuario', function () {
+    return view('persona_actividades');
+});
+Route::get('/usuario_tipo', function () {
+    return view('persona_tipoPersona');
+});
 
 // Rutas paquete usuario
 Route::get('/personas', '\Idrd\Usuarios\Controllers\PersonaController@index');
@@ -23,7 +28,7 @@ Route::get('/permisos', 'Persona@index');
 Route::get('/asignarActividad', '\Idrd\Usuarios\Controllers\AsignarActividadController@asignarActividades');
 Route::get('/actividadesModulo', '\Idrd\Usuarios\Controllers\AsignarActividadController@moduloActividades');
 Route::get('/actividadesPersona/{id}', '\Idrd\Usuarios\Controllers\AsignarActividadController@personaActividades');
-Route::post('PersonasActividadesProceso', '\Idrd\Usuarios\Controllers\AsignarActividadController@PersonasActividadesProceso');
+Route::any('PersonasActividadesProceso', '\Idrd\Usuarios\Controllers\AsignarActividadController@PersonasActividadesProceso');
 Route::get('/asignarTipoPersona', '\Idrd\Usuarios\Controllers\AsignarActividadController@asignarTipoPersona');
 Route::get('/tipo_modulo', '\Idrd\Usuarios\Controllers\AsignarActividadController@tipoModulo');
 Route::post('ProcesoTipoPersona', '\Idrd\Usuarios\Controllers\AsignarActividadController@AdicionTipoPersona');
