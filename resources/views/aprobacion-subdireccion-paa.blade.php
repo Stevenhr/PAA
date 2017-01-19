@@ -70,7 +70,7 @@
 	                        </td>
 	                        <td>{{$paa->modalidad['Nombre']}}</td>
 	                        <td>{{$paa->tipocontrato['Nombre']}}</td>
-	                        <td>{{$paa['ObjetoContractual']}}</td>
+	                        <td><div style="width:500px;text-align: justify;">'{{$paa['ObjetoContractual']}}</div></td>
 	                        <td>{{$paa['ValorEstimado']}}</td>
 	                        <td>{{$paa['DuracionContrato']}}</td>
 	                        <td>{{$paa['ValorEstimadoVigencia']}}</td>

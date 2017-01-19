@@ -132,7 +132,7 @@ $(function()
                                 '<td>'+e['CodigosU']+'</td>'+
                                 '<td>'+e.modalidad['Nombre']+'</td>'+
                                 '<td>'+e.tipocontrato['Nombre']+'</td>'+
-                                '<td>'+e['ObjetoContractual']+'</td>'+
+                                '<td><div style="width:500px;text-align: justify;">'+e['ObjetoContractual']+'</div></td>'+
                                 '<td>'+e['ValorEstimado']+'</td>'+
                                 '<td>'+e['ValorEstimadoVigencia']+'</td>'+
                                 '<td>'+e['VigenciaFutura']+'</td>'+
@@ -639,7 +639,7 @@ $(function()
                                 '<td>'+e['CodigosU']+'</td>'+
                                 '<td>'+e.modalidad['Nombre']+'</td>'+
                                 '<td>'+e.tipocontrato['Nombre']+'</td>'+
-                                '<td>'+e['ObjetoContractual']+'</td>'+
+                                '<td><div style="width:500px;text-align: justify;">'+e['ObjetoContractual']+'</div></td>'+
                                 '<td>'+e['ValorEstimado']+'</td>'+
                                 '<td>'+e['ValorEstimadoVigencia']+'</td>'+
                                 '<td>'+e['VigenciaFutura']+'</td>'+
