@@ -648,7 +648,7 @@
 
 
 <!-- MODAL HISTORIAL DE ELIMIANCION-->
-<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_HistorialEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_HistorialEliminar1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">

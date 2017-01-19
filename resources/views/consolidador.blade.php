@@ -25,6 +25,13 @@
 		    		</div>
 		    	</div>
             	<div class="row">
+            	    <div class="col-xs-12 col-md-12 text-">
+				    	<div class="form-group">	
+							<div class="btn-group" role="group" aria-label="...">
+							  <button type="button" class="btn btn-danger" id="Modal_HistorialEliminar_btn"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Historial eliminados</button>
+							</div>
+						</div>
+		    		</div>
 				    <div class="col-xs-12 col-md-12">
 				    	<hr style="border: 0; border-top: 2px solid #CEECF5; height:0;">
 		    		</div>
@@ -751,7 +758,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success">Crear</button>
       </div>
     </div>
   </div>
