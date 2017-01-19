@@ -8,7 +8,7 @@ $(function()
   $('#TablaPAA tfoot th').each( function () {
         var title = $(this).text();
         if(title!="Menu" && title!="N°"){
-          $(this).html( '<input type="text" placeholder="Buscar" />' );
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
         }
     } );
  
@@ -32,12 +32,9 @@ $(function()
     });
 
 
-  var tb1 = $('#Tabla1').DataTable( {responsive: true  } );
-
+  var tb1 = $('#Tabla1').DataTable( {responsive: true   } );
   var tb2 = $('#Tabla2').DataTable( {responsive: true,  } );
-
   var tb3 = $('#Tabla3').DataTable( {responsive: true,  } );
-
   var tb4 = $('#Tabla4').DataTable( {responsive: true,  } );
 
   $('#Modal_AgregarNuevo').on('shown.bs.modal', function () {
@@ -103,48 +100,70 @@ $(function()
                       var num=1;
                       t.clear().draw();
                       $.each(data.datos, function(i, e){
-                          t.row.add( [
-                              '<th scope="row" class="text-center">'+num+'</th>',
-                              '<td>'+e['Registro']+'</td>',
-                              '<td>'+e['CodigosU']+'</td>',
-                              '<td>'+e.modalidad['Nombre']+'</td>',
-                              '<td>'+e.tipocontrato['Nombre']+'</td>',
-                              '<td>'+e['ObjetoContractual']+'</td>',
-                              '<td>'+e['FuenteRecurso']+'</td>',
-                              '<td>'+e['ValorEstimado']+'</td>',
-                              '<td>'+e['ValorEstimadoVigencia']+'</td>',
-                              '<td>'+e['VigenciaFutura']+'</td>',
-                              '<td>'+e['EstadoVigenciaFutura']+'</td>',
-                              '<td>'+e['FechaEstudioConveniencia']+'</td>',
-                              '<td>'+e['FechaInicioProceso']+'</td>',
-                              '<td>'+e['FechaSuscripcionContrato']+'</td>',
-                              '<td>'+e['DuracionContrato']+'</td>',
-                              '<td>'+e['MetaPlan']+'</td>',
-                              '<td>'+e['RecursoHumano']+'</td>',
-                              '<td>'+e['NumeroContratista']+'</td>',
-                              '<td>'+e['DatosResponsable']+'</td>',
-                              '<td>'+e.rubro['Nombre']+'</td>',
 
-                              '<td>'+
-                                '<div class="btn-group tama">'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                        var disable=""; 
+                      var estado="";
+                      var clase="";
+                          if(e['Estado']==4){              
+                            clase="warning";
+                            disable="disabled"; 
+                            estado="En Subdireción";
+                          }else if(e['Estado']==5){  
+                            clase="success";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción"; 
+                          }else if(e['Estado']==6){  
+                            clase="danger";
+                            disable=""; 
+                            estado="Denegado Subdireción"; 
+                          }else if(e['Estado']==7){  
+                            clase="danger";
+                            disable="disabled"; 
+                            estado="CANCELADO"; 
+                          }else{
+                            estado="Por revisión";
+                            disable="";
+                          }
+    
+                          var $tr1 = $('<tr class="'+clase+'"></tr>').html(
+                            '<th scope="row" class="text-center">'+num+'</th>'+
+                                '<td><b><p class="text-info text-center">'+e['Registro']+'</p></b></td>'+
+                                '<td><b>'+estado+'</b></td>'+
+                                '<td>'+e['CodigosU']+'</td>'+
+                                '<td>'+e.modalidad['Nombre']+'</td>'+
+                                '<td>'+e.tipocontrato['Nombre']+'</td>'+
+                                '<td>'+e['ObjetoContractual']+'</td>'+
+                                '<td>'+e['ValorEstimado']+'</td>'+
+                                '<td>'+e['ValorEstimadoVigencia']+'</td>'+
+                                '<td>'+e['VigenciaFutura']+'</td>'+
+                                '<td>'+e['EstadoVigenciaFutura']+'</td>'+
+                                '<td>'+e['FechaEstudioConveniencia']+'</td>'+
+                                '<td>'+e['FechaInicioProceso']+'</td>'+
+                                '<td>'+e['FechaSuscripcionContrato']+'</td>'+
+                                '<td>'+e['DuracionContrato']+'</td>'+
+                                '<td>'+e['RecursoHumano']+'</td>'+
+                                '<td>'+e['NumeroContratista']+'</td>'+
+                                '<td>'+e['DatosResponsable']+'</td>'+
+                                '<td>'+e.rubro['Nombre']+'</td>'+
+                                '<td>'+
+                                  '<div class="btn-group tama">'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa" '+disable+'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa" '+disable+'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
+                                    '</div>'+
                                   '</div>'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                  '</div>'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
-                                  '</div>'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
-                                  '</div>'+
-                                '</div>'+
-                                '<div id=""></div>'+
-                              '</td>'
-
-                            
-                          ] ).draw( false );
+                                  '<div id=""></div>'+
+                                '</td>'
+                          );
+                          t.row.add($tr1).draw( false );
                           num++;
 
                       });
@@ -189,14 +208,14 @@ $(function()
                     case 'codigo_Unspsc':
                     case 'fecha_inicial_presupuesto':
                     case 'nombre_presupuesto':
-                    case 'fuente_recurso':
+                    //case 'fuente_recurso':
                     case 'valor_estimado':
                     case 'valor_estimado_actualVigencia':
                     case 'estudio_conveniencia':
                     case 'fecha_inicio':
                     case 'fecha_suscripcion':
                     case 'duracion_estimada':
-                    case 'meta_plan':
+                    //case 'meta_plan':
                     case 'numero_contratista':
                     case 'datos_contacto':
                         selector = 'input';
@@ -241,11 +260,12 @@ $(function()
                             $.each(eee.actividades, function(i, eeee){
                                 $.each(eeee.componentes, function(i, eeeee){   
 
-                                    html += '<option value="'+eeeee['Id']+'">'+eeeee.pivot['id']+"<b> ACTIVIDAD:</b>"+eeee['Nombre'].toLowerCase()+"<br> FUENTE:"+eeeee.fuente['nombre'].toLowerCase()+'</option>';
+                                    html += '<option value="'+eeeee['Id']+'">'+eeeee.pivot['id']+"<b> Componente: </b>"+eeeee['Nombre'].toLowerCase()+"<br> FUENTE:"+eeeee.fuente['nombre'].toLowerCase()+'</option>';
                                     $('input[name="id_pivot_comp"]').val(eeeee.pivot['id']);
                                 });
                             });
                         });
+                
                 $('select[name="componnente"]').html(html).val($('select[name="componnente"]').data('value'));
             }
         });
@@ -421,7 +441,7 @@ $(function()
                       tb3.clear().draw();
                       $.each(data, function(i, dato){
                         
-                       if(dato['Estado']==0){ // Registro Actual
+                       if(dato['Estado']==0 || dato['Estado']==4 || dato['Estado']==5 || dato['Estado']==6 || dato['Estado']==7){ // Registro Actual
                             tb1.row.add( [
                                 '<th scope="row" class="text-center">'+num+'</th>',
                                 '<td>'+dato['Registro']+'</td>',
@@ -587,46 +607,70 @@ $(function()
                       var num=1;
                       t.clear().draw();
                       $.each(data.datos, function(i, e){
-                          t.row.add( [
-                              '<th scope="row" class="text-center">'+num+'</th>',
-                              '<td>'+e['Registro']+'</td>',
-                              '<td>'+e['CodigosU']+'</td>',
-                              '<td>'+e.modalidad['Nombre']+'</td>',
-                              '<td>'+e.tipocontrato['Nombre']+'</td>',
-                              '<td>'+e['ObjetoContractual']+'</td>',
-                              '<td>'+e['FuenteRecurso']+'</td>',
-                              '<td>'+e['ValorEstimado']+'</td>',
-                              '<td>'+e['ValorEstimadoVigencia']+'</td>',
-                              '<td>'+e['VigenciaFutura']+'</td>',
-                              '<td>'+e['EstadoVigenciaFutura']+'</td>',
-                              '<td>'+e['FechaEstudioConveniencia']+'</td>',
-                              '<td>'+e['FechaInicioProceso']+'</td>',
-                              '<td>'+e['FechaSuscripcionContrato']+'</td>',
-                              '<td>'+e['DuracionContrato']+'</td>',
-                              '<td>'+e['MetaPlan']+'</td>',
-                              '<td>'+e['RecursoHumano']+'</td>',
-                              '<td>'+e['NumeroContratista']+'</td>',
-                              '<td>'+e['DatosResponsable']+'</td>',
-                              '<td>'+e.rubro['Nombre']+'</td>',
+                          var disable=""; 
+                          var estado="";
+                          var clase="";
 
-                              '<td>'+
-                                '<div class="btn-group tama">'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                          if(e['Estado']==4){              
+                            clase="warning";
+                            disable="disabled"; 
+                            estado="En Subdireción";
+                          }else if(e['Estado']==5){  
+                            clase="success";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción"; 
+                          }else if(e['Estado']==6){  
+                            clase="danger";
+                            disable=""; 
+                            estado="Denegado Subdireción"; 
+                          }else if(e['Estado']==7){  
+                            clase="danger";
+                            disable="disabled"; 
+                            estado="CANCELADO"; 
+                          }else{
+                            estado="Por revisión";
+                            disable="";
+                          }
+    
+                          var $tr1 = $('<tr class="'+clase+'"></tr>').html(
+                            '<th scope="row" class="text-center">'+num+'</th>'+
+                                '<td><b><p class="text-info text-center">'+e['Registro']+'</p></b></td>'+
+                                '<td><b>'+estado+'</b></td>'+
+                                '<td>'+e['CodigosU']+'</td>'+
+                                '<td>'+e.modalidad['Nombre']+'</td>'+
+                                '<td>'+e.tipocontrato['Nombre']+'</td>'+
+                                '<td>'+e['ObjetoContractual']+'</td>'+
+                                '<td>'+e['ValorEstimado']+'</td>'+
+                                '<td>'+e['ValorEstimadoVigencia']+'</td>'+
+                                '<td>'+e['VigenciaFutura']+'</td>'+
+                                '<td>'+e['EstadoVigenciaFutura']+'</td>'+
+                                '<td>'+e['FechaEstudioConveniencia']+'</td>'+
+                                '<td>'+e['FechaInicioProceso']+'</td>'+
+                                '<td>'+e['FechaSuscripcionContrato']+'</td>'+
+                                '<td>'+e['DuracionContrato']+'</td>'+
+                                '<td>'+e['RecursoHumano']+'</td>'+
+                                '<td>'+e['NumeroContratista']+'</td>'+
+                                '<td>'+e['DatosResponsable']+'</td>'+
+                                '<td>'+e.rubro['Nombre']+'</td>'+
+                                '<td>'+
+                                  '<div class="btn-group tama">'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa" '+disable+'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa" '+disable+'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
+                                    '</div>'+
                                   '</div>'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                  '</div>'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
-                                  '</div>'+
-                                  '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
-                                  '</div>'+
-                                '</div>'+
-                                '<div id=""></div>'+
-                              '</td>'
-                          ] ).draw( false );
+                                  '<div id=""></div>'+
+                                '</td>'
+                          );
+                          t.row.add($tr1).draw( false );
                           num++;
                       });
                       $('#mjs_ElimRegistro').html(' <strong>Registro Eliminado con Exitoso!</strong> Se realizo la eliminación del resgistro de su PAA.');
@@ -691,10 +735,10 @@ $(function()
                               '<td>'+
                                 '<div class="btn-group tama">'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa" '+disable+'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa" '+disable+'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
                                     '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+

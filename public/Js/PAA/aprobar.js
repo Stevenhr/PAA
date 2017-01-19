@@ -102,7 +102,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                       tb1.clear().draw();
                       tb2.clear().draw();
                       tb3.clear().draw();
-
+                      //console.log(data);
                       $.each(data, function(i, dato){
                         var campos =new Array();
                         $.each(dato.cambios_paa, function(ii, cambio){
@@ -114,11 +114,11 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           console.log(camb);
                         });  */
 
-                        if(dato['Estado']==0){ // Registro Actual
+                        if(dato['Estado']==0 || dato['Estado']==4 || dato['Estado']==5 || dato['Estado']==6 || dato['Estado']==7){ // Registro Actual
                             $regis=dato['DatosResponsable'];
                             tb1.row.add( [
                                 '<th scope="row" class="text-center">'+num+'</th>',
-                                '<td>'+$regis+'</td>',
+                                '<td>'+dato['Registro']+'</td>',
                                 '<td>'+dato['CodigosU']+'</td>',
                                 '<td>'+dato.modalidad['Nombre']+'</td>',
                                 '<td>'+dato.tipocontrato['Nombre']+'</td>',
@@ -342,8 +342,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
 
     $('#TablaPAA').delegate('button[data-funcion="Aprobacion"]','click',function (e)
     {
-        var id = $(this).data('rel'); 
-
+          
+          var id = $(this).data('rel'); 
           $.get(
               URL+'/service/obtenerHistorialPaa/'+id,
               {},
@@ -368,7 +368,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   $Nombre_m=dato.modalidad['Nombre'];
                                   $Nombre_t=dato.tipocontrato['Nombre'];
                                   $ObjetoContractual=dato['ObjetoContractual'];
-                                  $FuenteRecurso=dato['FuenteRecurso'];
                                   $ValorEstimado=dato['ValorEstimado'];
                                   $ValorEstimadoVigencia=dato['ValorEstimadoVigencia'];
                                   $VigenciaFutura=dato['VigenciaFutura'];
@@ -377,7 +376,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   $FechaInicioProceso=dato['FechaInicioProceso'];
                                   $FechaSuscripcionContrato=dato['FechaSuscripcionContrato'];
                                   $DuracionContrato=dato['DuracionContrato'];
-                                  $MetaPlan=dato['MetaPlan'];
                                   $RecursoHumano=dato['RecursoHumano'];
                                   $NumeroContratista=dato['NumeroContratista'];
                                   $DatosResponsable=dato['DatosResponsable'];
@@ -394,7 +392,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td><h5>'+$Nombre_m+'</h5></td>',
                           '<td><h5>'+$Nombre_t+'</h5></td>',
                           '<td><h5>'+$ObjetoContractual+'</h5></td>',
-                          '<td><h5>'+$FuenteRecurso+'</h5></td>',
                           '<td><h5>'+$ValorEstimado+'</h5></td>',
                           '<td><h5>'+$ValorEstimadoVigencia+'</h5></td>',
                           '<td><h5>'+$VigenciaFutura+'</h5></td>',
@@ -403,7 +400,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td><h5>'+$FechaInicioProceso+'</h5></td>',
                           '<td><h5>'+$FechaSuscripcionContrato+'</h5></td>',
                           '<td><h5>'+$DuracionContrato+'</h5></td>',
-                          '<td><h5>'+$MetaPlan+'</h5></td>',
                           '<td><h5>'+$RecursoHumano+'</h5></td>',
                           '<td><h5>'+$NumeroContratista+'</h5></td>',
                           '<td><h5>'+$DatosResponsable+'</h5></td>',
@@ -512,7 +508,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   '<td><div style="'+$estilo1+'">'+dato.modalidad['Nombre']+'<br><input type="radio" value="'+dato.modalidad['Id']+'" name="Nombre_m[]" ><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo2+'">'+dato.tipocontrato['Nombre']+'<br><input type="radio" value="'+dato.tipocontrato['Id']+'" name="Nombre_t[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo3+'">'+dato['ObjetoContractual']+'<br><input type="radio" value="'+dato['ObjetoContractual']+'" name="ObjetoContractual[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
-                                  '<td><div style="'+$estilo4+'">'+dato['FuenteRecurso']+'<br><input type="radio" value="'+dato['FuenteRecurso']+'" name="FuenteRecurso[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo5+'">'+dato['ValorEstimado']+'<br><input type="radio" value="'+dato['ValorEstimado']+'" name="ValorEstimado[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo6+'">'+dato['ValorEstimadoVigencia']+'<br><input type="radio" value="'+dato['ValorEstimadoVigencia']+'" name="ValorEstimadoVigencia[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo7+'">'+dato['VigenciaFutura']+'<br><input type="radio" value="'+dato['VigenciaFutura']+'" name="VigenciaFutura[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
@@ -521,7 +516,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   '<td><div style="'+$estilo10+'">'+dato['FechaInicioProceso']+'<br><input type="radio" value="'+dato['FechaInicioProceso']+'" name="FechaInicioProceso[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo11+'">'+dato['FechaSuscripcionContrato']+'<br><input type="radio" value="'+dato['FechaSuscripcionContrato']+'" name="FechaSuscripcionContrato[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo12+'">'+dato['DuracionContrato']+'<br><input type="radio" value="'+dato['DuracionContrato']+'" name="DuracionContrato[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
-                                  '<td><div style="'+$estilo13+'">'+dato['MetaPlan']+'<br><input type="radio" value="'+dato['MetaPlan']+'" name="MetaPlan[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo14+'">'+dato['RecursoHumano']+'<br><input type="radio" value="'+dato['RecursoHumano']+'" name="RecursoHumano[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo15+'">'+dato['NumeroContratista']+'<br><input type="radio" value="'+dato['NumeroContratista']+'" name="NumeroContratista[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+$estilo16+'">'+dato['DatosResponsable']+'<br><input type="radio" value="'+dato['DatosResponsable']+'" name="DatosResponsable[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
@@ -530,9 +524,20 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           num1++;
                         }
                       });
+                      
+                      if(num1>1){
+                        $('#id_aprobar').show();
+                        $('#mensaje_NoCasos').hide();
+                      }else{
+                        $('#id_aprobar').hide();
+                        $('#mensaje_NoCasos').html('No se encuentra cambios por aprobar.');
+                        $('#mensaje_NoCasos').show();
+                      }
 
                       $('#Modal_AprobarCambiosH').modal('show'); 
                   }
+                      
+                  
               },
               'json'
           );
@@ -585,24 +590,48 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                     }
 
                       
-                    if(e['Estado']==0){
-                      var $tr1 = $('<tr></tr>').html(
+                      var disable=""; 
+                      var estado="";
+                      var clase="";
+                          if(e['Estado']==4){              
+                            clase="warning";
+                            disable="disabled"; 
+                            estado="En Subdireción";
+                          }else if(e['Estado']==5){  
+                            clase="success";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción"; 
+                          }else if(e['Estado']==6){  
+                            clase="danger";
+                            disable=""; 
+                            estado="Denegado Subdireción"; 
+                          }else if(e['Estado']==7){  
+                            clase="danger";
+                            disable="disabled"; 
+                            estado="CANCELADO"; 
+                          }else{
+                            estado="Por revisión";
+                            disable="";
+                          }
+
+                      var $tr1 = $('<tr  class="'+clase+'"></tr>').html(
                           '<th scope="row" class="text-center">'+num+'</th>'+
-                          '<td class="info">'+e['Registro']+'</td>'+
+                          '<td><b><p class="text-info text-center">'+e['Registro']+'</p></b></td>'+
+                          '<td><b>'+estado+'</b></td>'+
                           '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e.modalidad['Nombre']+'</td>'+
                           '<td>'+e.tipocontrato['Nombre']+'</td>'+
                           '<td>'+e['ObjetoContractual']+'</td>'+
                           '<td>'+e['ValorEstimado']+'</td>'+
                           '<td>'+e['DuracionContrato']+'</td>'+
-                          '<td>'+e['FuenteRecurso']+'</td>'+
+                          //'<td>'+e['FuenteRecurso']+'</td>'+
                           '<td>'+e['ValorEstimadoVigencia']+'</td>'+
                           '<td>'+e['VigenciaFutura']+'</td>'+
                           '<td>'+e['EstadoVigenciaFutura']+'</td>'+
                           '<td>'+e['FechaEstudioConveniencia']+'</td>'+
                           '<td>'+e['FechaInicioProceso']+'</td>'+
                           '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                          '<td>'+e['MetaPlan']+'</td>'+
+                          //'<td>'+e['MetaPlan']+'</td>'+
                           '<td>'+e['RecursoHumano']+'</td>'+
                           '<td>'+e['NumeroContratista']+'</td>'+
                           '<td>'+e['DatosResponsable']+'</td>'+
@@ -619,7 +648,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                 '<button type="button" data-rel="'+e['Id']+'" data-funcion="Aprobacion" class="btn btn-warning  btn-xs2 btn-xs" title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>'+
                               '</div>'+
                               '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-rol="'+var2+'" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
+                                '<button type="button" data-rel="'+e['Id']+'" data-rol="'+var2+'" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion" '+disable+'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
                               '</div>'+
                                $btn_Cabmb+
                             '</div>'+
@@ -627,54 +656,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '</td>'
                         );
                       t.row.add($tr1).draw( false );
-                    }
-
-                    if(e['Estado']==4){
-                      var $tr = $('<tr></tr>').html(
-                        '<td scope="row" class="text-center">'+num+'</t>'+
-                          '<td data-row="'+num+'" class="info">'+e['Registro']+'</td>'+
-                          '<td>'+e['CodigosU']+'</td>'+
-                          '<td>'+e.modalidad['Nombre']+'</td>'+
-                          '<td>'+e.tipocontrato['Nombre']+'</td>'+
-                          '<td>'+e['ObjetoContractual']+'</td>'+
-                          '<td>'+e['ValorEstimado']+'</td>'+
-                          '<td>'+e['DuracionContrato']+'</td>'+                          
-                          '<td>'+e['FuenteRecurso']+'</td>'+
-                          '<td>'+e['ValorEstimadoVigencia']+'</td>'+
-                          '<td>'+e['VigenciaFutura']+'</td>'+
-                          '<td>'+e['EstadoVigenciaFutura']+'</td>'+
-                          '<td>'+e['FechaEstudioConveniencia']+'</td>'+
-                          '<td>'+e['FechaInicioProceso']+'</td>'+
-                          '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                          '<td>'+e['MetaPlan']+'</td>'+
-                          '<td>'+e['RecursoHumano']+'</td>'+
-                          '<td>'+e['NumeroContratista']+'</td>'+
-                          '<td>'+e['DatosResponsable']+'</td>'+
-                          '<td>'+e.rubro['Nombre']+'</td>'+
-                          '<td>'+
-                            '<div class="btn-group tama">'+
-                              '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Registro']+'" data-funcion="Historial" class="btn btn-primary btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
-                              '</div>'+
-                              '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs" title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
-                              '</div>'+
-                              '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Aprobacion" class="btn btn-warning  btn-xs2 btn-xs" title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>'+
-                              '</div>'+
-                              '<div class="btn-group">'+
-                                '<button  type="button" data-rel="'+e['Id']+'" data-rol="'+var2+'" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion" disabled><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
-                              '</div>'+
-                              $btn_Cabmb+
-                            '</div>'+
-                            '<div id=""></div>'+
-                          '</td>'
-                      );
-                      $tr.addClass('success');
-                      
-                      t.row.add($tr).draw( false );
-
-                    }
                       num++;
                   });
 
@@ -751,14 +732,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
     });
 
 
-    var FuenteRecurso = new Array();
-    $('input[name="FuenteRecurso[]"]').each(function(){
-                if( $(this).is(':checked') ){
-                    FuenteRecurso.push($(this).val());
-                }else{
-                    FuenteRecurso.push(0);
-                }
-    });
+
 
     var ValorEstimado = new Array();
     $('input[name="ValorEstimado[]"]').each(function(){
@@ -839,15 +813,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
     });
 
 
-    var MetaPlan = new Array();
-    $('input[name="MetaPlan[]"]').each(function(){
-                if( $(this).is(':checked') ){
-                    MetaPlan.push($(this).val());
-                }else{
-                    MetaPlan.push(0);
-                }
-    });
-
 
     var RecursoHumano = new Array();
     $('input[name="RecursoHumano[]"]').each(function(){
@@ -879,7 +844,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
 
     $.post(
       URL+'/service/DatosAprobacion',
-      {id: id, Registro:Registro, CodigosU:CodigosU, Nombre_m:Nombre_m ,Nombre_t:Nombre_t, ObjetoContractual:ObjetoContractual, FuenteRecurso:FuenteRecurso, ValorEstimado:ValorEstimado, ValorEstimadoVigencia:ValorEstimadoVigencia, VigenciaFutura:VigenciaFutura, EstadoVigenciaFutura:EstadoVigenciaFutura, FechaEstudioConveniencia:FechaEstudioConveniencia, FechaInicioProceso:FechaInicioProceso, FechaSuscripcionContrato:FechaSuscripcionContrato, DuracionContrato:DuracionContrato , MetaPlan:MetaPlan, RecursoHumano:RecursoHumano, NumeroContratista:NumeroContratista ,  Nombre_r:Nombre_r, resposanble : responsble },
+      {id: id, Registro:Registro, CodigosU:CodigosU, Nombre_m:Nombre_m ,Nombre_t:Nombre_t, ObjetoContractual:ObjetoContractual, FuenteRecurso:0, ValorEstimado:ValorEstimado, ValorEstimadoVigencia:ValorEstimadoVigencia, VigenciaFutura:VigenciaFutura, EstadoVigenciaFutura:EstadoVigenciaFutura, FechaEstudioConveniencia:FechaEstudioConveniencia, FechaInicioProceso:FechaInicioProceso, FechaSuscripcionContrato:FechaSuscripcionContrato, DuracionContrato:DuracionContrato , MetaPlan:0, RecursoHumano:RecursoHumano, NumeroContratista:NumeroContratista ,  Nombre_r:Nombre_r, resposanble : responsble },
       function(data){
 
              var num=1;
@@ -900,25 +865,50 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                       $btn_Cabmb='';
                     }
 
-                      
-                    if(e['Estado']==0){
-                      var $tr1 = $('<tr></tr>').html(
+                    
+
+                      var disable=""; 
+                      var estado="";
+                      var clase="";
+                          if(e['Estado']==4){              
+                            clase="warning";
+                            disable="disabled"; 
+                            estado="En Subdireción";
+                          }else if(e['Estado']==5){  
+                            clase="success";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción"; 
+                          }else if(e['Estado']==6){  
+                            clase="danger";
+                            disable=""; 
+                            estado="Denegado Subdireción"; 
+                          }else if(e['Estado']==7){  
+                            clase="danger";
+                            disable="disabled"; 
+                            estado="CANCELADO"; 
+                          }else{
+                            estado="Por revisión";
+                            disable="";
+                          }
+
+                      var $tr1 = $('<tr  class="'+clase+'"></tr>').html(
                           '<th scope="row" class="text-center">'+num+'</th>'+
-                          '<td class="info">'+e['Registro']+'</td>'+
+                          '<td><b><p class="text-info text-center">'+e['Registro']+'</p></b></td>'+
+                          '<td><b>'+estado+'</b></td>'+
                           '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e.modalidad['Nombre']+'</td>'+
                           '<td>'+e.tipocontrato['Nombre']+'</td>'+
                           '<td>'+e['ObjetoContractual']+'</td>'+
                           '<td>'+e['ValorEstimado']+'</td>'+
                           '<td>'+e['DuracionContrato']+'</td>'+
-                          '<td>'+e['FuenteRecurso']+'</td>'+
+                          //'<td>'+e['FuenteRecurso']+'</td>'+
                           '<td>'+e['ValorEstimadoVigencia']+'</td>'+
                           '<td>'+e['VigenciaFutura']+'</td>'+
                           '<td>'+e['EstadoVigenciaFutura']+'</td>'+
                           '<td>'+e['FechaEstudioConveniencia']+'</td>'+
                           '<td>'+e['FechaInicioProceso']+'</td>'+
                           '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                          '<td>'+e['MetaPlan']+'</td>'+
+                          //'<td>'+e['MetaPlan']+'</td>'+
                           '<td>'+e['RecursoHumano']+'</td>'+
                           '<td>'+e['NumeroContratista']+'</td>'+
                           '<td>'+e['DatosResponsable']+'</td>'+
@@ -935,7 +925,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                 '<button type="button" data-rel="'+e['Id']+'" data-funcion="Aprobacion" class="btn btn-warning  btn-xs2 btn-xs" title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>'+
                               '</div>'+
                               '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-rol="'+var2+'" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
+                                '<button type="button" data-rel="'+e['Id']+'" data-rol="'+var2+'" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion" '+disable+'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
                               '</div>'+
                                $btn_Cabmb+
                             '</div>'+
@@ -943,54 +933,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '</td>'
                         );
                       t.row.add($tr1).draw( false );
-                    }
+                    
 
-                    if(e['Estado']==4){
-                      var $tr = $('<tr></tr>').html(
-                        '<td scope="row" class="text-center">'+num+'</t>'+
-                          '<td data-row="'+num+'" class="info">'+e['Registro']+'</td>'+
-                          '<td>'+e['CodigosU']+'</td>'+
-                          '<td>'+e.modalidad['Nombre']+'</td>'+
-                          '<td>'+e.tipocontrato['Nombre']+'</td>'+
-                          '<td>'+e['ObjetoContractual']+'</td>'+
-                          '<td>'+e['ValorEstimado']+'</td>'+
-                          '<td>'+e['DuracionContrato']+'</td>'+                          
-                          '<td>'+e['FuenteRecurso']+'</td>'+
-                          '<td>'+e['ValorEstimadoVigencia']+'</td>'+
-                          '<td>'+e['VigenciaFutura']+'</td>'+
-                          '<td>'+e['EstadoVigenciaFutura']+'</td>'+
-                          '<td>'+e['FechaEstudioConveniencia']+'</td>'+
-                          '<td>'+e['FechaInicioProceso']+'</td>'+
-                          '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                          '<td>'+e['MetaPlan']+'</td>'+
-                          '<td>'+e['RecursoHumano']+'</td>'+
-                          '<td>'+e['NumeroContratista']+'</td>'+
-                          '<td>'+e['DatosResponsable']+'</td>'+
-                          '<td>'+e.rubro['Nombre']+'</td>'+
-                          '<td>'+
-                            '<div class="btn-group tama">'+
-                              '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Registro']+'" data-funcion="Historial" class="btn btn-primary btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
-                              '</div>'+
-                              '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs" title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
-                              '</div>'+
-                              '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Aprobacion" class="btn btn-warning  btn-xs2 btn-xs" title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>'+
-                              '</div>'+
-                              '<div class="btn-group">'+
-                                '<button  type="button" data-rel="'+e['Id']+'" data-rol="'+var2+'" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion" disabled><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
-                              '</div>'+
-                              $btn_Cabmb+
-                            '</div>'+
-                            '<div id=""></div>'+
-                          '</td>'
-                      );
-                      $tr.addClass('success');
-                      
-                      t.row.add($tr).draw( false );
-
-                    }
                       num++;
                 });
 

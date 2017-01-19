@@ -31,9 +31,9 @@ class TablaPaa extends Migration
             $table->integer('ValorEstimadoVigencia');
             $table->string('VigenciaFutura');
             $table->string('EstadoVigenciaFutura');
-            $table->dateTime('FechaEstudioConveniencia');
-            $table->dateTime('FechaInicioProceso');
-            $table->dateTime('FechaSuscripcionContrato');
+            $table->date('FechaEstudioConveniencia');
+            $table->date('FechaInicioProceso');
+            $table->date('FechaSuscripcionContrato');
             $table->integer('DuracionContrato');
             $table->string('MetaPlan');
             $table->string('RecursoHumano');

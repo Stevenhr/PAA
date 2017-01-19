@@ -25,7 +25,7 @@ class PlanAnualAController extends Controller
 		$tipoContrato = TipoContrato::all();
 		$componente = Componente::all();
         $fuente = Fuente::all();
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7'])->get();
 
         
 
@@ -49,7 +49,7 @@ class PlanAnualAController extends Controller
                 'modalidad_seleccion' =>'required',
                 'tipo_contrato' =>'required',
                 'objeto_contrato' =>'required',
-                'fuente_recurso' =>'required',
+                //'fuente_recurso' =>'required',
                 'valor_estimado' =>'required',
                 'valor_estimado_actualVigencia' =>'required',
                 'vigencias_futuras' =>'required',
@@ -58,7 +58,7 @@ class PlanAnualAController extends Controller
                 'fecha_inicio' =>'required',
                 'fecha_suscripcion' =>'required',
                 'duracion_estimada' =>'required',
-                'meta_plan' =>'required',
+                //'meta_plan' =>'required',
                 'recurso_humano' =>'required',
                 'numero_contratista' =>'required',
                 'datos_contacto' =>'required',
@@ -171,7 +171,7 @@ class PlanAnualAController extends Controller
             $data0 = json_decode($input['Dato_Actividad']);
             foreach($data0 as $obj){
                 $modeloPA->actividadComponentes()->attach($obj->id_pivot_comp,[
-                    'paa_id'=>$id_paa,
+                    'paa_id'=>$id_paa2,
                     'valor'=>$obj->valor
                     ]);
             }
@@ -187,7 +187,7 @@ class PlanAnualAController extends Controller
             $modeloP['Id_paa'] = $modeloultimo[1]['Id'];
             $modeloP->save();
         }
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','0')->where('EsatdoObservo','0')->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7'])->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
@@ -231,20 +231,20 @@ class PlanAnualAController extends Controller
         $modeloPA['EsatdoObservo'] = 3;
         $modeloPA->save();
 
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','0')->where('EsatdoObservo','0')->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7'])->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
     public function HistorialEliminarPaa(Request $request, $id)
     {
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','3')->where('EsatdoObservo','3')->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','3')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
     public function HistorialEliminarPaaEspecifico(Request $request, $id)
     {
         $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Estado','0')->where('EsatdoObservo','0')->find(41);
-        $paas = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Registro',41)->where('Estado','1')->where('EsatdoObservo','1')->get();
+        $paas = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->where('Registro',41)->where('Estado','1')->get();
         foreach ($paas as &$temp) 
         {
             $temp->cambios = Comparador::comparar($temp->toArray(), $paa->toArray());

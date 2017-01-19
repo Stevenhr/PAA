@@ -10,11 +10,22 @@
         	<div class="content" id="main_paa_" class="row" data-url="paa" ></div>
             <div class="content">
             	<div class="row">
-	            	<div class="col-xs-12 col-md-12 ">
-				    	<br>
-						<h4>Gestionar PAA</h4>
-		            	<br>
+	            	<div class="col-xs-6 col-md-6 ">
+				    	<div class="alert" role="alert">
+						  <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+						  <span >PERFIL:</span>
+						  <b>Operador</b>
+						</div>
 		    		</div>
+		    		<div class="col-xs-6 col-md-6 " align="right">
+				    	<div class="alert" role="alert">
+				    	  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						  <span >USUARIO:</span>
+						  <b>Steven Hernandez Rios</b>
+						</div>
+		    		</div>
+		    	</div>
+            	<div class="row">
 
 	                <div class="col-xs-12 col-md-12 text-">
 				    	<div class="form-group">	
@@ -34,77 +45,97 @@
 	    		
 	            	<div class="col-xs-12 col-md-12 ">
 				    	
-					      		<table id="TablaPAA"  class="display nowrap table table-min" width="100%" cellspacing="0">
+					      		<table id="TablaPAA"  class="display responsive no-wrap table table-min" width="100%" cellspacing="0">
 						        <thead>
 						            <tr>
 						                <th>N°</th>
-						                <th class="info">ID</th>
+						                <th>ID</th>
+						                <th>Estado</th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
-										<th>Descripción<br>Objeto</th>
+										<th data-priority="3">Descripción<br>Objeto</th>
 										<th>Valor<br>Estimado</th>
 										<th>Duración<br>Estimada (mes)</th>
-										<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
-										<th>Valor estimado en la vigencia actual	</th>
-										<th>¿Se requieren vigencias futuras?	</th>
-										<th>Estado de solicitud de vigencias futuras	</th>
-										<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
-										<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
-										<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-										<th>Meta plan	</th>
+										<!--<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>-->
+										<th>Valor estimado <br> vigencia actual	</th>
+										<th>¿Se requieren <br>vigencias futuras?	</th>
+										<th>Estado de solicitud <br> vigencias futuras	</th>
+										<th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
+										<th>Fecha estimada de inicio de <br>proceso de selección - Fecha  (dd/mm/aaaa)	</th>
+										<th>Fecha suscripción <br>Contrato (dd/mm/aaaa)	</th>
+										<!--<th>Meta plan	</th>-->
 										<th>Recurso Humano (Si / No)</th>
 										<th>Numero de Contratistas	</th>
 										<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 										<th>Proyecto de inversión o rubro de funcionamiento</th>
-										<th  data-priority="2">Menu</th>
+										<th  data-priority="2">Menú</th>
 						            </tr>
 						        </thead>
 						        <tfoot>
 						            <tr>
 						            	<th>N°</th>
-						                <th class="info">ID</th>
+						                <th>ID</th>
+						                <th>Estado</th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
 										<th>Descripción<br>Objeto</th>
 										<th>Valor<br>Estimado</th>
 										<th>Duración<br>Estimada (mes)</th>
-										<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
-										<th>Valor estimado en la vigencia actual	</th>
-										<th>¿Se requieren vigencias futuras?	</th>
-										<th>Estado de solicitud de vigencias futuras	</th>
-										<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
-										<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
-										<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-										<th>Meta plan	</th>
+										<!--<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>-->
+										<th>Valor estimado <br> vigencia actual	</th>
+										<th>¿Se requieren <br>vigencias futuras?	</th>
+										<th>Estado de solicitud <br> vigencias futuras	</th>
+										<th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
+										<th>Fecha estimada de inicio de <br>proceso de selección - Fecha  (dd/mm/aaaa)	</th>
+										<th>Fecha suscripción <br>Contrato (dd/mm/aaaa)	</th>
+										<!--<th>Meta plan	</th>-->
 										<th>Recurso Humano (Si / No)</th>
 										<th>Numero de Contratistas	</th>
 										<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 										<th>Proyecto de inversión o rubro de funcionamiento</th>
-										<th  data-priority="2">Menu</th>
+										<th  data-priority="2">Menú</th>
 						            </tr>
 						        </tfoot>
 						        <tbody id="registros_actividades_responsable">
 						        	<?php $var=1; ?>
-						        	@foreach($paas as $paa)						    
-			        						<tr>
+						        	@foreach($paas as $paa)	
+
+			        						<?php $disable=""; $estado="";?>
+						        			@if($paa['Estado']==4)					    
+			        							<tr class="warning">
+			        						    <?php $disable="disabled"; $estado="En Subdireción";?>
+			        						@elseif($paa['Estado']==5)	
+			        							<tr class="success">
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción"; ?>
+			        						@elseif($paa['Estado']==6)	
+			        							<tr class="danger">
+			        							<?php $disable=""; $estado="Denegado Subdireción"; ?>
+			        						@elseif($paa['Estado']==7)	
+			        							<tr class="danger">
+			        							<?php $disable="disabled"; $estado="CANCELADO"; ?>
+			        						@else
+			        							<tr>
+			        							<?php $estado="En Consolidación"; ?>
+			        						@endif
 			        						<th scope="row" class="text-center">{{$var}}</th>
-					                        <td class="info">{{$paa['Registro']}}</td>
+					                        <td><b><p class="text-info text-center">{{$paa['Registro']}}</p></b></td>
+					                        <td><?php echo "<b>".$estado."</b>" ?></td>
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
 					                        <td>{{$paa['ObjetoContractual']}}</td>
 					                        <td>{{$paa['ValorEstimado']}}</td>
 					                        <td>{{$paa['DuracionContrato']}}</td>
-					                        <td>{{$paa['FuenteRecurso']}}</td>
+					                        <!--<td>{{$paa['FuenteRecurso']}}</td>-->
 					                        <td>{{$paa['ValorEstimadoVigencia']}}</td>
 					                        <td>{{$paa['VigenciaFutura']}}</td>
 					                        <td>{{$paa['EstadoVigenciaFutura']}}</td>
 					                        <td>{{$paa['FechaEstudioConveniencia']}}</td>
 					                        <td>{{$paa['FechaInicioProceso']}}</td>
 					                        <td>{{$paa['FechaSuscripcionContrato']}}</td>
-					                        <td>{{$paa['MetaPlan']}}</td>
+					                        <!--<td>{{$paa['MetaPlan']}}</td>-->
 					                        <td>{{$paa['RecursoHumano']}}</td>
 					                        <td>{{$paa['NumeroContratista']}}</td>
 					                        <td>{{$paa['DatosResponsable']}}</td>
@@ -113,13 +144,13 @@
 					                        <td>
 												<div class="btn-group tama">
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span></button>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span></button>
 												  </div>
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs"  title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs"  title="Editar Paa" {{$disable}}><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 												  </div>
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial" ><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
 												  </div>
 												  <div class="btn-group">
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
@@ -154,7 +185,7 @@
         		<input type="hidden" class="form-control" name="id_Paa" value="0">
         		<input type="hidden" class="form-control" name="id_registro" value="0">
 		        <div class="row">
-				  <div class="col-xs-6 col-sm-4">
+				  <div class="col-xs-6 col-sm-8">
 				  		<div class="form-group">
 					    	<label>Códigos UNSPSC </label>
 							<input type="text" class="form-control" name="codigo_Unspsc">
@@ -187,14 +218,14 @@
 							</select>
 						</div>
 				  </div>
-				  <div class="col-xs-6 col-sm-4">
+				  <div class="col-xs-6 col-sm-8">
 				  		<div class="form-group">
 					    	<label>Descripción/Objeto contractual </label>
 							<textarea class="form-control" rows="2" id="comment" name="objeto_contrato"></textarea>
 						</div>
 				  </div>
-				  <div class="col-xs-6 col-sm-4">
-				  		<div class="form-group">
+				  <div class="col-xs-6 col-sm-4" style="display: none">
+				  		<div class="form-group" >
 					  		<label>Fuente de los recursos (Nombre de la Fuente (s))</label>
 							<input type="text" class="form-control" name="fuente_recurso">
 						</div>
@@ -255,7 +286,7 @@
 				<div class="row">
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					    	<label>Fecha suscripción Contrato </label>
+					    	<label>Fecha suscripción Contrato </label><br><br>
 							<input type="text" class="form-control" name="fecha_suscripcion"  data-role="datepicker" placeholder="aa/mm/dd">
 						</div>
 				  </div>
@@ -265,18 +296,15 @@
 							<input type="text" class="form-control" name="duracion_estimada">
 						</div>
 				  </div>
-				  <div class="col-xs-6 col-sm-4">
+				  <div class="col-xs-6 col-sm-4" style="display: none">
 				  		<div class="form-group">
 					  		<label>Meta plan</label>
 							<input type="text" class="form-control" name="meta_plan">
 						</div>
 				  </div>
-				</div>
-
-				<div class="row">
-				  <div class="col-xs-6 col-sm-4">
+				   <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					    	<label>Recurso Humano </label>
+					    	<label>Recurso Humano </label><br><br>
 							<select class="form-control" name="recurso_humano">
 								<option value="" >Selecionar</option>
 								<option value="Si" >Si</option>
@@ -284,6 +312,10 @@
 							</select>
 						</div>
 				  </div>
+				</div>
+
+				<div class="row">
+				 
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Numero de Contratistas</label>
