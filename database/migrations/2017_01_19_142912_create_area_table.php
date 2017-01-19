@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TablaSubdireccion extends Migration
+class CreateAreaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,11 @@ class TablaSubdireccion extends Migration
      */
     public function up()
     {
-        Schema::create('subdireccion', function (Blueprint $table) {
+        //
+         Schema::create('area', function (Blueprint $table){
             $table->increments('id');
-            $table->string('nombre', 80);
+            $table->integer('id_subdireccion');
+            $table->string('nombre', 100);
             $table->timestamps();
         });
     }
@@ -26,7 +28,6 @@ class TablaSubdireccion extends Migration
      */
     public function down()
     {
-        Schema::drop('subdireccion');
+        //
     }
-
 }
