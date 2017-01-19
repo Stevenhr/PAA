@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use App\Estado;
 use App\Paa;
 
 class DireccionController extends BaseController 
 {
-
 	public function __construct()
 	{
 
@@ -31,7 +31,17 @@ class DireccionController extends BaseController
 	public function rechazar(Request $request)
 	{
 		$paa = Paa::where('Id', $request->input('Id'))->first();
-		$paa->Estado = 3;
+		$paa->Estado = Estado::Rechazado;
+		$paa->Observacion = $request->input('Observaciones');
+		$paa->save();
+
+		return response()->json(true);
+	}
+
+	public function cancelar(request $request)
+	{
+		$paa = Paa::where('Id', $request->input('Id'))->first();
+		$paa->Estado = Estado::Cancelado;
 		$paa->Observacion = $request->input('Observaciones');
 		$paa->save();
 
@@ -45,7 +55,7 @@ class DireccionController extends BaseController
 		foreach ($paas as $id) 
 		{
 			$paa = Paa::where('Id', $id)->first();
-			$paa->Estado = 5;
+			$paa->Estado = Estado::Aprobado;
 			$paa->save();
 		}
 

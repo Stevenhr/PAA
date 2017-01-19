@@ -63,4 +63,34 @@ class Paa extends Model
     {
         return $this->hasMany('App\CambioPaa','id_paa');
     }
+
+    public function save(array $options = [])
+    {
+    	$cambios = $this->isDirty() ? $this->getDirty() : false;
+
+    	if($cambios)
+    	{
+    		foreach ($cambios as $key => $value) {
+    			switch($key)
+    			{
+    				case 'Estado':
+    					switch($value)
+    					{
+    						case '1':
+    						break;
+    						case '2':
+    						break;
+    						case '3':
+    						break;
+    						case '4':
+    						break;
+    						case '5':
+    					}
+    				break;
+    			}
+    		}
+    	}
+
+    	parent::save($options);
+    }
 }
