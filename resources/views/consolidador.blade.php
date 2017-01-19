@@ -9,22 +9,22 @@
         	<div class="content" id="main_paa_Aprobar" class="row" data-url="aprobar" ></div>
             <div class="content">
             	<div class="row">
-	            	<div class="col-xs-12 col-md-12 ">
-				    	<br>
-						<h4>Consolidación y aprobación PAA</h4>
-		            	<br>
-		    		</div>
-
-	                <!--<div class="col-xs-12 col-md-12 text-">
-				    	<div class="form-group">	
-							<div class="btn-group" role="group" aria-label="...">
-						
-							  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Modal_AprobarCambios"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> Aprobar cambios</button>
-							  
-							</div>
+	            	<div class="col-xs-6 col-md-6 ">
+				    	<div class="alert" role="alert">
+						  <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+						  <span >PERFIL:</span>
+						  <b>Consolidador</b>
 						</div>
-		    		</div>-->
-
+		    		</div>
+		    		<div class="col-xs-6 col-md-6 " align="right">
+				    	<div class="alert" role="alert">
+				    	  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						  <span >USUARIO:</span>
+						  <b>Steven Hernandez Rios</b>
+						</div>
+		    		</div>
+		    	</div>
+            	<div class="row">
 				    <div class="col-xs-12 col-md-12">
 				    	<hr style="border: 0; border-top: 2px solid #CEECF5; height:0;">
 		    		</div>

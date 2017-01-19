@@ -114,7 +114,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           console.log(camb);
                         });  */
 
-                        if(dato['Estado']==0 || dato['Estado']==4 || dato['Estado']==5){ // Registro Actual
+                        if(dato['Estado']==0 || dato['Estado']==4 || dato['Estado']==5 || dato['Estado']==6 || dato['Estado']==7){ // Registro Actual
                             $regis=dato['DatosResponsable'];
                             tb1.row.add( [
                                 '<th scope="row" class="text-center">'+num+'</th>',

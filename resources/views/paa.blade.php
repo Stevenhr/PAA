@@ -10,11 +10,22 @@
         	<div class="content" id="main_paa_" class="row" data-url="paa" ></div>
             <div class="content">
             	<div class="row">
-	            	<div class="col-xs-12 col-md-12 ">
-				    	<br>
-						<h4>Gestionar PAA</h4>
-		            	<br>
+	            	<div class="col-xs-6 col-md-6 ">
+				    	<div class="alert" role="alert">
+						  <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+						  <span >PERFIL:</span>
+						  <b>Operador</b>
+						</div>
 		    		</div>
+		    		<div class="col-xs-6 col-md-6 " align="right">
+				    	<div class="alert" role="alert">
+				    	  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						  <span >USUARIO:</span>
+						  <b>Steven Hernandez Rios</b>
+						</div>
+		    		</div>
+		    	</div>
+            	<div class="row">
 
 	                <div class="col-xs-12 col-md-12 text-">
 				    	<div class="form-group">	
@@ -133,13 +144,13 @@
 					                        <td>
 												<div class="btn-group tama">
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span></button>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span></button>
 												  </div>
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs"  title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs"  title="Editar Paa" {{$disable}}><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 												  </div>
 												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
+												    <button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial" ><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
 												  </div>
 												  <div class="btn-group">
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>

@@ -148,10 +148,10 @@ $(function()
                                 '<td>'+
                                   '<div class="btn-group tama">'+
                                     '<div class="btn-group">'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa" '+disable+'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                     '</div>'+
                                     '<div class="btn-group">'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa" '+disable+'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                     '</div>'+
                                     '<div class="btn-group">'+
                                       '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
@@ -441,7 +441,7 @@ $(function()
                       tb3.clear().draw();
                       $.each(data, function(i, dato){
                         
-                       if(dato['Estado']==0){ // Registro Actual
+                       if(dato['Estado']==0 || dato['Estado']==4 || dato['Estado']==5 || dato['Estado']==6 || dato['Estado']==7){ // Registro Actual
                             tb1.row.add( [
                                 '<th scope="row" class="text-center">'+num+'</th>',
                                 '<td>'+dato['Registro']+'</td>',
@@ -610,7 +610,7 @@ $(function()
                           var disable=""; 
                           var estado="";
                           var clase="";
-                          
+
                           if(e['Estado']==4){              
                             clase="warning";
                             disable="disabled"; 
@@ -655,10 +655,10 @@ $(function()
                                 '<td>'+
                                   '<div class="btn-group tama">'+
                                     '<div class="btn-group">'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa" '+disable+'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                     '</div>'+
                                     '<div class="btn-group">'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa" '+disable+'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                     '</div>'+
                                     '<div class="btn-group">'+
                                       '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
@@ -735,10 +735,10 @@ $(function()
                               '<td>'+
                                 '<div class="btn-group tama">'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa" '+disable+'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa" '+disable+'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                   '</div>'+
                                   '<div class="btn-group">'+
                                     '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
