@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -92,6 +92,7 @@ Route::any('/logout', 'MainController@logout');
 
 Route::get('AprobacionPaaSubDireccion', 'DireccionController@index');
 Route::post('/rechazar/paa', 'DireccionController@rechazar');
+Route::post('/cancelar/paa', 'DireccionController@cancelar');
 Route::post('/enviar/paa', 'DireccionController@enviar');
 
 //rutas con filtro de autenticación

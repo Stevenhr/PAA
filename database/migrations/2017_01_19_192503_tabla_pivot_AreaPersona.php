@@ -3,20 +3,19 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAreaTable extends Migration
+class TablaPivotAreaPersona extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+     public function up()
     {
         //
-         Schema::create('area', function (Blueprint $table){
-            $table->increments('id');
-            $table->integer('id_subdireccion');
-            $table->string('nombre', 100);
+        Schema::create('areaPersona', function (Blueprint $table){
+            $table->integer('id_area')->unsigned();
+            $table->integer('id_persona')->unsigned();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateAreaTable extends Migration
     public function down()
     {
         //
-        Schema::drop('area');
+         Schema::drop('areaPersona');
     }
 }

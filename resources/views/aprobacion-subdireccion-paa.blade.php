@@ -70,31 +70,33 @@
 	                        </td>
 	                        <td>{{$paa->modalidad['Nombre']}}</td>
 	                        <td>{{$paa->tipocontrato['Nombre']}}</td>
-	                        <td>{{$paa['ObjetoContractual']}}</td>
+	                        <td><div style="width:500px;text-align: justify;">'{{$paa['ObjetoContractual']}}</div></td>
 	                        <td>{{$paa['ValorEstimado']}}</td>
 	                        <td>{{$paa['DuracionContrato']}}</td>
-	                        <!--<td>{{$paa['FuenteRecurso']}}</td>-->
 	                        <td>{{$paa['ValorEstimadoVigencia']}}</td>
 	                        <td>{{$paa['VigenciaFutura']}}</td>
 	                        <td>{{$paa['EstadoVigenciaFutura']}}</td>
-	                        <td>{{$paa['FechaEstudioConveniencia']}}</td>
-	                        <td>{{$paa['FechaInicioProceso']}}</td>
-	                        <td>{{$paa['FechaSuscripcionContrato']}}</td>
+	                        <td>{{ substr($paa['FechaEstudioConveniencia'], 0, 10) }}</td>
+	                        <td>{{ substr($paa['FechaInicioProceso'], 0, 10) }}</td>
+	                        <td>{{ substr($paa['FechaSuscripcionContrato'], 0, 10) }}</td>
 	                        <td>{{$paa['MetaPlan']}}</td>
 	                        <td>{{$paa['RecursoHumano']}}</td>
 	                        <td>{{$paa['NumeroContratista']}}</td>
 	                        <td>{{$paa['DatosResponsable']}}</td>
 	                        <td>{{$paa->rubro['Nombre']}}</td>
 	                        <td data-priority="2" align="right">
-	                        	<div class="btn-group" style="width: 120px;">
+	                        	<div class="btn-group" style="width: 160px;">
 									<div class="btn-group">
-										<button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary btn-xs2 btn-xs" title="Historial" {{ $paa['Estado'] == '5' ? 'disabled' : '' }}><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
+										<button type="button" data-rel="{{$paa['Registro']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="Historial" class="btn btn-primary btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
 									</div>
 									<div class="btn-group">
-										<button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" {{ $paa['Estado'] == '5' ? 'disabled' : '' }} data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
+										<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 									</div>
 									<div class="btn-group">
-										<button type="button" data-rel="{{$paa['Id']}}" data-funcion="Rechazar" class="btn btn-danger btn-xs2 btn-xs"  title="Rechazar"  {{ $paa['Estado'] == '5' ? 'disabled' : '' }} id="Btn_modal_rechazar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+										<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="rechazar" class="btn btn-warning btn-xs2 btn-xs"  title="Rechazar"  {{ $paa['Estado'] == '5' ? 'disabled' : '' }} id="Btn_modal_rechazar"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></button>
+									</div>
+									<div class="btn-group">
+										<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="cancelar" class="btn btn-danger btn-xs2 btn-xs"  title="Cancelar"  {{ $paa['Estado'] == '5' ? 'disabled' : '' }} id="Btn_modal_cancelar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 									</div>
 								</div>
 	                        </td>
@@ -317,8 +319,8 @@
     	</div>
   	</div>
 </div>
-<!--- modal eliminar -->
-<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Eliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!--- modal rechazar -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal_rechazar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -341,6 +343,36 @@
 				<div class="modal-footer">
 					<input type="hidden" name="Id" value="">
 					<input type="submit" class="btn btn-danger" value="Rechazar">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--- modal cancelar -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal_cancelar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Cancelar PAA</h4>
+			</div>
+			<form id="cancelar_paa" action="{{ url('cancelar/paa') }}" method="post">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12">
+				  			<div class="row">
+				  				<div class="col-md-12 form-group">
+				  					<label for="">Observaciones</label>
+				  					<textarea name="Observaciones" class="form-control"></textarea>
+				  				</div>
+				  			</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" name="Id" value="">
+					<input type="submit" class="btn btn-danger" value="Cancelar">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 				</div>
 			</form>

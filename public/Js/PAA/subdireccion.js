@@ -139,10 +139,11 @@ $(function()
 		e.stopPropagation();
 	});
 
-	$('#rechazar_paa').on('submit', function(e)
+	$('#rechazar_paa, #cancelar_paa').on('submit', function(e)
 	{
-		var id = $('#rechazar_paa input[name="Id"]').val();
-		var observaciones = $.trim($('#rechazar_paa textarea[name="Observaciones"]').val());
+		var $form = $(this);
+		var id = $form.find('input[name="Id"]').val();
+		var observaciones = $.trim($form.find('textarea[name="Observaciones"]').val());
 		if(observaciones.length)
 		{
 			$.post(
@@ -162,10 +163,10 @@ $(function()
 				},
 				'json'
 			).done(function(){
-				$('#Modal_Eliminar').modal('hide');
+				$form.closest('.modal').modal('hide');
 			});
 		} else {
-			$('#rechazar_paa textarea[name="Observaciones"]').closest('.form-group').addClass('has-error');
+			$form.find('textarea[name="Observaciones"]').closest('.form-group').addClass('has-error');
 		}
 
 		e.preventDefault();
@@ -188,7 +189,9 @@ $(function()
 			).done(function(){
 				$.each(rows_selected, function(i, e)
 				{
-					$('#TablaPAA').find('tr[data-row="'+e+'"]').addClass('success');
+					var tr = $('#TablaPAA').find('tr[data-row="'+e+'"]').addClass('success');
+					tr.find('input[type="checkbox"]').attr('checked', false);
+					tr.find('button[data-funcion="Rechazar"], input[type="checkbox"]').attr('disabled', true);
 				});
 
 				rows_selected = [];
@@ -204,7 +207,18 @@ $(function()
 		e.preventDefault();
 	});
 
-	$('#TablaPAA').delegate('button[data-funcion="Rechazar"]','click',function (e)
+	$('#TablaPAA').delegate('button[data-funcion="rechazar"], button[data-funcion="cancelar"]', 'click', function (e)
+	{
+		var form = $(this).data('funcion');
+		var id = $(this).data('rel');
+		$('#'+form+'_paa input[name="Id"]').val(id);
+		$('#'+form+'_paa textarea[name="Observaciones"]').val('');
+		$('#'+form+'_paa textarea[name="Observaciones"]').closest('.form-group').removeClass('has-error');
+
+		$('#modal_'+form).modal('show');
+	});
+
+	$('#TablaPAA').delegate('button[data-funcion="Cancelar"]','click',function (e)
 	{
 		var id = $(this).data('rel');
 		$('#rechazar_paa input[name="Id"]').val(id);
@@ -216,8 +230,8 @@ $(function()
 
 	$('thead input[name="select_all"]', table.table().container()).on('click', function(e){
 		if(this.checked){
-				$('#TablaPAA tbody input[type="checkbox"]:not(:checked)').trigger('click');
-			} else {
+			$('#TablaPAA tbody input[type="checkbox"]:not(:checked)').trigger('click');
+		} else {
 			$('#TablaPAA tbody input[type="checkbox"]:checked').trigger('click');
 		}
 
