@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAreaTable extends Migration
+class PersonaPaa extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateAreaTable extends Migration
     public function up()
     {
         //
-         Schema::create('area', function (Blueprint $table){
-            $table->increments('id');
-            $table->integer('id_subdireccion')->unsigned();
-            $table->string('nombre', 100);
+        Schema::create('personaPaa', function (Blueprint $table){
+            $table->integer('id')->unsigned();
+            $table->integer('id_subdirecion');
+            $table->primary('id');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateAreaTable extends Migration
     public function down()
     {
         //
-        Schema::drop('area');
+        Schema::drop('personaPaa');
     }
 }

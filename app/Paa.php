@@ -34,7 +34,8 @@ class Paa extends Model
 	'Estado',
 	'IdPersonaObservo',
 	'EsatdoObservo',
-	'Observacion'];
+	'Observacion',
+    'Id_Area'];
 	
 	protected $connection = ''; 
 	 

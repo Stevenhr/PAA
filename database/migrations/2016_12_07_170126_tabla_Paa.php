@@ -48,6 +48,7 @@ class TablaPaa extends Migration
             $table->integer('IdPersonaObservo');
             $table->string('EsatdoObservo');
             $table->text('Observacion');
+           
             $table->timestamps();
 
         });

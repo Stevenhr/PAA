@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TablaPivotAreaPersona extends Migration
+class TablaPersonaArea extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,13 @@ class TablaPivotAreaPersona extends Migration
     {
         //
         Schema::create('areaPersona', function (Blueprint $table){
+            
             $table->integer('id_area')->unsigned();
+            $table->foreign('id_area')->references('id')->on('area');
+
             $table->integer('id_persona')->unsigned();
+            $table->foreign('id_persona')->references('id')->on('personaPaa');
+
             $table->timestamps();
         });
     }

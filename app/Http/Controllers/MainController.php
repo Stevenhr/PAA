@@ -22,7 +22,8 @@ class MainController extends Controller {
 
    public function welcome()
 	{
-   	/*if ($request->has('vector_modulo'))
+   	    
+   	    /*if ($request->has('vector_modulo'))
         {   
             $vector = urldecode($request->input('vector_modulo'));
             $user_array = unserialize($vector);
