@@ -34,7 +34,8 @@ class Paa extends Model
 	'Estado',
 	'IdPersonaObservo',
 	'EsatdoObservo',
-	'Observacion'];
+	'Observacion',
+    'Id_Area'];
 	
 	protected $connection = ''; 
 	 
@@ -92,5 +93,10 @@ class Paa extends Model
     	}
 
     	parent::save($options);
+    }
+
+    public function area()
+    {
+        return $this->belongsTo('App\Area','Id_Area');
     }
 }

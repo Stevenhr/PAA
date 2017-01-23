@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Idrd\Usuarios\Repo\PersonaInterface;
 use Illuminate\Http\Request;
+use App\Persona;
 
 class MainController extends Controller {
 
@@ -22,7 +23,8 @@ class MainController extends Controller {
 
    public function welcome()
 	{
-   	/*if ($request->has('vector_modulo'))
+   	    
+   	    /*if ($request->has('vector_modulo'))
         {   
             $vector = urldecode($request->input('vector_modulo'));
             $user_array = unserialize($vector);
@@ -44,18 +46,30 @@ class MainController extends Controller {
         $deportista = $_SESSION['Usuario']['Persona'];*/
 
             $vectorArreglaso="a%3A10%3A%7Bi%3A0%3Bs%3A4%3A%221046%22%3Bi%3A1%3Bs%3A1%3A%221%22%3Bi%3A2%3Bs%3A1%3A%221%22%3Bi%3A3%3Bs%3A1%3A%221%22%3Bi%3A4%3Bs%3A1%3A%221%22%3Bi%3A5%3Bs%3A1%3A%221%22%3Bi%3A6%3Bs%3A1%3A%221%22%3Bi%3A7%3Bs%3A1%3A%221%22%3Bi%3A8%3Bs%3A1%3A%221%22%3Bi%3A9%3Bs%3A1%3A%221%22%3B%7D";
-            //$vectorArreglaso = "a%3A9%3A%7Bi%3A0%3Bs%3A4%3A%221307%22%3Bi%3A1%3Bs%3A1%3A%221%22%3Bi%3A2%3Bs%3A1%3A%221%22%3Bi%3A3%3Bs%3A1%3A%221%22%3Bi%3A4%3Bs%3A1%3A%221%22%3Bi%3A5%3Bs%3A1%3A%221%22%3Bi%3A6%3Bs%3A1%3A%221%22%3Bi%3A7%3Bs%3A1%3A%221%22%3Bi%3A8%3Bs%3A1%3A%221%22%3B%7D";
 
             $vector = urldecode($vectorArreglaso);
             $user_array = unserialize($vector);       
             $_SESSION['Usuario'] = $user_array;
-            
             $persona = $this->repositorio_personas->obtener($_SESSION['Usuario'][0]);
             $_SESSION['Usuario']['Persona'] = $persona;
             $_SESSION['Nombre']=$persona["Primer_Apellido"]." ".$persona["Segundo_Apellido"]." ".$persona["Primer_Nombre"]." ".$persona["Segundo_Nombre"];
 
-			$data['seccion'] = '';
-			return view('welcome', $data);	
+            $id_Tipos=[61,62,63,64];
+            $ModeloPersona = Persona::with(['tipo' => function($query) use ($id_Tipos)
+			{
+				$query->find($id_Tipos);
+			}])->find($_SESSION['Usuario']['Persona']['Id_Persona']);
+            $tipo_persona="";
+			
+			$_SESSION['Id_Persona'] = $_SESSION['Usuario']['Persona']['Id_Persona'];
+			foreach ($ModeloPersona->tipo as &$tipo_p) 
+	        {
+	            $tipo_persona =$tipo_p['Nombre']." ".$tipo_persona;
+	        }
+			$_SESSION['Tipo'] = $tipo_persona;
+
+
+			return view('welcome');	
 	}
 
     public function index(Request $request)

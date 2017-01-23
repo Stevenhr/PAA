@@ -34,6 +34,7 @@
 										<th>Tipo<br>Contrato</th>
 										<th data-priority="3">Descripción<br>Objeto</th>
 										<th>Valor<br>Estimado</th>
+										<th>Área</th>
 										<th>Duración<br>Estimada (mes)</th>
 										<!--<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>-->
 										<th>Valor estimado <br> vigencia actual	</th>
@@ -60,6 +61,7 @@
 										<th>Tipo<br>Contrato</th>
 										<th>Descripción<br>Objeto</th>
 										<th>Valor<br>Estimado</th>
+										<th>Área</th>
 										<th>Duración<br>Estimada (mes)</th>
 										<!--<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>-->
 										<th>Valor estimado <br> vigencia actual	</th>
@@ -105,6 +107,7 @@
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
 					                        <td><div style="width:500px;text-align: justify;">{{$paa['ObjetoContractual']}}</div></td>
 					                        <td>{{$paa['ValorEstimado']}}</td>
+					                        <td>{{$paa->area['nombre']}}</td>
 					                        <td>{{$paa['DuracionContrato']}}</td>
 					                        <!--<td>{{$paa['FuenteRecurso']}}</td>-->
 					                        <td>{{$paa['ValorEstimadoVigencia']}}</td>
