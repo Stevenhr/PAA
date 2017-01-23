@@ -20,6 +20,6 @@ class SubDireccion extends Model
 
     public function areas()
     {
-        return $this->hasMany('App\Area','id_area');
+        return $this->hasMany('App\Area','id_subdireccion');
     }
 }
