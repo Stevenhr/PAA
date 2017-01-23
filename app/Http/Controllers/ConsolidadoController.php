@@ -27,7 +27,7 @@ class ConsolidadoController extends Controller
 		$tipoContrato = TipoContrato::all();
 		$componente = Componente::all();
         $fuente = Fuente::all();
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7'])->get();
 
         $paa2 = Paa::where('IdPersona','1046')->where('Estado','1')->get();
 

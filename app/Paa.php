@@ -94,4 +94,9 @@ class Paa extends Model
 
     	parent::save($options);
     }
+
+    public function area()
+    {
+        return $this->belongsTo('App\Area','Id_Area');
+    }
 }

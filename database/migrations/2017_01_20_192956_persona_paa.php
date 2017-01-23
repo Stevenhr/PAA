@@ -15,8 +15,9 @@ class PersonaPaa extends Migration
         //
         Schema::create('personaPaa', function (Blueprint $table){
             $table->integer('id')->unsigned();
-            $table->integer('id_subdirecion');
             $table->primary('id');
+            $table->integer('id_area')->unsigned()->nullable();
+            $table->foreign('id_area')->references('Id')->on('area')->onDelete('cascade');
             $table->timestamps();
         });
     }

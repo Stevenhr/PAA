@@ -130,7 +130,7 @@
                 <div class="alert" role="alert">
                   <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
                   <span >PERFIL:</span>
-                  <b>Consolidador</b>
+                  <b>{{$_SESSION['Tipo']}}</b>
                 </div>
                 </div>
                 <div class="col-xs-6 col-md-6 " align="right">
