@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PersonaPaa extends Model
 {
     //
-    protected $table = 'personapaa';
+    protected $table = 'personaPaa';
 	protected $primaryKey = 'id';
 	protected $fillable = ['id_area'];
 	protected $connection = ''; 

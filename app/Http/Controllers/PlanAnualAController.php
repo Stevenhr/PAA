@@ -159,7 +159,7 @@ class PlanAnualAController extends Controller
             $modeloPA['Id_ProyectoRubro'] = 1;
             $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
             $modeloPA['Estado'] = 2;
-            $modeloPA['IdPersonaObservo'] = $_SESSION['Id_Persona'];
+            $modeloPA['IdPersonaObservo'] = '';
             $modeloPA['EsatdoObservo'] = 2;
             $modeloPA['Observacion'] = '';
             $modeloPA['Id_Area'] = $personapaa['id_area'];
