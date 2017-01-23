@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Idrd\Usuarios\Repo\PersonaInterface;
 use Illuminate\Http\Request;
 use App\Persona;
+use App\PersonaPaa;
+use App\Area;
 
 class MainController extends Controller {
 
@@ -68,7 +70,12 @@ class MainController extends Controller {
 	        }
 			$_SESSION['Tipo'] = $tipo_persona;
 
-
+			$personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
+			$area = Area::with('subdirecion')->find($personapaa['id_area']);
+			
+			$_SESSION['Id_Area']=$personapaa['id_area'];
+			$_SESSION['Id_SubDireccion']=$area->subdirecion['id'];
+			
 			return view('welcome');	
 	}
 

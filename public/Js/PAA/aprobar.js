@@ -125,6 +125,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                 '<td><div style="width:500px;text-align: justify;">'+dato['ObjetoContractual']+'</div></td>',
                                 '<td>'+dato['FuenteRecurso']+'</td>',
                                 '<td>'+dato['ValorEstimado']+'</td>',
+                                '<td>'+dato.area['nombre']+'</td>',
                                 '<td>'+dato['ValorEstimadoVigencia']+'</td>',
                                 '<td>'+dato['VigenciaFutura']+'</td>',
                                 '<td>'+dato['EstadoVigenciaFutura']+'</td>',
@@ -151,6 +152,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   '<td><div style="width:500px;text-align: justify;">'+dato['ObjetoContractual']+'</div></td>',
                                   '<td>'+dato['FuenteRecurso']+'</td>',
                                   '<td>'+dato['ValorEstimado']+'</td>',
+                                  '<td>'+dato.area['nombre']+'</td>',
                                   '<td>'+dato['ValorEstimadoVigencia']+'</td>',
                                   '<td>'+dato['VigenciaFutura']+'</td>',
                                   '<td>'+dato['EstadoVigenciaFutura']+'</td>',
@@ -900,6 +902,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td>'+e.tipocontrato['Nombre']+'</td>'+
                           '<td>'+e['ObjetoContractual']+'</td>'+
                           '<td>'+e['ValorEstimado']+'</td>'+
+                          '<td>'+e.area['nombre']+'</td>'+
                           '<td>'+e['DuracionContrato']+'</td>'+
                           //'<td>'+e['FuenteRecurso']+'</td>'+
                           '<td>'+e['ValorEstimadoVigencia']+'</td>'+
