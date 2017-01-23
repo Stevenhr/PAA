@@ -51,22 +51,36 @@
 		        </thead>
 		        <tbody id="registros_actividades_responsable">
 		        	<?php $var=1; ?>
-		        	@foreach($paas as $paa)						    
-						<tr data-row="{{ $paa['Id'] }}" class="{{ $paa['Estado'] == 5 ? 'success' : ''}}">
+		        	@foreach($paas as $paa)
+                        <?php
+                        	$estado = '';
+                        	$clase = '';
+                        	switch ($paa['Estado']) 
+                        	{
+                        		case '4':
+                        			$estado = 'En subdirección';
+                        			$class = '';
+                        			break;
+                        		case '5':
+                        			$estado = 'En planeación';
+                        			$class = 'success';
+                        			break;
+                        		case '6':
+                        			$estado = 'Rechazado';
+                        			$class = 'warning';
+                        			break;
+                        		case '6':
+                        			$estado = 'Cancelado';
+                        			$class = 'danger';
+                        			break;
+                        	}
+                        ?>
+						<tr data-row="{{ $paa['Id'] }}" class="{{ $class }}">
     						<td scope="row" class="text-center">{{$var}}</th>
 	                        <td class="info">{{$paa['Registro']}}</td>
 	                        <td>{{$paa['CodigosU']}}</td>
 	                        <td>
-	                        <?php
-	                        	switch ($paa['Estado']) {
-	                        		case '4':
-	                        			echo 'En subdirección';
-	                        			break;
-	                        		case '5':
-	                        			echo 'En planeación';
-	                        			break;
-	                        	}
-	                        ?>	
+	                        	{{ $estado }}
 	                        </td>
 	                        <td>{{$paa->modalidad['Nombre']}}</td>
 	                        <td>{{$paa->tipocontrato['Nombre']}}</td>
@@ -93,10 +107,10 @@
 										<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 									</div>
 									<div class="btn-group">
-										<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="rechazar" class="btn btn-warning btn-xs2 btn-xs"  title="Rechazar"  {{ $paa['Estado'] == '5' ? 'disabled' : '' }} id="Btn_modal_rechazar"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></button>
+										<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="rechazar" class="btn btn-warning btn-xs2 btn-xs"  title="Rechazar"  {{ $paa['Estado'] != '4' ? 'disabled' : '' }} id="Btn_modal_rechazar"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></button>
 									</div>
 									<div class="btn-group">
-										<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="cancelar" class="btn btn-danger btn-xs2 btn-xs"  title="Cancelar"  {{ $paa['Estado'] == '5' ? 'disabled' : '' }} id="Btn_modal_cancelar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+										<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="cancelar" class="btn btn-danger btn-xs2 btn-xs"  title="Cancelar"  {{ $paa['Estado'] != '4' ? 'disabled' : '' }} id="Btn_modal_cancelar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 									</div>
 								</div>
 	                        </td>
