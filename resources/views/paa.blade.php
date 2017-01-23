@@ -10,22 +10,6 @@
         	<div class="content" id="main_paa_" class="row" data-url="paa" ></div>
             <div class="content">
             	<div class="row">
-	            	<div class="col-xs-6 col-md-6 ">
-				    	<div class="alert" role="alert">
-						  <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
-						  <span >PERFIL:</span>
-						  <b>Operador</b>
-						</div>
-		    		</div>
-		    		<div class="col-xs-6 col-md-6 " align="right">
-				    	<div class="alert" role="alert">
-				    	  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-						  <span >USUARIO:</span>
-						  <b>Steven Hernandez Rios</b>
-						</div>
-		    		</div>
-		    	</div>
-            	<div class="row">
 
 	                <div class="col-xs-12 col-md-12 text-">
 				    	<div class="form-group">	
@@ -125,7 +109,7 @@
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
-					                        <td>{{$paa['ObjetoContractual']}}</td>
+					                        <td><div style="width:500px;text-align: justify;">{{$paa['ObjetoContractual']}}</div></td>
 					                        <td>{{$paa['ValorEstimado']}}</td>
 					                        <td>{{$paa['DuracionContrato']}}</td>
 					                        <!--<td>{{$paa['FuenteRecurso']}}</td>-->
@@ -648,7 +632,7 @@
 
 
 <!-- MODAL HISTORIAL DE ELIMIANCION-->
-<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_HistorialEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_HistorialEliminar1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">

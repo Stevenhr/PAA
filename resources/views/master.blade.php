@@ -125,8 +125,24 @@
                  </div>                    
               </div>
             </div>
-          </div>        
-      </div>
+            <div class="row">
+              <div class="col-xs-6 col-md-6 ">
+                <div class="alert" role="alert">
+                  <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                  <span >PERFIL:</span>
+                  <b>Consolidador</b>
+                </div>
+                </div>
+                <div class="col-xs-6 col-md-6 " align="right">
+                  <div class="alert" role="alert">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                  <span >USUARIO:</span>
+                  <b>{{$_SESSION['Nombre']}}</b>
+                </div>
+                </div>
+              </div>
+              </div>        
+          </div>
       <!-- FIN Contenedor información módulo -->
 
       <!-- Contenedor panel principal -->

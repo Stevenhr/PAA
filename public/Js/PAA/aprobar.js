@@ -122,7 +122,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                 '<td>'+dato['CodigosU']+'</td>',
                                 '<td>'+dato.modalidad['Nombre']+'</td>',
                                 '<td>'+dato.tipocontrato['Nombre']+'</td>',
-                                '<td>'+dato['ObjetoContractual']+'</td>',
+                                '<td><div style="width:500px;text-align: justify;">'+dato['ObjetoContractual']+'</div></td>',
                                 '<td>'+dato['FuenteRecurso']+'</td>',
                                 '<td>'+dato['ValorEstimado']+'</td>',
                                 '<td>'+dato['ValorEstimadoVigencia']+'</td>',
@@ -148,7 +148,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   '<td>'+dato['CodigosU']+'</td>',
                                   '<td>'+dato.modalidad['Nombre']+'</td>',
                                   '<td>'+dato.tipocontrato['Nombre']+'</td>',
-                                  '<td>'+dato['ObjetoContractual']+'</td>',
+                                  '<td><div style="width:500px;text-align: justify;">'+dato['ObjetoContractual']+'</div></td>',
                                   '<td>'+dato['FuenteRecurso']+'</td>',
                                   '<td>'+dato['ValorEstimado']+'</td>',
                                   '<td>'+dato['ValorEstimadoVigencia']+'</td>',
@@ -947,6 +947,57 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
     },'json');
 
         e.preventDefault();
+    });
+
+
+
+    $('#Modal_HistorialEliminar_btn').on('click', function(e)
+    {
+        
+       $.get(
+            URL+'/service/HistorialEliminarPaa/1',
+            $(this).serialize(),
+            function(data){
+                  if(data.status == 'modelo')
+                  {           
+                      var num=1;
+                      tb4.clear().draw();
+                      $.each(data.datos, function(i, e){
+                          tb4.row.add( [
+                              '<th scope="row" class="text-center">'+num+'</th>',
+                              '<td>'+e['Registro']+'</td>',
+                              '<td>'+e['CodigosU']+'</td>',
+                              '<td>'+e.modalidad['Nombre']+'</td>',
+                              '<td>'+e.tipocontrato['Nombre']+'</td>',
+                              '<td>'+e['ObjetoContractual']+'</td>',
+                              '<td>'+e['FuenteRecurso']+'</td>',
+                              '<td>'+e['ValorEstimado']+'</td>',
+                              '<td>'+e['ValorEstimadoVigencia']+'</td>',
+                              '<td>'+e['VigenciaFutura']+'</td>',
+                              '<td>'+e['EstadoVigenciaFutura']+'</td>',
+                              '<td>'+e['FechaEstudioConveniencia']+'</td>',
+                              '<td>'+e['FechaInicioProceso']+'</td>',
+                              '<td>'+e['FechaSuscripcionContrato']+'</td>',
+                              '<td>'+e['DuracionContrato']+'</td>',
+                              '<td>'+e['MetaPlan']+'</td>',
+                              '<td>'+e['RecursoHumano']+'</td>',
+                              '<td>'+e['NumeroContratista']+'</td>',
+                              '<td>'+e['DatosResponsable']+'</td>',
+                              '<td>'+e.rubro['Nombre']+'</td>',
+                          ] ).draw( false );
+                          num++;
+                      });
+                      $('#Modal_HistorialEliminar').modal('show');
+                  }else{
+                      $('#mjs_ElimRegistro').html('<strong>Error!</strong> el valor del presupuesto que intenta eliminar tiene problemas.');
+                      $('#mjs_ElimRegistro').show();
+                      setTimeout(function(){
+                          $('#mjs_ElimRegistro').hide();
+                          $('#Modal_Eliminar').modal('hide'); 
+                      }, 6000)
+                  }
+          },'json');
+        
     });
 
                   

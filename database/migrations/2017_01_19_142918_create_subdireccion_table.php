@@ -28,5 +28,6 @@ class CreateSubdireccionTable extends Migration
     public function down()
     {
         //
+        Schema::drop('subdireccion');
     }
 }
