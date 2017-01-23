@@ -25,6 +25,6 @@ class Area extends Model
 
    public function subdirecion()
     {
-        return $this->belongsTo('App\SubDireccion','id_area');
+        return $this->belongsTo('App\SubDireccion','id_subdireccion');
     }
 }

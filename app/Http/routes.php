@@ -87,13 +87,16 @@ Route::get('/aprobar/service/obtenerHistorialPaaTodo/{id}', 'PlanAnualAControlle
 Route::get('/aprobar/service/aprobarSubDireccion/{id}', 'ConsolidadoController@aprobarSubDireccion');
 
 Route::any('/PresupuestoPAA/', 'PaaController@index');
-Route::any('/', 'MainController@index');
-Route::any('/logout', 'MainController@logout');
-
 Route::get('AprobacionPaaSubDireccion', 'DireccionController@index');
 Route::post('/rechazar/paa', 'DireccionController@rechazar');
 Route::post('/cancelar/paa', 'DireccionController@cancelar');
 Route::post('/enviar/paa', 'DireccionController@enviar');
+
+Route::get('AprobacionPlaneacion', 'PlaneacionController@index');
+
+
+Route::any('/', 'MainController@index');
+Route::any('/logout', 'MainController@logout');
 
 //rutas con filtro de autenticación
 Route::group(['middleware' => ['web']], function () {
