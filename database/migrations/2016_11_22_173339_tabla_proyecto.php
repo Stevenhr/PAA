@@ -19,11 +19,14 @@ class TablaProyecto extends Migration
             $table->integer('Id_presupuesto')->unsigned();
             $table->foreign('Id_presupuesto')->references('Id')->on('presupuesto')->onDelete('cascade');
 
+            $table->string('codigo');
             $table->string('Nombre');
             $table->dateTime('fecha_inicio');
             $table->dateTime('fecha_fin');
             $table->integer('valor');
             $table->string('descripcion');
+
+            $table->timestamps();
 
         });
     }

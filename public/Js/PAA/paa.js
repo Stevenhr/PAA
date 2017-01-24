@@ -393,6 +393,9 @@ $(function()
      }); 
 
 
+
+
+
      $('#TablaPAA').delegate('button[data-funcion="Financiacion"]','click',function (e){   
           var id = $(this).data('rel'); 
           $.ajax({

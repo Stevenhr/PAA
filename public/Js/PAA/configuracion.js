@@ -415,6 +415,7 @@ $(function()
             if (typeof data[error] !== 'function') {
                 switch(error)
                 {
+                    case 'codigo_proyecto':
                     case 'precio_proyecto':
                     case 'fecha_final_presupuesto':
                     case 'fecha_inicial_presupuesto':
@@ -501,6 +502,7 @@ $(function()
                     $("#espera"+id).html("");
                     $('input[name="Id_proyecto"]').val(data.Id);
                     $('select[name="idPresupuesto"]').val(data.Id_presupuesto);
+                    $('input[name="codigo_proyecto"]').val(data.codigo);
                     $('input[name="nombre_proyecto"]').val(data.Nombre);
                     $('input[name="fecha_inicial_proyecto"]').val(data.fecha_inicio);
                     $('input[name="fecha_final_proyecto"]').val(data.fecha_fin);

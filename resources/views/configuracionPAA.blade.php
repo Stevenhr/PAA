@@ -174,6 +174,13 @@
 						</div>
 
 				        <div class="row" >
+				        	<div class="col-xs-12 col-md-3 text-">
+						    	<div class="form-group">	
+						    		<label>Codigo</label>
+									<input type="text" class="form-control" name="codigo_proyecto">
+								</div>
+			        		</div>
+
 						    <div class="col-xs-12 col-md-3 text-">
 						    	<div class="form-group">	
 						    		<label>Nombre</label>
@@ -182,14 +189,14 @@
 								</div>
 			        		</div>
 
-						    <div class="col-xs-12 col-md-3 ">
+						    <div class="col-xs-12 col-md-2 ">
 						    	<div class="form-group">
 						    		<label>Fecha inicial de implementación</label>
 									<input type="text" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_proyecto">
 								</div>
 			        		</div>
 
-						    <div class="col-xs-12 col-md-3 ">
+						    <div class="col-xs-12 col-md-2 ">
 			        			<div class="form-group">
 			        				<label>Fecha final de implementación</label>
 									<input type="text" class="form-control" data-role="datepicker" name="fecha_final_proyecto">

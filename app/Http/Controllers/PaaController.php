@@ -147,6 +147,7 @@ class PaaController extends Controller
 		$validator = Validator::make($request->all(),
 		    [
 	            'idPresupuesto' => 'required',
+				'codigo_proyecto' => 'required',
 				'precio_proyecto' => 'required',
 				'fecha_final_proyecto' => 'required',
 				'fecha_inicial_proyecto' => 'required',
@@ -191,6 +192,7 @@ class PaaController extends Controller
 
 		if($valor_nuevProyecto<=$Saldo){
 			$model['Id_presupuesto'] = $input['idPresupuesto'];
+			$model['codigo'] = $input['codigo_proyecto'];
 			$model['Nombre'] = $input['nombre_proyecto'];
 			$model['fecha_inicio'] = $input['fecha_inicial_proyecto'];
 			$model['fecha_fin'] = $input['fecha_final_proyecto'];
@@ -213,6 +215,7 @@ class PaaController extends Controller
 
 		    if($sum<=$input['precio_proyecto']){
 				$model['Id_presupuesto'] = $input['idPresupuesto'];
+				$model['codigo'] = $input['codigo_proyecto'];
 				$model['Nombre'] = $input['nombre_proyecto'];
 				$model['fecha_inicio'] = $input['fecha_inicial_proyecto'];
 				$model['fecha_fin'] = $input['fecha_final_proyecto'];
