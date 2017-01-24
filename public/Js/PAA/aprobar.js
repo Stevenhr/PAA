@@ -1027,7 +1027,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+dato['id_persona']+'</td>'+
                             '<td>'+dato['observacion']+'</td>'+
-                            '<td>'+dato['estado']+'</td>';
+                            '<td>'+dato['estado']+'</td>'+
+                            '<td>'+dato['created_at']+'</td>';
                     num++;
                   });
                   $('#registrosObser').html(html);

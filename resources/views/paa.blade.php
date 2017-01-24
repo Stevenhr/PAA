@@ -718,6 +718,7 @@
 										<th>Usuario</th>
 										<th>Observación</th>
 										<th>Clase</th>
+										<th>Fecha y Hora</th>
 										</tr>
 										</thead>
 										<tbody id="registrosObser"> 

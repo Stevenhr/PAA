@@ -19,6 +19,7 @@ class TablaObservaciones extends Migration
             $table->integer('id_persona');
             $table->text('observacion');
             $table->string('estado');
+            $table->timestamps();
         });
     }
 

@@ -12,7 +12,7 @@ class Observacion extends Model
 	protected $primaryKey = 'id';
 	protected $fillable = ['id_registro','id_persona','observacion','estado'];
 	protected $connection = ''; 
-	public $timestamps = false;
+	public $timestamps = true;
 
 
     public function paa()

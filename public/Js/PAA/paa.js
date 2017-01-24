@@ -121,7 +121,7 @@ $(function()
                             disable="disabled"; 
                             estado="CANCELADO"; 
                           }else{
-                            estado="Por revisión";
+                            estado="En Consolidación";
                             disable="";
                           }
     
@@ -134,13 +134,13 @@ $(function()
                                 '<td>'+e.tipocontrato['Nombre']+'</td>'+
                                 '<td><div style="width:500px;text-align: justify;">'+e['ObjetoContractual']+'</div></td>'+
                                 '<td>'+e['ValorEstimado']+'</td>'+
+                                '<td>'+e['DuracionContrato']+'</td>'+
                                 '<td>'+e['ValorEstimadoVigencia']+'</td>'+
                                 '<td>'+e['VigenciaFutura']+'</td>'+
                                 '<td>'+e['EstadoVigenciaFutura']+'</td>'+
                                 '<td>'+e['FechaEstudioConveniencia']+'</td>'+
                                 '<td>'+e['FechaInicioProceso']+'</td>'+
                                 '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                                '<td>'+e['DuracionContrato']+'</td>'+
                                 '<td>'+e['RecursoHumano']+'</td>'+
                                 '<td>'+e['NumeroContratista']+'</td>'+
                                 '<td>'+e['DatosResponsable']+'</td>'+
@@ -159,6 +159,9 @@ $(function()
                                     '<div class="btn-group">'+
                                       '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
                                     '</div>'+
+                                  '</div>'+
+                                  '<div>'+
+                                    '<a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="'+e['Registro']+'" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a>'+
                                   '</div>'+
                                   '<div id=""></div>'+
                                 '</td>'
@@ -641,13 +644,13 @@ $(function()
                                 '<td>'+e.tipocontrato['Nombre']+'</td>'+
                                 '<td><div style="width:500px;text-align: justify;">'+e['ObjetoContractual']+'</div></td>'+
                                 '<td>'+e['ValorEstimado']+'</td>'+
+                                '<td>'+e['DuracionContrato']+'</td>'+
                                 '<td>'+e['ValorEstimadoVigencia']+'</td>'+
                                 '<td>'+e['VigenciaFutura']+'</td>'+
                                 '<td>'+e['EstadoVigenciaFutura']+'</td>'+
                                 '<td>'+e['FechaEstudioConveniencia']+'</td>'+
                                 '<td>'+e['FechaInicioProceso']+'</td>'+
                                 '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                                '<td>'+e['DuracionContrato']+'</td>'+
                                 '<td>'+e['RecursoHumano']+'</td>'+
                                 '<td>'+e['NumeroContratista']+'</td>'+
                                 '<td>'+e['DatosResponsable']+'</td>'+
@@ -666,6 +669,9 @@ $(function()
                                     '<div class="btn-group">'+
                                       '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
                                     '</div>'+
+                                  '</div>'+
+                                  '<div>'+
+                                    '<a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="'+e['Registro']+'" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a>'+
                                   '</div>'+
                                   '<div id=""></div>'+
                                 '</td>'
@@ -769,7 +775,8 @@ $(function()
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+dato['id_persona']+'</td>'+
                             '<td>'+dato['observacion']+'</td>'+
-                            '<td>'+dato['estado']+'</td>';
+                            '<td>'+dato['estado']+'</td>'+
+                            '<td>'+dato['created_at']+'</td>';
                     num++;
                   });
                   $('#registrosObser').html(html);
@@ -784,7 +791,7 @@ $(function()
 
          id=$('#paa_registro').val();
          observacion=$('#observacio').val();
-         alert("fdsaf");
+         
          $.post(
           URL+'/service/RegistrarObservacion',
           {id: id, Estado:'Observación',observacion:observacion},
