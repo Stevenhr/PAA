@@ -99,4 +99,9 @@ class Paa extends Model
     {
         return $this->belongsTo('App\Area','Id_Area');
     }
+
+    public function observaciones()
+    {
+        return $this->hasMany('App\Observacion','id_registro');
+    }
 }
