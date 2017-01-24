@@ -48,7 +48,7 @@
 		            </tr>
 		        </thead>
 				<tbody id="registros_actividades_responsable">
-					<?php $var=1; ?>
+					<?php $var=0; ?>
 					@foreach ($subdirecciones as $subdireccion)
     					@foreach ($subdireccion->areas as $area)
     						@if (count($area->paas))
@@ -77,7 +77,7 @@
 		                        	}
 		                        ?>
 									<tr data-row="{{ $paa['Id'] }}" class="{{ $class }}">
-			    						<td scope="row" class="text-center">{{$var}}</th>
+			    						<td scope="row" class="text-center">{{++$var}}</th>
 				                        <td class="info">{{$paa['Registro']}}</td>
 				                        <td>{{$subdireccion['nombre']}}</td>
 				                        <td>{{$area['nombre']}}</td>
@@ -138,9 +138,9 @@
 						<th>Valor<br>Estimado</th>
 						<th>Duración<br>Estimada (mes)</th>
 						<!--<th>Fuente de los recursos <br> (Nombre de la Fuente (s))	</th>-->
-						<th>Valor estimado en <br> la vigencia actual	</th>
-						<th>¿Se requieren vigencias futuras?	</th>
-						<th>Estado de solicitud de vigencias futuras	</th>
+						<th>Valor estimado en <br> la vigencia actual</th>
+						<th>¿Se requieren vigencias futuras?</th>
+						<th>Estado de solicitud de vigencias futuras</th>
 						<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
 						<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 						<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
@@ -156,5 +156,179 @@
 		    </table>
 		</div>
 	</div>
+</div>
+<!-- modal financiacion -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Financiacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Financiación PAA</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12">
+				  		<table class="table table-bordered" id="datos_actividad" > 
+							<thead>
+							<tr>
+							<th>#</th>
+							<th>Proyecto</th>
+							<th>Meta</th>
+							<th>Actividad</th>
+							<th>Componente</th>
+							<th>Fuente</th>
+							<th>Valor</th>
+							</tr>
+							</thead>
+							<tbody id="registrosFinanzas"> 
+							</tbody> 
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- modal historial -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Historial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  	<div class="modal-dialog modal-lg" role="document">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        		<h4 class="modal-title" id="myModalLabel">Historial de modificaciones</h4>
+      		</div>
+      		<div class="modal-body">
+      			<div class="row">
+					<div class="col-xs-12 col-sm-12">
+						<div class="panel panel-success">
+							<div class="panel-heading">Registro Vigente</div>
+							<div class="panel-body">
+							    <p>Registro que actualmente es valido para todos los usuarios.</p>
+							</div>						 
+							<div class="table-responsive">
+								<table id="Tabla1" class="display nowrap table-bordered" width="780px" cellspacing="0">
+							        <thead>
+										<tr class="success">
+							                <th>N°</th>
+							                <th>Id Registro</th>
+											<th>Códigos UNSPSC</th>
+											<th>Modalidad de selección</th>
+											<th>Tipo de contrato</th>
+											<th>Descripción/Objeto</th>
+											<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
+											<th>Valor total estimado	</th>
+											<th>Valor estimado en la vigencia actual	</th>
+											<th>¿Se requieren vigencias futuras?	</th>
+											<th>Estado de solicitud de vigencias futuras	</th>
+											<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
+											<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
+											<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
+											<th>Duración estimada del contrato (meses)	</th>
+											<th>Meta plan	</th>
+											<th>Recurso Humano (Si / No)</th>
+											<th>Numero de Contratistas	</th>
+											<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
+											<th>Proyecto de inversión o rubro de funcionamiento</th>
+							            </tr>
+							        </thead>						       
+							        <tbody id="registrosHtml">
+							        </tbody>
+								</table>
+							</div>
+						</div>
+						<div id="mensaje_justi" class="alert alert-success" style="display: none"></div>
+					</div>
+					<div class="col-xs-12 col-sm-12">
+						<hr>
+					</div>
+					<div class="col-xs-12 col-sm-12">
+						<div class="panel panel-warning">
+							<div class="panel-heading">Historial de registros</div>
+							<div class="panel-body">
+							    <p>Los siguientes registros son el historial de cambios aprobados por los difrentes usuarios durante el actual proceso.</p>
+							</div>	
+					  		<div class="table-responsive"> 
+						  		<table id="Tabla2" class="display nowrap table-bordered" width="780px" cellspacing="0">
+							        <thead>
+										<tr class="success">
+							                <th>N°</th>
+							                <th>Id Registro</th>
+											<th>Códigos UNSPSC</th>
+											<th>Modalidad de selección</th>
+											<th>Tipo de contrato</th>
+											<th>Descripción/Objeto</th>
+											<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
+											<th>Valor total estimado	</th>
+											<th>Valor estimado en la vigencia actual	</th>
+											<th>¿Se requieren vigencias futuras?	</th>
+											<th>Estado de solicitud de vigencias futuras	</th>
+											<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
+											<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
+											<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
+											<th>Duración estimada del contrato (meses)	</th>
+											<th>Meta plan	</th>
+											<th>Recurso Humano (Si / No)</th>
+											<th>Numero de Contratistas	</th>
+											<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
+											<th>Proyecto de inversión o rubro de funcionamiento</th>
+							            </tr>
+							        </thead>	
+							        <tbody id="registrosHtml1">
+							        </tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12">
+					 	<hr>
+					</div>
+					<div class="col-xs-12 col-sm-12">
+						<div class="panel panel-danger">
+							<div class="panel-heading">Registros pendientes por revision</div>
+							<div class="panel-body">
+							    <p>Los siguientes registros estan pedintes de revision.</p>
+							</div>	
+							<div class="table-responsive"> 
+						  		<table id="Tabla3" class="display nowrap table-bordered" width="780px" cellspacing="0">
+							        <thead>
+										<tr class="success">
+							                <th>N°</th>
+							                <th>Id Registro</th>
+											<th>Códigos UNSPSC</th>
+											<th>Modalidad de selección</th>
+											<th>Tipo de contrato</th>
+											<th>Descripción/Objeto</th>
+											<th>Fuente de los recursos (Nombre de la Fuente (s))</th>
+											<th>Valor total estimado</th>
+											<th>Valor estimado en la vigencia actual</th>
+											<th>¿Se requieren vigencias futuras?</th>
+											<th>Estado de solicitud de vigencias futuras</th>
+											<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
+											<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)</th>
+											<th>Fecha suscripción Contrato (dd/mm/aaaa)</th>
+											<th>Duración estimada del contrato (meses)</th>
+											<th>Meta plan</th>
+											<th>Recurso Humano (Si / No)</th>
+											<th>Numero de Contratistas</th>
+											<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
+											<th>Proyecto de inversión o rubro de funcionamiento</th>
+							            </tr>
+							        </thead>	
+							        <tbody id="registrosHtml1">
+							        </tbody>
+								</table>
+							</div>
+						</div>
+					</div>	
+				</div>
+      		</div>
+	      	<div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	      	</div>
+    	</div>
+  	</div>
 </div>
 @stop
