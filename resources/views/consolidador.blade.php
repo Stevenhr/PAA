@@ -886,10 +886,14 @@
 									</table>
 								</div>		
 							</div>
-								<!--<div class="form-group">
-								    <textarea class="form-control" placeholder="Message"></textarea>
-								    <button type="button" class="btn btn-default" data-dismiss="modal">Agregar</button>
-							    </div>-->
+							<div class="form-group">
+								    <textarea class="form-control" placeholder="Espacio para escribir observaciones.." name="observacio" id="observacio"></textarea>
+							</div>
+							<div class="form-group">
+									<input type="hidden" name="paa_registro" id="paa_registro"></input>
+								    <a href="#"  id="regisgtrar_observacion" class="btn btn-block btn-primary btn-success"><span class="glyphicon glyphicon-ok"></span> Agregar Observación</a>
+							</div>
+							<div id="mjs_Observa" class="alert alert-success" style="display: none"></div>
 						</div>
 					</div>
 	      </div>
