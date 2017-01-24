@@ -17,7 +17,7 @@ class DireccionController extends BaseController
 	public function index()
 	{
 		$paas = Paa::with('modalidad', 'tipocontrato', 'rubro')
-						->whereIn('Estado', [4, 5])
+						->whereIn('Estado', [Estado::Subdireccion, Estado::Aprobado, Estado::Rechazado, Estado::Cancelado])
 						->orderBy('Estado')
 						->get();
 

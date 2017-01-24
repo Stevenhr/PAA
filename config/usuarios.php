@@ -4,6 +4,7 @@ return array(
  
   'conexion' => 'db_principal', 
    
+  'modulo' => '35', 
   'prefijo_ruta' => 'personas', 
  
   'modelo_persona' => 'App\Persona', 

@@ -63,6 +63,7 @@
                   <li class=”{{ Request::is( 'PresupuestoPAA') ? 'active' : '' }}”><a href="{{ URL::to( 'PresupuestoPAA') }}">Presupuesto PAA</a></li>
                   <li class=”{{ Request::is( 'personas') ? 'active' : '' }}”><a href="{{ URL::to( 'personas') }}">Usuarios</a></li>
                   <li class=”{{ Request::is( 'asignarActividad') ? 'active' : '' }}”><a href="{{ URL::to( 'actividad_usuario') }}">Permisos</a></li>
+                  <li class=”{{ Request::is( 'asignarTipoPersona') ? 'active' : '' }}”><a href="{{ URL::to( 'asignarTipoPersona') }}">Tipo</a></li>
                   
                 </ul>
               </li>
@@ -92,6 +93,9 @@
 
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Planeación<span class="caret"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="download">
+                  <li class=”{{ Request::is('AprobacionPaaPlaneacion') ? 'active' : '' }}”><a href="{{ URL::to('AprobacionPlaneacion') }}">Aprobación</a></li>
+                </ul>
               </li>
 
             </ul>

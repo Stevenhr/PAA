@@ -29,7 +29,7 @@ Route::get('/asignarActividad', '\Idrd\Usuarios\Controllers\AsignarActividadCont
 Route::get('/actividadesModulo', '\Idrd\Usuarios\Controllers\AsignarActividadController@moduloActividades');
 Route::get('/actividadesPersona/{id}', '\Idrd\Usuarios\Controllers\AsignarActividadController@personaActividades');
 Route::any('PersonasActividadesProceso', '\Idrd\Usuarios\Controllers\AsignarActividadController@PersonasActividadesProceso');
-Route::get('/asignarTipoPersona', '\Idrd\Usuarios\Controllers\AsignarActividadController@asignarTipoPersona');
+
 Route::get('/tipo_modulo', '\Idrd\Usuarios\Controllers\AsignarActividadController@tipoModulo');
 Route::post('ProcesoTipoPersona', '\Idrd\Usuarios\Controllers\AsignarActividadController@AdicionTipoPersona');
 
@@ -38,7 +38,7 @@ Route::post('ProcesoTipoPersona', '\Idrd\Usuarios\Controllers\AsignarActividadCo
 Route::any('/GestionarPaa/', 'PlanAnualAController@index'); 
 Route::any('/AprobacionPaa/', 'ConsolidadoController@index'); 
 Route::get('/configuracionPaa/proyecto/{id}', 'PaaController@proyecto'); 
-
+Route::any('/asignarTipoPersona', 'PaaController@asignarTipoPersona');
 Route::post('/configuracionPaa/validar/presupuesto/', 'PaaController@validar_presupuesto');
 Route::get('/configuracionPaa/presupuesto/eliminar/{id}', 'PaaController@eliminar_presupuesto');
 Route::get('/configuracionPaa/presupuesto/modificar/{id}', 'PaaController@modificar_presupuesto');
@@ -87,13 +87,16 @@ Route::get('/aprobar/service/obtenerHistorialPaaTodo/{id}', 'PlanAnualAControlle
 Route::get('/aprobar/service/aprobarSubDireccion/{id}', 'ConsolidadoController@aprobarSubDireccion');
 
 Route::any('/PresupuestoPAA/', 'PaaController@index');
-Route::any('/', 'MainController@index');
-Route::any('/logout', 'MainController@logout');
-
 Route::get('AprobacionPaaSubDireccion', 'DireccionController@index');
 Route::post('/rechazar/paa', 'DireccionController@rechazar');
 Route::post('/cancelar/paa', 'DireccionController@cancelar');
 Route::post('/enviar/paa', 'DireccionController@enviar');
+
+Route::get('AprobacionPlaneacion', 'PlaneacionController@index');
+
+
+Route::any('/', 'MainController@index');
+Route::any('/logout', 'MainController@logout');
 
 //rutas con filtro de autenticación
 Route::group(['middleware' => ['web']], function () {
