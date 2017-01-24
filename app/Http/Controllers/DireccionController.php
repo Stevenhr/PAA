@@ -5,19 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use App\Estado;
+use App\Subdireccion;
 use App\Paa;
 
 class DireccionController extends BaseController 
 {
 	public function __construct()
 	{
-
+		if (isset($_SESSION['Usuario']))
+			$this->Usuario = $_SESSION['Usuario'];
 	}
 
 	public function index()
 	{
+		$subdireccion = Subdireccion::with('areas')->find($this->Usuario['Id_SubDireccion']);
+
+
 		$paas = Paa::with('modalidad', 'tipocontrato', 'rubro')
 						->whereIn('Estado', [Estado::Subdireccion, Estado::Aprobado, Estado::Rechazado, Estado::Cancelado])
+						->whereIn('Id_Area', $subdireccion->areas->pluck('id'))
 						->orderBy('Estado')
 						->get();
 
