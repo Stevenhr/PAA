@@ -35,6 +35,10 @@ class PaaController extends Controller
 		return view('proyecto');
 	}
 
+	public function asignarTipoPersona(){
+        return view('persona_tipoPersona');
+    }
+
 	public function validar_presupuesto(Request $request)
 	{
 		$validator = Validator::make($request->all(),

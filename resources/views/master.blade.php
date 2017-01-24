@@ -63,6 +63,7 @@
                   <li class=”{{ Request::is( 'PresupuestoPAA') ? 'active' : '' }}”><a href="{{ URL::to( 'PresupuestoPAA') }}">Presupuesto PAA</a></li>
                   <li class=”{{ Request::is( 'personas') ? 'active' : '' }}”><a href="{{ URL::to( 'personas') }}">Usuarios</a></li>
                   <li class=”{{ Request::is( 'asignarActividad') ? 'active' : '' }}”><a href="{{ URL::to( 'actividad_usuario') }}">Permisos</a></li>
+                  <li class=”{{ Request::is( 'asignarTipoPersona') ? 'active' : '' }}”><a href="{{ URL::to( 'asignarTipoPersona') }}">Tipo</a></li>
                   
                 </ul>
               </li>
