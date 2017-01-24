@@ -140,6 +140,7 @@
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 												  </div>
 												</div>
+												<div><a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="{{$paa['Registro']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a></div>
 												<div id=""></div>
 					                        </td>
 					                        </tr>
@@ -692,4 +693,54 @@
 </div>
 
 
+
+!-- MODAL APRIOBACION CAMBIOS-->
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Observaciones_paa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Listado de observaciones</h4>
+      </div>
+      <form id="form_aprobacion">
+	      <div class="modal-body">
+	      			<div class="row">
+						<div class="col-xs-12 col-sm-12">
+							<div class="panel panel-warning">
+							  <!-- Default panel contents -->
+								<div class="panel-heading">Observaciones PAA N° <label class="NumPaa"></label></div>
+								<div class="panel-body">
+								    <table class="table table-bordered" id="datos_actividad" > 
+										<thead>
+										<tr>
+										<th>#</th>
+										<th>Usuario</th>
+										<th>Observación</th>
+										<th>Clase</th>
+										</tr>
+										</thead>
+										<tbody id="registrosObser"> 
+										</tbody> 
+									</table>
+								</div>		
+							</div>
+							<div class="form-group">
+								    <textarea class="form-control" placeholder="Espacio para escribir observaciones.." name="observacio" id="observacio"></textarea>
+							</div>
+							<div class="form-group">
+									<input type="hidden" name="paa_registro" id="paa_registro"></input>
+								    <a href="#"  id="regisgtrar_observacion_ppa" class="btn btn-block btn-primary btn-success"><span class="glyphicon glyphicon-ok"></span> Agregar Observación</a>
+							</div>
+							<div id="mjs_Observa" class="alert alert-success" style="display: none"></div>
+						</div>
+					</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	      </div>
+      </form>
+    </div>
+  </div>
+</div>
 @stop

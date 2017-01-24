@@ -15,6 +15,7 @@ use Validator;
 use App\Proyecto;
 use App\CambioPaa;
 use App\PersonaPaa;
+use App\Observacion;
 
 class PlanAnualAController extends Controller
 {
@@ -257,7 +258,24 @@ class PlanAnualAController extends Controller
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
+    public function historialObservaciones(Request $request, $id)
+    {
+        $model_A = Observacion::where('id_registro',$id)->get();
+        return response()->json($model_A);
+    }
 
+    public function RegistrarObservacion(Request $request)
+    {
+        $id_persona=$_SESSION['Id_Persona'];
+
+        $modeloObserva = new Observacion;
+        $modeloObserva['id_persona'] = $id_persona;
+        $modeloObserva['id_registro'] = $request['id'];
+        $modeloObserva['estado'] = $request['Estado'];
+        $modeloObserva['observacion'] = $request['observacion'];
+        $modeloObserva->save();
+        return response()->json(array('status' => 'ok'));
+    }
     
 
 }

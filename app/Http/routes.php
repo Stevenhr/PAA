@@ -75,7 +75,8 @@ Route::get('/paa/service/VerFinanciamiento/{id}', 'PlanAnualAController@verFinan
 Route::get('/paa/service/obtenerPaa/{id}', 'PlanAnualAController@obtenerPaa');
 Route::get('/paa/service/obtenerHistorialPaa/{id}', 'PlanAnualAController@obtenerHistorialPaa');
 
-
+Route::get('/paa/service/historialObservaciones/{id}', 'PlanAnualAController@historialObservaciones');
+Route::post('/paa/service/RegistrarObservacion', 'PlanAnualAController@RegistrarObservacion');
 Route::get('/paa/service/EliminarPaa/{id}', 'PlanAnualAController@EliminarPaa');
 Route::get('/paa/service/HistorialEliminarPaa/{id}', 'PlanAnualAController@HistorialEliminarPaa');
 

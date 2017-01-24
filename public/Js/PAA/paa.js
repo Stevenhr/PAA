@@ -749,5 +749,61 @@ $(function()
     });
 
 
+     $('#TablaPAA').delegate('a[data-funcion="Observaciones"]','click',function (e)
+    {
+        var id = $(this).data('rel');
+        $('.NumPaa').text(id);
+        $('#paa_registro').val(id);
+
+        $.ajax({
+              url: URL+'/service/historialObservaciones/'+id,
+              data: {},
+              dataType: 'json',
+              success: function(data)
+              {   
+                  var html = '';
+                  var num=1;
+                  
+                  $.each(data, function(i, dato){
+                    html += '<tr>'+
+                            '<th scope="row" class="text-center">'+num+'</th>'+
+                            '<td>'+dato['id_persona']+'</td>'+
+                            '<td>'+dato['observacion']+'</td>'+
+                            '<td>'+dato['estado']+'</td>';
+                    num++;
+                  });
+                  $('#registrosObser').html(html);
+              }
+          });
+
+        $('#Modal_Observaciones_paa').modal('show');
+    }); 
+
+
+     $('#regisgtrar_observacion_ppa').on('click', function(e){
+
+         id=$('#paa_registro').val();
+         observacion=$('#observacio').val();
+         alert("fdsaf");
+         $.post(
+          URL+'/service/RegistrarObservacion',
+          {id: id, Estado:'Observación',observacion:observacion},
+          function(data){
+            if(data.status == 'ok')
+              {
+                      $('#mjs_Observa').html('<strong>Bien!</strong> observación registrada con exíto..');
+                      $('#mjs_Observa').show();
+                      setTimeout(function(){
+                          $('#observacio').val('');
+                          $('#mjs_Observa').hide();
+                          $('#mjs_Observa').modal('hide'); 
+                          $('#Modal_Observaciones').modal('hide');
+                      }, 3000)
+              }
+          },'json');
+
+    });
+
+
                   
 });

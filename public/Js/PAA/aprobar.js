@@ -622,7 +622,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e.modalidad['Nombre']+'</td>'+
                           '<td>'+e.tipocontrato['Nombre']+'</td>'+
-                          '<td>'+e['ObjetoContractual']+'</td>'+
+                          '<td><div style="width:500px;text-align: justify;">{'+e['ObjetoContractual']+'</div></td>'+
                           '<td>'+e['ValorEstimado']+'</td>'+
                           '<td>'+e.area['nombre']+'</td>'+
                           '<td>'+e['DuracionContrato']+'</td>'+
@@ -653,6 +653,9 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                 '<button type="button" data-rel="'+e['Id']+'" data-rol="'+var2+'" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion" '+disable+'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
                               '</div>'+
                                $btn_Cabmb+
+                            '</div>'+
+                            '<div>'+
+                            '<a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="'+e['Registro']+'" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a>'+
                             '</div>'+
                             '<div id=""></div>'+
                           '</td>'
@@ -1018,8 +1021,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
               success: function(data)
               {   
                   var html = '';
+                  var num=1;
                   $.each(data, function(i, dato){
-                    var num=1;
                     html += '<tr>'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+dato['id_persona']+'</td>'+
@@ -1039,7 +1042,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
 
          id=$('#paa_registro').val();
          observacion=$('#observacio').val();
-
          $.post(
           URL+'/service/RegistrarObservacion',
           {id: id, Estado:'Observación',observacion:observacion},
