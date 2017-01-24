@@ -1003,5 +1003,16 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
         
     });
 
+
+
+    $('#TablaPAA').delegate('a[data-funcion="Observaciones"]','click',function (e)
+    {
+        var id = $(this).data('rel');
+        $('.NumPaa').text(id);
+
+        $('#paa_subDirecion').val(id);
+        $('#Modal_Observaciones').modal('show');
+    }); 
+
                   
 });

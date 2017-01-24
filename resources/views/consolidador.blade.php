@@ -150,6 +150,8 @@
 												  </div>
 												  @endif
 												</div>
+												<br>
+												<div><a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="{{$paa['Id']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a></div>
 												<div id=""></div>
 					                        </td>
 					                        </tr>
@@ -840,6 +842,55 @@
 							<div id="mensaje_aprobacion_final2" class="alert alert-info" style="display: none">
 								<strong>Cambios Pendiente!</strong> Antes de enviar a Sub. Dirección debe revisar los cambios pendientes.
 							</div>
+						</div>
+					</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- MODAL APRIOBACION CAMBIOS-->
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Observaciones" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Listado de observaciones</h4>
+      </div>
+      <form id="form_aprobacion">
+	      <div class="modal-body">
+	      			<div class="row">
+						<div class="col-xs-12 col-sm-12">
+							<div class="panel panel-warning">
+							  <!-- Default panel contents -->
+								<div class="panel-heading">Observaciones PAA N° <label class="NumPaa"></label></div>
+								<div class="panel-body">
+								    <table class="table table-bordered" id="datos_actividad" > 
+										<thead>
+										<tr>
+										<th>#</th>
+										<th>Usuario</th>
+										<th>Observación</th>
+										<th>Clase</th>
+										</tr>
+										</thead>
+										<tbody id="registrosFinanzas"> 
+										</tbody> 
+									</table>
+								</div>		
+							</div>
+								<!--<div class="form-group">
+								    <textarea class="form-control" placeholder="Message"></textarea>
+								    <button type="button" class="btn btn-default" data-dismiss="modal">Agregar</button>
+							    </div>-->
+							<input type="hidden" name="paa_subDirecion" id="paa_subDirecion"></input>
 						</div>
 					</div>
 	      </div>
