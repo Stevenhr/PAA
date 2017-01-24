@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use App\Estado;
 use App\Paa;
+use App\SubDireccion;
+use App\Area;
 
 class PlaneacionController extends BaseController 
 {
@@ -16,13 +18,16 @@ class PlaneacionController extends BaseController
 
 	public function index() 
 	{
-		$paas = Paa::with('modalidad', 'tipocontrato', 'rubro', 'area', 'area.subdireccion')
-						->whereIn('Estado', [Estado::Aprobado])
-						->orderBy('Estado')
-						->get();
+		$subdirecciones = SubDireccion::with(['areas', 'areas.paas' => function($query)
+			{
+				$query->whereIn('Estado', [Estado::Aprobado]);
+			}, 'areas.paas.modalidad', 'areas.paas.tipocontrato', 'areas.paas.rubro'])->get();
+
 
 		$datos = [
-			'paas' => $paas,
+			'subdirecciones' => $subdirecciones,
 		];
+
+		return view('aprobacion-planeacion-paa', $datos);
 	}
 }

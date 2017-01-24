@@ -73,8 +73,8 @@ class MainController extends Controller {
 			$personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
 			$area = Area::with('subdirecion')->find($personapaa['id_area']);
 			
-			$_SESSION['Id_Area']=$personapaa['id_area'];
-			$_SESSION['Id_SubDireccion']=$area->subdirecion['id'];
+			$_SESSION['Usuario']['Id_Area']=$personapaa['id_area'];
+			$_SESSION['Usuario']['Id_SubDireccion']=$area->subdirecion['id'];
 			
 			return view('welcome');	
 	}
