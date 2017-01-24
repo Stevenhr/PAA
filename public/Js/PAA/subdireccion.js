@@ -142,6 +142,7 @@ $(function()
 	$('#rechazar_paa, #cancelar_paa').on('submit', function(e)
 	{
 		var $form = $(this);
+		var accion = $form.attr('id');
 		var id = $form.find('input[name="Id"]').val();
 		var observaciones = $.trim($form.find('textarea[name="Observaciones"]').val());
 		if(observaciones.length)
@@ -153,7 +154,15 @@ $(function()
 				{
 					if(e)
 					{
-						$('#TablaPAA').find('tr[data-row="'+id+'"]').remove();
+						var $tr = $('#TablaPAA').find('tr[data-row="'+id+'"]');
+
+						if(accion == "rechazar_paa")
+							$tr.addClass('warning');
+						else
+							$tr.addClass('danger');
+
+						$tr.find('input[type="checkbox"]').prop('checked', false);
+						$tr.find('button[data-funcion="rechazar"], button[data-funcion="cancelar"], input[type="checkbox"]').prop('disabled', true);
 						var temp = $.grep(rows_selected, function(n, i)
 						{
 							return n != id;
@@ -506,4 +515,31 @@ $(function()
 		});
 	}); 
 
+	$('#TablaPAA').delegate('a[data-funcion="Observaciones"]','click',function (e)
+    {
+        var id = $(this).data('rel');
+        $('.NumPaa').text(id);
+
+        $.ajax({
+              url: URL+'/service/historialObservaciones/'+id,
+              data: {},
+              dataType: 'json',
+              success: function(data)
+              {   
+                  var html = '';
+                  $.each(data, function(i, dato){
+                    var num=1;
+                    html += '<tr>'+
+                            '<th scope="row" class="text-center">'+num+'</th>'+
+                            '<td>'+dato['id_persona']+'</td>'+
+                            '<td>'+dato['observacion']+'</td>'+
+                            '<td>'+dato['estado']+'</td>';
+                    num++;
+                  });
+                  $('#registrosObser').html(html);
+              }
+          });
+
+        $('#Modal_Observaciones').modal('show');
+    });
 });

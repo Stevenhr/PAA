@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use App\Estado;
+use App\Observacion;
 use App\Subdireccion;
 use App\Paa;
 
 class DireccionController extends BaseController 
 {
+
+	protected $Usuario;
+
 	public function __construct()
 	{
 		if (isset($_SESSION['Usuario']))
@@ -38,9 +42,9 @@ class DireccionController extends BaseController
 	{
 		$paa = Paa::where('Id', $request->input('Id'))->first();
 		$paa->Estado = Estado::Rechazado;
-		$paa->Observacion = $request->input('Observaciones');
 		$paa->save();
-
+		
+		$this->agregarObservacion($paa, $request->input('Observaciones'));
 		return response()->json(true);
 	}
 
@@ -48,9 +52,9 @@ class DireccionController extends BaseController
 	{
 		$paa = Paa::where('Id', $request->input('Id'))->first();
 		$paa->Estado = Estado::Cancelado;
-		$paa->Observacion = $request->input('Observaciones');
 		$paa->save();
 
+		$this->agregarObservacion($paa, $request->input('Observaciones'));
 		return response()->json(true);
 	}
 
@@ -66,5 +70,16 @@ class DireccionController extends BaseController
 		}
 
 		return response()->json(true);
+	}
+
+	private function agregarObservacion($paa, $texto)
+	{		
+		$observacion = new Observacion;
+		$observacion->id_registro = $paa['Id'];
+		$observacion->id_persona = $this->Usuario[0];
+		$observacion->observacion = $texto;
+		$observacion->Estado =  Estado::toString($paa['Estado']);
+
+		$observacion->save();
 	}
 }

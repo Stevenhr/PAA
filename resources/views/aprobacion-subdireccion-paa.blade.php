@@ -69,7 +69,7 @@
                         			$estado = 'Rechazado';
                         			$class = 'warning';
                         			break;
-                        		case '6':
+                        		case '7':
                         			$estado = 'Cancelado';
                         			$class = 'danger';
                         			break;
@@ -112,6 +112,8 @@
 									<div class="btn-group">
 										<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="cancelar" class="btn btn-danger btn-xs2 btn-xs"  title="Cancelar"  {{ $paa['Estado'] != '4' ? 'disabled' : '' }} id="Btn_modal_cancelar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 									</div>
+									<br>
+									<div><a href="#" class="btn btn-xs btn-default" style="width: 100%; margin-top: 20px;" data-rel="{{$paa['Registro']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a></div>
 								</div>
 	                        </td>
 	                        <td data-priority="2"></td>
@@ -332,6 +334,50 @@
 	      	</div>
     	</div>
   	</div>
+</div>
+<!-- modal observaciones -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Observaciones" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Listado de observaciones</h4>
+      </div>
+      <form id="form_aprobacion">
+	      <div class="modal-body">
+	      			<div class="row">
+						<div class="col-xs-12 col-sm-12">
+							<div class="panel panel-warning">
+							  <!-- Default panel contents -->
+								<div class="panel-heading">Observaciones PAA N° <label class="NumPaa"></label></div>
+								<div class="panel-body">
+								    <table class="table table-bordered" id="datos_actividad" > 
+										<thead>
+										<tr>
+										<th>#</th>
+										<th>Usuario</th>
+										<th>Observación</th>
+										<th>Clase</th>
+										</tr>
+										</thead>
+										<tbody id="registrosObser"> 
+										</tbody> 
+									</table>
+								</div>		
+							</div>
+								<!--<div class="form-group">
+								    <textarea class="form-control" placeholder="Message"></textarea>
+								    <button type="button" class="btn btn-default" data-dismiss="modal">Agregar</button>
+							    </div>-->
+						</div>
+					</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	      </div>
+      </form>
+    </div>
+  </div>
 </div>
 <!--- modal rechazar -->
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal_rechazar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
