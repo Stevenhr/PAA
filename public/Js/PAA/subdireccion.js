@@ -483,9 +483,11 @@ $(function()
 			data: {},
 			dataType: 'json',
 			success: function(data)
-			{   
+			{ 
+
 					var html = '';
 					$.each(data, function(i, dato){
+
 						var num=1;
 						html += '<tr>'+
 										'<th scope="row" class="text-center">'+num+'</th>'+
@@ -497,7 +499,9 @@ $(function()
 										'<td>'+dato.pivot['valor']+'</td></tr>';
 						num++;
 					});
+
 					$('#registrosFinanzas').html(html);
+
 			}
 		});
 	}); 

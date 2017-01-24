@@ -50,7 +50,7 @@ class ConsolidadoController extends Controller
         $model_A['Estado'] = 4;
         $model_A->save();
         
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7'])->get();
         $paa2 = Paa::where('IdPersona','1046')->where('Estado','1')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa, 'datos2' => $paa2));
     }
