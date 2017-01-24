@@ -346,4 +346,17 @@ class ConsolidadoController extends Controller
         return response()->json($model_A);
     }
 
+    public function RegistrarObservacion(Request $request)
+    {
+        $id_persona=$_SESSION['Id_Persona'];
+
+        $modeloObserva = new Observacion;
+        $modeloObserva['id_persona'] = $id_persona;
+        $modeloObserva['id_registro'] = $request['id'];
+        $modeloObserva['estado'] = $request['Estado'];
+        $modeloObserva['observacion'] = $request['observacion'];
+        $modeloObserva->save();
+        return response()->json(array('status' => 'ok'));
+    }
+
 }

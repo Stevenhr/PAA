@@ -1009,6 +1009,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
     {
         var id = $(this).data('rel');
         $('.NumPaa').text(id);
+        $('#paa_registro').val(id);
 
         $.ajax({
               url: URL+'/service/historialObservaciones/'+id,
@@ -1033,5 +1034,29 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
         $('#Modal_Observaciones').modal('show');
     }); 
 
+
+    $('#regisgtrar_observacion').on('click', function(e){
+
+         id=$('#paa_registro').val();
+         observacion=$('#observacio').val();
+
+         $.post(
+          URL+'/service/RegistrarObservacion',
+          {id: id, Estado:'Observación',observacion:observacion},
+          function(data){
+            if(data.status == 'ok')
+              {
+                      $('#mjs_Observa').html('<strong>Bien!</strong> observación registrada con exíto..');
+                      $('#mjs_Observa').show();
+                      setTimeout(function(){
+                          $('#observacio').val('');
+                          $('#mjs_Observa').hide();
+                          $('#mjs_Observa').modal('hide'); 
+                          $('#Modal_Observaciones').modal('hide');
+                      }, 3000)
+              }
+          },'json');
+
+    });
                   
 });
