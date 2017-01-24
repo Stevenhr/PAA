@@ -151,7 +151,7 @@
 												  @endif
 												</div>
 												<br>
-												<div><a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="{{$paa['Id']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a></div>
+												<div><a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="{{$paa['Registro']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a></div>
 												<div id=""></div>
 					                        </td>
 					                        </tr>
@@ -881,7 +881,7 @@
 										<th>Clase</th>
 										</tr>
 										</thead>
-										<tbody id="registrosFinanzas"> 
+										<tbody id="registrosObser"> 
 										</tbody> 
 									</table>
 								</div>		
@@ -890,7 +890,6 @@
 								    <textarea class="form-control" placeholder="Message"></textarea>
 								    <button type="button" class="btn btn-default" data-dismiss="modal">Agregar</button>
 							    </div>-->
-							<input type="hidden" name="paa_subDirecion" id="paa_subDirecion"></input>
 						</div>
 					</div>
 	      </div>

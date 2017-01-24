@@ -86,6 +86,8 @@ Route::post('/aprobar/service/DatosAprobacion', 'ConsolidadoController@DatosApro
 Route::get('/aprobar/service/obtenerHistorialPaaTodo/{id}', 'PlanAnualAController@obtenerHistorialPaaTodo');
 Route::get('/aprobar/service/aprobarSubDireccion/{id}', 'ConsolidadoController@aprobarSubDireccion');
 
+Route::get('/aprobar/service/historialObservaciones/{id}', 'ConsolidadoController@historialObservaciones');
+
 Route::any('/PresupuestoPAA/', 'PaaController@index');
 Route::get('AprobacionPaaSubDireccion', 'DireccionController@index');
 Route::post('/rechazar/paa', 'DireccionController@rechazar');

@@ -15,6 +15,7 @@ use App\Utilidades\Comparador;
 use Validator;
 use App\Proyecto;
 use App\CambioPaa;
+use App\Observacion;
 
 class ConsolidadoController extends Controller
 {
@@ -337,6 +338,12 @@ class ConsolidadoController extends Controller
         $paa2 = Paa::where('IdPersona','1046')->where('Estado','1')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa, 'datos2' => $paa2));
 
+    }
+
+    public function historialObservaciones(Request $request, $id)
+    {
+        $model_A = Observacion::where('id_registro',$id)->get();
+        return response()->json($model_A);
     }
 
 }

@@ -1010,7 +1010,26 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
         var id = $(this).data('rel');
         $('.NumPaa').text(id);
 
-        $('#paa_subDirecion').val(id);
+        $.ajax({
+              url: URL+'/service/historialObservaciones/'+id,
+              data: {},
+              dataType: 'json',
+              success: function(data)
+              {   
+                  var html = '';
+                  $.each(data, function(i, dato){
+                    var num=1;
+                    html += '<tr>'+
+                            '<th scope="row" class="text-center">'+num+'</th>'+
+                            '<td>'+dato['id_persona']+'</td>'+
+                            '<td>'+dato['observacion']+'</td>'+
+                            '<td>'+dato['estado']+'</td>';
+                    num++;
+                  });
+                  $('#registrosObser').html(html);
+              }
+          });
+
         $('#Modal_Observaciones').modal('show');
     }); 
 
