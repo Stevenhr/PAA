@@ -104,7 +104,7 @@
 										<button type="button" data-rel="{{$paa['Registro']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="Historial" class="btn btn-primary btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
 									</div>
 									<div class="btn-group">
-										<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
+										<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 									</div>
 									<div class="btn-group">
 										<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="rechazar" class="btn btn-warning btn-xs2 btn-xs"  title="Rechazar"  {{ $paa['Estado'] != '4' ? 'disabled' : '' }} id="Btn_modal_rechazar"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></button>
@@ -182,6 +182,7 @@
 							<th>Componente</th>
 							<th>Fuente</th>
 							<th>Valor</th>
+							<th>Eliminar</th>
 							</tr>
 							</thead>
 							<tbody id="registrosFinanzas"> 
