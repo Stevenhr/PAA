@@ -140,7 +140,7 @@
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 												  </div>
 												</div>
-												<div><a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="{{$paa['Registro']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a></div>
+												<div><a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="{{$paa['Registro']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" ></span> Observaciones</a></div>
 												<div id=""></div>
 					                        </td>
 					                        </tr>
@@ -412,33 +412,80 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Financiación PAA</h4>
+        <h4 class="modal-title" id="myModalLabel">Listado de Financiación</h4>
       </div>
       <div class="modal-body">
       		<div class="row">
-					<div class="col-xs-12 col-sm-12">
-				  		<table class="table table-bordered" id="datos_actividad2" > 
-							<thead>
-							<tr>
-							<th>#</th>
-							<th>Proyecto</th>
-							<th>Meta</th>
-							<th>Actividad</th>
-							<th>Componente</th>
-							<th>Fuente</th>
-							<th>Valor</th>
-							<th>Eliminar</th>
-							</tr>
-							</thead>
-							<tbody id="registrosFinanzas"> 
-							</tbody> 
-						</table>
-					</div>
+				<div class="col-xs-12 col-sm-12">
+			  		<table class="table table-bordered" id="datos_actividad2" > 
+						<thead>
+						<tr>
+						<th>#</th>
+						<th>Proyecto</th>
+						<th>Meta</th>
+						<th>Actividad</th>
+						<th>Componente</th>
+						<th>Fuente</th>
+						<th>Valor</th>
+						<th>Eliminar</th>
+						</tr>
+						</thead>
+						<tbody id="registrosFinanzas"> 
+						</tbody> 
+					</table>
 				</div>
+			</div>
+		</div>
+		<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Agregar Finaciación</h4>
+	    </div>
+		<div class="modal-body">
+			<form id="form_agregar_finza">
+			<div class="row"  >
+				<div class="col-xs-12 col-sm-12">
+				  		<div class="form-group">
+					    	<label>Proyecto de inversión o rubro</label>
+					    	<input type="hidden" name="id_act_agre" id="id_act_agre"></input>
+							<select class="form-control" name="Proyecto_inversion" id="Proyecto_inversion">
+								<option value="" >Selecionar</option>
+								@foreach($proyectos as $proyecto)
+									<option value="{{ $proyecto['Id'] }}" >{{ $proyecto['Nombre'] }}</option>
+							    @endforeach
+							</select>
+						</div>
+				  </div>
+				  <div class="col-xs-12 col-sm-12">
+				  		<div class="form-group">
+					    	<label>Componente de gasto</label>
+							<select class="form-control" name="componnente" id="componnente">
+								<option value="" >Selecionar</option>
+							</select>
+						</div>
+				  </div>
+				  <div class="col-xs-12 col-sm-4">
+				  	<div class="form-group">
+					  		<label>Valor</label>
+							<input type="text" class="form-control" name="valor_contrato">
+					</div>
+				  </div>
+				  <div class="col-xs-12 col-sm-12">
+				  </div>
+				  <div class="col-xs-12 col-sm-4" style="text-align: -webkit-auto;">
+					<button type="submit" class="btn btn-block btn-sm btn-success">Agregar Financiación</button>
+				  </div>
+			</div>
+			</form>
       </div>
+      
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      	<div class="row">
+        	<div class="col-xs-12 col-sm-12">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			</div>
+        </div>
       </div>
+
     </div>
   </div>
 </div>

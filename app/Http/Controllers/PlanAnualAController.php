@@ -88,7 +88,6 @@ class PlanAnualAController extends Controller
     }
     public function modificar_Paa($input)
     {
-
         $model_A = Paa::find($input["id_Paa"]);
         $estado=1;
         $estadoObservo=1;
@@ -176,8 +175,9 @@ class PlanAnualAController extends Controller
             foreach($data0 as $obj){
                 $modeloPA->actividadComponentes()->attach($obj->id_pivot_comp,[
                     'paa_id'=>$id_paa2,
-                    'valor'=>$obj->valor
-                    ]);
+                    'valor'=>$obj->valor,
+                    'estado'=>1,
+                ]);
             }
         }else{
             $id_paa2=$model->Id;
@@ -209,12 +209,32 @@ class PlanAnualAController extends Controller
         return response()->json($model_A->actividadComponentes);
     }
 
-     public function EliminarFinanciamiento(Request $request, $id)
+     public function EliminarFinanciamiento(Request $request)
     {
-        $paa = Paa::find($id);
-        $paa->actividadComponentes()->detach();
+        $id=$request['id'];
+        $paa = Paa::find($request['id']);
+        $paa->actividadComponentes()->detach($request['id_eli']);
 
         $model_A = Paa::with('actividadComponentes','actividadComponentes.actividad','actividadComponentes.componente','actividadComponentes.componente.fuente','actividadComponentes.actividad.meta','actividadComponentes.actividad.meta.proyecto')->find($id);
+
+        return response()->json($model_A->actividadComponentes);
+    }
+
+    public function agregar_finza(Request $request)
+    {
+        $id=$request['id_act_agre'];
+        $id_componente=$request['componnente'];
+        $valor=$request['valor_contrato'];
+
+        $paa = new Paa;
+        $paa->actividadComponentes()->attach($id_componente,[
+                    'paa_id'=>$id,
+                    'valor'=>$valor,
+                    'estado'=>1,
+                ]);
+
+        $model_A = Paa::with('actividadComponentes','actividadComponentes.actividad','actividadComponentes.componente','actividadComponentes.componente.fuente','actividadComponentes.actividad.meta','actividadComponentes.actividad.meta.proyecto')->find($id);
+
         return response()->json($model_A->actividadComponentes);
     }
 

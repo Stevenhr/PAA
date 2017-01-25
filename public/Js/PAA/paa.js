@@ -397,6 +397,9 @@ $(function()
 
     $('#TablaPAA').delegate('button[data-funcion="Financiacion"]','click',function (e){   
           var id_act = $(this).data('rel'); 
+
+          $('#id_act_agre').val(id_act);
+
           $.ajax({
               url: URL+'/service/VerFinanciamiento/'+id_act,
               data: {},
@@ -414,7 +417,7 @@ $(function()
                             '<td>'+dato.componente['Nombre']+'</td>'+
                             '<td>'+dato.componente.fuente['nombre']+'</td>'+
                             '<td>'+dato.pivot['valor']+'</td>'+
-                            '<td class="text-center"><button type="button" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                            '<td class="text-center"><button type="button" data-dat="'+dato.pivot['actividadComponente_id']+'" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
                   });
                   $('#registrosFinanzas').html(html);
@@ -424,17 +427,21 @@ $(function()
 
 
      $('#datos_actividad2').delegate('button[data-funcion="eliminar_finanza"]','click',function (e) {   
-      var id = $(this).data('rel'); 
-
-          $.ajax({
-              url: URL+'/service/EliminarFinanciamiento/'+id,
-              data: {},
+      var id_act = $(this).data('rel'); 
+      var id_eli = $(this).data('dat');
+      
+        $.ajax({
+              type: "POST",
+              url: URL+'/service/EliminarFinanciamiento',
+              data: {id:id_act,id_eli:id_eli},
               dataType: 'json',
               success: function(data)
               {   
                   var html = '';
+                  $('#registrosFinanzas').html('');
+                  var num=1;
                   $.each(data, function(i, dato){
-                    var num=1;
+                    //console.log(dato);
                     html += '<tr>'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+dato.actividad.meta.proyecto['Nombre']+'</td>'+
@@ -443,18 +450,58 @@ $(function()
                             '<td>'+dato.componente['Nombre']+'</td>'+
                             '<td>'+dato.componente.fuente['nombre']+'</td>'+
                             '<td>'+dato.pivot['valor']+'</td>'+
-                            '<td class="text-center"><button type="button" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                            '<td class="text-center"><button type="button" data-dat="'+dato.pivot['actividadComponente_id']+'" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+
                     num++;
                   });
                   $('#registrosFinanzas').html(html);
               }
           });
-
      });
+
+     $('#form_agregar_finza').on('submit', function(e){
+
+          var id_act=$('#id_act_agre').val();
+
+          $.ajax({
+              type: "POST",
+              url: URL+'/service/agregar_finza',
+              data: $(this).serialize(),
+              dataType: 'json',
+              success: function(data)
+              {   
+                 var html = '';
+                  $('#registrosFinanzas').html('');
+                  var num=1;
+                  $.each(data, function(i, dato){
+                    //console.log(dato);
+                    html += '<tr>'+
+                            '<th scope="row" class="text-center">'+num+'</th>'+
+                            '<td>'+dato.actividad.meta.proyecto['Nombre']+'</td>'+
+                            '<td>'+dato.actividad.meta['Nombre']+'</td>'+
+                            '<td>'+dato.actividad['Nombre']+'</td>'+
+                            '<td>'+dato.componente['Nombre']+'</td>'+
+                            '<td>'+dato.componente.fuente['nombre']+'</td>'+
+                            '<td>'+dato.pivot['valor']+'</td>'+
+                            '<td class="text-center"><button type="button" data-dat="'+dato.pivot['actividadComponente_id']+'" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+
+                    num++;
+                  });
+
+                  $('#registrosFinanzas').html(html);
+                  document.getElementById("form_agregar_finza").reset();
+              }
+          });
+
+
+           return false;
+  
+    });
 
 
      $('#TablaPAA').delegate('button[data-funcion="Historial"]','click',function (e){   
           var id = $(this).data('rel'); 
+
 
           $.get(
               URL+'/service/obtenerHistorialPaa/'+id,
