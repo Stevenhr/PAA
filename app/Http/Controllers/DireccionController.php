@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use App\Estado;
 use App\Observacion;
-use App\Subdireccion;
+use App\SubDireccion;
 use App\Paa;
 
 class DireccionController extends BaseController 
