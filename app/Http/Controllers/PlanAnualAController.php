@@ -209,6 +209,15 @@ class PlanAnualAController extends Controller
         return response()->json($model_A->actividadComponentes);
     }
 
+     public function EliminarFinanciamiento(Request $request, $id)
+    {
+        $paa = Paa::find($id);
+        $paa->actividadComponentes()->detach();
+
+        $model_A = Paa::with('actividadComponentes','actividadComponentes.actividad','actividadComponentes.componente','actividadComponentes.componente.fuente','actividadComponentes.actividad.meta','actividadComponentes.actividad.meta.proyecto')->find($id);
+        return response()->json($model_A->actividadComponentes);
+    }
+
     public function obtenerPaa(Request $request, $id)
     {
         $model_A = Paa::with('rubro')->find($id);

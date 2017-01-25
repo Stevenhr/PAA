@@ -374,6 +374,8 @@ $(function()
 
     $('#datos_actividad').delegate('button[data-funcion="crear"]','click',function (e) {   
       var id = $(this).data('rel'); 
+
+
       vector_datos_actividad.splice(id, 1);
           
           $('#mensaje_eliminar').html('<div class="alert alert-dismissible alert-success" ><strong>Exito!</strong> Dato eliminado de la actividad con exito. </div>');
@@ -393,13 +395,10 @@ $(function()
      }); 
 
 
-
-
-
-     $('#TablaPAA').delegate('button[data-funcion="Financiacion"]','click',function (e){   
-          var id = $(this).data('rel'); 
+    $('#TablaPAA').delegate('button[data-funcion="Financiacion"]','click',function (e){   
+          var id_act = $(this).data('rel'); 
           $.ajax({
-              url: URL+'/service/VerFinanciamiento/'+id,
+              url: URL+'/service/VerFinanciamiento/'+id_act,
               data: {},
               dataType: 'json',
               success: function(data)
@@ -415,13 +414,43 @@ $(function()
                             '<td>'+dato.componente['Nombre']+'</td>'+
                             '<td>'+dato.componente.fuente['nombre']+'</td>'+
                             '<td>'+dato.pivot['valor']+'</td>'+
-                            '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                            '<td class="text-center"><button type="button" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
                   });
                   $('#registrosFinanzas').html(html);
               }
           });
      }); 
+
+
+     $('#datos_actividad2').delegate('button[data-funcion="eliminar_finanza"]','click',function (e) {   
+      var id = $(this).data('rel'); 
+
+          $.ajax({
+              url: URL+'/service/EliminarFinanciamiento/'+id,
+              data: {},
+              dataType: 'json',
+              success: function(data)
+              {   
+                  var html = '';
+                  $.each(data, function(i, dato){
+                    var num=1;
+                    html += '<tr>'+
+                            '<th scope="row" class="text-center">'+num+'</th>'+
+                            '<td>'+dato.actividad.meta.proyecto['Nombre']+'</td>'+
+                            '<td>'+dato.actividad.meta['Nombre']+'</td>'+
+                            '<td>'+dato.actividad['Nombre']+'</td>'+
+                            '<td>'+dato.componente['Nombre']+'</td>'+
+                            '<td>'+dato.componente.fuente['nombre']+'</td>'+
+                            '<td>'+dato.pivot['valor']+'</td>'+
+                            '<td class="text-center"><button type="button" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                    num++;
+                  });
+                  $('#registrosFinanzas').html(html);
+              }
+          });
+
+     });
 
 
      $('#TablaPAA').delegate('button[data-funcion="Historial"]','click',function (e){   

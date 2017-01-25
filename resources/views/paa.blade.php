@@ -417,7 +417,7 @@
       <div class="modal-body">
       		<div class="row">
 					<div class="col-xs-12 col-sm-12">
-				  		<table class="table table-bordered" id="datos_actividad" > 
+				  		<table class="table table-bordered" id="datos_actividad2" > 
 							<thead>
 							<tr>
 							<th>#</th>

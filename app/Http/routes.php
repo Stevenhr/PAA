@@ -72,6 +72,7 @@ Route::get('/configuracionPaa/service/actividad/{id}', 'PaaController@listadoAct
 
 Route::get('/paa/service/fuenteComponente/{id}', 'PlanAnualAController@fuenteComponente');
 Route::get('/paa/service/VerFinanciamiento/{id}', 'PlanAnualAController@verFinanciacion');
+Route::get('/paa/service/EliminarFinanciamiento/{id}', 'PlanAnualAController@EliminarFinanciamiento');
 Route::get('/paa/service/obtenerPaa/{id}', 'PlanAnualAController@obtenerPaa');
 Route::get('/paa/service/obtenerHistorialPaa/{id}', 'PlanAnualAController@obtenerHistorialPaa');
 
