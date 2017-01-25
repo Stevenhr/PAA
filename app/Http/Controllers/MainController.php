@@ -57,7 +57,7 @@ class MainController extends Controller {
             $_SESSION['Nombre']=$persona["Primer_Apellido"]." ".$persona["Segundo_Apellido"]." ".$persona["Primer_Nombre"]." ".$persona["Segundo_Nombre"];
 
             $id_Tipos=[61,62,63,64];
-            $ModeloPersona = Persona::with(+['tipo' => function($query) use ($id_Tipos)
+            $ModeloPersona = Persona::with(['tipo' => function($query) use ($id_Tipos)
 			{
 				$query->find($id_Tipos);
 			}])->find($_SESSION['Usuario']['Persona']['Id_Persona']);

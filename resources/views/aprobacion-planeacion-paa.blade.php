@@ -44,7 +44,6 @@
 						<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 						<th>Proyecto de inversión o rubro de funcionamiento</th>
 						<th data-priority="2">Menú</th>
-						<th style="width:30px;" data-priority="2" class="center"><input name="select_all" value="1" type="checkbox"></th>
 		            </tr>
 		        </thead>
 				<tbody id="registros_actividades_responsable">
@@ -109,17 +108,10 @@
 												<div class="btn-group">
 													<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 												</div>
-												<div class="btn-group">
-													<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="rechazar" class="btn btn-warning btn-xs2 btn-xs"  title="Rechazar"  {{ $paa['Estado'] != '4' ? 'disabled' : '' }} id="Btn_modal_rechazar"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></button>
-												</div>
-												<div class="btn-group">
-													<button type="button" data-rel="{{$paa['Id']}}" data-toggle="tooltip" data-placement="bottom" data-funcion="cancelar" class="btn btn-danger btn-xs2 btn-xs"  title="Cancelar"  {{ $paa['Estado'] != '4' ? 'disabled' : '' }} id="Btn_modal_cancelar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-												</div>
 												<br>
 												<div><a href="#" class="btn btn-xs btn-default" style="width: 100%; margin-top: 20px;" data-rel="{{$paa['Registro']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a></div>
 											</div>
 				                        </td>
-	                        			<td data-priority="2"></td>
 			                        </tr>
     							@endforeach
     						@endif
@@ -152,7 +144,6 @@
 						<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 						<th>Proyecto de inversión o rubro de funcionamiento</th>
 						<th style="width:30px;" data-priority="2"></th>
-						<th style="width:30px;" data-priority="2" class="center"></th>
 		            </tr>
 		        </tfoot>
 		    </table>
