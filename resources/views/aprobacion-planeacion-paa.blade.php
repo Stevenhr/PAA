@@ -57,20 +57,24 @@
 		                        	$clase = '';
 		                        	switch ($paa['Estado']) 
 		                        	{
+		                        		case '0':
+		                        			$estado = 'En consolidación';
+		                        			$class = '';
+		                        			break;
 		                        		case '4':
 		                        			$estado = 'En subdirección';
 		                        			$class = '';
 		                        			break;
 		                        		case '5':
-		                        			$estado = 'En planeación';
+		                        			$estado = 'Aprobado por subdirección';
 		                        			$class = '';
 		                        			break;
 		                        		case '6':
-		                        			$estado = 'Rechazado';
+		                        			$estado = 'Denegado por subdirección';
 		                        			$class = 'warning';
 		                        			break;
 		                        		case '7':
-		                        			$estado = 'Cancelado';
+		                        			$estado = 'Cancelado por subdirección';
 		                        			$class = 'danger';
 		                        			break;
 		                        	}
@@ -82,7 +86,7 @@
 				                        <td>{{$area['nombre']}}</td>
 				                        <td>{{$paa['CodigosU']}}</td>
 				                        <td>
-				                        	{{ $paa['Estado'].' '.$estado }}
+				                        	{{ $estado }}
 				                        </td>
 				                        <td>{{$paa->modalidad['Nombre']}}</td>
 				                        <td>{{$paa->tipocontrato['Nombre']}}</td>

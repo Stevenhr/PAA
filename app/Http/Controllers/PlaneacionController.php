@@ -20,7 +20,7 @@ class PlaneacionController extends BaseController
 	{
 		$subdirecciones = SubDireccion::with(['areas', 'areas.paas' => function($query)
 			{
-				$query->whereIn('Estado', [Estado::Aprobado]);
+				$query->whereIn('Estado', [Estado::Consolidacion, Estado::Aprobado, Estado::Rechazado, Estado::Cancelado]);
 			}, 'areas.paas.modalidad', 'areas.paas.tipocontrato', 'areas.paas.rubro'])->get();
 
 
