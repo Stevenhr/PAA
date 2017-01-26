@@ -489,7 +489,6 @@
 							<th>Componente</th>
 							<th>Fuente</th>
 							<th>Valor</th>
-							<th>Eliminar</th>
 							</tr>
 							</thead>
 							<tbody id="registrosFinanzas"> 
