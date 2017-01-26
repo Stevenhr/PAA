@@ -67,7 +67,7 @@
 		                        			break;
 		                        		case '5':
 		                        			$estado = 'Aprobado por subdirección';
-		                        			$class = '';
+		                        			$class = 'success';
 		                        			break;
 		                        		case '6':
 		                        			$estado = 'Denegado por subdirección';
@@ -86,7 +86,7 @@
 				                        <td>{{$area['nombre']}}</td>
 				                        <td>{{$paa['CodigosU']}}</td>
 				                        <td>
-				                        	{{ $estado }}
+	                        				<strong>{{ $estado }}</strong>
 				                        </td>
 				                        <td>{{$paa->modalidad['Nombre']}}</td>
 				                        <td>{{$paa->tipocontrato['Nombre']}}</td>

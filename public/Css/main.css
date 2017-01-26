@@ -102,6 +102,10 @@ tbody th,td
     font-size: 90%;
 }
 
+td.estado {
+  font-weight: bold;
+}
+
 .tama{
   width: 200px;
 }

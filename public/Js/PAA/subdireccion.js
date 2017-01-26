@@ -2,93 +2,73 @@ $(function()
 {
 	var rows_selected = [];
 	var URL = $('#main').data('url');
-
-	//tomado de http://www.gyrocode.com/articles/jquery-datatables-checkboxes/
-	function updateDataTableSelectAllCtrl(table)
-	{
-		var $table             = table.table().node();
-		var $chkbox_all        = $('tbody input[type="checkbox"]', $table);
-		var $chkbox_checked    = $('tbody input[type="checkbox"]:checked', $table);
-		var chkbox_select_all  = $('thead input[name="select_all"]', $table).get(0);
-
-		// If none of the checkboxes are checked
-		if($chkbox_checked.length === 0)
-		{
-			chkbox_select_all.checked = false;
-			if('indeterminate' in chkbox_select_all)
-			{
-				chkbox_select_all.indeterminate = false;
-			}
-		// If all of the checkboxes are chkbox_checked
-		} else if ($chkbox_checked.length === $chkbox_all.length) {
-			chkbox_select_all.checked = true;
-			if('indeterminate' in chkbox_select_all)
-			{
-				chkbox_select_all.indeterminate = false;
-			}
-		// If some of the checkboxes are checked
-		} else {
-			chkbox_select_all.checked = true;
-			if('indeterminate' in chkbox_select_all)
-			{
-				chkbox_select_all.indeterminate = true;
-			}
-		}
-	};
 	
 
-  	$('#TablaPAA tfoot th').each( function () {
-        var title = $(this).text();
-        if(title!="Menu" && title!="N°"){
-          $(this).html( '<input type="text" placeholder="Buscar" />' );
-        }
-    } );
- 
-    // DataTable
-    var table = $('#TablaPAA').DataTable({
-    responsive: true,
-    columnDefs: [
-      {
-        targets: 20,
-            searchable: false,
-            orderable: false
-          },{
-            targets: 21,
-            searchable: false,
-            orderable: false,
-            width: '1%',
-            className: 'dt-body-center',
-            render: function (data, type, row) 
-			{
-				return '<input type="checkbox" class="default" '+(row[3] == 'En planeación' ? 'disabled' : '')+'>';
-			}
-          }
-        ],
-        rowCallback: function(row, data, dataIndex)
-        {
-          var rowId = data[1];
-          
-          if($.inArray(rowId, rows_selected) !== -1)
-          {
-        $(row).find('input[type="checkbox"]').prop('checked', true);
-        $(row).addClass('selected');
+	$('#TablaPAA tfoot th').each( function () {
+      var title = $(this).text();
+      if(title!="Menu" && title!="N°"){
+        $(this).html( '<input type="text" placeholder="Buscar" />' );
       }
-    },
-        dom: 'Bfrtip',
-        buttons: ['copy', 'csv', 'excel', 'pdf']
-    });
- 
-    // Apply the search
-    table.columns().every( function () {
-        var that = this;
-        $( 'input', this.footer() ).on( 'keyup change', function () {
-            if ( that.search() !== this.value ) {
-                that
-                    .search( this.value )
-                    .draw();
+  } );
+
+  // DataTable
+  var table = $('#TablaPAA').DataTable({
+        responsive: true,
+        columnDefs: [
+        {
+          targets: 20,
+          searchable: false,
+          orderable: false
+        },{
+          targets: 21,
+          searchable: false,
+          orderable: false,
+          width: '1%',
+          className: 'dt-body-center',
+          render: function (data, type, row) 
+    			{
+            var disabled = false;
+            switch(row[3])
+            {
+              case 'En consolidación':
+              case 'En subdirección':
+                break;
+              case 'Aprobado por subdirección':
+              case 'Denegado por subdirección':
+              case 'Cancelado por subdirección':
+                disabled = true;
+                break;
             }
-        } );
-    });
+
+    				return '<input type="checkbox" class="default" '+(disabled ? 'disabled' : '')+'>';
+    			}
+        }
+      ],
+      rowCallback: function(row, data, dataIndex)
+      {
+        var rowId = data[1];
+        
+        if($.inArray(rowId, rows_selected) !== -1)
+        {
+          $(row).find('input[type="checkbox"]').prop('checked', true);
+          $(row).addClass('selected');
+        }
+      },
+      dom: 'Bfrtip',
+      buttons: ['copy', 'csv', 'excel', 'pdf']
+  });
+ 
+  // Apply the search
+  table.columns().every( function () {
+      var that = this;
+      $( 'input', this.footer() ).on( 'keyup change', function () {
+          if ( that.search() !== this.value ) {
+              that
+                  .search( this.value )
+                  .draw();
+          }
+      } );
+  });
 
 	var tb1 = $('#Tabla1').DataTable({
 		responsive: true
@@ -131,10 +111,6 @@ $(function()
 			$row.removeClass('selected');
 		}
 
-		// Update state of "Select all" control
-		updateDataTableSelectAllCtrl(table);
-		console.log(rows_selected);
-
 		// Prevent click event from propagating to parent
 		e.stopPropagation();
 	});
@@ -157,9 +133,15 @@ $(function()
 						var $tr = $('#TablaPAA').find('tr[data-row="'+id+'"]');
 
 						if(accion == "rechazar_paa")
+            {
 							$tr.addClass('warning');
+              $tr.find('td.estado').html('Denegado por subdirección');
+            }
 						else
+            {
 							$tr.addClass('danger');
+              $tr.find('td.estado').html('Cancelado por subdirección');
+            }
 
 						$tr.find('input[type="checkbox"]').prop('checked', false);
 						$tr.find('button[data-funcion="rechazar"], button[data-funcion="cancelar"], input[type="checkbox"]').prop('disabled', true);
@@ -196,12 +178,20 @@ $(function()
 					}
 				}
 			).done(function(){
-				$.each(rows_selected, function(i, e)
-				{
-					var tr = $('#TablaPAA').find('tr[data-row="'+e+'"]').addClass('success');
-					tr.find('input[type="checkbox"]').attr('checked', false);
-					tr.find('button[data-funcion="Rechazar"], input[type="checkbox"]').attr('disabled', true);
-				});
+        $.each(rows_selected, function(i, e)
+        {
+          table.tables().nodes().rows().every(function(rowIdx, tableLoop, rowLoop)
+          {
+            var $node = $(this.node());
+            var rowId = $node.data('row');
+            if(rowId == e){
+              $node.addClass('success');
+              $node.find('input[type="checkbox"]').attr('checked', false);
+              $node.find('td.estado').html('Aprobado por subdirección');
+              $node.find('button[data-funcion="Rechazar"], button[data-funcion="cancelar"], input[type="checkbox"]').attr('disabled', true);
+            }
+          });
+        });
 
 				rows_selected = [];
 			});
@@ -227,24 +217,35 @@ $(function()
 		$('#modal_'+form).modal('show');
 	});
 
-	$('#TablaPAA').delegate('button[data-funcion="Cancelar"]','click',function (e)
-	{
-		var id = $(this).data('rel');
-		$('#rechazar_paa input[name="Id"]').val(id);
-		$('#rechazar_paa textarea[name="Observaciones"]').val('');
-		$('#rechazar_paa textarea[name="Observaciones"]').closest('.form-group').removeClass('has-error');
+	$('thead input[name="select_all"]').on('click', function(e)
+  {
+    var _this = $(this);
+    rows_selected = [];
+    table.tables().nodes().rows().every(function(rowIdx, tableLoop, rowLoop)
+    {
+      var $node = $(this.node());
+      var rowId = $node.data('row');
+      var checked = $node.find('input[type="checkbox"]').is(':checked');
+      var disabled = $node.find('input[type="checkbox"]').is(':disabled');
 
-		$('#Modal_Eliminar').modal('show');
-	});
+      if(_this.is(':checked'))
+      {
+        if(!checked && !disabled)
+        { 
+          $node.find('input[type="checkbox"]').prop('checked', true);
+          $node.addClass('selected');
+        }
 
-	$('thead input[name="select_all"]', table.table().container()).on('click', function(e){
-		if(this.checked){
-			$('#TablaPAA tbody input[type="checkbox"]:not(:checked)').trigger('click');
-		} else {
-			$('#TablaPAA tbody input[type="checkbox"]:checked').trigger('click');
-		}
+        rows_selected.push(rowId);
+      } else {
+        if(checked && !disabled)
+        {
+          $node.find('input[type="checkbox"]').prop('checked', false);
+          $node.removeClass('selected');
+        }
+      }
+    });
 
-		// Prevent click event from propagating to parent
 		e.stopPropagation();
 	});
 

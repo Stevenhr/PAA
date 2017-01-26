@@ -67,7 +67,7 @@
                         			break;
                         		case '5':
                         			$estado = 'Aprobado por subdirección';
-                        			$class = '';
+                        			$class = 'success';
                         			break;
                         		case '6':
                         			$estado = 'Denegado por subdirección';
@@ -83,7 +83,7 @@
     						<td scope="row" class="text-center">{{$var}}</th>
 	                        <td class="info">{{$paa['Registro']}}</td>
 	                        <td>{{$paa['CodigosU']}}</td>
-	                        <td>
+	                        <td class="estado">
 	                        	{{ $estado }}
 	                        </td>
 	                        <td>{{$paa->modalidad['Nombre']}}</td>
@@ -136,7 +136,7 @@
 						<th>Descripción<br>Objeto</th>
 						<th>Valor<br>Estimado</th>
 						<th>Duración<br>Estimada (mes)</th>
-						<!--<th>Fuente de los recursos <br> (Nombre de la Fuente (s))	</th>-->
+						<!--<th>Fuente de los recursos <br> (Nombre de la Fuente (s))</th>-->
 						<th>Valor estimado en <br> la vigencia actual	</th>
 						<th>¿Se requieren vigencias futuras?	</th>
 						<th>Estado de solicitud de vigencias futuras	</th>
