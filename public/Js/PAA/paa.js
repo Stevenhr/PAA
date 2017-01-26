@@ -407,7 +407,8 @@ $(function()
               success: function(data)
               {   
                   var html = '';
-                  if(data.estado==4){
+
+                  if($.inArray(data.estado,['4','5','7'])!=-1){
                     desactivo="none";
                     $('#btn_agregar_finaza').hide();
                   }else{
