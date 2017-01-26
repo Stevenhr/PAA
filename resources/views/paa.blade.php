@@ -464,15 +464,15 @@
 						</div>
 				  </div>
 				  <div class="col-xs-12 col-sm-4">
-				  	<div class="form-group">
-					  		<label>Valor</label>
-							<input type="text" class="form-control" name="valor_contrato">
-					</div>
+					  	<div class="form-group">
+						  		<label>Valor</label>
+								<input type="text" class="form-control" name="valor_contrato">
+						</div>
 				  </div>
 				  <div class="col-xs-12 col-sm-12">
 				  </div>
 				  <div class="col-xs-12 col-sm-4" style="text-align: -webkit-auto;">
-					<button type="submit" class="btn btn-block btn-sm btn-success">Agregar Financiación</button>
+					<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza">Agregar Financiación</button>
 				  </div>
 			</div>
 			</form>

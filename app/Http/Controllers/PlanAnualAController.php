@@ -206,7 +206,8 @@ class PlanAnualAController extends Controller
     public function verFinanciacion(Request $request, $id)
     {
         $model_A = Paa::with('actividadComponentes','actividadComponentes.actividad','actividadComponentes.componente','actividadComponentes.componente.fuente','actividadComponentes.actividad.meta','actividadComponentes.actividad.meta.proyecto')->find($id);
-        return response()->json($model_A->actividadComponentes);
+
+        return response()->json(array('dataInfo' => $model_A->actividadComponentes, 'estado' => $model_A['Estado']) );
     }
 
      public function EliminarFinanciamiento(Request $request)
@@ -221,7 +222,20 @@ class PlanAnualAController extends Controller
     }
 
     public function agregar_finza(Request $request)
-    {
+    {   
+        $validator = Validator::make($request->all(),
+            [
+                'valor_contrato' =>'required',
+                'Proyecto_inversion' =>'required',
+                'componnente' =>'required',
+            ]
+        );
+
+        if ($validator->fails())
+        return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+
+         
+
         $id=$request['id_act_agre'];
         $id_componente=$request['componnente'];
         $valor=$request['valor_contrato'];

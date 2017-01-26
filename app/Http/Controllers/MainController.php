@@ -47,7 +47,9 @@ class MainController extends Controller {
 
         $deportista = $_SESSION['Usuario']['Persona'];*/
 
-            $vectorArreglaso="a%3A10%3A%7Bi%3A0%3Bs%3A4%3A%221046%22%3Bi%3A1%3Bs%3A1%3A%221%22%3Bi%3A2%3Bs%3A1%3A%221%22%3Bi%3A3%3Bs%3A1%3A%221%22%3Bi%3A4%3Bs%3A1%3A%221%22%3Bi%3A5%3Bs%3A1%3A%221%22%3Bi%3A6%3Bs%3A1%3A%221%22%3Bi%3A7%3Bs%3A1%3A%221%22%3Bi%3A8%3Bs%3A1%3A%221%22%3Bi%3A9%3Bs%3A1%3A%221%22%3B%7D";
+            /*$vectorArreglaso="a%3A9%3A%7Bi%3A0%3Bs%3A4%3A%221046%22%3Bi%3A1%3Bs%3A1%3A%221%22%3Bi%3A2%3Bs%3A1%3A%221%22%3Bi%3A3%3Bs%3A1%3A%221%22%3Bi%3A4%3Bs%3A1%3A%221%22%3Bi%3A5%3Bs%3A1%3A%221%22%3Bi%3A6%3Bs%3A1%3A%221%22%3Bi%3A7%3Bs%3A1%3A%221%22%3Bi%3A8%3Bs%3A1%3A%221%22%3B%7D"; Todo activado */
+
+            $vectorArreglaso="a%3A9%3A%7Bi%3A0%3Bs%3A4%3A%221046%22%3Bi%3A1%3Bs%3A1%3A%221%22%3Bi%3A2%3Bs%3A1%3A%221%22%3Bi%3A3%3Bs%3A1%3A%221%22%3Bi%3A4%3Bs%3A1%3A%221%22%3Bi%3A5%3Bs%3A1%3A%220%22%3Bi%3A6%3Bs%3A1%3A%220%22%3Bi%3A7%3Bs%3A1%3A%221%22%3Bi%3A8%3Bs%3A1%3A%221%22%3B%7D2";
 
             $vector = urldecode($vectorArreglaso);
             $user_array = unserialize($vector);       
@@ -55,6 +57,21 @@ class MainController extends Controller {
             $persona = $this->repositorio_personas->obtener($_SESSION['Usuario'][0]);
             $_SESSION['Usuario']['Persona'] = $persona;
             $_SESSION['Nombre']=$persona["Primer_Apellido"]." ".$persona["Segundo_Apellido"]." ".$persona["Primer_Nombre"]." ".$persona["Segundo_Nombre"];
+
+            $permissions_array = $user_array;
+
+			$permisos = [
+				'Configuracion_paa' => intval($permissions_array[1]),
+				'Crear_Usuario' => intval($permissions_array[2]),
+				'Gestion_operador' => intval($permissions_array[3]),
+				'Gestion_consolidador'=> intval($permissions_array[4]),
+				'Gestion_subdireccion'=> intval($permissions_array[5]),
+				'Gestion_planeacion'=> intval($permissions_array[6]),
+				'Asignar_Actividades'=> intval($permissions_array[7]),
+				'Asignar_Tipo_Persona'=> intval($permissions_array[8])
+			];
+
+			$_SESSION['Usuario']['Permisos'] = $permisos;
 
             $id_Tipos=[61,62,63,64];
             $ModeloPersona = Persona::with(['tipo' => function($query) use ($id_Tipos)
@@ -90,7 +107,7 @@ class MainController extends Controller {
 			$permissions_array = $user_array;
 
 			$permisos = [
-				//ir agregando los permisos
+
 			];
 
 			$_SESSION['Usuario'] = $user_array;
