@@ -60,18 +60,31 @@
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Configuración<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="themes">
-                  <li class=”{{ Request::is( 'PresupuestoPAA') ? 'active' : '' }}”><a href="{{ URL::to( 'PresupuestoPAA') }}">Presupuesto PAA</a></li>
-                  <li class=”{{ Request::is( 'personas') ? 'active' : '' }}”><a href="{{ URL::to( 'personas') }}">Usuarios</a></li>
-                  <li class=”{{ Request::is( 'asignarActividad') ? 'active' : '' }}”><a href="{{ URL::to( 'actividad_usuario') }}">Permisos</a></li>
-                  <li class=”{{ Request::is( 'asignarTipoPersona') ? 'active' : '' }}”><a href="{{ URL::to( 'asignarTipoPersona') }}">Tipo</a></li>
                   
+                  @if($_SESSION['Usuario']['Permisos']['Configuracion_paa'])
+                    <li class=”{{ Request::is( 'PresupuestoPAA') ? 'active' : '' }}”><a href="{{ URL::to( 'PresupuestoPAA') }}">Configurar PAA</a></li>
+                  @endif
+
+                  @if($_SESSION['Usuario']['Permisos']['Crear_Usuario'])
+                    <li class=”{{ Request::is( 'personas') ? 'active' : '' }}”><a href="{{ URL::to( 'personas') }}">Usuarios</a></li>
+                  @endif
+
+                  @if($_SESSION['Usuario']['Permisos']['Asignar_Actividades'])
+                    <li class=”{{ Request::is( 'asignarActividad') ? 'active' : '' }}”><a href="{{ URL::to( 'actividad_usuario') }}">Permisos</a></li>
+                  @endif
+
+                  @if($_SESSION['Usuario']['Permisos']['Asignar_Tipo_Persona'])
+                    <li class=”{{ Request::is( 'asignarTipoPersona') ? 'active' : '' }}”><a href="{{ URL::to( 'asignarTipoPersona') }}">Tipo</a></li>
+                  @endif
                 </ul>
               </li>
 
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Operador<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
-                  <li class=”{{ Request::is( 'GestionarPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'GestionarPaa') }}">Gestionar PAA</a></li>
+                  @if($_SESSION['Usuario']['Permisos']['Gestion_operador'])
+                    <li class=”{{ Request::is( 'GestionarPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'GestionarPaa') }}">Gestionar PAA</a></li>
+                  @endif
                 </ul>
               </li>
 
@@ -79,7 +92,9 @@
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Consolidador<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
-                  <li class=”{{ Request::is( 'AprobacionPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'AprobacionPaa') }}">Aprobación</a></li>
+                  @if($_SESSION['Usuario']['Permisos']['Gestion_consolidador'])
+                    <li class=”{{ Request::is( 'AprobacionPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'AprobacionPaa') }}">Aprobación</a></li>
+                  @endif
                 </ul>
               </li>
 
@@ -87,14 +102,18 @@
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Sub Dirección<span class="caret"></span></a>
                  <ul class="dropdown-menu" aria-labelledby="download">
-                  <li class=”{{ Request::is('AprobacionPaaSubDireccion') ? 'active' : '' }}”><a href="{{ URL::to('AprobacionPaaSubDireccion') }}">Aprobación</a></li>
+                  @if($_SESSION['Usuario']['Permisos']['Gestion_subdireccion'])
+                    <li class=”{{ Request::is('AprobacionPaaSubDireccion') ? 'active' : '' }}”><a href="{{ URL::to('AprobacionPaaSubDireccion') }}">Aprobación</a></li>
+                  @endif
                 </ul>
               </li>
 
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Planeación<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
-                  <li class=”{{ Request::is('AprobacionPaaPlaneacion') ? 'active' : '' }}”><a href="{{ URL::to('AprobacionPlaneacion') }}">Aprobación</a></li>
+                  @if($_SESSION['Usuario']['Permisos']['Gestion_planeacion'])
+                    <li class=”{{ Request::is('AprobacionPaaPlaneacion') ? 'active' : '' }}”><a href="{{ URL::to('AprobacionPlaneacion') }}">Aprobación</a></li>
+                  @endif
                 </ul>
               </li>
 
