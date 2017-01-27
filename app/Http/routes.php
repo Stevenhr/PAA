@@ -19,10 +19,10 @@ Route::get('/usuario_tipo', function () {
 
 // Rutas paquete usuario
 Route::get('/personas', '\Idrd\Usuarios\Controllers\PersonaController@index');
-Route::get('/personas/service/obtener/{id}', '\Idrd\Usuarios\Controllers\PersonaController@obtener');
+//Route::get('/personas/service/obtener/{id}', '\Idrd\Usuarios\Controllers\PersonaController@obtener');
 Route::get('/personas/service/buscar/{key}', '\Idrd\Usuarios\Controllers\PersonaController@buscar');
 Route::get('/personas/service/ciudad/{id_pais}', '\Idrd\Usuarios\Controllers\LocalizacionController@buscarCiudades');
-Route::post('/personas/service/procesar/', '\Idrd\Usuarios\Controllers\PersonaController@procesar');
+//Route::post('/personas/service/procesar/', '\Idrd\Usuarios\Controllers\PersonaController@procesar');
 Route::get('/permisos', 'Persona@index');
 
 Route::get('/asignarActividad', '\Idrd\Usuarios\Controllers\AsignarActividadController@asignarActividades');
@@ -35,6 +35,11 @@ Route::post('ProcesoTipoPersona', '\Idrd\Usuarios\Controllers\AsignarActividadCo
 
 
 // Rutas proyecto local
+
+Route::post('/personas/service/procesar/', 'PaaController@procesar');
+Route::get('/personas/service/obtener/{id}', 'PaaController@obtener');
+
+Route::any('/obtener_area/{id_area}', 'PaaController@obtener_area'); 
 Route::any('/GestionarPaa/', 'PlanAnualAController@index'); 
 Route::any('/AprobacionPaa/', 'ConsolidadoController@index'); 
 Route::get('/configuracionPaa/proyecto/{id}', 'PaaController@proyecto'); 

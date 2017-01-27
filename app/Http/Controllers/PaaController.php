@@ -8,13 +8,24 @@ use App\Http\Requests;
 use App\Presupuesto;
 use App\Proyecto;
 use App\Meta;
+use App\Area;
 use App\Actividad;
 use App\Componente;
 use App\Fuente;
+use App\Persona;
+use App\Datos;
+use App\PersonaPaa;
+use Idrd\Usuarios\Repo\PersonaInterface;
 
 class PaaController extends Controller
 {
     //
+    private $repositorio_personas;
+
+	public function __construct(PersonaInterface $repositorio_personas)
+	{
+		$this->repositorio_personas = $repositorio_personas;
+	}
     public function index()
 	{
 		$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades')->get();
@@ -33,6 +44,57 @@ class PaaController extends Controller
 	public function proyecto()
 	{
 		return view('proyecto');
+	}
+
+	public function procesar(Request $request)
+	{
+		$validator = Validator::make($request->all(),
+			[
+	            'Id_TipoDocumento' => 'required|min:1',
+				'Cedula' => 'required|numeric',
+				'Primer_Apellido' => 'required',
+				'Primer_Nombre' => 'required',
+				'Fecha_Nacimiento' => 'required|date',
+				'Id_Etnia' => 'required|min:1',
+				'Id_Pais' => 'required|min:1',
+				'Id_Genero' => 'required|in:1,2',
+				'area' => 'required|numeric'
+        	]
+        );
+        if ($validator->fails())
+            return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+        
+        if($request->input('Id_Persona') == '0')
+        	$persona = $this->repositorio_personas->guardar($request->all());
+        else
+        	$persona = $this->repositorio_personas->actualizar($request->all());
+        $datos = new Datos;
+		$datos::updateOrCreate(['Email' => $request->email, 'Id_Persona' => $persona->Id_Persona]);
+        $personapaa = new PersonaPaa;
+        $personapaa::updateOrCreate(['id' => $persona->Id_Persona, 'id_area' => $request->area]);
+   
+        return response()->json(array('status' => 'ok'));		
+	}
+
+	public function obtener(Request $request, $id)
+	{
+		$persona = $this->repositorio_personas->obtener($id);
+		$datos = Datos::where('Id_Persona',$id)->first();
+		$personapaa = PersonaPaa::find($id);
+
+		$persona['email'] = $datos->Email;
+		$persona['area'] =  $personapaa->id_area;
+		return response()->json($persona);
+	}
+
+
+	public function obtener_area(Request $request, $id_area)
+	{
+
+
+		$areas = Area::get();
+
+		return response()->json($areas);
 	}
 
 	public function asignarTipoPersona(){
