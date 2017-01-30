@@ -69,9 +69,9 @@ class PaaController extends Controller
         else
         	$persona = $this->repositorio_personas->actualizar($request->all());
         $datos = new Datos;
-		$datos::updateOrCreate(['Email' => $request->email, 'Id_Persona' => $persona->Id_Persona]);
+		$datos::updateOrCreate(['Id_Persona' => $persona->Id_Persona],['Email' => $request->email, 'Id_Persona' => $persona->Id_Persona]);
         $personapaa = new PersonaPaa;
-        $personapaa::updateOrCreate(['id' => $persona->Id_Persona, 'id_area' => $request->area]);
+        $personapaa::updateOrCreate(['id' => $persona->Id_Persona],['id' => $persona->Id_Persona, 'id_area' => $request->area]);
    
         return response()->json(array('status' => 'ok'));		
 	}
@@ -81,7 +81,7 @@ class PaaController extends Controller
 		$persona = $this->repositorio_personas->obtener($id);
 		$datos = Datos::where('Id_Persona',$id)->first();
 		$personapaa = PersonaPaa::find($id);
-		if($personapaa){
+		if($datos){
 
 		$persona['email'] = $datos->Email;
 		$persona['area'] =  $personapaa->id_area;

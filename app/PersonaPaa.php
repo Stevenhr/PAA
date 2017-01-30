@@ -9,7 +9,7 @@ class PersonaPaa extends Model
     //
     protected $table = 'personaPaa';
 	protected $primaryKey = 'id';
-	protected $fillable = ['id_area'];
+	protected $fillable = ['id','id_area'];
 	protected $connection = ''; 
 	public $timestamps = false;
 
