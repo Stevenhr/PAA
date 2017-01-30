@@ -77,6 +77,26 @@ $(function()
 		});
 	};
 
+	var popular_area = function(id)
+	{
+		$.ajax({
+			url:'obtener_area/'+id,
+			data: {},
+			dataType: 'json',
+			success: function(data)
+			{
+				var html = '<option value="">Seleccionar</option>';
+				if(data.length > 0)
+				{
+					$.each(data, function(i, e){
+						html += '<option value="'+e['id']+'">'+e['nombre']+'</option>';
+					});
+				}
+				$('select[name="area"]').html(html).val($('select[name="area"]').data('value'));
+			}
+		});
+	};
+
 	var popular_modal_persona = function(persona)
 	{
 		$('select[name="Id_TipoDocumento"]').val(persona['Id_TipoDocumento']);
@@ -90,6 +110,8 @@ $(function()
 		$('select[name="Nombre_Ciudad"]').data('value', persona['Nombre_Ciudad']);
 		$('select[name="Id_Pais"]').val(persona['Id_Pais']).trigger('change');
 		$('input[name="Id_Persona"]').val(persona['Id_Persona']);
+		$('input[name="email"]').val(persona['email']);
+		$('select[name="area"]').val(persona['area']);
 
 		$('input[name="Id_Genero"]').removeAttr('checked').parent('.btn').removeClass('active');
 		$('input[name="Id_Genero"][value="'+persona['Id_Genero']+'"]').trigger('click');
@@ -178,6 +200,8 @@ $(function()
 				if(data)
 				{
 					popular_modal_persona(data);
+					popular_area(id)
+
 				}
 			},
 			'json'

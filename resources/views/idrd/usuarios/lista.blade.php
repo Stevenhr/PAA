@@ -6,7 +6,7 @@
 
 <div id="main_persona" class="row" data-url="{{ url(config('usuarios.prefijo_ruta')) }}">
 	<div class="col-xs-12">
-		<h4>Personas</h4>
+		<h4>Personas PAA</h4>
 	</div>
 	<div id="alerta" class="col-xs-12" style="display:none;">
 		<div class="alert alert-success alert-dismissible" role="alert">
@@ -164,6 +164,20 @@
 		        					<option value="">Seleccionar</option>
 		        				</select>
 		        			</div>
+		        		</div>
+		        		<div class="col-xs-12 col-md-6">
+		        			<div class="form-group">
+		        				<label class="control-label" for="area">Area </label>
+		        				<select name="area" id="" class="form-control" data-value="">
+		        					<option value="">Seleccionar</option>
+		        				</select>
+		        			</div>
+		        		</div>
+		        		<div class="col-xs-12 col-md-6">
+		        			<div class="form-group">
+			        			<label class="control-label" for="email">Email</label>
+		        				<input type="mail" name="email" class="form-control">
+							</div>
 		        		</div>
 		        	</fieldset>
 	      		</div>
