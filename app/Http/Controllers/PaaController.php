@@ -81,14 +81,22 @@ class PaaController extends Controller
 		$persona = $this->repositorio_personas->obtener($id);
 		$datos = Datos::where('Id_Persona',$id)->first();
 		$personapaa = PersonaPaa::find($id);
+		if($personapaa){
 
 		$persona['email'] = $datos->Email;
 		$persona['area'] =  $personapaa->id_area;
+	}else{
+
+		$persona['email'] = '';
+		$persona['area'] =  '';
+
+	}
 		return response()->json($persona);
 	}
+	
 
 
-	public function obtener_area(Request $request, $id_area)
+	public function obtener_area(Request $request)
 	{
 
 
