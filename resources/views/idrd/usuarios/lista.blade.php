@@ -168,7 +168,7 @@
 		        		<div class="col-xs-12 col-md-6">
 		        			<div class="form-group">
 		        				<label class="control-label" for="area">Area </label>
-		        				<select name="area" id="" class="form-control" data-value="">
+		        				<select name="area" id="area" class="form-control" data-value="">
 		        					<option value="">Seleccionar</option>
 		        				</select>
 		        			</div>

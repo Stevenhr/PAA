@@ -77,25 +77,7 @@ $(function()
 		});
 	};
 
-	var popular_area = function(id)
-	{
-		$.ajax({
-			url:'obtener_area/'+id,
-			data: {},
-			dataType: 'json',
-			success: function(data)
-			{
-				var html = '<option value="">Seleccionar</option>';
-				if(data.length > 0)
-				{
-					$.each(data, function(i, e){
-						html += '<option value="'+e['id']+'">'+e['nombre']+'</option>';
-					});
-				}
-				$('select[name="area"]').html(html).val($('select[name="area"]').data('value'));
-			}
-		});
-	};
+
 
 	var popular_modal_persona = function(persona)
 	{
@@ -170,6 +152,25 @@ $(function()
 		}
 	});
 
+		$.ajax({
+			url:'obtener_area',
+			data: {},
+			dataType: 'json',
+			success: function(data)
+			{
+				var html = '<option value="">Seleccionar</option>';
+				if(data.length > 0)
+				{
+					$.each(data, function(i, e){
+						html += '<option value="'+e['id']+'">'+e['nombre']+'</option>';
+					});
+				}
+				$('#area').html(html);
+				
+			}
+		});
+
+
 	$('#crear').on('click', function(e)
 	{
 		var persona = {
@@ -200,7 +201,7 @@ $(function()
 				if(data)
 				{
 					popular_modal_persona(data);
-					popular_area(id)
+					
 
 				}
 			},

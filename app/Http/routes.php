@@ -39,7 +39,7 @@ Route::post('ProcesoTipoPersona', '\Idrd\Usuarios\Controllers\AsignarActividadCo
 Route::post('/personas/service/procesar/', 'PaaController@procesar');
 Route::get('/personas/service/obtener/{id}', 'PaaController@obtener');
 
-Route::any('/obtener_area/{id_area}', 'PaaController@obtener_area'); 
+Route::any('/obtener_area/', 'PaaController@obtener_area'); 
 Route::any('/GestionarPaa/', 'PlanAnualAController@index'); 
 Route::any('/AprobacionPaa/', 'ConsolidadoController@index'); 
 Route::get('/configuracionPaa/proyecto/{id}', 'PaaController@proyecto'); 
