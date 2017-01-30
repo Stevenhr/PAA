@@ -24,10 +24,10 @@
 				<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PRESUPUESTO  %%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 				<div id="Presupuesto_dv" style="display:none;">
 					
-					<h3>Presupuesto</h3>
+					<h3>Plan de desarrollo</h3>
 					<hr style="border: 0; border-top: 1px solid #F6CECE; height:0;">
 	            	<br>
-	                <p class="text-justify">Registro del prresupuesto total de los proyectos..</p>
+	                <p class="text-justify">Registro del presupuesto del Plan de desarrollo total de los proyectos.</p>
 			        <br>
 			        <form id="form_presupuesto">
 			            <div id="div_form_presupuesto"><br></div>

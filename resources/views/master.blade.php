@@ -80,7 +80,7 @@
               </li>
 
               <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Operador<span class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Operario<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
                   @if($_SESSION['Usuario']['Permisos']['Gestion_operador'])
                     <li class=”{{ Request::is( 'GestionarPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'GestionarPaa') }}">Gestionar PAA</a></li>
