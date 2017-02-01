@@ -33,7 +33,6 @@ Route::any('PersonasActividadesProceso', '\Idrd\Usuarios\Controllers\AsignarActi
 Route::get('/tipo_modulo', '\Idrd\Usuarios\Controllers\AsignarActividadController@tipoModulo');
 Route::post('ProcesoTipoPersona', '\Idrd\Usuarios\Controllers\AsignarActividadController@AdicionTipoPersona');
 
-
 // Rutas proyecto local
 
 Route::post('/personas/service/procesar/', 'PaaController@procesar');
@@ -45,8 +44,10 @@ Route::any('/AprobacionPaa/', 'ConsolidadoController@index');
 Route::get('/configuracionPaa/proyecto/{id}', 'PaaController@proyecto'); 
 Route::any('/asignarTipoPersona', 'PaaController@asignarTipoPersona');
 Route::post('/configuracionPaa/validar/presupuesto/', 'PaaController@validar_presupuesto');
+Route::post('/configuracionPaa/validar/fuente/', 'PaaController@validar_fuente');
 Route::get('/configuracionPaa/presupuesto/eliminar/{id}', 'PaaController@eliminar_presupuesto');
 Route::get('/configuracionPaa/presupuesto/modificar/{id}', 'PaaController@modificar_presupuesto');
+Route::get('/configuracionPaa/fuente/modificarFuente/{id}', 'PaaController@modificarFuente');
 
 Route::post('/configuracionPaa/validar/proyecto/', 'PaaController@validar_proyecto');
 Route::get('/configuracionPaa/proyecto/eliminar/{id}', 'PaaController@eliminar_proyecto');
@@ -74,11 +75,12 @@ Route::get('/configuracionPaa/service/presupuesto/{id}', 'PaaController@listadoP
 Route::get('/configuracionPaa/service/meta/{id}', 'PaaController@listadoMetas');
 Route::get('/configuracionPaa/service/actividad/{id}', 'PaaController@listadoActividad');
 
-
 Route::get('/paa/service/fuenteComponente/{id}', 'PlanAnualAController@fuenteComponente');
 Route::get('/paa/service/VerFinanciamiento/{id}', 'PlanAnualAController@verFinanciacion');
 Route::post('/paa/service/EliminarFinanciamiento/', 'PlanAnualAController@EliminarFinanciamiento');
 Route::post('/paa/service/agregar_finza/', 'PlanAnualAController@agregar_finza');
+Route::post('/paa/service/agregar_estudio/', 'PlanAnualAController@agregar_estudio');
+Route::get('/paa/service/obtenerEstidioConveniencia/{id}', 'PlanAnualAController@obtenerEstidioConveniencia');
 Route::get('/paa/service/obtenerPaa/{id}', 'PlanAnualAController@obtenerPaa');
 Route::get('/paa/service/obtenerHistorialPaa/{id}', 'PlanAnualAController@obtenerHistorialPaa');
 
@@ -104,7 +106,6 @@ Route::post('/cancelar/paa', 'DireccionController@cancelar');
 Route::post('/enviar/paa', 'DireccionController@enviar');
 
 Route::get('AprobacionPlaneacion', 'PlaneacionController@index');
-
 
 Route::any('/', 'MainController@index');
 Route::any('/logout', 'MainController@logout');

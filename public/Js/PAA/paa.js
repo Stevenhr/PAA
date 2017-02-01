@@ -108,21 +108,26 @@ $(function()
                             clase="warning";
                             disable="disabled"; 
                             estado="En Subdireción";
+                            estudioComve="disabled";
                           }else if(e['Estado']==5){  
                             clase="success";
                             disable="disabled"; 
                             estado="Aprobado Subdireción"; 
+                            estudioComve="";
                           }else if(e['Estado']==6){  
                             clase="danger";
                             disable=""; 
                             estado="Denegado Subdireción"; 
+                            estudioComve="disabled";
                           }else if(e['Estado']==7){  
                             clase="danger";
                             disable="disabled"; 
                             estado="CANCELADO"; 
+                            estudioComve="disabled";
                           }else{
                             estado="En Consolidación";
                             disable="";
+                            estudioComve="disabled";
                           }
     
                           var $tr1 = $('<tr class="'+clase+'"></tr>').html(
@@ -159,9 +164,12 @@ $(function()
                                     '<div class="btn-group">'+
                                       '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
                                     '</div>'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="EstudioComveniencia" class="btn btn-warning btn-xs2 btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" '+estudioComve+'><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></button>'+
+                                    '</div>'+
                                   '</div>'+
                                   '<div>'+
-                                    '<a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="'+e['Registro']+'" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a>'+
+                                    '<a href="#" class="btn btn-xs btn-default" style="width: 100%;    margin-top: 20px;" data-rel="'+e['Registro']+'" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a>'+
                                   '</div>'+
                                   '<div id=""></div>'+
                                 '</td>'
@@ -472,8 +480,6 @@ $(function()
 
           var id_act=$('#id_act_agre').val();
 
-          
-
                   $.ajax({
                       type: "POST",
                       url: URL+'/service/agregar_finza',
@@ -516,6 +522,86 @@ $(function()
            return false;
   
     });
+
+
+     $('#TablaPAA').delegate('button[data-funcion="EstudioComveniencia"]','click',function (e){   
+          var id_act = $(this).data('rel'); 
+          $('#id_estudio').val(id_act);
+          $('#id_Fin').text(id_act);
+
+          $.get(
+            URL+'/service/obtenerEstidioConveniencia/'+id_act,
+            {},
+            function(data)
+            {
+
+                if(data['id_paa']>0)
+                {
+                    $('#id_estudio_pass').val(id_act);
+                    $('textarea[name="texta_Conveniencia"]').val(data['conveniencia']);
+                    $('textarea[name="texta_Oportunidad"]').val(data['oportunidad']);
+                    $('textarea[name="texta_Justificacion"]').val(data['justificacion']);
+                    
+                }else{
+                    $('#id_estudio_pass').val(0);
+                    $('textarea[name="texta_Conveniencia"]').val('');
+                    $('textarea[name="texta_Oportunidad"]').val('');
+                    $('textarea[name="texta_Justificacion"]').val('');
+                }
+            },
+            'json'
+        );
+         
+     }); 
+
+
+      $('#form_agregar_estudio_comveniencia').on('submit', function(e){
+
+              $.ajax({
+                  type: "POST",
+                  url: URL+'/service/agregar_estudio',
+                  data: $(this).serialize(),
+                  dataType: 'json',
+                  success: function(data)
+                  {   
+
+                    if(data.status == 'error')
+                    {
+                        validad_error_estidioC(data.errors);
+                    } else {
+                        validad_error_estidioC(data.errors);
+                        $('#mjs_Observa_Fina').html('<strong>Bien!</strong> Datos registrados con exíto..');
+                        $('#mjs_Observa_Fina').show();
+                        setTimeout(function(){
+                            $('#mjs_Observa_Fina').hide();
+                            $('#Modal_EstudioComveniencia').modal('hide');
+                        }, 2000)
+                    }
+                  }
+              });
+           return false;
+    });
+
+  var validad_error_estidioC = function(data)
+    {
+        $('#form_agregar_estudio_comveniencia .form-group').removeClass('has-error');
+        var selector = '';
+        for (var error in data){
+            if (typeof data[error] !== 'function') {
+                switch(error)
+                {
+                    
+                    case 'Proyecto_inversion':
+                    case 'componnente':
+                    case 'componnente':
+                    selector = 'textarea';
+                    break;
+                
+                }
+                $('#form_agregar_estudio_comveniencia '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
+            }
+        }
+    }
 
 
   var validad_error_agre = function(data)
@@ -742,21 +828,26 @@ $(function()
                             clase="warning";
                             disable="disabled"; 
                             estado="En Subdireción";
+                            estudioComve="disabled";
                           }else if(e['Estado']==5){  
                             clase="success";
                             disable="disabled"; 
                             estado="Aprobado Subdireción"; 
+                            estudioComve="";
                           }else if(e['Estado']==6){  
                             clase="danger";
                             disable=""; 
                             estado="Denegado Subdireción"; 
+                            estudioComve="disabled";
                           }else if(e['Estado']==7){  
                             clase="danger";
                             disable="disabled"; 
                             estado="CANCELADO"; 
+                            estudioComve="disabled";
                           }else{
-                            estado="Por revisión";
+                            estado="En Consolidación";
                             disable="";
+                            estudioComve="disabled";
                           }
     
                           var $tr1 = $('<tr class="'+clase+'"></tr>').html(
@@ -793,9 +884,12 @@ $(function()
                                     '<div class="btn-group">'+
                                       '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
                                     '</div>'+
+                                    '<div class="btn-group">'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="EstudioComveniencia" class="btn btn-warning btn-xs2 btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" '+estudioComve+'><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></button>'+
+                                    '</div>'+
                                   '</div>'+
                                   '<div>'+
-                                    '<a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="'+e['Registro']+'" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a>'+
+                                    '<a href="#" class="btn btn-xs btn-default" style="width: 100%;    margin-top: 20px;" data-rel="'+e['Registro']+'" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a>'+
                                   '</div>'+
                                   '<div id=""></div>'+
                                 '</td>'

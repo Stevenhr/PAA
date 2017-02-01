@@ -16,6 +16,7 @@ use App\Proyecto;
 use App\CambioPaa;
 use App\PersonaPaa;
 use App\Observacion;
+use App\EstudioConveniencia;
 
 class PlanAnualAController extends Controller
 {
@@ -252,10 +253,57 @@ class PlanAnualAController extends Controller
         return response()->json($model_A->actividadComponentes);
     }
 
+    public function agregar_estudio(Request $request)
+    {   
+        $validator = Validator::make($request->all(),
+            [
+                'texta_Conveniencia' =>'required',
+                'texta_Oportunidad' =>'required',
+                'texta_Justificacion' =>'required',
+            ]
+        );
+
+        if ($validator->fails())
+        return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+
+         
+
+        
+        $id=$request['id_estudio'];
+        $texta_Conveniencia=$request['texta_Conveniencia'];
+        $texta_Oportunidad=$request['texta_Oportunidad'];
+        $texta_Justificacion=$request['texta_Justificacion'];
+
+        if($request['id_estudio_pass']==0){
+
+            $EstudioConveniencia = new EstudioConveniencia;
+        }
+        else{
+            $EstudioConveniencia = EstudioConveniencia::find($id);
+        }
+        
+
+        $EstudioConveniencia['id_paa'] = $id;
+        $EstudioConveniencia['conveniencia'] = $texta_Conveniencia;
+        $EstudioConveniencia['oportunidad'] = $texta_Oportunidad;
+        $EstudioConveniencia['justificacion'] = $texta_Justificacion;
+        $EstudioConveniencia->save();
+
+        $model_A = Paa::with('actividadComponentes','actividadComponentes.actividad','actividadComponentes.componente','actividadComponentes.componente.fuente','actividadComponentes.actividad.meta','actividadComponentes.actividad.meta.proyecto')->find($id);
+
+        return response()->json($model_A->actividadComponentes);
+    }
+
     public function obtenerPaa(Request $request, $id)
     {
         $model_A = Paa::with('rubro')->find($id);
         return response()->json($model_A);
+    }
+
+    public function obtenerEstidioConveniencia(Request $request, $id)
+    {
+        $EstudioConveniencia =  EstudioConveniencia::find($id);
+        return response()->json($EstudioConveniencia);
     }
 
     public function obtenerHistorialPaa(Request $request, $id)

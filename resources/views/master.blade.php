@@ -80,7 +80,7 @@
               </li>
 
               <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Operario<span class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Operativo<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
                   @if($_SESSION['Usuario']['Permisos']['Gestion_operador'])
                     <li class=”{{ Request::is( 'GestionarPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'GestionarPaa') }}">Gestionar PAA</a></li>
@@ -108,11 +108,12 @@
                 </ul>
               </li>
 
+
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Planeación<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
                   @if($_SESSION['Usuario']['Permisos']['Gestion_planeacion'])
-                    <li class=”{{ Request::is('AprobacionPaaPlaneacion') ? 'active' : '' }}”><a href="{{ URL::to('AprobacionPlaneacion') }}">Aprobación</a></li>
+                    <li class=”{{ Request::is('AprobacionPaaPlaneacion') ? 'active' : '' }}”><a href="{{ URL::to('AprobacionPlaneacion') }}">Consultar Paa</a></li>
                   @endif
                 </ul>
               </li>

@@ -16,6 +16,8 @@ use Validator;
 use App\Proyecto;
 use App\CambioPaa;
 use App\Observacion;
+use App\PersonaPaa;
+use App\SubDireccion;
 
 class ConsolidadoController extends Controller
 {
@@ -27,10 +29,20 @@ class ConsolidadoController extends Controller
 		$proyecto = Proyecto::all();
 		$tipoContrato = TipoContrato::all();
 		$componente = Componente::all();
-        $fuente = Fuente::all();
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7'])->get();
+    $fuente = Fuente::all();
+       
+        $PersonaPaa = PersonaPaa::with('area')->where('id',$_SESSION['Id_Persona'])->get();
+        $idSub=$PersonaPaa[0]->area['id_subdireccion'];
+        
+        $arreglo1 = array();
+        $PaaSubDireccion= SubDireccion::with('areas')->find($idSub);
+        foreach ($PaaSubDireccion->areas as $value) {
+          $arreglo1[]=$value['id'];
+        }
 
-        $paa2 = Paa::where('IdPersona','1046')->where('Estado','1')->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area')->whereIn('Id_Area',$arreglo1)->whereIn('Estado',['0','4','5','6','7'])->get();
+
+        $paa2 = Paa::whereIn('Id_Area',$arreglo1)->where('Estado','1')->get();
 
         $datos = [        
             'modalidades' => $modalidadSeleccion,

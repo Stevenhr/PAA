@@ -11,12 +11,13 @@
             <div class="content" id="main_paa_configuracion" class="row" data-url="configuracionPaa" >
             	
             	<div class="btn-group btn-group-justified">
-					  <a href="#" class="btn btn-primary" id="Presupuesto" data-role="Presupuesto">Presupuesto</a>
+					  <a href="#" class="btn btn-success" id="Fuente">Fuente</a>
+					  <a href="#" class="btn btn-primary" id="Presupuesto" data-role="Presupuesto">Plan de desarrollo</a>
 					  <a href="#" class="btn btn-primary" id="Proyecto">Proyecto</a>
 					  <a href="#" class="btn btn-primary" id="Meta">Meta</a>
 					  <a href="#" class="btn btn-primary" id="Actividad">Actividad</a>
-					  <a href="#" class="btn btn-primary" id="Componente">Crear Componente</a>
-					  <a href="#" class="btn btn-primary" id="Componente_Conf">Configurar Componente</a>
+					  <a href="#" class="btn btn-warning" id="Componente">Crear Componente</a>
+					  <!--<a href="#" class="btn btn-primary" id="Componente_Conf">Configurar Componente</a> -->
 				</div>
 				
 				<br>
@@ -122,7 +123,7 @@
 							                        <td>{{ $presupuestos['fecha_inicio'] }}</td>
 							                        <td>{{ $presupuestos['presupuesto'] }}</td>
 							                        <td>
-														<div class="btn-group btn-group-justified">
+														<div class="btn-group btn-group-justified tama">
 														  <div class="btn-group">
 														    <button type="button" data-rel="{{ $presupuestos['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 														  </div>
@@ -277,7 +278,7 @@
 										                        <td>{{ $proyecto['fecha_fin'] }}</td>
 										                        <td>{{ $proyecto['valor'] }}</td>
 										                        <td>
-																	<div class="btn-group btn-group-justified">
+																	<div class="btn-group btn-group-justified tama">
 																	  <div class="btn-group">
 																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 																	  </div>
@@ -446,7 +447,7 @@
 											                        <td>{{ $meta['fecha_fin'] }}</td>
 											                        <td>{{ $meta['valor'] }}</td>
 											                        <td>
-																		<div class="btn-group btn-group-justified">
+																		<div class="btn-group btn-group-justified tama">
 																		  <div class="btn-group">
 																		    <button type="button" data-rel="{{ $meta['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 																		  </div>
@@ -629,7 +630,7 @@
 													                        <td>{{ $actividad['fecha_fin'] }}</td>
 													                        <td>{{ $actividad['valor'] }}</td>
 													                        <td>
-																				<div class="btn-group btn-group-justified">
+																				<div class="btn-group btn-group-justified tama">
 																				  <div class="btn-group">
 																				    <button type="button" data-rel="{{ $actividad['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs">
 																					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
@@ -755,7 +756,7 @@
 												        <td scope="row">{{ $componente['Nombre'] }}</td>
 												        <td scope="row">{{ $componente->fuente['nombre'] }}</td>
 												        <td>
-															<div class="btn-group btn-group-justified">
+															<div class="btn-group btn-group-justified tama">
 															  <div class="btn-group">
 															    <button type="button" data-rel="{{ $componente['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs">
 															    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
@@ -936,7 +937,7 @@
 														                        <td><h4>{{ $componente['Nombre'] }}</h4></td>
 														                        <td>{{ $componente->pivot['valor'] }}</td>
 														                        <td>
-																					<div class="btn-group btn-group-justified">
+																					<div class="btn-group btn-group-justified tama">
 																					  <div class="btn-group">
 																					    <button type="button" data-rel="{{ $componente['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs">
 																					    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
@@ -961,6 +962,119 @@
 								                         @endforeach
 									                     @EndIf
 
+					        					@endforeach
+								        </tbody>
+								    </table>
+								</div>
+			        		</div>
+			        		<div class="col-xs-12 col-md-12">
+			            		<hr><hr>
+					        </div>
+						</div>
+		        </div>
+
+
+
+
+		        <div id="Fuente_dv" style="display:none;">
+		        	<h3>Fuente</h3>
+					<hr style="border: 0; border-top: 1px solid #FF0040; height:0;">
+	            	<br>
+	                <p class="text-justify">Registro de Fuente.</p>
+			        <br>
+
+			        <form id="form_fuente_crear">
+					<div id="div_form_fuente_crear"><br></div>
+				        
+						<div class="row" >
+							<div class="col-xs-12 col-md-4">
+			        			<div class="form-group">
+			        				<label>Codigo</label>
+									<input type="text" class="form-control precio" name="codigo_fuente_crear">
+								</div>
+			        		</div>
+						    <div class="col-xs-12 col-md-4">
+						    	<div class="form-group">	
+						    		<label>Nombre Fuente</label>
+						    		<input type="hidden" class="form-control" name="Id_fuente_crear" value="0">
+									<input type="text" class="form-control" name="nombre_fuente_crear">
+								</div>
+			        		</div>
+						    <div class="col-xs-12 col-md-4">
+						    	<div class="form-group">	
+						    		<label>Valor</label>
+									<input type="text" class="form-control" name="valor_fuente_crear">
+								</div>
+			        		</div>
+						</div>
+
+						<div class="row">
+						    <div class="col-xs-12 col-md-4">
+			        		</div>
+						    <div class="col-xs-12 col-md-4 text-center"><br>
+						    		<div class="alert alert-success" style="display:none;" id="mensaje_componente_crear"></div>
+						    		<div class="alert alert-danger" style="display:none;" id="mensaje_componente2_crear"></div>
+									<button class="btn btn-primary" type="submit" id="id_btn_fuente_crear">Registrar</button>
+									<button class="btn btn-danger" type="submit" id="id_btn_fuente_canc_crear" style="display:none;">Cancelar</button>
+			        		</div>
+			        		<div class="col-xs-12 col-md-4">
+			        		</div>
+						</div>
+					</form>
+
+	            	<br>
+
+            			<div class="row">
+            				<div class="col-xs-12 col-md-12">
+			            		<hr><hr>
+					        </div>
+            			    <div class="col-xs-12 col-md-12">
+			            		<h5>Listado de Metas:</h5>
+					        </div>
+						    <div class="col-xs-12 col-md-12">
+						    	<div class="table-responsive" id="div_Tabla9">
+							      		<table id="Tabla9" class="display" width="100%" cellspacing="0">
+								        <thead>
+								            <tr>
+								                <th class="text-center">N°</th>
+								                <th>Codigo</th>
+								                <th>Fuente</th>
+								                <th>Valor</th>
+								                <th>Opción</th>
+								            </tr>
+								        </thead>
+								        <tfoot>
+								            <tr>
+								            	<th class="text-center">N°</th>
+								                <th>Codigo</th>
+								                <th>Fuente</th>
+								                <th>Valor</th>
+								                <th>Opción</th>
+								            </tr>
+								        </tfoot>
+								        <tbody i>
+								        		<?php $var=1; ?>
+
+								        		@foreach($fuentes as $fuente)
+								        			<tr>
+												    	<th scope="row" class="text-center">{{ $var }}</th>
+												        <td scope="row">{{ $fuente['codigo'] }}</td>
+												        <td scope="row"><h4>{{ $fuente['nombre'] }}</h4></td>
+												        <td scope="row">{{ number_format( $fuente['valor'], 1, '.', ',' ) }}</td>
+												        <td>
+															<div class="btn-group btn-group-justified tama">
+															  <div class="btn-group">
+															    <button type="button" data-rel="{{ $fuente['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs">
+															    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+															  </div>
+															  <div class="btn-group">
+															    <button type="button" data-rel="{{ $fuente['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+															  </div>
+															</div>
+															<div id="espera_crear{{ $fuente['Id'] }}"></div>
+								                        </td>
+												    </tr>
+												    <?php $var++; ?>
 					        					@endforeach
 								        </tbody>
 								    </table>

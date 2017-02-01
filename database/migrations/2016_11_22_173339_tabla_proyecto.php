@@ -23,7 +23,7 @@ class TablaProyecto extends Migration
             $table->string('Nombre');
             $table->dateTime('fecha_inicio');
             $table->dateTime('fecha_fin');
-            $table->integer('valor');
+            $table->bigInteger('valor');
             $table->string('descripcion');
 
             $table->timestamps();

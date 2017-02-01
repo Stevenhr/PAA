@@ -43,6 +43,10 @@ class Paa extends Model
     {
         return $this->belongsTo('App\ModalidadSeleccion','Id_ModalidadSeleccion');
     }
+
+    public function estudioComveniencia(){
+        return $this->hasOne('App\EstudioConveniencia', 'id_paa', 'Id');
+    }
      
     public function tipocontrato()
     {

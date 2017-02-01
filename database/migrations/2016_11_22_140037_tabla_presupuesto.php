@@ -18,7 +18,7 @@ class TablaPresupuesto extends Migration
             $table->string('Nombre_Actividad');
             $table->dateTime('fecha_inicio');
             $table->dateTime('fecha_fin');
-            $table->integer('presupuesto');
+            $table->bigInteger('presupuesto');
         });
     }
 

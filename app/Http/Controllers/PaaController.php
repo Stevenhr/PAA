@@ -517,7 +517,6 @@ class PaaController extends Controller
 				'nombre_actividad' => 'required',
 				'fecha_inicial_actividad' => 'required',
 				'fecha_final_actividad' => 'required',
-				'precio_actividad' => 'required',
         	]
         );
 
@@ -857,6 +856,66 @@ class PaaController extends Controller
 	{
 		$Componente = Componente::with('fuente')->find($id);
 		return response()->json($Componente);
+	}
+
+
+
+	//     CREAR FUENTE
+
+
+	public function validar_fuente(Request $request)
+	{
+		$validator = Validator::make($request->all(),
+		    [
+	           
+				'codigo_fuente_crear' => 'required',
+				'nombre_fuente_crear' => 'required',
+				'valor_fuente_crear' => 'required',
+        	]
+        );
+
+           if ($validator->fails())
+            return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+
+        	if($request->input('Id_fuente_crear') == '0'){
+        		return $this->guardar_fuente($request->all());
+        	}
+        	else{
+        		return $this->modificar_fuente($request->all());	
+        	}
+        	
+	}
+
+	public function guardar_fuente($input)
+	{
+		$fuente = new Fuente;
+		return $this->crear_fuente($fuente, $input);
+	}
+
+	public function modificar_fuente($input)
+	{
+		$fuente=Fuente::find($input["Id_fuente_crear"]);
+		return $this->crear_fuente($fuente, $input);
+	}
+
+	public function crear_fuente($model, $input)
+	{
+		$model['nombre'] = $input['nombre_fuente_crear'];
+		$model['valor'] = $input['valor_fuente_crear'];
+		$model['codigo'] = $input['codigo_fuente_crear'];
+		$model->save();
+
+		$Fuente = Fuente::all();
+		return response()->json(array('status' => 'modelo', 'fuente' => $Fuente));
+	}
+
+	
+
+
+	public function modificarFuente(Request $request, $id)
+	{
+		$Fuente = Fuente::find($id);
+		return response()->json($Fuente);
 	}
 
 }

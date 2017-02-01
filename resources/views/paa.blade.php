@@ -89,19 +89,19 @@
 			        						<?php $disable=""; $estado="";?>
 						        			@if($paa['Estado']==4)					    
 			        							<tr class="warning">
-			        						    <?php $disable="disabled"; $estado="En Subdireción";?>
+			        						    <?php $disable="disabled"; $estado="En Subdireción"; $estudioComve="disabled";?>
 			        						@elseif($paa['Estado']==5)	
 			        							<tr class="success">
-			        							<?php $disable="disabled"; $estado="Aprobado Subdireción"; ?>
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción"; $estudioComve="";?>
 			        						@elseif($paa['Estado']==6)	
 			        							<tr class="danger">
-			        							<?php $disable=""; $estado="Denegado Subdireción"; ?>
+			        							<?php $disable=""; $estado="Denegado Subdireción"; $estudioComve="disabled";?>
 			        						@elseif($paa['Estado']==7)	
 			        							<tr class="danger">
-			        							<?php $disable="disabled"; $estado="CANCELADO"; ?>
+			        							<?php $disable="disabled"; $estado="CANCELADO"; $estudioComve="disabled";?>
 			        						@else
 			        							<tr>
-			        							<?php $estado="En Consolidación"; ?>
+			        							<?php $estado="En Consolidación"; $estudioComve="disabled";?>
 			        						@endif
 			        						<th scope="row" class="text-center">{{$var}}</th>
 					                        <td><b><p class="text-info text-center">{{$paa['Registro']}}</p></b></td>
@@ -139,8 +139,11 @@
 												  <div class="btn-group">
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 												  </div>
+												  <div class="btn-group">
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="EstudioComveniencia" class="btn btn-warning btn-xs2 btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" {{$estudioComve}}><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></button>
+												  </div>
 												</div>
-												<div><a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="{{$paa['Registro']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" ></span> Observaciones</a></div>
+												<div><a href="#" class="btn btn-xs btn-default" style="width: 100%;    margin-top: 20px;" data-rel="{{$paa['Registro']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" ></span> Observaciones</a></div>
 												<div id=""></div>
 					                        </td>
 					                        </tr>
@@ -740,8 +743,63 @@
 </div>
 
 
+<!-- MODAL FIANANCIACION-->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_EstudioComveniencia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      
+		<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Estudio de Conveniencia y oportunidad </h4>
+	        PAA N°: <label id="id_Fin">
 
-!-- MODAL APRIOBACION CAMBIOS-->
+	    </div>
+	    <form id="form_agregar_estudio_comveniencia">
+			<div class="modal-body">
+				<div class="row"  >
+					   <div class="col-xs-12 col-sm-12">
+					  		<div class="form-group">
+						    	<label>Conveniencia</label>
+								<textarea class="form-control" rows="6" name="texta_Conveniencia"></textarea>
+							</div>
+					  </div>
+					   <div class="col-xs-12 col-sm-12">
+					  		<div class="form-group">
+						    	<label>Oportunidad</label>
+								<textarea class="form-control" rows="6" name="texta_Oportunidad"></textarea>
+							</div>
+					  </div>
+					  <div class="col-xs-12 col-sm-12">
+					  		<div class="form-group">
+						    	<label>Justificación</label>
+								<textarea class="form-control" rows="6" name="texta_Justificacion"></textarea>
+							</div>
+					  </div>
+			
+					  <div class="col-xs-12 col-sm-12">
+					  <div id="mjs_Observa_Fina" class="alert alert-success" style="display: none"></div>
+					  </div>
+				</div>
+	      	</div>
+      
+	      <div class="modal-footer">
+	      	<div class="row">
+	        	<div class="col-xs-12 col-sm-12">
+	        		<input type="hidden" name="id_estudio" id="id_estudio"></input>
+	        		<input type="hidden" name="id_estudio_pass" id="id_estudio_pass" value="0"></input>
+	        		<button type="submit" class="btn btn-success" >Registro</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+	        </div>
+	      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL APRIOBACION CAMBIOS-->
 
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Observaciones_paa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">

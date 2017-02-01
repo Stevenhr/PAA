@@ -46,10 +46,12 @@ $(function()
         $('#Proyecto').removeClass("active");
         $('#Meta').removeClass("active");
         $('#Actividad').removeClass("active");
+        $('#Fuente').removeClass("active");
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
 
         $('#Presupuesto_dv').show();
+        $('#Fuente_dv').hide();
         $('#Proyecto_dv').hide();
         $('#Meta_dv').hide();
         $('#Actividad_dv').hide();
@@ -62,10 +64,12 @@ $(function()
         $('#Presupuesto').removeClass("active");
         $('#Meta').removeClass("active");
         $('#Actividad').removeClass("active");
+        $('#Fuente').removeClass("active");
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
 
         $('#Proyecto_dv').show();
+        $('#Fuente_dv').hide();
         $('#Presupuesto_dv').hide();
         $('#Meta_dv').hide();
         $('#Actividad_dv').hide();
@@ -78,10 +82,12 @@ $(function()
         $('#Presupuesto').removeClass("active");
         $('#Proyecto').removeClass("active");
         $('#Actividad').removeClass("active");
+        $('#Fuente').removeClass("active");
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
 
         $('#Meta_dv').show();
+        $('#Fuente_dv').hide();
         $('#Proyecto_dv').hide();
         $('#Presupuesto_dv').hide();
         $('#Actividad_dv').hide();
@@ -94,10 +100,12 @@ $(function()
         $('#Presupuesto').removeClass("active");
         $('#Proyecto').removeClass("active");
         $('#Meta').removeClass("active");
+        $('#Fuente').removeClass("active");
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
 
         $('#Actividad_dv').show();
+        $('#Fuente_dv').hide();
         $('#Presupuesto_dv').hide();
         $('#Meta_dv').hide();
         $('#Proyecto_dv').hide();
@@ -109,11 +117,13 @@ $(function()
         $(this).addClass("active");
         $('#Presupuesto').removeClass("active");
         $('#Proyecto').removeClass("active");
+        $('#Fuente').removeClass("active");
         $('#Meta').removeClass("active");
         $('#Actividad').removeClass("active");
         $('#Componente_Conf').removeClass("active");
 
         $('#Componente_dv').show();
+        $('#Fuente_dv').hide();
         $('#Presupuesto_dv').hide();
         $('#Meta_dv').hide();
         $('#Proyecto_dv').hide();
@@ -126,15 +136,35 @@ $(function()
         $('#Presupuesto').removeClass("active");
         $('#Proyecto').removeClass("active");
         $('#Meta').removeClass("active");
+        $('#Fuente').removeClass("active");
         $('#Actividad').removeClass("active");
         $('#Componente').removeClass("active");
 
         $('#Componente_Conf_dv').show();
+        $('#Fuente_dv').hide();
         $('#Presupuesto_dv').hide();
         $('#Meta_dv').hide();
         $('#Proyecto_dv').hide();
         $('#Actividad_dv').hide();
         $('#Componente_dv').hide();
+    });
+
+    $('#Fuente').on('click', function(e){
+        $(this).addClass("active");
+        $('#Presupuesto').removeClass("active");
+        $('#Proyecto').removeClass("active");
+        $('#Meta').removeClass("active");
+        $('#Actividad').removeClass("active");
+        $('#Componente').removeClass("active");
+        $('#Componente_Conf').removeClass("active");
+
+        $('#Fuente_dv').show();
+        $('#Presupuesto_dv').hide();
+        $('#Proyecto_dv').hide();
+        $('#Meta_dv').hide();
+        $('#Actividad_dv').hide();
+        $('#Componente_dv').hide();
+        $('#Componente_Conf_dv').hide();
     });
 
     var t = $('#Tabla3').DataTable({
@@ -177,7 +207,7 @@ $(function()
                             '<td>'+e['fecha_fin']+'</td>',
                             '<td>'+e['fecha_inicio']+'</td>',
                             '<td>'+e['presupuesto']+'</td>',
-                            '<td><div class="btn-group btn-group-justified">'+
+                            '<td><div class="btn-group btn-group-justified tama">'+
                                 '<div class="btn-group">'+
                                 '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                 '</div>'+
@@ -268,7 +298,7 @@ $(function()
                                         '<td>'+e['fecha_inicio']+'</td>',
                                         '<td>'+e['fecha_fin']+'</td>',
                                         '<td>'+e['presupuesto']+'</td>',
-                                        '<td><div class="btn-group btn-group-justified">'+
+                                        '<td><div class="btn-group btn-group-justified tama">'+
                                             '<div class="btn-group">'+
                                             '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                             '</div>'+
@@ -370,7 +400,7 @@ $(function()
                                 '<td>'+ee['fecha_inicio']+'</td>',
                                 '<td>'+ee['fecha_fin']+'</td>',
                                 '<td>'+ee['valor']+'</td>',
-                                '<td><div class="btn-group btn-group-justified">'+
+                                '<td><div class="btn-group btn-group-justified tama">'+
                                     '<div class="btn-group">'+
                                     '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                     '</div>'+
@@ -470,7 +500,7 @@ $(function()
                                             '<td>'+ee['fecha_inicio']+'</td>',
                                             '<td>'+ee['fecha_fin']+'</td>',
                                             '<td>'+ee['valor']+'</td>',
-                                            '<td><div class="btn-group btn-group-justified">'+
+                                            '<td><div class="btn-group btn-group-justified tama">'+
                                                 '<div class="btn-group">'+
                                                 '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                                 '</div>'+
@@ -607,7 +637,7 @@ $(function()
                                     '<td>'+eee['fecha_inicio']+'</td>',
                                     '<td>'+eee['fecha_fin']+'</td>',
                                     '<td>'+eee['valor']+'</td>',
-                                    '<td><div class="btn-group btn-group-justified">'+
+                                    '<td><div class="btn-group btn-group-justified tama">'+
                                         '<div class="btn-group">'+
                                         '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                         '</div>'+
@@ -709,7 +739,7 @@ $(function()
                                                 '<td>'+eee['fecha_inicio']+'</td>',
                                                 '<td>'+eee['fecha_fin']+'</td>',
                                                 '<td>'+eee['valor']+'</td>',
-                                                '<td><div class="btn-group btn-group-justified">'+
+                                                '<td><div class="btn-group btn-group-justified tama">'+
                                                     '<div class="btn-group">'+
                                                     '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                                     '</div>'+
@@ -858,9 +888,9 @@ $(function()
         $.post(URL+'/validar/actividad',$(this).serialize(),function(data){
             if(data.status == 'error')
             {
-                validad_error3(data.errors);
+                validad_error_act(data.errors);
             } else {
-                
+                validad_error_act(data.errors);
                 if(data.status == 'modelo')
                 {
                     var datos=data.presupuesto;
@@ -883,7 +913,7 @@ $(function()
                                         '<td>'+eeee['fecha_inicio']+'</td>',
                                         '<td>'+eeee['fecha_fin']+'</td>',
                                         '<td>'+eeee['valor']+'</td>',
-                                        '<td><div class="btn-group btn-group-justified">'+
+                                        '<td><div class="btn-group btn-group-justified tama">'+
                                             '<div class="btn-group">'+
                                             '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                             '</div>'+
@@ -919,6 +949,34 @@ $(function()
         },'json');
         e.preventDefault();
     });
+
+     var validad_error_act = function(data)
+    {
+        $('#form_actividad .form-group').removeClass('has-error');
+        var selector = '';
+        for (var error in data){
+            if (typeof data[error] !== 'function') {
+                switch(error)
+                {   
+                       
+
+                    case 'nombre_actividad':
+                    case 'fecha_inicial_actividad':
+                    case 'fecha_final_actividad':
+                    case 'nombre_meta':
+                        selector = 'input';
+                    break;
+
+                    case 'idPresupuesto_A':
+                    case 'idProyecto_A':
+                    case 'idMeta_A':
+                        selector = 'select';
+                    break;
+                }
+                $('#form_actividad '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
+            }
+        }
+    }
 
 
     $('#Tabla6').delegate('button[data-funcion="ver_eli"]','click',function (e){  
@@ -961,7 +1019,7 @@ $(function()
                                                     '<td>'+eeee['fecha_inicio']+'</td>',
                                                     '<td>'+eeee['fecha_fin']+'</td>',
                                                     '<td>'+eeee['valor']+'</td>',
-                                                    '<td><div class="btn-group btn-group-justified">'+
+                                                    '<td><div class="btn-group btn-group-justified tama">'+
                                                         '<div class="btn-group">'+
                                                         '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                                         '</div>'+
@@ -1175,7 +1233,7 @@ $(function()
                                             '<td>'+eeee['Nombre']+'</td>',
                                             '<td><h4>'+eeeee['Nombre']+'</h4></td>',
                                             '<td>'+eeeee.pivot['valor']+'</td>',
-                                            '<td><div class="btn-group btn-group-justified">'+
+                                            '<td><div class="btn-group btn-group-justified tama">'+
                                                 '<div class="btn-group">'+
                                                 '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                                 '</div>'+
@@ -1272,7 +1330,7 @@ $(function()
                                                 '<td>'+eeeee['fecha_inicio']+'</td>',
                                                 '<td>'+eeeee['fecha_fin']+'</td>',
                                                 '<td>'+eeeee['valor']+'</td>',
-                                                '<td><div class="btn-group btn-group-justified">'+
+                                                '<td><div class="btn-group btn-group-justified tama">'+
                                                     '<div class="btn-group">'+
                                                     '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                                     '</div>'+
@@ -1408,7 +1466,7 @@ $(function()
                                 '<td>'+e['codigo']+'</td>',
                                 '<td>'+e['Nombre']+'</td>',
                                 '<td>'+e.fuente['nombre']+'</td>',
-                                '<td><div class="btn-group btn-group-justified">'+
+                                '<td><div class="btn-group btn-group-justified tama">'+
                                     '<div class="btn-group">'+
                                     '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                     '</div>'+
@@ -1490,7 +1548,7 @@ $(function()
                                     '<td>'+e['codigo']+'</td>',
                                     '<td>'+e['Nombre']+'</td>',
                                     '<td>'+e.fuente['nombre']+'</td>',
-                                    '<td><div class="btn-group btn-group-justified">'+
+                                    '<td><div class="btn-group btn-group-justified tama">'+
                                         '<div class="btn-group">'+
                                         '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                         '</div>'+
@@ -1566,6 +1624,206 @@ $(function()
                     return false;
 
     }); 
+
+
+
+
+
+
+
+
+    /*############################   CREAR FUENTE    ###########################*/
+
+
+    var t_fuente = $('#Tabla9').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+    });
+
+
+    $('#form_fuente_crear').on('submit', function(e){
+      
+
+        $.post(URL+'/validar/fuente',$(this).serialize(),function(data){
+            if(data.status == 'error')
+            {
+                validad_error_fuente(data.errors);
+            } else {
+                validad_error_fuente(data.errors);
+                if(data.status == 'modelo')
+                {
+                    var datos=data.fuente;
+                    document.getElementById("form_fuente_crear").reset();                
+                    $("#div_Tabla9").show();
+                    var num=1;
+                    t_fuente.clear().draw();
+                    $.each(datos, function(i, e){
+                        t_fuente.row.add( [
+                            '<th scope="row" class="text-center">'+num+'</th>',
+                            '<td>'+e['codigo']+'</td>',
+                            '<td><h4>'+e['nombre']+'<h4></td>',
+                            '<td>'+e['valor']+'</td>',
+                            '<td><div class="btn-group btn-group-justified tama">'+
+                                '<div class="btn-group">'+
+                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                '</div>'+
+                                '<div class="btn-group">'+
+                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                '</div>'+
+                                '</div>'+
+                                '<div id="espera'+e['Id']+'"></div>'+
+                            '</td>'
+                        ] ).draw( false );
+                        num++;
+
+                    });
+                    $('#mensaje_presupuesto').show();
+                    setTimeout(function(){
+                        $('#mensaje_presupuesto').hide();
+                        $("#id_btn_presupuesto").html('Registrar');
+                        $("#id_btn_presup_canc").hide();
+                    }, 2000)
+                    //location.reload();
+                }else{
+                    $('#mensaje_presupuesto2').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
+                    $('#mensaje_presupuesto2').show();
+                    setTimeout(function(){
+                        $('#mensaje_presupuesto2').hide();
+                    }, 6000)
+                }
+                
+            }
+        },'json');
+
+        e.preventDefault();
+    });
+
+
+     var validad_error_fuente = function(data)
+    {
+        $('#form_fuente_crear .form-group').removeClass('has-error');
+        var selector = '';
+        for (var error in data){
+            if (typeof data[error] !== 'function') {
+                switch(error)
+                {
+                    case 'codigo_fuente_crear':
+                    case 'nombre_fuente_crear':
+                    case 'valor_fuente_crear':
+                        selector = 'input';
+                    break;
+                }
+                $('#form_fuente_crear '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
+            }
+        }
+    }
+
+
+    $('#Tabla9').delegate('button[data-funcion="ver_upd"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        $("#espera"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/fuente/modificarFuente/'+id,
+            {},
+            function(data)
+            {   
+                    $("#espera"+id).html("");
+                    $('input[name="Id_fuente_crear"]').val(data.Id);
+                    $('input[name="nombre_fuente_crear"]').val(data.nombre);
+                    $('input[name="codigo_fuente_crear"]').val(data.codigo);
+                    $('input[name="valor_fuente_crear"]').val(data.valor);
+                    $("#id_btn_fuente_crear").html('Modificar');
+                    $("#id_btn_fuente_canc_crear").show();
+                    $("#div_Tabla9").hide();
+
+                    $('html,body').animate({
+                        scrollTop: $("#main_paa_configuracion").offset().top
+                    }, 1000);
+                    $( "#div_form_fuente_crear" ).toggle( "highlight");            
+            }
+        );
+    }); 
+
+
+
+    $('#id_btn_fuente_canc_crear').on('click', function(e){
+          
+                    $('input[name="Id_fuente_crear"]').val('0');         
+                    $('input[name="nombre_fuente_crear"]').val('');
+                    $('input[name="codigo_fuente_crear"]').val('');
+                    $('input[name="valor_fuente_crear"]').val('');
+
+
+                    $("#id_btn_fuente_crear").html('Registrar');
+                    $("#id_btn_fuente_canc_crear").hide();
+                    $("#div_Tabla9").show();
+
+                    $('html,body').animate({
+                        scrollTop: $("#Tabla9").offset().top
+                    }, 1000);
+                    return false;
+
+    }); 
+
+    $('#Tabla9').delegate('button[data-funcion="ver_eli"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        $("#espera"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/presupuesto/eliminar/'+id,
+            {},
+            function(data)
+            {   
+
+                    if(data.status == 'error')
+                    {
+                        var proyects="";
+                        $.each(data.datos, function(i, e){
+                            $.each(e.proyectos, function(i, ee){
+                                proyects=proyects+'<br><li>'+ee['Nombre']+'</li>';
+                            });
+                        });
+                        $("#espera"+id).html('<div class="form_paaalert alert-danger"><strong>Error!</strong> Posee los siguientes proyectos activos.<br>'+proyects+'</div>');
+                        setTimeout(function(){
+                            $("#espera"+id).html('');
+                        }, 4000)
+                   
+                    } else {
+                        $("#espera"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino el presupuesto correctamente.</div>');
+                        setTimeout(function(){
+                                $("#espera"+id).html('');
+                                t_fuente.clear().draw();
+                                var num=1;
+                                $.each(data, function(i, e){
+                                    t_fuente.row.add( [
+                                        '<th scope="row" class="text-center">'+num+'</th>',
+                                        '<td>'+e['codigo']+'</td>',
+                                        '<td><h4>'+e['nombre']+'<h4></td>',
+                                        '<td>'+e['valor']+'</td>',
+                                        '<td><div class="btn-group btn-group-justified tama">'+
+                                            '<div class="btn-group">'+
+                                            '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                            '</div>'+
+                                            '<div class="btn-group">'+
+                                            '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                            '</div>'+
+                                            '</div>'+
+                                            '<div id="espera'+e['Id']+'"></div>'+
+                                        '</td>'
+                                    ] ).draw( false );
+                                    num++;
+                                });
+                        }, 2000)
+                    }
+            }
+        );
+    }); 
+
+
 
 
 
