@@ -1676,7 +1676,7 @@ $(function()
                                 '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                 '</div>'+
                                 '</div>'+
-                                '<div id="espera'+e['Id']+'"></div>'+
+                                '<div id="espera_crear_fuente'+e['Id']+'"></div>'+
                             '</td>'
                         ] ).draw( false );
                         num++;
@@ -1726,13 +1726,13 @@ $(function()
 
     $('#Tabla9').delegate('button[data-funcion="ver_upd"]','click',function (e){  
         var id = $(this).data('rel'); 
-        $("#espera"+id).html("<img src='public/Img/loading.gif'/>");
+        $("#espera_crear_fuente"+id).html("<img src='public/Img/loading.gif'/>");
         $.get(
             URL+'/fuente/modificarFuente/'+id,
             {},
             function(data)
             {   
-                    $("#espera"+id).html("");
+                    $("#espera_crear_fuente"+id).html("");
                     $('input[name="Id_fuente_crear"]').val(data.Id);
                     $('input[name="nombre_fuente_crear"]').val(data.nombre);
                     $('input[name="codigo_fuente_crear"]').val(data.codigo);
@@ -1772,30 +1772,30 @@ $(function()
 
     $('#Tabla9').delegate('button[data-funcion="ver_eli"]','click',function (e){  
         var id = $(this).data('rel'); 
-        $("#espera"+id).html("<img src='public/Img/loading.gif'/>");
+        $("#espera_crear_fuente"+id).html("<img src='public/Img/loading.gif'/>");
         $.get(
-            URL+'/presupuesto/eliminar/'+id,
+            URL+'/fuente/eliminar/'+id,
             {},
             function(data)
             {   
-
+                    
                     if(data.status == 'error')
                     {
                         var proyects="";
                         $.each(data.datos, function(i, e){
-                            $.each(e.proyectos, function(i, ee){
+                            $.each(e.componentes, function(i, ee){
                                 proyects=proyects+'<br><li>'+ee['Nombre']+'</li>';
                             });
                         });
-                        $("#espera"+id).html('<div class="form_paaalert alert-danger"><strong>Error!</strong> Posee los siguientes proyectos activos.<br>'+proyects+'</div>');
+                        $("#espera_crear_fuente"+id).html('<div class="form_paaalert alert-danger"><strong>Error!</strong> Posee los siguientes componentes activos.<br>'+proyects+'</div>');
                         setTimeout(function(){
-                            $("#espera"+id).html('');
-                        }, 4000)
+                            $("#espera_crear_fuente"+id).html('');
+                        }, 5000)
                    
                     } else {
-                        $("#espera"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino el presupuesto correctamente.</div>');
+                        $("#espera_crear_fuente"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino la fuente correctamente.</div>');
                         setTimeout(function(){
-                                $("#espera"+id).html('');
+                                $("#espera_crear_fuente"+id).html('');
                                 t_fuente.clear().draw();
                                 var num=1;
                                 $.each(data, function(i, e){
@@ -1812,7 +1812,7 @@ $(function()
                                             '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                             '</div>'+
                                             '</div>'+
-                                            '<div id="espera'+e['Id']+'"></div>'+
+                                            '<div id="espera_crear_fuente'+e['Id']+'"></div>'+
                                         '</td>'
                                     ] ).draw( false );
                                     num++;

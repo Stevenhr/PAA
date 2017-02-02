@@ -910,6 +910,28 @@ class PaaController extends Controller
 	}
 
 	
+	public function eliminar_fuente(Request $request, $id)
+	{
+		//$Presupuesto = Presupuesto::find($id);
+
+		$Fuente = Fuente::with('componentes')->whereHas('componentes', function($q) use ($id)
+		{
+		    $q->where('Id_fuente', '=', $id);
+
+		})->get();
+
+
+		if(count($Fuente)>0){
+			return response()->json(array('status' => 'error', 'datos' => $Fuente));
+		}
+		else
+		{
+			$user = Fuente::find($id);
+			$user->delete();
+			$Fuente = Fuente::all();
+			return $Fuente;
+		}
+	}
 
 
 	public function modificarFuente(Request $request, $id)

@@ -48,6 +48,7 @@ Route::post('/configuracionPaa/validar/fuente/', 'PaaController@validar_fuente')
 Route::get('/configuracionPaa/presupuesto/eliminar/{id}', 'PaaController@eliminar_presupuesto');
 Route::get('/configuracionPaa/presupuesto/modificar/{id}', 'PaaController@modificar_presupuesto');
 Route::get('/configuracionPaa/fuente/modificarFuente/{id}', 'PaaController@modificarFuente');
+Route::get('/configuracionPaa/fuente/eliminar/{id}', 'PaaController@eliminar_fuente');
 
 Route::post('/configuracionPaa/validar/proyecto/', 'PaaController@validar_proyecto');
 Route::get('/configuracionPaa/proyecto/eliminar/{id}', 'PaaController@eliminar_proyecto');

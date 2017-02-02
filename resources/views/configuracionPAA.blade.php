@@ -1071,7 +1071,7 @@
 															    <button type="button" data-rel="{{ $fuente['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 															  </div>
 															</div>
-															<div id="espera_crear{{ $fuente['Id'] }}"></div>
+															<div id="espera_crear_fuente{{ $fuente['Id'] }}"></div>
 								                        </td>
 												    </tr>
 												    <?php $var++; ?>
