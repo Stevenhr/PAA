@@ -40,6 +40,29 @@ $(function()
       }
    });
 
+    function number_format(amount, decimals) {
+
+        amount += ''; // por si pasan un numero en vez de un string
+        amount = parseFloat(amount.replace(/[^0-9\.]/g, '')); // elimino cualquier cosa que no sea numero o punto
+
+        decimals = decimals || 0; // por si la variable no fue fue pasada
+
+        // si no es un numero o es igual a cero retorno el mismo cero
+        if (isNaN(amount) || amount === 0) 
+            return parseFloat(0).toFixed(decimals);
+
+        // si es mayor o menor que cero retorno el valor formateado como numero
+        amount = '' + amount.toFixed(decimals);
+
+        var amount_parts = amount.split('.'),
+            regexp = /(\d+)(\d{3})/;
+
+        while (regexp.test(amount_parts[0]))
+            amount_parts[0] = amount_parts[0].replace(regexp, '$1' + ',' + '$2');
+
+        return amount_parts.join('.');
+    }
+
     //Submit formulario único de personas
     $('#Presupuesto').on('click', function(e){
         $(this).addClass("active");
@@ -297,7 +320,7 @@ $(function()
                                         '<td><h4>'+e['Nombre_Actividad']+'<h4></td>',
                                         '<td>'+e['fecha_inicio']+'</td>',
                                         '<td>'+e['fecha_fin']+'</td>',
-                                        '<td>'+e['presupuesto']+'</td>',
+                                        '<td>'+number_format(e['presupuesto'],1)+'</td>',
                                         '<td><div class="btn-group btn-group-justified tama">'+
                                             '<div class="btn-group">'+
                                             '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
@@ -399,7 +422,7 @@ $(function()
                                 '<td>'+ee['Nombre']+'</td>',
                                 '<td>'+ee['fecha_inicio']+'</td>',
                                 '<td>'+ee['fecha_fin']+'</td>',
-                                '<td>'+ee['valor']+'</td>',
+                                '<td>'+number_format(ee['valor'],1)+'</td>',
                                 '<td><div class="btn-group btn-group-justified tama">'+
                                     '<div class="btn-group">'+
                                     '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
@@ -499,7 +522,7 @@ $(function()
                                             '<td>'+ee['Nombre']+'</td>',
                                             '<td>'+ee['fecha_inicio']+'</td>',
                                             '<td>'+ee['fecha_fin']+'</td>',
-                                            '<td>'+ee['valor']+'</td>',
+                                            '<td>'+number_format(ee['valor'],1)+'</td>',
                                             '<td><div class="btn-group btn-group-justified tama">'+
                                                 '<div class="btn-group">'+
                                                 '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
@@ -636,7 +659,7 @@ $(function()
                                     '<td><h4>'+eee['Nombre']+'</h4></td>',
                                     '<td>'+eee['fecha_inicio']+'</td>',
                                     '<td>'+eee['fecha_fin']+'</td>',
-                                    '<td>'+eee['valor']+'</td>',
+                                    '<td>'+number_format(eee['valor'],1)+'</td>',
                                     '<td><div class="btn-group btn-group-justified tama">'+
                                         '<div class="btn-group">'+
                                         '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
@@ -738,7 +761,7 @@ $(function()
                                                 '<td><h4>'+eee['Nombre']+'</h4></td>',
                                                 '<td>'+eee['fecha_inicio']+'</td>',
                                                 '<td>'+eee['fecha_fin']+'</td>',
-                                                '<td>'+eee['valor']+'</td>',
+                                                '<td>'+number_format(eee['valor'],1)+'</td>',
                                                 '<td><div class="btn-group btn-group-justified tama">'+
                                                     '<div class="btn-group">'+
                                                     '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
@@ -912,7 +935,7 @@ $(function()
                                         '<td><h4>'+eeee['Nombre']+'</h4></td>',
                                         '<td>'+eeee['fecha_inicio']+'</td>',
                                         '<td>'+eeee['fecha_fin']+'</td>',
-                                        '<td>'+eeee['valor']+'</td>',
+                                        '<td>'+number_format(eeee['valor'],1)+'</td>',
                                         '<td><div class="btn-group btn-group-justified tama">'+
                                             '<div class="btn-group">'+
                                             '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
@@ -1018,7 +1041,7 @@ $(function()
                                                     '<td><h4>'+eeee['Nombre']+'</h4></td>',
                                                     '<td>'+eeee['fecha_inicio']+'</td>',
                                                     '<td>'+eeee['fecha_fin']+'</td>',
-                                                    '<td>'+eeee['valor']+'</td>',
+                                                    '<td>'+number_format(eeee['valor'],1)+'</td>',
                                                     '<td><div class="btn-group btn-group-justified tama">'+
                                                         '<div class="btn-group">'+
                                                         '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
@@ -1232,7 +1255,7 @@ $(function()
                                             '<td>'+eee['Nombre']+'</td>',
                                             '<td>'+eeee['Nombre']+'</td>',
                                             '<td><h4>'+eeeee['Nombre']+'</h4></td>',
-                                            '<td>'+eeeee.pivot['valor']+'</td>',
+                                            '<td>'+number_format(eeeee.pivot['valor'],1)+'</td>',
                                             '<td><div class="btn-group btn-group-justified tama">'+
                                                 '<div class="btn-group">'+
                                                 '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
@@ -1329,7 +1352,7 @@ $(function()
                                                 '<td><h4>'+eeeee['Nombre']+'</h4></td>',
                                                 '<td>'+eeeee['fecha_inicio']+'</td>',
                                                 '<td>'+eeeee['fecha_fin']+'</td>',
-                                                '<td>'+eeeee['valor']+'</td>',
+                                                '<td>'+number_format(eeeee['valor'],1)+'</td>',
                                                 '<td><div class="btn-group btn-group-justified tama">'+
                                                     '<div class="btn-group">'+
                                                     '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
@@ -1667,7 +1690,7 @@ $(function()
                             '<th scope="row" class="text-center">'+num+'</th>',
                             '<td>'+e['codigo']+'</td>',
                             '<td><h4>'+e['nombre']+'<h4></td>',
-                            '<td>'+e['valor']+'</td>',
+                            '<td>'+number_format(e['valor'],1)+'</td>',
                             '<td><div class="btn-group btn-group-justified tama">'+
                                 '<div class="btn-group">'+
                                 '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
@@ -1723,7 +1746,6 @@ $(function()
         }
     }
 
-
     $('#Tabla9').delegate('button[data-funcion="ver_upd"]','click',function (e){  
         var id = $(this).data('rel'); 
         $("#espera_crear_fuente"+id).html("<img src='public/Img/loading.gif'/>");
@@ -1749,15 +1771,12 @@ $(function()
         );
     }); 
 
-
-
     $('#id_btn_fuente_canc_crear').on('click', function(e){
-          
+
                     $('input[name="Id_fuente_crear"]').val('0');         
                     $('input[name="nombre_fuente_crear"]').val('');
                     $('input[name="codigo_fuente_crear"]').val('');
                     $('input[name="valor_fuente_crear"]').val('');
-
 
                     $("#id_btn_fuente_crear").html('Registrar');
                     $("#id_btn_fuente_canc_crear").hide();
@@ -1778,7 +1797,6 @@ $(function()
             {},
             function(data)
             {   
-                    
                     if(data.status == 'error')
                     {
                         var proyects="";
@@ -1803,7 +1821,7 @@ $(function()
                                         '<th scope="row" class="text-center">'+num+'</th>',
                                         '<td>'+e['codigo']+'</td>',
                                         '<td><h4>'+e['nombre']+'<h4></td>',
-                                        '<td>'+e['valor']+'</td>',
+                                        '<td>'+number_format(e['valor'],1)+'</td>',
                                         '<td><div class="btn-group btn-group-justified tama">'+
                                             '<div class="btn-group">'+
                                             '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+

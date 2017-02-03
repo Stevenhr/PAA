@@ -121,7 +121,7 @@
 							                        <td><h4>{{ $presupuestos['Nombre_Actividad'] }}</h4></td>
 							                        <td>{{ $presupuestos['fecha_fin'] }}</td>
 							                        <td>{{ $presupuestos['fecha_inicio'] }}</td>
-							                        <td>{{ $presupuestos['presupuesto'] }}</td>
+							                        <td>{{ number_format($presupuestos['presupuesto']) }}</td>
 							                        <td>
 														<div class="btn-group btn-group-justified tama">
 														  <div class="btn-group">
@@ -276,7 +276,7 @@
 										                        <td><h4>{{ $proyecto['Nombre'] }}</h4></td>
 										                        <td>{{ $proyecto['fecha_inicio'] }}</td>
 										                        <td>{{ $proyecto['fecha_fin'] }}</td>
-										                        <td>{{ $proyecto['valor'] }}</td>
+										                        <td>{{ number_format($proyecto['valor']) }}</td>
 										                        <td>
 																	<div class="btn-group btn-group-justified tama">
 																	  <div class="btn-group">
@@ -445,7 +445,7 @@
 											                        <td><h4>{{ $meta['Nombre'] }}</h4></td>
 											                        <td>{{ $meta['fecha_inicio'] }}</td>
 											                        <td>{{ $meta['fecha_fin'] }}</td>
-											                        <td>{{ $meta['valor'] }}</td>
+											                        <td>{{ number_format($meta['valor']) }}</td>
 											                        <td>
 																		<div class="btn-group btn-group-justified tama">
 																		  <div class="btn-group">
@@ -628,7 +628,7 @@
 													                        <td><h4>{{ $actividad['Nombre'] }}</h4></td>
 													                        <td>{{ $actividad['fecha_inicio'] }}</td>
 													                        <td>{{ $actividad['fecha_fin'] }}</td>
-													                        <td>{{ $actividad['valor'] }}</td>
+													                        <td>{{ number_format($actividad['valor']) }}</td>
 													                        <td>
 																				<div class="btn-group btn-group-justified tama">
 																				  <div class="btn-group">
@@ -935,7 +935,7 @@
 												        						<th scope="row">{{ $meta['Nombre'] }}</th>
 												        						<td>{{ $actividad['Nombre'] }}</td>
 														                        <td><h4>{{ $componente['Nombre'] }}</h4></td>
-														                        <td>{{ $componente->pivot['valor'] }}</td>
+														                        <td>{{ number_format($componente->pivot['valor']) }}</td>
 														                        <td>
 																					<div class="btn-group btn-group-justified tama">
 																					  <div class="btn-group">
