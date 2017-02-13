@@ -1,6 +1,5 @@
 @extends('master')             
 
-
 @section('script')
 	@parent
     <script src="{{ asset('public/Js/PAA/paa.js') }}"></script>	
@@ -173,12 +172,37 @@
         		<input type="hidden" class="form-control" name="id_Paa" value="0">
         		<input type="hidden" class="form-control" name="id_registro" value="0">
 		        <div class="row">
+				  
 				  <div class="col-xs-6 col-sm-8">
 				  		<div class="form-group">
 					    	<label>Códigos UNSPSC </label>
-							<input type="text" class="form-control" name="codigo_Unspsc">
+					    	<div class="input-group">
+						      <input type="text" class="form-control" name="codigo_Unspsc">
+						      <span class="input-group-btn">
+						        <button class="btn btn-default" type="button" id="agregarCodigos">Agregar</button>
+						        <button class="btn btn-default" type="button" id="VerAgregarCodigos">Ver</button>
+						        <button class="btn btn-default" type="button" id="CerrarAgregarCodigos">Cerrar</button>
+						      </span>
+						    </div>
 						</div>
+
+				  		<table class="table table-condensed table-bordered" id="t_datos_actividad_codigo" style="display: none;" > 
+							<thead>
+							<tr>
+							<th>#</th>
+							<th>Codigo</th>
+							<th>Eliminar</th>
+							</tr>
+							</thead>
+							<tbody id="registros_cod"> 
+							</tbody> 
+						</table>
+
+        				<div class="form-group"  id="mensaje_actividad_codigos" style="display: none;">
+        					<div id="alert_actividad_codigos"></div>
+        				</div>
 				  </div>
+
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					  		<label>Modalidad de selección</label>
@@ -196,15 +220,15 @@
 
 				<div class="row">
 				  <div class="col-xs-6 col-sm-4">
-				  		<div class="form-group">
-					    	<label>Tipo de contrato </label>
-							<select class="form-control" name="tipo_contrato">
-								<option value="" >Selecionar</option>
-								@foreach($tipoContratos as $tipoContrato)
-									<option value="{{ $tipoContrato['Id'] }}" >{{ $tipoContrato['Nombre'] }}</option>
-							    @endforeach
-							</select>
-						</div>
+			  		<div class="form-group">
+				    	<label>Tipo de contrato </label>
+						<select class="form-control" name="tipo_contrato">
+							<option value="" >Selecionar</option>
+							@foreach($tipoContratos as $tipoContrato)
+								<option value="{{ $tipoContrato['Id'] }}" >{{ $tipoContrato['Nombre'] }}</option>
+						    @endforeach
+						</select>
+					</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-8">
 				  		<div class="form-group">
@@ -303,30 +327,23 @@
 				</div>
 
 				<div class="row">
-				 
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Numero de Contratistas</label>
 							<input type="text" class="form-control" name="numero_contratista">
 						</div>
 				  </div>
-				  <div class="col-xs-6 col-sm-4">
+				  <div class="col-xs-6 col-sm-8">
 				  		<div class="form-group">
 					  		<label>Datos de contacto del responsable</label>
 							<input type="text" class="form-control" name="datos_contacto">
 						</div>
 				  </div>
 				</div>
-				<div id="div_finaciacion">
-				<div class="row">
-				  	<div class="col-xs-12 col-sm-12">
-				  	<hr>
-				  		<h4 class="modal-title" id="myModalLabel">AGREGAR FINANCIACIÓN</h4>
-					</div>
-				</div>
+
 
 				<div class="row">
-				  <div class="col-xs-12 col-sm-12">
+				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Proyecto de inversión o rubro</label>
 					    	<input type="hidden" name="id_pivot_comp" id="id_pivot_comp"></input>
@@ -338,9 +355,40 @@
 							</select>
 						</div>
 				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					    	<label>Meta Plan</label>
+					    	<select class="form-control" name="meta" id="meta">
+								<option value="" >Selecionar</option>
+							</select>
+						</div>
+				  </div>
+				</div>
+
+				<div id="div_finaciacion">
+				<div class="row">
+				  	<div class="col-xs-12 col-sm-12">
+				  	<hr>
+				  		<h4 class="modal-title" id="myModalLabel">AGREGAR FINANCIACIÓN</h4>
+					</div>
+				</div>
+
+				<div class="row">
 				  <div class="col-xs-12 col-sm-12">
 				  		<div class="form-group">
-					    	<label>COMPONENTES DEL GASTO</label>
+					    	<label>Fuente</label>
+					    	<input type="hidden" name="id_pivot_comp" id="id_pivot_comp"></input>
+							<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
+								<option value="" >Selecionar</option>
+								@foreach($fuentes as $fuente)
+									<option value="{{ $fuente['Id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
+							    @endforeach
+							</select>
+						</div>
+				  </div>
+				  <div class="col-xs-12 col-sm-12">
+				  		<div class="form-group">
+					    	<label>Componente</label>
 							<select class="form-control" name="componnente" id="componnente">
 								<option value="" >Selecionar</option>
 							</select>
@@ -393,6 +441,7 @@
       <div class="modal-footer">
         <div id="mjs_registroPaa" class="alert alert-success" style="display: none"></div>
         <input type="hidden" name="Dato_Actividad" class="form-control">
+        <input type="hidden" name="Dato_Actividad_Codigos" class="form-control">
         <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
         <button  type="submit" class="btn btn-success" id="crear_paa_btn">CREAR</button>
       </div>

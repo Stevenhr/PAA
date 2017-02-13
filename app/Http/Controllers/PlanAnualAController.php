@@ -46,7 +46,6 @@ class PlanAnualAController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'id_registro' =>'required',
-                'codigo_Unspsc' =>'required',
                 'modalidad_seleccion' =>'required',
                 'tipo_contrato' =>'required',
                 'objeto_contrato' =>'required',
@@ -100,10 +99,21 @@ class PlanAnualAController extends Controller
     {
         $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
 
+            $data0 = json_decode($input['Dato_Actividad_Codigos']);
+            $cod="";
+            foreach($data0 as $obj){
+                if($cod=="")
+                 $cod= $cod."".$obj->codigo."";
+                else
+                 $cod= $cod.",".$obj->codigo."";
+            }
+
+            var_dump($cod);
+
         $modeloPA = new Paa;
         $modeloPA['Id_paa'] = 0;
         $modeloPA['Registro'] = $input['id_registro'];
-        $modeloPA['CodigosU'] = $input['codigo_Unspsc'];
+        $modeloPA['CodigosU'] = $cod;
         $modeloPA['Id_ModalidadSeleccion'] = $input['modalidad_seleccion'];
         $modeloPA['Id_TipoContrato'] = $input['tipo_contrato'];
         $modeloPA['ObjetoContractual'] = $input['objeto_contrato'];
@@ -140,7 +150,7 @@ class PlanAnualAController extends Controller
             $modeloPA = new Paa;
             $modeloPA['Id_paa'] = 0;
             $modeloPA['Registro'] = $input['id_registro'];
-            $modeloPA['CodigosU'] = $input['codigo_Unspsc'];
+            $modeloPA['CodigosU'] = $cod;
             $modeloPA['Id_ModalidadSeleccion'] = $input['modalidad_seleccion'];
             $modeloPA['Id_TipoContrato'] = $input['tipo_contrato'];
             $modeloPA['ObjetoContractual'] = $input['objeto_contrato'];
@@ -198,8 +208,13 @@ class PlanAnualAController extends Controller
 
     public function fuenteComponente(Request $request, $id)
     {
-        $proyecto = Proyecto::with('metas','metas.actividades','metas.actividades.componentes','metas.actividades.componentes.fuente')->find($id);
-        //$Fuente = Fuente::with('componentes','componentes.actividades.meta.proyecto.')->find($id);
+        $proyecto = Fuente::with('componentes')->find($id);
+        return response()->json($proyecto);
+    }
+
+    public function select_meta(Request $request, $id)
+    {
+        $proyecto = Proyecto::with('metas')->find($id);
         return response()->json($proyecto);
     }
 
@@ -207,7 +222,6 @@ class PlanAnualAController extends Controller
     public function verFinanciacion(Request $request, $id)
     {
         $model_A = Paa::with('actividadComponentes','actividadComponentes.actividad','actividadComponentes.componente','actividadComponentes.componente.fuente','actividadComponentes.actividad.meta','actividadComponentes.actividad.meta.proyecto')->find($id);
-
         return response()->json(array('dataInfo' => $model_A->actividadComponentes, 'estado' => $model_A['Estado']) );
     }
 

@@ -3,6 +3,7 @@ $(function()
   
   var URL = $('#main_paa_').data('url');
   vector_datos_actividad = new Array();
+  vector_datos_codigos = new Array();
 
   
   $('#TablaPAA tfoot th').each( function () {
@@ -76,6 +77,9 @@ $(function()
 
     var datos_acti = JSON.stringify(vector_datos_actividad);
     $('input[name="Dato_Actividad"]').val(datos_acti);
+
+    var datos_cod = JSON.stringify(vector_datos_codigos);
+    $('input[name="Dato_Actividad_Codigos"]').val(datos_cod);
     
     if(vector_datos_actividad.length > 0){
           $.post(
@@ -84,7 +88,6 @@ $(function()
             function(data){
               if(data.status == 'error')
               {
-                  
                   validad_error(data.errors);
              
               } else {
@@ -253,6 +256,29 @@ $(function()
 
 
     $('select[name="Proyecto_inversion"]').on('change', function(e){
+        select_Meta($(this).val());
+    });
+
+
+    var select_Meta = function(id)
+    { 
+        $.ajax({
+            url: URL+'/service/select_meta/'+id,
+            data: {},
+            dataType: 'json',
+            success: function(data)
+            {
+                var html = '<option value="">Seleccionar</option>';
+                $.each(data.metas, function(i, eee){
+                      html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
+                });   
+                $('select[name="meta"]').html(html).val($('select[name="meta"]').data('value'));
+            }
+        });
+    };
+
+
+    $('select[name="Fuente_inversion"]').on('change', function(e){
         select_fuente($(this).val());
     });
 
@@ -264,17 +290,12 @@ $(function()
             dataType: 'json',
             success: function(data)
             {
-                //console.log(data);
+                console.log(data);
                 var html = '<option value="">Seleccionar</option>';
           
-                        $.each(data.metas, function(i, eee){
-                            $.each(eee.actividades, function(i, eeee){
-                                $.each(eeee.componentes, function(i, eeeee){   
-
-                                    html += '<option value="'+eeeee['Id']+'">'+eeeee.pivot['id']+"<b> Componente: </b>"+eeeee['Nombre'].toLowerCase()+"<br> FUENTE:"+eeeee.fuente['nombre'].toLowerCase()+'</option>';
-                                    $('input[name="id_pivot_comp"]').val(eeeee.pivot['id']);
-                                });
-                            });
+                        $.each(data.componentes, function(i, eee){
+                                    html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
+                                    $('input[name="id_pivot_comp"]').val(eee['id']);
                         });
                 
                 $('select[name="componnente"]').html(html).val($('select[name="componnente"]').data('value'));
@@ -282,7 +303,70 @@ $(function()
         });
     };
 
-  
+  $('#agregarCodigos').on('click', function(e)
+  {
+      $('#t_datos_actividad_codigo').hide();
+      var codigo_Unspsc=$('input[name="codigo_Unspsc"]').val();
+      $('input[name="codigo_Unspsc"]').val("");
+      if(codigo_Unspsc===''){
+          $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe ingresar un codigo Unspsc para poder realizar el registro.</div>');
+          $('#mensaje_actividad_codigos').show(60);
+          $('#mensaje_actividad_codigos').delay(2500).hide(600);
+
+      }else{
+          $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Codigo agregado.</div>');
+          $('#mensaje_actividad_codigos').show(30);
+          $('#mensaje_actividad_codigos').delay(1000).hide(300);
+          vector_datos_codigos.push({"codigo": codigo_Unspsc});
+      }
+  });
+
+  $('#VerAgregarCodigos').on('click', function(e)
+  {
+      var html = '';
+          if(vector_datos_codigos.length > 0)
+          {
+            var num=1;
+            $.each(vector_datos_codigos, function(i, e){
+              html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['codigo']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarCod" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+              num++;
+            });
+          }
+          $('#registros_cod').html(html);
+
+      $('#t_datos_actividad_codigo').show();
+      return false;
+  });
+
+
+  $('#t_datos_actividad_codigo').delegate('button[data-funcion="eliminarCod"]','click',function (e) {   
+      var id = $(this).data('rel'); 
+
+      vector_datos_codigos.splice(id, 1);
+          
+          $('#mensaje_eliminar').html('<div class="alert alert-dismissible alert-success" ><strong>Exito!</strong> Dato eliminado de la actividad con exito. </div>');
+          $('#mensaje_eliminar').show(60);
+          $('#mensaje_eliminar').delay(1500).hide(600);
+          var html = '';
+            if(vector_datos_codigos.length > 0)
+            {
+              var num=1;
+              $.each(vector_datos_codigos, function(i, e){
+                html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['codigo']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarCod" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                num++;
+              });
+            }
+          $('#registros_cod').html(html);
+
+     }); 
+
+  $('#CerrarAgregarCodigos').on('click', function(e)
+    {
+        $('#t_datos_actividad_codigo').hide();
+        return false;
+    });
+
+
   $('#agregarFinanciacion').on('click', function(e)
     {
         
