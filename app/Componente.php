@@ -29,5 +29,10 @@ class Componente extends Model
         return $this->hasMany('App\ActividadComponente','actividad_id');
     }
 
+    public function paas()
+    {
+        return $this->belongsToMany('\App\Paa','actividadComponente')
+            ->withPivot('actividad_id','estado','valor','created_at');
+    }
 
 }

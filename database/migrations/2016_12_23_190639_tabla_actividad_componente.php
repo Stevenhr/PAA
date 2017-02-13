@@ -18,7 +18,7 @@ class TablaActividadComponente extends Migration
             $table->boolean('estado');
             $table->integer('componente_id')->unsigned();
             $table->foreign('componente_id')->references('Id')->on('componente');
-            $table->integer('actividad_id')->unsigned();
+            $table->integer('actividad_id')->nullable()->unsigned();
             $table->foreign('actividad_id')->references('Id')->on('actividad');
             $table->integer('valor');
             $table->timestamps();

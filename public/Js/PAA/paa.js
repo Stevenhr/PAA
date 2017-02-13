@@ -295,7 +295,7 @@ $(function()
           
                         $.each(data.componentes, function(i, eee){
                                     html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
-                                    $('input[name="id_pivot_comp"]').val(eee['id']);
+                                    $('input[name="id_pivot_comp"]').val(eee['Id']);
                         });
                 
                 $('select[name="componnente"]').html(html).val($('select[name="componnente"]').data('value'));
@@ -371,15 +371,17 @@ $(function()
     {
         
         var id_pivot_comp=$('input[name="id_pivot_comp"]').val();
-        var Proyecto_inversion=$('select[name="Proyecto_inversion"]').val();
-        var indice = form_paa.Proyecto_inversion.selectedIndex;
-        var Nom_Proyecto_inversion= form_paa.Proyecto_inversion.options[indice].text ;
+        
+        var Fuente_inversion=$('select[name="Fuente_inversion"]').val();
+        var indice = form_paa.Fuente_inversion.selectedIndex;
+        var Nom_Proyecto_inversion= form_paa.Fuente_inversion.options[indice].text ;
 
         var componnente=$('select[name="componnente"]').val();
         var indice = form_paa.componnente.selectedIndex;
         var Nombre_componnente= form_paa.componnente.options[indice].text ;
 
         var valor_contrato = $('input[name="valor_contrato"]').val();
+        
         if(Proyecto_inversion===''){
           $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe seleccionar un fuente de financiación para poder realizar el registro.</div>');
           $('#mensaje_actividad').show(60);
@@ -399,13 +401,13 @@ $(function()
                 return false;
               }else{
                     $('input[name="valor_contrato"]').val('');
-                    $('select[name="Proyecto_inversion"]').val('');
+                    $('select[name="Fuente_inversion"]').val('');
                     $('select[name="componnente"]').val('');
 
                     $('#alert_actividad').html('<div class="alert alert-dismissible alert-success" ><strong>Exito!</strong> Dato registrados con éxito. </div>');
                     $('#mensaje_actividad').show(60);
                     $('#mensaje_actividad').delay(1500).hide(600);
-                    vector_datos_actividad.push({"id_Proyecto": Proyecto_inversion, "Nom_Proyecto":Nom_Proyecto_inversion, "id_componente": componnente, "Nom_Componente":Nombre_componnente,"valor": valor_contrato,"id_pivot_comp":id_pivot_comp});
+                    vector_datos_actividad.push({"id_Proyecto": Fuente_inversion, "Nom_Proyecto":Nom_Proyecto_inversion, "id_componente": componnente, "Nom_Componente":Nombre_componnente,"valor": valor_contrato,"id_pivot_comp":id_pivot_comp});
               }
           }
         }

@@ -108,7 +108,7 @@ class PlanAnualAController extends Controller
                  $cod= $cod.",".$obj->codigo."";
             }
 
-            var_dump($cod);
+            //var_dump($cod);
 
         $modeloPA = new Paa;
         $modeloPA['Id_paa'] = 0;
@@ -185,7 +185,7 @@ class PlanAnualAController extends Controller
             $data0 = json_decode($input['Dato_Actividad']);
             foreach($data0 as $obj){
                 $modeloPA->actividadComponentes()->attach($obj->id_pivot_comp,[
-                    'paa_id'=>$id_paa2,
+                    'id_paa'=>$id_paa2,
                     'valor'=>$obj->valor,
                     'estado'=>1,
                 ]);
