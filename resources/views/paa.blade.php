@@ -171,8 +171,63 @@
         
         		<input type="hidden" class="form-control" name="id_Paa" value="0">
         		<input type="hidden" class="form-control" name="id_registro" value="0">
+		        
 		        <div class="row">
-				  
+				  <div class="col-xs-6 col-sm-6">
+				  		<label>Desea que este contrato pueda ser COMPARTIDO?</label>
+				  		<div class="form-group">
+					    	<div id="radio_compartido" class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default">
+                                    <input type="radio" name="compartido" value="0" > <span class="text-success">SI</span>
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="compartido" value="1" id="btn_compart"> <span class="text-success">NO</span>
+                                </label>
+                            </div>
+						</div>
+				  </div>
+
+				  <div class="col-xs-6 col-sm-6">
+				  		<label>Se vincula con otro contrato de otra área?</label>
+				  		<div class="form-group">
+					    	<div id="radio_vinculado" class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default">
+                                    <input type="radio" name="vinculado" value="0" > <span class="text-success">SI</span>
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="vinculado" value="1" id="btn_compart"> <span class="text-success">NO</span>
+                                </label>
+                            </div>
+						</div>
+				  </div>
+				</div>
+				<div class="row bg-info" style="display: none; padding-bottom: 15px; padding-top: 5px; margin-right: 5px; margin-left: 5px; background-color: rgba(0,0,0,0.1);
+    border: solid 2px rgba(0,0,0,0.1);" id="busqPaa" >
+					<div class="col-xs-6 col-sm-6" >
+				  		<label>Sub Dirección</label>
+						<select class="form-control" name="subDirecion_vinculado">
+								<option value="" >Selecionar</option>
+								@foreach($subDirecciones as $subDireccion)
+									<option value="{{ $subDireccion['id'] }}" >{{ $subDireccion['nombre'] }}</option>
+							    @endforeach
+						</select>
+				    </div>
+				    <div class="col-xs-6 col-sm-6" >
+				  		<label>Área</label>
+						<select class="form-control" name="area_vinculado">
+								<option value="" >Selecionar</option>
+						</select>
+				    </div>
+				    <div class="col-xs-6 col-sm-12" >
+				  		<label>N° Paa</label>
+						<select class="form-control" name="numeroPaa_vinculado">
+								<option value="" >Selecionar</option>
+						</select>
+				    </div>
+				</div>
+
+				<hr/>
+		        <div class="row">
 				  <div class="col-xs-6 col-sm-8">
 				  		<div class="form-group">
 					    	<label>Códigos UNSPSC </label>
@@ -213,8 +268,6 @@
 								    @endforeach
 							</select>
 						</div>
-				  </div>
-				  <div class="col-xs-6 col-sm-4">
 				  </div>
 				</div>
 

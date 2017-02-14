@@ -81,15 +81,24 @@ $(function()
     var datos_cod = JSON.stringify(vector_datos_codigos);
     $('input[name="Dato_Actividad_Codigos"]').val(datos_cod);
     
+    if($('#radio_vinculado input:radio:checked').val()==0){
+        $('#mensaje_presupuesto2').html('<strong>Error!</strong>s: $');
+        $('#mensaje_presupuesto2').show();
+        setTimeout(function(){
+            $('#mensaje_presupuesto2').hide();
+        }, 6000)
+    }
+
     if(vector_datos_actividad.length > 0){
           $.post(
             URL+'/validar/paa',
             $(this).serialize(),
             function(data){
+
+
               if(data.status == 'error')
               {
                   validad_error(data.errors);
-             
               } else {
 
                   validad_error(data.errors);
@@ -104,7 +113,7 @@ $(function()
                       t.clear().draw();
                       $.each(data.datos, function(i, e){
 
-                        var disable=""; 
+                      var disable=""; 
                       var estado="";
                       var clase="";
                           if(e['Estado']==4){              
@@ -193,7 +202,6 @@ $(function()
                           $('#mensaje_presupuesto2').hide();
                       }, 6000)
                   }
-                  
               }
           },'json');
     }else{
@@ -207,7 +215,31 @@ $(function()
 
       e.preventDefault();
   });
+ 
+  
 
+  $('#radio_compartido .btn').on('click', function(e)
+  {
+    $('input[name="compartido"]').removeAttr('checked');
+    $(this).find('input[name="compartido"]').attr('checked', 'checked');
+  });
+
+
+  $('#radio_vinculado .btn').on('click', function(e)
+  {
+    $('input[name="vinculado"]').removeAttr('checked');
+    $(this).find('input[name="vinculado"]').attr('checked', 'checked');
+
+    if($(this).find('input[name="vinculado"]').val()==0){
+      $('#busqPaa').show();
+      $('select[name="subDirecion_vinculado"]').val("");
+      $('select[name="area_vinculado"]').val("");
+      $('select[name="numeroPaa_vinculado"]').val("");
+    }else{
+      $('#busqPaa').hide();
+    }
+
+  });
 
   var validad_error = function(data)
     {
@@ -253,6 +285,57 @@ $(function()
             }
         }
     }
+
+    $('select[name="subDirecion_vinculado"]').on('change', function(e){
+        select_Area($(this).val());
+    });
+
+    var select_Area = function(id)
+    { 
+        $.ajax({
+            url: URL+'/service/select_area/'+id,
+            data: {},
+            dataType: 'json',
+            success: function(data)
+            {
+                var html = '<option value="">Seleccionar</option>';
+                $.each(data.areas, function(i, eee){
+                      html += '<option value="'+eee['id']+'">'+eee['nombre'].toLowerCase()+'</option>';
+                });   
+                $('select[name="area_vinculado"]').html(html).val($('select[name="area_vinculado"]').data('value'));
+            }
+        });
+    };
+
+    $('select[name="area_vinculado"]').on('change', function(e){
+        select_Paa($(this).val());
+    });
+
+    var select_Paa = function(id)
+    { 
+        $.ajax({
+            url: URL+'/service/select_paa/'+id,
+            data: {},
+            dataType: 'json',
+            success: function(data)
+            {
+                console.log(data);
+                var html = '<option value="">Seleccionar</option>';
+                var obje="";
+                $.each(data.paas, function(i, eee){
+                      if(eee['ObjetoContractual'].length<145){
+                        obje=eee['Id_paa']+".  "+eee['ObjetoContractual'];
+                      }
+                      else{
+                        obje=eee['Id_paa']+".  "+eee['ObjetoContractual'].substr(1,145)+"  .....";
+                      }
+
+                      html += '<option value="'+eee['Id_paa']+'">'+obje+'</option>';
+                });   
+                $('select[name="numeroPaa_vinculado"]').html(html).val($('select[name="numeroPaa_vinculado"]').data('value'));
+            }
+        });
+    };
 
 
     $('select[name="Proyecto_inversion"]').on('change', function(e){
@@ -416,6 +499,13 @@ $(function()
 
    $('#Btn_Agregar_Nuevo').on('click', function(e)
     {
+
+        $('input[name="compartido"]').removeAttr('checked').parent('.btn').removeClass('active');
+        $('input[name="compartido"][value="1"]').trigger('click');
+
+        $('input[name="vinculado"]').removeAttr('checked').parent('.btn').removeClass('active');
+        $('input[name="vinculado"][value="1"]').trigger('click');
+
         $('input[name="id_Paa"]').val("0").closest('.form-group').removeClass('has-error');
         $('input[name="id_registro"]').val("0").closest('.form-group').removeClass('has-error');
         $('input[name="codigo_Unspsc"]').val("").closest('.form-group').removeClass('has-error');;
@@ -440,6 +530,7 @@ $(function()
 
         $('textarea[name="objeto_contrato"]').val("").closest('.form-group').removeClass('has-error');;
         vector_datos_actividad.length=0;
+        vector_datos_codigos.length=0;
         $('#div_finaciacion').show();
         $('#crear_paa_btn').html("Agregar");
 

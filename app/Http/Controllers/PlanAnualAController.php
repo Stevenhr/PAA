@@ -17,6 +17,8 @@ use App\CambioPaa;
 use App\PersonaPaa;
 use App\Observacion;
 use App\EstudioConveniencia;
+use App\SubDireccion;
+use App\Area;
 
 class PlanAnualAController extends Controller
 {
@@ -28,6 +30,7 @@ class PlanAnualAController extends Controller
 		$tipoContrato = TipoContrato::all();
 		$componente = Componente::all();
         $fuente = Fuente::all();
+        $subDireccion = SubDireccion::all();
         $paa = Paa::with('modalidad','tipocontrato','rubro','area')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7'])->get();
 
         $datos = [        
@@ -36,7 +39,8 @@ class PlanAnualAController extends Controller
             'tipoContratos' => $tipoContrato,
             'componentes' => $componente,
             'fuentes'=>$fuente,
-            'paas' => $paa
+            'paas' => $paa,
+            'subDirecciones' =>$subDireccion
         ];
 		return view('paa',$datos);
 	}
@@ -216,6 +220,21 @@ class PlanAnualAController extends Controller
     {
         $proyecto = Proyecto::with('metas')->find($id);
         return response()->json($proyecto);
+    }
+
+    public function select_area(Request $request, $id)
+    {
+        $areas = SubDireccion::with('areas')->find($id);
+        return response()->json($areas);
+    }
+
+    public function select_paa(Request $request, $id)
+    {
+        $paas = Area::with(['paas' => function($query) 
+            {
+                $query->where('compartida',1)->whereIn('Estado',[0,4,5])->get();
+            }])->find($id);
+        return response()->json($paas);
     }
 
 
