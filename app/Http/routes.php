@@ -86,6 +86,7 @@ Route::post('/paa/service/agregar_finza/', 'PlanAnualAController@agregar_finza')
 Route::post('/paa/service/agregar_estudio/', 'PlanAnualAController@agregar_estudio');
 Route::get('/paa/service/obtenerEstidioConveniencia/{id}', 'PlanAnualAController@obtenerEstidioConveniencia');
 Route::get('/paa/service/obtenerPaa/{id}', 'PlanAnualAController@obtenerPaa');
+Route::get('/paa/service/obtenerPaaVincu/{id}', 'PlanAnualAController@obtenerPaaVincu');
 Route::get('/paa/service/obtenerHistorialPaa/{id}', 'PlanAnualAController@obtenerHistorialPaa');
 
 Route::get('/paa/service/historialObservaciones/{id}', 'PlanAnualAController@historialObservaciones');

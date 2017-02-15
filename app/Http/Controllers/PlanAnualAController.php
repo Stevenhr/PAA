@@ -130,11 +130,13 @@ class PlanAnualAController extends Controller
         $modeloPA['FechaInicioProceso'] = $input['fecha_inicio'];
         $modeloPA['FechaSuscripcionContrato'] = $input['fecha_suscripcion'];
         $modeloPA['DuracionContrato'] = $input['duracion_estimada'];
-        $modeloPA['MetaPlan'] = $input['meta_plan'];
+        $modeloPA['MetaPlan'] = $input['meta'];
         $modeloPA['RecursoHumano'] = $input['recurso_humano'];
         $modeloPA['NumeroContratista'] = $input['numero_contratista'];
         $modeloPA['DatosResponsable'] = $input['datos_contacto'];
-        $modeloPA['Id_ProyectoRubro'] = 1;
+        $modeloPA['Id_ProyectoRubro'] = $input['Proyecto_inversion'];
+        $modeloPA['compartida'] = $input['compartido'];
+        $modeloPA['vinculada'] = $input['numeroPaa_vinculado'];
         $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
         $modeloPA['Estado'] = $estado;
         $modeloPA['IdPersonaObservo'] = '';
@@ -167,11 +169,13 @@ class PlanAnualAController extends Controller
             $modeloPA['FechaInicioProceso'] = $input['fecha_inicio'];
             $modeloPA['FechaSuscripcionContrato'] = $input['fecha_suscripcion'];
             $modeloPA['DuracionContrato'] = $input['duracion_estimada'];
-            $modeloPA['MetaPlan'] = $input['meta_plan'];
+            $modeloPA['MetaPlan'] = $input['meta'];
             $modeloPA['RecursoHumano'] = $input['recurso_humano'];
             $modeloPA['NumeroContratista'] = $input['numero_contratista'];
             $modeloPA['DatosResponsable'] = $input['datos_contacto'];
-            $modeloPA['Id_ProyectoRubro'] = 1;
+            $modeloPA['Id_ProyectoRubro'] = $input['Proyecto_inversion'];
+            $modeloPA['compartida'] = $input['compartido'];
+            $modeloPA['vinculada'] = $input['numeroPaa_vinculado'];
             $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
             $modeloPA['Estado'] = 2;
             $modeloPA['IdPersonaObservo'] = '';
@@ -232,9 +236,15 @@ class PlanAnualAController extends Controller
     {
         $paas = Area::with(['paas' => function($query) 
             {
-                $query->where('compartida',1)->whereIn('Estado',[0,4,5])->get();
+                $query->where('compartida',0)->whereIn('Estado',[0,4,5])->get();
             }])->find($id);
         return response()->json($paas);
+    }
+
+     public function obtenerPaaVincu(Request $request, $id)
+    {
+        $model_A = Paa::where('compartida',0)->whereIn('Estado',[0,4,5])->where('Id_paa',$id)->get();
+        return response()->json($model_A);
     }
 
 
