@@ -17,6 +17,10 @@ class Meta extends Model
     {
         return $this->hasMany('App\Actividad','Id_meta');
     }
+    public function paas()
+    {
+        return $this->hasMany('App\Paa','MetaPlan');
+    }
 
     public function proyecto()
     {

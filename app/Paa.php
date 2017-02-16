@@ -104,6 +104,11 @@ class Paa extends Model
         return $this->belongsTo('App\Area','Id_Area');
     }
 
+    public function meta()
+    {
+        return $this->belongsTo('App\Meta','MetaPlan');
+    }
+
     public function observaciones()
     {
         return $this->hasMany('App\Observacion','id_registro');

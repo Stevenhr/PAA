@@ -339,7 +339,7 @@ class PlanAnualAController extends Controller
 
     public function obtenerPaa(Request $request, $id)
     {
-        $model_A = Paa::with('rubro')->find($id);
+        $model_A = Paa::with('rubro','meta')->find($id);
         return response()->json($model_A);
     }
 

@@ -220,7 +220,7 @@
 				    </div>
 				    <div class="col-xs-6 col-sm-12" >
 				  		<label>N° Paa</label>
-						<select class="form-control" name="numeroPaa_vinculado">
+						<select class="form-control" name="numeroPaa_vinculado" id="numeroPaa_vinculado">
 								<option value="" >Selecionar</option>
 						</select>
 				    </div>

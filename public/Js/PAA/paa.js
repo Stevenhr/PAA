@@ -236,13 +236,20 @@ $(function()
   {
     $('input[name="vinculado"]').removeAttr('checked');
     $(this).find('input[name="vinculado"]').attr('checked', 'checked');
-
+    alert($(this).find('input[name="vinculado"]').val());
     if($(this).find('input[name="vinculado"]').val()==0){
       $('#busqPaa').show();
       $('select[name="subDirecion_vinculado"]').val("");
       $('select[name="area_vinculado"]').val("");
       $('select[name="numeroPaa_vinculado"]').val("");
+      //$('#comment').removeAttr("readonly", "readonly");
+      //$('#comment').val("");
     }else{
+      $('select[name="subDirecion_vinculado"]').val("");
+      $('select[name="area_vinculado"]').val("");
+      $('select[name="numeroPaa_vinculado"]').val("");
+      $('#comment').removeAttr("readonly", "readonly");
+      $('#comment').val("");
       $('#busqPaa').hide();
     }
 
@@ -314,14 +321,14 @@ $(function()
         });
     };
 
-    $('select[name="numeroPaa_vinculado"]').on('change', function(e){
+    $('select[name="numeroPaa_vinculado"]').on('click', function(e){
          var valor=$(this).val();
+         alert("dfdg");
          if(valor==""){
            $('#comment').removeAttr("readonly", "readonly");
            $('#comment').val("");
          }
          else{
-
             $.get(
                 URL+'/service/obtenerPaaVincu/'+valor,
                 {},
@@ -336,9 +343,7 @@ $(function()
                 },
                 'json'
             );
-           
          }
-
     });
 
     $('select[name="area_vinculado"]').on('change', function(e){
@@ -978,6 +983,7 @@ $(function()
     var actividad_datos = function(datos)
     {
         vector_datos_codigos.length=0;
+        var vincu=1;
         var CodigosU = datos['CodigosU'].split(",");
         for (var i=0; i < CodigosU.length; i++) {
             vector_datos_codigos.push({"codigo": CodigosU[i] });
@@ -1005,15 +1011,33 @@ $(function()
         $('select[name="estado_solicitud"]').val(datos['EstadoVigenciaFutura']).closest('.form-group').removeClass('has-error');
         //$('select[name="Id_Localidad"]').val(datos['Localidad']).change();
         $('select[name="Proyecto_inversion"]').val(datos['Id_ProyectoRubro']).closest('.form-group').removeClass('has-error');
-        $('select[name="meta"]').val(datos['MetaPlan']).closest('.form-group').removeClass('has-error');
-        $('textarea[name="objeto_contrato"]').val(datos['ObjetoContractual']).closest('.form-group').removeClass('has-error');;
+        
+          var x = document.getElementById("meta");
+          var option = document.createElement("option");
+          option.text = datos.meta['Nombre']
+          option.value = datos.meta['Id'];
+          x.add(option);
+          $('#meta > option[value="'+datos.meta['Id']+'"]').attr('selected', 'selected');
+
+          //$('#numeroPaa_vinculado').html('');
+          var xx = document.getElementById("numeroPaa_vinculado");
+          var option1= document.createElement("option");
+          option1.text = "Actividad N°. "+datos['vinculada'];
+          option1.value = datos['vinculada'];
+          xx.add(option1);
+         $('#numeroPaa_vinculado > option[value="'+datos['vinculada']+'"]').attr('selected', 'selected');
+        
+        $('textarea[name="objeto_contrato"]').val("dfasdf sdfsd f sdfds 111"+datos['ObjetoContractual']).closest('.form-group').removeClass('has-error');;
         vector_datos_actividad.length=1;
 
         $('input[name="compartido"]').removeAttr('checked').parent('.btn').removeClass('active');
         $('input[name="compartido"][value="'+datos['compartida']+'"]').trigger('click');
 
+        if(datos['vinculada']!="")
+          vincu=0;
+
         $('input[name="vinculado"]').removeAttr('checked').parent('.btn').removeClass('active');
-        $('input[name="vinculado"][value="'+datos['vinculada']+'"]').trigger('click');
+        $('input[name="vinculado"][value="'+vincu+'"]').trigger('click');
 
         $('#div_finaciacion').hide();
         $('#crear_paa_btn').html("Modificar");
