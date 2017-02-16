@@ -154,22 +154,22 @@ $(function()
                                 '<td>'+e['DatosResponsable']+'</td>'+
                                 '<td>'+e.rubro['Nombre']+'</td>'+
                                 '<td>'+
-                                  '<div class="btn-group tama">'+
-                                    '<div class="btn-group">'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa" '+disable+'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
-                                    '</div>'+
-                                    '<div class="btn-group">'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa" '+disable+'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                    '</div>'+
-                                    '<div class="btn-group">'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
-                                    '</div>'+
-                                    '<div class="btn-group">'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
-                                    '</div>'+
-                                    '<div class="btn-group">'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="EstudioComveniencia" class="btn btn-warning btn-xs2 btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" '+estudioComve+'><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></button>'+
-                                    '</div>'+
+                                  '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+
+                                    '<li>'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa" '+disable+'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>  Eliminar'+
+                                    '</li>'+
+                                    '<li>'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa" '+disable+'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>  Modificación'+
+                                    '</li>'+
+                                    '<li>'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>  Historial'+
+                                    '</li>'+
+                                    '<li>'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>  Financiación'+
+                                    '</li>'+
+                                    '<li>'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="EstudioComveniencia" class="btn btn-warning btn-xs2 btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" '+estudioComve+'><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></button>  Est. Conveniencia'+
+                                    '</li>'+
                                   '</div>'+
                                   '<div>'+
                                     '<a href="#" class="btn btn-xs btn-default" style="width: 100%;    margin-top: 20px;" data-rel="'+e['Registro']+'" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a>'+
@@ -957,22 +957,22 @@ $(function()
                                 '<td>'+e['DatosResponsable']+'</td>'+
                                 '<td>'+e.rubro['Nombre']+'</td>'+
                                 '<td>'+
-                                  '<div class="btn-group tama">'+
-                                    '<div class="btn-group">'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa" '+disable+'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
-                                    '</div>'+
-                                    '<div class="btn-group">'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa" '+disable+'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                    '</div>'+
-                                    '<div class="btn-group">'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
-                                    '</div>'+
-                                    '<div class="btn-group">'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
-                                    '</div>'+
-                                    '<div class="btn-group">'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="EstudioComveniencia" class="btn btn-warning btn-xs2 btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" '+estudioComve+'><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></button>'+
-                                    '</div>'+
+                                  '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+
+                                    '<li>'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa" '+disable+'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>  Eliminar'+
+                                    '</li>'+
+                                    '<li>'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa" '+disable+'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>  Modificación'+
+                                    '</li>'+
+                                    '<li>'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>  Historial'+
+                                    '</li>'+
+                                    '<li>'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>  Financiación'+
+                                    '</li>'+
+                                    '<li>'+
+                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="EstudioComveniencia" class="btn btn-warning btn-xs2 btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" '+estudioComve+'><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></button>  Est. Conveniencia'+
+                                    '</li>'+
                                   '</div>'+
                                   '<div>'+
                                     '<a href="#" class="btn btn-xs btn-default" style="width: 100%;    margin-top: 20px;" data-rel="'+e['Registro']+'" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a>'+
