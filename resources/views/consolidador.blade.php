@@ -123,6 +123,39 @@
 					                        <td>{{$paa->rubro['Nombre']}}</td>
 					                  
 					                        <td>
+					                        	<div class="btn-group" >
+												  <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">
+												    Acciones<span class="caret"></span>
+												  </button>
+												  <ul class="dropdown-menu" style="padding-left: 2px;">
+												   <li>
+												    <button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
+												  </li>
+												  <li>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
+												  </li>
+												  <li>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Aprobacion" class="btn btn-warning btn-xs2 btn-xs"  title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
+												  </li>
+												  
+												  <?php $var2 = 0;?>
+												  @foreach($paas2 as $paa2)	
+											  		@if($paa2['Registro']==$paa['Registro'])
+											  			<?php $var2 = 1; ?>
+											  		@endif
+												  @endforeach
+												  <li>
+												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="AprobacionFinal" data-rol="{{$var2}}" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion" {{$disable}}><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+												  </li>
+												  @if($var2==1)
+												  <li>
+												  	  <button type="button" data-rel="{{$paa['Id']}}" data-funcion="CabiosPendientes" class="btn btn-danger btn-xs2 btn-xs"  title="Cambios Pendientes" disabled><span class="glyphicon glyphicon-alert" aria-hidden="true"></span></button>
+												  </li>
+												  @endif
+
+												  </ul>
+												</div>
+
 												<div class="btn-group tama">
 												  <div class="btn-group">
 												    <button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>
@@ -150,6 +183,7 @@
 												  </div>
 												  @endif
 												</div>
+
 												<br>
 												<div><a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="{{$paa['Registro']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a></div>
 												<div id=""></div>
