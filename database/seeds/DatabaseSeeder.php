@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RubroTablaSeeder::class);
         $this->call(ModalidadTablaSeeder::class);
         $this->call(FuenteTablaSeeder::class);
+        $this->call(FuenteHacienda::class);
     }
 }

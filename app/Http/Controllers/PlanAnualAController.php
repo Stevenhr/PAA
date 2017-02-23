@@ -17,6 +17,9 @@ use App\CambioPaa;
 use App\PersonaPaa;
 use App\Observacion;
 use App\EstudioConveniencia;
+use App\SubDireccion;
+use App\FuenteHacienda;
+use App\Area;
 
 class PlanAnualAController extends Controller
 {
@@ -28,15 +31,19 @@ class PlanAnualAController extends Controller
 		$tipoContrato = TipoContrato::all();
 		$componente = Componente::all();
         $fuente = Fuente::all();
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7'])->get();
-
+        $subDireccion = SubDireccion::all();
+        $fuenteHacienda = FuenteHacienda::all();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area','componentes')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7'])->get();
+        
         $datos = [        
             'modalidades' => $modalidadSeleccion,
             'proyectos' => $proyecto,
             'tipoContratos' => $tipoContrato,
             'componentes' => $componente,
             'fuentes'=>$fuente,
-            'paas' => $paa
+            'paas' => $paa,
+            'subDirecciones' => $subDireccion,
+            'fuenteHaciendas'=>$fuenteHacienda 
         ];
 		return view('paa',$datos);
 	}
@@ -58,11 +65,11 @@ class PlanAnualAController extends Controller
                 'fecha_inicio' =>'required',
                 'fecha_suscripcion' =>'required',
                 'duracion_estimada' =>'required',
-                //'meta_plan' =>'required',
+                'meta' =>'required',
+                'Proyecto_inversion' =>'required',
                 'recurso_humano' =>'required',
                 'numero_contratista' =>'required',
                 'datos_contacto' =>'required',
-
             ]
         );
 
@@ -126,11 +133,11 @@ class PlanAnualAController extends Controller
         $modeloPA['FechaInicioProceso'] = $input['fecha_inicio'];
         $modeloPA['FechaSuscripcionContrato'] = $input['fecha_suscripcion'];
         $modeloPA['DuracionContrato'] = $input['duracion_estimada'];
-        $modeloPA['MetaPlan'] = $input['meta_plan'];
+        $modeloPA['MetaPlan'] = $input['meta'];
         $modeloPA['RecursoHumano'] = $input['recurso_humano'];
         $modeloPA['NumeroContratista'] = $input['numero_contratista'];
         $modeloPA['DatosResponsable'] = $input['datos_contacto'];
-        $modeloPA['Id_ProyectoRubro'] = 1;
+        $modeloPA['Id_ProyectoRubro'] = $input['Proyecto_inversion'];
         $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
         $modeloPA['Estado'] = $estado;
         $modeloPA['IdPersonaObservo'] = '';
@@ -163,11 +170,11 @@ class PlanAnualAController extends Controller
             $modeloPA['FechaInicioProceso'] = $input['fecha_inicio'];
             $modeloPA['FechaSuscripcionContrato'] = $input['fecha_suscripcion'];
             $modeloPA['DuracionContrato'] = $input['duracion_estimada'];
-            $modeloPA['MetaPlan'] = $input['meta_plan'];
+            $modeloPA['MetaPlan'] = $input['meta'];
             $modeloPA['RecursoHumano'] = $input['recurso_humano'];
             $modeloPA['NumeroContratista'] = $input['numero_contratista'];
             $modeloPA['DatosResponsable'] = $input['datos_contacto'];
-            $modeloPA['Id_ProyectoRubro'] = 1;
+            $modeloPA['Id_ProyectoRubro'] = $input['Proyecto_inversion'];
             $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
             $modeloPA['Estado'] = 2;
             $modeloPA['IdPersonaObservo'] = '';
@@ -184,7 +191,7 @@ class PlanAnualAController extends Controller
 
             $data0 = json_decode($input['Dato_Actividad']);
             foreach($data0 as $obj){
-                $modeloPA->actividadComponentes()->attach($obj->id_pivot_comp,[
+                $modeloPA->componentes()->attach($obj->id_pivot_comp,[
                     'id_paa'=>$id_paa2,
                     'valor'=>$obj->valor,
                     'estado'=>1,
@@ -212,6 +219,23 @@ class PlanAnualAController extends Controller
         return response()->json($proyecto);
     }
 
+    public function select_area(Request $request, $id)
+    {
+        $areas = SubDireccion::with('areas')->find($id);
+        return response()->json($areas);
+    }
+
+    public function select_paVinculada(Request $request, $id)
+    {   
+        $Paa_vin = Area::with(['paas' => function($q) 
+        {
+            $q->where('compartida', '=', 1);
+
+        }])->get();
+
+        return response()->json($Paa_vin);
+    }
+
     public function select_meta(Request $request, $id)
     {
         $proyecto = Proyecto::with('metas')->find($id);
@@ -221,19 +245,22 @@ class PlanAnualAController extends Controller
 
     public function verFinanciacion(Request $request, $id)
     {
-        $model_A = Paa::with('actividadComponentes','actividadComponentes.actividad','actividadComponentes.componente','actividadComponentes.componente.fuente','actividadComponentes.actividad.meta','actividadComponentes.actividad.meta.proyecto')->find($id);
-        return response()->json(array('dataInfo' => $model_A->actividadComponentes, 'estado' => $model_A['Estado']) );
+        $model_A = Paa::with('componentes','componentes.fuente')->find($id);
+        //dd($model_A);
+        //exit();
+        return response()->json(array('dataInfo' => $model_A, 'estado' => $model_A['Estado']) );
     }
 
      public function EliminarFinanciamiento(Request $request)
     {
+ 
         $id=$request['id'];
-        $paa = Paa::find($request['id']);
-        $paa->actividadComponentes()->detach($request['id_eli']);
+        $paa = Paa::find($id);
+        //  $paa->componentes()->detach($request['id_eli']);
+        $paa->componentes()->newPivotStatementForId($request['id_eli'])->whereid($request['id_key'])->delete();
+        $model_A = Paa::with('componentes','componentes.fuente')->find($id);
 
-        $model_A = Paa::with('actividadComponentes','actividadComponentes.actividad','actividadComponentes.componente','actividadComponentes.componente.fuente','actividadComponentes.actividad.meta','actividadComponentes.actividad.meta.proyecto')->find($id);
-
-        return response()->json($model_A->actividadComponentes);
+        return response()->json($model_A);
     }
 
     public function agregar_finza(Request $request)
@@ -241,7 +268,7 @@ class PlanAnualAController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'valor_contrato' =>'required',
-                'Proyecto_inversion' =>'required',
+                'Fuente_inversion' =>'required',
                 'componnente' =>'required',
             ]
         );
@@ -256,15 +283,16 @@ class PlanAnualAController extends Controller
         $valor=$request['valor_contrato'];
 
         $paa = new Paa;
-        $paa->actividadComponentes()->attach($id_componente,[
-                    'paa_id'=>$id,
+        $paa->componentes()->attach($id_componente,[
+                    'id_paa'=>$id,
                     'valor'=>$valor,
                     'estado'=>1,
                 ]);
 
-        $model_A = Paa::with('actividadComponentes','actividadComponentes.actividad','actividadComponentes.componente','actividadComponentes.componente.fuente','actividadComponentes.actividad.meta','actividadComponentes.actividad.meta.proyecto')->find($id);
+        $model_A = Paa::with('componentes','componentes.fuente')->find($id);
 
-        return response()->json($model_A->actividadComponentes);
+        return response()->json(array('status' => 'bein', 'errors' => $validator->errors(),'inf'=>$model_A ));
+        
     }
 
     public function agregar_estudio(Request $request)
@@ -303,15 +331,36 @@ class PlanAnualAController extends Controller
         $EstudioConveniencia['justificacion'] = $texta_Justificacion;
         $EstudioConveniencia->save();
 
-        $model_A = Paa::with('actividadComponentes','actividadComponentes.actividad','actividadComponentes.componente','actividadComponentes.componente.fuente','actividadComponentes.actividad.meta','actividadComponentes.actividad.meta.proyecto')->find($id);
+        $model_A = Paa::with('componentes','componentes.fuente')->find($id);
 
-        return response()->json($model_A->actividadComponentes);
+        return response()->json($model_A->componentes);
     }
 
     public function obtenerPaa(Request $request, $id)
     {
         $model_A = Paa::with('rubro')->find($id);
         return response()->json($model_A);
+    }
+
+    public function verificarCompartPaa(Request $request, $id)
+    {
+        $model_A = Paa::find($id);
+        return response()->json($model_A);
+    }
+
+    public function siCompartirPaa(Request $request, $id)
+    {
+        $modeloPA = Paa::find($id);
+        $modeloPA['compartida'] = 1;
+        $modeloPA->save();
+        return response()->json($modeloPA);
+    }
+    public function noCompartirPaa(Request $request, $id)
+    {
+        $modeloPA = Paa::find($id);
+        $modeloPA['compartida'] = "";
+        $modeloPA->save();
+        return response()->json($modeloPA);
     }
 
     public function obtenerEstidioConveniencia(Request $request, $id)
@@ -380,6 +429,27 @@ class PlanAnualAController extends Controller
         $modeloObserva['observacion'] = $request['observacion'];
         $modeloObserva->save();
         return response()->json(array('status' => 'ok'));
+    }
+
+
+    public function datos_vincular(Request $request)
+    {   
+        $validator = Validator::make($request->all(),
+            [
+                'selectSubdirecion' =>'required',
+                'selectArea' =>'required',
+                'selectPaa' =>'required',
+            ]
+        );
+
+        if ($validator->fails())
+        return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+
+        $modeloPA = Paa::find($request['id_estudio3']);
+        $modeloPA['vinculada'] = $request['selectPaa'];//-----------voy áca
+        $modeloPA->save();
+
+        return response()->json($modeloPA);
     }
     
 

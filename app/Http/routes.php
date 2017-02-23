@@ -76,14 +76,20 @@ Route::get('/configuracionPaa/service/presupuesto/{id}', 'PaaController@listadoP
 Route::get('/configuracionPaa/service/meta/{id}', 'PaaController@listadoMetas');
 Route::get('/configuracionPaa/service/actividad/{id}', 'PaaController@listadoActividad');
 
+Route::get('/paa/service/select_area/{id}', 'PlanAnualAController@select_area');
+Route::get('/paa/service/select_paVinculada/{id}', 'PlanAnualAController@select_paVinculada');
 Route::get('/paa/service/fuenteComponente/{id}', 'PlanAnualAController@fuenteComponente');
 Route::get('/paa/service/select_meta/{id}', 'PlanAnualAController@select_meta');
 Route::get('/paa/service/VerFinanciamiento/{id}', 'PlanAnualAController@verFinanciacion');
 Route::post('/paa/service/EliminarFinanciamiento/', 'PlanAnualAController@EliminarFinanciamiento');
 Route::post('/paa/service/agregar_finza/', 'PlanAnualAController@agregar_finza');
 Route::post('/paa/service/agregar_estudio/', 'PlanAnualAController@agregar_estudio');
+Route::post('/paa/service/datos_vincular/', 'PlanAnualAController@datos_vincular');
 Route::get('/paa/service/obtenerEstidioConveniencia/{id}', 'PlanAnualAController@obtenerEstidioConveniencia');
 Route::get('/paa/service/obtenerPaa/{id}', 'PlanAnualAController@obtenerPaa');
+Route::get('/paa/service/verificarCompartPaa/{id}', 'PlanAnualAController@verificarCompartPaa');
+Route::get('/paa/service/siCompartirPaa/{id}', 'PlanAnualAController@siCompartirPaa');
+Route::get('/paa/service/noCompartirPaa/{id}', 'PlanAnualAController@noCompartirPaa');
 Route::get('/paa/service/obtenerHistorialPaa/{id}', 'PlanAnualAController@obtenerHistorialPaa');
 
 Route::get('/paa/service/historialObservaciones/{id}', 'PlanAnualAController@historialObservaciones');

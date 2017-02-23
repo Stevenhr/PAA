@@ -186,7 +186,6 @@ class PaaController extends Controller
 
 		})->get();
 
-
 		if(count($Presupuesto)>0){
 			return response()->json(array('status' => 'error', 'datos' => $Presupuesto));
 		}

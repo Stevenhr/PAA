@@ -77,6 +77,7 @@ $(function()
 
     var datos_acti = JSON.stringify(vector_datos_actividad);
     $('input[name="Dato_Actividad"]').val(datos_acti);
+    var upd=$('input[name="id_Paa"]').val();
 
     var datos_cod = JSON.stringify(vector_datos_codigos);
     $('input[name="Dato_Actividad_Codigos"]').val(datos_cod);
@@ -104,9 +105,10 @@ $(function()
                       t.clear().draw();
                       $.each(data.datos, function(i, e){
 
-                        var disable=""; 
+                      var disable=""; 
                       var estado="";
                       var clase="";
+
                           if(e['Estado']==4){              
                             clase="warning";
                             disable="disabled"; 
@@ -133,59 +135,25 @@ $(function()
                             estudioComve="disabled";
                           }
     
-                          var $tr1 = $('<tr class="'+clase+'"></tr>').html(
-                            '<th scope="row" class="text-center">'+num+'</th>'+
-                                '<td><b><p class="text-info text-center">'+e['Registro']+'</p></b></td>'+
-                                '<td><b>'+estado+'</b></td>'+
-                                '<td>'+e['CodigosU']+'</td>'+
-                                '<td>'+e.modalidad['Nombre']+'</td>'+
-                                '<td>'+e.tipocontrato['Nombre']+'</td>'+
-                                '<td><div style="width:500px;text-align: justify;">'+e['ObjetoContractual']+'</div></td>'+
-                                '<td>'+e['ValorEstimado']+'</td>'+
-                                '<td>'+e['DuracionContrato']+'</td>'+
-                                '<td>'+e['ValorEstimadoVigencia']+'</td>'+
-                                '<td>'+e['VigenciaFutura']+'</td>'+
-                                '<td>'+e['EstadoVigenciaFutura']+'</td>'+
-                                '<td>'+e['FechaEstudioConveniencia']+'</td>'+
-                                '<td>'+e['FechaInicioProceso']+'</td>'+
-                                '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                                '<td>'+e['RecursoHumano']+'</td>'+
-                                '<td>'+e['NumeroContratista']+'</td>'+
-                                '<td>'+e['DatosResponsable']+'</td>'+
-                                '<td>'+e.rubro['Nombre']+'</td>'+
-                                '<td>'+
-                                  '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+
-                                    '<li>'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa" '+disable+'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>  Eliminar'+
-                                    '</li>'+
-                                    '<li>'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa" '+disable+'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>  Modificación'+
-                                    '</li>'+
-                                    '<li>'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>  Historial'+
-                                    '</li>'+
-                                    '<li>'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>  Financiación'+
-                                    '</li>'+
-                                    '<li>'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="EstudioComveniencia" class="btn btn-warning btn-xs2 btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" '+estudioComve+'><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></button>  Est. Conveniencia'+
-                                    '</li>'+
-                                  '</div>'+
-                                  '<div>'+
-                                    '<a href="#" class="btn btn-xs btn-default" style="width: 100%;    margin-top: 20px;" data-rel="'+e['Registro']+'" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a>'+
-                                  '</div>'+
-                                  '<div id=""></div>'+
-                                '</td>'
-                          );
+                          var $tr1 = tabla_opciones(clase, num, estado , e);    
                           t.row.add($tr1).draw( false );
                           num++;
 
                       });
-                      $('#mjs_registroPaa').html(' <strong>Registro Exitoso!</strong> Se realizo el resgistro de su PAA.');
-                      $('#mjs_registroPaa').show();
-                      setTimeout(function(){
-                          $('#mjs_registroPaa').hide();
-                      }, 3000)
+
+                      if(upd==0){
+                        $('#mjs_registroPaa').html(' <strong>Registro Exitoso!</strong> Se realizo el resgistro de su PAA.');
+                        $('#mjs_registroPaa').show();
+                        setTimeout(function(){
+                            $('#mjs_registroPaa').hide();
+                        }, 3000)
+                      }else{
+                        $('#mjs_registroPaa').html(' <strong>Se Registro la Modificación!</strong> Entra en cola de espera para la aprobación de los cambios.');
+                        $('#mjs_registroPaa').show();
+                        setTimeout(function(){
+                            $('#mjs_registroPaa').hide();
+                        }, 3000)
+                      }
                   }else{
                       $('#mensaje_presupuesto2').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
                       $('#mensaje_presupuesto2').show();
@@ -229,7 +197,6 @@ $(function()
                     case 'fecha_inicio':
                     case 'fecha_suscripcion':
                     case 'duracion_estimada':
-                    //case 'meta_plan':
                     case 'numero_contratista':
                     case 'datos_contacto':
                         selector = 'input';
@@ -240,7 +207,8 @@ $(function()
                     case 'tipo_contrato':
                     case 'vigencias_futuras':
                     case 'estado_solicitud':
-                    case 'proyecto_inversion':
+                    case 'Proyecto_inversion':
+                    case 'meta':
                     selector = 'select';
                     break;
 
@@ -273,6 +241,25 @@ $(function()
                       html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
                 });   
                 $('select[name="meta"]').html(html).val($('select[name="meta"]').data('value'));
+            }
+        });
+    };
+
+
+    var select_Meta2 = function(id)
+    { 
+        $.ajax({
+            url: URL+'/service/select_meta/'+id,
+            data: {},
+            dataType: 'json',
+            success: function(data)
+            {
+                var html = '';
+                $.each(data.metas, function(i, eee){
+                      html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
+                });   
+                html +='<option value="">Seleccionar</option>';
+                $('select[name="meta"]').html(html).val($('select[name="meta"]').data('value').attr('selected', 'selected'));
             }
         });
     };
@@ -436,7 +423,7 @@ $(function()
         $('select[name="tipo_contrato"]').val("").closest('.form-group').removeClass('has-error');
         $('select[name="vigencias_futuras"]').val("").closest('.form-group').removeClass('has-error');;
         $('select[name="estado_solicitud"]').val("").closest('.form-group').removeClass('has-error');;
-        $('select[name="proyecto_inversion"]').val("").closest('.form-group').removeClass('has-error');;
+        $('select[name="Proyecto_inversion"]').val("").closest('.form-group').removeClass('has-error');;
 
         $('textarea[name="objeto_contrato"]').val("").closest('.form-group').removeClass('has-error');;
         vector_datos_actividad.length=0;
@@ -510,17 +497,15 @@ $(function()
                     $('#btn_agregar_finaza').show();
                   }
 
-                  $.each(data.dataInfo, function(i, dato){
+
                     var num=1;
+                  $.each(data.dataInfo.componentes, function(i, dato){
                     html += '<tr>'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
-                            '<td>'+dato.actividad.meta.proyecto['Nombre']+'</td>'+
-                            '<td>'+dato.actividad.meta['Nombre']+'</td>'+
-                            '<td>'+dato.actividad['Nombre']+'</td>'+
-                            '<td>'+dato.componente['Nombre']+'</td>'+
-                            '<td>'+dato.componente.fuente['nombre']+'</td>'+
+                            '<td>'+dato.fuente['nombre']+'</td>'+
+                            '<td>'+dato['Nombre']+'</td>'+
                             '<td>'+dato.pivot['valor']+'</td>'+
-                            '<td class="text-center"><button type="button" data-dat="'+dato.pivot['actividadComponente_id']+'" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                            '<td class="text-center"><button type="button" data-id="'+dato.pivot['id']+'" data-dat="'+dato.pivot['componente_id']+'" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
                   });
                   $('#registrosFinanzas').html(html);
@@ -532,29 +517,35 @@ $(function()
      $('#datos_actividad2').delegate('button[data-funcion="eliminar_finanza"]','click',function (e) {   
       var id_act = $(this).data('rel'); 
       var id_eli = $(this).data('dat');
+      var id_key = $(this).data('id');
       
         $.ajax({
               type: "POST",
               url: URL+'/service/EliminarFinanciamiento',
-              data: {id:id_act,id_eli:id_eli},
+              data: {id:id_act,id_eli:id_eli,id_key:id_key},
               dataType: 'json',
               success: function(data)
               {   
                   var html = '';
                   $('#registrosFinanzas').html('');
-                  var num=1;
-                  $.each(data, function(i, dato){
-                    //console.log(dato);
+                  
+                  if($.inArray(data.estado,['4','5','7'])!=-1){
+                    desactivo="none";
+                    $('#btn_agregar_finaza').hide();
+                  }else{
+                    desactivo="";
+                    $('#btn_agregar_finaza').show();
+                  }
+
+
+                    var num=1;
+                  $.each(data.componentes, function(i, dato){
                     html += '<tr>'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
-                            '<td>'+dato.actividad.meta.proyecto['Nombre']+'</td>'+
-                            '<td>'+dato.actividad.meta['Nombre']+'</td>'+
-                            '<td>'+dato.actividad['Nombre']+'</td>'+
-                            '<td>'+dato.componente['Nombre']+'</td>'+
-                            '<td>'+dato.componente.fuente['nombre']+'</td>'+
+                            '<td>'+dato.fuente['nombre']+'</td>'+
+                            '<td>'+dato['Nombre']+'</td>'+
                             '<td>'+dato.pivot['valor']+'</td>'+
-                            '<td class="text-center"><button type="button" data-dat="'+dato.pivot['actividadComponente_id']+'" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
-
+                            '<td class="text-center"><button type="button" data-id="'+dato.pivot['id']+'" data-dat="'+dato.pivot['componente_id']+'" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
                   });
                   $('#registrosFinanzas').html(html);
@@ -580,21 +571,29 @@ $(function()
                        
                         } else {
                             validad_error_agre(data.errors);
-                           var html = '';
+                            var html = '';
                             $('#registrosFinanzas').html('');
                             var num=1;
-                            $.each(data, function(i, dato){
-                              //console.log(dato);
+                            desactivo="";
+
+                            if($.inArray(data.estado,['4','5','7'])!=-1){
+                              desactivo="none";
+                              $('#btn_agregar_finaza').hide();
+                            }else{
+                              desactivo="";
+                              $('#btn_agregar_finaza').show();
+                            }
+
+                            $.each(data.inf.componentes, function(i, dato){
+                              console.log(dato);
+
+                              
                               html += '<tr>'+
                                       '<th scope="row" class="text-center">'+num+'</th>'+
-                                      '<td>'+dato.actividad.meta.proyecto['Nombre']+'</td>'+
-                                      '<td>'+dato.actividad.meta['Nombre']+'</td>'+
-                                      '<td>'+dato.actividad['Nombre']+'</td>'+
-                                      '<td>'+dato.componente['Nombre']+'</td>'+
-                                      '<td>'+dato.componente.fuente['nombre']+'</td>'+
+                                      '<td>'+dato.fuente['nombre']+'</td>'+
+                                      '<td>'+dato['Nombre']+'</td>'+
                                       '<td>'+dato.pivot['valor']+'</td>'+
-                                      '<td class="text-center"><button type="button" data-dat="'+dato.pivot['actividadComponente_id']+'" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
-
+                                      '<td class="text-center"><button type="button" data-id="'+dato.pivot['id']+'" data-dat="'+dato.pivot['componente_id']+'" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                               num++;
                             });
 
@@ -851,6 +850,12 @@ $(function()
     var actividad_datos = function(datos)
     {
         
+        vector_datos_codigos.length=0; 
+        var CodigosU = datos['CodigosU'].split(","); 
+        for (var i=0; i < CodigosU.length; i++) { 
+            vector_datos_codigos.push({"codigo": CodigosU[i] }); 
+        } 
+        
         $('input[name="id_Paa"]').val(datos['Id']).closest('.form-group').removeClass('has-error');;;
         $('input[name="id_registro"]').val(datos['Registro']).closest('.form-group').removeClass('has-error');;
         $('input[name="codigo_Unspsc"]').val(datos['CodigosU']).closest('.form-group').removeClass('has-error');;
@@ -871,12 +876,27 @@ $(function()
         $('select[name="tipo_contrato"]').val(datos['Id_TipoContrato']).closest('.form-group').removeClass('has-error');;
         $('select[name="vigencias_futuras"]').val(datos['VigenciaFutura']).closest('.form-group').removeClass('has-error');;
         $('select[name="estado_solicitud"]').val(datos['EstadoVigenciaFutura']).closest('.form-group').removeClass('has-error');;
-        $('select[name="proyecto_inversion"]').val(datos['Id_ProyectoRubro']).closest('.form-group').removeClass('has-error');;
+        $('select[name="Proyecto_inversion"]').val(datos['Id_ProyectoRubro']).closest('.form-group').removeClass('has-error'); 
+        select_Meta2(datos['MetaPlan']);
+        //$('select[name="meta"]').val(datos['MetaPlan']).closest('.form-group').removeClass('has-error'); 
         //$('select[name="Id_Localidad"]').val(datos['Localidad']).change();
 
         $('textarea[name="objeto_contrato"]').val(datos['ObjetoContractual']).closest('.form-group').removeClass('has-error');;
         vector_datos_actividad.length=1;
         $('#div_finaciacion').hide();
+
+        var html = '';
+          if(vector_datos_codigos.length > 0)
+          {
+            var num=1;
+            $.each(vector_datos_codigos, function(i, e){
+              html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['codigo']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarCod" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+              num++;
+            });
+          }
+          $('#registros_cod').html(html);
+
+        $('#t_datos_actividad_codigo').show();
         $('#crear_paa_btn').html("Modificar");
 
         if(datos['Estado']==4 || datos['Estado'] ==5){
@@ -935,8 +955,32 @@ $(function()
                             disable="";
                             estudioComve="disabled";
                           }
-    
-                          var $tr1 = $('<tr class="'+clase+'"></tr>').html(
+                          
+                           var $tr1 = tabla_opciones(clase, num, estado , e);                   
+                            
+
+                          t.row.add($tr1).draw( false );
+                          num++;
+                      });
+                      $('#mjs_ElimRegistro').html(' <strong>Registro Eliminado con Exitoso!</strong> Se realizo la eliminación del resgistro de su PAA.');
+                      $('#mjs_ElimRegistro').show();
+                      setTimeout(function(){
+                          $('#mjs_ElimRegistro').hide();
+                          $('#Modal_Eliminar').modal('hide'); 
+                      }, 3000)
+                  }else{
+                      $('#mjs_ElimRegistro').html('<strong>Error!</strong> el valor del presupuesto que intenta eliminar tiene problemas.');
+                      $('#mjs_ElimRegistro').show();
+                      setTimeout(function(){
+                          $('#mjs_ElimRegistro').hide();
+                          $('#Modal_Eliminar').modal('hide'); 
+                      }, 6000)
+                  }
+          },'json');
+    });
+
+    function tabla_opciones(clase, num, estado , e){
+                   var $tr1 =   $('<tr class="'+clase+'"></tr>').html(
                             '<th scope="row" class="text-center">'+num+'</th>'+
                                 '<td><b><p class="text-info text-center">'+e['Registro']+'</p></b></td>'+
                                 '<td><b>'+estado+'</b></td>'+
@@ -958,21 +1002,17 @@ $(function()
                                 '<td>'+e.rubro['Nombre']+'</td>'+
                                 '<td>'+
                                   '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+
-                                    '<li>'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs2 btn-xs" title="Eliminar Paa" '+disable+'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>  Eliminar'+
-                                    '</li>'+
-                                    '<li>'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-default btn-xs2 btn-xs" title="Editar Paa" '+disable+'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>  Modificación'+
-                                    '</li>'+
-                                    '<li>'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Historial" class="btn btn-primary  btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>  Historial'+
-                                    '</li>'+
-                                    '<li>'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>  Financiación'+
-                                    '</li>'+
-                                    '<li>'+
-                                      '<button type="button" data-rel="'+e['Id']+'" data-funcion="EstudioComveniencia" class="btn btn-warning btn-xs2 btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" '+estudioComve+'><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></button>  Est. Conveniencia'+
-                                    '</li>'+
+                                    '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>'+
+                                    '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-link btn-xs"  title="Editar Paa" {{$disable}}><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>   Modificación</button></li>'+
+                                    '<li><button type="button" data-rel="'+e['Registro']+'" data-funcion="Historial" class="btn btn-link  btn-xs" title="Historial" ><span class="glyphicon glyphicon-header" aria-hidden="true"></span>   Historial</button></li>'+
+                                    
+                                    '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-link  btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span>   Financiación</button>  </li>'+
+                                    
+                                    '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" {{$estudioComve}}><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>   Est. Conveniencia</button>  </li>'+
+
+                                    '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Modal_Compartida" class="btn btn-link btn-xs"  title="Compartir Paa" data-toggle="modal" data-target="#Modal_Compartida" ><span class="glyphicon glyphicon-share" aria-hidden="true"></span>   Compartida</button></li>'+
+
+                                    '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Modal_Vinculada" class="btn btn-link btn-xs"  title="Vincular Paa" data-toggle="modal" data-target="#Modal_Vinculada" ><span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>   Vinculada</button></li>'+
                                   '</div>'+
                                   '<div>'+
                                     '<a href="#" class="btn btn-xs btn-default" style="width: 100%;    margin-top: 20px;" data-rel="'+e['Registro']+'" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a>'+
@@ -980,25 +1020,8 @@ $(function()
                                   '<div id=""></div>'+
                                 '</td>'
                           );
-                          t.row.add($tr1).draw( false );
-                          num++;
-                      });
-                      $('#mjs_ElimRegistro').html(' <strong>Registro Eliminado con Exitoso!</strong> Se realizo la eliminación del resgistro de su PAA.');
-                      $('#mjs_ElimRegistro').show();
-                      setTimeout(function(){
-                          $('#mjs_ElimRegistro').hide();
-                          $('#Modal_Eliminar').modal('hide'); 
-                      }, 3000)
-                  }else{
-                      $('#mjs_ElimRegistro').html('<strong>Error!</strong> el valor del presupuesto que intenta eliminar tiene problemas.');
-                      $('#mjs_ElimRegistro').show();
-                      setTimeout(function(){
-                          $('#mjs_ElimRegistro').hide();
-                          $('#Modal_Eliminar').modal('hide'); 
-                      }, 6000)
-                  }
-          },'json');
-    });
+                  return $tr1 ;
+    }
 
     $('#TablaPAA').delegate('button[data-funcion="ver_eli"]','click',function (e) {  
         var id = $(this).data('rel');
@@ -1116,5 +1139,192 @@ $(function()
     });
 
 
+    $('#Compartida').on('click', function(e){
+
+        id=$('#id_estudio2').val();
+        $.get(
+            URL+'/service/siCompartirPaa/'+id,
+            {},
+            function(data)
+            {
+                if(data)
+                {
+                    $('#CompartidaNo').removeClass('btn-success');
+                    $('#Compartida').addClass('btn-success');
+                }
+            },
+            'json'
+        );
+
+    });
+
+
+    $('#CompartidaNo').on('click', function(e){
+
+        id=$('#id_estudio2').val();
+        $.get(
+            URL+'/service/noCompartirPaa/'+id,
+            {},
+            function(data)
+            {
+                if(data)
+                {
+                    $('#Compartida').removeClass('btn-success');
+                    $('#CompartidaNo').addClass('btn-success');
+                }
+            },
+            'json'
+        );
+
+    });
+
+    $('#TablaPAA').delegate('button[data-funcion="Modal_Compartida"]','click',function (e){   
+          var id_act = $(this).data('rel'); 
+          $('#id_estudio2').val(id_act);
+          $('#id_Fin2').text(id_act);
+
+          $.get(
+            URL+'/service/verificarCompartPaa/'+id_act,
+            {},
+            function(data)
+            {
+                if(data)
+                {
+                    if(data.compartida==""){
+                      $('#Compartida').removeClass('btn-success');
+                      $('#CompartidaNo').addClass('btn-success');
+                    }else{
+                      $('#CompartidaNo').removeClass('btn-success');
+                      $('#Compartida').addClass('btn-success');
+                    }
+                }
+            },
+            'json'
+        );
+     }); 
+
+
+    $('select[name="selectSubdirecion"]').on('change', function(e){
+        select_area($(this).val());
+    });
+
+    var select_area = function(id)
+    { 
+        $.ajax({
+            url: URL+'/service/select_area/'+id,
+            data: {},
+            dataType: 'json',
+            success: function(data)
+            {
+                var html = '<option value="">Selecionar</option>';
+          
+                $.each(data.areas, function(i, eee){
+                            html += '<option value="'+eee['id']+'">'+eee['nombre'].toLowerCase()+'</option>';
+                            $('input[name="id_pivot_comp"]').val(eee['id']);
+                });
+                $('select[name="selectArea"]').html(html).val($('select[name="selectArea"]').data('value'));
+            }
+        });
+    };
+
+
+
+    $('select[name="selectArea"]').on('change', function(e){
+        select_paa_venc($(this).val());
+    });
+
+    var select_paa_venc = function(id)
+    { 
+        $.ajax({
+            url: URL+'/service/select_paVinculada/'+id,
+            data: {},
+            dataType: 'json',
+            success: function(data)
+            {
+                
+                var html = '<option value="">Selecionar</option>';          
+
+                $.each(data[0].paas, function(i, eee){
+                            var res = eee['ObjetoContractual'].slice(0, 140);
+                            html += '<option value="'+eee['Id_paa']+'">'+eee['Id_paa']+' - '+res.toLowerCase()+'</option>';
+                });
+                $('select[name="selectPaa"]').html(html).val($('select[name="selectPaa"]').data('value'));
+            }
+        });
+    };
+
+
+    $('#TablaPAA').delegate('button[data-funcion="Modal_Vinculada"]','click',function (e){   
+          var id_act = $(this).data('rel'); 
+          $('#id_estudio3').val(id_act);
+          $('#id_Fin3').text(id_act);
+
+          $.get(
+            URL+'/service/verificarCompartPaa/'+id_act,
+            {},
+            function(data)
+            {
+                if(data)
+                {
+                    if(data.compartida==""){
+                      $('#Compartida').removeClass('btn-success');
+                      $('#CompartidaNo').addClass('btn-success');
+                    }else{
+                      $('#CompartidaNo').removeClass('btn-success');
+                      $('#Compartida').addClass('btn-success');
+                    }
+                }
+            },
+            'json'
+        );
+     }); 
+
+
+    $('#form_vinvular').on('submit', function(e){
+            $.ajax({
+                type: "POST",
+                url: URL+'/service/datos_vincular',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(data)
+                {   
+                  if(data.status == 'error')
+                  {
+                      validad_error_vincula(data.errors);
+                  } 
+                  else 
+                  {
+                      validad_error_vincula(data.errors);
+                      $('#mjs_Observa_vinvula').html('<strong>Bien!</strong>Paa vinculada con exíto..');
+                      $('#mjs_Observa_vinvula').show();
+                      setTimeout(function(){
+                          $('#mjs_Observa_vinvula').hide();
+                          $('#Modal_Vinculada').modal('hide');
+                      }, 2000)
+                  }
+                }
+            });
+           return false;
+    });
+
+
+    var validad_error_vincula = function(data)
+    {
+        $('#form_vinvular .form-group').removeClass('has-error');
+        var selector = '';
+        for (var error in data){
+            if (typeof data[error] !== 'function') {
+                switch(error)
+                {
+                    case 'selectSubdirecion':
+                    case 'selectArea':
+                    case 'selectPaa':
+                    selector = 'select';
+                    break;
+                }
+                $('#form_vinvular '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
+            }
+        }
+    }
                   
 });

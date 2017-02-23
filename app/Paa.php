@@ -58,10 +58,10 @@ class Paa extends Model
         return $this->belongsTo('App\Rubro','Id_ProyectoRubro');
     }
 
-    public function actividadComponentes()
+    public function componentes()
     {
         return $this->belongsToMany('\App\Componente','actividadComponente','id_paa','componente_id')
-            ->withPivot('actividad_id','estado','valor','created_at');
+            ->withPivot('id','actividad_id','estado','valor','created_at');
     }
 
     public function cambiosPaa()

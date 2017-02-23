@@ -85,13 +85,13 @@
 						        	<?php $var=1; ?>
 						        	@foreach($paas as $paa)	
 
-			        						<?php $disable=""; $estado="";?>
+			        						<?php $disable=""; $estado=""; $estudioComve=""?>
 						        			@if($paa['Estado']==4)					    
 			        							<tr class="warning">
-			        						    <?php $disable="disabled"; $estado="En Subdireción"; $estudioComve="disabled";?>
+			        						    <?php $disable="disabled"; $estado="En Subdireción"; $estudioComve="";?>
 			        						@elseif($paa['Estado']==5)	
 			        							<tr class="success">
-			        							<?php $disable="disabled"; $estado="Aprobado Subdireción"; $estudioComve="";?>
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción"; $estudioComve="disabled";?>
 			        						@elseif($paa['Estado']==6)	
 			        							<tr class="danger">
 			        							<?php $disable=""; $estado="Denegado Subdireción"; $estudioComve="disabled";?>
@@ -100,7 +100,7 @@
 			        							<?php $disable="disabled"; $estado="CANCELADO"; $estudioComve="disabled";?>
 			        						@else
 			        							<tr>
-			        							<?php $estado="En Consolidación"; $estudioComve="disabled";?>
+			        							<?php $estado="En Consolidación"; $estudioComve="";?>
 			        						@endif
 			        						<th scope="row" class="text-center">{{$var}}</th>
 					                        <td><b><p class="text-info text-center">{{$paa['Registro']}}</p></b></td>
@@ -160,9 +160,9 @@
 												    
 												    <li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" {{$estudioComve}}><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>   Est. Conveniencia</button>  </li>
 
-												    <li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" ><span class="glyphicon glyphicon-share" aria-hidden="true"></span>   Compartida</button></li>
+												    <li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modal_Compartida" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_Compartida" ><span class="glyphicon glyphicon-share" aria-hidden="true"></span>   Compartida</button></li>
 
-												    <li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" ><span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>   Vinculada</button></li>
+												    <li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modal_Vinculada" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_Vinculada" ><span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>   Vinculada</button></li>
 
 												  </ul>
 												</div>
@@ -500,11 +500,8 @@
 						<thead>
 						<tr>
 						<th>#</th>
-						<th>Proyecto</th>
-						<th>Meta</th>
-						<th>Actividad</th>
-						<th>Componente</th>
 						<th>Fuente</th>
+						<th>Componente</th>
 						<th>Valor</th>
 						<th>Eliminar</th>
 						</tr>
@@ -524,12 +521,15 @@
 			<div class="row"  >
 				<div class="col-xs-12 col-sm-12">
 				  		<div class="form-group">
-					    	<label>Proyecto de inversión o rubro</label>
+					    	<label>Fuente</label>
 					    	<input type="hidden" name="id_act_agre" id="id_act_agre"></input>
-							<select class="form-control" name="Proyecto_inversion" id="Proyecto_inversion">
+							<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
 								<option value="" >Selecionar</option>
-								@foreach($proyectos as $proyecto)
+								<!--@foreach($proyectos as $proyecto)
 									<option value="{{ $proyecto['Id'] }}" >{{ $proyecto['Nombre'] }}</option>
+							    @endforeach-->
+							    @foreach($fuentes as $fuente)
+									<option value="{{ $fuente['Id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
 							    @endforeach
 							</select>
 						</div>
@@ -836,24 +836,134 @@
 					   <div class="col-xs-12 col-sm-12">
 					  		<div class="form-group">
 						    	<label>Conveniencia</label>
-								<textarea class="form-control" rows="6" name="texta_Conveniencia"></textarea>
+								<textarea class="form-control" rows="3" name="texta_Conveniencia"></textarea>
 							</div>
 					  </div>
 					   <div class="col-xs-12 col-sm-12">
 					  		<div class="form-group">
 						    	<label>Oportunidad</label>
-								<textarea class="form-control" rows="6" name="texta_Oportunidad"></textarea>
+								<textarea class="form-control" rows="3" name="texta_Oportunidad"></textarea>
 							</div>
 					  </div>
 					  <div class="col-xs-12 col-sm-12">
 					  		<div class="form-group">
 						    	<label>Justificación</label>
-								<textarea class="form-control" rows="6" name="texta_Justificacion"></textarea>
+								<textarea class="form-control" rows="3" name="texta_Justificacion"></textarea>
 							</div>
 					  </div>
-			
+
+					  <div class="col-xs-12 col-sm-12">
+					  		<h4>Certificacion Fuentes de Financiación</h4>
+					  		<hr/>
+					  </div>
+					  <div class="col-xs-12 col-sm-12">
+					  		<div class="form-group">
+						    	<label>Detalle fuente hacienda</label>
+								<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
+									<option value="" >Selecionar</option>
+								    @foreach($fuenteHaciendas as $fuente)
+										<option value="{{ $fuente['id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
+								    @endforeach
+								</select>
+							</div>
+					  </div>
+
+					  <div class="col-xs-12 col-sm-6">
+					  		<div class="form-group">
+						    	<label>Componentes ingresados</label>
+								<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
+									<option value="" >Componente</option>
+						        
+								</select>
+							</div>
+					  </div>
+					  
+					  <div class="col-xs-12 col-sm-6">
+					  		<div class="form-group">
+						    	<label>Actividad</label>
+								<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
+									<option value="" >Selecionar</option>
+								    @foreach($fuentes as $fuente)
+										<option value="{{ $fuente['Id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
+								    @endforeach
+								</select>
+							</div>
+					  </div>
+
+					  <div class="col-xs-12 col-sm-3">
+					  		<div class="form-group">
+						    	<label>Valor</label>
+								<input type="text" class="form-control" name="valor_contrato" readonly="readonly">
+							</div>
+					  </div>
+					  <div class="col-xs-12 col-sm-3">
+					  		<div class="form-group">
+						    	<label>Porcentaje</label>
+								<input type="text" class="form-control" name="valor_contrato">
+							</div>
+					  </div>
+					  <div class="col-xs-12 col-sm-3">
+					  		<div class="form-group">
+						    	<label>Total</label>
+								<input type="text" class="form-control" name="valor_contrato" readonly="readonly">
+							</div>
+					  </div>
+					  <div class="col-xs-12 col-sm-3">
+					  		<div class="form-group">
+						    	<label>Opciones</label><br>
+								<div class="btn-group" role="group" aria-label="Basic example">
+								  <button type="button" class="btn btn-primary ">Agregar</button>
+								  <button type="button" class="btn btn-info">Ver</button>
+								</div>
+							</div>
+					  </div>
+
+
 					  <div class="col-xs-12 col-sm-12">
 					  <div id="mjs_Observa_Fina" class="alert alert-success" style="display: none"></div>
+					  </div>
+				</div>
+	      	</div>
+      
+	      <div class="modal-footer" >
+	      	<div class="row">
+	        	<div class="col-xs-12 col-sm-12" style="text-align: left;">
+	        		<input type="hidden" name="id_estudio" id="id_estudio"></input>
+	        		<input type="hidden" name="id_estudio_pass" id="id_estudio_pass" value="0"></input>
+	        		<button type="submit" class="btn btn-success" >REGISTRAR</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
+				</div>
+	        </div>
+	      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- MODAL COMPOARTIDA-->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Compartida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      
+		<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Plan de adquisición compartido</h4>
+	        PAA N°: <label id="id_Fin2">
+
+	    </div>
+	    <form id="form_agregar_compartida">
+			<div class="modal-body">
+				<div class="row"  >
+					   <div class="col-xs-12 col-sm-12">
+					  		<div class="form-group">
+						    	<label>Desea que este plan pueda ser compartido con otras áreas?</label><br>
+								  <button type="button" class="btn btn-default" id="Compartida">Compartida</button>
+								  <button type="button" class="btn btn-default" id="CompartidaNo">No compartida</button>
+							</div>
 					  </div>
 				</div>
 	      	</div>
@@ -861,9 +971,80 @@
 	      <div class="modal-footer">
 	      	<div class="row">
 	        	<div class="col-xs-12 col-sm-12">
-	        		<input type="hidden" name="id_estudio" id="id_estudio"></input>
-	        		<input type="hidden" name="id_estudio_pass" id="id_estudio_pass" value="0"></input>
-	        		<button type="submit" class="btn btn-success" >Registro</button>
+	        		<input type="hidden" name="id_estudio2" id="id_estudio2"></input>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+	        </div>
+	      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- MODAL VINCULADA-->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Vinculada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      
+		<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Plan de adquisición vinculada</h4>
+	        PAA N°: <label id="id_Fin3">
+
+	    </div>
+	    <form id="form_vinvular">
+			<div class="modal-body">
+				<div class="row"  >
+					   <div class="col-xs-12 col-sm-6">
+					  		<div class="form-group">
+								<div class="form-group">
+									<label>SubDirección:</label>
+									<select class="form-control" name="selectSubdirecion">
+											<option value="" >Selecionar</option>
+											@foreach($subDirecciones as $subDireccion)
+												<option value="{{ $subDireccion['id'] }}" >{{ $subDireccion['nombre'] }}</option>
+										    @endforeach
+									</select>
+								</div>
+							</div>
+					  </div>
+
+					  <div class="col-xs-12 col-sm-6">
+					  		<div class="form-group">
+								<div class="form-group">
+									<label>Área:</label>
+									<select class="form-control" name="selectArea">
+										<option value="" >Selecionar</option>
+									</select>
+								</div>
+							</div>
+					  </div>
+
+					  <div class="col-xs-12 col-sm-12">
+					  		<div class="form-group">
+								<div class="form-group">
+									<label>Área:</label>
+									<select class="form-control" name="selectPaa">
+										<option value="" >Selecionar</option>
+									</select>
+								</div>
+							</div>
+					  </div>
+					  <div class="col-xs-12 col-sm-12">
+					  		<div id="mjs_Observa_vinvula" class="alert alert-success" style="display: none"></div>
+					  </div>
+				</div>
+	      	</div>
+      
+	      <div class="modal-footer">
+	      	<div class="row">
+	        	<div class="col-xs-12 col-sm-12">
+	        		<input type="hidden" name="id_estudio3" id="id_estudio3"></input>
+					<button type="submit" class="btn btn-success" >Agregar</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 				</div>
 	        </div>
