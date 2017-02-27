@@ -496,17 +496,13 @@ $(function()
               success: function(data)
               {   
                   var html = '';
-                  $.each(data.dataInfo, function(i, dato){
-                    var num=1;
+                  var num=1;
+                  $.each(data.dataInfo.componentes, function(i, dato){
                     html += '<tr>'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
-                            '<td>'+dato.actividad.meta.proyecto['Nombre']+'</td>'+
-                            '<td>'+dato.actividad.meta['Nombre']+'</td>'+
-                            '<td>'+dato.actividad['Nombre']+'</td>'+
-                            '<td>'+dato.componente['Nombre']+'</td>'+
-                            '<td>'+dato.componente.fuente['nombre']+'</td>'+
+                            '<td>'+dato.fuente['nombre']+'</td>'+
+                            '<td>'+dato['Nombre']+'</td>'+
                             '<td>'+dato.pivot['valor']+'</td>';
-                            //'<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
                   });
                   $('#registrosFinanzas').html(html);
