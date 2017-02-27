@@ -103,7 +103,7 @@ Route::get('/aprobar/service/VerFinanciamiento/{id}', 'PlanAnualAController@verF
 Route::post('/aprobar/service/DatosAprobacion', 'ConsolidadoController@DatosAprobacion');
 Route::get('/aprobar/service/obtenerHistorialPaaTodo/{id}', 'PlanAnualAController@obtenerHistorialPaaTodo');
 Route::get('/aprobar/service/aprobarSubDireccion/{id}', 'ConsolidadoController@aprobarSubDireccion');
-
+Route::get('/aprobar/imprimir/{id}', 'ConsolidadoController@imprimir');
 Route::get('/aprobar/service/historialObservaciones/{id}', 'ConsolidadoController@historialObservaciones');
 Route::post('/aprobar/service/RegistrarObservacion', 'ConsolidadoController@RegistrarObservacion');
 

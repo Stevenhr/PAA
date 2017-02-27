@@ -118,6 +118,8 @@
 									</div>
 									<br>
 									<div><a href="#" class="btn btn-xs btn-default" style="width: 100%; margin-top: 20px;" data-rel="{{$paa['Registro']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a></div>
+									<div><a href="public/img/estudio.pdf" class="btn btn-xs btn-success" style="width: 100%;    margin-top: 2px;" ><span class="glyphicon glyphicon-info-sign"></span> Est. Conveniencia</a></div>
+												<div id=""></div>
 								</div>
 	                        </td>
 	                        <td data-priority="2"></td>
@@ -177,20 +179,17 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
 				  		<table class="table table-bordered" id="datos_actividad" > 
-							<thead>
-							<tr>
-							<th>#</th>
-							<th>Proyecto</th>
-							<th>Meta</th>
-							<th>Actividad</th>
-							<th>Componente</th>
-							<th>Fuente</th>
-							<th>Valor</th>
-							</tr>
-							</thead>
-							<tbody id="registrosFinanzas"> 
-							</tbody> 
-						</table>
+						<thead>
+						<tr>
+						<th>#</th>
+						<th>Fuente</th>
+						<th>Componente</th>
+						<th>Valor</th>
+						</tr>
+						</thead>
+						<tbody id="registrosFinanzas"> 
+						</tbody> 
+					</table>
 					</div>
 				</div>
 			</div>

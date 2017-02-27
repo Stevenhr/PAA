@@ -18,7 +18,7 @@ use App\CambioPaa;
 use App\Observacion;
 use App\PersonaPaa;
 use App\SubDireccion;
-
+use PDF;
 class ConsolidadoController extends Controller
 {
     //
@@ -66,6 +66,15 @@ class ConsolidadoController extends Controller
         $paa = Paa::with('modalidad','tipocontrato','rubro','area')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7'])->get();
         $paa2 = Paa::where('IdPersona','1046')->where('Estado','1')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa, 'datos2' => $paa2));
+    }
+
+    public function imprimir(Request $request, $id)
+    {
+        /*$factura = Factura::with('planesDePagos', 'planesDePagos.pago', 'planesDePagos.matricula', 'planesDePagos.matricula.grado', 'planesDePagos.matricula.estudiante')->find($id);*/
+        $html = "<h4>Bien!!! </h4>";
+        $pdf = PDF::load($html);
+
+        return $pdf->download(); 
     }
 
     public function DatosAprobacion(Request $request)
