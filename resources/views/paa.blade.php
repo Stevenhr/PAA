@@ -859,7 +859,7 @@
 					  <div class="col-xs-12 col-sm-12">
 					  		<div class="form-group">
 						    	<label>Detalle fuente hacienda</label>
-								<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
+								<select class="form-control" name="Fuente_ingre" id="Fuente_ingre">
 									<option value="" >Selecionar</option>
 								    @foreach($fuenteHaciendas as $fuente)
 										<option value="{{ $fuente['id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
@@ -871,9 +871,7 @@
 					  <div class="col-xs-12 col-sm-6">
 					  		<div class="form-group">
 						    	<label>Componentes ingresados</label>
-								<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
-									<option value="" >Componente</option>
-						        
+								<select class="form-control" name="Componente_ingresado" id="Componente_ingresado">
 								</select>
 							</div>
 					  </div>
@@ -881,7 +879,7 @@
 					  <div class="col-xs-12 col-sm-6">
 					  		<div class="form-group">
 						    	<label>Actividad</label>
-								<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
+								<select class="form-control" name="actividad_ingre" id="actividad_ingre">
 									<option value="" >Selecionar</option>
 								    @foreach($fuentes as $fuente)
 										<option value="{{ $fuente['Id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
@@ -893,34 +891,54 @@
 					  <div class="col-xs-12 col-sm-3">
 					  		<div class="form-group">
 						    	<label>Valor</label>
-								<input type="text" class="form-control" name="valor_contrato" readonly="readonly">
+								<input type="text" class="form-control" name="valor_componente" readonly="readonly" value="0">
 							</div>
 					  </div>
 					  <div class="col-xs-12 col-sm-3">
 					  		<div class="form-group">
 						    	<label>Porcentaje</label>
-								<input type="text" class="form-control" name="valor_contrato">
+								<input type="text" class="form-control" name="valor_conponente_ingre">
 							</div>
 					  </div>
 					  <div class="col-xs-12 col-sm-3">
 					  		<div class="form-group">
 						    	<label>Total</label>
-								<input type="text" class="form-control" name="valor_contrato" readonly="readonly">
+								<input type="text" class="form-control" name="valor_total_ingr" readonly="readonly">
 							</div>
 					  </div>
 					  <div class="col-xs-12 col-sm-3">
 					  		<div class="form-group">
 						    	<label>Opciones</label><br>
 								<div class="btn-group" role="group" aria-label="Basic example">
-								  <button type="button" class="btn btn-primary ">Agregar</button>
-								  <button type="button" class="btn btn-info">Ver</button>
+								  <button type="button" class="btn btn-primary" id="agregar_financiacion">Agregar</button>
+								  <button type="button" class="btn btn-info" id="ver_tabla_finanza">Ver</button>
 								</div>
 							</div>
 					  </div>
-
-
 					  <div class="col-xs-12 col-sm-12">
-					  <div id="mjs_Observa_Fina" class="alert alert-success" style="display: none"></div>
+					  	  <table class="table table-condensed table-bordered" id="t_datos_ingreso_finanza" style="display: none;" > 
+							<thead class="thead-inverse">
+							<tr>
+							<th>#</th>
+							<th>Fuente</th>
+							<th>Componente</th>
+							<th>Actividad</th>
+							<th>Valor</th>
+							<th>Porcentaje</th>
+							<th>Total</th>
+							<th>Eliminar</th>
+							</tr>
+							</thead>
+							<tbody id="registros_finanza"> 
+							</tbody> 
+						</table>
+
+						  <div class="form-group"  id="mensaje_actividad_finan" style="display: none;">
+	        				 	<div id="alert_actividad_finca"></div>
+	        			  </div>
+        			  </div>
+					  <div class="col-xs-12 col-sm-12">
+					  	<div id="mjs_Observa_Fina" class="alert alert-success" style="display: none"></div>
 					  </div>
 				</div>
 	      	</div>
@@ -928,6 +946,9 @@
 	      <div class="modal-footer" >
 	      	<div class="row">
 	        	<div class="col-xs-12 col-sm-12" style="text-align: left;">
+	        		
+	        		
+	        		
 	        		<input type="hidden" name="id_estudio" id="id_estudio"></input>
 	        		<input type="hidden" name="id_estudio_pass" id="id_estudio_pass" value="0"></input>
 	        		<button type="submit" class="btn btn-success" >REGISTRAR</button>

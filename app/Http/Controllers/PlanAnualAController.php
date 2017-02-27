@@ -34,7 +34,7 @@ class PlanAnualAController extends Controller
         $subDireccion = SubDireccion::all();
         $fuenteHacienda = FuenteHacienda::all();
         $paa = Paa::with('modalidad','tipocontrato','rubro','area','componentes')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7'])->get();
-        
+
         $datos = [        
             'modalidades' => $modalidadSeleccion,
             'proyectos' => $proyecto,
@@ -45,6 +45,8 @@ class PlanAnualAController extends Controller
             'subDirecciones' => $subDireccion,
             'fuenteHaciendas'=>$fuenteHacienda 
         ];
+        //dd($paa);
+        //exit();
 		return view('paa',$datos);
 	}
     
@@ -365,8 +367,15 @@ class PlanAnualAController extends Controller
 
     public function obtenerEstidioConveniencia(Request $request, $id)
     {
-        $EstudioConveniencia =  EstudioConveniencia::find($id);
-        return response()->json($EstudioConveniencia);
+        $EstudioConveniencias =  EstudioConveniencia::find($id);
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area','componentes')->find($id);
+
+        $datos = [        
+            'EstudioConveniencias' => $EstudioConveniencias,
+            'paas' => $paa
+        ];
+        
+        return response()->json($datos);
     }
 
     public function obtenerHistorialPaa(Request $request, $id)
