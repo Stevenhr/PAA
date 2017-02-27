@@ -155,7 +155,7 @@
 
 												<br>
 												<div><a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="{{$paa['Registro']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a></div>
-												<div><a href="public/img/estudio.pdf" class="btn btn-xs btn-success" style="width: 80%;    margin-top: 2px;" ><span class="glyphicon glyphicon-info-sign"></span> Est. Conveniencia</a></div>
+												<div><a href="{{ asset('public/img/estudio.pdf')}}" target="_blank" class="btn btn-xs btn-success" style="width: 80%;    margin-top: 2px;" ><span class="glyphicon glyphicon-info-sign"></span> Est. Conveniencia</a></div>
 												<div id=""></div><!-- href="{{url('/aprobar/imprimir/1')  }}"-->
 					                        </td>
 					                        </tr>
