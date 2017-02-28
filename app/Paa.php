@@ -57,6 +57,16 @@ class Paa extends Model
     {
         return $this->belongsTo('App\Rubro','Id_ProyectoRubro');
     }
+    
+    public function proyecto()
+    {
+        return $this->belongsTo('App\Proyecto','Id_ProyectoRubro');
+    }
+
+    public function meta()
+    {
+        return $this->belongsTo('App\Meta','MetaPlan');
+    }
 
     public function componentes()
     {

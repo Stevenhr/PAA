@@ -20,6 +20,7 @@ use App\EstudioConveniencia;
 use App\SubDireccion;
 use App\FuenteHacienda;
 use App\Area;
+use App\ActividadComponente;
 
 class PlanAnualAController extends Controller
 {
@@ -310,22 +311,30 @@ class PlanAnualAController extends Controller
         if ($validator->fails())
         return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
 
-         
-
         
         $id=$request['id_estudio'];
         $texta_Conveniencia=$request['texta_Conveniencia'];
         $texta_Oportunidad=$request['texta_Oportunidad'];
         $texta_Justificacion=$request['texta_Justificacion'];
 
-        if($request['id_estudio_pass']==0){
+        $data0 = json_decode($request['campos_Clasi_Finan']);
+            $modeloAct = new ActividadComponente;
+            foreach($data0 as $obj){
+                $modeloAct->actividades()->attach($obj->actividad_ingre,[
+                    'componeActiv_id'=>$obj->componente,
+                    'valor'=>$obj->valor_componente,
+                    'estado'=>1,
+                ]);
+            }
 
+        if($request['id_estudio_pass']==0)
+        {
             $EstudioConveniencia = new EstudioConveniencia;
         }
-        else{
+        else
+        {
             $EstudioConveniencia = EstudioConveniencia::find($id);
         }
-        
 
         $EstudioConveniencia['id_paa'] = $id;
         $EstudioConveniencia['conveniencia'] = $texta_Conveniencia;
@@ -368,13 +377,13 @@ class PlanAnualAController extends Controller
     public function obtenerEstidioConveniencia(Request $request, $id)
     {
         $EstudioConveniencias =  EstudioConveniencia::find($id);
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area','componentes')->find($id);
+        $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes')->find($id);
 
         $datos = [        
             'EstudioConveniencias' => $EstudioConveniencias,
             'paas' => $paa
         ];
-        
+
         return response()->json($datos);
     }
 

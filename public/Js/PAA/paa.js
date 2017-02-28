@@ -614,6 +614,7 @@ $(function()
           var id_act = $(this).data('rel'); 
           $('#id_estudio').val(id_act);
           $('#id_Fin').text(id_act);
+          vector_datos_financiacion.length=0;
 
           $.get(
             URL+'/service/obtenerEstidioConveniencia/'+id_act,
@@ -633,17 +634,24 @@ $(function()
                     $('textarea[name="texta_Justificacion"]').val('');
                 }
 
+
                 var html = '<option value="">Selecionar</option>';
-          
                 $.each(data.paas.componentes, function(i, eee){
                             html += '<option data-valor="'+eee.pivot['valor']+'" value="'+eee.pivot['id']+'">'+eee['Nombre']+'</option>';
-                           // $('input[name="valor_componente"]').val(eee.pivot['valor']);
                 });
                 $('select[name="Componente_ingresado"]').html(html).val($('select[name="Componente_ingresado"]').data('value'));
 
+
+                var html1 = '<option value="">Selecionar</option>';
+                 $('#mensj_meta').text(data.paas.meta['Nombre']);
+                $.each(data.paas.meta.actividades, function(i, eee){
+                            html1 += '<option value="'+eee['Id']+'">'+eee['Nombre']+'</option>';
+                });
+                $('select[name="actividad_ingre"]').html(html1).val($('select[name="actividad_ingre"]').data('value'));
+
             },
             'json'
-        );
+          );
          
      }); 
 
@@ -669,31 +677,57 @@ $(function()
     $('#agregar_financiacion').on('click', function(e)
     {
           var componente =$('select[name="Componente_ingresado"]').find(':selected').val();
+          var componente_name =$('select[name="Componente_ingresado"]').find(':selected').text();
           var Fuente_ingre =$('select[name="Fuente_ingre"]').find(':selected').val();
+          var Fuente_ingre_name =$('select[name="Fuente_ingre"]').find(':selected').text();
           var actividad_ingre =$('select[name="actividad_ingre"]').find(':selected').val();
+          var actividad_ingre_nom =$('select[name="actividad_ingre"]').find(':selected').text();
           var valor_componente=$('input[name="valor_componente"]').val();
           var valor_conponente_ingre=$('input[name="valor_conponente_ingre"]').val();
           var valor_total_ingr=$('input[name="valor_total_ingr"]').val();
-
+          var vali_porce=0;
           if(componente==='' || Fuente_ingre==='' || valor_conponente_ingre==='' || valor_total_ingr==='' || actividad_ingre===''){
               $('#alert_actividad_finca').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Campos vacios en el formulario.</div>');
               $('#mensaje_actividad_finan').show(60);
               $('#mensaje_actividad_finan').delay(2500).hide(600);
           }else{
-              $('#alert_actividad_finca').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Registro agregado.</div>');
-              $('#mensaje_actividad_finan').show(30);
-              $('#mensaje_actividad_finan').delay(1000).hide(300);
-              vector_datos_financiacion.push({
-                "componente": componente,
-                "Fuente_ingre": Fuente_ingre,
-                "actividad_ingre": actividad_ingre,
-                "valor_componente": valor_componente,
-                "porcentaje": valor_conponente_ingre,
-                "valor_total_ingr": valor_total_ingr
-              });
-          }
+              
+              if(vector_datos_financiacion.length >= 0)
+              {
 
-          console.log(vector_datos_financiacion);
+                $.each(vector_datos_financiacion, function(i, e){
+                  if(e['componente']==componente){
+                    vali_porce=parseInt(vali_porce)+parseInt(e['porcentaje']);
+                  }
+                });
+                    vali_porce=parseInt(vali_porce)+parseInt(valor_conponente_ingre);
+              }else
+              {
+                    vali_porce=parseInt(vali_porce)+parseInt(e['porcentaje']);
+              }
+              //console.log(vali_porce);
+              if(vali_porce<=100)
+              {
+                $('#alert_actividad_finca').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Registro agregado.</div>');
+                $('#mensaje_actividad_finan').show(30);
+                $('#mensaje_actividad_finan').delay(1000).hide(300);
+                vector_datos_financiacion.push({
+                  "componente_name": componente_name,
+                  "componente": componente,
+                  "Fuente_ingre_name": Fuente_ingre_name,
+                  "Fuente_ingre": Fuente_ingre,
+                  "actividad_ingre_name": actividad_ingre_nom,
+                  "actividad_ingre": actividad_ingre,
+                  "valor_componente": valor_componente,
+                  "porcentaje": valor_conponente_ingre,
+                  "valor_total_ingr": valor_total_ingr
+                });
+              }else{
+                $('#alert_actividad_finca').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El orcentaje que intenta ingresar para el componente '+componente_name+' sobre pasa el 100%.</div>');                $('#mensaje_actividad_finan').show(60);
+                $('#mensaje_actividad_finan').delay(2500).hide(600);
+              }
+          }
+          //console.log(vector_datos_financiacion);
     });
 
     $('#ver_tabla_finanza').on('click', function(e)
@@ -703,7 +737,7 @@ $(function()
             {
               var num=1;
               $.each(vector_datos_financiacion, function(i, e){
-                html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['Fuente_ingre']+'</td><td>'+e['componente']+'</td><td>'+e['actividad_ingre']+'</td><td>'+e['valor_componente']+'</td><td>'+e['porcentaje']+'%</td><td>'+e['valor_total_ingr']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarFinan" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['Fuente_ingre_name']+'</td><td>'+e['componente_name']+'</td><td>'+e['actividad_ingre_name']+'</td><td>'+e['valor_componente']+'</td><td>'+e['porcentaje']+'%</td><td> $'+e['valor_total_ingr']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarFinan" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                 num++;
               });
             }
@@ -722,7 +756,7 @@ $(function()
             {
               var num=1;
               $.each(vector_datos_financiacion, function(i, e){
-                html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['Fuente_ingre']+'</td><td>'+e['componente']+'</td><td>'+e['actividad_ingre']+'</td><td>'+e['valor_componente']+'</td><td>'+e['porcentaje']+'%</td><td>'+e['valor_total_ingr']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarFinan" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                  html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['Fuente_ingre_name']+'</td><td>'+e['componente_name']+'</td><td>'+e['actividad_ingre_name']+'</td><td>'+e['valor_componente']+'</td><td>'+e['porcentaje']+'%</td><td> $'+e['valor_total_ingr']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarFinan" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                 num++;
               });
             }
@@ -735,28 +769,43 @@ $(function()
 
       $('#form_agregar_estudio_comveniencia').on('submit', function(e){
 
-              $.ajax({
-                  type: "POST",
-                  url: URL+'/service/agregar_estudio',
-                  data: $(this).serialize(),
-                  dataType: 'json',
-                  success: function(data)
-                  {   
+              if(vector_datos_financiacion.length>0){
+                    var datos_cod = JSON.stringify(vector_datos_financiacion);
+                    $('input[name="campos_Clasi_Finan"]').val(datos_cod);
 
-                    if(data.status == 'error')
-                    {
-                        validad_error_estidioC(data.errors);
-                    } else {
-                        validad_error_estidioC(data.errors);
-                        $('#mjs_Observa_Fina').html('<strong>Bien!</strong> Datos registrados con exíto..');
-                        $('#mjs_Observa_Fina').show();
-                        setTimeout(function(){
-                            $('#mjs_Observa_Fina').hide();
-                            $('#Modal_EstudioComveniencia').modal('hide');
-                        }, 2000)
-                    }
-                  }
-              });
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: URL+'/service/agregar_estudio',
+                        data: $(this).serialize(),
+                        dataType: 'json',
+                        success: function(data)
+                        {   
+
+                          if(data.status == 'error')
+                          {
+                              validad_error_estidioC(data.errors);
+                          } else {
+
+                              validad_error_estidioC(data.errors);
+                              $('#mjs_Observa_Fina').html('<strong>Bien!</strong> Datos registrados con exíto..');
+                              $('#mjs_Observa_Fina').show();
+                              setTimeout(function(){
+                                  $('#mjs_Observa_Fina').hide();
+                                  $('#Modal_EstudioComveniencia').modal('hide');
+                              }, 2000)
+                          }
+                        }
+                    });
+              }else{
+                $('#mjs_Observa_Fina2').html('<strong>Error!</strong> No sea agregado ninguna fuente de financiación');
+                $('#mjs_Observa_Fina2').show();
+                setTimeout(function(){
+                    $('#mjs_Observa_Fina2').hide();
+                }, 2000)
+              }
+
+
            return false;
     });
 

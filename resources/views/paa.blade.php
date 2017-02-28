@@ -853,7 +853,7 @@
 					  </div>
 
 					  <div class="col-xs-12 col-sm-12">
-					  		<h4>Certificacion Fuentes de Financiación</h4>
+					  		<h4>Clasificación Fuentes de Financiación</h4>
 					  		<hr/>
 					  </div>
 					  <div class="col-xs-12 col-sm-12">
@@ -878,12 +878,9 @@
 					  
 					  <div class="col-xs-12 col-sm-6">
 					  		<div class="form-group">
-						    	<label>Actividad</label>
+						    	<label>Actividades de la meta:  </label><label id="mensj_meta"></label>
 								<select class="form-control" name="actividad_ingre" id="actividad_ingre">
-									<option value="" >Selecionar</option>
-								    @foreach($fuentes as $fuente)
-										<option value="{{ $fuente['Id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
-								    @endforeach
+									<option value="" >Selecionar</option>								    
 								</select>
 							</div>
 					  </div>
@@ -939,6 +936,7 @@
         			  </div>
 					  <div class="col-xs-12 col-sm-12">
 					  	<div id="mjs_Observa_Fina" class="alert alert-success" style="display: none"></div>
+					  	<div id="mjs_Observa_Fina2" class="alert alert-danger" style="display: none"></div>
 					  </div>
 				</div>
 	      	</div>
@@ -948,7 +946,7 @@
 	        	<div class="col-xs-12 col-sm-12" style="text-align: left;">
 	        		
 	        		
-	        		
+	        		<input type="hidden" name="campos_Clasi_Finan" id="campos_Clasi_Finan"></input>
 	        		<input type="hidden" name="id_estudio" id="id_estudio"></input>
 	        		<input type="hidden" name="id_estudio_pass" id="id_estudio_pass" value="0"></input>
 	        		<button type="submit" class="btn btn-success" >REGISTRAR</button>

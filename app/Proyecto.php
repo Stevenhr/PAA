@@ -21,4 +21,8 @@ class Proyecto extends Model
     {
         return $this->belongsTo('App\Presupuesto','Id_presupuesto');
     }
+    public function paas()
+    {
+        return $this->hasMany('App\Paa','Id_ProyectoRubro');
+    }
 }
