@@ -913,7 +913,7 @@
 							</div>
 					  </div>
 					  <div class="col-xs-12 col-sm-12">
-					  	  <table class="table table-condensed table-bordered" id="t_datos_ingreso_finanza" style="display: none;" > 
+					  	  <table class="table table-condensed table-bordered" id="t_datos_ingreso_finanza" > 
 							<thead class="thead-inverse">
 							<tr>
 							<th>#</th>
@@ -949,7 +949,7 @@
 	        		<input type="hidden" name="campos_Clasi_Finan" id="campos_Clasi_Finan"></input>
 	        		<input type="hidden" name="id_estudio" id="id_estudio"></input>
 	        		<input type="hidden" name="id_estudio_pass" id="id_estudio_pass" value="0"></input>
-	        		<button type="submit" class="btn btn-success" >REGISTRAR</button>
+	        		<button type="submit" class="btn btn-success" id="RegistrarEstudio">REGISTRAR</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
 				</div>
 	        </div>

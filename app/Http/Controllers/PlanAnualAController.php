@@ -21,6 +21,7 @@ use App\SubDireccion;
 use App\FuenteHacienda;
 use App\Area;
 use App\ActividadComponente;
+use App\Actividad;
 
 class PlanAnualAController extends Controller
 {
@@ -311,19 +312,31 @@ class PlanAnualAController extends Controller
         if ($validator->fails())
         return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
 
-        
         $id=$request['id_estudio'];
         $texta_Conveniencia=$request['texta_Conveniencia'];
         $texta_Oportunidad=$request['texta_Oportunidad'];
         $texta_Justificacion=$request['texta_Justificacion'];
 
         $data0 = json_decode($request['campos_Clasi_Finan']);
-            $modeloAct = new ActividadComponente;
+        $modeloAct = new ActividadComponente;
+        $finanzas = ActividadComponente::with('actividades')->where('id_paa',$id)->get();
+
+            foreach ($finanzas as $finanza) {
+                foreach ($finanza->actividades as &$actividad) {
+                    $actividad->pivot['estado']=1;
+                    $actividad->pivot->save();
+                }
+            }
+
             foreach($data0 as $obj){
                 $modeloAct->actividades()->attach($obj->actividad_ingre,[
                     'componeActiv_id'=>$obj->componente,
                     'valor'=>$obj->valor_componente,
-                    'estado'=>1,
+                    'estado'=>0,
+                    'fuentehacienda'=>$obj->Fuente_ingre,
+                    'porcentaje'=>$obj->porcentaje,
+                    'valor'=>$obj->valor_componente,
+                    'total'=>$obj->valor_total_ingr,
                 ]);
             }
 
@@ -378,10 +391,20 @@ class PlanAnualAController extends Controller
     {
         $EstudioConveniencias =  EstudioConveniencia::find($id);
         $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes')->find($id);
+        $finanzas = ActividadComponente::with('actividades')->where('id_paa',$id)->get();
+
+        foreach ($finanzas as $finanza) {
+                $finanza->Componente = Componente::find($finanza['componente_id']);
+            foreach ($finanza->actividades as &$actividad){
+                $actividad->Actividad = Actividad::find($actividad->pivot['actividad_id']);
+                $actividad->Fuente = FuenteHacienda::find($actividad->pivot['fuentehacienda']);
+            }
+        }
 
         $datos = [        
             'EstudioConveniencias' => $EstudioConveniencias,
-            'paas' => $paa
+            'paas' => $paa,
+            'finanzas' =>$finanzas
         ];
 
         return response()->json($datos);

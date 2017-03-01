@@ -611,29 +611,52 @@ $(function()
 
 
      $('#TablaPAA').delegate('button[data-funcion="EstudioComveniencia"]','click',function (e){   
+          
           var id_act = $(this).data('rel'); 
           $('#id_estudio').val(id_act);
           $('#id_Fin').text(id_act);
           vector_datos_financiacion.length=0;
-
           $.get(
             URL+'/service/obtenerEstidioConveniencia/'+id_act,
             {},
             function(data)
-            {
+            { 
+                
                 if(data.EstudioConveniencias!= null)
                 {
                     $('#id_estudio_pass').val(id_act);
                     $('textarea[name="texta_Conveniencia"]').val(data.EstudioConveniencias['conveniencia']);
                     $('textarea[name="texta_Oportunidad"]').val(data.EstudioConveniencias['oportunidad']);
                     $('textarea[name="texta_Justificacion"]').val(data.EstudioConveniencias['justificacion']);
+                    $('#RegistrarEstudio').text('Modificar'); 
+                    //console.log(data.finanzas);
+                    $.each(data.finanzas, function(i, eee){
+                      $.each(eee.actividades, function(j, ee){ 
+                             if(ee.pivot['estado']==0){
+                                vector_datos_financiacion.push({
+                                  "componente_name": eee.Componente['Nombre'],
+                                  "componente": eee['id'],
+                                  "Fuente_ingre_name": ee.Fuente['nombre'],
+                                  "Fuente_ingre": ee.Fuente['id'],
+                                  "actividad_ingre_name": ee.Actividad['Nombre'],
+                                  "actividad_ingre": ee.Actividad['Id'],
+                                  "valor_componente": ee.pivot['valor'],
+                                  "porcentaje": ee.pivot['porcentaje'],
+                                  "valor_total_ingr": ee.pivot['total'],
+                                });
+                              }
+                      });
+                    });
+                   verFinanciacion();
                 }else{
+                    vector_datos_financiacion.length=0;
+                    verFinanciacion();
                     $('#id_estudio_pass').val(0);
                     $('textarea[name="texta_Conveniencia"]').val('');
                     $('textarea[name="texta_Oportunidad"]').val('');
                     $('textarea[name="texta_Justificacion"]').val('');
+                    $('#RegistrarEstudio').text('Registrar'); 
                 }
-
 
                 var html = '<option value="">Selecionar</option>';
                 $.each(data.paas.componentes, function(i, eee){
@@ -641,18 +664,16 @@ $(function()
                 });
                 $('select[name="Componente_ingresado"]').html(html).val($('select[name="Componente_ingresado"]').data('value'));
 
-
                 var html1 = '<option value="">Selecionar</option>';
                  $('#mensj_meta').text(data.paas.meta['Nombre']);
                 $.each(data.paas.meta.actividades, function(i, eee){
                             html1 += '<option value="'+eee['Id']+'">'+eee['Nombre']+'</option>';
                 });
                 $('select[name="actividad_ingre"]').html(html1).val($('select[name="actividad_ingre"]').data('value'));
-
             },
             'json'
           );
-         
+
      }); 
 
     $('select[name="Componente_ingresado"]').on('change', function(e){
@@ -691,10 +712,8 @@ $(function()
               $('#mensaje_actividad_finan').show(60);
               $('#mensaje_actividad_finan').delay(2500).hide(600);
           }else{
-              
               if(vector_datos_financiacion.length >= 0)
               {
-
                 $.each(vector_datos_financiacion, function(i, e){
                   if(e['componente']==componente){
                     vali_porce=parseInt(vali_porce)+parseInt(e['porcentaje']);
@@ -705,7 +724,6 @@ $(function()
               {
                     vali_porce=parseInt(vali_porce)+parseInt(e['porcentaje']);
               }
-              //console.log(vali_porce);
               if(vali_porce<=100)
               {
                 $('#alert_actividad_finca').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Registro agregado.</div>');
@@ -727,7 +745,7 @@ $(function()
                 $('#mensaje_actividad_finan').delay(2500).hide(600);
               }
           }
-          //console.log(vector_datos_financiacion);
+          verFinanciacion();
     });
 
     $('#ver_tabla_finanza').on('click', function(e)
@@ -746,6 +764,22 @@ $(function()
         $('#t_datos_ingreso_finanza').show();
         return false;
     });
+
+    function  verFinanciacion(){
+      var html = '';
+            if(vector_datos_financiacion.length > 0)
+            {
+              var num=1;
+              $.each(vector_datos_financiacion, function(i, e){
+                html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['Fuente_ingre_name']+'</td><td>'+e['componente_name']+'</td><td>'+e['actividad_ingre_name']+'</td><td>'+e['valor_componente']+'</td><td>'+e['porcentaje']+'%</td><td> $'+e['valor_total_ingr']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarFinan" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                num++;
+              });
+            }
+            $('#registros_finanza').html(html);
+
+        $('#t_datos_ingreso_finanza').show();
+        return false;
+    }
 
     $('#t_datos_ingreso_finanza').delegate('button[data-funcion="eliminarFinan"]','click',function (e) {   
       var id = $(this).data('rel'); 
@@ -770,33 +804,31 @@ $(function()
       $('#form_agregar_estudio_comveniencia').on('submit', function(e){
 
               if(vector_datos_financiacion.length>0){
-                    var datos_cod = JSON.stringify(vector_datos_financiacion);
-                    $('input[name="campos_Clasi_Finan"]').val(datos_cod);
+                  var datos_cod = JSON.stringify(vector_datos_financiacion);
+                  $('input[name="campos_Clasi_Finan"]').val(datos_cod);
+                      $.ajax({
+                          type: "POST",
+                          url: URL+'/service/agregar_estudio',
+                          data: $(this).serialize(),
+                          dataType: 'json',
+                          success: function(data)
+                          {   
 
-                    
-                    $.ajax({
-                        type: "POST",
-                        url: URL+'/service/agregar_estudio',
-                        data: $(this).serialize(),
-                        dataType: 'json',
-                        success: function(data)
-                        {   
+                            if(data.status == 'error')
+                            {
+                                validad_error_estidioC(data.errors);
+                            } else {
 
-                          if(data.status == 'error')
-                          {
-                              validad_error_estidioC(data.errors);
-                          } else {
-
-                              validad_error_estidioC(data.errors);
-                              $('#mjs_Observa_Fina').html('<strong>Bien!</strong> Datos registrados con exíto..');
-                              $('#mjs_Observa_Fina').show();
-                              setTimeout(function(){
-                                  $('#mjs_Observa_Fina').hide();
-                                  $('#Modal_EstudioComveniencia').modal('hide');
-                              }, 2000)
+                                validad_error_estidioC(data.errors);
+                                $('#mjs_Observa_Fina').html('<strong>Bien!</strong> Datos registrados con exíto..');
+                                $('#mjs_Observa_Fina').show();
+                                setTimeout(function(){
+                                    $('#mjs_Observa_Fina').hide();
+                                    $('#Modal_EstudioComveniencia').modal('hide');
+                                }, 2000)
+                            }
                           }
-                        }
-                    });
+                      });
               }else{
                 $('#mjs_Observa_Fina2').html('<strong>Error!</strong> No sea agregado ninguna fuente de financiación');
                 $('#mjs_Observa_Fina2').show();
@@ -804,8 +836,6 @@ $(function()
                     $('#mjs_Observa_Fina2').hide();
                 }, 2000)
               }
-
-
            return false;
     });
 
