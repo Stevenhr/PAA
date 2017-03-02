@@ -22,7 +22,7 @@
 		    		</div>
 	    		
 	            	<div class="col-xs-12 col-md-12">
-				    	
+				    			
 					      		<table id="TablaPAA"  class="display responsive no-wrap table table-min" width="100%" cellspacing="0">
 						        <thead>
 						            <tr>

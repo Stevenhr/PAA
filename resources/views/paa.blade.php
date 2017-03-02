@@ -85,22 +85,22 @@
 						        	<?php $var=1; ?>
 						        	@foreach($paas as $paa)	
 
-			        						<?php $disable=""; $estado=""; $estudioComve=""?>
+			        						<?php $disable=""; $estado=""; $estudioComve="1"?>
 						        			@if($paa['Estado']==4)					    
 			        							<tr class="warning">
-			        						    <?php $disable="disabled"; $estado="En Subdireción"; $estudioComve="";?>
+			        						    <?php $disable="disabled"; $estado="En Subdireción"; $estudioComve="1";?>
 			        						@elseif($paa['Estado']==5)	
 			        							<tr class="success">
-			        							<?php $disable="disabled"; $estado="Aprobado Subdireción"; $estudioComve="disabled";?>
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción"; $estudioComve="0";?>
 			        						@elseif($paa['Estado']==6)	
 			        							<tr class="danger">
-			        							<?php $disable=""; $estado="Denegado Subdireción"; $estudioComve="disabled";?>
+			        							<?php $disable=""; $estado="Denegado Subdireción"; $estudioComve="1";?>
 			        						@elseif($paa['Estado']==7)	
 			        							<tr class="danger">
-			        							<?php $disable="disabled"; $estado="CANCELADO"; $estudioComve="disabled";?>
+			        							<?php $disable="disabled"; $estado="CANCELADO"; $estudioComve="1";?>
 			        						@else
 			        							<tr>
-			        							<?php $estado="En Consolidación"; $estudioComve="";?>
+			        							<?php $estado="En Consolidación"; $estudioComve="1";?>
 			        						@endif
 			        						<th scope="row" class="text-center">{{$var}}</th>
 					                        <td><b><p class="text-info text-center">{{$paa['Registro']}}</p></b></td>
@@ -158,7 +158,7 @@
 												    
 												    <li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-link  btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span>   Financiación</button>  </li>
 												    
-												    <li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" {{$estudioComve}}><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>   Est. Conveniencia</button>  </li>
+												    <li><button type="button" data-rel="{{$paa['Id']}}" data-estado="{{$estudioComve}}" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>   Est. Conveniencia</button>  </li>
 
 												    <li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modal_Compartida" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_Compartida" ><span class="glyphicon glyphicon-share" aria-hidden="true"></span>   Compartida</button></li>
 
@@ -825,10 +825,11 @@
     <div class="modal-content">
       
 		<div class="modal-header">
+
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	        <h4 class="modal-title" id="myModalLabel">Estudio de Conveniencia y oportunidad </h4>
-	        PAA N°: <label id="id_Fin">
-
+	        PAA N°: <label id="id_Fin"></label>
+	        <div id="mjs_estado_estudio" class="alert alert-info"></div>
 	    </div>
 	    <form id="form_agregar_estudio_comveniencia">
 			<div class="modal-body">
@@ -913,7 +914,7 @@
 							</div>
 					  </div>
 					  <div class="col-xs-12 col-sm-12">
-					  	  <table class="table table-condensed table-bordered" id="t_datos_ingreso_finanza" > 
+					  	<table class="table table-condensed table-bordered" id="t_datos_ingreso_finanza" > 
 							<thead class="thead-inverse">
 							<tr>
 							<th>#</th>

@@ -105,38 +105,8 @@ $(function()
                       var num=1;
                       t.clear().draw();
                       $.each(data.datos, function(i, e){
-
-                      var disable=""; 
-                      var estado="";
-                      var clase="";
-
-                          if(e['Estado']==4){              
-                            clase="warning";
-                            disable="disabled"; 
-                            estado="En Subdireción";
-                            estudioComve="disabled";
-                          }else if(e['Estado']==5){  
-                            clase="success";
-                            disable="disabled"; 
-                            estado="Aprobado Subdireción"; 
-                            estudioComve="";
-                          }else if(e['Estado']==6){  
-                            clase="danger";
-                            disable=""; 
-                            estado="Denegado Subdireción"; 
-                            estudioComve="disabled";
-                          }else if(e['Estado']==7){  
-                            clase="danger";
-                            disable="disabled"; 
-                            estado="CANCELADO"; 
-                            estudioComve="disabled";
-                          }else{
-                            estado="En Consolidación";
-                            disable="";
-                            estudioComve="disabled";
-                          }
-    
-                          var $tr1 = tabla_opciones(clase, num, estado , e);    
+  
+                          var $tr1 = tabla_opciones(e,num);    
                           t.row.add($tr1).draw( false );
                           num++;
 
@@ -497,8 +467,6 @@ $(function()
                     desactivo="";
                     $('#btn_agregar_finaza').show();
                   }
-
-
                     var num=1;
                   $.each(data.dataInfo.componentes, function(i, dato){
                     html += '<tr>'+
@@ -613,6 +581,19 @@ $(function()
      $('#TablaPAA').delegate('button[data-funcion="EstudioComveniencia"]','click',function (e){   
           
           var id_act = $(this).data('rel'); 
+          var estado = $(this).data('estado'); 
+
+                if(estado!=0){
+                  $('#RegistrarEstudio').hide();
+                  $('#agregar_financiacion').hide();
+                  $('#mjs_estado_estudio').html('<strong>NO ACTIVA!</strong> No ha sido aprobada por subdirección.');
+                }else{
+                  $('#RegistrarEstudio').show();
+                  $('#agregar_financiacion').show();
+                  $('#mjs_estado_estudio').html('<strong>ACTIVA!</strong> Aprobada por subdirección');
+                }
+
+
           $('#id_estudio').val(id_act);
           $('#id_Fin').text(id_act);
           vector_datos_financiacion.length=0;
@@ -1098,37 +1079,9 @@ $(function()
                       var num=1;
                       t.clear().draw();
                       $.each(data.datos, function(i, e){
-                          var disable=""; 
-                          var estado="";
-                          var clase="";
-
-                          if(e['Estado']==4){              
-                            clase="warning";
-                            disable="disabled"; 
-                            estado="En Subdireción";
-                            estudioComve="disabled";
-                          }else if(e['Estado']==5){  
-                            clase="success";
-                            disable="disabled"; 
-                            estado="Aprobado Subdireción"; 
-                            estudioComve="";
-                          }else if(e['Estado']==6){  
-                            clase="danger";
-                            disable=""; 
-                            estado="Denegado Subdireción"; 
-                            estudioComve="disabled";
-                          }else if(e['Estado']==7){  
-                            clase="danger";
-                            disable="disabled"; 
-                            estado="CANCELADO"; 
-                            estudioComve="disabled";
-                          }else{
-                            estado="En Consolidación";
-                            disable="";
-                            estudioComve="disabled";
-                          }
                           
-                           var $tr1 = tabla_opciones(clase, num, estado , e);                   
+                          
+                           var $tr1 = tabla_opciones(e,num);                   
                             
 
                           t.row.add($tr1).draw( false );
@@ -1151,7 +1104,38 @@ $(function()
           },'json');
     });
 
-    function tabla_opciones(clase, num, estado , e){
+    function tabla_opciones(e, num){
+                          var disable=""; 
+                          var estado="";
+                          var clase="";
+
+                          if(e['Estado']==4){              
+                            clase="warning";
+                            disable="disabled"; 
+                            estado="En Subdireción";
+                            estudioComve="1";
+                          }else if(e['Estado']==5){  
+                            clase="success";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción"; 
+                            estudioComve="0";
+                          }else if(e['Estado']==6){  
+                            clase="danger";
+                            disable=""; 
+                            estado="Denegado Subdireción"; 
+                            estudioComve="1";
+                          }else if(e['Estado']==7){  
+                            clase="danger";
+                            disable="disabled"; 
+                            estado="CANCELADO"; 
+                            estudioComve="1";
+                          }else{
+                            estado="En Consolidación";
+                            disable="";
+                            estudioComve="1";
+                          }
+
+
                    var $tr1 =   $('<tr class="'+clase+'"></tr>').html(
                             '<th scope="row" class="text-center">'+num+'</th>'+
                                 '<td><b><p class="text-info text-center">'+e['Registro']+'</p></b></td>'+
@@ -1180,7 +1164,7 @@ $(function()
                                     
                                     '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-link  btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span>   Financiación</button>  </li>'+
                                     
-                                    '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" {{$estudioComve}}><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>   Est. Conveniencia</button>  </li>'+
+                                    '<li><button type="button" data-rel="'+e['Id']+'" data-estado="'+estudioComve+'" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" ><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>   Est. Conveniencia</button>  </li>'+
 
                                     '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Modal_Compartida" class="btn btn-link btn-xs"  title="Compartir Paa" data-toggle="modal" data-target="#Modal_Compartida" ><span class="glyphicon glyphicon-share" aria-hidden="true"></span>   Compartida</button></li>'+
 
