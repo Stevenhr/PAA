@@ -26,7 +26,7 @@ class DireccionController extends BaseController
 
 
 		$paas = Paa::with('modalidad', 'tipocontrato', 'rubro')
-						->whereIn('Estado', [Estado::Subdireccion, Estado::Aprobado, Estado::Rechazado, Estado::Cancelado])
+						->whereIn('Estado', [Estado::Subdireccion, Estado::Aprobado, Estado::Rechazado, Estado::Cancelado,Estado::EstudioConveniencia,Estado::EstudioAprobado,Estado::EstudioCorregido,Estado::EstudioCancelado])
 						->whereIn('Id_Area', $subdireccion->areas->pluck('id'))
 						->orderBy('Estado')
 						->get();
@@ -82,4 +82,15 @@ class DireccionController extends BaseController
 
 		$observacion->save();
 	}
+
+	 public function AprobarEstudio(Request $request)
+    {
+        $id_persona=$_SESSION['Id_Persona'];
+        $id=$request['id'];
+        $estado=$request['estado'];
+        $paa = Paa::find($id);
+        $paa['estado'] =$estado;
+        $paa->save();
+        return response()->json(array('status' => 'ok'));
+    }
 }

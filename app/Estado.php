@@ -11,6 +11,10 @@ class Estado {
 	const Aprobado = 5;
 	const Rechazado = 6;
 	const Cancelado = 7;
+	const EstudioConveniencia = 8;
+	const EstudioAprobado = 9;
+	const EstudioCorregido = 10;
+	const EstudioCancelado = 11;
 
 	static function toString($codigo)
 	{
@@ -33,6 +37,18 @@ class Estado {
 			break;
 			case 7:
 				$estado = 'Cancelado por subdirección';
+			break;
+			case 8:
+				$estado = 'Aprobado por subdirección, con estudio de conveniencia.';
+			break;
+			case 9:
+				$estado = 'Aprobado Subdireción. (Estudio  aprobado)';
+			break;
+			case 10:
+				$estado = 'Aprobado Subdireción. (Correciones pendientes del estudio)';
+			break;
+			case 11:
+				$estado = 'Aprobado Subdireción. (Cancelado el estudio)';
 			break;
 		}
 

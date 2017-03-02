@@ -106,12 +106,14 @@ Route::get('/aprobar/service/aprobarSubDireccion/{id}', 'ConsolidadoController@a
 Route::get('/aprobar/imprimir/{id}', 'ConsolidadoController@imprimir');
 Route::get('/aprobar/service/historialObservaciones/{id}', 'ConsolidadoController@historialObservaciones');
 Route::post('/aprobar/service/RegistrarObservacion', 'ConsolidadoController@RegistrarObservacion');
+Route::post('/aprobar/service/AprobarEstudio', 'ConsolidadoController@AprobarEstudio');
 
 Route::any('/PresupuestoPAA/', 'PaaController@index');
 Route::get('AprobacionPaaSubDireccion', 'DireccionController@index');
 Route::post('/rechazar/paa', 'DireccionController@rechazar');
 Route::post('/cancelar/paa', 'DireccionController@cancelar');
 Route::post('/enviar/paa', 'DireccionController@enviar');
+Route::post('/aprobar/service/AprobarEstudio', 'DireccionController@AprobarEstudio');
 
 Route::get('AprobacionPlaneacion', 'PlaneacionController@index');
 

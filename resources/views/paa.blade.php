@@ -91,13 +91,25 @@
 			        						    <?php $disable="disabled"; $estado="En Subdireción"; $estudioComve="1";?>
 			        						@elseif($paa['Estado']==5)	
 			        							<tr class="success">
-			        							<?php $disable="disabled"; $estado="Aprobado Subdireción"; $estudioComve="0";?>
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción. (Sin registro de estudio)"; $estudioComve="0";?>
 			        						@elseif($paa['Estado']==6)	
 			        							<tr class="danger">
 			        							<?php $disable=""; $estado="Denegado Subdireción"; $estudioComve="1";?>
 			        						@elseif($paa['Estado']==7)	
 			        							<tr class="danger">
 			        							<?php $disable="disabled"; $estado="CANCELADO"; $estudioComve="1";?>
+			        						@elseif($paa['Estado']==8)	
+			        							<tr style="background-color: #DFFFD8 !important;">
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción <b>(Por aprobación del estudio)<b>"; $estudioComve="1";?>
+			        						@elseif($paa['Estado']==9)	
+			        							<tr style="background-color: #DCFFB3 !important;">
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción <b>(Estudio  aprobado)</b>"; $estudioComve="1";?>
+			        						@elseif($paa['Estado']==10)	
+			        							<tr style="background-color: #DCD664 !important;">
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción <b>(Correciones pendientes del estudio)</b>"; $estudioComve="0";?>
+			        						@elseif($paa['Estado']==11)	
+			        							<tr style="background-color: #829E48 !important;">
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción <b>(Cancelado el estudio)</b>"; $estudioComve="1";?>
 			        						@else
 			        							<tr>
 			        							<?php $estado="En Consolidación"; $estudioComve="1";?>

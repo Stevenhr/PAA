@@ -55,28 +55,55 @@
                         <?php
                         	$estado = '';
                         	$clase = '';
+                        	$estudio = '';
                         	switch ($paa['Estado']) 
                         	{
                         		case '0':
                         			$estado = 'En consolidación';
                         			$class = '';
+                        			$estudio = 'disabled';
                         			break;
                         		case '4':
                         			$estado = 'En subdirección';
                         			$class = '';
+                        			$estudio = 'disabled';
                         			break;
                         		case '5':
                         			$estado = 'Aprobado por subdirección';
                         			$class = 'success';
+                        			$estudio = '';
                         			break;
                         		case '6':
                         			$estado = 'Denegado por subdirección';
                         			$class = 'warning';
+                        			$estudio = '';
                         			break;
                         		case '7':
                         			$estado = 'Cancelado por subdirección';
                         			$class = 'danger';
+                        			$estudio = '';
                         			break;
+                        		case '8':
+                        			$estado = 'Estudio de conveniencia registrado.';
+                        			$class = 'success';
+                        			$estudio = '';
+                        			break;
+                        		case '9':
+                        			$estado = 'Estudio de conveniencia aprobado.';
+                        			$class = 'success';
+                        			$estudio = '';
+                        			break;
+                        		case '10':
+                        			$estado = 'Estudio de conveniencia con correcciones.';
+                        			$class = 'success';
+                        			$estudio = '';
+                        			break;
+                        		case '11':
+                        			$estado = 'Estudio de conveniencia cancelado.';
+                        			$class = 'success';
+                        			$estudio = '';
+                        			break;
+   
                         	}
                         ?>
 						<tr data-row="{{ $paa['Id'] }}" class="{{ $class }}">
@@ -118,8 +145,8 @@
 									</div>
 									<br>
 									<div><a href="#" class="btn btn-xs btn-default" style="width: 100%; margin-top: 20px;" data-rel="{{$paa['Registro']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a></div>
-									<div><a href="public/img/estudio.pdf" class="btn btn-xs btn-success" style="width: 100%;    margin-top: 2px;" ><span class="glyphicon glyphicon-info-sign"></span> Est. Conveniencia</a></div>
-												<div id=""></div>
+									<div><button type="button" data-rel="{{$paa['Id']}}" data-estado="{{$paa['Estado']}}" data-funcion="estudioConveniencia" class="btn btn-xs btn-success" style="width: 100%;margin-top: 2px;"  {{$estudio}}><span class="glyphicon glyphicon-info-sign"></span> Est. Conveniencia</button></div>
+									<div id=""></div>
 								</div>
 	                        </td>
 	                        <td data-priority="2"></td>
@@ -191,6 +218,54 @@
 						</tbody> 
 					</table>
 					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- modal Estudio de conveniencia -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_EstudioConvenincia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Gestión del Estudio de Conveniencia</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-4 col-sm-4"></div>
+					<div class="col-xs-4 col-sm-4">
+					<center>Descargar Estudio<a href="index.html"><img class="img-responsive hidden-xs" src="{{ asset('public/Img/pdf.png') }}" width="106" height="106" alt=""/></a></center>
+					</div>
+					<div class="col-xs-4 col-sm-4"></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12"><br><br></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-2 col-sm-2"></div>
+					<div class="col-xs-8 col-sm-8">
+					    	<label>Desea que esté estudio de conveniencia sea?</label><br>
+					    	  <input type="hidden" name="id_paa_estudio" id="id_paa_estudio"></input>
+							  <button type="button" class="btn btn-default btn-block" id="AprobadoEstudio">Aprobado</button>
+							  <button type="button" class="btn btn-default btn-block" id="CancelarEstudio">Cancelado</button>
+							  <button type="button" class="btn btn-default btn-block" id="devolverEstudio">Devuelto</button>
+					</div>
+					<div class="col-xs-2 col-sm-2"></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12"><br></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-2 col-sm-2"></div>
+					<div class="col-xs-8 col-sm-8">
+						<div id="mjs_Observa_estudio" class="alert alert-success" style="display: none"></div>
+					</div>
+					<div class="col-xs-2 col-sm-2"></div>
 				</div>
 			</div>
 			<div class="modal-footer">

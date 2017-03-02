@@ -486,6 +486,104 @@ $(function()
               'json'
           ); 
     }); 
+  
+
+  $('#TablaPAA').delegate('button[data-funcion="estudioConveniencia"]','click',function (e){   
+          var id = $(this).data('rel'); 
+          var estado = $(this).data('estado'); 
+            if(estado==8){
+              $('#AprobadoEstudio').removeClass('btn-success');
+              $('#CancelarEstudio').removeClass('btn-success');
+              $('#devolverEstudio').removeClass('btn-success');
+            }
+            if(estado==9){
+              $('#AprobadoEstudio').addClass('btn-success');
+              $('#CancelarEstudio').removeClass('btn-success');
+              $('#CancelarEstudio').removeClass('btn-success');
+            }
+            if(estado==10){
+              $('#devolverEstudio').addClass('btn-success');
+              $('#CancelarEstudio').removeClass('btn-success');
+              $('#AprobadoEstudio').removeClass('btn-success');
+            }
+            if(estado==11){
+              $('#CancelarEstudio').addClass('btn-success');
+              $('#devolverEstudio').removeClass('btn-success');
+              $('#AprobadoEstudio').removeClass('btn-success');
+            }
+          $('#id_paa_estudio').val(id);
+          $('#Modal_EstudioConvenincia').modal('show');
+   }); 
+
+   $('#AprobadoEstudio').on('click', function(e){
+
+         var id=$('#id_paa_estudio').val();
+         var observacion=$('#observacio').val();
+         $.post(
+          URL+'/service/AprobarEstudio',
+          {id: id,estado:'9',observacion:observacion},
+          function(data){
+            if(data.status == 'ok')
+              {
+                      $('#mjs_Observa_estudio').html('<strong>REGISTRO APROBADO!</strong> El estudio de conveniencia esta aprobado');
+                      $('#mjs_Observa_estudio').show();
+                      setTimeout(function(){
+                          //$('#observacio').val('');
+                          $('#mjs_Observa_estudio').hide();
+                          $('#mjs_Observa_estudio').modal('hide'); 
+                          $('#Modal_EstudioConvenincia').modal('hide');
+                      }, 3000)
+              }
+          },'json');
+
+    });
+
+   $('#CancelarEstudio').on('click', function(e){
+
+         var id=$('#id_paa_estudio').val();
+         var observacion=$('#observacio').val();
+         $.post(
+          URL+'/service/AprobarEstudio',
+          {id: id,estado:'11',observacion:observacion},
+          function(data){
+            if(data.status == 'ok')
+              {
+                      $('#mjs_Observa_estudio').html('<strong>REGISTRO CANCELADO!</strong>El estudio de conveniencia esta cancelado');
+                      $('#mjs_Observa_estudio').show();
+                      setTimeout(function(){
+                          //$('#observacio').val('');
+                          $('#mjs_Observa_estudio').hide();
+                          $('#mjs_Observa_estudio').modal('hide'); 
+                          $('#Modal_EstudioConvenincia').modal('hide');
+                      }, 3000)
+              }
+          },'json');
+
+    });
+
+   $('#devolverEstudio').on('click', function(e){
+
+         var id=$('#id_paa_estudio').val();
+         var observacion=$('#observacio').val();
+         $.post(
+          URL+'/service/AprobarEstudio',
+          {id: id,estado:'10',observacion:observacion},
+          function(data){
+            if(data.status == 'ok')
+              {
+                      $('#mjs_Observa_estudio').html('<strong>REGISTRO DEVUELTO!</strong>El estudio de conveniencia esta devuelto para su corrección');
+                      $('#mjs_Observa_estudio').show();
+                      setTimeout(function(){
+                          //$('#observacio').val('');
+                          $('#mjs_Observa_estudio').hide();
+                          $('#mjs_Observa_estudio').modal('hide'); 
+                          $('#Modal_EstudioConvenincia').modal('hide');
+                      }, 3000)
+              }
+          },'json');
+
+    });
+
 
 	$('#TablaPAA').delegate('button[data-funcion="Financiacion"]','click',function (e){   
           var id = $(this).data('rel'); 
