@@ -131,7 +131,10 @@ class DireccionController extends BaseController
 	            'finanzas' =>$finanzas
 	        ];
 
-			$pdf = PDF::load(view('pdfEstudio',$datos));
-        	return $pdf->download();
+	        	//return view('pdfEstudio',$datos);
+		        $view =  view('pdfEstudio',$datos)->render();
+		        $pdf = PDF::loadHTML($view);
+		        return $pdf->setPaper(array(0,0,1800,2620), 'portrait')->stream('Sesion '.date('l jS \of F Y h:i:s A'));
+
     }
 }
