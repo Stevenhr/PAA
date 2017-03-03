@@ -188,7 +188,8 @@ $(function()
               $node.addClass('success');
               $node.find('input[type="checkbox"]').attr('checked', false);
               $node.find('td.estado').html('Aprobado por subdirección');
-              $node.find('button[data-funcion="Rechazar"], button[data-funcion="cancelar"], input[type="checkbox"]').attr('disabled', true);
+              $node.find('button[data-funcion="rechazar"], button[data-funcion="cancelar"], input[type="checkbox"]').attr('disabled', true);
+              $node.find('button[data-funcion="estudioConveniencia"]').attr('disabled',false);
             }
           });
         });
@@ -490,25 +491,26 @@ $(function()
 
   $('#TablaPAA').delegate('button[data-funcion="estudioConveniencia"]','click',function (e){   
           var id = $(this).data('rel'); 
-          var estado = $(this).data('estado'); 
+          $('#id_paa_estudio_f').val(id);
+          var estado = $(this).data('estado');
             if(estado==8){
               $('#AprobadoEstudio').removeClass('btn-success');
-              $('#CancelarEstudio').removeClass('btn-success');
-              $('#devolverEstudio').removeClass('btn-success');
+              $('#CancelarEstudio').removeClass('btn-danger');
+              $('#devolverEstudio').removeClass('btn-warning');
             }
             if(estado==9){
               $('#AprobadoEstudio').addClass('btn-success');
-              $('#CancelarEstudio').removeClass('btn-success');
-              $('#CancelarEstudio').removeClass('btn-success');
+              $('#CancelarEstudio').removeClass('btn-danger');
+              $('#devolverEstudio').removeClass('btn-warning');
             }
             if(estado==10){
-              $('#devolverEstudio').addClass('btn-success');
-              $('#CancelarEstudio').removeClass('btn-success');
+              $('#devolverEstudio').addClass('btn-warning');
+              $('#CancelarEstudio').removeClass('btn-danger');
               $('#AprobadoEstudio').removeClass('btn-success');
             }
             if(estado==11){
-              $('#CancelarEstudio').addClass('btn-success');
-              $('#devolverEstudio').removeClass('btn-success');
+              $('#CancelarEstudio').addClass('btn-danger');
+              $('#devolverEstudio').removeClass('btn-warning');
               $('#AprobadoEstudio').removeClass('btn-success');
             }
           $('#id_paa_estudio').val(id);
@@ -521,18 +523,19 @@ $(function()
          var observacion=$('#observacio').val();
          $.post(
           URL+'/service/AprobarEstudio',
-          {id: id,estado:'9',observacion:observacion},
+          {id: id,estado:'9',observacion:observacion,tipo:'Estudio Aprobado'},
           function(data){
             if(data.status == 'ok')
               {
                       $('#mjs_Observa_estudio').html('<strong>REGISTRO APROBADO!</strong> El estudio de conveniencia esta aprobado');
                       $('#mjs_Observa_estudio').show();
                       setTimeout(function(){
-                          //$('#observacio').val('');
+                          
                           $('#mjs_Observa_estudio').hide();
                           $('#mjs_Observa_estudio').modal('hide'); 
                           $('#Modal_EstudioConvenincia').modal('hide');
                       }, 3000)
+                      location.reload(true);
               }
           },'json');
 
@@ -541,46 +544,68 @@ $(function()
    $('#CancelarEstudio').on('click', function(e){
 
          var id=$('#id_paa_estudio').val();
-         var observacion=$('#observacio').val();
-         $.post(
-          URL+'/service/AprobarEstudio',
-          {id: id,estado:'11',observacion:observacion},
-          function(data){
-            if(data.status == 'ok')
-              {
-                      $('#mjs_Observa_estudio').html('<strong>REGISTRO CANCELADO!</strong>El estudio de conveniencia esta cancelado');
-                      $('#mjs_Observa_estudio').show();
-                      setTimeout(function(){
-                          //$('#observacio').val('');
-                          $('#mjs_Observa_estudio').hide();
-                          $('#mjs_Observa_estudio').modal('hide'); 
-                          $('#Modal_EstudioConvenincia').modal('hide');
-                      }, 3000)
-              }
-          },'json');
+         var observacion=$('#observacionesEstudio').val();
+         if(observacion!=""){
+           $.post(
+            URL+'/service/AprobarEstudio',
+            {id: id,estado:'11',observacion:observacion,tipo:'Estudio Cancelado'},
+            function(data){
+              if(data.status == 'ok')
+                {
+                        $('#mjs_Observa_estudio').html('<strong>REGISTRO CANCELADO!</strong>El estudio de conveniencia esta cancelado');
+                        $('#mjs_Observa_estudio').show();
+                        setTimeout(function(){
+                            //$('#observacio').val('');
+                            $('#mjs_Observa_estudio').hide();
+                            $('#mjs_Observa_estudio').modal('hide'); 
+                            $('#Modal_EstudioConvenincia').modal('hide');
+                        }, 3000)
+                        location.reload(true);
+                }
+            },'json');
+         }else{
+                $('#mjs_Observa_mal').html('<strong>OBSERVACIÓN OBLIGATIORIA!</strong> Para cancelar el estudio es necesario digitar una observación. ');
+                $('#mjs_Observa_mal').show();
+                setTimeout(function(){
+                    //$('#observacio').val('');
+                    $('#mjs_Observa_mal').hide();
+                    $('#mjs_Observa_mal').modal('hide'); 
+                }, 3000)
+         }
 
     });
 
    $('#devolverEstudio').on('click', function(e){
 
          var id=$('#id_paa_estudio').val();
-         var observacion=$('#observacio').val();
-         $.post(
-          URL+'/service/AprobarEstudio',
-          {id: id,estado:'10',observacion:observacion},
-          function(data){
-            if(data.status == 'ok')
-              {
-                      $('#mjs_Observa_estudio').html('<strong>REGISTRO DEVUELTO!</strong>El estudio de conveniencia esta devuelto para su corrección');
-                      $('#mjs_Observa_estudio').show();
-                      setTimeout(function(){
-                          //$('#observacio').val('');
-                          $('#mjs_Observa_estudio').hide();
-                          $('#mjs_Observa_estudio').modal('hide'); 
-                          $('#Modal_EstudioConvenincia').modal('hide');
-                      }, 3000)
-              }
-          },'json');
+         var observacion=$('#observacionesEstudio').val();
+         if(observacion!=""){
+           $.post(
+            URL+'/service/AprobarEstudio',
+            {id: id,estado:'10',observacion:observacion,tipo:'Estudio Devuelto'},
+            function(data){
+              if(data.status == 'ok')
+                {
+                        $('#mjs_Observa_estudio').html('<strong>REGISTRO DEVUELTO!</strong>El estudio de conveniencia esta devuelto para su corrección');
+                        $('#mjs_Observa_estudio').show();
+                        setTimeout(function(){
+                            //$('#observacio').val('');
+                            $('#mjs_Observa_estudio').hide();
+                            $('#mjs_Observa_estudio').modal('hide'); 
+                            $('#Modal_EstudioConvenincia').modal('hide');
+                        }, 3000)
+                        location.reload(true);
+                }
+            },'json');
+         }else{
+                $('#mjs_Observa_mal').html('<strong>OBSERVACIÓN OBLIGATIORIA!</strong> Para devolver el estudio es necesario digitar una observación. ');
+                $('#mjs_Observa_mal').show();
+                setTimeout(function(){
+                    //$('#observacio').val('');
+                    $('#mjs_Observa_mal').hide();
+                    $('#mjs_Observa_mal').modal('hide'); 
+                }, 3000)
+         }
 
     });
 

@@ -64,7 +64,7 @@
                         			$estudio = 'disabled';
                         			break;
                         		case '4':
-                        			$estado = 'En subdirección';
+                        			$estado = 'Por Revisión';
                         			$class = '';
                         			$estudio = 'disabled';
                         			break;
@@ -95,12 +95,12 @@
                         			break;
                         		case '10':
                         			$estado = 'Estudio de conveniencia con correcciones.';
-                        			$class = 'success';
+                        			$class = 'warning';
                         			$estudio = '';
                         			break;
                         		case '11':
                         			$estado = 'Estudio de conveniencia cancelado.';
-                        			$class = 'success';
+                        			$class = 'danger';
                         			$estudio = '';
                         			break;
    
@@ -239,7 +239,12 @@
 				<div class="row">
 					<div class="col-xs-4 col-sm-4"></div>
 					<div class="col-xs-4 col-sm-4">
-					<center>Descargar Estudio<a href="index.html"><img class="img-responsive hidden-xs" src="{{ asset('public/Img/pdf.png') }}" width="106" height="106" alt=""/></a></center>
+					<form action="estudiopdf">
+                            <input type="hidden" name="id_paa_estudio_f" id="id_paa_estudio_f"/>
+							<center>Descargar Estudio<br><button type="submit" class="btn btn-link">
+							<img class="img-responsive hidden-xs" src="{{ asset('public/Img/pdf.png') }}" width="106" height="106" alt=""/>
+							</button></center>
+					</form>
 					</div>
 					<div class="col-xs-4 col-sm-4"></div>
 				</div>
@@ -250,10 +255,19 @@
 					<div class="col-xs-2 col-sm-2"></div>
 					<div class="col-xs-8 col-sm-8">
 					    	<label>Desea que esté estudio de conveniencia sea?</label><br>
-					    	  <input type="hidden" name="id_paa_estudio" id="id_paa_estudio"></input>
-							  <button type="button" class="btn btn-default btn-block" id="AprobadoEstudio">Aprobado</button>
-							  <button type="button" class="btn btn-default btn-block" id="CancelarEstudio">Cancelado</button>
-							  <button type="button" class="btn btn-default btn-block" id="devolverEstudio">Devuelto</button>
+					    	<input type="hidden" name="id_paa_estudio" id="id_paa_estudio"></input>
+							<button type="button" class="btn btn-default btn-block" id="AprobadoEstudio">Aprobado</button>
+							<button type="button" class="btn btn-default btn-block" id="CancelarEstudio">Cancelado</button>
+							<button type="button" class="btn btn-default btn-block" id="devolverEstudio">Devuelto</button>
+					</div>
+					<div class="col-xs-2 col-sm-2"></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-2 col-sm-2"></div>
+					<div class="col-xs-8 col-sm-8">
+					    	<br>
+					    	<label>Observaciones:</label><br>
+					    	<textarea class="form-control" rows="3" id="observacionesEstudio" name="observacionesEstudio"></textarea>
 					</div>
 					<div class="col-xs-2 col-sm-2"></div>
 				</div>
@@ -264,6 +278,7 @@
 					<div class="col-xs-2 col-sm-2"></div>
 					<div class="col-xs-8 col-sm-8">
 						<div id="mjs_Observa_estudio" class="alert alert-success" style="display: none"></div>
+						<div id="mjs_Observa_mal" class="alert alert-danger" style="display: none"></div>
 					</div>
 					<div class="col-xs-2 col-sm-2"></div>
 				</div>

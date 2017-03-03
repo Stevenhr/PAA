@@ -8,6 +8,12 @@ use App\Estado;
 use App\Observacion;
 use App\SubDireccion;
 use App\Paa;
+use PDF;
+use App\EstudioConveniencia;
+use App\FuenteHacienda;
+use App\Area;
+use App\ActividadComponente;
+use App\Actividad;
 
 class DireccionController extends BaseController 
 {
@@ -28,7 +34,7 @@ class DireccionController extends BaseController
 		$paas = Paa::with('modalidad', 'tipocontrato', 'rubro')
 						->whereIn('Estado', [Estado::Subdireccion, Estado::Aprobado, Estado::Rechazado, Estado::Cancelado,Estado::EstudioConveniencia,Estado::EstudioAprobado,Estado::EstudioCorregido,Estado::EstudioCancelado])
 						->whereIn('Id_Area', $subdireccion->areas->pluck('id'))
-						->orderBy('Estado')
+						->orderBy('id')
 						->get();
 
 		$datos = [
@@ -85,12 +91,47 @@ class DireccionController extends BaseController
 
 	 public function AprobarEstudio(Request $request)
     {
-        $id_persona=$_SESSION['Id_Persona'];
+ 
         $id=$request['id'];
         $estado=$request['estado'];
         $paa = Paa::find($id);
         $paa['estado'] =$estado;
         $paa->save();
+        
+        $observacion = new Observacion;
+		$observacion->id_registro = $id;
+		$observacion->id_persona = $this->Usuario[0];
+		$observacion->observacion = $request['observacion'];
+		$observacion->Estado =  $request['tipo'];
+		$observacion->save();
+
         return response()->json(array('status' => 'ok'));
+    }
+
+    public function descargarEstudio(Request $request)
+    {
+
+    		$id=$request->input('id_paa_estudio');
+
+    		$EstudioConveniencias =  EstudioConveniencia::find($id);
+	        $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes')->find($id);
+	        $finanzas = ActividadComponente::with('actividades')->where('id_paa',$id)->get();
+
+	        foreach ($finanzas as $finanza) {
+	                $finanza->Componente = Componente::find($finanza['componente_id']);
+	            foreach ($finanza->actividades as &$actividad){
+	                $actividad->Actividad = Actividad::find($actividad->pivot['actividad_id']);
+	                $actividad->Fuente = FuenteHacienda::find($actividad->pivot['fuentehacienda']);
+	            }
+	        }
+
+	        $datos = [        
+	            'EstudioConveniencias' => $EstudioConveniencias,
+	            'paas' => $paa,
+	            'finanzas' =>$finanzas
+	        ];
+
+			$pdf = PDF::load(view('pdfEstudio',$datos));
+        	return $pdf->download();
     }
 }

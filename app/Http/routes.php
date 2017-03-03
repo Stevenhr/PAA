@@ -114,7 +114,7 @@ Route::post('/rechazar/paa', 'DireccionController@rechazar');
 Route::post('/cancelar/paa', 'DireccionController@cancelar');
 Route::post('/enviar/paa', 'DireccionController@enviar');
 Route::post('/aprobar/service/AprobarEstudio', 'DireccionController@AprobarEstudio');
-
+Route::get('estudiopdf', 'DireccionController@descargarEstudio');
 Route::get('AprobacionPlaneacion', 'PlaneacionController@index');
 
 Route::any('/', 'MainController@index');
