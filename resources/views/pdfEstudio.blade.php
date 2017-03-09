@@ -19,20 +19,25 @@
 	
 	<STYLE>
 		
-		BODY,DIV,TABLE,THEAD,TBODY,TFOOT,TR,TH,TD,P { font-family:"Arial"; font-size:16 }
+		
 		html {
 		  margin: 0;
 		}
 		body {
-		  margin: 5mm 8mm 8mm 2mm;
+		  margin: 1mm 8mm 8mm 2mm;
 		}
+		@page{
+			margin: .75in .7in .75in .7in;
+		}
+
 	</STYLE>
 	
 </HEAD>
 
+
 <BODY TEXT="#000000">
 <TABLE FRAME=VOID ALIGN=LEFT CELLSPACING=0 COLS=23 RULES=NONE BORDER=0>
-	<COLGROUP><COL WIDTH=16><COL WIDTH=10><COL WIDTH=119><COL WIDTH=74><COL WIDTH=44><COL WIDTH=87><COL WIDTH=124><COL WIDTH=85><COL WIDTH=45><COL WIDTH=175><COL WIDTH=229><COL WIDTH=75><COL WIDTH=152><COL WIDTH=38><COL WIDTH=41><COL WIDTH=43><COL WIDTH=13><COL WIDTH=56><COL WIDTH=73><COL WIDTH=43><COL WIDTH=112><COL WIDTH=10><COL WIDTH=16></COLGROUP>
+	<COLGROUP><COL WIDTH=16><COL WIDTH=10><COL WIDTH=119><COL WIDTH=74><COL WIDTH=44><COL WIDTH=87><COL WIDTH=124><COL WIDTH=85><COL WIDTH=45><COL WIDTH=175><COL WIDTH=229><COL WIDTH=75><COL WIDTH=152><COL WIDTH=38><COL WIDTH=41><COL WIDTH=43><COL WIDTH=13><COL WIDTH=56><COL WIDTH=73><COL WIDTH=43><COL WIDTH=84><COL WIDTH=10><COL WIDTH=16></COLGROUP>
 	<TBODY>
 		<TR>
 			<TD WIDTH=16 HEIGHT=14 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
@@ -55,13 +60,13 @@
 			<TD WIDTH=56 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD WIDTH=73 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD WIDTH=43 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD WIDTH=112 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
+			<TD WIDTH=84 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD WIDTH=10 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD WIDTH=16 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
 		<TR>
 			<TD HEIGHT=26 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 3px solid #000000; border-bottom: 3px solid #000000; border-left: 3px solid #000000; border-right: 3px solid #000000" COLSPAN=21 ROWSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR><IMG SRC="{{ asset('public/Img/logo_estudio.png') }}" WIDTH=65 HEIGHT=52 HSPACE=466 VSPACE=11>
+			<TD STYLE="border-top: 3px solid #000000; border-bottom: 3px solid #000000; border-left: 3px solid #000000; border-right: 3px solid #000000" COLSPAN=21 ROWSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR><IMG SRC="{{asset('public/Img/logo_estudio.png')}}" WIDTH=65 HEIGHT=52 HSPACE=466 VSPACE=11>
 			</TD>
 			<TD ALIGN=LEFT><BR></TD>
 		</TR>
@@ -74,12 +79,12 @@
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
 		<TR>
-			<TD HEIGHT=43 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
+			<TD HEIGHT=30 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000; border-right: 3px solid #000000" COLSPAN=21 ALIGN=CENTER BGCOLOR="#FFFFFF"><B><FONT SIZE=4> ESTUDIO DE CONVENIENCIA Y OPORTUNIDAD</FONT></B></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
 		<TR>
-			<TD HEIGHT=12 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
+			<TD HEIGHT=1 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=CENTER BGCOLOR="#FFFFFF"><B><FONT SIZE=1><BR></FONT></B></TD>
 			<TD ALIGN=CENTER BGCOLOR="#FFFFFF"><B><FONT SIZE=4><BR></FONT></B></TD>
@@ -104,22 +109,22 @@
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
 		<TR>
-			<TD HEIGHT=60 ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
+			<TD HEIGHT=20 ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><B><FONT SIZE=1>Bogotá, D.C.  </FONT></B></TD>
-			<TD STYLE="border-bottom: 1px solid #333333" COLSPAN=5 ALIGN=CENTER BGCOLOR="#FFFFFF"><B><BR></B></TD>
+			<TD STYLE="border-bottom: 1px solid #333333" COLSPAN=5 ALIGN=CENTER BGCOLOR="#FFFFFF"><B>{{$paas['FechaEstudioConveniencia']}}</B></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
 			<TD COLSPAN=2 ALIGN=CENTER BGCOLOR="#FFFFFF"><B><BR></B></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
-			<TD ALIGN=RIGHT BGCOLOR="#FFFFFF"><B>No.</B></TD>
-			<TD STYLE="border-bottom: 1px solid #333333" COLSPAN=6 ALIGN=CENTER BGCOLOR="#FFFFFF"><B><BR></B></TD>
+			<TD ALIGN=RIGHT BGCOLOR="#FFFFFF"><B>No.</B>  </TD>
+			<TD STYLE="border-bottom: 1px solid #333333" COLSPAN=6 ALIGN=CENTER BGCOLOR="#FFFFFF"><B>{{$paas['Id']}}  -  {{$subdireccion['Iniciales']}}</B></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
 		</TR>
 		<TR>
-			<TD HEIGHT=15 ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
+			<TD HEIGHT=5 ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><B><FONT SIZE=1><BR></FONT></B></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
@@ -147,7 +152,7 @@
 			<TD HEIGHT=38 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=7 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#C0C0C0"><B><FONT SIZE=3>DEPENDENCIA SOLICITANTE   (Seleccione de la lista) </FONT></B></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=12 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><B><FONT SIZE=3><BR></FONT></B></TD>
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=12 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><B><FONT SIZE=3>SUBDIRECCIÓN ADMINISTRATIVA Y FINANCIERA</FONT></B></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
@@ -180,10 +185,10 @@
 			<TD HEIGHT=40 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>TIPO DE CONTRATO   (Seleccione de la lista) </FONT></B></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=8 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=3><BR></FONT></TD>
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=8 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=3>{{$paas->tipocontrato['Nombre']}}</FONT></TD>
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3><BR></FONT></B></TD>
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=5 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>RECURSO HUMANO   (Seleccione de la lista) </FONT></B></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=3><BR></FONT></TD>
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=3>{{$paas['RecursoHumano']}}</FONT></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
@@ -240,14 +245,14 @@
 		<TR>
 			<TD HEIGHT=31 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=19 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#C0C0C0"><B><FONT SIZE=4>OBJETO CONTRATO</FONT></B></TD>
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=19 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#C0C0C0"><B><FONT SIZE=6>OBJETO CONTRATO</FONT></B></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
 		<TR>
 			<TD HEIGHT=62 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=19 ALIGN=JUSTIFY VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=4><BR></FONT></TD>
+			<TD STYLE="border-top: 1px solid #333333; vertical-align: top; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; font-family: Arial, Helvetica, Verdana; padding-left: 5px; padding-right: 5px;" COLSPAN=19 ALIGN=JUSTIFY VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=5>{{$paas['ObjetoContractual']}}</FONT></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
@@ -279,7 +284,7 @@
 		<TR>
 			<TD HEIGHT=26 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=19 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#C0C0C0"><B><FONT SIZE=4>CONVENIENCIA</FONT></B></TD>
+			<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=19 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#C0C0C0"><B><FONT SIZE=6>CONVENIENCIA</FONT></B></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
@@ -311,7 +316,11 @@
 		<TR>
 			<TD HEIGHT=26 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=19 ROWSPAN=6 ALIGN=JUSTIFY VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=4 COLOR="#000000"><BR></FONT></TD>
+			<TD STYLE="border-top: 1px solid #000000; vertical-align: top; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; font-family: Arial, Helvetica, Verdana; padding-left: 5px; padding-right: 5px;" COLSPAN=19 ROWSPAN=5 ALIGN=JUSTIFY VALIGN=MIDDLE BGCOLOR="#FFFFFF" ><FONT SIZE=5 COLOR="#000000">
+			@if (!empty($EstudioConveniencias['conveniencia']))
+				{{$EstudioConveniencias['conveniencia']}}
+			@endif
+			<BR></FONT></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
@@ -339,12 +348,7 @@
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
-		<TR>
-			<TD HEIGHT=93 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-		</TR>
+
 		<TR>
 			<TD HEIGHT=11 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
@@ -373,7 +377,7 @@
 		<TR>
 			<TD HEIGHT=28 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=19 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#C0C0C0"><B><FONT SIZE=4>OPORTUNIDAD</FONT></B></TD>
+			<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=19 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#C0C0C0"><B><FONT SIZE=6>OPORTUNIDAD</FONT></B></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
@@ -405,7 +409,11 @@
 		<TR>
 			<TD HEIGHT=26 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=19 ROWSPAN=3 ALIGN=JUSTIFY VALIGN=MIDDLE><FONT SIZE=4 COLOR="#000000"><BR></FONT></TD>
+			<TD STYLE="border-top: 1px solid #000000; vertical-align: top; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; font-family: Arial, Helvetica, Verdana; padding-left: 5px; padding-right: 5px;" COLSPAN=19 ROWSPAN=3 ALIGN=JUSTIFY VALIGN=MIDDLE><FONT SIZE=5 COLOR="#000000">
+			@if (!empty($EstudioConveniencias['oportunidad']))
+				{{$EstudioConveniencias['oportunidad']}}
+			@endif
+			<BR></FONT></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
@@ -449,7 +457,7 @@
 		<TR>
 			<TD HEIGHT=29 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=19 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#C0C0C0"><B><FONT SIZE=4>JUSTIFICACIÓN</FONT></B></TD>
+			<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-left: 5px; padding-right: 5px;" COLSPAN=19 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#C0C0C0"><B><FONT SIZE=6>JUSTIFICACIÓN</FONT></B></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
@@ -481,7 +489,10 @@
 		<TR>
 			<TD HEIGHT=26 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=19 ROWSPAN=5 ALIGN=JUSTIFY VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=4 COLOR="#000000"><BR></FONT></TD>
+			<TD STYLE="border-top: 1px solid #000000; vertical-align: top; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; font-family: Arial, Helvetica, Verdana; padding-left: 5px; padding-right: 5px;" COLSPAN=19 ROWSPAN=5 ALIGN=JUSTIFY VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=5 COLOR="#000000">@if (!empty($EstudioConveniencias['justificacion']))
+				{{$EstudioConveniencias['justificacion']}}
+			@endif
+			<BR></FONT></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
@@ -538,7 +549,7 @@
 			<TD HEIGHT=36 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=4 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>PLAZO DE EJECUCIÓN  </FONT></B></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=15 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><B>6 meses</B></TD>
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=15 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><B>{{$paas['DuracionContrato']}} </B></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
@@ -597,97 +608,55 @@
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=2 ROWSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>COD. Y NOMBRE DEL RUBRO O PROYECTO <BR>  (Seleccione de la lista) </FONT></B></TD>
 			<TD STYLE="border-top: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ROWSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>NOMBRE Y PORCENTAJE DE LA ACTIVIDAD  DEL PROYECTO  QUE SE AFECTA (diligencie) </FONT></B></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ROWSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>CLASIFICACIÓN DEL GASTO DE INVERSIÓN   <BR> (Seleccione de la lista) </FONT></B></TD>
-			<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #333333; border-right: 1px solid #000000" COLSPAN=8 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>CLASIFICACIÓN DE LAS FUENTES DE FINANCIACIÓN</FONT></B></TD>
-			<TD STYLE="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=3 ROWSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>VALOR</FONT></B></TD>
+			<TD STYLE="border-top: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333"  ROWSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696" COLSPAN=3><B><FONT SIZE=3>CLASIFICACIÓN DEL GASTO DE INVERSIÓN   <BR> (Seleccione de la lista) </FONT></B></TD>
+			<TD STYLE="border-top: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=2 ROWSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>META </FONT></B></TD>
+			<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #333333; border-right: 1px solid #000000" COLSPAN=7 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>CLASIFICACIÓN DE LAS FUENTES DE FINANCIACIÓN</FONT></B></TD>
+			<TD STYLE="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; " COLSPAN=2 ROWSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>VALOR</FONT></B></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
 		<TR>
 			<TD HEIGHT=64 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #000000; border-right: 1px solid #000000" ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>FUENTE<BR> (Seleccione de la lista) </FONT></B></TD>
+			
+			
 			<TD STYLE="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>DETALLE FUENTE - HACIENDA<BR> (Seleccione de la lista) </FONT></B></TD>
 			<TD STYLE="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=5 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>DETALLE FUENTE - IDRD <BR> (Seleccione de la lista) </FONT></B></TD>
+			
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT><BR></TD>
 		</TR>
-		<TR>
-			<TD HEIGHT=83 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
+		
+		@foreach($finanzas as $finanza)
+			@foreach($finanza->actividades as &$actividad)
+			<TR>
+			<TD HEIGHT=auto ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT COLOR="#000000"><BR></FONT></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;00"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=5 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;[$$-240A] #,##0"><FONT SIZE=3><BR></FONT></TD>
-			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD ALIGN=LEFT><BR></TD>
-		</TR>
-		<TR>
-			<TD HEIGHT=69 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;00"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=2 ALIGN=CENTER VALIGN=MIDDLE><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=5 ALIGN=CENTER VALIGN=MIDDLE><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;[$$-240A] #,##0"><FONT SIZE=3><BR></FONT></TD>
-			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD ALIGN=LEFT><BR></TD>
-		</TR>
-		<TR>
-			<TD HEIGHT=75 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;00"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=2 ALIGN=CENTER VALIGN=MIDDLE><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=5 ALIGN=CENTER VALIGN=MIDDLE><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;[$$-240A] #,##0"><FONT SIZE=3><BR></FONT></TD>
-			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD ALIGN=LEFT><BR></TD>
-		</TR>
-		<TR>
-			<TD HEIGHT=73 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;00"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=2 ALIGN=CENTER VALIGN=MIDDLE><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=5 ALIGN=CENTER VALIGN=MIDDLE><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;[$$-240A] #,##0"><FONT SIZE=3><BR></FONT></TD>
-			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD ALIGN=LEFT><BR></TD>
-		</TR>
-		<TR>
-			<TD HEIGHT=83 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;00"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=5 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;[$$-240A] #,##0"><FONT SIZE=3><BR></FONT></TD>
-			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD ALIGN=LEFT><BR></TD>
-		</TR>
-		<TR>
-			<TD HEIGHT=52 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD COLSPAN=8 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;00"><B><BR></B></TD>
-			<TD ALIGN=LEFT VALIGN=TOP BGCOLOR="#FFFFFF"><BR></TD>
-			<TD COLSPAN=2 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><B><BR></B></TD>
-			<TD STYLE="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=5 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><B><FONT SIZE=3>TOTAL</FONT></B></TD>
-			<TD STYLE="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;&quot;$ &quot;#,##0"><B><FONT SIZE=3><BR></FONT></B></TD>
-			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD ALIGN=LEFT><BR></TD>
-		</TR>
+			
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px; " COLSPAN=2 VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=5 COLOR="#000000">{{$paas->proyecto['codigo']}} - {{$paas->proyecto['Nombre']}}</FONT></TD>
+			
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=3 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF">
+			<FONT SIZE=5 COLOR="#000000">{{$actividad->Actividad['Nombre']}} - {{$actividad->pivot['porcentaje']}}%</FONT>
+			</TD>
+
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;"  COLSPAN=3 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=5 COLOR="#000000">{{$finanza->Componente['Nombre']}}</FONT></TD>
+
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=5 COLOR="#000000">{{$actividad->Actividad->meta['Nombre']}}</FONT></TD>		
+
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=5 COLOR="#000000">{{$actividad->Fuente['nombre']}}</FONT></TD>
+
+
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=5 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=5 COLOR="#000000">{{$finanza->componente->fuente['nombre']}}</FONT></TD>
+
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;[$$-240A] #,##0"><FONT SIZE=4 COLOR="#000000">${{$actividad->pivot['valor']}}</FONT></TD>
+
+			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"></TD>
+
+			<TD ALIGN=LEFT></TD>
+			</TR>
+			@endforeach
+		@endforeach
+
 		<TR>
 			<TD HEIGHT=16 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
@@ -724,7 +693,8 @@
 			<TD HEIGHT=129 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=1><BR></FONT></TD>
-			<TD STYLE="border-bottom: 5px solid #000000" ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
+			<TD  COLSPAN=3 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
+			<TD ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-bottom: 5px solid #000000" ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-bottom: 5px solid #000000" ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-bottom: 5px solid #000000" ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
@@ -732,7 +702,7 @@
 			<TD STYLE="border-bottom: 5px solid #000000" ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-bottom: 5px solid #000000" ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
-			<TD STYLE="border-bottom: 5px solid #000000" COLSPAN=9 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
+			<TD  COLSPAN=6 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
@@ -741,9 +711,8 @@
 			<TD HEIGHT=32 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=1><BR></FONT></TD>
-			<TD COLSPAN=7 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><B><FONT SIZE=3>Liliana Díaz Poveda   -  C.C. 52.423.077</FONT></B></TD>
+			<TD COLSPAN=16 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><B><FONT SIZE=3>{{$subdireccion['SubDireccion']}}  -  {{$subdireccion['Descripcion']}}</FONT></B></TD>
 			<TD ALIGN=LEFT><BR></TD>
-			<TD COLSPAN=9 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><B><FONT SIZE=3>Iván Darío González Cuellar – C.C. 79.627.029</FONT></B></TD>
 			<TD ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
@@ -752,9 +721,8 @@
 			<TD HEIGHT=25 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD COLSPAN=7 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><B>Subdirectora Administrativa y Financiera</B></TD>
+			<TD COLSPAN=16 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><B>{{$subdireccion['nombre']}}</B></TD>
 			<TD ALIGN=LEFT><BR></TD>
-			<TD COLSPAN=9 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><B>Subdirector Técnico de Parques</B></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
@@ -845,7 +813,7 @@
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
 		<TR>
-			<TD HEIGHT=70 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
+			<TD HEIGHT=75 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD COLSPAN=2 ALIGN=RIGHT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=3>FECHA DE INGRESO </FONT></TD>
 			<TD STYLE="border-bottom: 3px solid #333333" COLSPAN=5 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
@@ -859,7 +827,7 @@
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
 		<TR>
-			<TD HEIGHT=40 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
+			<TD HEIGHT=44 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=RIGHT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=1><BR></FONT></TD>
 			<TD ALIGN=RIGHT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><BR></TD>
@@ -899,7 +867,7 @@
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
 		<TR>
-			<TD HEIGHT=30 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
+			<TD HEIGHT=34 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><FONT SIZE=1><BR></FONT></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
@@ -910,21 +878,19 @@
 			<TD STYLE="border-top: 3px solid #333333" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=CENTER BGCOLOR="#FFFFFF"><B><BR></B></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD ALIGN=RIGHT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
-			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><FONT SIZE=1><BR></FONT></TD>
-			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><FONT SIZE=1>                             ADQUISICIÓN DE BIENES Y SERVICIOS - V10</FONT></TD>
+			
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><FONT SIZE=1><BR></FONT></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
+			<TD ALIGN=right BGCOLOR="#FFFFFF" COLSPAN=4><FONT SIZE=1>                             ADQUISICIÓN DE BIENES Y SERVICIOS - V10</FONT></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
 		<TR>
-			<TD HEIGHT=20 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
+			<TD HEIGHT=26 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-top: 5px solid #000000" ALIGN=RIGHT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-top: 5px solid #000000" ALIGN=RIGHT BGCOLOR="#FFFFFF"><FONT SIZE=1><BR></FONT></TD>
 			<TD STYLE="border-top: 5px solid #000000" ALIGN=RIGHT BGCOLOR="#FFFFFF"><BR></TD>
@@ -939,10 +905,9 @@
 			<TD STYLE="border-top: 5px solid #000000" COLSPAN=10 ALIGN=RIGHT><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
-		
 	</TBODY>
 </TABLE>
-<BR CLEAR=LEFT>
+
 <!-- ************************************************************************** -->
 </BODY>
 

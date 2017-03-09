@@ -9,7 +9,7 @@ class SubDireccion extends Model
     //
     protected $table = 'subdireccion';
 	protected $primaryKey = 'id';
-	protected $fillable = ['nombre'];
+	protected $fillable = ['nombre','SubDireccion','Descripcion'];
 	protected $connection = ''; 
 	public $timestamps = false;
 

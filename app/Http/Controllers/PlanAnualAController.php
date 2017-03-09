@@ -66,7 +66,6 @@ class PlanAnualAController extends Controller
                 'valor_estimado_actualVigencia' =>'required',
                 'vigencias_futuras' =>'required',
                 'estado_solicitud' =>'required',
-                'estudio_conveniencia' =>'required',
                 'fecha_inicio' =>'required',
                 'fecha_suscripcion' =>'required',
                 'duracion_estimada' =>'required',
@@ -74,7 +73,6 @@ class PlanAnualAController extends Controller
                 'Proyecto_inversion' =>'required',
                 'recurso_humano' =>'required',
                 'numero_contratista' =>'required',
-                'datos_contacto' =>'required',
             ]
         );
 
@@ -96,6 +94,7 @@ class PlanAnualAController extends Controller
         $estado=0;
         $estadoObservo=0;
         $Modifica=0;
+        $input['estudio_conveniencia']="0000-00-00";
         return $this->gestionar_Paa($model_A, $input,$estado,$estadoObservo,$Modifica);
     }
     public function modificar_Paa($input)
@@ -104,6 +103,8 @@ class PlanAnualAController extends Controller
         $estado=1;
         $estadoObservo=1;
         $Modifica=1;
+        $input['estudio_conveniencia']=$model_A['FechaEstudioConveniencia'];
+
         return $this->gestionar_Paa($model_A, $input,$estado,$estadoObservo,$Modifica);
     }
 
@@ -117,7 +118,7 @@ class PlanAnualAController extends Controller
                 if($cod=="")
                  $cod= $cod."".$obj->codigo."";
                 else
-                 $cod= $cod.",".$obj->codigo."";
+                 $cod= $cod.", ".$obj->codigo."";
             }
 
             //var_dump($cod);
@@ -141,7 +142,7 @@ class PlanAnualAController extends Controller
         $modeloPA['MetaPlan'] = $input['meta'];
         $modeloPA['RecursoHumano'] = $input['recurso_humano'];
         $modeloPA['NumeroContratista'] = $input['numero_contratista'];
-        $modeloPA['DatosResponsable'] = $input['datos_contacto'];
+        $modeloPA['DatosResponsable'] = $input['datos_contacto']." -C.C. ".$input['cedula_contacto'];
         $modeloPA['Id_ProyectoRubro'] = $input['Proyecto_inversion'];
         $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
         $modeloPA['Estado'] = $estado;

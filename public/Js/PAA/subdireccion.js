@@ -493,28 +493,59 @@ $(function()
           var id = $(this).data('rel'); 
           $('#id_paa_estudio_f').val(id);
           var estado = $(this).data('estado');
-            if(estado==8){
-              $('#AprobadoEstudio').removeClass('btn-success');
-              $('#CancelarEstudio').removeClass('btn-danger');
-              $('#devolverEstudio').removeClass('btn-warning');
-            }
-            if(estado==9){
-              $('#AprobadoEstudio').addClass('btn-success');
-              $('#CancelarEstudio').removeClass('btn-danger');
-              $('#devolverEstudio').removeClass('btn-warning');
-            }
-            if(estado==10){
-              $('#devolverEstudio').addClass('btn-warning');
-              $('#CancelarEstudio').removeClass('btn-danger');
-              $('#AprobadoEstudio').removeClass('btn-success');
-            }
-            if(estado==11){
-              $('#CancelarEstudio').addClass('btn-danger');
-              $('#devolverEstudio').removeClass('btn-warning');
-              $('#AprobadoEstudio').removeClass('btn-success');
-            }
-          $('#id_paa_estudio').val(id);
-          $('#Modal_EstudioConvenincia').modal('show');
+          $('#mjs_Observa_mal').hide();
+          $('#mjs_Observa_mal').modal('hide'); 
+            $.get(
+              URL+'/service/validarEstudio/'+id,
+              {},
+              function(data)
+              {
+                
+                if(data.EstudioConveniencias!=null){
+                  $('#CancelarEstudio').attr('disabled',false);
+                  $('#devolverEstudio').attr('disabled',false);
+                  $('#AprobadoEstudio').attr('disabled',false);
+
+                  if(estado==8){
+                    $('#AprobadoEstudio').removeClass('btn-success');
+                    $('#CancelarEstudio').removeClass('btn-danger');
+                    $('#devolverEstudio').removeClass('btn-warning');
+                  }
+                  if(estado==9){
+                    $('#AprobadoEstudio').addClass('btn-success');
+                    $('#CancelarEstudio').removeClass('btn-danger');
+                    $('#devolverEstudio').removeClass('btn-warning');
+                  }
+                  if(estado==10){
+                    $('#devolverEstudio').addClass('btn-warning');
+                    $('#CancelarEstudio').removeClass('btn-danger');
+                    $('#AprobadoEstudio').removeClass('btn-success');
+                  }
+                  if(estado==11){
+                    $('#CancelarEstudio').addClass('btn-danger');
+                    $('#devolverEstudio').removeClass('btn-warning');
+                    $('#AprobadoEstudio').removeClass('btn-success');
+                  }
+                }else{
+                  
+                    $('#CancelarEstudio').attr('disabled',true);
+                    $('#devolverEstudio').attr('disabled',true);
+                    $('#AprobadoEstudio').attr('disabled',true);
+                    $('#CancelarEstudio').removeClass('btn-danger');
+                    $('#devolverEstudio').removeClass('btn-warning');
+                    $('#AprobadoEstudio').removeClass('btn-success');
+
+                    $('#mjs_Observa_mal').html('<strong>NO HAY REGISTROS!</strong> No se ha registrado el estudio de conveniencia hasta la fecha. ');
+                    $('#mjs_Observa_mal').show();
+
+                }
+                $('#id_paa_estudio').val(id);
+                $('#Modal_EstudioConvenincia').modal('show');
+            },
+            'json'
+            ); 
+
+          
    }); 
 
    $('#AprobadoEstudio').on('click', function(e){

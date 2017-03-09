@@ -14,6 +14,7 @@ use App\FuenteHacienda;
 use App\Area;
 use App\ActividadComponente;
 use App\Actividad;
+use App\Componente;
 
 class DireccionController extends BaseController 
 {
@@ -91,11 +92,12 @@ class DireccionController extends BaseController
 
 	 public function AprobarEstudio(Request $request)
     {
- 
+ 		$ldate = date('Y-m-d H:i:s');
         $id=$request['id'];
         $estado=$request['estado'];
         $paa = Paa::find($id);
         $paa['estado'] =$estado;
+        $paa['FechaEstudioConveniencia'] =$ldate;
         $paa->save();
         
         $observacion = new Observacion;
@@ -110,13 +112,15 @@ class DireccionController extends BaseController
 
     public function descargarEstudio(Request $request)
     {
-
-    		$id=$request->input('id_paa_estudio');
+    		$id=$request->input('id_paa_estudio_f');
 
     		$EstudioConveniencias =  EstudioConveniencia::find($id);
-	        $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes')->find($id);
-	        $finanzas = ActividadComponente::with('actividades')->where('id_paa',$id)->get();
+	        $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes','proyecto')->find($id);
+	        $finanzas = ActividadComponente::with('actividades','actividades.meta','componente.fuente')->where('id_paa',$id)->get();
+	        
+	        $subdireccion = Subdireccion::with('areas')->find($this->Usuario['Id_SubDireccion']);
 
+	        
 	        foreach ($finanzas as $finanza) {
 	                $finanza->Componente = Componente::find($finanza['componente_id']);
 	            foreach ($finanza->actividades as &$actividad){
@@ -125,16 +129,28 @@ class DireccionController extends BaseController
 	            }
 	        }
 
+
 	        $datos = [        
 	            'EstudioConveniencias' => $EstudioConveniencias,
 	            'paas' => $paa,
-	            'finanzas' =>$finanzas
+	            'finanzas' =>$finanzas,
+	            'subdireccion'=>$subdireccion
 	        ];
 
-	        	//return view('pdfEstudio',$datos);
-		        $view =  view('pdfEstudio',$datos)->render();
-		        $pdf = PDF::loadHTML($view);
-		        return $pdf->setPaper(array(0,0,1800,2620), 'portrait')->stream('Sesion '.date('l jS \of F Y h:i:s A'));
+	        $view =  view('pdfEstudio',$datos)->render();
+	        //return $view;
+	        //exit();
+	        $pdf = PDF::loadHTML($view);
+	        return $pdf->setPaper(array(0,0,1800,2620), 'portrait')->download('Estudio_'.$paa['Id'].'.pdf');
 
     }
+
+    public function validarEstudio(Request $request, $id)
+	{
+		$EstudioConveniencias =  EstudioConveniencia::find($id);
+        $datos = [        
+            'EstudioConveniencias' => $EstudioConveniencias
+        ];
+        return response()->json($datos);
+	}
 }

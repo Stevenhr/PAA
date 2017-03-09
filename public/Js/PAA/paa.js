@@ -18,7 +18,8 @@ $(function()
     var t = $('#TablaPAA').DataTable( {responsive: true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf']
+            'copy', 'csv', 'excel', 'pdf'],
+        pageLength: 5
     });
  
     // Apply the search
@@ -74,6 +75,13 @@ $(function()
       changeYear: true,
     });
 
+  $('input[data-role1="datepicker"]').datepicker({
+      dateFormat: 'yy-mm-dd',
+      yearRange: "-100:+0",
+      changeMonth: true,
+      changeYear: true,
+    });
+
  $('#form_paa').on('submit', function(e){
 
     var datos_acti = JSON.stringify(vector_datos_actividad);
@@ -99,7 +107,7 @@ $(function()
                   if(data.status == 'modelo')
                   {
                       document.getElementById("form_paa").reset(); 
-                      $('#crear_paa_btn').html("Agregar");
+                      $('#crear_paa_btn').html("CREAR");
                       vector_datos_actividad=[];
                       $('#registros').html('');               
                       var num=1;
@@ -272,10 +280,16 @@ $(function()
           $('#mensaje_actividad_codigos').delay(2500).hide(600);
 
       }else{
+          
+        if(codigo_Unspsc.length>=8){
           $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Codigo agregado.</div>');
-          $('#mensaje_actividad_codigos').show(30);
-          $('#mensaje_actividad_codigos').delay(1000).hide(300);
           vector_datos_codigos.push({"codigo": codigo_Unspsc});
+        }else{
+          $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Codigo agregado tiene menos de 8 numeros.</div>');          
+        }
+          $('#mensaje_actividad_codigos').show(30);
+          $('#mensaje_actividad_codigos').delay(2500).hide(300);
+          
       }
   });
 
@@ -399,11 +413,37 @@ $(function()
         $('textarea[name="objeto_contrato"]').val("").closest('.form-group').removeClass('has-error');;
         vector_datos_actividad.length=0;
         $('#div_finaciacion').show();
-        $('#crear_paa_btn').html("Agregar");
+        $('#crear_paa_btn').html("CREAR");
 
     });
        
 
+
+    $('#proceso_curso').on('click', function(e)
+    { 
+      var d = new Date();
+      var n = d.getFullYear();
+      $('input[name="fecha_inicio"]').val('');
+       if($('#proceso_curso').val()=="Si"){
+           $('input[data-role1="datepicker"]').datepicker('destroy');
+           $('input[data-role1="datepicker"]').datepicker({
+            dateFormat: 'yy-mm-dd',
+            yearRange: "-100:+0",
+            changeMonth: true,
+            changeYear: true,
+            minDate: n+'-01-01',
+            maxDate: n+'-12-31'});
+        }
+
+        if($('#proceso_curso').val()=="No"){
+           $('input[data-role1="datepicker"]').datepicker('destroy');
+           $('input[data-role1="datepicker"]').datepicker({
+            dateFormat: 'yy-mm-dd',
+            yearRange: "-100:+0",
+            changeMonth: true,
+            changeYear: true});
+        }
+    });
 
     $('#VerAgregarFinanciacion').on('click', function(e)
     {
@@ -1110,24 +1150,44 @@ $(function()
                           var clase="";
 
                           if(e['Estado']==4){              
-                            clase="warning";
+                            clase="class=\"warning\"";
                             disable="disabled"; 
                             estado="En Subdireción";
                             estudioComve="1";
                           }else if(e['Estado']==5){  
-                            clase="success";
+                            clase="class=\"success\"";
                             disable="disabled"; 
                             estado="Aprobado Subdireción"; 
                             estudioComve="0";
                           }else if(e['Estado']==6){  
-                            clase="danger";
+                            clase="class=\"danger\"";
                             disable=""; 
                             estado="Denegado Subdireción"; 
                             estudioComve="1";
                           }else if(e['Estado']==7){  
-                            clase="danger";
+                            clase="class=\"danger\"";
                             disable="disabled"; 
                             estado="CANCELADO"; 
+                            estudioComve="1";
+                          }else if(e['Estado']==8){  
+                            clase="style=\"background-color: #DFFFD8 !important;\"";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción <b>(Por aprobación del estudio)"; 
+                            estudioComve="1";
+                          }else if(e['Estado']==9){  
+                            clase="style=\"background-color: #DCFFB3 !important;\"";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción <b>(Estudio  aprobado)"; 
+                            estudioComve="1";
+                          }else if(e['Estado']==10){  
+                            clase="style=\"background-color: #DCD664 !important;\"";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción <b>(Correciones pendientes del estudio)"; 
+                            estudioComve="0";
+                          }else if(e['Estado']==11){  
+                            clase="style=\"background-color: #829E48 !important;\"";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción <b>(Cancelado el estudio)"; 
                             estudioComve="1";
                           }else{
                             estado="En Consolidación";
@@ -1136,14 +1196,16 @@ $(function()
                           }
 
 
-                   var $tr1 =   $('<tr class="'+clase+'"></tr>').html(
+ 
+
+                     var $tr1 =   $('<tr '+clase+'></tr>').html(
                             '<th scope="row" class="text-center">'+num+'</th>'+
                                 '<td><b><p class="text-info text-center">'+e['Registro']+'</p></b></td>'+
                                 '<td><b>'+estado+'</b></td>'+
                                 '<td>'+e['CodigosU']+'</td>'+
                                 '<td>'+e.modalidad['Nombre']+'</td>'+
                                 '<td>'+e.tipocontrato['Nombre']+'</td>'+
-                                '<td><div style="width:500px;text-align: justify;">'+e['ObjetoContractual']+'</div></td>'+
+                                '<td><div style="width:500px;text-align: justify;height: 100px; overflow-y: scroll;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); padding: 10px">'+e['ObjetoContractual']+'</div></td>'+
                                 '<td>'+e['ValorEstimado']+'</td>'+
                                 '<td>'+e['DuracionContrato']+'</td>'+
                                 '<td>'+e['ValorEstimadoVigencia']+'</td>'+
@@ -1463,6 +1525,19 @@ $(function()
            return false;
     });
 
+    $('#ordenadorGasto').on('change', function(e){
+      
+      if ($('#ordenadorGasto').val()=="Si") 
+      {
+          $('#contenidoOrdenado').show();
+      }else
+      {
+          $('#contenidoOrdenado').hide();
+      }
+
+      
+    });
+
 
     var validad_error_vincula = function(data)
     {
@@ -1482,5 +1557,26 @@ $(function()
             }
         }
     }
+
+
+    $('#objeto_contrato').keydown(function(e){
+       valida_longitud();
+    });
+
+    var contenido_textarea = "" 
+    var num_caracteres_permitidos = 3000;
+    function valida_longitud(){ 
+       num_caracteres = $('#objeto_contrato').val().length; 
+       if (num_caracteres > num_caracteres_permitidos){ 
+          $('#objeto_contrato').val(contenido_textarea);
+       }else{ 
+          contenido_textarea = $('#objeto_contrato').val(); 
+       } 
+       cuenta() 
+    } 
+    function cuenta(){ 
+       var num=$('#objeto_contrato').val().length; 
+       $('#numTextAre').text(num);
+    } 
                   
 });

@@ -114,13 +114,28 @@
 			        							<tr>
 			        							<?php $estado="En Consolidación"; $estudioComve="1";?>
 			        						@endif
+
+
+			        						@if ($paa['compartida']>0)
+			        							<?php $var0 = 'C'; ?>
+									        @else
+									        	<?php $var0 = ''; ?>
+									        @endif
+
+
+									        @if ($paa['vinculada']>0)
+									            <?php $var1 = 'V'; ?>
+									        @else
+									        	<?php $var1 = ''; ?>
+									        @endif
+
 			        						<th scope="row" class="text-center">{{$var}}</th>
-					                        <td><b><p class="text-info text-center">{{$paa['Registro']}}</p></b></td>
+					                        <td><b><p class="text-info text-center">{{$paa['Registro']}}<BR>{{$var0}}{{$var1}}</p></b></td>
 					                        <td><?php echo "<b>".$estado."</b>" ?></td>
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
-					                        <td><div style="width:500px;text-align: justify;">{{$paa['ObjetoContractual']}}</div></td>
+					                        <td><div  style="width:500px;text-align: justify; height: 100px; overflow-y: scroll;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); padding: 10px">{{$paa['ObjetoContractual']}}</div></td>
 					                        <td>{{$paa['ValorEstimado']}}</td>
 					                        <td>{{$paa['DuracionContrato']}}</td>
 					                        <!--<td>{{$paa['FuenteRecurso']}}</td>-->
@@ -216,9 +231,9 @@
 				  		<div class="form-group">
 					    	<label>Códigos UNSPSC </label>
 					    	<div class="input-group">
-						      <input type="text" class="form-control" name="codigo_Unspsc">
+						      <input type="text" class="form-control" name="codigo_Unspsc" autocomplete="off">
 						      <span class="input-group-btn">
-						        <button class="btn btn-default" type="button" id="agregarCodigos">Agregar</button>
+						        <button class="btn btn-default" type="button" id="agregarCodigos"  >Agregar</button>
 						        <button class="btn btn-default" type="button" id="VerAgregarCodigos">Ver</button>
 						        <button class="btn btn-default" type="button" id="CerrarAgregarCodigos">Cerrar</button>
 						      </span>
@@ -258,7 +273,7 @@
 				</div>
 
 				<div class="row">
-				  <div class="col-xs-6 col-sm-4">
+				  <div class="col-xs-4 col-sm-4">
 			  		<div class="form-group">
 				    	<label>Tipo de contrato </label>
 						<select class="form-control" name="tipo_contrato">
@@ -269,16 +284,24 @@
 						</select>
 					</div>
 				  </div>
-				  <div class="col-xs-6 col-sm-8">
+				  <div class="col-xs-4 col-sm-4">
+				  	<div class="form-group">
+					    <label>Proceso en curso:</label>
+						<select class="form-control" name="proceso_curso" id="proceso_curso">
+							<option value="No" >No</option>
+							<option value="Si" >Si</option>
+						</select>
+					</div>
+				  </div>
+				  <div class="col-xs-4 col-sm-4">
+				  </div>
+				</div>
+				<div class="row">				 
+				  <div class="col-xs-12 col-sm-12">
 				  		<div class="form-group">
 					    	<label>Descripción/Objeto contractual </label>
-							<textarea class="form-control" rows="2" id="comment" name="objeto_contrato"></textarea>
-						</div>
-				  </div>
-				  <div class="col-xs-6 col-sm-4" style="display: none">
-				  		<div class="form-group" >
-					  		<label>Fuente de los recursos (Nombre de la Fuente (s))</label>
-							<input type="text" class="form-control" name="fuente_recurso">
+							<textarea class="form-control" rows="2" id="objeto_contrato" name="objeto_contrato"></textarea>
+							Limite: 3000  Contador: <label id="numTextAre"></label>
 						</div>
 				  </div>
 				</div>
@@ -287,13 +310,14 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Valor total estimado </label>
-							<input type="text" class="form-control" name="valor_estimado">
+							<input type="text" class="form-control" name="valor_estimado" autocomplete="off">
+							<input type="hidden" class="form-control" name="fuente_recurso" value="" ="off">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Valor estimado en la vigencia actual </label>
-							<input type="text" class="form-control" name="valor_estimado_actualVigencia">
+							<input type="text" class="form-control" name="valor_estimado_actualVigencia" autocomplete="off">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
@@ -322,14 +346,14 @@
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					    	<label>Estudio de  conveniencia </label><br><br>
-							<input type="text" class="form-control" name="estudio_conveniencia" data-role="datepicker" placeholder="aa/mm/dd">
+					    	<label>Fecha estudio de  conveniencia</label><br><br>
+							<input type="text" class="form-control" name="estudio_conveniencia" data-role="datepicker" placeholder="No aplica" autocomplete="off"  disabled>
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					  		<label> Fecha estimada de inicio de proceso de selección</label>
-							<input type="text" class="form-control" name="fecha_inicio"  data-role="datepicker" placeholder="aa/mm/dd">
+							<input type="text" class="form-control" name="fecha_inicio"  data-role1="datepicker" placeholder="aa/mm/dd" autocomplete="off" readonly="readonly">
 						</div>
 				  </div>
 				</div>
@@ -338,19 +362,19 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Fecha suscripción Contrato </label><br><br>
-							<input type="text" class="form-control" name="fecha_suscripcion"  data-role="datepicker" placeholder="aa/mm/dd">
+							<input type="text" class="form-control" name="fecha_suscripcion"  data-role="datepicker" placeholder="aa/mm/dd" autocomplete="off">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					    	<label>Duración estimada del contrato (meses)</label>
-							<input type="text" class="form-control" name="duracion_estimada">
+					    	<label>Duración estimada del contrato<br> (Ejem: 10 meses 15 dias)</label>
+							<input type="text" class="form-control" name="duracion_estimada" autocomplete="off">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4" style="display: none">
 				  		<div class="form-group">
 					  		<label>Meta plan</label>
-							<input type="text" class="form-control" name="meta_plan">
+							<input type="text" class="form-control" name="meta_plan" autocomplete="off">
 						</div>
 				  </div>
 				   <div class="col-xs-6 col-sm-4">
@@ -369,20 +393,39 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Numero de Contratistas</label>
-							<input type="text" class="form-control" name="numero_contratista">
+							<input type="text" class="form-control" name="numero_contratista" autocomplete="off">
 						</div>
 				  </div>
-				  <div class="col-xs-6 col-sm-8">
+				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					  		<label>Datos de contacto del responsable</label>
-							<input type="text" class="form-control" name="datos_contacto">
+					  		<label>Ordenador de Gasto Encargado:</label>
+							<select class="form-control" id="ordenadorGasto">
+								<option value="No" >No</option>
+								<option value="Si" >Si</option>
+							</select>
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  </div>
+				</div>
+				<div class="row" style="display: none" id="contenidoOrdenado">
+				  <div class="col-xs-6 col-sm-6">
+				  		<div class="form-group">
+					    	<label>Cedula (Ordenador del Gasto E)</label>
+							<input type="text" class="form-control" name="cedula_contacto" autocomplete="off">
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-6">
+				  		<div class="form-group">
+					  		<label>Nombre (Ordenador del Gasto E)</label>
+							<input type="text" class="form-control" name="datos_contacto" autocomplete="off">
 						</div>
 				  </div>
 				</div>
 
 
 				<div class="row">
-				  <div class="col-xs-6 col-sm-4">
+				  <div class="col-xs-6 col-sm-6">
 				  		<div class="form-group">
 					    	<label>Proyecto de inversión o rubro</label>
 					    	<input type="hidden" name="id_pivot_comp" id="id_pivot_comp"></input>
@@ -394,7 +437,7 @@
 							</select>
 						</div>
 				  </div>
-				  <div class="col-xs-6 col-sm-4">
+				  <div class="col-xs-6 col-sm-6">
 				  		<div class="form-group">
 					    	<label>Meta Plan</label>
 					    	<select class="form-control" name="meta" id="meta">
