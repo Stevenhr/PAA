@@ -1148,6 +1148,8 @@ $(function()
                           var disable=""; 
                           var estado="";
                           var clase="";
+                          var var0="";
+                          var var1="";
 
                           if(e['Estado']==4){              
                             clase="class=\"warning\"";
@@ -1157,7 +1159,7 @@ $(function()
                           }else if(e['Estado']==5){  
                             clase="class=\"success\"";
                             disable="disabled"; 
-                            estado="Aprobado Subdireción"; 
+                            estado="Aprobado Subdireción. (Sin registro de estudio)"; 
                             estudioComve="0";
                           }else if(e['Estado']==6){  
                             clase="class=\"danger\"";
@@ -1196,11 +1198,21 @@ $(function()
                           }
 
 
- 
+                          if (e['compartida']>0)
+                            var0 = 'C'; 
+                          else
+                            var0 = '';
+
+
+                          if (e['vinculada']>0)
+                              var1 = 'V';
+                          else
+                              var1 = '';
+
 
                      var $tr1 =   $('<tr '+clase+'></tr>').html(
                             '<th scope="row" class="text-center">'+num+'</th>'+
-                                '<td><b><p class="text-info text-center">'+e['Registro']+'</p></b></td>'+
+                                '<td><b><p class="text-info text-center">'+e['Registro']+'<br>'+var0+var1+'</p></b></td>'+
                                 '<td><b>'+estado+'</b></td>'+
                                 '<td>'+e['CodigosU']+'</td>'+
                                 '<td>'+e.modalidad['Nombre']+'</td>'+

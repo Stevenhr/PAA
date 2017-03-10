@@ -573,7 +573,6 @@ $(function()
     });
 
    $('#CancelarEstudio').on('click', function(e){
-
          var id=$('#id_paa_estudio').val();
          var observacion=$('#observacionesEstudio').val();
          if(observacion!=""){
@@ -603,7 +602,6 @@ $(function()
                     $('#mjs_Observa_mal').modal('hide'); 
                 }, 3000)
          }
-
     });
 
    $('#devolverEstudio').on('click', function(e){

@@ -204,6 +204,7 @@
 					                @endforeach
 						        </tbody>
 						    </table>
+						    <b>C</b>= compartida   <b>V</b>= vinculada
 					</div>
 					<div class="col-xs-12 col-md-12 ">
 		            	<br><br><br>
