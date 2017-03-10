@@ -22,7 +22,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
     var t = $('#TablaPAA').DataTable( {responsive: true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf']
+            'copy', 'csv', 'excel', 'pdf'],
+        pageLength: 5
     });
  
     // Apply the search
@@ -568,97 +569,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
               success: function(data)
               {   
                   t.clear().draw();
-                  var num=1;
-                  
-                  $.each(data.datos, function(i, e){
-                    var var2=0;
-                    $.each(data.datos2, function(i, ee){
-                        if(ee['Registro']==e['Registro']){
-                              var2=1;
-                        }
-                    });
-
-                    if(var2==1){
-                      $btn_Cabmb='<div class="btn-group">'+
-                              '<button type="button" data-rel='+e['Id']+' data-funcion="CabiosPendientes" class="btn btn-danger btn-xs2 btn-xs"  title="Cambios Pendientes" disabled><span class="glyphicon glyphicon-alert" aria-hidden="true"></span></button>'+
-                          '</div>';
-                    }else{
-                      $btn_Cabmb='';
-                    }
-
-                      
-                      var disable=""; 
-                      var estado="";
-                      var clase="";
-                          if(e['Estado']==4){              
-                            clase="warning";
-                            disable="disabled"; 
-                            estado="En Subdireción";
-                          }else if(e['Estado']==5){  
-                            clase="success";
-                            disable="disabled"; 
-                            estado="Aprobado Subdireción"; 
-                          }else if(e['Estado']==6){  
-                            clase="danger";
-                            disable=""; 
-                            estado="Denegado Subdireción"; 
-                          }else if(e['Estado']==7){  
-                            clase="danger";
-                            disable="disabled"; 
-                            estado="CANCELADO"; 
-                          }else{
-                            estado="Por revisión";
-                            disable="";
-                          }
-
-                      var $tr1 = $('<tr  class="'+clase+'"></tr>').html(
-                          '<th scope="row" class="text-center">'+num+'</th>'+
-                          '<td><b><p class="text-info text-center">'+e['Registro']+'</p></b></td>'+
-                          '<td><b>'+estado+'</b></td>'+
-                          '<td>'+e['CodigosU']+'</td>'+
-                          '<td>'+e.modalidad['Nombre']+'</td>'+
-                          '<td>'+e.tipocontrato['Nombre']+'</td>'+
-                          '<td><div style="width:500px;text-align: justify;">{'+e['ObjetoContractual']+'</div></td>'+
-                          '<td>'+e['ValorEstimado']+'</td>'+
-                          '<td>'+e.area['nombre']+'</td>'+
-                          '<td>'+e['DuracionContrato']+'</td>'+
-                          //'<td>'+e['FuenteRecurso']+'</td>'+
-                          '<td>'+e['ValorEstimadoVigencia']+'</td>'+
-                          '<td>'+e['VigenciaFutura']+'</td>'+
-                          '<td>'+e['EstadoVigenciaFutura']+'</td>'+
-                          '<td>'+e['FechaEstudioConveniencia']+'</td>'+
-                          '<td>'+e['FechaInicioProceso']+'</td>'+
-                          '<td>'+e['FechaSuscripcionContrato']+'</td>'+
-                          //'<td>'+e['MetaPlan']+'</td>'+
-                          '<td>'+e['RecursoHumano']+'</td>'+
-                          '<td>'+e['NumeroContratista']+'</td>'+
-                          '<td>'+e['DatosResponsable']+'</td>'+
-                          '<td>'+e.rubro['Nombre']+'</td>'+
-                          '<td>'+
-                            '<div class="btn-group tama">'+
-                              '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Registro']+'" data-funcion="Historial" class="btn btn-primary btn-xs2 btn-xs" title="Historial"><span class="glyphicon glyphicon-header" aria-hidden="true"></span></button>'+
-                              '</div>'+
-                              '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs" title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
-                              '</div>'+
-                              '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Aprobacion" class="btn btn-warning  btn-xs2 btn-xs" title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>'+
-                              '</div>'+
-                              '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-rol="'+var2+'" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion" '+disable+'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
-                              '</div>'+
-                               $btn_Cabmb+
-                            '</div>'+
-                            '<div>'+
-                            '<a href="#" class="btn btn-xs btn-default" style="width: 80%;    margin-top: 20px;" data-rel="'+e['Registro']+'" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a>'+
-                            '</div>'+
-                            '<div id=""></div>'+
-                          '</td>'
-                        );
-                      t.row.add($tr1).draw( false );
-                      num++;
-                  });
+                  tabla_principal(data)
 
                   $('#mensaje_aprobacion_final').html('<strong>Registros de PAA!</strong> Los datos se registraron exitosamente a la sub dirección.');
                   $('#mensaje_aprobacion_final').show();
@@ -848,9 +759,25 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
       {id: id, Registro:Registro, CodigosU:CodigosU, Nombre_m:Nombre_m ,Nombre_t:Nombre_t, ObjetoContractual:ObjetoContractual, FuenteRecurso:0, ValorEstimado:ValorEstimado, ValorEstimadoVigencia:ValorEstimadoVigencia, VigenciaFutura:VigenciaFutura, EstadoVigenciaFutura:EstadoVigenciaFutura, FechaEstudioConveniencia:FechaEstudioConveniencia, FechaInicioProceso:FechaInicioProceso, FechaSuscripcionContrato:FechaSuscripcionContrato, DuracionContrato:DuracionContrato , MetaPlan:0, RecursoHumano:RecursoHumano, NumeroContratista:NumeroContratista ,  Nombre_r:Nombre_r, resposanble : responsble },
       function(data){
 
-             var num=1;
+             
                 t.clear().draw();
-                $.each(data.datos, function(i, e){
+                tabla_principal(data);
+
+              $('#mensaje_aprobacion').html('<strong>Registrossss de datos!</strong> Los datos se registraron exitosamente.');
+              $('#mensaje_aprobacion').show();
+              setTimeout(function(){
+                 $('#mensaje_aprobacion').hide();
+                  $('#Modal_AprobarCambiosH').modal('hide');
+              }, 6000)
+    },'json');
+
+        e.preventDefault();
+    });
+
+   function tabla_principal(data){
+    var num=1;
+              $.each(data.datos, function(i, e){
+
                     var var2=0;
                     $.each(data.datos2, function(i, ee){
                         if(ee['Registro']==e['Registro']){
@@ -899,7 +826,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e.modalidad['Nombre']+'</td>'+
                           '<td>'+e.tipocontrato['Nombre']+'</td>'+
-                          '<td>'+e['ObjetoContractual']+'</td>'+
+                          '<td><div style="width:500px;text-align: justify; height: 100px; overflow-y: scroll;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); padding: 10px">'+e['ObjetoContractual']+'</div></td>'+
                           '<td>'+e['ValorEstimado']+'</td>'+
                           '<td>'+e.area['nombre']+'</td>'+
                           '<td>'+e['DuracionContrato']+'</td>'+
@@ -939,19 +866,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
 
                       num++;
                 });
-
-              $('#mensaje_aprobacion').html('<strong>Registrossss de datos!</strong> Los datos se registraron exitosamente.');
-              $('#mensaje_aprobacion').show();
-              setTimeout(function(){
-                 $('#mensaje_aprobacion').hide();
-                  $('#Modal_AprobarCambiosH').modal('hide');
-              }, 6000)
-    },'json');
-
-        e.preventDefault();
-    });
-
-
+   }
 
     $('#Modal_HistorialEliminar_btn').on('click', function(e)
     {

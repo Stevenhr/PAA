@@ -55,7 +55,8 @@ $(function()
         }
       },
       dom: 'Bfrtip',
-      buttons: ['copy', 'csv', 'excel', 'pdf']
+      buttons: ['copy', 'csv', 'excel', 'pdf'],
+        pageLength: 5
   });
  
   // Apply the search
