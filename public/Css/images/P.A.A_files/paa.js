@@ -5,8 +5,8 @@ $(function()
   vector_datos_actividad = new Array();
   vector_datos_codigos = new Array();
   vector_datos_financiacion = new Array();
-  var valorAfavor=0;
 
+  
   $('#TablaPAA tfoot th').each( function () {
         var title = $(this).text();
         if(title!="Menu" && title!="N°"){
@@ -250,7 +250,6 @@ $(function()
 
     var select_fuente = function(id)
     { 
-        $('#mjs_componente').html('');
         $.ajax({
             url: URL+'/service/fuenteComponente/'+id,
             data: {},
@@ -277,25 +276,11 @@ $(function()
             dataType: 'json',
             success: function(data)
             {
-                var valorCocenpto=0;
-                var suma=0;
-                
-                $.each(data, function(i, eee){
-                  $.each(eee.componentes, function(ii, eeee){
-                     if(eeee.pivot['valor']!='')
-                     suma=suma + parseInt(eeee.pivot['valor']);
-
-                     valorCocenpto=eeee['valor'];
-
-                  });
+              console.log(data);
+                $.each(data.componentes, function(i, eee){
+                      console.log(eee);
                 });
-
-                valorAfavor=valorCocenpto-suma;
-                $('#mjs_componente').html('<div class="alert alert-info"><table class="table table-bordered">'+
-                 '<strong>Información</strong><br>'+
-                 '<tr ><td>El componente que ha selecionado tienen un valor total de:</td><td><center><strong>  $'+valorCocenpto+'</strong>.<br></td></tr>'+
-                 '<tr><td>Actualmente tiene un valor de ocupacion de:</td><td><center><strong>                 $'+suma+'</strong>.<br></td></tr>'+
-                 '<tr><td>El componente tiene un saldo a favor de: </td><td><center><strong>  $'+valorAfavor+'</strong>.<br>'+'</td></tr></table></div>');
+                
             }
         });
     });
@@ -403,7 +388,6 @@ $(function()
                 $('#mensaje_actividad').delay(2500).hide(600);
                 return false;
               }else{
-                    if(valor_contrato<=valorAfavor){
                     $('input[name="valor_contrato"]').val('');
                     $('select[name="Fuente_inversion"]').val('');
                     $('select[name="componnente"]').val('');
@@ -412,11 +396,6 @@ $(function()
                     $('#mensaje_actividad').show(60);
                     $('#mensaje_actividad').delay(1500).hide(600);
                     vector_datos_actividad.push({"id_Proyecto": Fuente_inversion, "Nom_Proyecto":Nom_Proyecto_inversion, "id_componente": componnente, "Nom_Componente":Nombre_componnente,"valor": valor_contrato,"id_pivot_comp":id_pivot_comp});
-                  }else{
-                    $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El valor ingresado es mayor al valor de disponibilidad del componete que es de: $'+valorAfavor+'</div>');
-                    $('#mensaje_actividad').show(60);
-                    $('#mensaje_actividad').delay(2500).hide(600);
-                  }
               }
           }
         }
@@ -451,7 +430,6 @@ $(function()
         vector_datos_actividad.length=0;
         $('#div_finaciacion').show();
         $('#crear_paa_btn').html("CREAR");
-        $('#mjs_componente').html('');
 
     });
        

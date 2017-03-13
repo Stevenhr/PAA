@@ -79,6 +79,7 @@ Route::get('/configuracionPaa/service/actividad/{id}', 'PaaController@listadoAct
 Route::get('/paa/service/select_area/{id}', 'PlanAnualAController@select_area');
 Route::get('/paa/service/select_paVinculada/{id}', 'PlanAnualAController@select_paVinculada');
 Route::get('/paa/service/fuenteComponente/{id}', 'PlanAnualAController@fuenteComponente');
+Route::get('/paa/service/PresupuestoComponente/{id}', 'PlanAnualAController@PresupuestoComponente');
 Route::get('/paa/service/select_meta/{id}', 'PlanAnualAController@select_meta');
 Route::get('/paa/service/VerFinanciamiento/{id}', 'PlanAnualAController@verFinanciacion');
 Route::post('/paa/service/EliminarFinanciamiento/', 'PlanAnualAController@EliminarFinanciamiento');

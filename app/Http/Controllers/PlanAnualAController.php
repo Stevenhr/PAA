@@ -97,6 +97,7 @@ class PlanAnualAController extends Controller
         $input['estudio_conveniencia']="0000-00-00";
         return $this->gestionar_Paa($model_A, $input,$estado,$estadoObservo,$Modifica);
     }
+    
     public function modificar_Paa($input)
     {
         $model_A = Paa::find($input["id_Paa"]);
@@ -223,6 +224,16 @@ class PlanAnualAController extends Controller
     {
         $proyecto = Fuente::with('componentes')->find($id);
         return response()->json($proyecto);
+    }
+
+    public function PresupuestoComponente(Request $request, $id)
+    {
+        $ModeloPa = Paa::with(['componentes' => function($query) use ($id)
+        {
+            $query->where('componente_id',$id)->get();
+        }])->where('Estado','9')->get();
+
+        return response()->json($ModeloPa);
     }
 
     public function select_area(Request $request, $id)

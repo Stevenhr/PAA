@@ -476,6 +476,7 @@
 								<option value="" >Selecionar</option>
 							</select>
 						</div>
+						<div id="mjs_componente"></div>
 				  </div>
 				  <div class="col-xs-12 col-sm-4">
 				  	<div class="form-group">
