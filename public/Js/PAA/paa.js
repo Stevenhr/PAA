@@ -303,13 +303,12 @@ $(function()
                 {
                   $.each(vector_datos_actividad, function(i, e){
                     if(e['id_componente']==texto){
-                      console.log("Si.. ");
-                      valor_ingresado_conso=valor_ingresado_conso+e['valor'];
-                    }else{
-                      console.log("No.. ");
+                      valor_ingresado_conso=parseInt(valor_ingresado_conso)+parseInt(e['valor']);
                     }
                   });
                 }
+
+                console.log(valor_ingresado_conso);
 
                 $('#mjs_componente').html('<div class="alert "><table class="table table-bordered">'+
                  '<tr class="info"><td>Presupuesto total:</td><td><center><strong>  $'+valorCocenpto+'</strong>.<br></td></tr>'+
@@ -405,11 +404,11 @@ $(function()
 
         var valor_contrato = $('input[name="valor_contrato"]').val();
         valor_ingresado_conso=parseInt(valor_ingresado_conso)+parseInt(valor_contrato);
+
         if(Proyecto_inversion===''){
           $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe seleccionar un fuente de financiación para poder realizar el registro.</div>');
           $('#mensaje_actividad').show(60);
           $('#mensaje_actividad').delay(2500).hide(600);
-
         }else{
           if(componnente===''){
             $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe seleccionar un compoente para realizar el registro.</div>');
@@ -526,7 +525,7 @@ $(function()
 
     $('#datos_actividad').delegate('button[data-funcion="crear"]','click',function (e) {   
       var id = $(this).data('rel'); 
-
+      var texto=vector_datos_actividad[id]['id_componente'];
       vector_datos_actividad.splice(id, 1);
           
           $('#mensaje_eliminar').html('<div class="alert alert-dismissible alert-success" ><strong>Exito!</strong> Dato eliminado de la actividad con exito. </div>');
@@ -540,7 +539,9 @@ $(function()
               $.each(vector_datos_actividad, function(i, e){
                 html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['Nom_Proyecto']+'</td><td>'+e['Nom_Componente']+'</td><td>'+e['valor']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                 num++;
-                valor_ingresado_conso=parseInt(valor_ingresado_conso)+parseInt(e['valor']);
+                if(e['id_componente']==texto){
+                  valor_ingresado_conso=parseInt(valor_ingresado_conso)+parseInt(e['valor']);
+                }
               });
             }
           $('#registros').html(html);
