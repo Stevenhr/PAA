@@ -476,21 +476,22 @@
 								<option value="" >Selecionar</option>
 							</select>
 						</div>
-						<div id="mjs_componente"></div>
+						
 				  </div>
 				  <div class="col-xs-12 col-sm-4">
 				  	<div class="form-group">
 					  		<label>Valor</label>
 							<input type="text" class="form-control" name="valor_contrato">
 					</div>
+					<button type="button" class="btn btn-primary" id="agregarFinanciacion">Agregar</button>
+        			<button  type="button" class="btn btn-info" id="VerAgregarFinanciacion">Ver</button>
+				  </div>
+				  <div class="col-xs-12 col-sm-8">
+				  	<div id="mjs_componente"></div>
 				  </div>
 				</div>
 
 				<div class="row">
-				  	<div class="col-xs-12 col-sm-12">
-				  		<button type="button" class="btn btn-primary" id="agregarFinanciacion">Agregar</button>
-        				<button  type="button" class="btn btn-info" id="VerAgregarFinanciacion">Ver</button>
-					</div>
 					<div class="col-xs-12 col-sm-12">
         				<div class="form-group"  id="mensaje_actividad" style="display: none;">
         					<div id="alert_actividad"></div>

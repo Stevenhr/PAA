@@ -6,6 +6,7 @@ $(function()
   vector_datos_codigos = new Array();
   vector_datos_financiacion = new Array();
   var valorAfavor=0;
+  var valor_ingresado_conso=0;
 
   $('#TablaPAA tfoot th').each( function () {
         var title = $(this).text();
@@ -271,6 +272,7 @@ $(function()
     };
 
     $('select[name="componnente"]').on('change', function(e){
+        var texto=$(this).find(':selected').val();
         $.ajax({
             url: URL+'/service/PresupuestoComponente/'+$(this).val(),
             data: {},
@@ -280,22 +282,39 @@ $(function()
                 var valorCocenpto=0;
                 var suma=0;
                 
-                $.each(data, function(i, eee){
-                  $.each(eee.componentes, function(ii, eeee){
-                     if(eeee.pivot['valor']!='')
-                     suma=suma + parseInt(eeee.pivot['valor']);
+                $.each(data.ModeloPa, function(i, eee){
+                  if(eee.componentes!=''){
+                    
+                    $.each(eee.componentes, function(ii, eeee){
+                       if(eeee.pivot['valor']!='')
+                       suma=suma + parseInt(eeee.pivot['valor']);
 
-                     valorCocenpto=eeee['valor'];
-
-                  });
+                       valorCocenpto=eeee['valor'];
+                    });
+                  }else{
+                       valorCocenpto=data.ModeloCompoente['valor'];
+                  }
                 });
 
-                valorAfavor=valorCocenpto-suma;
-                $('#mjs_componente').html('<div class="alert alert-info"><table class="table table-bordered">'+
-                 '<strong>Información</strong><br>'+
-                 '<tr ><td>El componente que ha selecionado tienen un valor total de:</td><td><center><strong>  $'+valorCocenpto+'</strong>.<br></td></tr>'+
-                 '<tr><td>Actualmente tiene un valor de ocupacion de:</td><td><center><strong>                 $'+suma+'</strong>.<br></td></tr>'+
-                 '<tr><td>El componente tiene un saldo a favor de: </td><td><center><strong>  $'+valorAfavor+'</strong>.<br>'+'</td></tr></table></div>');
+                valorAfavor=parseInt(valorCocenpto)-parseInt(suma);
+
+                valor_ingresado_conso=0;
+                if(vector_datos_actividad.length > 0)
+                {
+                  $.each(vector_datos_actividad, function(i, e){
+                    if(e['id_componente']==texto){
+                      console.log("Si.. ");
+                      valor_ingresado_conso=valor_ingresado_conso+e['valor'];
+                    }else{
+                      console.log("No.. ");
+                    }
+                  });
+                }
+
+                $('#mjs_componente').html('<div class="alert "><table class="table table-bordered">'+
+                 '<tr class="info"><td>Presupuesto total:</td><td><center><strong>  $'+valorCocenpto+'</strong>.<br></td></tr>'+
+                 '<tr class="success"><td>Presupuesto aprobado:</td><td><center><strong>                 $'+suma+'</strong>.<br></td></tr>'+
+                 '<tr class="active"><td>Presupuesto libre: </td><td><center><strong>  $'+valorAfavor+'</strong>.<br>'+'</td></tr></table></div>');
             }
         });
     });
@@ -315,6 +334,7 @@ $(function()
         if(codigo_Unspsc.length>=8){
           $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Codigo agregado.</div>');
           vector_datos_codigos.push({"codigo": codigo_Unspsc});
+
         }else{
           $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Codigo agregado tiene menos de 8 numeros.</div>');          
         }
@@ -369,7 +389,7 @@ $(function()
         return false;
     });
 
-
+    
   $('#agregarFinanciacion').on('click', function(e)
     {
         
@@ -384,7 +404,7 @@ $(function()
         var Nombre_componnente= form_paa.componnente.options[indice].text ;
 
         var valor_contrato = $('input[name="valor_contrato"]').val();
-        
+        valor_ingresado_conso=parseInt(valor_ingresado_conso)+parseInt(valor_contrato);
         if(Proyecto_inversion===''){
           $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe seleccionar un fuente de financiación para poder realizar el registro.</div>');
           $('#mensaje_actividad').show(60);
@@ -403,17 +423,19 @@ $(function()
                 $('#mensaje_actividad').delay(2500).hide(600);
                 return false;
               }else{
-                    if(valor_contrato<=valorAfavor){
+                    if(valor_ingresado_conso<=valorAfavor){
+                    
                     $('input[name="valor_contrato"]').val('');
-                    $('select[name="Fuente_inversion"]').val('');
-                    $('select[name="componnente"]').val('');
+                    
 
                     $('#alert_actividad').html('<div class="alert alert-dismissible alert-success" ><strong>Exito!</strong> Dato registrados con éxito. </div>');
                     $('#mensaje_actividad').show(60);
                     $('#mensaje_actividad').delay(1500).hide(600);
                     vector_datos_actividad.push({"id_Proyecto": Fuente_inversion, "Nom_Proyecto":Nom_Proyecto_inversion, "id_componente": componnente, "Nom_Componente":Nombre_componnente,"valor": valor_contrato,"id_pivot_comp":id_pivot_comp});
+                    $('#VerAgregarFinanciacion').click();
                   }else{
-                    $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El valor ingresado es mayor al valor de disponibilidad del componete que es de: $'+valorAfavor+'</div>');
+                    valor_ingresado_conso=parseInt(valor_ingresado_conso)-parseInt(valor_contrato);
+                    $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El valor ingresado o consolidado es mayor al valor de disponibilidad del componete que es de: $'+valorAfavor+'  -  '+valor_ingresado_conso+'</div>');
                     $('#mensaje_actividad').show(60);
                     $('#mensaje_actividad').delay(2500).hide(600);
                   }
@@ -505,19 +527,20 @@ $(function()
     $('#datos_actividad').delegate('button[data-funcion="crear"]','click',function (e) {   
       var id = $(this).data('rel'); 
 
-
       vector_datos_actividad.splice(id, 1);
           
           $('#mensaje_eliminar').html('<div class="alert alert-dismissible alert-success" ><strong>Exito!</strong> Dato eliminado de la actividad con exito. </div>');
           $('#mensaje_eliminar').show(60);
           $('#mensaje_eliminar').delay(1500).hide(600);
           var html = '';
+          valor_ingresado_conso=0;
             if(vector_datos_actividad.length > 0)
             {
               var num=1;
               $.each(vector_datos_actividad, function(i, e){
                 html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['Nom_Proyecto']+'</td><td>'+e['Nom_Componente']+'</td><td>'+e['valor']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                 num++;
+                valor_ingresado_conso=parseInt(valor_ingresado_conso)+parseInt(e['valor']);
               });
             }
           $('#registros').html(html);

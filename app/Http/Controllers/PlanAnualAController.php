@@ -233,7 +233,8 @@ class PlanAnualAController extends Controller
             $query->where('componente_id',$id)->get();
         }])->where('Estado','9')->get();
 
-        return response()->json($ModeloPa);
+        $ModeloCompoente=Componente::find($id);
+        return response()->json(array('ModeloPa' => $ModeloPa, 'ModeloCompoente' => $ModeloCompoente));
     }
 
     public function select_area(Request $request, $id)
