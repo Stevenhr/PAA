@@ -803,7 +803,7 @@
 													<th>Duración estimada del contrato (meses)	</th>
 													<th>Recurso Humano (Si / No)</th>
 													<th>Numero de Contratistas	</th>
-													<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
+													<th>Ordenador de gasto (Si es encargado)</th>
 													<th>Proyecto de inversión o rubro de funcionamiento</th>
 									            </tr>
 									        </thead>						       

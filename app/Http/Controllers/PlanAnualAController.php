@@ -117,12 +117,15 @@ class PlanAnualAController extends Controller
             $cod="";
             foreach($data0 as $obj){
                 if($cod=="")
-                 $cod= $cod."".$obj->codigo."";
+                 $cod= $cod."".trim($obj->codigo)."";
                 else
-                 $cod= $cod.", ".$obj->codigo."";
+                 $cod= $cod.", ".trim($obj->codigo)."";
             }
 
             //var_dump($cod);
+        $ordenador="";
+        if($input['datos_contacto']!="")
+        $ordenador=$input['datos_contacto']." -C.C. ".$input['cedula_contacto'];
 
         $modeloPA = new Paa;
         $modeloPA['Id_paa'] = 0;
@@ -143,7 +146,7 @@ class PlanAnualAController extends Controller
         $modeloPA['MetaPlan'] = $input['meta'];
         $modeloPA['RecursoHumano'] = $input['recurso_humano'];
         $modeloPA['NumeroContratista'] = $input['numero_contratista'];
-        $modeloPA['DatosResponsable'] = $input['datos_contacto']." -C.C. ".$input['cedula_contacto'];
+        $modeloPA['DatosResponsable'] = $ordenador;
         $modeloPA['Id_ProyectoRubro'] = $input['Proyecto_inversion'];
         $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
         $modeloPA['Estado'] = $estado;

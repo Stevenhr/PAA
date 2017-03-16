@@ -46,7 +46,10 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
 
   var tb4 = $('#Tabla4').DataTable( {responsive: true,  } );
 
-  var tb5 = $('#Tabla5').DataTable( {responsive: true, } );
+  var tb5 = $('#Tabla5').DataTable( {responsive: true,
+  dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf'] } );
   var tb6 = $('#Tabla6').DataTable( {responsive: true,  } );
 
   $('input[data-role="datepicker"]').datepicker({
@@ -340,7 +343,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
 
     $('#TablaPAA').delegate('button[data-funcion="Aprobacion"]','click',function (e)
     {
-          
+          alert("d");
           var id = $(this).data('rel'); 
           $.get(
               URL+'/service/obtenerHistorialPaa/'+id,
@@ -379,9 +382,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   $DatosResponsable=dato['DatosResponsable'];
                                   $Nombre_r=dato.rubro['Nombre'];
                         }
-                        // 1 Cambios aporbados
-                        // 2 Aprobados                       
-                        // 3 Eliminados
+
                       });
 
                        tb5.row.add( [
@@ -409,6 +410,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                         if(dato['Estado']==1){ //Cambios aporbados
                              $(this).children('td').eq(0).css('background-color', 'red');
                              
+                             console.log(dato['CodigosU']+"<br>"+$CodigosU)
                              if(dato['CodigosU']===$CodigosU)
                               $estilo="";
                              else
