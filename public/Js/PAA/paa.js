@@ -85,6 +85,7 @@ $(function()
 
  $('#form_paa').on('submit', function(e){
 
+    console.log(vector_datos_actividad);
     var datos_acti = JSON.stringify(vector_datos_actividad);
     $('input[name="Dato_Actividad"]').val(datos_acti);
     var upd=$('input[name="id_Paa"]').val();
@@ -251,14 +252,14 @@ $(function()
 
     var select_fuente = function(id)
     { 
-        $('#mjs_componente').html('');
+        $('.mjs_componente').html('');
         $.ajax({
             url: URL+'/service/fuenteComponente/'+id,
             data: {},
             dataType: 'json',
             success: function(data)
             {
-                console.log(data);
+                //console.log(data);
                 var html = '<option value="">Seleccionar</option>';
           
                         $.each(data.componentes, function(i, eee){
@@ -288,14 +289,10 @@ $(function()
                     $.each(eee.componentes, function(ii, eeee){
                        if(eeee.pivot['valor']!='')
                        suma=suma + parseInt(eeee.pivot['valor']);
-
-                       valorCocenpto=eeee['valor'];
                     });
-                  }else{
-                       valorCocenpto=data.ModeloCompoente['valor'];
                   }
                 });
-
+                valorCocenpto=data.ModeloCompoente['valor'];
                 valorAfavor=parseInt(valorCocenpto)-parseInt(suma);
 
                 valor_ingresado_conso=0;
@@ -308,9 +305,9 @@ $(function()
                   });
                 }
 
-                console.log(valor_ingresado_conso);
+                //console.log(valor_ingresado_conso);
 
-                $('#mjs_componente').html('<div class="alert "><table class="table table-bordered">'+
+                $('.mjs_componente').html('<div class="alert "><table class="table table-bordered">'+
                  '<tr class="info"><td>Presupuesto total:</td><td><center><strong>  $'+valorCocenpto+'</strong>.<br></td></tr>'+
                  '<tr class="success"><td>Presupuesto aprobado:</td><td><center><strong>                 $'+suma+'</strong>.<br></td></tr>'+
                  '<tr class="active"><td>Presupuesto libre: </td><td><center><strong>  $'+valorAfavor+'</strong>.<br>'+'</td></tr></table></div>');
@@ -394,14 +391,15 @@ $(function()
         
         var id_pivot_comp=$('input[name="id_pivot_comp"]').val();
         
-        var Fuente_inversion=$('select[name="Fuente_inversion"]').val();
+        var Fuente_inversion=$('select[name="Fuente_inversion"]').find(':selected').val();
         var indice = form_paa.Fuente_inversion.selectedIndex;
         var Nom_Proyecto_inversion= form_paa.Fuente_inversion.options[indice].text ;
 
-        var componnente=$('select[name="componnente"]').val();
+        var componnente=$('select[name="componnente"]').find(':selected').val();
         var indice = form_paa.componnente.selectedIndex;
         var Nombre_componnente= form_paa.componnente.options[indice].text ;
 
+        console.log('id Componente: '+componnente+' - '+Nombre_componnente);
         var valor_contrato = $('input[name="valor_contrato"]').val();
         valor_ingresado_conso=parseInt(valor_ingresado_conso)+parseInt(valor_contrato);
 
@@ -472,7 +470,7 @@ $(function()
         vector_datos_actividad.length=0;
         $('#div_finaciacion').show();
         $('#crear_paa_btn').html("CREAR");
-        $('#mjs_componente').html('');
+        $('.mjs_componente').html('');
 
     });
        
@@ -544,6 +542,7 @@ $(function()
                 }
               });
             }
+            $('select[name="componnente"]').val('');
           $('#registros').html(html);
 
      }); 
@@ -562,7 +561,7 @@ $(function()
               {   
                   var html = '';
 
-                  if($.inArray(data.estado,['4','5','7'])!=-1){
+                  if($.inArray(data.estado,['4','5','7','8','9','11'])!=-1){
                     desactivo="none";
                     $('#btn_agregar_finaza').hide();
                   }else{
@@ -627,7 +626,7 @@ $(function()
      $('#form_agregar_finza').on('submit', function(e){
 
           var id_act=$('#id_act_agre').val();
-
+          $('.mjs_componente').html('');
                   $.ajax({
                       type: "POST",
                       url: URL+'/service/agregar_finza',
@@ -637,39 +636,44 @@ $(function()
                       {   
                         if(data.status == 'error')
                         {
-                            
                             validad_error_agre(data.errors);
-                       
                         } else {
-                            validad_error_agre(data.errors);
-                            var html = '';
-                            $('#registrosFinanzas').html('');
-                            var num=1;
-                            desactivo="";
 
-                            if($.inArray(data.estado,['4','5','7'])!=-1){
-                              desactivo="none";
-                              $('#btn_agregar_finaza').hide();
+                            if(data.status == 0)
+                            {
+                                $('.mjs_componente').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> La sumatoria de los valores ingresados superan el valor del presupuesto disponible.</div>');
+                                setTimeout(function(){
+                                    $('.mjs_componente').html('');
+                                }, 2000)
+                                validad_error_agre(data.errors);
                             }else{
+                              validad_error_agre(data.errors);
+                              var html = '';
+                              $('#registrosFinanzas').html('');
+                              var num=1;
                               desactivo="";
-                              $('#btn_agregar_finaza').show();
-                            }
 
-                            $.each(data.inf.componentes, function(i, dato){
-                              console.log(dato);
+                              if($.inArray(data.estado,['4','5','7'])!=-1){
+                                desactivo="none";
+                                $('#btn_agregar_finaza').hide();
+                              }else{
+                                desactivo="";
+                                $('#btn_agregar_finaza').show();
+                              }
 
-                              
-                              html += '<tr>'+
-                                      '<th scope="row" class="text-center">'+num+'</th>'+
-                                      '<td>'+dato.fuente['nombre']+'</td>'+
-                                      '<td>'+dato['Nombre']+'</td>'+
-                                      '<td>'+dato.pivot['valor']+'</td>'+
-                                      '<td class="text-center"><button type="button" data-id="'+dato.pivot['id']+'" data-dat="'+dato.pivot['componente_id']+'" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
-                              num++;
-                            });
+                              $.each(data.inf.componentes, function(i, dato){
+                                html += '<tr>'+
+                                        '<th scope="row" class="text-center">'+num+'</th>'+
+                                        '<td>'+dato.fuente['nombre']+'</td>'+
+                                        '<td>'+dato['Nombre']+'</td>'+
+                                        '<td>'+dato.pivot['valor']+'</td>'+
+                                        '<td class="text-center"><button type="button" data-id="'+dato.pivot['id']+'" data-dat="'+dato.pivot['componente_id']+'" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                                num++;
+                              });
 
-                            $('#registrosFinanzas').html(html);
-                            document.getElementById("form_agregar_finza").reset();
+                              $('#registrosFinanzas').html(html);
+                              document.getElementById("form_agregar_finza").reset();
+                           }
                         }
                       }
                   });

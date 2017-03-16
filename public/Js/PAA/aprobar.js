@@ -799,27 +799,48 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                       var estado="";
                       var clase="";
                           if(e['Estado']==4){              
-                            clase="warning";
+                            clase="class=\"warning\"";
                             disable="disabled"; 
                             estado="En Subdireción";
                           }else if(e['Estado']==5){  
-                            clase="success";
+                            clase="class=\"success\"";
                             disable="disabled"; 
                             estado="Aprobado Subdireción"; 
                           }else if(e['Estado']==6){  
-                            clase="danger";
+                            clase="class=\"danger\"";
                             disable=""; 
                             estado="Denegado Subdireción"; 
                           }else if(e['Estado']==7){  
-                            clase="danger";
+                            clase="class=\"danger\"";
                             disable="disabled"; 
                             estado="CANCELADO"; 
+                          }else if(e['Estado']==8){  
+                            clase="style=\"background-color: #DFFFD8 !important;\"";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción <b>(Por aprobación del estudio)"; 
+                            estudioComve="1";
+                          }else if(e['Estado']==9){  
+                            clase="style=\"background-color: #DCFFB3 !important;\"";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción <b>(Estudio  aprobado)"; 
+                            estudioComve="1";
+                          }else if(e['Estado']==10){  
+                            clase="style=\"background-color: #DCD664 !important;\"";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción <b>(Correciones pendientes del estudio)"; 
+                            estudioComve="0";
+                          }else if(e['Estado']==11){  
+                            clase="style=\"background-color: #829E48 !important;\"";
+                            disable="disabled"; 
+                            estado="Aprobado Subdireción <b>(Cancelado el estudio)"; 
+                            estudioComve="1";
                           }else{
-                            estado="Por revisión";
+                            estado="En Consolidación";
                             disable="";
+                            estudioComve="1";
                           }
 
-                      var $tr1 = $('<tr  class="'+clase+'"></tr>').html(
+                      var $tr1 = $('<tr '+clase+'></tr>').html(
                           '<th scope="row" class="text-center">'+num+'</th>'+
                           '<td><b><p class="text-info text-center">'+e['Registro']+'</p></b></td>'+
                           '<td><b>'+estado+'</b></td>'+

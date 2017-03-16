@@ -54,10 +54,10 @@
     							@foreach ($area->paas as $paa)
     							<?php
 		                        	$estado = '';
-		                        	$clase = '';
+		                        	$class = '';
 		                        	switch ($paa['Estado']) 
 		                        	{
-		                        		case '0':
+		                        		/*case '0':
 		                        			$estado = 'En consolidación';
 		                        			$class = '';
 		                        			break;
@@ -76,8 +76,18 @@
 		                        		case '7':
 		                        			$estado = 'Cancelado por subdirección';
 		                        			$class = 'danger';
+		                        			break;*/
+		                        		case '9':
+		                        			$estado = 'Estudio de conveniencia aprobado.';
+		                        			$class = 'success';
+		                        			$estudio = '';
 		                        			break;
-		                        	}
+		                        		case '11':
+		                        			$estado = 'Estudio de conveniencia cancelado.';
+		                        			$class = 'danger';
+		                        			$estudio = '';
+		                        			break;
+				                    }
 		                        ?>
 									<tr data-row="{{ $paa['Id'] }}" class="{{ $class }}">
 			    						<td scope="row" class="text-center">{{++$var}}</th>
@@ -90,7 +100,7 @@
 				                        </td>
 				                        <td>{{$paa->modalidad['Nombre']}}</td>
 				                        <td>{{$paa->tipocontrato['Nombre']}}</td>
-				                        <td><div style="width:500px;text-align: justify;">'{{$paa['ObjetoContractual']}}</div></td>
+				                        <td><div style="width:500px;text-align: justify; height: 100px; overflow-y: scroll;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); padding: 10px">'{{$paa['ObjetoContractual']}}</div></td>
 				                        <td>{{$paa['ValorEstimado']}}</td>
 				                        <td>{{$paa['DuracionContrato']}}</td>
 				                        <td>{{$paa['ValorEstimadoVigencia']}}</td>
@@ -114,6 +124,7 @@
 												</div>
 												<br>
 												<div><a href="#" class="btn btn-xs btn-default" style="width: 100%; margin-top: 20px;" data-rel="{{$paa['Registro']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a></div>
+												<div><button type="button" data-rel="{{$paa['Id']}}" data-estado="{{$paa['Estado']}}" data-funcion="estudioConveniencia" class="btn btn-xs btn-success" style="width: 100%;margin-top: 2px;"  {{$estudio}}><span class="glyphicon glyphicon-info-sign"></span> Est. Conveniencia</button></div>
 											</div>
 				                        </td>
 			                        </tr>
@@ -374,4 +385,8 @@
     </div>
   </div>
 </div>
+
+<form action="estudiopdf" id="estudiopdf_form">
+        <input type="hidden" name="id_paa_estudio_f" id="id_paa_estudio_f"/>
+</form>
 @stop

@@ -198,7 +198,7 @@ class PlanAnualAController extends Controller
 
             $data0 = json_decode($input['Dato_Actividad']);
             foreach($data0 as $obj){
-                $modeloPA->componentes()->attach($obj->id_pivot_comp,[
+                $modeloPA->componentes()->attach($obj->id_componente,[
                     'id_paa'=>$id_paa2,
                     'valor'=>$obj->valor,
                     'estado'=>1,
@@ -294,22 +294,62 @@ class PlanAnualAController extends Controller
         if ($validator->fails())
         return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
 
-         
-
         $id=$request['id_act_agre'];
         $id_componente=$request['componnente'];
         $valor=$request['valor_contrato'];
 
-        $paa = new Paa;
-        $paa->componentes()->attach($id_componente,[
-                    'id_paa'=>$id,
-                    'valor'=>$valor,
-                    'estado'=>1,
-                ]);
+        $ModeloPa = Paa::with(['componentes' => function($query) use ($id_componente)
+        {
+            $query->where('componente_id',$id_componente)->get();
+        }])->where('Estado','9')->get();
+        $ModeloCompoente=Componente::find($id_componente);
 
+
+        $suma_aprobado=0;
+        $valorCocenpto=0;
+        $suma_por_aprobar=0;
+
+        foreach($ModeloPa as $eee){
+          if($eee->componentes!=''){
+            foreach($eee->componentes as $eeee){
+               if($eeee->pivot['valor']!=''){
+                   $suma_aprobado=$suma_aprobado + $eeee->pivot['valor'];
+               }
+            }
+          }
+        }
+        $valorCocenpto=$ModeloCompoente['valor'];
+
+        $ModeloAprobado = Paa::with(['componentes' => function($query) use ($id_componente)
+        {
+            $query->where('componente_id',$id_componente)->get();
+        }])->find($id);
+
+        foreach($ModeloAprobado->componentes as $componente){
+           if($componente->pivot['valor']!=''){
+               $suma_por_aprobar=$suma_por_aprobar + $componente->pivot['valor'];
+           }
+        }
+         
+
+        $valor2=$valor+$suma_por_aprobar;
+        $valorAfavor=$valorCocenpto-$suma_aprobado;
+        $estado="";
+        //echo $valorAfavor." - ".$valor."";
+        if($valorAfavor>=$valor2){
+            $paa = new Paa;
+            $paa->componentes()->attach($id_componente,[
+                        'id_paa'=>$id,
+                        'valor'=>$valor,
+                        'estado'=>1,
+                    ]);
+            $estado="1";
+        }else{
+            $estado="0";
+        }
         $model_A = Paa::with('componentes','componentes.fuente')->find($id);
 
-        return response()->json(array('status' => 'bein', 'errors' => $validator->errors(),'inf'=>$model_A ));
+        return response()->json(array('status' => $estado, 'errors' => $validator->errors(),'inf'=>$model_A ));
         
     }
 

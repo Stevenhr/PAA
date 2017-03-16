@@ -501,7 +501,6 @@ $(function()
               {},
               function(data)
               {
-                
                 if(data.EstudioConveniencias!=null){
                   $('#CancelarEstudio').attr('disabled',false);
                   $('#devolverEstudio').attr('disabled',false);

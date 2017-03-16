@@ -481,13 +481,13 @@
 				  <div class="col-xs-12 col-sm-4">
 				  	<div class="form-group">
 					  		<label>Valor</label>
-							<input type="text" class="form-control" name="valor_contrato">
+							<input type="text" class="form-control" name="valor_contrato" autocomplete="off">
 					</div>
 					<button type="button" class="btn btn-primary" id="agregarFinanciacion">Agregar</button>
         			<button  type="button" class="btn btn-info" id="VerAgregarFinanciacion">Ver</button>
 				  </div>
 				  <div class="col-xs-12 col-sm-8">
-				  	<div id="mjs_componente"></div>
+				  	<div class="mjs_componente"></div>
 				  </div>
 				</div>
 
@@ -600,16 +600,17 @@
 							</select>
 						</div>
 				  </div>
+				
+
 				  <div class="col-xs-12 col-sm-4">
-					  	<div class="form-group">
-						  		<label>Valor</label>
-								<input type="text" class="form-control" name="valor_contrato">
-						</div>
-				  </div>
-				  <div class="col-xs-12 col-sm-12">
-				  </div>
-				  <div class="col-xs-12 col-sm-4" style="text-align: -webkit-auto;">
+				  	<div class="form-group">
+					  		<label>Valor</label>
+							<input type="text" class="form-control" name="valor_contrato" autocomplete="off">
+					</div>
 					<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza">Agregar Financiación</button>
+				  </div>
+				  <div class="col-xs-12 col-sm-8">
+				  	<div class="mjs_componente"></div>
 				  </div>
 			</div>
 			</form>

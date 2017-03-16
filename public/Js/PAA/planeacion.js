@@ -363,4 +363,13 @@ $(function()
           },'json');
 
     });
+
+
+    $('#TablaPAA').delegate('button[data-funcion="estudioConveniencia"]','click',function (e){   
+          var id = $(this).data('rel'); 
+          $('#id_paa_estudio_f').val(id);
+          $('#estudiopdf_form').submit();
+   }); 
+
+
 });

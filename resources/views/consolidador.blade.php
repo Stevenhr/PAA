@@ -94,6 +94,18 @@
 			        						@elseif($paa['Estado']==7)	
 			        							<tr class="danger">
 			        							<?php $disable="disabled"; $estado="CANCELADO"; ?>
+			        						@elseif($paa['Estado']==8)	
+			        							<tr style="background-color: #DFFFD8 !important;">
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción <b>(Por aprobación del estudio)<b>"; $estudioComve="1";?>
+			        						@elseif($paa['Estado']==9)	
+			        							<tr style="background-color: #DCFFB3 !important;">
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción <b>(Estudio  aprobado)</b>"; $estudioComve="1";?>
+			        						@elseif($paa['Estado']==10)	
+			        							<tr style="background-color: #DCD664 !important;">
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción <b>(Correciones pendientes del estudio)</b>"; $estudioComve="0";?>
+			        						@elseif($paa['Estado']==11)	
+			        							<tr style="background-color: #829E48 !important;">
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción <b>(Cancelado el estudio)</b>"; $estudioComve="1";?>
 			        						@else
 			        							<tr>
 			        							<?php $estado="Por revisión"; ?>

@@ -11,13 +11,13 @@
 		<div class="col-md-12">
 			<p class="lead">
 				<br>
-				Seleccione <small><span class="glyphicon glyphicon-check" aria-hidden="true"></span></small> los planes de adquisión que desea enviar a planeación y luego haga click en el botón "Enviar".
+				Seleccione <small><span class="glyphicon glyphicon-check" aria-hidden="true"></span></small> los planes de adquisión que desea habilitar para el registro del Estudio de Coveniencia y luego haga click en el botón "Enviar".
 				<br>
 				<br>
 			</p>
 		</div>
 		<div class="col-md-12" id="alertas">
-			<p class="bg-success" style="display:none;">Los planes de adquisión fueron enviados satisfactoriamente.</p>
+			<p class="bg-success" style="display:none;">Los planes de adquisión fueron habilitados satisfactoriamente.</p>
 			<p class="bg-danger" style="display:none;">Debe seleccionar al menos un plan de adquisición para enviar.</p>
 		</div>
 		<div class="col-md-12">
@@ -289,6 +289,8 @@
 		</div>
 	</div>
 </div>
+
+
 <!-- modal historial -->
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Historial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   	<div class="modal-dialog modal-lg" role="document">
