@@ -22,6 +22,8 @@ use App\FuenteHacienda;
 use App\Area;
 use App\ActividadComponente;
 use App\Actividad;
+use Mail;
+
 
 class PlanAnualAController extends Controller
 {
@@ -219,7 +221,17 @@ class PlanAnualAController extends Controller
             $modeloP['Id_paa'] = $modeloultimo[1]['Id'];
             $modeloP->save();
         }
+        
+       
+        
         $paa = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+
+        Mail::send('mail', ['user' => 'estevenhr@hotmail.com'], function ($m) use ($paa)  {
+            $m->from('no-reply@epaf.com', 'Registro Exitoso EPAF');
+
+            $m->to('estevenhr@hotmail.com', 'Estevenhr')->subject('Registro Exitoso EPAF!');
+        });
+
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
