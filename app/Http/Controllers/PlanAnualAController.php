@@ -36,7 +36,7 @@ class PlanAnualAController extends Controller
         $fuente = Fuente::all();
         $subDireccion = SubDireccion::all();
         $fuenteHacienda = FuenteHacienda::all();
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area','componentes')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area','componentes','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
 
         $datos = [        
             'modalidades' => $modalidadSeleccion,
@@ -219,7 +219,7 @@ class PlanAnualAController extends Controller
             $modeloP['Id_paa'] = $modeloultimo[1]['Id'];
             $modeloP->save();
         }
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
@@ -488,20 +488,20 @@ class PlanAnualAController extends Controller
         $modeloPA['EsatdoObservo'] = 3;
         $modeloPA->save();
 
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
     public function HistorialEliminarPaa(Request $request, $id)
     {
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona',$_SESSION['Id_Persona'])->where('Estado','3')->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->where('Estado','3')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
     public function HistorialEliminarPaaEspecifico(Request $request, $id)
     {
-        $paa = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona',$_SESSION['Id_Persona'])->where('Estado','0')->where('EsatdoObservo','0')->find(41);
-        $paas = Paa::with('modalidad','tipocontrato','rubro')->where('IdPersona',$_SESSION['Id_Persona'])->where('Registro',41)->where('Estado','1')->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->where('Estado','0')->where('EsatdoObservo','0')->find(41);
+        $paas = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->where('Registro',41)->where('Estado','1')->get();
         foreach ($paas as &$temp) 
         {
             $temp->cambios = Comparador::comparar($temp->toArray(), $paa->toArray());

@@ -43,11 +43,12 @@
 										<th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
 										<th>Fecha estimada de inicio de <br>proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 										<th>Fecha suscripción <br>Contrato (dd/mm/aaaa)	</th>
-										<!--<th>Meta plan	</th>-->
+										
 										<th>Recurso Humano (Si / No)</th>
 										<th>Numero de Contratistas	</th>
 										<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 										<th>Proyecto de inversión o rubro de funcionamiento</th>
+										<th>Meta plan	</th>
 										<th  data-priority="2">Menú</th>
 						            </tr>
 						        </thead>
@@ -70,11 +71,11 @@
 										<th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
 										<th>Fecha estimada de inicio de <br>proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 										<th>Fecha suscripción <br>Contrato (dd/mm/aaaa)	</th>
-										<!--<th>Meta plan	</th>-->
 										<th>Recurso Humano (Si / No)</th>
 										<th>Numero de Contratistas	</th>
 										<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 										<th>Proyecto de inversión o rubro de funcionamiento</th>
+										<th>Meta plan	</th>
 										<th  data-priority="2">Menú</th>
 						            </tr>
 						        </tfoot>
@@ -132,7 +133,8 @@
 					                        <td>{{$paa['RecursoHumano']}}</td>
 					                        <td>{{$paa['NumeroContratista']}}</td>
 					                        <td>{{$paa['DatosResponsable']}}</td>
-					                        <td>{{$paa->rubro['Nombre']}}</td>
+					                        <td>{{$paa->proyecto['Nombre']}}</td>
+					                        <td>{{$paa->meta['Nombre']}}</td>
 					                  
 					                        <td>
 					                        	

@@ -1089,7 +1089,6 @@ $(function()
     $('#TablaPAA').delegate('button[data-funcion="Modificacion"]','click',function (e) {  
 
         var id = $(this).data('rel'); 
-        //$("#espera_3_"+id).html("<img src='public/Img/loading.gif'/>");
         $.get(
             URL+'/service/obtenerPaa/'+id,
             {},
@@ -1295,7 +1294,8 @@ $(function()
                                 '<td>'+e['RecursoHumano']+'</td>'+
                                 '<td>'+e['NumeroContratista']+'</td>'+
                                 '<td>'+e['DatosResponsable']+'</td>'+
-                                '<td>'+e.rubro['Nombre']+'</td>'+
+                                '<td>'+e.proyecto['Nombre']+'</td>'+
+                                '<td>'+e.meta['Nombre']+'</td>'+
                                 '<td>'+
                                   '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+
                                     '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>'+

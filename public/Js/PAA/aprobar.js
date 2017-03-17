@@ -864,7 +864,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td>'+e['RecursoHumano']+'</td>'+
                           '<td>'+e['NumeroContratista']+'</td>'+
                           '<td>'+e['DatosResponsable']+'</td>'+
-                          '<td>'+e.rubro['Nombre']+'</td>'+
+                          '<td>'+e.proyecto['Nombre']+'</td>'+
+                          '<td>'+e.meta['Nombre']+'</td>'+
                           '<td>'+
                             '<div class="btn-group tama">'+
                               '<div class="btn-group">'+

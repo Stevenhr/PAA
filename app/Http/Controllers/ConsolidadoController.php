@@ -40,7 +40,7 @@ class ConsolidadoController extends Controller
           $arreglo1[]=$value['id'];
         }
 
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area')->whereIn('Id_Area',$arreglo1)->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta')->whereIn('Id_Area',$arreglo1)->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
 
         $paa2 = Paa::whereIn('Id_Area',$arreglo1)->where('Estado','1')->get();
 
@@ -63,7 +63,7 @@ class ConsolidadoController extends Controller
         $model_A['Estado'] = 4;
         $model_A->save();
         
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
         $paa2 = Paa::where('IdPersona','1046')->where('Estado','1')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa, 'datos2' => $paa2));
     }
@@ -355,7 +355,7 @@ class ConsolidadoController extends Controller
 
         }
         
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
         $paa2 = Paa::where('IdPersona','1046')->where('Estado','1')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa, 'datos2' => $paa2));
 
