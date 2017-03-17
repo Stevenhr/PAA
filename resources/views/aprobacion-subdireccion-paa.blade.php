@@ -40,11 +40,11 @@
 						<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
 						<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 						<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-						<th>Meta plan</th>
 						<th>Recurso Humano (Si / No)</th>
 						<th>Numero de Contratistas	</th>
 						<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 						<th>Proyecto de inversión o rubro de funcionamiento</th>
+						<th>Meta plan</th>
 						<th data-priority="2">Menú</th>
 						<th style="width:30px;" data-priority="2" class="center"><input name="select_all" value="1" type="checkbox"></th>
 		            </tr>
@@ -124,11 +124,11 @@
 	                        <td>{{ substr($paa['FechaEstudioConveniencia'], 0, 10) }}</td>
 	                        <td>{{ substr($paa['FechaInicioProceso'], 0, 10) }}</td>
 	                        <td>{{ substr($paa['FechaSuscripcionContrato'], 0, 10) }}</td>
-	                        <td>{{$paa['MetaPlan']}}</td>
 	                        <td>{{$paa['RecursoHumano']}}</td>
 	                        <td>{{$paa['NumeroContratista']}}</td>
 	                        <td>{{$paa['DatosResponsable']}}</td>
-	                        <td>{{$paa->rubro['Nombre']}}</td>
+	                        <td>{{$paa->proyecto['Nombre']}}</td>
+	                        <td>{{$paa->meta['Nombre']}}</td>
 	                        <td data-priority="2" align="right">
 	                        	<div class="btn-group" style="width: 160px;">
 									<div class="btn-group">

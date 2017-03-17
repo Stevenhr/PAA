@@ -118,6 +118,15 @@
                 </ul>
               </li>
 
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Dirección<span class="caret"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="download">
+                  @if($_SESSION['Usuario']['Permisos']['Gestion_Direccion_General'])
+                    <li class=”{{ Request::is('AprobacionDireccion') ? 'active' : '' }}”><a href="{{ URL::to('AprobacionDireccion') }}">Consultar Paa</a></li>
+                  @endif
+                </ul>
+              </li>
+
             </ul>
 
             <form class="navbar-form navbar-left" role="search">

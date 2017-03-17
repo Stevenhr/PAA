@@ -70,6 +70,7 @@ class MainController extends Controller {
 				'Gestion_planeacion'=> intval($permissions_array[6]),
 				'Asignar_Actividades'=> intval($permissions_array[7]),
 				'Asignar_Tipo_Persona'=> intval($permissions_array[8])
+				'Gestion_Direccion_General'=> intval($permissions_array[9])
 			];
 
 			$_SESSION['Usuario']['Permisos'] = $permisos;

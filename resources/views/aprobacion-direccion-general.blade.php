@@ -2,15 +2,15 @@
 
 @section('script')
 	@parent
-    <script src="{{ asset('public/Js/PAA/planeacion.js') }}"></script>	
+    <script src="{{ asset('public/Js/PAA/direccionGeneral.js') }}"></script>	
 @stop
 
 @section('content') 
-<div id="main" class="content" data-url="aprobar">
+<div id="main" class="content" data-url="direccion">
 	<div class="row">
 		<div class="col-md-12">
 			<p class="lead">
-				Planeación:
+				Dirección General:
 				<br>
 				Seleccione la subdirección que desea consultar.
 				<br>

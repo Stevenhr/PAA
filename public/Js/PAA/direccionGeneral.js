@@ -347,7 +347,7 @@ $(function()
          observacion=$('#observacio').val();
          $.post(
           URL+'/service/RegistrarObservacion',
-          {id: id, Estado:'Observación Planeación',observacion:observacion},
+          {id: id, Estado:'Observación Dirección',observacion:observacion},
           function(data){
             if(data.status == 'ok')
               {
