@@ -82,15 +82,14 @@ class PaaController extends Controller
 		$datos = Datos::where('Id_Persona',$id)->first();
 		$personapaa = PersonaPaa::find($id);
 		if($datos){
+			$persona['email'] = $datos->Email;
+			$persona['area'] =  $personapaa->id_area;
+		}else{
 
-		$persona['email'] = $datos->Email;
-		$persona['area'] =  $personapaa->id_area;
-	}else{
+			$persona['email'] = '';
+			$persona['area'] =  '';
 
-		$persona['email'] = '';
-		$persona['area'] =  '';
-
-	}
+		}
 		return response()->json($persona);
 	}
 	

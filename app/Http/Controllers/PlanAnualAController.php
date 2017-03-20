@@ -23,11 +23,21 @@ use App\Area;
 use App\ActividadComponente;
 use App\Actividad;
 use Mail;
+use App\Persona;
+use App\Datos;
+use Idrd\Usuarios\Repo\PersonaInterface;
 
 
 class PlanAnualAController extends Controller
 {
     //
+
+    protected $repositorio_personas;
+
+    public function __construct(PersonaInterface $repositorio_personas)
+    {
+        $this->repositorio_personas = $repositorio_personas;
+    }
 
     public function index()
 	{
@@ -126,6 +136,8 @@ class PlanAnualAController extends Controller
 
             //var_dump($cod);
         $ordenador="";
+        $ModiRegi="";
+
         if($input['datos_contacto']!="")
         $ordenador=$input['datos_contacto']." -C.C. ".$input['cedula_contacto'];
 
@@ -159,6 +171,8 @@ class PlanAnualAController extends Controller
         $modeloPA->save();
 
         if($Modifica==0){
+
+            $ModiRegi=0;
             $id_paa=$modeloPA->Id;
             $id_paa2=$modeloPA->Id;
             $modeloP = Paa::find($id_paa);
@@ -210,6 +224,8 @@ class PlanAnualAController extends Controller
                 ]);
             }
         }else{
+
+            $ModiRegi=1;
             $id_paa2=$model->Id;
             $id_paa=$modeloPA->Id;
             $modeloP = Paa::find($id_paa);
@@ -221,15 +237,55 @@ class PlanAnualAController extends Controller
             $modeloP['Id_paa'] = $modeloultimo[1]['Id'];
             $modeloP->save();
         }
-        
+
+
+
+        if($ModiRegi==0)
+            $mensaje="Registro Exitoso PAA ID. ".$model->Id;
+        else
+            $mensaje="Modificación Exitosa PAA ID. ".$model->Id."";
        
         
         $paa = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $persona = $this->repositorio_personas->obtener($model->IdPersona);
+        $area=Area::find($model->Id_Area);
 
-        Mail::send('mail', ['user' => 'estevenhr@hotmail.com'], function ($m) use ($paa)  {
-            $m->from('no-reply@epaf.com', 'Registro Exitoso EPAF');
+        
 
-            $m->to('estevenhr@hotmail.com', 'Estevenhr')->subject('Registro Exitoso EPAF!');
+        $personapaas = PersonaPaa::where('id_area',$model->Id_Area)->get();
+        $pila = array();
+        foreach ($personapaas as &$personapaa) 
+        {
+            array_push($pila, $personapaa['id']);
+        }
+        
+        $id_Tipos=[62];
+        $ModeloPersona = Persona::with(['tipo' => function($query) use ($id_Tipos)
+        {
+            $query->find($id_Tipos);
+        }])->whereIn('Id_Persona',$pila)->get();       
+
+      
+
+        $Consolidadore = array();
+        foreach ($ModeloPersona as &$Mpersonapaa) 
+        {
+            array_push($Consolidadore, $Mpersonapaa['Id_Persona']);
+        }
+        
+        $emails = array();
+        $DatosEmail = Datos::whereIn('Id_Persona',$Consolidadore)->get();
+        foreach ($DatosEmail as &$DatoEmail) 
+        {
+            if($DatoEmail){
+                array_push($emails, $DatoEmail['Email']);
+            }
+        }
+
+        Mail::send('mail', ['user' => 'estevenhr@hotmail.com','mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
+            $m->from('no-reply@epaf.com', $mensaje);
+
+            $m->to($emails, 'Estevenhr')->subject($mensaje."!");
         });
 
         return response()->json(array('status' => 'modelo', 'datos' => $paa));

@@ -1,7 +1,10 @@
 <html>
 
-<h1>ESCUELA DE PROFESORES DE ACTIVIDAD FÍSICA EPAF - IDRD 2016 </h1>
+<center><h1>PLAN ANUAL DE ADQUISICIONES  - IDRD </h1></center>
 
-<h1>Su registro fue exitoso!</h1>
-
-<p>Para generar su carnet ingresa tu cedula en la siguiente url <a href="http://idrd.gov.co/Formulario_epaf/descarga">http://idrd.gov.co/Formulario_epaf/descarga</a> </p>
+<h2>{{ $mensaje }}</h2>
+<h2>Usuario: {{$persona["Primer_Apellido"]." ".$persona["Segundo_Apellido"]." ".$persona["Primer_Nombre"]." ".$persona["Segundo_Nombre"]}}</h2>
+<h3>Área: <strong>{{ $area["nombre"] }}</strong> </h3>
+<br><br>
+<p>Notificación del módulo del plan anual de adquisiciones, por favor no conteste este correo no tendrá respuesta, solamente es un correo informativo.</a> </p>
+</html>
