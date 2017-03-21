@@ -564,6 +564,9 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
     $('#aprobacion_Sub_Direccion').on('click', function(e){
 
           id=$('#paa_subDirecion').val();
+          $('#mensaje_aprobacion_final').html('<center><strong>Cargando... Espere un momento!</strong> Se esta enviando la información a la sub Dirección...</center>');
+          $('#mensaje_aprobacion_final').show();
+          $('#aprobacion_Sub_Direccion').attr('disabled','true');
           $.ajax({
               url: URL+'/service/aprobarSubDireccion/'+id,
               data: {},
@@ -575,9 +578,12 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
 
                   $('#mensaje_aprobacion_final').html('<strong>Registros de PAA!</strong> Los datos se registraron exitosamente a la sub dirección.');
                   $('#mensaje_aprobacion_final').show();
+
                   setTimeout(function(){
                      $('#mensaje_aprobacion_final').hide();
+                     $('#aprobacion_Sub_Direccion').prop('disabled',false);
                       $('#Modal_AprobarCambiosFinal').modal('hide');
+
                   }, 6000)
               }
           });

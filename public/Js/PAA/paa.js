@@ -94,6 +94,9 @@ $(function()
     $('input[name="Dato_Actividad_Codigos"]').val(datos_cod);
     
     if(vector_datos_actividad.length > 0){
+          $('#mjs_registroPaa').html(' <center><strong>Cargando... Espere un momento!</strong>  Registrando plan...</center>');
+          $('#mjs_registroPaa').show();
+          $('#crear_paa_btn').attr('disabled',true);
           $.post(
             URL+'/validar/paa',
             $(this).serialize(),
@@ -110,6 +113,7 @@ $(function()
                   {
                       document.getElementById("form_paa").reset(); 
                       $('#crear_paa_btn').html("CREAR");
+                      $('#crear_paa_btn').prop('disabled',false);
                       vector_datos_actividad=[];
                       $('#registros').html('');               
                       var num=1;
@@ -145,6 +149,7 @@ $(function()
                   
               }
           },'json');
+          
     }else{
 
             $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> No se ha registrado ninguna fuente de financiación.</div>');

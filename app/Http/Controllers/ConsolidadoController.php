@@ -19,10 +19,21 @@ use App\Observacion;
 use App\PersonaPaa;
 use App\SubDireccion;
 use PDF;
+use Mail;
+use Idrd\Usuarios\Repo\PersonaInterface;
+use App\Area;
+use App\Persona;
+use App\Datos;
+
 class ConsolidadoController extends Controller
 {
     //
+    protected $repositorio_personas;
 
+    public function __construct(PersonaInterface $repositorio_personas)
+    {
+        $this->repositorio_personas = $repositorio_personas;
+    }
     public function index()
 	{
 		$modalidadSeleccion = ModalidadSeleccion::all();
@@ -61,7 +72,47 @@ class ConsolidadoController extends Controller
     {
         $model_A = Paa::find($id);
         $model_A['Estado'] = 4;
+        $id_area_def=$model_A['Id_Area'];
         $model_A->save();
+
+        $personaOperativo = $this->repositorio_personas->obtener($model_A['IdPersona']);
+        $personaConsolidador = $this->repositorio_personas->obtener($_SESSION['Id_Persona']);
+        $area=Area::with('subdirecion')->find($id_area_def);
+
+        $personapaas = PersonaPaa::where('id_area',$id_area_def)->get();
+        $pila = array();
+        foreach ($personapaas as &$personapaa) 
+        {
+            array_push($pila, $personapaa['id']);
+        }
+
+        $id_Tipos=[63]; //Subdirector: Reviar por q me trea todos y no solo los 62
+        $ModeloPersona = Persona::with(['tipo' => function($query) use ($id_Tipos)
+        {
+            $query->find($id_Tipos);
+        }])->whereIn('Id_Persona',$pila)->get();       
+
+        $Consolidadore = array();
+        foreach ($ModeloPersona as &$Mpersonapaa) 
+        {
+            array_push($Consolidadore, $Mpersonapaa['Id_Persona']);
+        }
+        
+
+        $emails = array();
+        $DatosEmail = Datos::whereIn('Id_Persona',$Consolidadore)->get();
+        foreach ($DatosEmail as &$DatoEmail) 
+        {
+            if($DatoEmail){
+                array_push($emails, $DatoEmail['Email']);
+            }
+        }
+        $mensaje="Plan Consolidado para aprobación PAA ID. ".$id;
+        Mail::send('mailConsolidado', ['mensaje'=>$mensaje,'personaOperativo'=>$personaOperativo,'personaConsolidador'=>$personaConsolidador,'area'=>$area], function ($m) use ($mensaje,$emails)  {
+            $m->from('no-reply@epaf.com', $mensaje);
+
+            $m->to($emails, 'Estevenhr')->subject($mensaje."!");
+        });
         
         $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
         $paa2 = Paa::where('IdPersona','1046')->where('Estado','1')->get();

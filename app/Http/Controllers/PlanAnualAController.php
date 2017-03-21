@@ -137,6 +137,8 @@ class PlanAnualAController extends Controller
             //var_dump($cod);
         $ordenador="";
         $ModiRegi="";
+        $id_reg_def=0;
+        $id_area_def=0;
 
         if($input['datos_contacto']!="")
         $ordenador=$input['datos_contacto']." -C.C. ".$input['cedula_contacto'];
@@ -170,6 +172,7 @@ class PlanAnualAController extends Controller
         $modeloPA['Id_Area'] = $personapaa['id_area'];
         $modeloPA->save();
 
+        
         if($Modifica==0){
 
             $ModiRegi=0;
@@ -213,6 +216,8 @@ class PlanAnualAController extends Controller
             $modeloP = Paa::find($id_paa);
             $modeloP['Id_paa'] = $id_paa2;
             $modeloP['Registro'] = $id_paa2;
+            $id_reg_def=$id_paa2;
+            $id_area_def=$personapaa['id_area'];
             $modeloP->save();
 
             $data0 = json_decode($input['Dato_Actividad']);
@@ -236,36 +241,36 @@ class PlanAnualAController extends Controller
             
             $modeloP['Id_paa'] = $modeloultimo[1]['Id'];
             $modeloP->save();
+            $id_reg_def=$model->Id;
+            $id_area_def=$model->Id_Area;
         }
 
 
 
         if($ModiRegi==0)
-            $mensaje="Registro Exitoso PAA ID. ".$model->Id;
+            $mensaje="Registro Exitoso PAA ID. ".$id_reg_def;
         else
-            $mensaje="Modificación Exitosa PAA ID. ".$model->Id."";
+            $mensaje="Modificación Exitosa PAA ID. ".$id_reg_def."";
        
-        
+
         $paa = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
         $persona = $this->repositorio_personas->obtener($model->IdPersona);
-        $area=Area::find($model->Id_Area);
+        $area=Area::find($id_area_def);
 
         
 
-        $personapaas = PersonaPaa::where('id_area',$model->Id_Area)->get();
+        $personapaas = PersonaPaa::where('id_area',$id_area_def)->get();
         $pila = array();
         foreach ($personapaas as &$personapaa) 
         {
             array_push($pila, $personapaa['id']);
         }
-        
-        $id_Tipos=[62];
+
+        $id_Tipos=[62]; //Reviar por q me trea todos y no solo los 62
         $ModeloPersona = Persona::with(['tipo' => function($query) use ($id_Tipos)
         {
             $query->find($id_Tipos);
         }])->whereIn('Id_Persona',$pila)->get();       
-
-      
 
         $Consolidadore = array();
         foreach ($ModeloPersona as &$Mpersonapaa) 
@@ -273,6 +278,7 @@ class PlanAnualAController extends Controller
             array_push($Consolidadore, $Mpersonapaa['Id_Persona']);
         }
         
+
         $emails = array();
         $DatosEmail = Datos::whereIn('Id_Persona',$Consolidadore)->get();
         foreach ($DatosEmail as &$DatoEmail) 
@@ -282,7 +288,7 @@ class PlanAnualAController extends Controller
             }
         }
 
-        Mail::send('mail', ['user' => 'estevenhr@hotmail.com','mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
+        Mail::send('mailConsolidado', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
             $m->from('no-reply@epaf.com', $mensaje);
 
             $m->to($emails, 'Estevenhr')->subject($mensaje."!");
