@@ -15,16 +15,24 @@ use App\Area;
 use App\ActividadComponente;
 use App\Actividad;
 use App\Componente;
+use Mail;
+use Idrd\Usuarios\Repo\PersonaInterface;
+use App\Persona;
+use App\Datos;
+use App\PersonaPaa;
 
 class DireccionController extends BaseController 
 {
 
 	protected $Usuario;
+	protected $repositorio_personas;
 
-	public function __construct()
+	public function __construct(PersonaInterface $repositorio_personas)
 	{
 		if (isset($_SESSION['Usuario']))
 			$this->Usuario = $_SESSION['Usuario'];
+
+			$this->repositorio_personas = $repositorio_personas;
 	}
 
 	public function index()
@@ -67,13 +75,52 @@ class DireccionController extends BaseController
 
 	public function enviar(Request $request)
 	{
+		$personaSubDirecc = $this->repositorio_personas->obtener($_SESSION['Id_Persona']);
 		$paas = explode(',', $request->input('paas'));
-
 		foreach ($paas as $id) 
 		{
 			$paa = Paa::where('Id', $id)->first();
 			$paa->Estado = Estado::Aprobado;
+			$id_area_def=$paa->Id_Area;
+			$personaOperativo = $this->repositorio_personas->obtener($paa->IdPersona);
 			$paa->save();
+
+			$area=Area::with('subdirecion')->find($id_area_def);
+
+	        $personapaas = PersonaPaa::where('id_area',$id_area_def)->get();
+	        $pila = array();
+	        foreach ($personapaas as &$personapaa) 
+	        {
+	            array_push($pila, $personapaa['id']);
+	        }
+
+	        $id_Tipos=[61,62]; //Subdirector: Reviar por q me trea todos y no solo los 62
+	        $ModeloPersona = Persona::with(['tipo' => function($query) use ($id_Tipos)
+	        {
+	            $query->find($id_Tipos);
+	        }])->whereIn('Id_Persona',$pila)->get();       
+
+	        $Consolidadore = array();
+	        foreach ($ModeloPersona as &$Mpersonapaa) 
+	        {
+	            array_push($Consolidadore, $Mpersonapaa['Id_Persona']);
+	        }
+	        
+
+	        $emails = array();
+	        $DatosEmail = Datos::whereIn('Id_Persona',$Consolidadore)->get();
+	        foreach ($DatosEmail as &$DatoEmail) 
+	        {
+	            if($DatoEmail){
+	                array_push($emails, $DatoEmail['Email']);
+	            }
+	        }
+	        $mensaje="PAA ID. ".$id.": Plan Aprobado!, aprobado por la Sub Dirección.";
+	        Mail::send('mailSubDirecc', ['mensaje'=>$mensaje,'personaOperativo'=>$personaOperativo,'personaSubDirecc'=>$personaSubDirecc,'area'=>$area], function ($m) use ($mensaje,$emails)  {
+	            $m->from('no-reply@epaf.com', $mensaje);
+
+	            $m->to($emails, 'Estevenhr')->subject($mensaje."!");
+	        });
 		}
 
 		return response()->json(true);

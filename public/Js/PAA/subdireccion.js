@@ -169,18 +169,24 @@ $(function()
 		if (rows_selected.length > 0)
 		{
 			$('#envia_paa input[name="paas"]').val(rows_selected.join());
+      
+      $('#btn_env_subd').val('Cargando...');
+      $('#btn_env_subd').attr('disabled',true);
 			$.post(
 				$(this).attr('action'),
 				$(this).serialize(),
 				function(e){
 					if(e)
 					{
-						$('#alertas .bg-success').fadeIn();
+						$('#alertas .bg-success').fadeIn();       
 					}
 				}
 			).done(function(){
+        $('#btn_env_subd').attr('disabled',false);
+        $('#btn_env_subd').val('Enviar');
+
         $.each(rows_selected, function(i, e)
-        {
+        {          
           table.tables().nodes().rows().every(function(rowIdx, tableLoop, rowLoop)
           {
             var $node = $(this.node());

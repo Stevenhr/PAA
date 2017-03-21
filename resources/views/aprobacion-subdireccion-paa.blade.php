@@ -189,7 +189,7 @@
 		<div class="col-md-12">
 			<form id="envia_paa" action="{{ url('enviar/paa') }}" method="post">
 				<input type="hidden" name="paas" value="">
-				<input type="submit" value="Enviar" class="btn btn-primary">
+				<input type="submit" value="Enviar" class="btn btn-primary" id="btn_env_subd">
 			</form>
 		</div>
 	</div>

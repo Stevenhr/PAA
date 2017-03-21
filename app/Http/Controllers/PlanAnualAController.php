@@ -248,9 +248,9 @@ class PlanAnualAController extends Controller
 
 
         if($ModiRegi==0)
-            $mensaje="Registro Exitoso PAA ID. ".$id_reg_def;
+            $mensaje="PAA ID. ".$id_reg_def.": Registro Exitoso";
         else
-            $mensaje="Modificación Exitosa PAA ID. ".$id_reg_def."";
+            $mensaje="PAA ID. ".$id_reg_def.": Modificación Exitosa";
        
 
         $paa = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();

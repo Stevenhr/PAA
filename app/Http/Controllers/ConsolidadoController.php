@@ -107,7 +107,7 @@ class ConsolidadoController extends Controller
                 array_push($emails, $DatoEmail['Email']);
             }
         }
-        $mensaje="Plan Consolidado para aprobación PAA ID. ".$id;
+        $mensaje="PAA ID. ".$id.": Plan Consolidado para aprobación de la sub dirección.";
         Mail::send('mailConsolidado', ['mensaje'=>$mensaje,'personaOperativo'=>$personaOperativo,'personaConsolidador'=>$personaConsolidador,'area'=>$area], function ($m) use ($mensaje,$emails)  {
             $m->from('no-reply@epaf.com', $mensaje);
 
