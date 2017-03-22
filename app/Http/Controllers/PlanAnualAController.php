@@ -267,10 +267,12 @@ class PlanAnualAController extends Controller
         }
 
         $id_Tipos=[62]; //Reviar por q me trea todos y no solo los 62
-        $ModeloPersona = Persona::with(['tipo' => function($query) use ($id_Tipos)
-        {
-            $query->find($id_Tipos);
-        }])->whereIn('Id_Persona',$pila)->get();       
+      
+        $ModeloPersona = Persona::whereHas('tipo', function ($query) use ($id_Tipos) {
+            $query->whereIn('persona_tipo.Id_Tipo',$id_Tipos);
+        })->whereIn('Id_Persona',$pila)->get();
+
+        dd($ModeloPersona);  
 
         $Consolidadore = array();
         foreach ($ModeloPersona as &$Mpersonapaa) 
@@ -288,7 +290,7 @@ class PlanAnualAController extends Controller
             }
         }
 
-        Mail::send('mailConsolidado', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
+        Mail::send('mail', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
             $m->from('no-reply@epaf.com', $mensaje);
 
             $m->to($emails, 'Estevenhr')->subject($mensaje."!");
