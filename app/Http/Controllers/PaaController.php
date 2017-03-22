@@ -832,12 +832,39 @@ class PaaController extends Controller
 
 	public function crear_Componente_crear($model, $input)
 	{
-			$model['codigo'] = $input['codigo_componente_crear'];
-			$model['Nombre'] = $input['nombre_componente_crear'];
-			$model['Id_fuente'] = $input['idFuenteF_C'];
-			$model->save();
-			$componente = Componente::with('fuente')->get();
-			return response()->json(array('status' => 'modelo', 'componentes' => $componente));
+			
+			$fuente= Fuente::with('componentes')->find($input['idFuenteF_C']);
+			
+
+			$sum_componetes=0;
+			foreach ($fuente->componentes as $componente) {
+			   $sum_componetes=$sum_componetes+$componente->valor;
+			}
+
+		
+			$sum_presupuesto = $fuente['valor'];
+
+			$valor_componete=$input['valor_componente_crear'];
+
+			$Saldo=$sum_presupuesto-$sum_componetes;
+
+			if($valor_componete<=$Saldo)
+			{
+				$model['codigo'] = $input['codigo_componente_crear'];
+				$model['Nombre'] = $input['nombre_componente_crear'];
+				$model['valor'] = $input['valor_componente_crear'];
+				$model['Id_fuente'] = $input['idFuenteF_C'];
+				$model->save();
+				$componente = Componente::with('fuente')->get();
+			    return response()->json(array('status' => 'modelo', 'componentes' => $componente));
+			}
+			else
+			{
+				return response()->json(array('status' => 'Saldo', 'saldo' => $Saldo, 'valorNuevo' => $valor_componete,'mensaje'=>'es mayor al saldo de la fuente que es de'));
+			}	
+
+			
+			
 	}
 
 	public function eliminar_componente_crear(Request $request, $id)

@@ -1488,6 +1488,7 @@ $(function()
                                 '<th scope="row" class="text-center">'+num+'</th>',
                                 '<td>'+e['codigo']+'</td>',
                                 '<td>'+e['Nombre']+'</td>',
+                                '<td>'+e['valor']+'</td>',
                                 '<td>'+e.fuente['nombre']+'</td>',
                                 '<td><div class="btn-group btn-group-justified tama">'+
                                     '<div class="btn-group">'+
@@ -1511,7 +1512,7 @@ $(function()
                         $("#id_btn_componente_canc_crear").hide();
                     }, 2000)
                     $('input[name="Id_componente_crear"]').val('0');
-                    location.reload();
+                    //location.reload();
                 }else{
                     $('#mensaje_componente2_crear').html('<strong>Error!</strong> el valor del componente que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
                     $('#mensaje_componente2_crear').show();
@@ -1570,6 +1571,7 @@ $(function()
                                     '<th scope="row" class="text-center">'+num+'</th>',
                                     '<td>'+e['codigo']+'</td>',
                                     '<td>'+e['Nombre']+'</td>',
+                                    '<td>'+e['valor']+'</td>',
                                     '<td>'+e.fuente['nombre']+'</td>',
                                     '<td><div class="btn-group btn-group-justified tama">'+
                                         '<div class="btn-group">'+
@@ -1705,18 +1707,23 @@ $(function()
                         num++;
 
                     });
-                    $('#mensaje_presupuesto').show();
+       
+
+                    $('#mensaje_fuente_crear').html('<strong>Bien!</strong> Registro creado con exíto.');
+                    $('#mensaje_fuente_crear').show();
                     setTimeout(function(){
-                        $('#mensaje_presupuesto').hide();
-                        $("#id_btn_presupuesto").html('Registrar');
-                        $("#id_btn_presup_canc").hide();
+                        $('#mensaje_fuente_crear').hide();
+                        $("#id_btn_fuente_crear").html('Registrar');
+                        $("#id_btn_fuente_canc_crear").hide();
                     }, 2000)
-                    //location.reload();
+                    location.reload();
                 }else{
-                    $('#mensaje_presupuesto2').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
-                    $('#mensaje_presupuesto2').show();
+                    
+
+                    $('#mensaje_fuente2_crear').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
+                    $('#mensaje_fuente2_crear').show();
                     setTimeout(function(){
-                        $('#mensaje_presupuesto2').hide();
+                        $('#mensaje_fuente2_crear').hide();
                     }, 6000)
                 }
                 

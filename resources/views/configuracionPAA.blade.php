@@ -12,11 +12,11 @@
             	
             	<div class="btn-group btn-group-justified">
 					  <a href="#" class="btn btn-success" id="Fuente">Fuente</a>
+					  <a href="#" class="btn btn-success" id="Componente">Crear Componente</a>
 					  <a href="#" class="btn btn-primary" id="Presupuesto" data-role="Presupuesto">Plan de desarrollo</a>
 					  <a href="#" class="btn btn-primary" id="Proyecto">Proyecto</a>
 					  <a href="#" class="btn btn-primary" id="Meta">Meta</a>
 					  <a href="#" class="btn btn-primary" id="Actividad">Actividad</a>
-					  <a href="#" class="btn btn-warning" id="Componente">Crear Componente</a>
 					  <!--<a href="#" class="btn btn-primary" id="Componente_Conf">Configurar Componente</a> -->
 				</div>
 				
@@ -675,20 +675,26 @@
 					<div id="div_form_componente_crear"><br></div>
 				        
 						<div class="row" >
-							<div class="col-xs-12 col-md-4">
+							<div class="col-xs-12 col-md-3">
 			        			<div class="form-group">
 			        				<label>Codigo</label>
 									<input type="text" class="form-control precio" name="codigo_componente_crear">
 								</div>
 			        		</div>
-						    <div class="col-xs-12 col-md-4">
+						    <div class="col-xs-12 col-md-3">
 						    	<div class="form-group">	
 						    		<label>Nombre Componente</label>
 						    		<input type="hidden" class="form-control" name="Id_componente_crear" value="0">
 									<input type="text" class="form-control" name="nombre_componente_crear">
 								</div>
 			        		</div>
-						    <div class="col-xs-12 col-md-4">
+			        		<div class="col-xs-12 col-md-3">
+			        			<div class="form-group">
+			        				<label>Valor</label>
+									<input type="text" class="form-control precio" name="valor_componente_crear">
+								</div>
+			        		</div>
+			        		<div class="col-xs-12 col-md-3">
 						    	<div class="form-group">
 						    		<label>Fuente de Financiamiento</label>
 									<input type="hidden" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_componente" value="0000-00-00">
@@ -733,6 +739,7 @@
 								                <th class="text-center">N°</th>
 								                <th>Codigo</th>
 								                <th>Componente</th>
+								                <th>Valor</th>
 								                <th>Fuente</th>
 								                <th>Opción</th>
 								            </tr>
@@ -742,6 +749,7 @@
 								            	<th class="text-center">N°</th>
 								                <th>Codigo</th>
 								                <th>Componente</th>
+								                <th>Valor</th>
 								                <th>Fuente</th>
 								                <th>Opción</th>
 								            </tr>
@@ -754,6 +762,7 @@
 												    	<th scope="row" class="text-center">{{ $var }}</th>
 												        <td scope="row">{{ $componente['codigo'] }}</td>
 												        <td scope="row">{{ $componente['Nombre'] }}</td>
+												        <td scope="row">{{ $componente['valor'] }}</td>
 												        <td scope="row">{{ $componente->fuente['nombre'] }}</td>
 												        <td>
 															<div class="btn-group btn-group-justified tama">
@@ -1012,8 +1021,8 @@
 						    <div class="col-xs-12 col-md-4">
 			        		</div>
 						    <div class="col-xs-12 col-md-4 text-center"><br>
-						    		<div class="alert alert-success" style="display:none;" id="mensaje_componente_crear"></div>
-						    		<div class="alert alert-danger" style="display:none;" id="mensaje_componente2_crear"></div>
+						    		<div class="alert alert-success" style="display:none;" id="mensaje_fuente_crear"></div>
+						    		<div class="alert alert-danger" style="display:none;" id="mensaje_fuente2_crear"></div>
 									<button class="btn btn-primary" type="submit" id="id_btn_fuente_crear">Registrar</button>
 									<button class="btn btn-danger" type="submit" id="id_btn_fuente_canc_crear" style="display:none;">Cancelar</button>
 			        		</div>
