@@ -86,11 +86,12 @@ class ConsolidadoController extends Controller
             array_push($pila, $personapaa['id']);
         }
 
-        $id_Tipos=[63]; //Subdirector: Reviar por q me trea todos y no solo los 62
-        $ModeloPersona = Persona::with(['tipo' => function($query) use ($id_Tipos)
-        {
-            $query->find($id_Tipos);
-        }])->whereIn('Id_Persona',$pila)->get();       
+        $id_Tipos=[61,63]; //Enviado Operario y Subdirector
+    
+        $ModeloPersona = Persona::whereHas('tipo', function ($query) use ($id_Tipos) {
+            $query->whereIn('persona_tipo.Id_Tipo',$id_Tipos);
+        })->whereIn('Id_Persona',$pila)->get();    
+
 
         $Consolidadore = array();
         foreach ($ModeloPersona as &$Mpersonapaa) 
@@ -107,9 +108,9 @@ class ConsolidadoController extends Controller
                 array_push($emails, $DatoEmail['Email']);
             }
         }
-        $mensaje="PAA ID. ".$id.": Plan Consolidado para aprobación de la sub dirección.";
+        $mensaje="PAA ID. ".$id.": Consolidado para aprobación de la sub dirección.";
         Mail::send('mailConsolidado', ['mensaje'=>$mensaje,'personaOperativo'=>$personaOperativo,'personaConsolidador'=>$personaConsolidador,'area'=>$area], function ($m) use ($mensaje,$emails)  {
-            $m->from('no-reply@epaf.com', $mensaje);
+            $m->from('no-reply@paa.com', $mensaje);
 
             $m->to($emails, 'Estevenhr')->subject($mensaje."!");
         });

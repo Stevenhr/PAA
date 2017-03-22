@@ -272,7 +272,7 @@ class PlanAnualAController extends Controller
             $query->whereIn('persona_tipo.Id_Tipo',$id_Tipos);
         })->whereIn('Id_Persona',$pila)->get();
 
-        dd($ModeloPersona);  
+         
 
         $Consolidadore = array();
         foreach ($ModeloPersona as &$Mpersonapaa) 
@@ -290,8 +290,10 @@ class PlanAnualAController extends Controller
             }
         }
 
+        //dd($emails); 
+
         Mail::send('mail', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
-            $m->from('no-reply@epaf.com', $mensaje);
+            $m->from('no-reply@paa.com', $mensaje);
 
             $m->to($emails, 'Estevenhr')->subject($mensaje."!");
         });
