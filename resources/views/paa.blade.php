@@ -889,6 +889,7 @@
 	        <h4 class="modal-title" id="myModalLabel">Estudio de Conveniencia y oportunidad </h4>
 	        PAA N°: <label id="id_Fin"></label>
 	        <div id="mjs_estado_estudio" class="alert alert-info"></div>
+	        <div id="mjs_estado_estudio2" class="alert alert-info"></div>
 	    </div>
 	    <form id="form_agregar_estudio_comveniencia">
 			<div class="modal-body">

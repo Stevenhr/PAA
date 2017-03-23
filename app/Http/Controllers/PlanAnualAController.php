@@ -525,7 +525,7 @@ class PlanAnualAController extends Controller
 
     public function obtenerEstidioConveniencia(Request $request, $id)
     {
-        $EstudioConveniencias =  EstudioConveniencia::find($id);
+        
         $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes')->find($id);
         $finanzas = ActividadComponente::with('actividades')->where('id_paa',$id)->get();
 
@@ -537,10 +537,20 @@ class PlanAnualAController extends Controller
             }
         }
 
+        
+        if($paa['vinculada']!=""){
+            $EstudioConveniencias =  EstudioConveniencia::find($paa['vinculada']);
+            $vinculada=0;
+        }else{
+            $EstudioConveniencias =  EstudioConveniencia::find($id);
+            $vinculada=1;
+        }
+
         $datos = [        
             'EstudioConveniencias' => $EstudioConveniencias,
             'paas' => $paa,
-            'finanzas' =>$finanzas
+            'finanzas' =>$finanzas,
+            'vinculada' =>$vinculada
         ];
 
         return response()->json($datos);

@@ -697,11 +697,11 @@ $(function()
                 if(estado!=0){
                   $('#RegistrarEstudio').hide();
                   $('#agregar_financiacion').hide();
-                  $('#mjs_estado_estudio').html('<strong>NO ACTIVA!</strong> No ha sido aprobada por subdirección.');
+                  $('#mjs_estado_estudio').html('<strong>Edición no activa!</strong>.');
                 }else{
                   $('#RegistrarEstudio').show();
                   $('#agregar_financiacion').show();
-                  $('#mjs_estado_estudio').html('<strong>ACTIVA!</strong> Aprobada por subdirección');
+                  $('#mjs_estado_estudio').html('<strong>ACTIVA!</strong> Aprobado por subdirección');
                 }
 
 
@@ -748,6 +748,29 @@ $(function()
                     $('textarea[name="texta_Oportunidad"]').val('');
                     $('textarea[name="texta_Justificacion"]').val('');
                     $('#RegistrarEstudio').text('Registrar'); 
+                }
+
+
+                if(data.paas['vinculada']!=''){
+                    $('textarea[name="texta_Conveniencia"]').attr('disabled',true);
+                    $('textarea[name="texta_Oportunidad"]').attr('disabled',true);
+                    $('textarea[name="texta_Justificacion"]').attr('disabled',true);
+                  
+                    $('#mjs_estado_estudio2').html('<strong>Vinculada!</strong> Esté plan está vinculado con el plan id. '+data.paas['vinculada']+', por tal motivo no puede ingresar los campos inhabilitados.');
+                    $('#mjs_estado_estudio2').show();
+                }else if(data.paas['compartida']!='') {
+                    $('textarea[name="texta_Conveniencia"]').attr('disabled',false);
+                    $('textarea[name="texta_Oportunidad"]').attr('disabled',false);
+                    $('textarea[name="texta_Justificacion"]').attr('disabled',false);
+                  
+                    $('#mjs_estado_estudio2').html('<strong>Compartida!</strong> Esté plan está siendo compartido, usted podra ingresar los campos como conveniencia, oportunidad, justificación.. estos campos apareceran predeterminados en los planes viculados.');
+                    $('#mjs_estado_estudio2').show();
+                }else{
+                    $('textarea[name="texta_Conveniencia"]').attr('disabled',false);
+                    $('textarea[name="texta_Oportunidad"]').attr('disabled',false);
+                    $('textarea[name="texta_Justificacion"]').attr('disabled',false);
+                  
+                    $('#mjs_estado_estudio2').hide();
                 }
 
                 var html = '<option value="">Selecionar</option>';
