@@ -126,6 +126,8 @@ Route::get('/direccion/service/obtenerHistorialPaaTodo/{id}', 'DireccionGeneralC
 Route::get('/direccion/service/VerFinanciamiento/{id}', 'DireccionGeneralController@verFinanciacion');
 Route::post('/direccion/service/RegistrarObservacion', 'DireccionGeneralController@RegistrarObservacion');
 
+Route::any('/Generalpaa/', 'GeneralController@index'); 
+
 
 Route::any('/', 'MainController@index');
 Route::any('/logout', 'MainController@logout');

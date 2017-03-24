@@ -2,7 +2,7 @@
 
 @section('script')
 	@parent
-    <script src="{{ asset('public/Js/PAA/paa.js') }}"></script>	
+    <script src="{{ asset('public/Js/PAA/general_paa.js') }}"></script>	
 @stop
 
 @section('content') 
@@ -13,11 +13,7 @@
 	                <div class="col-xs-12 col-md-12 text-">
 				    	<div class="form-group">	
 							<div class="btn-group" role="group" aria-label="...">
-							  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Modal_AgregarNuevo" id="Btn_Agregar_Nuevo">
-							  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar nuevo
-							  </button>
-							  
-							  <button type="button" class="btn btn-danger" id="Modal_HistorialEliminar_btn"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Historial eliminados</button>
+								<h3>Consolidado informativo de todos los planes de adquisiiones:</h3>
 							</div>
 						</div>
 		    		</div>
@@ -34,6 +30,8 @@
 						                <th>N°</th>
 						                <th>ID</th>
 						                <th>Estado</th>
+						                <th>Sub Dirección</th>
+						                <th>Área</th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
@@ -60,6 +58,8 @@
 						            	<th>N°</th>
 						                <th>ID</th>
 						                <th>Estado</th>
+						                <th>Sub Dirección</th>
+						                <th>Área</th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
@@ -134,6 +134,8 @@
 			        						<th scope="row" class="text-center">{{$var}}</th>
 					                        <td class="text-center"><b><p class="text-info text-center" style="font-size: 15px">{{$paa['Registro']}}<BR>{{$var0}}{{$var1}}</p>{{$var11}}</b></td>
 					                        <td><?php echo "<b>".$estado."</b>" ?></td>
+					                        <td>{{$paa->area->subdirecion['nombre']}} <br> - <b>{{$paa->area->subdirecion['Iniciales']}}</b></td>
+					                        <td>{{$paa->area['nombre']}}</td>
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
@@ -178,20 +180,12 @@
 												    Acciones<span class="caret"></span>
 												  </button>
 												  <ul class="dropdown-menu" style="padding-left: 2px;">
-												    
-												    <li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>
-												    
-												    <li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-link btn-xs"  title="Editar Paa" {{$disable}}><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>   Modificación</button></li>
+							
 												    
 												    <li><button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-link  btn-xs" title="Historial" ><span class="glyphicon glyphicon-header" aria-hidden="true"></span>   Historial</button></li>
 												    
 												    <li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-link  btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span>   Financiación</button>  </li>
-												    
-												    <li><button type="button" data-rel="{{$paa['Id']}}" data-estado="{{$estudioComve}}" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>   Est. Conveniencia</button>  </li>
-
-												    <li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modal_Compartida" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_Compartida" ><span class="glyphicon glyphicon-share" aria-hidden="true"></span>   Compartida</button></li>
-
-												    <li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modal_Vinculada" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_Vinculada" ><span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>   Vinculada</button></li>
+											
 
 												  </ul>
 												</div>
@@ -562,8 +556,7 @@
 						<th>#</th>
 						<th>Fuente</th>
 						<th>Componente</th>
-						<th>Valor</th>
-						<th>Eliminar</th>
+						<th>Valor</th>					
 						</tr>
 						</thead>
 						<tbody id="registrosFinanzas"> 
@@ -572,58 +565,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">Agregar Finaciación</h4>
-	    </div>
-		<div class="modal-body">
-			<form id="form_agregar_finza">
-			<div class="row"  >
-				<div class="col-xs-12 col-sm-12">
-				  		<div class="form-group">
-					    	<label>Fuente</label>
-					    	<input type="hidden" name="id_act_agre" id="id_act_agre"></input>
-							<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
-								<option value="" >Selecionar</option>
-								<!--@foreach($proyectos as $proyecto)
-									<option value="{{ $proyecto['Id'] }}" >{{ $proyecto['Nombre'] }}</option>
-							    @endforeach-->
-							    @foreach($fuentes as $fuente)
-									<option value="{{ $fuente['Id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
-							    @endforeach
-							</select>
-						</div>
-				  </div>
-				  <div class="col-xs-12 col-sm-12">
-				  		<div class="form-group">
-					    	<label>Componente de gasto</label>
-							<select class="form-control" name="componnente" id="componnente">
-								<option value="" >Selecionar</option>
-							</select>
-						</div>
-				  </div>
-				
-
-				  <div class="col-xs-12 col-sm-4">
-				  	<div class="form-group">
-					  		<label>Valor</label>
-							<input type="text" class="form-control" name="valor_contrato" autocomplete="off">
-					</div>
-					<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza">Agregar Financiación</button>
-				  </div>
-				  <div class="col-xs-12 col-sm-8">
-				  	<div class="mjs_componente"></div>
-				  </div>
-			</div>
-			</form>
-      </div>
-      
-      <div class="modal-footer">
-      	<div class="row">
+        <div class="modal-footer">
+      	  <div class="row">
         	<div class="col-xs-12 col-sm-12">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			</div>
-        </div>
+		    </div>
+          </div>
       </div>
 
     </div>

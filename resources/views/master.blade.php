@@ -127,6 +127,12 @@
                 </ul>
               </li>
 
+  
+              @if($_SESSION['Usuario']['Permisos']['General'])
+                <li class=”{{ Request::is( 'Generalpaa') ? 'active' : '' }}”><a href="{{ URL::to( 'Generalpaa') }}">General</a></li>
+              @endif
+                
+
             </ul>
 
             <form class="navbar-form navbar-left" role="search">

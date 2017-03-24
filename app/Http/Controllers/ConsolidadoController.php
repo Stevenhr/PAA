@@ -222,7 +222,7 @@ class ConsolidadoController extends Controller
               }
           }
 
-          if(sizeof($FuenteRecurso)>0){
+         /* if(sizeof($FuenteRecurso)>0){
               if($FuenteRecurso[$i]!="0"){
                 $modeloCambioPaa = new CambioPaa;
                 $modeloCambioPaa['id_paa'] = $id[$i];
@@ -233,7 +233,7 @@ class ConsolidadoController extends Controller
                 $paas['FuenteRecurso'] = $FuenteRecurso[$i];
                 $paas->save();
               }
-          }
+          }*/
 
           if(sizeof($ValorEstimado)>0){
               if($ValorEstimado[$i]!="0"){
@@ -328,6 +328,7 @@ class ConsolidadoController extends Controller
           }
 
           if(sizeof($DuracionContrato)>0){
+           // var_dump(sizeof($DuracionContrato));
               if($DuracionContrato[$i]!="0"){
                 $modeloCambioPaa = new CambioPaa;
                 $modeloCambioPaa['id_paa'] = $id[$i];
@@ -340,7 +341,7 @@ class ConsolidadoController extends Controller
               }
           }
 
-          if(sizeof($MetaPlan)>0){
+        /*  if(sizeof($MetaPlan)>0){
               if($MetaPlan[$i]!="0"){
                 $modeloCambioPaa = new CambioPaa;
                 $modeloCambioPaa['id_paa'] = $id[$i];
@@ -351,7 +352,7 @@ class ConsolidadoController extends Controller
                 $paas['MetaPlan'] = $MetaPlan[$i];
                 $paas->save();
               }
-          }
+          }*/
 
           if(sizeof($RecursoHumano)>0){
               if($RecursoHumano[$i]!="0"){
