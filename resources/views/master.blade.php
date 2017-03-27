@@ -115,6 +115,9 @@
                   @if($_SESSION['Usuario']['Permisos']['Gestion_planeacion'])
                     <li class=”{{ Request::is('AprobacionPaaPlaneacion') ? 'active' : '' }}”><a href="{{ URL::to('AprobacionPlaneacion') }}">Consultar Paa</a></li>
                   @endif
+                  @if($_SESSION['Usuario']['Permisos']['Gestion_cecop'])
+                    <li class=”{{ Request::is('GestionCecop') ? 'active' : '' }}”><a href="{{ URL::to('GestionCecop') }}">Gestión CECOP</a></li>
+                  @endif
                 </ul>
               </li>
 

@@ -326,18 +326,23 @@ $(function()
       var codigo_Unspsc=$('input[name="codigo_Unspsc"]').val();
       $('input[name="codigo_Unspsc"]').val("");
       if(codigo_Unspsc===''){
-          $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe ingresar un codigo Unspsc para poder realizar el registro.</div>');
+          $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe ingresar un código Unspsc para poder realizar el registro.</div>');
           $('#mensaje_actividad_codigos').show(60);
           $('#mensaje_actividad_codigos').delay(2500).hide(600);
 
       }else{
           
         if(codigo_Unspsc.length>=8){
-          $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Codigo agregado.</div>');
-          vector_datos_codigos.push({"codigo": codigo_Unspsc});
-
+          var res = codigo_Unspsc.substring(4,8);
+          if(res!='0000'){
+            $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Código agregado.</div>');
+            vector_datos_codigos.push({"codigo": codigo_Unspsc});
+          }else{
+            $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El código tiene en sus últimos cuatros dígitos 0000.</div>');
+            vector_datos_codigos.push({"codigo": codigo_Unspsc});
+          }
         }else{
-          $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Codigo agregado tiene menos de 8 numeros.</div>');          
+          $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Código agregado tiene menos de 8 numeros.</div>');          
         }
           $('#mensaje_actividad_codigos').show(30);
           $('#mensaje_actividad_codigos').delay(2500).hide(300);
@@ -486,7 +491,8 @@ $(function()
       var d = new Date();
       var n = d.getFullYear();
       $('input[name="fecha_inicio"]').val('');
-       if($('#proceso_curso').val()=="Si"){
+
+       if($('#proceso_curso').val()=="No"){
            $('input[data-role1="datepicker"]').datepicker('destroy');
            $('input[data-role1="datepicker"]').datepicker({
             dateFormat: 'yy-mm-dd',
@@ -497,7 +503,7 @@ $(function()
             maxDate: n+'-12-31'});
         }
 
-        if($('#proceso_curso').val()=="No"){
+        if($('#proceso_curso').val()=="Si"){
            $('input[data-role1="datepicker"]').datepicker('destroy');
            $('input[data-role1="datepicker"]').datepicker({
             dateFormat: 'yy-mm-dd',
@@ -505,6 +511,7 @@ $(function()
             changeMonth: true,
             changeYear: true});
         }
+
     });
 
     $('#VerAgregarFinanciacion').on('click', function(e)

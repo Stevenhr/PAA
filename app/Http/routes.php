@@ -129,6 +129,8 @@ Route::post('/direccion/service/RegistrarObservacion', 'DireccionGeneralControll
 Route::any('/Generalpaa/', 'GeneralController@index'); 
 
 
+Route::any('/GestionCecop/', 'CecopController@index'); 
+
 Route::any('/', 'MainController@index');
 Route::any('/logout', 'MainController@logout');
 

@@ -234,7 +234,7 @@
 				  		<div class="form-group">
 					    	<label>Códigos UNSPSC </label>
 					    	<div class="input-group">
-						      <input type="text" class="form-control" name="codigo_Unspsc" autocomplete="off">
+						      <input type="text" class="form-control" name="codigo_Unspsc" autocomplete="off" maxlength="8">
 						      <span class="input-group-btn">
 						        <button class="btn btn-default" type="button" id="agregarCodigos"  >Agregar</button>
 						        <button class="btn btn-default" type="button" id="VerAgregarCodigos">Ver</button>
