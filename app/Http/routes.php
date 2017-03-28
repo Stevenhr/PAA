@@ -130,6 +130,8 @@ Route::any('/Generalpaa/', 'GeneralController@index');
 
 
 Route::any('/GestionCecop/', 'CecopController@index'); 
+Route::get('informececop', 'CecopController@descargarInformeCecop');
+
 
 Route::any('/', 'MainController@index');
 Route::any('/logout', 'MainController@logout');

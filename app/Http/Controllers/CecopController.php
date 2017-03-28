@@ -5,25 +5,61 @@ use Illuminate\Http\Request;
 use App\Paa;
 use App\Estado;
 use App\SubDireccion;
+use App\ActividadComponente;
+use App\FuenteHacienda;
+use App\Actividad;
+use App\Componente;
+use App\Historial_cecop;
+use Idrd\Usuarios\Repo\PersonaInterface;
+use Carbon;
 class CecopController extends Controller
 {
     //
 
+    protected $Usuario;
+	protected $repositorio_personas;
+
+	public function __construct(PersonaInterface $repositorio_personas)
+	{
+		if (isset($_SESSION['Usuario']))
+			$this->Usuario = $_SESSION['Usuario'];
+
+			$this->repositorio_personas = $repositorio_personas;
+	}
+
     public function index()
 	{
-		$subdireccion = Subdireccion::with('areas')->find(1);
 
+		$historial = Historial_cecop::all();
 
-		$paas = Paa::with('modalidad', 'tipocontrato', 'rubro')
-						->whereIn('Estado', [Estado::Subdireccion, Estado::Aprobado, Estado::Rechazado, Estado::Cancelado,Estado::EstudioConveniencia,Estado::EstudioAprobado,Estado::EstudioCorregido,Estado::EstudioCancelado])
-						->whereIn('Id_Area', $subdireccion->areas->pluck('id'))
-						->orderBy('id')
-						->get();
+		$datos = [
+			'historiales' => $historial,
+		];
+
+		return view('gestion_cecop', $datos);
+	}
+
+	public function descargarInformeCecop(Request $request)
+    {
+		$paas = Paa::with('modalidad', 'tipocontrato', 'rubro','componentes.fuente')
+					->whereIn('Estado', [Estado::Subdireccion, Estado::Aprobado, Estado::Rechazado, Estado::Cancelado,Estado::EstudioConveniencia,Estado::EstudioAprobado,Estado::EstudioCorregido,Estado::EstudioCancelado])
+					->orderBy('id')
+					->get();
 
 		$datos = [
 			'paas' => $paas,
 		];
 
-		return view('gestion_cecop', $datos);
-	}
+		$mytime = Carbon\Carbon::now();
+		
+
+		$historial = new Historial_cecop;
+		$historial['id_usuario']=$this->Usuario[0];
+		$historial['fecha_generacion']=$mytime->toDateTimeString();;
+		$historial->save();
+
+        $view =  view('informececop',$datos);
+        return $view;
+
+    }
 }

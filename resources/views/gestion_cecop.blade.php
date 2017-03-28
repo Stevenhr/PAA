@@ -32,25 +32,37 @@
 						        <thead>
 						            <tr>
 						                <th>N°</th>
-						                <th>ID</th>
+						                <th>Usuario</th>
 						                <th>Fecha Generación</th>
 										<th>Codigo Cecop</th>
 										<th>Archivo Paa</th>				
-										<th>Menu</th>
+										<th>Subir Datos</th>
 						            </tr>
 						        </thead>
 						        <tfoot>
 						            <tr>
 						                <th>N°</th>
-						                <th>ID</th>
+						                <th>Usuario</th>
 						                <th>Fecha Generación</th>
 										<th>Codigo Cecop</th>
 										<th>Archivo Paa</th>				
-										<th>Menu</th>
+										<th>Subir Datos</th>
 						            </tr>
 						        </tfoot>
 						        <tbody id="registros_actividades_responsable">
-						      
+						      		@foreach($historiales as $historial)	
+							            <tr>
+							                <td>N°</td>
+							                <td>{{$historial['id_usuario']}}</td>
+							                <td>{{$historial['fecha_generacion']}}</td>
+											<td>{{$historial['codigo_cecop']}}</td>
+											<td>{{$historial['ubicacion_archivo']}}</td>				
+											<td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#Modal_AgregarNuevo" id="Btn_Agregar_Nuevo">
+											  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar datos
+											  </button>
+											</td>
+							            </tr>
+							        @endforeach
 						        </tbody>
 						    </table>
 					</div>
@@ -69,7 +81,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Generación informe Cecop</h4>
       </div>
-      <form id="form_aprobacion">
+     
 	      <div class="modal-body">
 	      			<div class="row">
 						<div class="col-xs-12 col-sm-12">
@@ -78,7 +90,10 @@
 								<div class="panel-heading">Procedimiento Informe Cecop <label class="NumPaa"></label></div>
 								<div class="panel-body">
 								    <p>En el momento que se genera el informe se crea un registro en la tabla historial, aqui usted debera ingresar el codigo que recibe del sistema Cecop y ademas subir archivo que envio a este sistema.</p>
+								    <form action="informececop" >
+								    <input type="hidden" name="id_paa_estudio_f" id="id_paa_estudio_f" value="1"/>
 								    <div class="text-center"><button type="submit" id="aprobacion_Sub_Direccion" class="btn btn-success">Generar Informe</button></div>
+								    </form>
 								</div>						 
 							</div>
 							<input type="hidden" name="paa_subDirecion" id="paa_subDirecion"></input>
@@ -92,7 +107,7 @@
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 	      </div>
-      </form>
+   
     </div>
   </div>
 </div>

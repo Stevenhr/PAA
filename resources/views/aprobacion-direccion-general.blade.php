@@ -389,6 +389,6 @@
 </div>
 
 <form action="estudiopdf" id="estudiopdf_form">
-        <input type="hidden" name="id_paa_estudio_f" id="id_paa_estudio_f"/>
+        <input type="hidden" name="id_paa_estudio_f" id="id_paa_estudio_f"/>id_paa_estudio_f
 </form>
 @stop

@@ -757,7 +757,7 @@ $(function()
                     $('#RegistrarEstudio').text('Registrar'); 
                 }
 
-
+                 console.log("--> ".data.paas['vinculada'])
                 if(data.paas['vinculada']!=''){
                     $('textarea[name="texta_Conveniencia"]').attr('disabled',true);
                     $('textarea[name="texta_Oportunidad"]').attr('disabled',true);
