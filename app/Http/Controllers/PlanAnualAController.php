@@ -552,7 +552,7 @@ class PlanAnualAController extends Controller
             'finanzas' =>$finanzas,
             'vinculada' =>$vinculada
         ];
-
+        //dd($paa->componentes);
         return response()->json($datos);
     }
 

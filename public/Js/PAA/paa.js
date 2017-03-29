@@ -757,7 +757,7 @@ $(function()
                     $('#RegistrarEstudio').text('Registrar'); 
                 }
 
-                 console.log("--> ".data.paas['vinculada'])
+                 
                 if(data.paas['vinculada']!=''){
                     $('textarea[name="texta_Conveniencia"]').attr('disabled',true);
                     $('textarea[name="texta_Oportunidad"]').attr('disabled',true);
@@ -781,6 +781,7 @@ $(function()
                 }
 
                 var html = '<option value="">Selecionar</option>';
+               
                 $.each(data.paas.componentes, function(i, eee){
                             html += '<option data-valor="'+eee.pivot['valor']+'" value="'+eee.pivot['id']+'">'+eee['Nombre']+'</option>';
                 });
@@ -829,7 +830,7 @@ $(function()
           var valor_conponente_ingre=$('input[name="valor_conponente_ingre"]').val();
           var valor_total_ingr=$('input[name="valor_total_ingr"]').val();
           var vali_porce=0;
-          if(componente==='' || Fuente_ingre==='' || valor_conponente_ingre==='' || valor_total_ingr==='' || actividad_ingre===''){
+          if(Fuente_ingre==='' || valor_conponente_ingre==='' || valor_total_ingr==='' || actividad_ingre===''){
               $('#alert_actividad_finca').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Campos vacios en el formulario.</div>');
               $('#mensaje_actividad_finan').show(60);
               $('#mensaje_actividad_finan').delay(2500).hide(600);

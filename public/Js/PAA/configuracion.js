@@ -72,6 +72,8 @@ $(function()
         $('#Fuente').removeClass("active");
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
+        $('#Rubro').removeClass("active");
+        $('#Actividad_rubros').removeClass();
 
         $('#Presupuesto_dv').show();
         $('#Fuente_dv').hide();
@@ -80,6 +82,8 @@ $(function()
         $('#Actividad_dv').hide();
         $('#Componente_dv').hide();
         $('#Componente_Conf_dv').hide();
+        $('#Rubro_dv').hide();
+        $('#Actividad_rubros_dv').hide();
     });
 
     $('#Proyecto').on('click', function(e){
@@ -90,6 +94,8 @@ $(function()
         $('#Fuente').removeClass("active");
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
+        $('#Rubro').removeClass("active");
+        $('#Actividad_rubros').removeClass();
 
         $('#Proyecto_dv').show();
         $('#Fuente_dv').hide();
@@ -98,6 +104,8 @@ $(function()
         $('#Actividad_dv').hide();
         $('#Componente_dv').hide();
         $('#Componente_Conf_dv').hide();
+        $('#Rubro_dv').hide();
+        $('#Actividad_rubros_dv').hide();
     });
 
     $('#Meta').on('click', function(e){
@@ -108,6 +116,8 @@ $(function()
         $('#Fuente').removeClass("active");
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
+        $('#Rubro').removeClass("active");
+        $('#Actividad_rubros').removeClass();
 
         $('#Meta_dv').show();
         $('#Fuente_dv').hide();
@@ -116,6 +126,8 @@ $(function()
         $('#Actividad_dv').hide();
         $('#Componente_dv').hide();
         $('#Componente_Conf_dv').hide();
+        $('#Rubro_dv').hide();
+        $('#Actividad_rubros_dv').hide();
     });
 
     $('#Actividad').on('click', function(e){
@@ -126,6 +138,8 @@ $(function()
         $('#Fuente').removeClass("active");
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
+        $('#Rubro').removeClass("active");
+        $('#Actividad_rubros').removeClass();
 
         $('#Actividad_dv').show();
         $('#Fuente_dv').hide();
@@ -134,6 +148,8 @@ $(function()
         $('#Proyecto_dv').hide();
         $('#Componente_dv').hide();
         $('#Componente_Conf_dv').hide();
+        $('#Rubro_dv').hide();
+        $('#Actividad_rubros_dv').hide();
     });
 
     $('#Componente').on('click', function(e){
@@ -144,6 +160,8 @@ $(function()
         $('#Meta').removeClass("active");
         $('#Actividad').removeClass("active");
         $('#Componente_Conf').removeClass("active");
+        $('#Rubro').removeClass("active");
+        $('#Actividad_rubros').removeClass();
 
         $('#Componente_dv').show();
         $('#Fuente_dv').hide();
@@ -152,6 +170,8 @@ $(function()
         $('#Proyecto_dv').hide();
         $('#Actividad_dv').hide();
         $('#Componente_Conf_dv').hide();
+        $('#Rubro_dv').hide();
+        $('#Actividad_rubros_dv').hide();
     });
 
     $('#Componente_Conf').on('click', function(e){
@@ -162,6 +182,8 @@ $(function()
         $('#Fuente').removeClass("active");
         $('#Actividad').removeClass("active");
         $('#Componente').removeClass("active");
+        $('#Rubro').removeClass("active");
+        $('#Actividad_rubros').removeClass();
 
         $('#Componente_Conf_dv').show();
         $('#Fuente_dv').hide();
@@ -170,6 +192,8 @@ $(function()
         $('#Proyecto_dv').hide();
         $('#Actividad_dv').hide();
         $('#Componente_dv').hide();
+        $('#Rubro_dv').hide();
+        $('#Actividad_rubros_dv').hide();
     });
 
     $('#Fuente').on('click', function(e){
@@ -180,6 +204,8 @@ $(function()
         $('#Actividad').removeClass("active");
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
+        $('#Rubro').removeClass("active");
+        $('#Actividad_rubros').removeClass();
 
         $('#Fuente_dv').show();
         $('#Presupuesto_dv').hide();
@@ -188,7 +214,57 @@ $(function()
         $('#Actividad_dv').hide();
         $('#Componente_dv').hide();
         $('#Componente_Conf_dv').hide();
+        $('#Rubro_dv').hide();
+        $('#Actividad_rubros_dv').hide();
     });
+
+
+    $('#Rubro').on('click', function(e){
+        $(this).addClass("active");
+        $('#Presupuesto').removeClass("active");
+        $('#Proyecto').removeClass("active");
+        $('#Meta').removeClass("active");
+        $('#Actividad').removeClass("active");
+        $('#Componente').removeClass("active");
+        $('#Componente_Conf').removeClass("active");
+        $('#Fuente_dv').removeClass();
+        $('#Actividad_rubros').removeClass();
+
+
+        $('#Rubro_dv').show();
+        $('#Fuente_dv').hide();
+        $('#Presupuesto_dv').hide();
+        $('#Proyecto_dv').hide();
+        $('#Meta_dv').hide();
+        $('#Actividad_dv').hide();
+        $('#Componente_dv').hide();
+        $('#Componente_Conf_dv').hide();
+        $('#Actividad_rubros_dv').hide();
+    });
+
+
+    $('#Actividad_rubros').on('click', function(e){
+        $(this).addClass("active");
+        $('#Presupuesto').removeClass("active");
+        $('#Proyecto').removeClass("active");
+        $('#Meta').removeClass("active");
+        $('#Actividad').removeClass("active");
+        $('#Componente').removeClass("active");
+        $('#Componente_Conf').removeClass("active");
+        $('#Fuente_dv').removeClass();
+
+        $('#Actividad_rubros_dv').show();
+        $('#Rubro_dv').hide();
+        $('#Fuente_dv').hide();
+        $('#Presupuesto_dv').hide();
+        $('#Proyecto_dv').hide();
+        $('#Meta_dv').hide();
+        $('#Actividad_dv').hide();
+        $('#Componente_dv').hide();
+        $('#Componente_Conf_dv').hide();
+    });
+
+    
 
     var t = $('#Tabla3').DataTable({
         dom: 'Bfrtip',

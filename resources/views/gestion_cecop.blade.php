@@ -28,51 +28,56 @@
 
 		<div class="col-xs-12 col-md-12 ">
 				    	
-					      		<table id="TablaHCecop"  class="display responsive no-wrap table table-min" width="100%" cellspacing="0">
-						        <thead>
-						            <tr>
-						                <th>N°</th>
-						                <th>Usuario</th>
-						                <th>Fecha Generación</th>
-										<th>Codigo Cecop</th>
-										<th>Archivo Paa</th>				
-										<th>Subir Datos</th>
-						            </tr>
-						        </thead>
-						        <tfoot>
-						            <tr>
-						                <th>N°</th>
-						                <th>Usuario</th>
-						                <th>Fecha Generación</th>
-										<th>Codigo Cecop</th>
-										<th>Archivo Paa</th>				
-										<th>Subir Datos</th>
-						            </tr>
-						        </tfoot>
-						        <tbody id="registros_actividades_responsable">
-						      		@foreach($historiales as $historial)	
-							            <tr>
-							                <td>N°</td>
-							                <td>{{$historial['id_usuario']}}</td>
-							                <td>{{$historial['fecha_generacion']}}</td>
-											<td>{{$historial['codigo_cecop']}}</td>
-											<td>{{$historial['ubicacion_archivo']}}</td>				
-											<td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#Modal_AgregarNuevo" id="Btn_Agregar_Nuevo">
-											  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar datos
-											  </button>
-											</td>
-							            </tr>
-							        @endforeach
-						        </tbody>
-						    </table>
-					</div>
+		      		<table id="TablaHCecop"  class="display responsive no-wrap table table-min" width="100%" cellspacing="0">
+			        <thead>
+			            <tr>
+			                <th>N°</th>
+			                <th>Usuario</th>
+			                <th>Fecha Generación</th>
+							<th>Codigo Cecop</th>
+							<th>Archivo Paa</th>				
+							<th>Subir Datos</th>
+			            </tr>
+			        </thead>
+			        <tfoot>
+			            <tr>
+			                <th>N°</th>
+			                <th>Usuario</th>
+			                <th>Fecha Generación</th>
+							<th>Codigo Cecop</th>
+							<th>Archivo Paa</th>				
+							<th>Subir Datos</th>
+			            </tr>
+			        </tfoot>
+			        <tbody id="registros_actividades_responsable">
+			      		@foreach($historiales as $historial)	
+				            <tr>
+				                <td>N°</td>
+				                <td>{{$historial['id_usuario']}}</td>
+				                <td>{{$historial['fecha_generacion']}}</td>
+								<td>{{$historial['codigo_cecop']}}</td>
+								<td>{{$historial['ubicacion_archivo']}}</td>				
+								<td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#Modal_AgregarNuevo" id="Btn_Agregar_Nuevo">
+								  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar datos
+								  </button>
+								</td>
+				            </tr>
+				        @endforeach
+			        </tbody>
+			    </table>
+		</div>
+
+		<div class="col-xs-12 col-md-12 ">
+	    	<hr style="border: 0; border-top: 2px solid #CEECF5; height:0;">
+	    	<br><br>
+		</div>
 	</div>
 </div>
 
 
 
 
-<!-- MODAL APRIOBACION CAMBIOS-->
+<!-- MODAL GENERACION CECOP-->
 
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_AgregarNuevoCecop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">

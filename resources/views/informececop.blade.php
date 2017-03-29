@@ -4,9 +4,11 @@ header("Content-Disposition: attachment; filename= Prueba.xls");
 header("Content-Transfer-Encoding: binary"); 
 header("Pragma: no-cache"); 
 header("Expires: 0");
+
 ?>
 <html >
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 <style>
 tr
