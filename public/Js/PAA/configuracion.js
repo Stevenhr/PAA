@@ -73,7 +73,7 @@ $(function()
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
         $('#Rubro').removeClass("active");
-        $('#Actividad_rubros').removeClass();
+        $('#Actividad_rubros').removeClass("active");
 
         $('#Presupuesto_dv').show();
         $('#Fuente_dv').hide();
@@ -95,7 +95,7 @@ $(function()
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
         $('#Rubro').removeClass("active");
-        $('#Actividad_rubros').removeClass();
+        $('#Actividad_rubros').removeClass("active");
 
         $('#Proyecto_dv').show();
         $('#Fuente_dv').hide();
@@ -117,7 +117,7 @@ $(function()
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
         $('#Rubro').removeClass("active");
-        $('#Actividad_rubros').removeClass();
+        $('#Actividad_rubros').removeClass("active");
 
         $('#Meta_dv').show();
         $('#Fuente_dv').hide();
@@ -139,7 +139,7 @@ $(function()
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
         $('#Rubro').removeClass("active");
-        $('#Actividad_rubros').removeClass();
+        $('#Actividad_rubros').removeClass("active");
 
         $('#Actividad_dv').show();
         $('#Fuente_dv').hide();
@@ -161,7 +161,7 @@ $(function()
         $('#Actividad').removeClass("active");
         $('#Componente_Conf').removeClass("active");
         $('#Rubro').removeClass("active");
-        $('#Actividad_rubros').removeClass();
+        $('#Actividad_rubros').removeClass("active");
 
         $('#Componente_dv').show();
         $('#Fuente_dv').hide();
@@ -183,7 +183,7 @@ $(function()
         $('#Actividad').removeClass("active");
         $('#Componente').removeClass("active");
         $('#Rubro').removeClass("active");
-        $('#Actividad_rubros').removeClass();
+        $('#Actividad_rubros').removeClass("active");
 
         $('#Componente_Conf_dv').show();
         $('#Fuente_dv').hide();
@@ -205,7 +205,7 @@ $(function()
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
         $('#Rubro').removeClass("active");
-        $('#Actividad_rubros').removeClass();
+        $('#Actividad_rubros').removeClass("active");
 
         $('#Fuente_dv').show();
         $('#Presupuesto_dv').hide();
@@ -227,8 +227,8 @@ $(function()
         $('#Actividad').removeClass("active");
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
-        $('#Fuente_dv').removeClass();
-        $('#Actividad_rubros').removeClass();
+        $('#Fuente_dv').removeClass("active");
+        $('#Actividad_rubros').removeClass("active");
 
 
         $('#Rubro_dv').show();
@@ -251,7 +251,8 @@ $(function()
         $('#Actividad').removeClass("active");
         $('#Componente').removeClass("active");
         $('#Componente_Conf').removeClass("active");
-        $('#Fuente_dv').removeClass();
+        $('#Fuente_dv').removeClass("active");
+        $('#Rubro').removeClass("active");
 
         $('#Actividad_rubros_dv').show();
         $('#Rubro_dv').hide();
@@ -1924,6 +1925,35 @@ $(function()
         );
     }); 
 
+
+
+     /*############################   CREAR RUBRO DE FUNCIONAMIENTO    ###########################*/
+
+
+    var t_rubro_f = $('#Tabla10_rubros_funcionamiento').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+    });
+
+
+
+
+     /*############################   CREAR RUBRO DE FUNCIONAMIENTO    ###########################*/
+
+    var t_activi_rubro = $('#Tabla11_actividad_rubro').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+    });
 
 
 

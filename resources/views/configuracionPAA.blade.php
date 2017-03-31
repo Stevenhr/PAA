@@ -13,7 +13,8 @@
             	<div class="btn-group btn-group-justified">
 					  <a href="#" class="btn btn-success" id="Fuente">Fuente</a>
 					  <a href="#" class="btn btn-success" id="Componente">Crear Componente</a>
-					  <a href="#" class="btn btn-primary" id="Presupuesto" data-role="Presupuesto">Plan de desarrollo</a>
+					   <a href="#" class="btn btn-primary" id="Presupuesto" data-role="Presupuesto">Plan de desarrollo</a>
+					  <a href="#" class="btn btn-primary" id="Presupuesto" data-role="Presupuesto">Vigencias</a>
 					  <a href="#" class="btn btn-primary" id="Proyecto">Proyecto Inversión</a>
 					  <a href="#" class="btn btn-primary" id="Meta">Meta</a>
 					  <a href="#" class="btn btn-primary" id="Actividad">Actividad</a>
@@ -81,7 +82,6 @@
 			        		</div>
 						</div>
 					</form>
-
 					
 	            	<br>
 
@@ -480,7 +480,7 @@
 
 
 		        <div id="Actividad_dv" style="display:none;">
-					<h3>Actividad</h3>
+					<h3>Actividad de proyecto de inversión.</h3>
 					<hr style="border: 0; border-top: 1px solid #642EFE; height:0;">
 	            	<br>
 	                <p class="text-justify">Registro de actividades a proyectos de inversión.</p>
@@ -1111,22 +1111,6 @@
 			        <form id="form_proyecto">
 			            <div id="div_form_presupuesto"><br></div>
 				        
-				        <div class="row" >
-				        	<div class="col-xs-12 col-md-3 text-">
-						    	<div class="form-group">	
-						    		<label>Presupuesto</label>
-									<select class="form-control" name="idPresupuesto">
-											<option value="">Seleccionar</option>
-										@foreach($presupuesto as $presupuestos)
-											<option value="{{ $presupuestos['Id'] }}" >{{ $presupuestos['Nombre_Actividad'] }}</option>
-									    @endforeach
-									</select>
-								</div>
-			        		</div>
-						    <div class="col-xs-12 col-md-3 "></div>
-						    <div class="col-xs-12 col-md-3 "></div>
-			        		<div class="col-xs-12 col-md-2 "></div>
-						</div>
 
 				        <div class="row" >
 				        	<div class="col-xs-12 col-md-3 text-">
@@ -1190,62 +1174,59 @@
 			            		<hr><hr>
 					        </div>
             			    <div class="col-xs-12 col-md-12">
-			            		<h5>Listado de Proyectos:</h5>
+			            		<h5>Listado de rubros de funcionamiento:</h5>
 					        </div>
 						    <div class="col-xs-12 col-md-12">
 						    	<div class="table-responsive" id="div_Tabla4">
-							      		<table id="Tabla4" class="display" width="100%" cellspacing="0">
+							      		<table id="Tabla10_rubros_funcionamiento" class="display" width="100%" cellspacing="0">
 								        <thead>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Presupuesto</th>
-								                <th>Nombre Proyecto</th>
+								                <th>Codigo</th>
+								                <th>Rubro</th>
 								                <th>Fecha inicial de implementación</th>
 								                <th>Fecha final de implementación</th>
-								                <th>Presupuesto</th>
+								                <th>Valor</th>
 								                <th>Opción</th>
 								            </tr>
 								        </thead>
 								        <tfoot>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Presupuesto</th>
-								                <th>Nombre Proyecto</th>
+								                <th>Codigo</th>
+								                <th>Rubro</th>
 								                <th>Fecha inicial de implementación</th>
 								                <th>Fecha final de implementación</th>
-								                <th>Presupuesto</th>
+								                <th>Valor</th>
 								                <th>Opción</th>
 								            </tr>
 								        </tfoot>
 								        <tbody i>
 								        		<?php $var=1; ?>
 
-								        		@foreach($presupuesto as $presupuestos)
+								        		@foreach($rubrosFuncionamiento as $rubroFuncionamiento)
 					        							
-					        							@if(count($presupuestos->proyectos)!=0)
-					        								@foreach($presupuestos->proyectos as $proyecto)
-								        						<tr>
-								        						<th scope="row" class="text-center">{{ $var }}</th>
-								        						<th scope="row">{{ $presupuestos['Nombre_Actividad'] }}</th>
-										                        <td><h4>{{ $proyecto['Nombre'] }}</h4></td>
-										                        <td>{{ $proyecto['fecha_inicio'] }}</td>
-										                        <td>{{ $proyecto['fecha_fin'] }}</td>
-										                        <td>{{ number_format($proyecto['valor']) }}</td>
-										                        <td>
-																	<div class="btn-group btn-group-justified tama">
-																	  <div class="btn-group">
-																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-																	  </div>
-																	  <div class="btn-group">
-																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-																	  </div>
-																	</div>
-																	<div id="espera{{ $proyecto['Id'] }}"></div>
-										                        </td>
-										                        </tr>
-										                        <?php $var++; ?>
-									                        @endforeach
-									                     @EndIf
+											        						<tr>
+											        						<th scope="row" class="text-center">{{ $var }}</th>
+											        						<th scope="row">{{ $rubroFuncionamiento['codigo'] }}</th>
+											        						<th scope="row">{{ $rubroFuncionamiento['nombre'] }}</th>
+													                        <td>{{ $rubroFuncionamiento['fecha_inicio'] }}</td>
+													                        <td>{{ $rubroFuncionamiento['fecha_fin'] }}</td>
+													                        <td>{{ number_format($rubroFuncionamiento['valor']) }}</td>
+													                        <td>
+																				<div class="btn-group btn-group-justified tama">
+																				  <div class="btn-group">
+																				    <button type="button" data-rel="{{ $actividad['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs">
+																					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+																				  </div>
+																				  <div class="btn-group">
+																				    <button type="button" data-rel="{{ $actividad['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+																				  </div>
+																				</div>
+																				<div id="espera_a{{ $rubroFuncionamiento['id'] }}"></div>
+													                        </td>
+													                        </tr>
+											                        		<?php $var++; ?>
 
 					        					@endforeach
 								        </tbody>
@@ -1263,79 +1244,30 @@
 		        <!--  ++++-ACTIVIDAD DE LOS RUBROS FUNCIONAMIENTO -->
 
 		        <div id="Actividad_rubros_dv" style="display:none;">
-					<h3>Actividad</h3>
+					<h3>Actividad de rubro de funcionamiento</h3>
 					<hr style="border: 0; border-top: 1px solid #642EFE; height:0;">
 	            	<br>
 	                <p class="text-justify">Registro de actividades a rubros de funcionamiento.</p>
 			        <br>
 
-			        <form id="form_actividad">
-			            <div id="div_form_actividad"><br></div>
-				        
-				        <div class="row" >
-				        	
-				        	<div class="col-xs-12 col-md-3 text-">
+			        <form id="form_actividad">				      
+
+						<div class="row" >
+						    <div class="col-xs-12 col-md-6">
 						    	<div class="form-group">	
 						    		<label>Presupuesto</label>
-									<select class="form-control" name="idPresupuesto_A">
+									<select class="form-control" name="idPresupuesto_C">
 											<option value="">Seleccionar</option>
-										@foreach($presupuesto as $presupuestos)
-											<option value="{{ $presupuestos['Id'] }}" >{{ $presupuestos['Nombre_Actividad'] }}</option>
+										@foreach($rubrosFuncionamiento as $rubroFuncionamiento)
+											<option value="{{ $rubroFuncionamiento['id'] }}" >{{ $rubroFuncionamiento['nombre'] }}</option>
 									    @endforeach
 									</select>
 								</div>
 			        		</div>
-
-						    <div class="col-xs-12 col-md-3 text-">
-						    	<div class="form-group">	
-						    		<label>Proyecto</label>
-									<select class="form-control" name="idProyecto_A" id="idProyecto_A">
-											<option value="">Seleccionar</option>
-									</select>
-								</div>
-			        		</div>
-
-						    <div class="col-xs-12 col-md-3 ">
-						    	<div class="form-group">	
-						    		<label>Meta</label>
-									<select class="form-control" name="idMeta_A" id="idMeta_A">
-											<option value="">Seleccionar</option>
-									</select>
-								</div>
-			        		</div>
-
-						    <div class="col-xs-12 col-md-3 ">
-			        		</div>
-
-						</div>
-
-						<div class="row" >
-						    <div class="col-xs-12 col-md-3 text-">
+						    <div class="col-xs-12 col-md-6">
 						    	<div class="form-group">	
 						    		<label>Nombre</label>
-						    		<input type="hidden" class="form-control" name="Id_actividad" value="0">
-									<input type="text" class="form-control" name="nombre_actividad">
-								</div>
-			        		</div>
-
-						    <div class="col-xs-12 col-md-3 ">
-						    	<div class="form-group">
-						    		<label>Fecha inicial de implementación</label>
-									<input type="text" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_actividad">
-								</div>
-			        		</div>
-
-						    <div class="col-xs-12 col-md-3 ">
-			        			<div class="form-group">
-			        				<label>Fecha final de implementación</label>
-									<input type="text" class="form-control" data-role="datepicker" name="fecha_final_actividad">
-								</div>
-			        		</div>
-
-			        		<div class="col-xs-12 col-md-3 ">
-			        			<div class="form-group">
-			        				<label>Valor </label>
-									<input type="text" class="form-control precio" name="precio_actividad">
+									<input type="text" class="form-control" name="nombre_proyecto">
 								</div>
 			        		</div>
 						</div>
@@ -1365,55 +1297,37 @@
 					        </div>
 						    <div class="col-xs-12 col-md-12">
 						    	<div class="table-responsive" id="div_Tabla6">
-							      		<table id="Tabla6" class="display" width="100%" cellspacing="0">
+							      		<table id="Tabla11_actividad_rubro" class="display" width="100%" cellspacing="0">
 								        <thead>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Presupuesto</th>
-								                <th>Proyecto</th>
-								                <th>Meta</th>
-								                <th>Nombre Actividad</th>
-								                <th>Fecha inicial de implementación</th>
-								                <th>Fecha final de implementación</th>
-								                <th>Presupuesto</th>
+								                <th>Codigo Rubro</th>
+								                <th>Rubro</th>
+								                <th>Actividad</th>
 								                <th>Opción</th>
 								            </tr>
 								        </thead>
 								        <tfoot>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Presupuesto</th>
-								                <th>Proyecto</th>
-								                <th>Meta</th>
-								                <th>Nombre Actividad</th>
-								                <th>Fecha inicial de implementación</th>
-								                <th>Fecha final de implementación</th>
-								                <th>Presupuesto</th>
+								                <th>Codigo Rubro</th>
+								                <th>Rubro</th>
+								                <th>Actividad</th>
 								                <th>Opción</th>
 								            </tr>
 								        </tfoot>
-								        <tbody i>
+								        <tbody>
 								        		<?php $var=1; ?>
 
-								        		@foreach($presupuesto as $presupuestos)
+								        		@foreach($rubrosFuncionamiento as $rubroFuncionamiento)
 					        							
-					        							@if(count($presupuestos->proyectos)!=0)
-				        								@foreach($presupuestos->proyectos as $proyecto)
-					        								    
-					        								    @if(count($proyecto->metas)!=0)
-					        								    @foreach($proyecto->metas as $meta)
-									        						
-									        						    @if(count($meta->actividades)!=0)
-					        								    		@foreach($meta->actividades as $actividad)
+					        							@if(count($rubroFuncionamiento->actividadesfuncionamiento )!=0)
+					        							@foreach($rubroFuncionamiento->actividadesfuncionamiento as $actividadrubro)
 											        						<tr>
 											        						<th scope="row" class="text-center">{{ $var }}</th>
-											        						<th scope="row">{{ $presupuestos['Nombre_Actividad'] }}</th>
-											        						<th scope="row">{{ $proyecto['Nombre'] }}</th>
-											        						<th scope="row">{{ $meta['Nombre'] }}</th>
-													                        <td><h4>{{ $actividad['Nombre'] }}</h4></td>
-													                        <td>{{ $actividad['fecha_inicio'] }}</td>
-													                        <td>{{ $actividad['fecha_fin'] }}</td>
-													                        <td>{{ number_format($actividad['valor']) }}</td>
+											        						<th >{{ $rubroFuncionamiento['codigo'] }}</th>
+											        						<th >{{ $rubroFuncionamiento['nombre'] }}</th>
+													                        <td scope="row">{{ $actividadrubro['nombre'] }}</td>
 													                        <td>
 																				<div class="btn-group btn-group-justified tama">
 																				  <div class="btn-group">
@@ -1424,19 +1338,12 @@
 																				    <button type="button" data-rel="{{ $actividad['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 																				  </div>
 																				</div>
-																				<div id="espera_a{{ $actividad['Id'] }}"></div>
+																				<div id="espera_a{{ $rubroFuncionamiento['id'] }}"></div>
 													                        </td>
 													                        </tr>
 											                        		<?php $var++; ?>
-											                        	@endforeach
-									                        			@EndIf
-
-									                        	@endforeach
-									                        	@EndIf
-
-								                         @endforeach
-									                     @EndIf
-
+											            @endforeach
+											            @endif
 					        					@endforeach
 								        </tbody>
 								    </table>

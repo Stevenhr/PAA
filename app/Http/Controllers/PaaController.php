@@ -14,6 +14,7 @@ use App\Componente;
 use App\Fuente;
 use App\Persona;
 use App\Datos;
+use App\RubroFuncionamiento;
 use App\PersonaPaa;
 use Idrd\Usuarios\Repo\PersonaInterface;
 
@@ -31,11 +32,13 @@ class PaaController extends Controller
 		$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades')->get();
 		$fuente = Fuente::all();
 		$componente = Componente::with('fuente')->get();
+		$rubroFuncionam = RubroFuncionamiento::with('actividadesfuncionamiento')->get();
 
         $datos = [        
             'presupuesto' => $presupuesto,
             'fuentes'=>$fuente,
-            'componentes'=>$componente            
+            'componentes'=>$componente,
+            'rubrosFuncionamiento'=>$rubroFuncionam,
         ];
 
 		return view('configuracionPAA',$datos);

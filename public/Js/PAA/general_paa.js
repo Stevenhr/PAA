@@ -712,7 +712,7 @@ $(function()
             {},
             function(data)
             { 
-                
+                  
                 if(data.EstudioConveniencias!= null)
                 {
                     $('#id_estudio_pass').val(id_act);
