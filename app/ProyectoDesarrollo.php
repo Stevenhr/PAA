@@ -13,8 +13,8 @@ class ProyectoDesarrollo extends Model
 	protected $connection = ''; 
 	public $timestamps = true;
 
-	public function metas()
+	public function presupuestos()
     {
-        return $this->hasMany('App\Meta','Id_proyecto');
+        return $this->hasMany('App\Presupuesto','Id_proyectoDesarrollo');
     }
 }

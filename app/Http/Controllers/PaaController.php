@@ -16,6 +16,7 @@ use App\Persona;
 use App\Datos;
 use App\RubroFuncionamiento;
 use App\PersonaPaa;
+use App\ProyectoDesarrollo;
 use Idrd\Usuarios\Repo\PersonaInterface;
 
 class PaaController extends Controller
@@ -29,13 +30,13 @@ class PaaController extends Controller
 	}
     public function index()
 	{
-		$presupuesto = Presupuesto::with('proyectos','proyectos.metas','proyectos.metas.actividades','proyectos.metas.actividades')->get();
+		$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos','presupuestos.proyectos.metas','presupuestos.proyectos.metas.actividades','presupuestos.proyectos.metas.actividades')->get();
 		$fuente = Fuente::all();
 		$componente = Componente::with('fuente')->get();
 		$rubroFuncionam = RubroFuncionamiento::with('actividadesfuncionamiento')->get();
-
+		
         $datos = [        
-            'presupuesto' => $presupuesto,
+            'proyectoDesarrollo' => $proyectoDesarrollo,
             'fuentes'=>$fuente,
             'componentes'=>$componente,
             'rubrosFuncionamiento'=>$rubroFuncionam,
@@ -120,6 +121,7 @@ class PaaController extends Controller
 				'fecha_final_presupuesto' => 'required',
 				'fecha_inicial_presupuesto' => 'required',
 				'nombre_presupuesto' => 'required',
+				'vigencia' => 'required',
         	]
         );
 
@@ -150,6 +152,7 @@ class PaaController extends Controller
 	public function crear_presspuesto($model, $input)
 	{
 		$model['Nombre_Actividad'] = $input['nombre_presupuesto'];
+		$model['vigencia'] = $input['vigencia'];
 		$model['fecha_inicio'] = $input['fecha_inicial_presupuesto'];
 		$model['fecha_fin'] = $input['fecha_final_presupuesto'];
 		$model['presupuesto'] = $input['precio'];

@@ -13,7 +13,7 @@
             	<div class="btn-group btn-group-justified">
 					  <a href="#" class="btn btn-success" id="Fuente">Fuente</a>
 					  <a href="#" class="btn btn-success" id="Componente">Crear Componente</a>
-					   <a href="#" class="btn btn-primary" id="Presupuesto" data-role="Presupuesto">Plan de desarrollo</a>
+					   <a href="#" class="btn btn-primary" id="Presupuesto_desarrollo" data-role="Presupuesto_desarrollo">Plan de desarrollo</a>
 					  <a href="#" class="btn btn-primary" id="Presupuesto" data-role="Presupuesto">Vigencias</a>
 					  <a href="#" class="btn btn-primary" id="Proyecto">Proyecto Inversión</a>
 					  <a href="#" class="btn btn-primary" id="Meta">Meta</a>
@@ -28,38 +28,57 @@
 				<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PRESUPUESTO  %%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 				<div id="Presupuesto_dv" style="display:none;">
 					
-					<h3>Plan de desarrollo</h3>
+					<h3>Vigencias:</h3>
 					<hr style="border: 0; border-top: 1px solid #F6CECE; height:0;">
 	            	<br>
-	                <p class="text-justify">Registro del presupuesto del Plan de desarrollo total de los proyectos.</p>
+	                <p class="text-justify">Registro de las vigencias de los planes de desarrollo.</p>
 			        <br>
 			        <form id="form_presupuesto">
 			            <div id="div_form_presupuesto"><br></div>
 				        <div class="row" >
 
-						    <div class="col-xs-12 col-md-3 text-">
+						    <div class="col-xs-12 col-md-4 ">
 						    	<div class="form-group">	
-						    		<label>Nombre</label>
+						    		<label>Plan de desarrollo</label>
 						    		<input type="hidden" class="form-control" name="Id_presupuesto" value="0">
-									<input type="text" class="form-control" name="nombre_presupuesto">
+									<input type="hidden" class="form-control" name="nombre_presupuesto">
+									<select class="form-control" name="idPresupuesto">
+											<option value="">Seleccionar</option>
+										@foreach($proyectoDesarrollo as $proyectoDesarrollos)
+											<option value="{{ $proyectoDesarrollos['Id'] }}" >{{ $proyectoDesarrollos['nombre'] }}</option>
+									    @endforeach
+									</select>
 								</div>
 			        		</div>
 
-						    <div class="col-xs-12 col-md-3 ">
+			        		<div class="col-xs-12 col-md-2 ">
+						    	<div class="form-group">	
+						    		<label>Vigencia</label>
+						    		<select class="form-control" name="vigencia">
+											<option value="">Seleccionar</option>
+											<option value="2017">2017</option>
+											<option value="2018">2018</option>
+											<option value="2019">2019</option>
+											<option value="2020">2020</option>
+									</select>
+								</div>
+			        		</div>
+
+						    <div class="col-xs-12 col-md-2 ">
 						    	<div class="form-group">
 						    		<label>Fecha inicial de implementación</label>
 									<input type="text" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_presupuesto">
 								</div>
 			        		</div>
 
-						    <div class="col-xs-12 col-md-3 ">
+						    <div class="col-xs-12 col-md-2 ">
 			        			<div class="form-group">
 			        				<label>Fecha final de implementación</label>
 									<input type="text" class="form-control" data-role="datepicker" name="fecha_final_presupuesto">
 								</div>
 			        		</div>
 
-			        		<div class="col-xs-12 col-md-3 ">
+			        		<div class="col-xs-12 col-md-2 ">
 			        			<div class="form-group">
 			        				<label>Valor </label>
 									<input type="text" class="form-control precio" name="precio">
@@ -98,7 +117,8 @@
 								        <thead>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Nombre Presupuesto</th>
+								                <th>Plan Desarrollo</th>
+								                <th>Vigencia</th>
 								                <th>Fecha inicial de implementación</th>
 								                <th>Fecha final de implementación</th>
 								                <th>Presupuesto</th>
@@ -108,7 +128,8 @@
 								        <tfoot>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Nombre Presupuesto</th>
+								                <th>Plan Desarrollo</th>
+								                <th>Vigencia</th>
 								                <th>Fecha inicial de implementación</th>
 								                <th>Fecha final de implementación</th>
 								                <th>Presupuesto</th>
@@ -117,27 +138,33 @@
 								        </tfoot>
 								        <tbody id="registros_actividades_responsable">
 								        		<?php $var=1; ?>
-								        		@foreach($presupuesto as $presupuestos)
-					        						<tr>
-					        						<th scope="row" class="text-center">{{ $var }}</th>
-							                        <td><h4>{{ $presupuestos['Nombre_Actividad'] }}</h4></td>
-							                        <td>{{ $presupuestos['fecha_fin'] }}</td>
-							                        <td>{{ $presupuestos['fecha_inicio'] }}</td>
-							                        <td>{{ number_format($presupuestos['presupuesto']) }}</td>
-							                        <td>
-														<div class="btn-group btn-group-justified tama">
-														  <div class="btn-group">
-														    <button type="button" data-rel="{{ $presupuestos['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-														  </div>
-														  <div class="btn-group">
-														    <button type="button" data-rel="{{ $presupuestos['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-														  </div>
-														</div>
-														<div id="espera{{ $presupuestos['Id'] }}"></div>
-							                        </td>
-							                        </tr>
-							                        <?php $var++; ?>
+								        		@foreach($proyectoDesarrollo as $proyectoDesarrollos)
+								        			@if(count($proyectoDesarrollos->presupuestos )!=0)
+									        		@foreach($proyectoDesarrollos->presupuestos as $presupuesto)
+						        						<tr>
+						        						<th scope="row" class="text-center">{{ $var }}</th>
+								                        <td><h4>{{ $proyectoDesarrollos['nombre'] }}</h4></td>
+								                        <td><h4>{{ $presupuesto['vigencia'] }}</h4></td>
+								                        <td>{{ $presupuesto['fecha_fin'] }}</td>
+								                        <td>{{ $presupuesto['fecha_inicio'] }}</td>
+								                        <td>{{ number_format($presupuesto['presupuesto']) }}</td>
+								                        <td>
+															<div class="btn-group btn-group-justified tama">
+															  <div class="btn-group">
+															    <button type="button" data-rel="{{ $presupuesto['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+															  </div>
+															  <div class="btn-group">
+															    <button type="button" data-rel="{{ $presupuesto['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+															  </div>
+															</div>
+															<div id="espera{{ $presupuesto['Id'] }}"></div>
+								                        </td>
+								                        </tr>
+								                        <?php $var++; ?>
+						        					@endforeach
+						        					@endif
 					        					@endforeach
+
 								        </tbody>
 								    </table>
 								</div>
@@ -147,6 +174,11 @@
 					        </div>
 						</div>
 		        </div>
+
+</div>
+@stop
+
+
 
 
 		        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PROYECTO DE INVERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
@@ -1357,4 +1389,3 @@
 
             </div>
        
-@stop

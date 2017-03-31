@@ -9,7 +9,7 @@ class Presupuesto extends Model
     //
     protected $table = 'presupuesto';
 	protected $primaryKey = 'Id';
-	protected $fillable = ['Nombre_Actividad','fecha_inicio','fecha_fin','presupuesto'];
+	protected $fillable = ['Nombre_Actividad','fecha_inicio','fecha_fin','presupuesto','Id_proyectoDesarrollo'];
 	protected $connection = ''; 
 	public $timestamps = false;
 
@@ -17,5 +17,10 @@ class Presupuesto extends Model
 	public function proyectos()
     {
         return $this->hasMany('App\Proyecto','Id_presupuesto');
+    }
+
+    public function plandesarrollo()
+    {
+        return $this->belongsTo('App\ProyectoDesarrollo','Id_proyectoDesarrollo');
     }
 }

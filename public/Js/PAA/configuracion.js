@@ -357,6 +357,10 @@ $(function()
                     case 'nombre_presupuesto':
                         selector = 'input';
                     break;
+                    
+                    case 'vigencia':
+                        selector = 'select';
+                    break;
                 }
                 $('#form_presupuesto '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
             }
