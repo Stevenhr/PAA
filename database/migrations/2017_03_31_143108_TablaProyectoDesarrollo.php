@@ -20,7 +20,7 @@ class TablaProyectoDesarrollo extends Migration
             $table->dateTime('fecha_fin');
             $table->bigInteger('valor');
             $table->string('descripcion');
-
+            $table->timestamps();
         });
     }
 

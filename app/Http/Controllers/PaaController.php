@@ -212,7 +212,103 @@ class PaaController extends Controller
 	}
 
 
+//   ########################  PLAN DE DESARROLLO  @@@@@@@@@@@@@@@@@@
 
+	public function plan_dearrollo(Request $request)
+	{
+		$validator = Validator::make($request->all(),
+		    [
+	           
+				'precio_plan' => 'required',
+				'fecha_final_plan' => 'required',
+				'fecha_inicial_plan' => 'required',
+				'nombre_plan_desarrollo' => 'required'
+        	]
+        );
+
+           if ($validator->fails())
+            return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+
+        	if($request->input('Id_plan_desarrollo') == '0'){
+        		return $this->guardar_plan($request->all());
+        	}
+        	else{
+        		return $this->modificar_plan($request->all());	
+        	}
+        	
+	}
+
+	public function guardar_plan($input)
+	{
+		$model_A = new ProyectoDesarrollo;
+		return $this->crear_plan($model_A, $input);
+	}
+
+	public function modificar_plan($input)
+	{
+		$modelo=ProyectoDesarrollo::find($input["Id_plan_desarrollo"]);
+		return $this->modificar_plan_desarrollo($modelo, $input);
+	}
+
+	public function crear_plan($model, $input)
+	{
+		$model['nombre'] = $input['nombre_plan_desarrollo'];
+		$model['fecha_inicio'] = $input['fecha_inicial_plan'];
+		$model['fecha_fin'] = $input['fecha_final_plan'];
+		$model['valor'] = $input['precio_plan'];
+		$model->save();
+
+		$Presupuesto = ProyectoDesarrollo::all();
+		return response()->json(array('status' => 'modelo', 'proyectodesarrollo' => $Presupuesto));
+	}
+
+	public function modificar_plan_desarrollo($model, $input)
+	{
+		$presupuesto = Presupuesto::where('Id_proyectoDesarrollo',$input['Id_plan_desarrollo'])->get();
+		$sum = $presupuesto->sum( 'valor' );
+
+		if($input['precio_plan']>=$sum){
+			$model['nombre'] = $input['nombre_plan_desarrollo'];
+			$model['fecha_inicio'] = $input['fecha_inicial_plan'];
+			$model['fecha_fin'] = $input['fecha_final_plan'];
+			$model['valor'] = $input['precio_plan'];
+			$model->save();
+			$proyectoDesarrollo = ProyectoDesarrollo::all();
+			return response()->json(array('status' => 'modelo', 'proyectodesarrollo' => $proyectoDesarrollo));
+		}else{
+			return response()->json(array('status' => 'Saldo','sum_proyectos' => $sum));
+		}
+	}
+
+	public function eliminar_plandesarrollo(Request $request, $id)
+	{
+		//$Presupuesto = Presupuesto::find($id);
+
+		$Plandesarrollo = ProyectoDesarrollo::with('presupuestos')->whereHas('presupuestos', function($q) use ($id)
+		{
+		    $q->where('Id_proyectoDesarrollo', '=', $id);
+
+		})->get();
+
+		if(count($Plandesarrollo)>0){
+			return response()->json(array('status' => 'error', 'datos' => $Presupuesto));
+		}
+		else
+		{
+			$user = ProyectoDesarrollo::find($id);
+			$user->delete();
+			$Presupuesto = ProyectoDesarrollo::all();
+			return response()->json(array('status' => 'bien', 'datos' => $Presupuesto));
+		}
+
+	}
+
+
+	public function modificar_plan_datos(Request $request, $id)
+	{
+		$Presupuesto = ProyectoDesarrollo::find($id);
+		return response()->json($Presupuesto);
+	}
 
 
 //  #########################   PROYECTO  ################################
@@ -277,8 +373,6 @@ class PaaController extends Controller
 		}else{
 			return response()->json(array('status' => 'Saldo', 'saldo' => $Saldo, 'valorNuevo' => $valor_nuevProyecto,'mensaje'=>'es mayor al saldo del presupuesto que es de'));
 		}
-
-		
 	}
 
 	public function modificar_proyect($model, $input)

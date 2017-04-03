@@ -74,6 +74,7 @@ $(function()
         $('#Componente_Conf').removeClass("active");
         $('#Rubro').removeClass("active");
         $('#Actividad_rubros').removeClass("active");
+        $('#Presupuesto_desarrollo').removeClass("active");
 
         $('#Presupuesto_dv').show();
         $('#Fuente_dv').hide();
@@ -84,6 +85,7 @@ $(function()
         $('#Componente_Conf_dv').hide();
         $('#Rubro_dv').hide();
         $('#Actividad_rubros_dv').hide();
+        $('#Presupuesto_desarrollo_dv').hide();
     });
 
     $('#Proyecto').on('click', function(e){
@@ -96,6 +98,7 @@ $(function()
         $('#Componente_Conf').removeClass("active");
         $('#Rubro').removeClass("active");
         $('#Actividad_rubros').removeClass("active");
+        $('#Presupuesto_desarrollo').removeClass("active");
 
         $('#Proyecto_dv').show();
         $('#Fuente_dv').hide();
@@ -106,6 +109,7 @@ $(function()
         $('#Componente_Conf_dv').hide();
         $('#Rubro_dv').hide();
         $('#Actividad_rubros_dv').hide();
+        $('#Presupuesto_desarrollo_dv').hide();
     });
 
     $('#Meta').on('click', function(e){
@@ -118,6 +122,7 @@ $(function()
         $('#Componente_Conf').removeClass("active");
         $('#Rubro').removeClass("active");
         $('#Actividad_rubros').removeClass("active");
+        $('#Presupuesto_desarrollo').removeClass("active");
 
         $('#Meta_dv').show();
         $('#Fuente_dv').hide();
@@ -128,6 +133,7 @@ $(function()
         $('#Componente_Conf_dv').hide();
         $('#Rubro_dv').hide();
         $('#Actividad_rubros_dv').hide();
+        $('#Presupuesto_desarrollo_dv').hide();
     });
 
     $('#Actividad').on('click', function(e){
@@ -140,6 +146,7 @@ $(function()
         $('#Componente_Conf').removeClass("active");
         $('#Rubro').removeClass("active");
         $('#Actividad_rubros').removeClass("active");
+        $('#Presupuesto_desarrollo').removeClass("active");
 
         $('#Actividad_dv').show();
         $('#Fuente_dv').hide();
@@ -150,6 +157,7 @@ $(function()
         $('#Componente_Conf_dv').hide();
         $('#Rubro_dv').hide();
         $('#Actividad_rubros_dv').hide();
+        $('#Presupuesto_desarrollo_dv').hide();
     });
 
     $('#Componente').on('click', function(e){
@@ -162,6 +170,7 @@ $(function()
         $('#Componente_Conf').removeClass("active");
         $('#Rubro').removeClass("active");
         $('#Actividad_rubros').removeClass("active");
+        $('#Presupuesto_desarrollo').removeClass("active");
 
         $('#Componente_dv').show();
         $('#Fuente_dv').hide();
@@ -172,6 +181,7 @@ $(function()
         $('#Componente_Conf_dv').hide();
         $('#Rubro_dv').hide();
         $('#Actividad_rubros_dv').hide();
+        $('#Presupuesto_desarrollo_dv').hide();
     });
 
     $('#Componente_Conf').on('click', function(e){
@@ -184,6 +194,7 @@ $(function()
         $('#Componente').removeClass("active");
         $('#Rubro').removeClass("active");
         $('#Actividad_rubros').removeClass("active");
+        $('#Presupuesto_desarrollo').removeClass("active");
 
         $('#Componente_Conf_dv').show();
         $('#Fuente_dv').hide();
@@ -194,6 +205,7 @@ $(function()
         $('#Componente_dv').hide();
         $('#Rubro_dv').hide();
         $('#Actividad_rubros_dv').hide();
+        $('#Presupuesto_desarrollo_dv').hide();
     });
 
     $('#Fuente').on('click', function(e){
@@ -206,6 +218,7 @@ $(function()
         $('#Componente_Conf').removeClass("active");
         $('#Rubro').removeClass("active");
         $('#Actividad_rubros').removeClass("active");
+        $('#Presupuesto_desarrollo').removeClass("active");
 
         $('#Fuente_dv').show();
         $('#Presupuesto_dv').hide();
@@ -216,6 +229,7 @@ $(function()
         $('#Componente_Conf_dv').hide();
         $('#Rubro_dv').hide();
         $('#Actividad_rubros_dv').hide();
+        $('#Presupuesto_desarrollo_dv').hide();
     });
 
 
@@ -229,6 +243,7 @@ $(function()
         $('#Componente_Conf').removeClass("active");
         $('#Fuente_dv').removeClass("active");
         $('#Actividad_rubros').removeClass("active");
+        $('#Presupuesto_desarrollo').removeClass("active");
 
 
         $('#Rubro_dv').show();
@@ -240,6 +255,7 @@ $(function()
         $('#Componente_dv').hide();
         $('#Componente_Conf_dv').hide();
         $('#Actividad_rubros_dv').hide();
+        $('#Presupuesto_desarrollo_dv').hide();
     });
 
 
@@ -253,8 +269,35 @@ $(function()
         $('#Componente_Conf').removeClass("active");
         $('#Fuente_dv').removeClass("active");
         $('#Rubro').removeClass("active");
+        $('#Presupuesto_desarrollo').removeClass("active");
 
         $('#Actividad_rubros_dv').show();
+        $('#Rubro_dv').hide();
+        $('#Fuente_dv').hide();
+        $('#Presupuesto_dv').hide();
+        $('#Proyecto_dv').hide();
+        $('#Meta_dv').hide();
+        $('#Actividad_dv').hide();
+        $('#Componente_dv').hide();
+        $('#Componente_Conf_dv').hide();
+        $('#Presupuesto_desarrollo_dv').hide();
+    });
+
+
+    $('#Presupuesto_desarrollo').on('click', function(e){
+        $(this).addClass("active");
+        $('#Presupuesto').removeClass("active");
+        $('#Proyecto').removeClass("active");
+        $('#Meta').removeClass("active");
+        $('#Actividad').removeClass("active");
+        $('#Componente').removeClass("active");
+        $('#Componente_Conf').removeClass("active");
+        $('#Fuente_dv').removeClass("active");
+        $('#Rubro').removeClass("active");
+        $('#Actividad_rubros').removeClass("active");
+
+        $('#Presupuesto_desarrollo_dv').show();
+        $('#Actividad_rubros_dv').hide();
         $('#Rubro_dv').hide();
         $('#Fuente_dv').hide();
         $('#Presupuesto_dv').hide();
@@ -267,7 +310,11 @@ $(function()
 
     
 
-    var t = $('#Tabla3').DataTable({
+
+/*############################   PLAN DE INVERSION    ###########################*/
+
+
+    var t_0 = $('#Tabla0').DataTable({
         dom: 'Bfrtip',
         buttons: [
             'copyHtml5',
@@ -277,10 +324,205 @@ $(function()
         ]
     });
 
-   
+    $('#form_plan_Desarrollo').on('submit', function(e){
+      
+        $.post(URL+'/validar/plan_dearrollo',$(this).serialize(),function(data){
+            if(data.status == 'error')
+            {
+           
+                validad_error_plan(data.errors);
+           
+            } else {
+                console.log(data);
+                if(data.status == 'modelo')
+                {
+                    var datos=data.proyectodesarrollo;
+                    document.getElementById("form_plan_Desarrollo").reset();                
+                    $("#div_Tabla_0").show();
+                    var num=1;
+                    t_0.clear().draw();
+                    $.each(datos, function(i, e){
+                        t_0.row.add( [
+                            '<th scope="row" class="text-center">'+num+'</th>',
+                            '<td><h4>'+e['nombre']+'<h4></td>',
+                            '<td>'+e['fecha_fin']+'</td>',
+                            '<td>'+e['fecha_inicio']+'</td>',
+                            '<td>'+e['valor']+'</td>',
+                            '<td><div class="btn-group btn-group-justified tama">'+
+                                '<div class="btn-group">'+
+                                '<button type="button" data-rel="'+e['id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                '</div>'+
+                                '<div class="btn-group">'+
+                                '<button type="button" data-rel="'+e['id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                '</div>'+
+                                '</div>'+
+                                '<div id="espera'+e['id']+'"></div>'+
+                            '</td>'
+                        ] ).draw( false );
+                        num++;
+                    });
+                    $('#mensaje_pplan').show();
+                    setTimeout(function(){
+                        $('#mensaje_pplan').hide();
+                        $("#id_btn_plan").html('Registrar');
+                        $("#id_btn_plan_canc").hide();
+                    }, 2000)
+                    //location.reload();
+                }else{
+                    $('#mensaje_pplan2').html('<strong>Error!</strong> el valor del plan que intenta modificar es menor a la suma de las vigencias: $'+data.sum_proyectos);
+                    $('#mensaje_pplan2').show();
+                    setTimeout(function(){
+                        $('#mensaje_pplan2').hide();
+                    }, 6000)
+                }
+                
+            }
+        },'json');
+
+        e.preventDefault();
+    });
+
+    /*$('.precio').each(function( index ) {
+        $(this).priceFormat({ prefix: '',  thousandsSeparator: '' });
+    });*/
 
 
-/*############################   PRESUPUESTO    ###########################*/
+    var validad_error_plan = function(data)
+    {
+        $('#form_plan_Desarrollo .form-group').removeClass('has-error');
+        var selector = '';
+        for (var error in data){
+            if (typeof data[error] !== 'function') {
+                switch(error)
+                {
+                    case 'precio_plan':
+                    case 'fecha_final_plan':
+                    case 'fecha_inicial_plan':
+                    case 'nombre_plan_desarrollo':
+                        selector = 'input';
+                    break;
+
+                }
+                $('#form_plan_Desarrollo '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
+            }
+        }
+    }
+
+
+    $('#Tabla0').delegate('button[data-funcion="ver_eli"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        $("#espera_plan"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/plandesarrollo/eliminar/'+id,
+            {},
+            function(data)
+            {   
+
+                    if(data.status == 'error')
+                    {
+                        var proyects="";
+                        $.each(data.datos, function(i, e){
+                            $.each(e.presupuestos, function(i, ee){
+                                proyects=proyects+'<br><li>'+ee['Nombre_Actividad']+'</li>';
+                            });
+                        });
+                        $("#espera_plan"+id).html('<div class="form_paaalert alert-danger"><strong>Error!</strong> Posee las siguientes vigencias activas.<br>'+proyects+'</div>');
+                        setTimeout(function(){
+                            $("#espera_plan"+id).html('');
+                        }, 4000)
+                   
+                    } else {
+                        $("#espera_plan"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino el plan de desarrollo correctamente.</div>');                        
+                        setTimeout(function(){
+                                $("#espera_plan"+id).html('');
+                                var num=1;
+                                t_0.clear().draw();
+                                $.each(data.datos, function(i, e){
+                                    t_0.row.add( [
+                                        '<th scope="row" class="text-center">'+num+'</th>',
+                                        '<td><h4>'+e['nombre']+'<h4></td>',
+                                        '<td>'+e['fecha_fin']+'</td>',
+                                        '<td>'+e['fecha_inicio']+'</td>',
+                                        '<td>'+e['valor']+'</td>',
+                                        '<td><div class="btn-group btn-group-justified tama">'+
+                                            '<div class="btn-group">'+
+                                            '<button type="button" data-rel="'+e['id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                            '</div>'+
+                                            '<div class="btn-group">'+
+                                            '<button type="button" data-rel="'+e['id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                            '</div>'+
+                                            '</div>'+
+                                            '<div id="espera'+e['id']+'"></div>'+
+                                        '</td>'
+                                    ] ).draw( false );
+                                    num++;
+                                });
+                        }, 2000)
+                    }
+            }
+        );
+    });
+
+    $('#Tabla0').delegate('button[data-funcion="ver_upd"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        $("#espera_plan"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/plandesarrollo/modificar/'+id,
+            {},
+            function(data)
+            {   
+                $("#espera_plan"+id).html("");
+                $('input[name="Id_plan_desarrollo"]').val(data.id);
+                $('input[name="nombre_plan_desarrollo"]').val(data.nombre);
+                $('input[name="fecha_inicial_plan"]').val(data.fecha_fin);
+                $('input[name="fecha_final_plan"]').val(data.fecha_inicio);
+                $('input[name="precio_plan"]').val(data.valor);
+                $("#id_btn_plan").html('Modificar');
+                $("#id_btn_plan_canc").show();
+                $("#div_Tabla_0").hide();
+
+                $('html,body').animate({
+                    scrollTop: $("#main_paa_configuracion").offset().top
+                }, 1000);
+                $( "#div_plan_Desarrollo" ).toggle("highlight");            
+            }
+        );
+        e.preventDefault();
+    }); 
+
+
+    $('#id_btn_plan_canc').on('click', function(e){
+          
+                    $('input[name="Id_plan_desarrollo"]').val('0');
+                    $('input[name="nombre_plan_desarrollo"]').val('');
+                    $('input[name="fecha_inicial_plan"]').val('');
+                    $('input[name="fecha_final_plan"]').val('');
+                    $('input[name="precio_plan"]').val('');
+                    $("#id_btn_plan").html('Registrar');
+                    $("#id_btn_plan_canc").hide();
+                    $("#div_Tabla_0").show();
+
+                    $('html,body').animate({
+                        scrollTop: $("#Tabla0").offset().top
+                    }, 1000);
+                    return false;
+
+    }); 
+
+
+
+/*############################   VIGENCIA    ###########################*/
+
+
+    var t = $('#Tabla3').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+    });
 
 
     $('#form_presupuesto').on('submit', function(e){
