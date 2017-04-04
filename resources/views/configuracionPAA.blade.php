@@ -170,11 +170,11 @@
 						    	<div class="form-group">	
 						    		<label>Plan de desarrollo</label>
 						    		<input type="hidden" class="form-control" name="Id_presupuesto" value="0">
-									<input type="hidden" class="form-control" name="nombre_presupuesto">
-									<select class="form-control" name="idPresupuesto">
+								
+									<select class="form-control" name="idProyectoDesa">
 											<option value="">Seleccionar</option>
 										@foreach($proyectoDesarrollo as $proyectoDesarrollos)
-											<option value="{{ $proyectoDesarrollos['Id'] }}" >{{ $proyectoDesarrollos['nombre'] }}</option>
+											<option value="{{ $proyectoDesarrollos['id'] }}" >{{ $proyectoDesarrollos['nombre'] }}</option>
 									    @endforeach
 									</select>
 								</div>

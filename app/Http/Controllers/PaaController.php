@@ -120,7 +120,7 @@ class PaaController extends Controller
 				'precio' => 'required',
 				'fecha_final_presupuesto' => 'required',
 				'fecha_inicial_presupuesto' => 'required',
-				'nombre_presupuesto' => 'required',
+				'idProyectoDesa' => 'required',
 				'vigencia' => 'required',
         	]
         );
@@ -151,15 +151,15 @@ class PaaController extends Controller
 
 	public function crear_presspuesto($model, $input)
 	{
-		$model['Nombre_Actividad'] = $input['nombre_presupuesto'];
+		$model['Id_proyectoDesarrollo'] = $input['idProyectoDesa'];
 		$model['vigencia'] = $input['vigencia'];
 		$model['fecha_inicio'] = $input['fecha_inicial_presupuesto'];
 		$model['fecha_fin'] = $input['fecha_final_presupuesto'];
 		$model['presupuesto'] = $input['precio'];
 		$model->save();
 
-		$Presupuesto = Presupuesto::all();
-		return response()->json(array('status' => 'modelo', 'presupuesto' => $Presupuesto));
+		$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos')->get();
+		return response()->json(array('status' => 'modelo', 'proyectoDesarrollo' => $proyectoDesarrollo));
 	}
 
 	public function modificar_actividad($model, $input)
@@ -168,13 +168,14 @@ class PaaController extends Controller
 		$sum = $proyectos->sum( 'valor' );
 
 		if($input['precio']>=$sum){
-			$model['Nombre_Actividad'] = $input['nombre_presupuesto'];
+			$model['Id_proyectoDesarrollo'] = $input['idProyectoDesa'];
 			$model['fecha_inicio'] = $input['fecha_inicial_presupuesto'];
 			$model['fecha_fin'] = $input['fecha_final_presupuesto'];
 			$model['presupuesto'] = $input['precio'];
 			$model->save();
-			$Presupuesto = Presupuesto::all();
-			return response()->json(array('status' => 'modelo', 'presupuesto' => $Presupuesto));
+			
+			$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos')->get();
+			return response()->json(array('status' => 'modelo', 'proyectoDesarrollo' => $proyectoDesarrollo));
 		}else{
 			return response()->json(array('status' => 'Saldo','sum_proyectos' => $sum));
 		}
@@ -252,10 +253,11 @@ class PaaController extends Controller
 
 	public function crear_plan($model, $input)
 	{
+		$valo= str_replace('.', '', $input['precio_plan']);
 		$model['nombre'] = $input['nombre_plan_desarrollo'];
 		$model['fecha_inicio'] = $input['fecha_inicial_plan'];
 		$model['fecha_fin'] = $input['fecha_final_plan'];
-		$model['valor'] = $input['precio_plan'];
+		$model['valor'] = $valo;
 		$model->save();
 
 		$Presupuesto = ProyectoDesarrollo::all();

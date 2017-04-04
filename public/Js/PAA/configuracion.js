@@ -7,6 +7,24 @@ $(function()
         var id = $(this).data('rel');
     });
 
+      function formatCurrency(input)
+    {
+        var num = input.value.replace(/\./g,'');
+        if(!isNaN(num)){
+            num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+            num = num.split('').reverse().join('').replace(/^[\.]/,'');
+            input.value = num;
+        }
+          
+        else{ alert('Solo se permiten numeros');
+            input.value = input.value.replace(/[^\d\.]*/g,'');
+        }
+    }
+
+    $('input[name="precio_plan"]').on('keyup', function(e){
+        formatCurrency(this);
+    });
+
     $('select[name="Id_Pais"]').on('change', function(e){
         popular_ciudades($(this).val());
     });
@@ -347,7 +365,7 @@ $(function()
                             '<td><h4>'+e['nombre']+'<h4></td>',
                             '<td>'+e['fecha_fin']+'</td>',
                             '<td>'+e['fecha_inicio']+'</td>',
-                            '<td>'+e['valor']+'</td>',
+                            '<td>'+number_format(e['valor'])+'</td>',
                             '<td><div class="btn-group btn-group-justified tama">'+
                                 '<div class="btn-group">'+
                                 '<button type="button" data-rel="'+e['id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
@@ -537,39 +555,42 @@ $(function()
                 console.log(data);
                 if(data.status == 'modelo')
                 {
-                    var datos=data.presupuesto;
+                    
                     document.getElementById("form_presupuesto").reset();                
                     $("#div_Tabla3").show();
                     var num=1;
                     t.clear().draw();
-                    $.each(datos, function(i, e){
-                        t.row.add( [
-                            '<th scope="row" class="text-center">'+num+'</th>',
-                            '<td><h4>'+e['Nombre_Actividad']+'<h4></td>',
-                            '<td>'+e['fecha_fin']+'</td>',
-                            '<td>'+e['fecha_inicio']+'</td>',
-                            '<td>'+e['presupuesto']+'</td>',
-                            '<td><div class="btn-group btn-group-justified tama">'+
-                                '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
-                                '</div>'+
-                                '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                '</div>'+
-                                '</div>'+
-                                '<div id="espera'+e['Id']+'"></div>'+
-                            '</td>'
-                        ] ).draw( false );
-                        num++;
-
+                    $.each(data.proyectoDesarrollo, function(i, e){
+                        $.each(e.presupuestos, function(i, ee){
+                            t.row.add( [
+                                '<th scope="row" class="text-center">'+num+'</th>',
+                                '<td><h4>'+e['nombre']+'<h4></td>',
+                                '<td>'+e.presupuestos['vigencia']+'</td>',
+                                '<td>'+e.presupuestos['fecha_fin']+'</td>',
+                                '<td>'+e.presupuestos['fecha_inicio']+'</td>',
+                                '<td>'+number_format(e.presupuestos['presupuesto'],1)+'</td>',
+                                '<td><div class="btn-group btn-group-justified tama">'+
+                                    '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+e.presupuestos['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+e.presupuestos['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '</div>'+
+                                    '<div id="espera'+ee['Id']+'"></div>'+
+                                '</td>'
+                            ] ).draw( false );
+                            num++;
+                        });
                     });
+
                     $('#mensaje_presupuesto').show();
                     setTimeout(function(){
                         $('#mensaje_presupuesto').hide();
                         $("#id_btn_presupuesto").html('Registrar');
                         $("#id_btn_presup_canc").hide();
                     }, 2000)
-                    location.reload();
+                    //location.reload();
                 }else{
                     $('#mensaje_presupuesto2').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
                     $('#mensaje_presupuesto2').show();
@@ -596,10 +617,10 @@ $(function()
                     case 'precio':
                     case 'fecha_final_presupuesto':
                     case 'fecha_inicial_presupuesto':
-                    case 'nombre_presupuesto':
                         selector = 'input';
                     break;
                     
+                    case 'idProyectoDesa':
                     case 'vigencia':
                         selector = 'select';
                     break;
