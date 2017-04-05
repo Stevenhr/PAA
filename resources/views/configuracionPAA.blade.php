@@ -171,7 +171,7 @@
 						    		<label>Plan de desarrollo</label>
 						    		<input type="hidden" class="form-control" name="Id_presupuesto" value="0">
 								
-									<select class="form-control" name="idProyectoDesa">
+									<select class="form-control" name="idProyectoDesa" id="idProyectoDesa">
 											<option value="">Seleccionar</option>
 										@foreach($proyectoDesarrollo as $proyectoDesarrollos)
 											<option value="{{ $proyectoDesarrollos['id'] }}" >{{ $proyectoDesarrollos['nombre'] }}</option>
@@ -183,7 +183,7 @@
 			        		<div class="col-xs-12 col-md-2 ">
 						    	<div class="form-group">	
 						    		<label>Vigencia</label>
-						    		<select class="form-control" name="vigencia">
+						    		<select class="form-control" name="vigencia" id="vigencia">
 											<option value="">Seleccionar</option>
 											<option value="2017">2017</option>
 											<option value="2018">2018</option>

@@ -151,11 +151,12 @@ class PaaController extends Controller
 
 	public function crear_presspuesto($model, $input)
 	{
+		$valo= str_replace('.', '', $input['precio']);
 		$model['Id_proyectoDesarrollo'] = $input['idProyectoDesa'];
 		$model['vigencia'] = $input['vigencia'];
 		$model['fecha_inicio'] = $input['fecha_inicial_presupuesto'];
 		$model['fecha_fin'] = $input['fecha_final_presupuesto'];
-		$model['presupuesto'] = $input['precio'];
+		$model['presupuesto'] = $valo;
 		$model->save();
 
 		$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos')->get();
@@ -168,10 +169,12 @@ class PaaController extends Controller
 		$sum = $proyectos->sum( 'valor' );
 
 		if($input['precio']>=$sum){
+			$valo= str_replace('.', '', $input['precio']);
+			$model['vigencia'] = $input['vigencia'];
 			$model['Id_proyectoDesarrollo'] = $input['idProyectoDesa'];
 			$model['fecha_inicio'] = $input['fecha_inicial_presupuesto'];
 			$model['fecha_fin'] = $input['fecha_final_presupuesto'];
-			$model['presupuesto'] = $input['precio'];
+			$model['presupuesto'] = $valo;
 			$model->save();
 			
 			$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos')->get();
@@ -199,8 +202,8 @@ class PaaController extends Controller
 		{
 			$user = Presupuesto::find($id);
 			$user->delete();
-			$Presupuesto = Presupuesto::all();
-			return $Presupuesto;
+			$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos')->get();
+			return response()->json(array('status' => 'modelo', 'proyectoDesarrollo' => $proyectoDesarrollo));
 		}
 
 	}
@@ -208,7 +211,7 @@ class PaaController extends Controller
 
 	public function modificar_presupuesto(Request $request, $id)
 	{
-		$Presupuesto = Presupuesto::find($id);
+		$Presupuesto = Presupuesto::with('plandesarrollo')->find($id);
 		return response()->json($Presupuesto);
 	}
 

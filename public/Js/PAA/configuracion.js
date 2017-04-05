@@ -24,6 +24,9 @@ $(function()
     $('input[name="precio_plan"]').on('keyup', function(e){
         formatCurrency(this);
     });
+    $('input[name="precio"]').on('keyup', function(e){
+        formatCurrency(this);
+    });
 
     $('select[name="Id_Pais"]').on('change', function(e){
         popular_ciudades($(this).val());
@@ -552,11 +555,13 @@ $(function()
                 validad_error(data.errors);
            
             } else {
-                console.log(data);
+                validad_error(data.errors);
                 if(data.status == 'modelo')
                 {
                     
-                    document.getElementById("form_presupuesto").reset();                
+                    document.getElementById("form_presupuesto").reset(); 
+                  
+               
                     $("#div_Tabla3").show();
                     var num=1;
                     t.clear().draw();
@@ -565,16 +570,16 @@ $(function()
                             t.row.add( [
                                 '<th scope="row" class="text-center">'+num+'</th>',
                                 '<td><h4>'+e['nombre']+'<h4></td>',
-                                '<td>'+e.presupuestos['vigencia']+'</td>',
-                                '<td>'+e.presupuestos['fecha_fin']+'</td>',
-                                '<td>'+e.presupuestos['fecha_inicio']+'</td>',
-                                '<td>'+number_format(e.presupuestos['presupuesto'],1)+'</td>',
+                                '<td>'+ee['vigencia']+'</td>',
+                                '<td>'+ee['fecha_fin']+'</td>',
+                                '<td>'+ee['fecha_inicio']+'</td>',
+                                '<td>'+number_format(ee['presupuesto'],1)+'</td>',
                                 '<td><div class="btn-group btn-group-justified tama">'+
                                     '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e.presupuestos['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                     '</div>'+
                                     '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+e.presupuestos['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                    '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                     '</div>'+
                                     '</div>'+
                                     '<div id="espera'+ee['Id']+'"></div>'+
@@ -658,26 +663,30 @@ $(function()
                                 $("#espera"+id).html('');
                                 t.clear().draw();
                                 var num=1;
-                                $.each(data, function(i, e){
-                                    t.row.add( [
-                                        '<th scope="row" class="text-center">'+num+'</th>',
-                                        '<td><h4>'+e['Nombre_Actividad']+'<h4></td>',
-                                        '<td>'+e['fecha_inicio']+'</td>',
-                                        '<td>'+e['fecha_fin']+'</td>',
-                                        '<td>'+number_format(e['presupuesto'],1)+'</td>',
-                                        '<td><div class="btn-group btn-group-justified tama">'+
-                                            '<div class="btn-group">'+
-                                            '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
-                                            '</div>'+
-                                            '<div class="btn-group">'+
-                                            '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                            '</div>'+
-                                            '</div>'+
-                                            '<div id="espera'+e['Id']+'"></div>'+
-                                        '</td>'
-                                    ] ).draw( false );
-                                    num++;
+                                $.each(data.proyectoDesarrollo, function(i, e){
+                                    $.each(e.presupuestos, function(i, ee){
+                                        t.row.add( [
+                                            '<th scope="row" class="text-center">'+num+'</th>',
+                                            '<td><h4>'+e['nombre']+'<h4></td>',
+                                            '<td>'+ee['vigencia']+'</td>',
+                                            '<td>'+ee['fecha_fin']+'</td>',
+                                            '<td>'+ee['fecha_inicio']+'</td>',
+                                            '<td>'+number_format(ee['presupuesto'],1)+'</td>',
+                                            '<td><div class="btn-group btn-group-justified tama">'+
+                                                '<div class="btn-group">'+
+                                                '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                                '</div>'+
+                                                '<div class="btn-group">'+
+                                                '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                                '</div>'+
+                                                '</div>'+
+                                                '<div id="espera'+ee['Id']+'"></div>'+
+                                            '</td>'
+                                        ] ).draw( false );
+                                        num++;
+                                    });
                                 });
+                               
                         }, 2000)
                     }
             }
@@ -692,9 +701,12 @@ $(function()
             {},
             function(data)
             {   
+                    //console.log(data.Id);
                     $("#espera"+id).html("");
                     $('input[name="Id_presupuesto"]').val(data.Id);
-                    $('input[name="nombre_presupuesto"]').val(data.Nombre_Actividad);
+                    $('#idProyectoDesa > option[value="'+data.plandesarrollo.id+'"]').prop('selected', 'selected');
+                    $('#vigencia > option[value="'+data.vigencia+'"]').prop('selected', 'selected');
+
                     $('input[name="fecha_inicial_presupuesto"]').val(data.fecha_fin);
                     $('input[name="fecha_final_presupuesto"]').val(data.fecha_inicio);
                     $('input[name="precio"]').val(data.presupuesto);
@@ -714,7 +726,8 @@ $(function()
     $('#id_btn_presup_canc').on('click', function(e){
           
                     $('input[name="Id_presupuesto"]').val('0');
-                    $('input[name="nombre_presupuesto"]').val('');
+                    $('#idProyectoDesa > option[value=""]').prop('selected', 'selected');
+                    $('#vigencia > option[value=""]').prop('selected', 'selected');
                     $('input[name="fecha_inicial_presupuesto"]').val('');
                     $('input[name="fecha_final_presupuesto"]').val('');
                     $('input[name="precio"]').val('');
