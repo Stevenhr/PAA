@@ -26,7 +26,7 @@ class Componente extends Model
 
     public function actividadescomponetes()
     {
-        return $this->hasMany('App\ActividadComponente','actividad_id');
+        return $this->hasMany('App\ActividadComponente','componente_id');//actividad_id
     }
 
     public function paas()

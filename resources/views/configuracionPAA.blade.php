@@ -41,7 +41,7 @@
 
 						    <div class="col-xs-12 col-md-3">
 						    	<div class="form-group">	
-						    		<label>Plan de desarrollo</label>
+						    		<label>Nombre plan de desarrollo</label>
 						    		<input type="hidden" class="form-control" name="Id_plan_desarrollo" value="0">
 									<input type="text" class="form-control" name="nombre_plan_desarrollo">
 								</div>
@@ -321,10 +321,10 @@
 				        	<div class="col-xs-12 col-md-3 ">
 						    	<div class="form-group">	
 						    		<label>Plan de desarrollo</label>
-									<select class="form-control" name="idPresupuesto">
+									<select class="form-control" name="idProyectoDesa_Proyecto" id="idProyectoDesa_Proyecto">
 											<option value="">Seleccionar</option>
 										@foreach($proyectoDesarrollo as $proyectoDesarrollos)
-											<option value="{{ $proyectoDesarrollos['Id'] }}" >{{ $proyectoDesarrollos['nombre'] }}</option>
+											<option value="{{ $proyectoDesarrollos['id'] }}" >{{ $proyectoDesarrollos['nombre'] }}</option>
 									    @endforeach
 									</select>
 								</div>
@@ -332,15 +332,8 @@
 				        	<div class="col-xs-12 col-md-3 text-">
 						    	<div class="form-group">	
 						    		<label>Vigencia</label>
-									<select class="form-control" name="idPresupuesto">
+									<select class="form-control" name="idPresupuesto"  id="idPresupuesto">
 											<option value="">Seleccionar</option>
-										@foreach($proyectoDesarrollo as $proyectoDesarrollos)
-						        			@if(count($proyectoDesarrollos->presupuestos )!=0)
-							        		@foreach($proyectoDesarrollos->presupuestos as $presupuesto)
-												<option value="{{ $presupuesto['Id'] }}" >{{ $presupuesto['vigencia'] }}</option>
-							    			@endforeach
-				        					@endif
-			        					@endforeach
 									</select>
 								</div>
 			        		</div>
@@ -358,7 +351,7 @@
 
 						    <div class="col-xs-12 col-md-3 text-">
 						    	<div class="form-group">	
-						    		<label>Nombre</label>
+						    		<label>Nombre proyecto</label>
 						    		<input type="hidden" class="form-control" name="Id_proyecto" value="0">
 									<input type="text" class="form-control" name="nombre_proyecto">
 								</div>
@@ -504,10 +497,10 @@
 				        	<div class="col-xs-12 col-md-3 ">
 						    	<div class="form-group">	
 						    		<label>Plan de desarrollo</label>
-									<select class="form-control" name="idPresupuesto">
+									<select class="form-control" name="idProyectoDesa_Meta">
 											<option value="">Seleccionar</option>
 										@foreach($proyectoDesarrollo as $proyectoDesarrollos)
-											<option value="{{ $proyectoDesarrollos['Id'] }}" >{{ $proyectoDesarrollos['nombre'] }}</option>
+											<option value="{{ $proyectoDesarrollos['id'] }}" >{{ $proyectoDesarrollos['nombre'] }}</option>
 									    @endforeach
 									</select>
 								</div>
@@ -518,13 +511,6 @@
 						    		<label>Vigencia</label>
 									<select class="form-control" name="idPresupuesto_M">
 											<option value="">Seleccionar</option>
-										@foreach($proyectoDesarrollo as $proyectoDesarrollos)
-						        			@if(count($proyectoDesarrollos->presupuestos )!=0)
-											@foreach($proyectoDesarrollos->presupuestos  as $presupuesto)
-												<option value="{{ $presupuesto['Id'] }}" >{{ $presupuesto['vigencia'] }}</option>
-										    @endforeach
-										    @endIf
-										@endforeach
 									</select>
 								</div>
 			        		</div>
@@ -547,7 +533,7 @@
 						<div class="row" >
 						    <div class="col-xs-12 col-md-3">
 						    	<div class="form-group">	
-						    		<label>Nombre</label>
+						    		<label>Nombre meta</label>
 						    		<input type="hidden" class="form-control" name="Id_meta" value="0">
 									<input type="text" class="form-control" name="nombre_meta">
 								</div>
@@ -642,7 +628,7 @@
 									        						<th scope="row" class="text-center">{{ $var }}</th>
 									        						<td><h4>{{ $proyectoDesarrollos['nombre'] }}</h4></td>
 								                        			<td><h4>{{ $presupuesto['vigencia'] }}</h4></td>
-									        						<th scope="row">{{ $proyecto['Nombre'] }}</th>
+									        						<th><h4>{{ $proyecto['Nombre'] }}</h4></th>
 											                        <td><h4>{{ $meta['Nombre'] }}</h4></td>
 											                        <td>{{ $meta['fecha_inicio'] }}</td>
 											                        <td>{{ $meta['fecha_fin'] }}</td>
@@ -698,10 +684,10 @@
 				        	<div class="col-xs-12 col-md-3 ">
 						    	<div class="form-group">	
 						    		<label>Plan de desarrollo</label>
-									<select class="form-control" name="idPresupuesto">
+									<select class="form-control" name="idProyectoDesa_Actividad">
 											<option value="">Seleccionar</option>
 										@foreach($proyectoDesarrollo as $proyectoDesarrollos)
-											<option value="{{ $proyectoDesarrollos['Id'] }}" >{{ $proyectoDesarrollos['nombre'] }}</option>
+											<option value="{{ $proyectoDesarrollos['id'] }}" >{{ $proyectoDesarrollos['nombre'] }}</option>
 									    @endforeach
 									</select>
 								</div>
@@ -712,13 +698,6 @@
 						    		<label>Vigencia</label>
 									<select class="form-control" name="idPresupuesto_A">
 											<option value="">Seleccionar</option>
-										@foreach($proyectoDesarrollo as $proyectoDesarrollos)
-						        			@if(count($proyectoDesarrollos->presupuestos )!=0)
-											@foreach($proyectoDesarrollos->presupuestos as $presupuesto)
-												<option value="{{ $presupuesto['Id'] }}" >{{ $presupuesto['vigencia'] }}</option>
-										    @endforeach
-										    @endif
-										@endforeach
 									</select>
 								</div>
 			        		</div>
@@ -745,7 +724,7 @@
 						<div class="row" >
 						    <div class="col-xs-12 col-md-3 text-">
 						    	<div class="form-group">	
-						    		<label>Nombre</label>
+						    		<label>Nombre actividad</label>
 						    		<input type="hidden" class="form-control" name="Id_actividad" value="0">
 									<input type="text" class="form-control" name="nombre_actividad">
 								</div>
@@ -794,7 +773,7 @@
 			            		<hr><hr>
 					        </div>
             			    <div class="col-xs-12 col-md-12">
-			            		<h5>Listado de Metas:</h5>
+			            		<h5>Listado de Actividades:</h5>
 					        </div>
 						    <div class="col-xs-12 col-md-12">
 						    	<div class="table-responsive" id="div_Tabla6">
@@ -802,7 +781,8 @@
 								        <thead>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Presupuesto</th>
+								                <th>Plan Desarrollo</th>
+								                <th>Vigencia</th>
 								                <th>Proyecto</th>
 								                <th>Meta</th>
 								                <th>Nombre Actividad</th>
@@ -815,7 +795,8 @@
 								        <tfoot>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Presupuesto</th>
+								                <th>Plan Desarrollo</th>
+								                <th>Vigencia</th>
 								                <th>Proyecto</th>
 								                <th>Meta</th>
 								                <th>Nombre Actividad</th>
@@ -841,9 +822,10 @@
 					        								    		@foreach($meta->actividades as $actividad)
 											        						<tr>
 											        						<th scope="row" class="text-center">{{ $var }}</th>
-											        						<th scope="row">{{ $presupuesto['vigencia'] }}</th>
-											        						<th scope="row">{{ $proyecto['Nombre'] }}</th>
-											        						<th scope="row">{{ $meta['Nombre'] }}</th>
+											        						<td><h4>{{ $proyectoDesarrollos['nombre'] }}</h4></td>
+								                        					<td><h4>{{ $presupuesto['vigencia'] }}</h4></td>
+											        						<th><h4>{{ $proyecto['Nombre'] }}</h4></th>
+											        						<th><h4>{{ $meta['Nombre'] }}</h4></th>
 													                        <td><h4>{{ $actividad['Nombre'] }}</h4></td>
 													                        <td>{{ $actividad['fecha_inicio'] }}</td>
 													                        <td>{{ $actividad['fecha_fin'] }}</td>
@@ -903,20 +885,20 @@
 					<div id="div_form_componente_crear"><br></div>
 				        
 						<div class="row" >
-							<div class="col-xs-12 col-md-3">
+							<div class="col-xs-12 col-md-4">
 			        			<div class="form-group">
 			        				<label>Codigo</label>
 									<input type="text" class="form-control precio" name="codigo_componente_crear">
 								</div>
 			        		</div>
-						    <div class="col-xs-12 col-md-3">
+						    <div class="col-xs-12 col-md-8">
 						    	<div class="form-group">	
 						    		<label>Nombre Componente</label>
 						    		<input type="hidden" class="form-control" name="Id_componente_crear" value="0">
 									<input type="text" class="form-control" name="nombre_componente_crear">
 								</div>
 			        		</div>
-			        		<div class="col-xs-12 col-md-3">
+			        		<!--<div class="col-xs-12 col-md-3">
 			        			<div class="form-group">
 			        				<label>Valor</label>
 									<input type="text" class="form-control precio" name="valor_componente_crear">
@@ -933,7 +915,7 @@
 									    @endforeach
 									</select>
 								</div>
-			        		</div>
+			        		</div>-->
 						</div>
 
 						<div class="row">
@@ -967,8 +949,6 @@
 								                <th class="text-center">N°</th>
 								                <th>Codigo</th>
 								                <th>Componente</th>
-								                <th>Valor</th>
-								                <th>Fuente</th>
 								                <th>Opción</th>
 								            </tr>
 								        </thead>
@@ -977,8 +957,6 @@
 								            	<th class="text-center">N°</th>
 								                <th>Codigo</th>
 								                <th>Componente</th>
-								                <th>Valor</th>
-								                <th>Fuente</th>
 								                <th>Opción</th>
 								            </tr>
 								        </tfoot>
@@ -989,9 +967,7 @@
 								        			<tr>
 												    	<th scope="row" class="text-center">{{ $var }}</th>
 												        <td scope="row">{{ $componente['codigo'] }}</td>
-												        <td scope="row">{{ $componente['Nombre'] }}</td>
-												        <td scope="row">{{ $componente['valor'] }}</td>
-												        <td scope="row">{{ $componente->fuente['nombre'] }}</td>
+												        <td scope="row"><h4>{{ $componente['Nombre'] }}</h4></td>
 												        <td>
 															<div class="btn-group btn-group-justified tama">
 															  <div class="btn-group">

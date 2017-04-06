@@ -75,6 +75,7 @@ Route::get('/configuracionPaa/componente_crear/modificar/{id}', 'PaaController@m
 
 Route::post('/paa/validar/paa/', 'PlanAnualAController@validar_paa');
 
+Route::get('/configuracionPaa/service/vigencia/{id}', 'PaaController@listadoVigencia');
 Route::get('/configuracionPaa/service/presupuesto/{id}', 'PaaController@listadoProyectos');
 Route::get('/configuracionPaa/service/meta/{id}', 'PaaController@listadoMetas');
 Route::get('/configuracionPaa/service/actividad/{id}', 'PaaController@listadoActividad');

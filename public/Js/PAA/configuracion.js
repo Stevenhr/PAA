@@ -27,6 +27,12 @@ $(function()
     $('input[name="precio"]').on('keyup', function(e){
         formatCurrency(this);
     });
+    $('input[name="precio_proyecto"]').on('keyup', function(e){
+        formatCurrency(this);
+    });
+    $('input[name="precio_meta"]').on('keyup', function(e){
+        formatCurrency(this);
+    });
 
     $('select[name="Id_Pais"]').on('change', function(e){
         popular_ciudades($(this).val());
@@ -365,7 +371,7 @@ $(function()
                     $.each(datos, function(i, e){
                         t_0.row.add( [
                             '<th scope="row" class="text-center">'+num+'</th>',
-                            '<td><h4>'+e['nombre']+'<h4></td>',
+                            '<td><h4>'+e['nombre']+'</h4></td>',
                             '<td>'+e['fecha_fin']+'</td>',
                             '<td>'+e['fecha_inicio']+'</td>',
                             '<td>'+number_format(e['valor'])+'</td>',
@@ -377,7 +383,7 @@ $(function()
                                 '<button type="button" data-rel="'+e['id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                 '</div>'+
                                 '</div>'+
-                                '<div id="espera'+e['id']+'"></div>'+
+                                '<div id="espera_plan'+e['id']+'"></div>'+
                             '</td>'
                         ] ).draw( false );
                         num++;
@@ -444,7 +450,7 @@ $(function()
                         var proyects="";
                         $.each(data.datos, function(i, e){
                             $.each(e.presupuestos, function(i, ee){
-                                proyects=proyects+'<br><li>'+ee['Nombre_Actividad']+'</li>';
+                                proyects=proyects+'<br><li>'+ee['vigencia']+'</li>';
                             });
                         });
                         $("#espera_plan"+id).html('<div class="form_paaalert alert-danger"><strong>Error!</strong> Posee las siguientes vigencias activas.<br>'+proyects+'</div>');
@@ -455,16 +461,17 @@ $(function()
                     } else {
                         $("#espera_plan"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino el plan de desarrollo correctamente.</div>');                        
                         setTimeout(function(){
+
                                 $("#espera_plan"+id).html('');
                                 var num=1;
                                 t_0.clear().draw();
                                 $.each(data.datos, function(i, e){
-                                    t_0.row.add( [
+                                t_0.row.add( [
                                         '<th scope="row" class="text-center">'+num+'</th>',
-                                        '<td><h4>'+e['nombre']+'<h4></td>',
+                                        '<td><h4>'+e['nombre']+'</h4></td>',
                                         '<td>'+e['fecha_fin']+'</td>',
                                         '<td>'+e['fecha_inicio']+'</td>',
-                                        '<td>'+e['valor']+'</td>',
+                                        '<td>'+number_format(e['valor'])+'</td>',
                                         '<td><div class="btn-group btn-group-justified tama">'+
                                             '<div class="btn-group">'+
                                             '<button type="button" data-rel="'+e['id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
@@ -473,7 +480,7 @@ $(function()
                                             '<button type="button" data-rel="'+e['id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                             '</div>'+
                                             '</div>'+
-                                            '<div id="espera'+e['id']+'"></div>'+
+                                            '<div id="espera_plan'+e['id']+'"></div>'+
                                         '</td>'
                                     ] ).draw( false );
                                     num++;
@@ -570,7 +577,7 @@ $(function()
                             t.row.add( [
                                 '<th scope="row" class="text-center">'+num+'</th>',
                                 '<td><h4>'+e['nombre']+'<h4></td>',
-                                '<td>'+ee['vigencia']+'</td>',
+                                '<td><h4>'+ee['vigencia']+'</h4></td>',
                                 '<td>'+ee['fecha_fin']+'</td>',
                                 '<td>'+ee['fecha_inicio']+'</td>',
                                 '<td>'+number_format(ee['presupuesto'],1)+'</td>',
@@ -667,8 +674,8 @@ $(function()
                                     $.each(e.presupuestos, function(i, ee){
                                         t.row.add( [
                                             '<th scope="row" class="text-center">'+num+'</th>',
-                                            '<td><h4>'+e['nombre']+'<h4></td>',
-                                            '<td>'+ee['vigencia']+'</td>',
+                                            '<td><h4>'+e['nombre']+'</h4></td>',
+                                            '<td><h4>'+ee['vigencia']+'</h4></td>',
                                             '<td>'+ee['fecha_fin']+'</td>',
                                             '<td>'+ee['fecha_inicio']+'</td>',
                                             '<td>'+number_format(ee['presupuesto'],1)+'</td>',
@@ -756,6 +763,31 @@ $(function()
         ]
     });
 
+$('select[name="idProyectoDesa_Proyecto"]').on('change', function(e){
+    select_vigencias($(this).val());
+ });
+
+ var select_vigencias = function(id)
+    { 
+            $.ajax({
+                url: URL+'/service/vigencia/'+id,
+                data: {},
+                dataType: 'json',
+                success: function(data)
+                {
+
+                    var html = '<option value="">Seleccionar</option>';
+                    if(data.length > 0)
+                    {
+                        $.each(data, function(i, e){
+                            html += '<option value="'+e['Id']+'">'+e['vigencia']+'</option>';
+                        });
+                    }
+                    $('select[name="idPresupuesto"]').html(html).val($('select[name="idPresupuesto"]').data('value'));
+                }
+            });
+    };
+
     $('#form_proyecto').on('submit', function(e){
         $.post(URL+'/validar/proyecto',$(this).serialize(),function(data){
 
@@ -766,32 +798,35 @@ $(function()
                 
                 if(data.status == 'modelo')
                 {
-                    var datos=data.presupuesto;
+                    validad_error2(data.errors);
                     document.getElementById("form_proyecto").reset();
                     $("#div_Tabla4").show();
                     var num=1;
                     tt.clear().draw();
-                    $.each(datos, function(i, e){
-                        $.each(e.proyectos, function(i, ee){
-                            tt.row.add( [
-                                '<th scope="row" class="text-center">'+num+'</th>',
-                                '<td><h4>'+e['Nombre_Actividad']+'<h4></td>',
-                                '<td>'+ee['Nombre']+'</td>',
-                                '<td>'+ee['fecha_inicio']+'</td>',
-                                '<td>'+ee['fecha_fin']+'</td>',
-                                '<td>'+number_format(ee['valor'],1)+'</td>',
-                                '<td><div class="btn-group btn-group-justified tama">'+
-                                    '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
-                                    '</div>'+
-                                    '<div class="btn-group">'+
-                                    '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                    '</div>'+
-                                    '</div>'+
-                                    '<div id="espera'+ee['Id']+'"></div>'+
-                                '</td>'
-                            ] ).draw( false );
-                            num++;
+                    $.each(data.proyectoDesarrollo, function(i, e){
+                        $.each(e.presupuestos, function(i, ee){
+                            $.each(ee.proyectos, function(i, eee){
+                                tt.row.add( [
+                                    '<th scope="row" class="text-center">'+num+'</th>',
+                                    '<td><h4>'+e['nombre']+'</h4></td>',
+                                    '<td><h4>'+ee['vigencia']+'<h4></td>',
+                                    '<td><h4>'+eee['Nombre']+'</h4></td>',
+                                    '<td>'+eee['fecha_inicio']+'</td>',
+                                    '<td>'+eee['fecha_fin']+'</td>',
+                                    '<td>'+number_format(eee['valor'],1)+'</td>',
+                                    '<td><div class="btn-group btn-group-justified tama">'+
+                                        '<div class="btn-group">'+
+                                        '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                        '</div>'+
+                                        '<div class="btn-group">'+
+                                        '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '<div id="espera'+eee['Id']+'"></div>'+
+                                    '</td>'
+                                ] ).draw( false );
+                                num++;
+                            });
                         });
                     });
 
@@ -872,26 +907,29 @@ $(function()
                                 var num=1;
                                 tt.clear().draw();
                                 $.each(data, function(i, e){
-                                    $.each(e.proyectos, function(i, ee){
-                                        tt.row.add( [
-                                            '<th scope="row" class="text-center">'+num+'</th>',
-                                            '<td><h4>'+e['Nombre_Actividad']+'<h4></td>',
-                                            '<td>'+ee['Nombre']+'</td>',
-                                            '<td>'+ee['fecha_inicio']+'</td>',
-                                            '<td>'+ee['fecha_fin']+'</td>',
-                                            '<td>'+number_format(ee['valor'],1)+'</td>',
-                                            '<td><div class="btn-group btn-group-justified tama">'+
-                                                '<div class="btn-group">'+
-                                                '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
-                                                '</div>'+
-                                                '<div class="btn-group">'+
-                                                '<button type="button" data-rel="'+ee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                                '</div>'+
-                                                '</div>'+
-                                                '<div id="espera'+ee['Id']+'"></div>'+
-                                            '</td>'
-                                        ] ).draw( false );
-                                        num++;
+                                    $.each(e.presupuestos, function(i, ee){
+                                        $.each(ee.proyectos, function(i, eee){
+                                            tt.row.add( [
+                                                '<th scope="row" class="text-center">'+num+'</th>',
+                                                '<td><h4>'+e['nombre']+'<h4></td>',
+                                                '<td><h4>'+ee['vigencia']+'<h4></td>',
+                                                '<td><h4>'+eee['Nombre']+'</h4></td>',
+                                                '<td>'+eee['fecha_inicio']+'</td>',
+                                                '<td>'+eee['fecha_fin']+'</td>',
+                                                '<td>'+number_format(eee['valor'],1)+'</td>',
+                                                '<td><div class="btn-group btn-group-justified tama">'+
+                                                    '<div class="btn-group">'+
+                                                    '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                                    '</div>'+
+                                                    '<div class="btn-group">'+
+                                                    '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                                    '</div>'+
+                                                    '</div>'+
+                                                    '<div id="espera'+eee['Id']+'"></div>'+
+                                                '</td>'
+                                            ] ).draw( false );
+                                            num++;
+                                        });
                                     });
                                 });
                         }, 2000)
@@ -936,9 +974,10 @@ $(function()
                     $('input[name="Id_proyecto"]').val('0');
                     $('select[name="idPresupuesto"]').val('');
                     $('input[name="nombre_proyecto"]').val('');
+                    $('input[name="codigo_proyecto"]').val('');
                     $('input[name="fecha_inicial_proyecto"]').val('');
                     $('input[name="fecha_final_proyecto"]').val('');
-                    $('input[name="valor"]').val('');
+                    $('input[name="precio_proyecto"]').val('');
                     $("#id_btn_proyecto").html('Registrar');
                     $("#id_btn_proyect_canc").hide();
                     $("#div_Tabla4").show();
@@ -965,6 +1004,31 @@ $(function()
             'pdfHtml5'
         ]
     });
+
+ $('select[name="idProyectoDesa_Meta"]').on('change', function(e){
+    select_vigencias($(this).val());
+ });
+
+ var select_vigencias = function(id)
+    { 
+            $.ajax({
+                url: URL+'/service/vigencia/'+id,
+                data: {},
+                dataType: 'json',
+                success: function(data)
+                {
+
+                    var html = '<option value="">Seleccionar</option>';
+                    if(data.length > 0)
+                    {
+                        $.each(data, function(i, e){
+                            html += '<option value="'+e['Id']+'">'+e['vigencia']+'</option>';
+                        });
+                    }
+                    $('select[name="idPresupuesto_M"]').html(html).val($('select[name="idPresupuesto_M"]').data('value'));
+                }
+            });
+    };
 
  $('select[name="idPresupuesto_M"]').on('change', function(e){
     select_presupuesto($(this).val());
@@ -1006,29 +1070,32 @@ $(function()
                     $("#div_Tabla5").show();
                     var num=1;
                     ttt.clear().draw();
-                    $.each(datos, function(i, e){
-                        $.each(e.proyectos, function(i, ee){
-                            $.each(ee.metas, function(i, eee){
-                                ttt.row.add( [
-                                    '<th scope="row" class="text-center">'+num+'</th>',
-                                    '<td>'+e['Nombre_Actividad']+'</td>',
-                                    '<td>'+ee['Nombre']+'</td>',
-                                    '<td><h4>'+eee['Nombre']+'</h4></td>',
-                                    '<td>'+eee['fecha_inicio']+'</td>',
-                                    '<td>'+eee['fecha_fin']+'</td>',
-                                    '<td>'+number_format(eee['valor'],1)+'</td>',
-                                    '<td><div class="btn-group btn-group-justified tama">'+
-                                        '<div class="btn-group">'+
-                                        '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
-                                        '</div>'+
-                                        '<div class="btn-group">'+
-                                        '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                        '</div>'+
-                                        '</div>'+
-                                        '<div id="espera_m'+eee['Id']+'"></div>'+
-                                    '</td>'
-                                ] ).draw( false );
-                                num++;
+                    $.each(data.proyectoDesarrollo, function(i, e){
+                        $.each(e.presupuestos, function(i, ee){
+                            $.each(ee.proyectos, function(i, eee){
+                                $.each(eee.metas, function(i, eeee){
+                                    ttt.row.add( [
+                                        '<th scope="row" class="text-center">'+num+'</th>',
+                                        '<td><h4>'+e['nombre']+'</h4></td>',
+                                        '<td><h4>'+ee['vigencia']+'</h4></td>',
+                                        '<td><h4>'+eee['Nombre']+'</h4></td>',
+                                        '<td><h4>'+eeee['Nombre']+'</h4></h4></td>',
+                                        '<td>'+eeee['fecha_inicio']+'</td>',
+                                        '<td>'+eeee['fecha_fin']+'</td>',
+                                        '<td>'+number_format(eeee['valor'],1)+'</td>',
+                                        '<td><div class="btn-group btn-group-justified tama">'+
+                                            '<div class="btn-group">'+
+                                            '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                            '</div>'+
+                                            '<div class="btn-group">'+
+                                            '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                            '</div>'+
+                                            '</div>'+
+                                            '<div id="espera_m'+eeee['Id']+'"></div>'+
+                                        '</td>'
+                                    ] ).draw( false );
+                                    num++;
+                                });
                             });
                         });
                     });
@@ -1107,30 +1174,32 @@ $(function()
                                 $("#espera_m"+id).html('');
                                 var num=1;
                                 ttt.clear().draw();
-                                var datos=data.presupuesto;
-                                $.each(datos, function(i, e){
-                                    $.each(e.proyectos, function(i, ee){
-                                        $.each(ee.metas, function(i, eee){
-                                            ttt.row.add( [
-                                                '<th scope="row" class="text-center">'+num+'</th>',
-                                                '<td>'+e['Nombre_Actividad']+'</td>',
-                                                '<td>'+ee['Nombre']+'</td>',
-                                                '<td><h4>'+eee['Nombre']+'</h4></td>',
-                                                '<td>'+eee['fecha_inicio']+'</td>',
-                                                '<td>'+eee['fecha_fin']+'</td>',
-                                                '<td>'+number_format(eee['valor'],1)+'</td>',
-                                                '<td><div class="btn-group btn-group-justified tama">'+
-                                                    '<div class="btn-group">'+
-                                                    '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
-                                                    '</div>'+
-                                                    '<div class="btn-group">'+
-                                                    '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                                    '</div>'+
-                                                    '</div>'+
-                                                    '<div id="espera_m'+eee['Id']+'"></div>'+
-                                                '</td>'
-                                            ] ).draw( false );
-                                            num++;
+                                $.each(data.proyectoDesarrollo, function(i, e){
+                                    $.each(e.presupuestos, function(i, ee){
+                                        $.each(ee.proyectos, function(i, eee){
+                                            $.each(eee.metas, function(i, eeee){
+                                                ttt.row.add( [
+                                                    '<th scope="row" class="text-center">'+num+'</th>',
+                                                    '<td><h4>'+e['nombre']+'</h4></td>',
+                                                    '<td><h4>'+ee['vigencia']+'</h4></td>',
+                                                    '<td><h4>'+eee['Nombre']+'</h4></td>',
+                                                    '<td><h4>'+eeee['Nombre']+'</h4></td>',
+                                                    '<td>'+eeee['fecha_inicio']+'</td>',
+                                                    '<td>'+eeee['fecha_fin']+'</td>',
+                                                    '<td>'+number_format(eeee['valor'],1)+'</td>',
+                                                    '<td><div class="btn-group btn-group-justified tama">'+
+                                                        '<div class="btn-group">'+
+                                                        '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                                        '</div>'+
+                                                        '<div class="btn-group">'+
+                                                        '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                                        '</div>'+
+                                                        '</div>'+
+                                                        '<div id="espera_m'+eeee['Id']+'"></div>'+
+                                                    '</td>'
+                                                ] ).draw( false );
+                                                num++;
+                                            });
                                         });
                                     });
                                 });
@@ -1202,7 +1271,7 @@ $(function()
 
 
 
-/*############################   META    ###########################*/
+/*############################   ACTIVIDAD    ###########################*/
 
 
     var tttt = $('#Tabla6').DataTable({
@@ -1214,6 +1283,31 @@ $(function()
                 'pdfHtml5'
             ]
     });
+
+    $('select[name="idProyectoDesa_Actividad"]').on('change', function(e){
+        select_vigencias($(this).val());
+     });
+
+     var select_vigencias = function(id)
+    { 
+            $.ajax({
+                url: URL+'/service/vigencia/'+id,
+                data: {},
+                dataType: 'json',
+                success: function(data)
+                {
+
+                    var html = '<option value="">Seleccionar</option>';
+                    if(data.length > 0)
+                    {
+                        $.each(data, function(i, e){
+                            html += '<option value="'+e['Id']+'">'+e['vigencia']+'</option>';
+                        });
+                    }
+                    $('select[name="idPresupuesto_A"]').html(html).val($('select[name="idPresupuesto_A"]').data('value'));
+                }
+            });
+    };
 
     $('select[name="idPresupuesto_A"]').on('change', function(e){
         select_proyecto($(this).val());
@@ -1280,31 +1374,34 @@ $(function()
                     $("#div_Tabla6").show();
                     var num=1;
                     tttt.clear().draw();
-                    $.each(datos, function(i, e){
-                        $.each(e.proyectos, function(i, ee){
-                            $.each(ee.metas, function(i, eee){
-                                $.each(eee.actividades, function(i, eeee){
-                                    tttt.row.add( [
-                                        '<th scope="row" class="text-center">'+num+'</th>',
-                                        '<td>'+e['Nombre_Actividad']+'</td>',
-                                        '<td>'+ee['Nombre']+'</td>',
-                                        '<td>'+eee['Nombre']+'</td>',
-                                        '<td><h4>'+eeee['Nombre']+'</h4></td>',
-                                        '<td>'+eeee['fecha_inicio']+'</td>',
-                                        '<td>'+eeee['fecha_fin']+'</td>',
-                                        '<td>'+number_format(eeee['valor'],1)+'</td>',
-                                        '<td><div class="btn-group btn-group-justified tama">'+
-                                            '<div class="btn-group">'+
-                                            '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
-                                            '</div>'+
-                                            '<div class="btn-group">'+
-                                            '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                            '</div>'+
-                                            '</div>'+
-                                            '<div id="espera_a'+eeee['Id']+'"></div>'+
-                                        '</td>'
-                                    ] ).draw(false);
-                                    num++;
+                    $.each(data.proyectoDesarrollo, function(i, e){
+                        $.each(e.presupuestos, function(i, ee){
+                            $.each(ee.proyectos, function(i, eee){
+                                $.each(eee.metas, function(i, eeee){
+                                    $.each(eeee.actividades, function(i, eeeee){
+                                        tttt.row.add( [
+                                            '<th scope="row" class="text-center">'+num+'</th>',
+                                            '<td><h4>'+e['nombre']+'</h4></td>',
+                                            '<td><h4>'+ee['vigencia']+'</h4></td>',
+                                            '<td><h4>'+eee['Nombre']+'</h4></td>',
+                                            '<td><h4>'+eeee['Nombre']+'</h4></td>',
+                                            '<td><h4>'+eeeee['Nombre']+'</h4></td>',
+                                            '<td>'+eeeee['fecha_inicio']+'</td>',
+                                            '<td>'+eeeee['fecha_fin']+'</td>',
+                                            '<td>'+number_format(eeeee['valor'],1)+'</td>',
+                                            '<td><div class="btn-group btn-group-justified tama">'+
+                                                '<div class="btn-group">'+
+                                                '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                                '</div>'+
+                                                '<div class="btn-group">'+
+                                                '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                                '</div>'+
+                                                '</div>'+
+                                                '<div id="espera_a'+eeeee['Id']+'"></div>'+
+                                            '</td>'
+                                        ] ).draw(false);
+                                        num++;
+                                    });
                                 });
                             });
                         });
@@ -1367,6 +1464,7 @@ $(function()
             {},
             function(data)
             {   
+                    console.log(data);
                     if(data.status == 'error')
                     {
                         var actividades="";
@@ -1385,32 +1483,34 @@ $(function()
                                 $("#espera_a"+id).html('');
                                 var num=1;
                                 tttt.clear().draw();
-                                var datos=data.presupuesto;
-                                $.each(datos, function(i, e){
-                                    $.each(e.proyectos, function(i, ee){
-                                        $.each(ee.metas, function(i, eee){
-                                            $.each(eee.actividades, function(i, eeee){
-                                                tttt.row.add( [
-                                                    '<th scope="row" class="text-center">'+num+'</th>',
-                                                    '<td>'+e['Nombre_Actividad']+'</td>',
-                                                    '<td>'+ee['Nombre']+'</td>',
-                                                    '<td>'+eee['Nombre']+'</td>',
-                                                    '<td><h4>'+eeee['Nombre']+'</h4></td>',
-                                                    '<td>'+eeee['fecha_inicio']+'</td>',
-                                                    '<td>'+eeee['fecha_fin']+'</td>',
-                                                    '<td>'+number_format(eeee['valor'],1)+'</td>',
-                                                    '<td><div class="btn-group btn-group-justified tama">'+
-                                                        '<div class="btn-group">'+
-                                                        '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
-                                                        '</div>'+
-                                                        '<div class="btn-group">'+
-                                                        '<button type="button" data-rel="'+eeee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                                        '</div>'+
-                                                        '</div>'+
-                                                        '<div id="espera_a'+eeee['Id']+'"></div>'+
-                                                    '</td>'
-                                                ] ).draw(false);
-                                                num++;
+                                $.each(data.proyectoDesarrollo, function(i, e){
+                                    $.each(e.presupuestos, function(i, ee){
+                                        $.each(ee.proyectos, function(i, eee){
+                                            $.each(eee.metas, function(i, eeee){
+                                                $.each(eeee.actividades, function(i, eeeee){
+                                                    tttt.row.add( [
+                                                        '<th scope="row" class="text-center">'+num+'</th>',
+                                                        '<td><h4>'+e['nombre']+'</h4></td>',
+                                                        '<td><h4>'+ee['vigencia']+'</h4></td>',
+                                                        '<td><h4>'+eee['Nombre']+'</h4></td>',
+                                                        '<td><h4>'+eeee['Nombre']+'</h4></td>',
+                                                        '<td><h4>'+eeeee['Nombre']+'</h4></td>',
+                                                        '<td>'+eeeee['fecha_inicio']+'</td>',
+                                                        '<td>'+eeeee['fecha_fin']+'</td>',
+                                                        '<td>'+number_format(eeeee['valor'],1)+'</td>',
+                                                        '<td><div class="btn-group btn-group-justified tama">'+
+                                                            '<div class="btn-group">'+
+                                                            '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                                            '</div>'+
+                                                            '<div class="btn-group">'+
+                                                            '<button type="button" data-rel="'+eeeee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                                            '</div>'+
+                                                            '</div>'+
+                                                            '<div id="espera_a'+eeeee['Id']+'"></div>'+
+                                                        '</td>'
+                                                    ] ).draw(false);
+                                                    num++;
+                                                });
                                             });
                                         });
                                     });
@@ -1844,9 +1944,7 @@ $(function()
                             ttTttt.row.add([
                                 '<th scope="row" class="text-center">'+num+'</th>',
                                 '<td>'+e['codigo']+'</td>',
-                                '<td>'+e['Nombre']+'</td>',
-                                '<td>'+e['valor']+'</td>',
-                                '<td>'+e.fuente['nombre']+'</td>',
+                                '<td><h4>'+e['Nombre']+'</h4></td>',
                                 '<td><div class="btn-group btn-group-justified tama">'+
                                     '<div class="btn-group">'+
                                     '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
@@ -1897,9 +1995,6 @@ $(function()
                         selector = 'input';
                     break;
 
-                    case 'idFuenteF_C':
-                        selector = 'select';
-                    break;
                 }
                 $('#form_componente_crear '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
             }
@@ -1914,37 +2009,51 @@ $(function()
             URL+'/componente_crear/eliminar/'+id,
             {},
             function(data)
-            {   
-                    
-                $("#espera_crear"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino el componente correctamente.</div>');
-                setTimeout(function(){
-                        $("#espera_crear"+id).html('');
-                        var num=1;
-                        ttTttt.clear().draw();
-                        var datos=data.componentes;
-                        $.each(datos, function(i, e){
-                            
-                                ttTttt.row.add([
-                                    '<th scope="row" class="text-center">'+num+'</th>',
-                                    '<td>'+e['codigo']+'</td>',
-                                    '<td>'+e['Nombre']+'</td>',
-                                    '<td>'+e['valor']+'</td>',
-                                    '<td>'+e.fuente['nombre']+'</td>',
-                                    '<td><div class="btn-group btn-group-justified tama">'+
-                                        '<div class="btn-group">'+
-                                        '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
-                                        '</div>'+
-                                        '<div class="btn-group">'+
-                                        '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
-                                        '</div>'+
-                                        '</div>'+
-                                        '<div id="espera_crear'+e['Id']+'"></div>'+
-                                    '</td>'
-                                ]).draw(false);
-                                num++;
-                            
+            {
+
+                if(data.status == 'error')
+                {
+                    var proyects="";
+                    /*$.each(data.datos, function(i, e){
+                        $.each(e.actividadcomponentes, function(i, ee){
+                            proyects=proyects+'<br><li>'+ee['Nombre']+'</li>';
                         });
-                }, 2000)
+                    });*/
+                    $("#espera_crear"+id).html('<div class="form_paaalert alert-danger"><strong>Error!</strong> El componente que intenta eliminar esta relacionada con proyectos de inversión.</div>');
+                    setTimeout(function(){
+                        $("#espera_crear"+id).html('');
+                    }, 5000)
+               
+                } else {   
+                
+                    $("#espera_crear"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino el componente correctamente.</div>');
+                    setTimeout(function(){
+                            $("#espera_crear"+id).html('');
+                            var num=1;
+                            ttTttt.clear().draw();
+                            var datos=data.componentes;
+                            $.each(datos, function(i, e){
+                                
+                                    ttTttt.row.add([
+                                        '<th scope="row" class="text-center">'+num+'</th>',
+                                        '<td>'+e['codigo']+'</td>',
+                                        '<td><h4>'+e['Nombre']+'</h4></td>',
+                                        '<td><div class="btn-group btn-group-justified tama">'+
+                                            '<div class="btn-group">'+
+                                            '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                            '</div>'+
+                                            '<div class="btn-group">'+
+                                            '<button type="button" data-rel="'+e['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                            '</div>'+
+                                            '</div>'+
+                                            '<div id="espera_crear'+e['Id']+'"></div>'+
+                                        '</td>'
+                                    ]).draw(false);
+                                    num++;
+                                
+                            });
+                    }, 2000)
+                }
                     
             }
         );
@@ -1964,14 +2073,6 @@ $(function()
                 $("#espera_crear"+id).html("");
 
                 $('input[name="Id_componente_crear"]').val(data.Id);
-
-                var z = document.getElementById("idFuenteF_C");
-                var option2 = document.createElement("option");
-                option2.text = data.fuente.nombre;
-                option2.value = data.fuente.Id;
-                z.add(option2);
-                $('#idFuenteF_C > option[value="'+data.fuente.Id+'"]').attr('selected', 'selected');
-
                 $('input[name="nombre_componente_crear"]').val(data.Nombre);
                 $('input[name="codigo_componente_crear"]').val(data.codigo);
          
@@ -1994,8 +2095,6 @@ $(function()
          
                     $('input[name="nombre_componente_crear"]').val('');
                     $('input[name="codigo_componente_crear"]').val('');
-                    $('select[name="idFuenteF_C"]').val('');
-
                     $("#id_btn_componente_crear").html('Registrar');
                     $("#id_btn_componente_canc_crear").hide();
                     $("#div_Tabla8").show();
@@ -2032,6 +2131,7 @@ $(function()
       
 
         $.post(URL+'/validar/fuente',$(this).serialize(),function(data){
+
             if(data.status == 'error')
             {
                 validad_error_fuente(data.errors);
@@ -2073,11 +2173,10 @@ $(function()
                         $("#id_btn_fuente_crear").html('Registrar');
                         $("#id_btn_fuente_canc_crear").hide();
                     }, 2000)
-                    location.reload();
                 }else{
                     
 
-                    $('#mensaje_fuente2_crear').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
+                    $('#mensaje_fuente2_crear').html('<strong>Error!</strong> el valor de la fuente que intenta modificar es menor a la suma de los proyectos de inversión ya relacionados que es de: $'+data.suma);
                     $('#mensaje_fuente2_crear').show();
                     setTimeout(function(){
                         $('#mensaje_fuente2_crear').hide();
@@ -2164,12 +2263,12 @@ $(function()
                     if(data.status == 'error')
                     {
                         var proyects="";
-                        $.each(data.datos, function(i, e){
-                            $.each(e.componentes, function(i, ee){
+                        /*$.each(data.datos, function(i, e){
+                            $.each(e.actividadcomponentes, function(i, ee){
                                 proyects=proyects+'<br><li>'+ee['Nombre']+'</li>';
                             });
-                        });
-                        $("#espera_crear_fuente"+id).html('<div class="form_paaalert alert-danger"><strong>Error!</strong> Posee los siguientes componentes activos.<br>'+proyects+'</div>');
+                        });*/
+                        $("#espera_crear_fuente"+id).html('<div class="form_paaalert alert-danger"><strong>Error!</strong> La fuente que intenta eliminar esta relacionada con proyectos de inversión.</div>');
                         setTimeout(function(){
                             $("#espera_crear_fuente"+id).html('');
                         }, 5000)

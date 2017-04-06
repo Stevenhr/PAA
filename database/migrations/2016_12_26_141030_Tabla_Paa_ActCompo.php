@@ -33,5 +33,6 @@ class TablaPaaActCompo extends Migration
     public function down()
     {
         //
+        Schema::drop('PaaActividadCompoenente');
     }
 }

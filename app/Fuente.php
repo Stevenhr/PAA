@@ -17,4 +17,9 @@ class Fuente extends Model
     {
         return $this->hasMany('App\Componente','Id_fuente');
     }
+
+    public function actividadcomponentes()
+    {
+        return $this->hasMany('App\ActividadComponente','fuente_id');
+    }
 }

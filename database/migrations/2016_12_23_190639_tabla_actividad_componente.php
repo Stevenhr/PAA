@@ -33,5 +33,6 @@ class TablaActividadComponente extends Migration
     public function down()
     {
         //
+        Schema::drop('actividadComponente');
     }
 }
