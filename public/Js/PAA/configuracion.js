@@ -2465,17 +2465,6 @@ $(function()
                           document.getElementById("form_agregar_finanza_fuente").reset(); 
                           $('#btn_agregar_finanza_ft').html("CREAR");
 
-
-                          $('#registros').html('');               
-                          var num=1;
-                          Tabla_fuentes_financia.clear().draw();
-                          console.log(data.proyecto);
-                          $.each(data.proyecto.fuente, function(i, e){
-                              var $tr1 = tabla_opciones(e,num);    
-                              Tabla_fuentes_financia.row.add($tr1).draw(false);
-                              num++;
-                          });
-
                           if(data.upd==0){
                             $('#mjs_registroFinanza_fuente').html('<div class="alert alert-success"><center><strong>Exitoso!!</strong>Registro modificado...</center></div>');
                             $('#mjs_registroFinanza_fuente').show();
@@ -2489,6 +2478,13 @@ $(function()
                                 $('#mjs_registroFinanza_fuente').hide();
                             }, 3000)
                           }else{
+                              var num=1;
+                              Tabla_fuentes_financia.clear().draw();
+                              $.each(data.proyecto.fuente, function(i, e){
+                                  var $tr1 = tabla_opciones(e,num);    
+                                  Tabla_fuentes_financia.row.add($tr1).draw(false);
+                                  num++;
+                              });
                             $('#mjs_registroFinanza_fuente').html('<div class="alert alert-success"><center><strong>Exitoso!!</strong>Registro creado...</center></div>');
                             $('#mjs_registroFinanza_fuente').show();
                             setTimeout(function(){
@@ -2537,23 +2533,39 @@ $(function()
             var id = $(this).data('rel'); 
             var nombre = $(this).data('nombre');
             $('#id_Nom_proy_fin_f').text(nombre);          
-            $('#id_proyect_fina_f').val(id);          
+            $('#id_proyect_fina_f').val(id);      
+            $.get(
+                URL+'/validar/consultaproyectoFinanza/'+id,
+                {},
+                function(data)
+                {   
+                  var num=1;
+                  Tabla_fuentes_financia.clear().draw();
+                  $.each(data.proyecto.fuente, function(i, e){
+                      var $tr1 = tabla_opciones(e,num);    
+                      Tabla_fuentes_financia.row.add($tr1).draw(false);
+                      num++;
+                  });
+                }
+            );    
             e.preventDefault();
         }); 
 
         function tabla_opciones(e, num){
 
-                 var $tr1 =   $('<tr></tr>').html(
-                        '<th scope="row" class="text-center">'+num+'</th>'+
-                            '<td><b><p class="text-info">'+e['nombre']+'<br></p></b></td>'+
-                            '<td><b>'+e.pivot['valor']+'</b></td>'+
-                            '<td></td>'
-                      );
+             var $tr1 =   $('<tr></tr>').html(
+                '<th scope="row" class="text-center">'+num+'</th>'+
+                    '<td><b><p class="text-info">'+e['nombre']+'<br></p></b></td>'+
+                    '<td><b>'+e.pivot['valor']+'</b></td>'+
+                    '<td>'+
+                      '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+
+                        '<li><button type="button" data-rel="'+e['Id']+'" data-rel2="'+e.pivot['proyecto_id']+'" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>'+
+                        '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-link btn-xs"  title="Editar Paa" {{$disable}}><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>   Modificación</button></li>'+
+                      '</div>'+
+                    '</td>'
+              );
               return $tr1 ;
         }
-
-
-
 
 
         $('#Tabla4').delegate('button[data-funcion="Modal_Finanza_Componente"]','click',function (e){  
@@ -2561,6 +2573,30 @@ $(function()
             var nombre = $(this).data('nombre');
             $('#id_Nom_proy_fin_c').text(nombre);          
             $('#id_proyect_fina_c').val(id);          
+            e.preventDefault();
+        }); 
+
+        $('#Tabla_fuentes_financia').delegate('button[data-funcion="ver_eli"]','click',function (e){  
+            var idfuente = $(this).data('rel'); 
+            var idproyecto = $(this).data('rel2'); 
+
+            $.ajax({
+                url: URL+'/validar/eliminarproyectoFinanza',
+                data: {'idfuente':idfuente,'idproyecto':idproyecto},
+                type: 'POST',
+                dataType: 'json',
+
+                success: function(data)
+                {
+                 var num=1;
+                  Tabla_fuentes_financia.clear().draw();
+                  $.each(data.proyecto.fuente, function(i, e){
+                      var $tr1 = tabla_opciones(e,num);    
+                      Tabla_fuentes_financia.row.add($tr1).draw(false);
+                      num++;
+                  });
+                }
+            });
             e.preventDefault();
         }); 
 

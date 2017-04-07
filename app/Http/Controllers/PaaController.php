@@ -1160,4 +1160,20 @@ class PaaController extends Controller
 		return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto,'upd'=>1));
 	}
 
+	public function consultaproyectoFinanza(Request $request, $id)
+	{	
+
+			$Proyecto = Proyecto::with('fuente')->find($id);
+			return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto));		
+	}
+
+	public function eliminarproyectoFinanza(Request $request)
+	{
+		$fuente=Fuente::with('proyecto')->find($request["idfuente"]);
+		$fuente->proyecto()->detach($request['idproyecto']);
+
+      	$Proyecto = Proyecto::with('fuente')->find($request["idproyecto"]);
+		return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto));
+	}
+
 }

@@ -1405,7 +1405,7 @@
 							<select class="form-control" name="id_fuente_finanza_fuente" id="id_fuente_finanza_fuente">
 									<option value="">Seleccionar</option>
 									@foreach($fuentes as $fuente)
-										<option value="{{ $fuente['Id'] }}" >{{ $componente['codigo'] }} - {{ $fuente['nombre'] }}</option>
+										<option value="{{ $fuente['Id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
 								    @endforeach
 							</select>
 						</div>
