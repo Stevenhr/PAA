@@ -912,13 +912,15 @@ class PaaController extends Controller
         	]
         );
 
-           if ($validator->fails())
+        	if ($validator->fails())
             return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
 
-        	if($request->input('Id_componente_crear') == '0'){
+        	if($request->input('Id_componente_crear') == '0')
+        	{
         		return $this->guardar_Componente_Crear($request->all());
         	}
-        	else{
+        	else
+        	{
         		return $this->modificar_Componente_crear2($request->all());	
         	}
 	}
@@ -931,7 +933,6 @@ class PaaController extends Controller
 
 	public function update_Componente_crear($model, $input)
 	{
-
 			$model['codigo'] = $input['codigo_componente_crear'];
 			$model['Nombre'] = $input['nombre_componente_crear'];
 			$model->save();
@@ -1019,21 +1020,11 @@ class PaaController extends Controller
 
 	public function modificar_fuente($input)
 	{
-		$id=$input["Id_fuente_crear"];
-		$Fuente = Fuente::with('actividadcomponentes')->whereHas('actividadcomponentes', function($q) use ($id)
-		{
-		    $q->where('fuente_id', '=', $id);
-
-		})->get();
-		$suma=0;
 		
-		foreach ($Fuente as $value) {
+		$id=$input["Id_fuente_crear"];
+		$Fuente = Fuente::with('actividadcomponentes')->find($id);
+		$suma=$Fuente->actividadcomponentes->sum('valor');
 
-			foreach ($value->actividadcomponentes as $dat) {
-				
-				$suma=$suma+$dat['valor'];
-			}
-		}
 		if($input['valor_fuente_crear']>=$suma){
 			$fuente=Fuente::find($input["Id_fuente_crear"]);
 			return $this->crear_fuente($fuente, $input);
@@ -1081,6 +1072,92 @@ class PaaController extends Controller
 	{
 		$Fuente = Fuente::find($id);
 		return response()->json($Fuente);
+	}
+
+
+
+/*########################################   REGISTRO DE FINANZA-FUENTE-COMPOENTE- ########*/
+	public function validar_proyectoFinanza(Request $request)
+	{
+		$validator = Validator::make($request->all(),
+		    [
+				'id_fuente_finanza' => 'required',
+				'id_componente_finza' => 'required',
+				'nombre_proyecto' => 'required',
+        	]
+        );
+
+           if ($validator->fails())
+            return response()->json(array('status' => 'error', 'errors' => $validator->errors()));	
+	}
+
+
+
+/*#######################################   REGISTRO FINANZA FUENTE  #######################*/
+
+	public function validar_proyectoFinanza_fuente(Request $request)
+	{
+		$validator = Validator::make($request->all(),
+		    [
+				'id_fuente_finanza_fuente' => 'required',
+				'valor_fuente_proyecto' => 'required',
+        	]
+        );
+        
+        if ($validator->fails())
+          return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+
+      	if($request->input('id_finanza_fuente_crear') == '0')
+      	{
+        	return $this->guardar_fuente_finanza($request->all());
+    	}
+    	else
+    	{
+    		return $this->modificar_fuente_finanza($request->all());	
+    	}
+	}
+
+	public function guardar_fuente_finanza($input)
+	{	
+		$id_p=$input['id_proyect_fina_f'];
+		$id=$input['id_fuente_finanza_fuente'];
+		$Fuente = Fuente::with(['proyecto' => function($q) use ($id_p)
+		{
+		    $q->where('proyecto_id', '=', $id_p);
+
+		}])->find($id);
+		//$var = !!$Fuente->proyecto;
+
+		if($Fuente->proyecto->count()){
+			$Proyecto = Proyecto::with('fuente')->find($input['id_proyect_fina_f']);
+			return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto,'upd'=>2));
+		}
+		else{
+			return $this->crear_finanza_fuente($Fuente, $input);
+		}
+	}
+
+	public function modificar_fuente_finanza($input)
+	{
+		$id=$input["Id_fuente_crear"];
+		$Fuente = Fuente::with('actividadcomponentes')->find($id);
+		$suma=$Fuente->actividadcomponentes->sum('valor');
+
+		if($input['valor_fuente_crear']>=$suma){
+			$fuente=Fuente::find($input["Id_fuente_crear"]);
+			return $this->crear_finanza_fuente($fuente, $input);
+		}else{
+			return response()->json(array('status' => 'valorInsuficiente', 'suma' => $suma));
+		}
+	}
+
+	public function crear_finanza_fuente($model, $input)
+	{
+		
+		$model->proyecto()->attach($input['id_proyect_fina_f'],['valor'=>$input['valor_fuente_proyecto']]);
+
+		$Proyecto = Proyecto::with('fuente')->find($input['id_proyect_fina_f']);
+		return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto,'upd'=>1));
 	}
 
 }

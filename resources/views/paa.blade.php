@@ -196,8 +196,6 @@
 												  </ul>
 												</div>
 
-
-
 												<div><a href="#" class="btn btn-xs btn-default" style="width: 100%;    margin-top: 20px;" data-rel="{{$paa['Registro']}}" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" ></span> Observaciones</a></div>
 												<div id=""></div>
 					                        </td>
@@ -1188,4 +1186,5 @@
     </div>
   </div>
 </div>
+
 @stop

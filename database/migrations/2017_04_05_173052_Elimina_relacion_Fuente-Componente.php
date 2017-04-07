@@ -27,8 +27,8 @@ class EliminaRelacionFuenteComponente extends Migration
     {
         //
         Schema::table('componente', function ($table) {
-                $table->integer('Id_fuente')->unsigned();
-                $table->foreign('Id_fuente')->references('Id')->on('fuente');
-            });
+            $table->integer('Id_fuente')->unsigned();
+            $table->foreign('Id_fuente')->references('Id')->on('fuente');
+        });
     }
 }

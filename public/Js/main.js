@@ -6,7 +6,7 @@ $(function(){
 	  changeYear: true,
 	});
 
-	$('[data-toggle="tooltip"]').tooltip()
+	$('[data-tooltip="tooltip"]').tooltip();
 
 	$('select').each(function(i, e){
 	  if ($(this).attr('data-value'))

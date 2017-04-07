@@ -451,10 +451,19 @@
 										                        <td>
 																	<div class="btn-group btn-group-justified tama">
 																	  <div class="btn-group">
-																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-funcion="ver_eli" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 																	  </div>
 																	  <div class="btn-group">
-																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-funcion="ver_upd" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+																	  </div>
+																	  <div class="btn-group">
+																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-nombre="{{ $proyecto['Nombre'] }}" data-funcion="Modal_Finanza_Fuente" data-toggle="modal" data-target="#Modal_Finanza_Fuente" data-tooltip="tooltip" data-placement="top" title="Fuente" class="btn btn-success btn-xs">F</button>
+																	  </div>
+																	  <div class="btn-group">
+																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-nombre="{{ $proyecto['Nombre'] }}" data-funcion="Modal_Finanza_Componente" data-toggle="modal" data-target="#Modal_Finanza_Componente" data-tooltip="tooltip" data-placement="top" title="Componente"class="btn btn-success btn-xs">C</button>
+																	  </div>
+																	  <div class="btn-group">
+																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-nombre="{{ $proyecto['Nombre'] }}" data-funcion="Modal_Finanza" data-toggle="modal" data-target="#Modal_Finanza" data-tooltip="tooltip" data-placement="top" title="Financiación" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 																	  </div>
 																	</div>
 																	<div id="espera{{ $proyecto['Id'] }}"></div>
@@ -1363,9 +1372,251 @@
 						</div>
 		        </div>
 
-
-
-
 </div>
+
+
+
+
+<!-- MODAL FUENTE -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Finanza_Fuente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      
+		<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Ingreso de fuentes</h4>
+	        Proyecto: <label id="id_Nom_proy_fin_f">
+
+	    </div>
+	    <form id="form_agregar_finanza_fuente">
+			<div class="modal-body">
+				<div class="row"  >
+				   <div class="col-xs-12 col-sm-12">
+				  		<div class="form-group">
+					    	<label>Ingreso de las fuentes de financiación:</label><br>
+						</div>
+				  </div>
+				</div>
+				<div class="row" >
+				    <div class="col-xs-12 col-md-8 ">
+				    	<div class="form-group">	
+				    		<input type="hidden" name="id_proyect_fina_f" id="id_proyect_fina_f" ></input>
+				    		<label>Fuente</label>					
+							<select class="form-control" name="id_fuente_finanza_fuente" id="id_fuente_finanza_fuente">
+									<option value="">Seleccionar</option>
+									@foreach($fuentes as $fuente)
+										<option value="{{ $fuente['Id'] }}" >{{ $componente['codigo'] }} - {{ $fuente['nombre'] }}</option>
+								    @endforeach
+							</select>
+						</div>
+	        		</div>
+	        		<div class="col-xs-12 col-md-4 ">
+				    	<div class="form-group">	
+				    		<label>Valor</label>					
+							<input type="text" class="form-control" name="valor_fuente_proyecto">
+						</div>
+	        		</div>
+			    </div>
+			    <div class="row"  >
+				   <div class="col-xs-12 col-sm-12">
+				  		<div class="form-group">
+					    	<button class="btn btn-success" type="submit" id="btn_agregar_finanza_ft">Agregar</button>
+						</div>
+				  </div>
+				  <div class="col-xs-12 col-sm-12">
+				  		<input type="hidden" name="id_finanza_fuente_crear" id="id_finanza_fuente_crear"  value="0" ></input>
+				  		<div id="mjs_registroFinanza_fuente" style="display: none"></div>
+				  </div>
+				</div>
+	      	</div>
+
+	      	<div class="modal-body">
+    			<div class="row">
+    			    <div class="col-xs-12 col-md-12">
+	            		<h5>Listado fuentes por proyectos:</h5>
+			        </div>
+				    <div class="col-xs-12 col-md-12">
+				    	<div class="table-responsive" id="div_Tabla4">
+					      		<table id="Tabla_fuentes_financia" class="display" width="100%" cellspacing="0">
+						        <thead>
+						            <tr>
+						                <th class="text-center">N°</th>
+						                <th>Fuente</th>
+						                <th>Valor</th>
+						                <th>Opción</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						        </tbody>
+						    </table>
+						</div>
+	        		</div>
+	        		<div class="col-xs-12 col-md-12">
+	            		<hr><hr>
+			        </div>
+				</div>
+			</div>
+
+	      <div class="modal-footer">
+	      	<div class="row">
+	        	<div class="col-xs-12 col-sm-12">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+	        </div>
+	      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- MODAL COMPONENTE-->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Finanza_Componente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      
+		<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Ingreso de componentes</h4>
+	        Proyecto: <label id="id_Nom_proy_fin_c">
+
+	    </div>
+	    <form id="form_agregar_finanza">
+			<div class="modal-body">
+				<div class="row"  >
+				   <div class="col-xs-12 col-sm-12">
+				  		<div class="form-group">
+					    	<label>Ingreso de los componentes de financiación:</label><br>
+						</div>
+				  </div>
+				</div>
+				<div class="row" >
+				    <div class="col-xs-12 col-md-8 ">
+				    	<div class="form-group">	
+				    		<input type="hidden" name="id_proyect_fina_c" id="id_proyect_fina_c" ></input>
+				    		<label>Componente</label>					
+							<select class="form-control" name="id_componente_finza" id="id_componente_finza">
+									<option value="">Seleccionar</option>
+									@foreach($componentes as $componente)
+										<option value="{{ $componente['Id'] }}" >{{ $componente['codigo'] }} - {{ $componente['Nombre'] }}</option>
+								    @endforeach
+							</select>
+						</div>
+	        		</div>
+	        		<div class="col-xs-12 col-md-4 ">
+				    	<div class="form-group">	
+				    		<label>Valor</label>					
+							<input type="text" class="form-control" name="valor_componente_proyecto">
+						</div>
+	        		</div>
+			    </div>
+			    <div class="row"  >
+				   <div class="col-xs-12 col-sm-12">
+				  		<div class="form-group">
+					    	<button class="btn btn-success" type="submit" id="agregar_finanza">Agregar</button>
+						</div>
+				  </div>
+				  <div class="col-xs-12 col-sm-12">
+				  		<div id="mjs_registroFinanza" style="display: none"></div>
+				  </div>
+				</div>
+	      	</div>
+      
+	      <div class="modal-footer">
+	      	<div class="row">
+	        	<div class="col-xs-12 col-sm-12">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+	        </div>
+	      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- MODAL FINANZA-->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Finanza" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      
+		<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Ingreso de financiación</h4>
+	        Proyecto: <label id="id_Nom_proy_fin">
+
+	    </div>
+	    <form id="form_agregar_finanza">
+			<div class="modal-body">
+				<div class="row"  >
+				   <div class="col-xs-12 col-sm-12">
+				  		<div class="form-group">
+					    	<label>Ingreso de las fuentes y componentes de financiación:</label><br>
+						</div>
+				  </div>
+				</div>
+				<div class="row" >
+				    <div class="col-xs-12 col-md-4 ">
+				    	<div class="form-group">	
+				    		<input type="hidden" name="id_proyect_fina" id="id_proyect_fina" ></input>
+				    		<label>Fuente</label>					
+							<select class="form-control" name="id_fuente_finanza" id="id_fuente_finanza">
+									<option value="">Seleccionar</option>
+									@foreach($fuentes as $fuente)
+										<option value="{{ $fuente['Id'] }}" >{{ $componente['codigo'] }} - {{ $fuente['nombre'] }}</option>
+								    @endforeach
+							</select>
+						</div>
+	        		</div>
+	        		<div class="col-xs-12 col-md-4 ">
+				    	<div class="form-group">	
+				    		<label>Componente</label>					
+							<select class="form-control" name="id_componente_finza" id="id_componente_finza">
+									<option value="">Seleccionar</option>
+									@foreach($componentes as $componente)
+										<option value="{{ $componente['Id'] }}" >{{ $componente['codigo'] }} - {{ $componente['Nombre'] }}</option>
+								    @endforeach
+							</select>
+						</div>
+	        		</div>
+	        		<div class="col-xs-12 col-md-4 ">
+				    	<div class="form-group">	
+				    		<label>Valor</label>					
+							<input type="text" class="form-control" name="valor_fuente_componente_proyecto">
+						</div>
+	        		</div>
+			    </div>
+			    <div class="row"  >
+				   <div class="col-xs-12 col-sm-12">
+				  		<div class="form-group">
+					    	<button class="btn btn-success" type="submit" id="agregar_finanza">Agregar</button>
+						</div>
+				  </div>
+				  <div class="col-xs-12 col-sm-12">
+				  		<div id="mjs_registroFinanza" style="display: none"></div>
+				  </div>
+				</div>
+	      	</div>
+      
+	      <div class="modal-footer">
+	      	<div class="row">
+	        	<div class="col-xs-12 col-sm-12">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+	        </div>
+	      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
 @stop
 

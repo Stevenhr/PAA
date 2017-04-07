@@ -1692,5 +1692,5 @@ $(function()
        var num=$('#objeto_contrato').val().length; 
        $('#numTextAre').text(num);
     } 
-                  
+                 
 });

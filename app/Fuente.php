@@ -22,4 +22,10 @@ class Fuente extends Model
     {
         return $this->hasMany('App\ActividadComponente','fuente_id');
     }
+
+    public function proyecto()
+    {
+        return $this->belongsToMany('\App\Proyecto','FuenteProyecto','fuente_id','proyecto_id')
+            ->withPivot('valor','created_at');
+    }
 }

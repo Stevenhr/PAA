@@ -17,7 +17,6 @@ class AgregarRelacionFuenteActividadcomponente extends Migration
             
             $table->integer('fuente_id')->unsigned();
             $table->foreign('fuente_id')->references('Id')->on('fuente');
-
         });
     }
 
@@ -29,7 +28,7 @@ class AgregarRelacionFuenteActividadcomponente extends Migration
     public function down()
     {
         //
-         Schema::table('actividadComponente', function ($table) {
+        Schema::table('actividadComponente', function ($table) {
             $table->dropForeign('actividadComponente_fuente_id_foreign');
              $table->dropColumn('fuente_id');
         });
