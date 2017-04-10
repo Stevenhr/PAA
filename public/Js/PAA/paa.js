@@ -85,7 +85,6 @@ $(function()
 
  $('#form_paa').on('submit', function(e){
 
-    console.log(vector_datos_actividad);
     var datos_acti = JSON.stringify(vector_datos_actividad);
     $('input[name="Dato_Actividad"]').val(datos_acti);
     var upd=$('input[name="id_Paa"]').val();

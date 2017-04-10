@@ -1126,35 +1126,86 @@ class PaaController extends Controller
 		    $q->where('proyecto_id', '=', $id_p);
 
 		}])->find($id);
-		//$var = !!$Fuente->proyecto;
-
-		if($Fuente->proyecto->count()){
-			$Proyecto = Proyecto::with('fuente')->find($input['id_proyect_fina_f']);
-			return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto,'upd'=>2));
+		
+		$fuente_vt=Fuente::with('proyecto')->find($input["id_fuente_finanza_fuente"]);
+		$valorSum=0;
+		foreach ($fuente_vt->proyecto as $value) {
+			$valorSum=$valorSum+$value->pivot['valor'];
 		}
-		else{
+
+		$valor_dispo=$fuente_vt['valor']-$valorSum;
+		$valor_fuente_proyecto=$input['valor_fuente_proyecto']+0;
+		//dd($valor_dispo." - ".$input['valor_fuente_proyecto']);
+		
+		if($Fuente->proyecto->count())
+		{
+			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>2));
+		}
+		else if($valor_dispo<$valor_fuente_proyecto)
+		{
+			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>3));
+		}
+		else
+		{
 			return $this->crear_finanza_fuente($Fuente, $input);
 		}
 	}
 
 	public function modificar_fuente_finanza($input)
 	{
-		$id=$input["Id_fuente_crear"];
-		$Fuente = Fuente::with('actividadcomponentes')->find($id);
-		$suma=$Fuente->actividadcomponentes->sum('valor');
+		$id_p=$input['id_proyect_fina_f'];
+		$id=$input['id_fuente_finanza_fuente'];
 
-		if($input['valor_fuente_crear']>=$suma){
-			$fuente=Fuente::find($input["Id_fuente_crear"]);
-			return $this->crear_finanza_fuente($fuente, $input);
-		}else{
-			return response()->json(array('status' => 'valorInsuficiente', 'suma' => $suma));
+		$Fuente = Fuente::find($id);
+		
+		$fuente_vt=Fuente::with('proyecto')->find($id);
+		$valorSum=0;
+		foreach ($fuente_vt->proyecto as $value) {
+			if($value->pivot['proyecto_id']!=$id_p)
+			$valorSum=$valorSum+$value->pivot['valor'];
 		}
+
+		$valor_dispo=$fuente_vt['valor']-$valorSum;
+		$valor_fuente_proyecto=$input['valor_fuente_proyecto']+0;
+
+	    if($valor_dispo<$valor_fuente_proyecto)
+		{
+			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>3));
+		}
+		else
+		{
+			return $this->modificar_finanza_fuente($Fuente, $input);
+		}
+	}
+
+	public function modificar_finanza_fuente($Fuente, $input)
+	{
+		$valor_fuente_proyecto=str_replace('.', '', $input['valor_fuente_proyecto']);
+		$Fuente->proyecto()->updateExistingPivot($input['id_proyect_fina_f'], array(
+	        'valor'=>$valor_fuente_proyecto
+	    ));
+	    $Proyecto = Proyecto::with('fuente')->find($input['id_proyect_fina_f']);
+		return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto,'upd'=>1));
+	}
+
+	public function modificarFuenteProyecto(Request $request)
+	{
+		$id_p=$request['idproyecto'];
+		$id=$request['idfuente'];
+
+		$Fuente = Fuente::with(['proyecto' => function($q) use ($id_p)
+		{
+		    $q->where('proyecto_id', '=', $id_p);
+
+		}])->find($id);
+
+		return response()->json($Fuente);
 	}
 
 	public function crear_finanza_fuente($model, $input)
 	{
-		
-		$model->proyecto()->attach($input['id_proyect_fina_f'],['valor'=>$input['valor_fuente_proyecto']]);
+		$valor_fuente_proyecto=str_replace('.', '', $input['valor_fuente_proyecto']);
+		$model->proyecto()->attach($input['id_proyect_fina_f'],['valor'=>$valor_fuente_proyecto]);
 
 		$Proyecto = Proyecto::with('fuente')->find($input['id_proyect_fina_f']);
 		return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto,'upd'=>1));
@@ -1162,7 +1213,6 @@ class PaaController extends Controller
 
 	public function consultaproyectoFinanza(Request $request, $id)
 	{	
-
 			$Proyecto = Proyecto::with('fuente')->find($id);
 			return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto));		
 	}

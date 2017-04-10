@@ -1402,7 +1402,7 @@
 				    	<div class="form-group">	
 				    		<input type="hidden" name="id_proyect_fina_f" id="id_proyect_fina_f" ></input>
 				    		<label>Fuente</label>					
-							<select class="form-control" name="id_fuente_finanza_fuente" id="id_fuente_finanza_fuente">
+							<select class="form-control" name="id_fuente_finanza_fuente" id="id_fuente_finanza_fuente" >
 									<option value="">Seleccionar</option>
 									@foreach($fuentes as $fuente)
 										<option value="{{ $fuente['Id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
@@ -1421,6 +1421,7 @@
 				   <div class="col-xs-12 col-sm-12">
 				  		<div class="form-group">
 					    	<button class="btn btn-success" type="submit" id="btn_agregar_finanza_ft">Agregar</button>
+					    	<button class="btn btn-danger" type="submit" id="btn_agregar_finanza_ft_c" style="display: none">Cancelar</button>
 						</div>
 				  </div>
 				  <div class="col-xs-12 col-sm-12">
