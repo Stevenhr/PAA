@@ -27,8 +27,8 @@ class TablaPaa extends Migration
 
             $table->text('ObjetoContractual');
             $table->string('FuenteRecurso');
-            $table->integer('ValorEstimado');
-            $table->integer('ValorEstimadoVigencia');
+            $table->bigInteger('ValorEstimado')->unsigned()->index();
+            $table->bigInteger('ValorEstimadoVigencia')->unsigned()->index();
             $table->string('VigenciaFutura');
             $table->string('EstadoVigenciaFutura');
             $table->date('FechaEstudioConveniencia');

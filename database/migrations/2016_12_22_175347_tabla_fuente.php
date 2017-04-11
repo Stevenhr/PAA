@@ -17,7 +17,7 @@ class TablaFuente extends Migration
             $table->increments('Id');
 
             $table->string('nombre');
-            $table->integer('valor');
+            $table->bigInteger('valor')->unsigned()->index();
             $table->string('descripcion');
             $table->string('codigo');
         });

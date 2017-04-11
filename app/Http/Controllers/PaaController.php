@@ -1134,8 +1134,9 @@ class PaaController extends Controller
 		}
 
 		$valor_dispo=$fuente_vt['valor']-$valorSum;
-		$valor_fuente_proyecto=$input['valor_fuente_proyecto']+0;
-		//dd($valor_dispo." - ".$input['valor_fuente_proyecto']);
+		
+		$valor_fuente_proyecto=str_replace('.', '', $input['valor_fuente_proyecto']);
+		//dd($valor_dispo." - ".$valor_fuente_proyecto);
 		
 		if($Fuente->proyecto->count())
 		{
@@ -1166,7 +1167,7 @@ class PaaController extends Controller
 		}
 
 		$valor_dispo=$fuente_vt['valor']-$valorSum;
-		$valor_fuente_proyecto=$input['valor_fuente_proyecto']+0;
+		$valor_fuente_proyecto=str_replace('.', '', $input['valor_fuente_proyecto']);
 
 	    if($valor_dispo<$valor_fuente_proyecto)
 		{

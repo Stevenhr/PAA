@@ -20,7 +20,7 @@ class TablaPaaActCompo extends Migration
             $table->foreign('actividadComponente_id')->references('id')->on('actividadComponente');
             $table->integer('paa_id')->unsigned();
             $table->foreign('paa_id')->references('Id')->on('paa');
-            $table->integer('valor');
+            $table->bigInteger('valor')->unsigned()->index();
             $table->timestamps();
         });
     }

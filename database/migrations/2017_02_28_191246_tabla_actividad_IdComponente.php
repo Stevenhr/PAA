@@ -26,7 +26,7 @@ class TablaActividadIdComponente extends Migration
             $table->integer('fuentehacienda');
             $table->integer('valor');
             $table->integer('porcentaje');
-            $table->integer('total');
+            $table->bigInteger('total')->unsigned()->index();
             $table->timestamps();
         });
     }

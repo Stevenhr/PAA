@@ -18,7 +18,7 @@ class TablaComponenteProyecto extends Migration
             $table->foreign('componente_id')->references('Id')->on('componente');
             $table->integer('proyecto_id')->nullable()->unsigned();
             $table->foreign('proyecto_id')->references('Id')->on('proyecto');
-            $table->integer('valor');
+            $table->bigInteger('valor')->unsigned()->index();
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@ class TablaComponente extends Migration
             $table->string('Nombre');
             $table->dateTime('fecha_inicio');
             $table->dateTime('fecha_fin');
-            $table->bigInteger('valor');
+            $table->bigInteger('valor')->unsigned()->index();
             $table->string('descripcion');
             $table->string('codigo');
 

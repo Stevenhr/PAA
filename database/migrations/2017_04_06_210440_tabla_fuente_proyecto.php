@@ -18,7 +18,7 @@ class TablaFuenteProyecto extends Migration
             $table->foreign('fuente_id')->references('Id')->on('fuente');
             $table->integer('proyecto_id')->nullable()->unsigned();
             $table->foreign('proyecto_id')->references('Id')->on('proyecto');
-            $table->integer('valor');
+            $table->bigInteger('valor')->unsigned()->index();
             $table->timestamps();
         });
     }

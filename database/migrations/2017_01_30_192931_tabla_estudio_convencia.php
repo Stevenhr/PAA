@@ -20,7 +20,7 @@ class TablaEstudioConvencia extends Migration
             $table->text('oportunidad');
             $table->text('justificacion');
             $table->timestamps();
-            $table->foreign('id_paa')->references('Id')->on('paa')->onDelete('cascade');
+            $table->foreign('id_paa')->references('Id')->on('paa');
         });
     }
 

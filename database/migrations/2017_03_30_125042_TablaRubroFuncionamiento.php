@@ -19,7 +19,7 @@ class TablaRubroFuncionamiento extends Migration
             $table->string('nombre');
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
-            $table->bigInteger('valor');
+            $table->bigInteger('valor')->unsigned()->index();
             $table->timestamps();
         });
     }
