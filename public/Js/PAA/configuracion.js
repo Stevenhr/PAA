@@ -2659,9 +2659,9 @@ $(function()
 
 
 
-          /*###########################  AGREGAR COMPONENTE - FUENTE - FINANZA #################################################*/
+    /*###########################  AGREGAR COMPONENTE - FUENTE - FINANZA #################################################*/
 
-    var Tabla_fuentes_financia = $('#Tabla_fuentes_financia').DataTable({
+    var Tabla_componentes_fuentes_financia = $('#Tabla_componentes_fuentes_financia').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 'copyHtml5',
@@ -2670,6 +2670,28 @@ $(function()
                 'pdfHtml5'
             ]
     });
+
+    $('#Tabla4').delegate('button[data-funcion="Modal_Finanza_Componente"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        var nombre = $(this).data('nombre');
+        $('#id_Nom_proy_fin_c').text(nombre);          
+        $('#id_Nom_proy_fin_c').val(id);      
+        $.get(
+            URL+'/validar/consultacomponenteFinanza/'+id,
+            {},
+            function(data)
+            {   
+              var num=1;
+              Tabla_componentes_fuentes_financia.clear().draw();
+              $.each(data.proyecto.fuente, function(i, e){
+                  var $tr1 = tabla_opciones(e,num);    
+                  Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
+                  num++;
+              });
+            }
+        );    
+        e.preventDefault();
+    }); 
 
 
 

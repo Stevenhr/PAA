@@ -1485,7 +1485,7 @@
 				<div class="row"  >
 				   <div class="col-xs-12 col-sm-12">
 				  		<div class="form-group">
-					    	<label>Ingreso de los componentes de financiación:</label><br>
+					    	<h5><b>Ingreso de los componentes de financiación:</b></h5><br>
 						</div>
 				  </div>
 				</div>
@@ -1532,6 +1532,32 @@
 				  </div>
 				</div>
 	      	</div>
+
+	      	<hr>
+	      	<hr>
+	      	<div class="modal-body">
+    			<div class="row">
+    			    <div class="col-xs-12 col-md-12">
+	            		<h5><b>Listado componentes por fuentes:</b></h5>
+			        </div>
+				    <div class="col-xs-12 col-md-12">
+				    	<div class="table-responsive" id="div_Tabla4">
+					      		<table id="Tabla_componentes_fuentes_financia" class="display" width="100%" cellspacing="0">
+						        <thead>
+						            <tr>
+						                <th class="text-center">N°</th>
+						                <th>Fuente</th>
+						                <th>Valor</th>
+						                <th>Opción</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						        </tbody>
+						    </table>
+						</div>
+	        		</div>
+				</div>
+			</div>
       
 	      <div class="modal-footer">
 	      	<div class="row">
