@@ -2485,8 +2485,13 @@ $(function()
                             setTimeout(function(){
                                 $('#mjs_registroFinanza_fuente').hide();
                             }, 3000)
+                          }else if(data.upd==4){
+                            $('#mjs_registroFinanza_fuente').html('<div class="alert alert-danger"><center><strong>Valor Superado!! </strong>El valor ingresado supera la disponibilidad del Proyecto.</center></div>');
+                            $('#mjs_registroFinanza_fuente').show();
+                            setTimeout(function(){
+                                $('#mjs_registroFinanza_fuente').hide();
+                            }, 3000)
                           }else{
-
                               var num=1;
                               Tabla_fuentes_financia.clear().draw();
                               $.each(data.proyecto.fuente, function(i, e){
@@ -2651,6 +2656,20 @@ $(function()
             });
             e.preventDefault();
         }); 
+
+
+
+          /*###########################  AGREGAR COMPONENTE - FUENTE - FINANZA #################################################*/
+
+    var Tabla_fuentes_financia = $('#Tabla_fuentes_financia').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+    });
 
 
 

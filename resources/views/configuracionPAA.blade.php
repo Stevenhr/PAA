@@ -403,7 +403,7 @@
 			            		<hr><hr>
 					        </div>
             			    <div class="col-xs-12 col-md-12">
-			            		<h5>Listado de Proyectos:</h5>
+			            		<h5>Listado de Proyectos de inversión:</h5>
 					        </div>
 						    <div class="col-xs-12 col-md-12">
 						    	<div class="table-responsive" id="div_Tabla4">
@@ -461,9 +461,6 @@
 																	  </div>
 																	  <div class="btn-group">
 																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-nombre="{{ $proyecto['Nombre'] }}" data-funcion="Modal_Finanza_Componente" data-toggle="modal" data-target="#Modal_Finanza_Componente" data-tooltip="tooltip" data-placement="top" title="Componente"class="btn btn-success btn-xs">C</button>
-																	  </div>
-																	  <div class="btn-group">
-																	    <button type="button" data-rel="{{ $proyecto['Id'] }}" data-nombre="{{ $proyecto['Nombre'] }}" data-funcion="Modal_Finanza" data-toggle="modal" data-target="#Modal_Finanza" data-tooltip="tooltip" data-placement="top" title="Financiación" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 																	  </div>
 																	</div>
 																	<div id="espera{{ $proyecto['Id'] }}"></div>
@@ -1393,7 +1390,7 @@
 				<div class="row"  >
 				   <div class="col-xs-12 col-sm-12">
 				  		<div class="form-group">
-					    	<label>Ingreso de las fuentes de financiación:</label><br>
+					    	<h5><b>Ingreso de las fuentes de financiación:</b></h5>
 						</div>
 				  </div>
 				</div>
@@ -1430,11 +1427,12 @@
 				  </div>
 				</div>
 	      	</div>
-
+	      	<hr>
+	      	<hr>
 	      	<div class="modal-body">
     			<div class="row">
     			    <div class="col-xs-12 col-md-12">
-	            		<h5>Listado fuentes por proyectos:</h5>
+	            		<h5><b>Listado fuentes por proyecto:</b></h5>
 			        </div>
 				    <div class="col-xs-12 col-md-12">
 				    	<div class="table-responsive" id="div_Tabla4">
@@ -1452,9 +1450,6 @@
 						    </table>
 						</div>
 	        		</div>
-	        		<div class="col-xs-12 col-md-12">
-	            		<hr><hr>
-			        </div>
 				</div>
 			</div>
 
@@ -1495,7 +1490,19 @@
 				  </div>
 				</div>
 				<div class="row" >
-				    <div class="col-xs-12 col-md-8 ">
+				    <div class="col-xs-12 col-md-4">
+				    	<div class="form-group">	
+				    		<input type="hidden" name="id_proyect_fina_c" id="id_proyect_fina_c" ></input>
+				    		<label>Fuente</label>					
+							<select class="form-control" name="id_componente_finza" id="id_componente_finza">
+									<option value="">Seleccionar</option>
+									@foreach($componentes as $componente)
+										<option value="{{ $componente['Id'] }}" >{{ $componente['codigo'] }} - {{ $componente['Nombre'] }}</option>
+								    @endforeach
+							</select>
+						</div>
+	        		</div>
+	        		<div class="col-xs-12 col-md-4">
 				    	<div class="form-group">	
 				    		<input type="hidden" name="id_proyect_fina_c" id="id_proyect_fina_c" ></input>
 				    		<label>Componente</label>					

@@ -1121,6 +1121,10 @@ class PaaController extends Controller
 	{	
 		$id_p=$input['id_proyect_fina_f'];
 		$id=$input['id_fuente_finanza_fuente'];
+
+		$proyecto = Proyecto::find($id_p);
+		$val_proyecto = $proyecto['valor'];
+		
 		$Fuente = Fuente::with(['proyecto' => function($q) use ($id_p)
 		{
 		    $q->where('proyecto_id', '=', $id_p);
@@ -1132,13 +1136,24 @@ class PaaController extends Controller
 		foreach ($fuente_vt->proyecto as $value) {
 			$valorSum=$valorSum+$value->pivot['valor'];
 		}
-
 		$valor_dispo=$fuente_vt['valor']-$valorSum;
-		
+
+
+		$proyecto_vt=Proyecto::with('fuente')->find($id_p);
+		$valorSum_p=0;
+		foreach ($proyecto_vt->fuente as $value) {
+			$valorSum_p=$valorSum_p+$value->pivot['valor'];
+		}
+		$valor_dispo_proy=$proyecto_vt['valor']-$valorSum_p;
+
+
 		$valor_fuente_proyecto=str_replace('.', '', $input['valor_fuente_proyecto']);
-		//dd($valor_dispo." - ".$valor_fuente_proyecto);
 		
-		if($Fuente->proyecto->count())
+		if($valor_dispo_proy<$valor_fuente_proyecto)
+		{
+			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>4));
+		}
+		else if($Fuente->proyecto->count())
 		{
 			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>2));
 		}
@@ -1157,19 +1172,33 @@ class PaaController extends Controller
 		$id_p=$input['id_proyect_fina_f'];
 		$id=$input['id_fuente_finanza_fuente'];
 
+
 		$Fuente = Fuente::find($id);
-		
 		$fuente_vt=Fuente::with('proyecto')->find($id);
 		$valorSum=0;
+
 		foreach ($fuente_vt->proyecto as $value) {
 			if($value->pivot['proyecto_id']!=$id_p)
 			$valorSum=$valorSum+$value->pivot['valor'];
 		}
-
 		$valor_dispo=$fuente_vt['valor']-$valorSum;
+
+
+		$proyecto_vt=Proyecto::with('fuente')->find($id_p);
+		$valorSum_p=0;
+		foreach ($proyecto_vt->fuente as $value) {
+			$valorSum_p=$valorSum_p+$value->pivot['valor'];
+		}
+		$valor_dispo_proy=$proyecto_vt['valor']-$valorSum_p;
+
+
 		$valor_fuente_proyecto=str_replace('.', '', $input['valor_fuente_proyecto']);
 
-	    if($valor_dispo<$valor_fuente_proyecto)
+	    if($valor_dispo_proy<$valor_fuente_proyecto)
+		{
+			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>4));
+		}
+		else if($valor_dispo<$valor_fuente_proyecto)
 		{
 			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>3));
 		}
