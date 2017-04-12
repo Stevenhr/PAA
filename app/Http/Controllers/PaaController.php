@@ -1303,6 +1303,9 @@ class PaaController extends Controller
 
 		$proyecto = Proyecto::find($id_p);
 		$val_proyecto = $proyecto['valor'];*/
+		$Presupuestado_1=Presupuestado::where('fuente_id',$fuente_f_c)->where('proyecto_id',$proyecto_f_c)->where('componente_id',$compoennte_f_c)->get();
+		
+
 		$valorSumFC=0;
 		$Presupuestado=Presupuestado::where('fuente_id',$fuente_f_c)->where('proyecto_id',$proyecto_f_c)->get();
 		foreach ($Presupuestado as $value) {
@@ -1316,8 +1319,11 @@ class PaaController extends Controller
 		}])->find($proyecto_f_c);
 		
 		$valor_dispo=$Proyecto->fuente[0]->pivot['valor']-$valorSumFC;
-		
-		if($valor_dispo<$valor_f_c)
+
+		if($Presupuestado_1->count()>0){
+			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>2));
+		}
+		else if($valor_dispo<$valor_f_c)
 		{
 			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>3));
 		}
@@ -1369,6 +1375,7 @@ class PaaController extends Controller
 		$compoennte_f_c=$input['id_componente_finza_c'];
 		$proyecto_f_c=$input['id_proyect_fina_c'];
 		$valor_f_c=$input['valor_componente_proyecto'];
+
 
 		$model['componente_id']=$compoennte_f_c;
 		$model['fuente_id']=$fuente_f_c;

@@ -2735,7 +2735,7 @@ $(function()
                                 $('#mjs_registroFinanza_fuente').hide();
                             }, 3000)
                           }else if(data.upd==2){
-                            $('#mjs_registroFinanza_fuente').html('<div class="alert alert-danger"><center><strong>Ya existe la fuente!! </strong>Registro no se ha podido ingresar, la fuente ya existe en este proyecto....</center></div>');
+                            $('#mjs_registroFinanza_fuente').html('<div class="alert alert-danger"><center><strong>Ya existe la fuente y el componente!! </strong>Registro no se ha podido ingresar, la fuente y el componente ya existen en este proyecto....</center></div>');
                             $('#mjs_registroFinanza_fuente').show();
                             setTimeout(function(){
                                 $('#mjs_registroFinanza_fuente').hide();
@@ -2765,7 +2765,6 @@ $(function()
                               setTimeout(function(){
                                    $('#mjs_registroFinanza_fuente').hide();
                               }, 3000)
-
                           }
 
                               document.getElementById("form_agregar_finanza_fuente").reset(); 
