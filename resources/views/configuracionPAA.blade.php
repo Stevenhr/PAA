@@ -1429,6 +1429,7 @@
 	      	</div>
 	      	<hr>
 	      	<hr>
+
 	      	<div class="modal-body">
     			<div class="row">
     			    <div class="col-xs-12 col-md-12">
@@ -1525,7 +1526,7 @@
 				  </div>
 				  <div class="col-xs-12 col-sm-12">
 				  		<input type="hidden" name="id_finanza_fuenteCompoente_crear" id="id_finanza_fuenteCompoente_crear"  value="0" ></input>
-				  		<div id="mjs_registroFinanza" style="display: none"></div>
+				  		<div id="mjs_registroFinanza_fuente_componente" style="display: none"></div>
 				  </div>
 				</div>
 	      	</div>

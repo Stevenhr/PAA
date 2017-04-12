@@ -2723,34 +2723,34 @@ $(function()
                   } else {
 
                       validad_error_finanza_componente(data.errors);
-                      $('#mjs_registroFinanza_fuente').html('<div class="alert alert-success"><center><strong>Cargando... Espere un momento! </strong>  Registrando finanza...</center></div>');
-                      $('#mjs_registroFinanza_fuente').show();
+                      $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-success"><center><strong>Cargando... Espere un momento! </strong>  Registrando finanza...</center></div>');
+                      $('#mjs_registroFinanza_fuente_componente').show();
 
                       if(data.status == 'modelo')
                       {
                           if(data.upd==0){
-                            $('#mjs_registroFinanza_fuente').html('<div class="alert alert-success"><center><strong>Exitoso!! </strong>Registro modificado...</center></div>');
-                            $('#mjs_registroFinanza_fuente').show();
+                            $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-success"><center><strong>Exitoso!! </strong>Registro modificado...</center></div>');
+                            $('#mjs_registroFinanza_fuente_componente').show();
                             setTimeout(function(){
-                                $('#mjs_registroFinanza_fuente').hide();
+                                $('#mjs_registroFinanza_fuente_componente').hide();
                             }, 3000)
                           }else if(data.upd==2){
-                            $('#mjs_registroFinanza_fuente').html('<div class="alert alert-danger"><center><strong>Ya existe la fuente y el componente!! </strong>Registro no se ha podido ingresar, la fuente y el componente ya existen en este proyecto....</center></div>');
-                            $('#mjs_registroFinanza_fuente').show();
+                            $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-danger"><center><strong>Ya existe la fuente y el componente!! </strong>Registro no se ha podido ingresar, la fuente y el componente ya existen en este proyecto....</center></div>');
+                            $('#mjs_registroFinanza_fuente_componente').show();
                             setTimeout(function(){
-                                $('#mjs_registroFinanza_fuente').hide();
+                                $('#mjs_registroFinanza_fuente_componente').hide();
                             }, 3000)
                           }else if(data.upd==3){
-                            $('#mjs_registroFinanza_fuente').html('<div class="alert alert-danger"><center><strong>Valor invalido!! </strong>El valor supera el valor disponible de esta fuente. </center></div>');
-                            $('#mjs_registroFinanza_fuente').show();
+                            $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-danger"><center><strong>Valor invalido!! </strong>El valor supera el valor disponible de esta fuente. </center></div>');
+                            $('#mjs_registroFinanza_fuente_componente').show();
                             setTimeout(function(){
-                                $('#mjs_registroFinanza_fuente').hide();
+                                $('#mjs_registroFinanza_fuente_componente').hide();
                             }, 3000)
                           }else if(data.upd==4){
-                            $('#mjs_registroFinanza_fuente').html('<div class="alert alert-danger"><center><strong>Valor Superado!! </strong>El valor ingresado supera la disponibilidad del Proyecto.</center></div>');
-                            $('#mjs_registroFinanza_fuente').show();
+                            $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-danger"><center><strong>Valor Superado!! </strong>El valor ingresado supera la disponibilidad del Proyecto.</center></div>');
+                            $('#mjs_registroFinanza_fuente_componente').show();
                             setTimeout(function(){
-                                $('#mjs_registroFinanza_fuente').hide();
+                                $('#mjs_registroFinanza_fuente_componente').hide();
                             }, 3000)
                           }else{
                               var num=1;
@@ -2760,10 +2760,10 @@ $(function()
                                   Tabla_fuentes_financia.row.add($tr1).draw(false);
                                   num++;
                               });
-                              $('#mjs_registroFinanza_fuente').html('<div class="alert alert-success"><center><strong>Exitoso!!</strong>Registro creado...</center></div>');
-                              $('#mjs_registroFinanza_fuente').show();
+                              $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-success"><center><strong>Exitoso!!</strong>Registro creado...</center></div>');
+                              $('#mjs_registroFinanza_fuente_componente').show();
                               setTimeout(function(){
-                                   $('#mjs_registroFinanza_fuente').hide();
+                                   $('#mjs_registroFinanza_fuente_componente').hide();
                               }, 3000)
                           }
 
@@ -2772,10 +2772,10 @@ $(function()
                               $("#btn_agregar_finanza_ft").text('Registrar');
                               $("#btn_agregar_finanza_ft_c").hide();
                       }else{
-                          $('#mjs_registroFinanza_fuente').html('<div class="alert alert-danger"><center><strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos+'</div>');
-                          $('#mjs_registroFinanza_fuente').show();
+                          $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-danger"><center><strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos+'</div>');
+                          $('#mjs_registroFinanza_fuente_componente').show();
                           setTimeout(function(){
-                              $('#mjs_registroFinanza_fuente').hide();
+                              $('#mjs_registroFinanza_fuente_componente').hide();
                           }, 6000)                          
                       }
                   }
