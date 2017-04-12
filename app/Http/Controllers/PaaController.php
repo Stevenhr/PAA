@@ -17,6 +17,7 @@ use App\Datos;
 use App\RubroFuncionamiento;
 use App\PersonaPaa;
 use App\ProyectoDesarrollo;
+use App\Presupuestado;
 use Idrd\Usuarios\Repo\PersonaInterface;
 
 class PaaController extends Controller
@@ -1247,11 +1248,7 @@ class PaaController extends Controller
 			return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto));		
 	}
 
-	public function consultacomponenteFinanza(Request $request, $id)
-	{	
-			$Proyecto = Proyecto::with('fuente')->find($id); //Cambiar a fuentes
-			return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto));		
-	}
+	
 
 	public function eliminarproyectoFinanza(Request $request)
 	{
@@ -1260,6 +1257,133 @@ class PaaController extends Controller
 
       	$Proyecto = Proyecto::with('fuente')->find($request["idproyecto"]);
 		return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto));
+	}
+
+
+
+
+
+/*#######################################   REGISTRO FINANZA FUENTE - COMPONENTE #######################*/
+
+	public function validar_proyectoFinanza_fuenteComponente(Request $request)
+	{
+		$validator = Validator::make($request->all(),
+		    [
+				'id_componente_finza_f' => 'required',
+				'id_componente_finza_c' => 'required',
+				'valor_componente_proyecto' => 'required',
+        	]
+        );
+        
+        if ($validator->fails())
+          return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+
+      //	dd($request->input('id_finanza_fuenteCompoente_crear'));
+      	if($request->input('id_finanza_fuenteCompoente_crear') === "0")
+      	{
+
+        	return $this->guardar_fuente_finanzaComponente($request->all());
+    	}
+    	else
+    	{
+    		return "Modificar";	
+    	}
+	}
+
+	public function guardar_fuente_finanzaComponente($input)
+	{	
+
+		$fuente_f_c=$input['id_componente_finza_f'];
+		$compoennte_f_c=$input['id_componente_finza_c'];
+		$proyecto_f_c=$input['id_proyect_fina_c'];
+		$valor_f_c=$input['valor_componente_proyecto'];
+
+		/*$id_p=$input['id_proyect_fina_f'];
+		$id=$input['id_fuente_finanza_fuente'];
+
+		$proyecto = Proyecto::find($id_p);
+		$val_proyecto = $proyecto['valor'];*/
+		$valorSumFC=0;
+		$Presupuestado=Presupuestado::where('fuente_id',$fuente_f_c)->where('proyecto_id',$proyecto_f_c)->get();
+		foreach ($Presupuestado as $value) {
+			$valorSumFC=$valorSumFC+$value['valor'];
+		}
+
+		$Proyecto = Proyecto::with(['fuente' => function($q) use ($fuente_f_c)
+		{
+		    $q->where('FuenteProyecto.id', '=', $fuente_f_c);
+
+		}])->find($proyecto_f_c);
+		
+		$valor_dispo=$Proyecto->fuente[0]->pivot['valor']-$valorSumFC;
+		
+		if($valor_dispo<$valor_f_c)
+		{
+			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>3));
+		}
+		else
+		{	
+			$Presupuestado_ = new Presupuestado;
+			return $this->crear_finanza_fuente_componente_proyecto($Presupuestado_, $input);
+		}
+
+		/*$fuente_vt=Fuente::with('proyecto')->find($input["id_fuente_finanza_fuente"]);
+		$valorSum=0;
+		foreach ($fuente_vt->proyecto as $value) {
+			$valorSum=$valorSum+$value->pivot['valor'];
+		}
+		$valor_dispo=$fuente_vt['valor']-$valorSum;
+
+
+		$proyecto_vt=Proyecto::with('fuente')->find($id_p);
+		$valorSum_p=0;
+		foreach ($proyecto_vt->fuente as $value) {
+			$valorSum_p=$valorSum_p+$value->pivot['valor'];
+		}
+		$valor_dispo_proy=$proyecto_vt['valor']-$valorSum_p;
+
+
+		$valor_fuente_proyecto=str_replace('.', '', $input['valor_fuente_proyecto']);
+		
+		if($valor_dispo_proy<$valor_fuente_proyecto)
+		{
+			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>4));
+		}
+		else if($Fuente->proyecto->count())
+		{
+			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>2));
+		}
+		else if($valor_dispo<$valor_fuente_proyecto)
+		{
+			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>3));
+		}
+		else
+		{
+			return $this->crear_finanza_fuente_componente_proyecto($Fuente, $input);
+		}*/
+	}
+
+	public function crear_finanza_fuente_componente_proyecto($model, $input)
+	{
+		$fuente_f_c=$input['id_componente_finza_f'];
+		$compoennte_f_c=$input['id_componente_finza_c'];
+		$proyecto_f_c=$input['id_proyect_fina_c'];
+		$valor_f_c=$input['valor_componente_proyecto'];
+
+		$model['componente_id']=$compoennte_f_c;
+		$model['fuente_id']=$fuente_f_c;
+		$model['proyecto_id']=$proyecto_f_c;
+		$model['valor']=$valor_f_c;
+		$model->save();
+
+		$Proyecto = Proyecto::with('fuente')->find($proyecto_f_c);
+		return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto,'upd'=>1));
+	}
+
+	public function consultacomponenteFinanza(Request $request, $id)
+	{	
+			$Proyecto = Proyecto::with('fuente')->find($id); //Cambiar a fuentes
+			return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto));		
 	}
 
 }

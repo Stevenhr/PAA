@@ -57,6 +57,7 @@ Route::get('/configuracionPaa/validar/consultaproyectoFinanza/{id}', 'PaaControl
 Route::get('/configuracionPaa/validar/consultacomponenteFinanza/{id}', 'PaaController@consultacomponenteFinanza');
 Route::post('/configuracionPaa/fuente/modificarFuenteProyecto/', 'PaaController@modificarFuenteProyecto');
 Route::post('/configuracionPaa/validar/proyectoFinanzaFuente/', 'PaaController@validar_proyectoFinanza_fuente');
+Route::post('/configuracionPaa/validar/proyectoFinanzaFuenteCompoente/', 'PaaController@validar_proyectoFinanza_fuenteComponente');
 Route::post('/configuracionPaa/validar/eliminarproyectoFinanza/', 'PaaController@eliminarproyectoFinanza');
 
 Route::post('/configuracionPaa/validar/proyecto/', 'PaaController@validar_proyecto');

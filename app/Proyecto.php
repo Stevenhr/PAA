@@ -28,6 +28,6 @@ class Proyecto extends Model
     public function fuente()
     {
         return $this->belongsToMany('\App\Fuente','FuenteProyecto','proyecto_id','fuente_id')
-            ->withPivot('valor','created_at');
+            ->withPivot('id','valor','created_at');
     }
 }
