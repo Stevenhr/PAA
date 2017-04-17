@@ -12,4 +12,14 @@ class Presupuestado extends Model
 	protected $fillable = ['componente_id','fuente_id','proyecto_id','valor'];
 	protected $connection = ''; 
 	public $timestamps = true;
+
+	public function componente()
+    {
+        return $this->belongsTo('App\Componente','componente_id');
+    }
+
+    public function fuente()
+    {
+        return $this->belongsTo('App\Fuente','fuente_id');
+    }
 }
