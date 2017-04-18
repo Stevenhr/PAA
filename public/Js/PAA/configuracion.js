@@ -49,23 +49,25 @@ $(function()
     $('select[name="Id_Pais"]').on('change', function(e){
         popular_ciudades($(this).val());
     });
+    
 
-    $('input[data-role="datepicker"]').datepicker({
+    $('input[data-role="datepicker_1"]').datepicker({
       dateFormat: 'yy-mm-dd',
-      yearRange: "-100:+0",
+      minDate: new Date(2015, 0, 1),
+      maxDate: new Date(2050, 11, 31),
       changeMonth: true,
       changeYear: true,
     });
 
     $('.precio').keydown(function(event) {
-   if(event.shiftKey)
-   {
-        event.preventDefault();
-   }
+       if(event.shiftKey)
+       {
+            event.preventDefault();
+       }
  
-   if (event.keyCode == 46 || event.keyCode == 8)    {
-   }
-   else {
+       if (event.keyCode == 46 || event.keyCode == 8)    {
+       }
+       else {
         if (event.keyCode < 95) {
           if (event.keyCode < 48 || event.keyCode > 57) {
                 event.preventDefault();
@@ -565,6 +567,13 @@ $(function()
 
 
 /*############################   VIGENCIA    ###########################*/
+    
+    $('#Tabla3 tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Opción" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
 
 
     var t = $('#Tabla3').DataTable({
@@ -577,6 +586,17 @@ $(function()
         ]
     });
 
+
+    t.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    });
 
     $('#form_presupuesto').on('submit', function(e){
       
@@ -781,16 +801,34 @@ $(function()
 
 /*############################   PROYECTO    ###########################*/
 
+    $('#Tabla4 tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Opción" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
 
- var tt = $('#Tabla4').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
- });
+     var tt = $('#Tabla4').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+     });
+
+    tt.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    });
+
 
  $('select[name="idProyectoDesa_Proyecto"]').on('change', function(e){
     select_vigencias_1($(this).val());
@@ -1023,8 +1061,14 @@ $(function()
 
 /*############################   META    ###########################*/
 
+    $('#Tabla5 tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Opción" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
 
- var ttt = $('#Tabla5').DataTable({
+    var ttt = $('#Tabla5').DataTable({
         dom: 'Bfrtip',
         buttons: [
             'copyHtml5',
@@ -1033,6 +1077,18 @@ $(function()
             'pdfHtml5'
         ]
     });
+
+    ttt.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    });
+
 
  $('select[name="idProyectoDesa_Meta"]').on('change', function(e){
     select_vigencias_2($(this).val());
@@ -1302,6 +1358,12 @@ $(function()
 
 /*############################   ACTIVIDAD    ###########################*/
 
+    $('#Tabla6 tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Opción" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
 
     var tttt = $('#Tabla6').DataTable({
             dom: 'Bfrtip',
@@ -1312,6 +1374,18 @@ $(function()
                 'pdfHtml5'
             ]
     });
+
+    tttt.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    });
+    
 
     $('select[name="idProyectoDesa_Actividad"]').on('change', function(e){
         select_vigencias_3($(this).val());
@@ -1464,8 +1538,6 @@ $(function()
             if (typeof data[error] !== 'function') {
                 switch(error)
                 {   
-                       
-
                     case 'nombre_actividad':
                     case 'fecha_inicial_actividad':
                     case 'fecha_final_actividad':
@@ -1473,6 +1545,7 @@ $(function()
                         selector = 'input';
                     break;
 
+                    case 'idProyectoDesa_Actividad':
                     case 'idPresupuesto_A':
                     case 'idProyecto_A':
                     case 'idMeta_A':
@@ -1625,6 +1698,14 @@ $(function()
 /*############################   COMPONENTE    ###########################*/
 
 
+    
+    $('#Tabla7 tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Opción" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
+
     var ttttt = $('#Tabla7').DataTable({
             dom: 'Bfrtip',
             buttons: [
@@ -1633,6 +1714,17 @@ $(function()
                 'csvHtml5',
                 'pdfHtml5'
             ]
+    });
+
+    ttttt.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
     });
 
     $('select[name="idPresupuesto_C"]').on('change', function(e){
@@ -1941,6 +2033,12 @@ $(function()
 
     /*############################   CREAR COMPONENTE    ###########################*/
 
+    $('#Tabla8 tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Opción" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
 
     var ttTttt = $('#Tabla8').DataTable({
             dom: 'Bfrtip',
@@ -1951,6 +2049,18 @@ $(function()
                 'pdfHtml5'
             ]
     });
+
+    ttTttt.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    });
+    
 
     $('#form_componente_crear').on('submit', function(e){
         $.post(URL+'/validar/componente_crear',$(this).serialize(),function(data){
@@ -2145,7 +2255,16 @@ $(function()
     /*############################   CREAR FUENTE    ###########################*/
 
 
-    var t_fuente = $('#Tabla9').DataTable({
+    
+
+    $('#Tabla9 tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Opción" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
+
+   var t_fuente = $('#Tabla9').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 'copyHtml5',
@@ -2153,6 +2272,17 @@ $(function()
                 'csvHtml5',
                 'pdfHtml5'
             ]
+    });
+
+    t_fuente.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
     });
 
 
@@ -2463,8 +2593,14 @@ $(function()
         }); 
 
           /*###########################  AGREGAR FUENTE - FINANZA #################################################*/
+    $('#Tabla_fuentes_financia tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Opción" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
 
-    var Tabla_fuentes_financia = $('#Tabla_fuentes_financia').DataTable({
+   var Tabla_fuentes_financia = $('#Tabla_fuentes_financia').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 'copyHtml5',
@@ -2473,6 +2609,19 @@ $(function()
                 'pdfHtml5'
             ]
     });
+
+    Tabla_fuentes_financia.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    });
+
+    
 
     $('#form_agregar_finanza_fuente').on('submit', function(e){
 
@@ -2693,6 +2842,15 @@ $(function()
 
     /*###########################  AGREGAR COMPONENTE - FUENTE - FINANZA #################################################*/
 
+   
+
+    $('#Tabla_componentes_fuentes_financia tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Opción" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
+
     var Tabla_componentes_fuentes_financia = $('#Tabla_componentes_fuentes_financia').DataTable({
             dom: 'Bfrtip',
             buttons: [
@@ -2701,6 +2859,17 @@ $(function()
                 'csvHtml5',
                 'pdfHtml5'
             ]
+    });
+
+    Tabla_componentes_fuentes_financia.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
     });
 
     $('#Tabla4').delegate('button[data-funcion="Modal_Finanza_Componente"]','click',function (e){  

@@ -657,6 +657,7 @@ class PaaController extends Controller
 	{
 		$validator = Validator::make($request->all(),
 		    [
+	            'idProyectoDesa_Actividad' => 'required',
 	            'idPresupuesto_A' => 'required',
 	            'idProyecto_A' => 'required',
 				'idMeta_A' => 'required',

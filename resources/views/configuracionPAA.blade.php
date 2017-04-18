@@ -25,13 +25,11 @@
 				
 				<br>
 
-
-
 				<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PLAN DE DESARROLLO  %%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 				<div id="Presupuesto_desarrollo_dv" style="display:none;">
 					
 					<h3>Plan de desarrollo:</h3>
-					<hr style="border: 0; border-top: 1px solid #F6CECE; height:0;">
+					<hr style="border: 0; border-top: 1px solid #30a5e7; height:0;">
 	            	<br>
 	                <p class="text-justify">Registro de los planes de desarrollo.</p>
 			        <br>
@@ -50,14 +48,14 @@
 						    <div class="col-xs-12 col-md-3">
 						    	<div class="form-group">
 						    		<label>Fecha inicial de implementación</label>
-									<input type="text" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_plan">
+									<input type="text" class="form-control .form-group" data-role="datepicker_1" name="fecha_inicial_plan">
 								</div>
 			        		</div>
 
 						    <div class="col-xs-12 col-md-3">
 			        			<div class="form-group">
 			        				<label>Fecha final de implementación</label>
-									<input type="text" class="form-control" data-role="datepicker" name="fecha_final_plan">
+									<input type="text" class="form-control" data-role="datepicker_1" name="fecha_final_plan">
 								</div>
 			        		</div>
 
@@ -158,7 +156,7 @@
 				<div id="Presupuesto_dv" style="display:none;">
 					
 					<h3>Vigencias:</h3>
-					<hr style="border: 0; border-top: 1px solid #F6CECE; height:0;">
+					<hr style="border: 0; border-top: 1px solid #30a5e7; height:0;">
 	            	<br>
 	                <p class="text-justify">Registro de las vigencias de los planes de desarrollo.</p>
 			        <br>
@@ -196,14 +194,14 @@
 						    <div class="col-xs-12 col-md-2 ">
 						    	<div class="form-group">
 						    		<label>Fecha inicial de implementación</label>
-									<input type="text" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_presupuesto">
+									<input type="text" class="form-control .form-group" data-role="datepicker_1" name="fecha_inicial_presupuesto">
 								</div>
 			        		</div>
 
 						    <div class="col-xs-12 col-md-2 ">
 			        			<div class="form-group">
 			        				<label>Fecha final de implementación</label>
-									<input type="text" class="form-control" data-role="datepicker" name="fecha_final_presupuesto">
+									<input type="text" class="form-control" data-role="datepicker_1" name="fecha_final_presupuesto">
 								</div>
 			        		</div>
 
@@ -308,7 +306,7 @@
 		        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PROYECTO DE INVERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 				<div id="Proyecto_dv" style="display:none;">
 					<h3>Proyecto</h3>
-					<hr style="border: 0; border-top: 1px solid #81DAF5; height:0;">
+					<hr style="border: 0; border-top: 1px solid #30a5e7; height:0;">
 	            	<br>
 	                <p class="text-justify">Registro de proyectos.</p>
 			        <br>
@@ -358,14 +356,14 @@
 						    <div class="col-xs-12 col-md-2 ">
 						    	<div class="form-group">
 						    		<label>Fecha inicial de implementación</label>
-									<input type="text" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_proyecto">
+									<input type="text" class="form-control .form-group" data-role="datepicker_1" name="fecha_inicial_proyecto">
 								</div>
 			        		</div>
 
 						    <div class="col-xs-12 col-md-2 ">
 			        			<div class="form-group">
 			        				<label>Fecha final de implementación</label>
-									<input type="text" class="form-control" data-role="datepicker" name="fecha_final_proyecto">
+									<input type="text" class="form-control" data-role="datepicker_1" name="fecha_final_proyecto">
 								</div>
 			        		</div>
 
@@ -488,7 +486,7 @@
 		        <div id="Meta_dv" style="display:none;">
 
 					<h3>Meta</h3>
-					<hr style="border: 0; border-top: 1px solid #81DAF5; height:0;">
+					<hr style="border: 0; border-top: 1px solid #30a5e7; height:0;">
 	            	<br>
 	                <p class="text-justify">Registro de metas.</p>
 			        <br>
@@ -546,14 +544,14 @@
 						    <div class="col-xs-12 col-md-3 ">
 						    	<div class="form-group">
 						    		<label>Fecha inicial de implementación</label>
-									<input type="text" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_meta">
+									<input type="text" class="form-control .form-group" data-role="datepicker_1" name="fecha_inicial_meta">
 								</div>
 			        		</div>
 
 						    <div class="col-xs-12 col-md-3 ">
 			        			<div class="form-group">
 			        				<label>Fecha final de implementación</label>
-									<input type="text" class="form-control" data-role="datepicker" name="fecha_final_meta">
+									<input type="text" class="form-control" data-role="datepicker_1" name="fecha_final_meta">
 								</div>
 			        		</div>
 
@@ -675,7 +673,7 @@
 		             <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ACTIVIDAD %%%%%%%%%%%%%%%%%%%%%%%%% -->
 		        <div id="Actividad_dv" style="display:none;">
 					<h3>Actividad de proyecto de inversión.</h3>
-					<hr style="border: 0; border-top: 1px solid #642EFE; height:0;">
+					<hr style="border: 0; border-top: 1px solid #30a5e7; height:0;">
 	            	<br>
 	                <p class="text-justify">Registro de actividades a proyectos de inversión.</p>
 			        <br>
@@ -737,14 +735,14 @@
 						    <div class="col-xs-12 col-md-3 ">
 						    	<div class="form-group">
 						    		<label>Fecha inicial de implementación</label>
-									<input type="text" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_actividad">
+									<input type="text" class="form-control .form-group" data-role="datepicker_1" name="fecha_inicial_actividad">
 								</div>
 			        		</div>
 
 						    <div class="col-xs-12 col-md-3 ">
 			        			<div class="form-group">
 			        				<label>Fecha final de implementación</label>
-									<input type="text" class="form-control" data-role="datepicker" name="fecha_final_actividad">
+									<input type="text" class="form-control" data-role="datepicker_1" name="fecha_final_actividad">
 								</div>
 			        		</div>
 
@@ -880,7 +878,7 @@
 		        <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COMPONENTE %%%%%%%%%%%%%%%%%%%%%%%%% -->
 		        <div id="Componente_dv" style="display:none;">
 		        	<h3>Componente</h3>
-					<hr style="border: 0; border-top: 1px solid #FF0040; height:0;">
+					<hr style="border: 0; border-top: 1px solid #547a29; height:0;">
 	            	<br>
 	                <p class="text-justify">Registro de componente.</p>
 			        <br>
@@ -911,7 +909,7 @@
 			        		<div class="col-xs-12 col-md-3">
 						    	<div class="form-group">
 						    		<label>Fuente de Financiamiento</label>
-									<input type="hidden" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_componente" value="0000-00-00">
+									<input type="hidden" class="form-control .form-group" data-role="datepicker_1" name="fecha_inicial_componente" value="0000-00-00">
 									<select class="form-control" name="idFuenteF_C" id="idFuenteF_C">
 											<option value="">Seleccionar</option>
 										@foreach($fuentes as $fuente)
@@ -1003,7 +1001,7 @@
 				<!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FUENTE %%%%%%%%%%%%%%%%%%%%%%%%% -->
 		        <div id="Fuente_dv" style="display:none;">
 		        	<h3>Fuente</h3>
-					<hr style="border: 0; border-top: 1px solid #FF0040; height:0;">
+					<hr style="border: 0; border-top: 1px solid #547a29; height:0;">
 	            	<br>
 	                <p class="text-justify">Registro de Fuente.</p>
 			        <br>
@@ -1116,7 +1114,7 @@
 		         <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  RUBRO DE FUNCIONAMIENTO  %%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 				<div id="Rubro_dv" style="display:none;">
 					<h3>Rubro de funcionamiento</h3>
-					<hr style="border: 0; border-top: 1px solid #81DAF5; height:0;">
+					<hr style="border: 0; border-top: 1px solid #f06004; height:0;">
 	            	<br>
 	                <p class="text-justify">Registro de rubro.</p>
 			        <br>
@@ -1143,14 +1141,14 @@
 						    <div class="col-xs-12 col-md-2 ">
 						    	<div class="form-group">
 						    		<label>Fecha inicial de implementación</label>
-									<input type="text" class="form-control .form-group" data-role="datepicker" name="fecha_inicial_proyecto">
+									<input type="text" class="form-control .form-group" data-role="datepicker_1" name="fecha_inicial_proyecto">
 								</div>
 			        		</div>
 
 						    <div class="col-xs-12 col-md-2 ">
 			        			<div class="form-group">
 			        				<label>Fecha final de implementación</label>
-									<input type="text" class="form-control" data-role="datepicker" name="fecha_final_proyecto">
+									<input type="text" class="form-control" data-role="datepicker_1" name="fecha_final_proyecto">
 								</div>
 			        		</div>
 
@@ -1257,7 +1255,7 @@
 
 		        <div id="Actividad_rubros_dv" style="display:none;">
 					<h3>Actividad de rubro de funcionamiento</h3>
-					<hr style="border: 0; border-top: 1px solid #642EFE; height:0;">
+					<hr style="border: 0; border-top: 1px solid #f06004; height:0;">
 	            	<br>
 	                <p class="text-justify">Registro de actividades a rubros de funcionamiento.</p>
 			        <br>
@@ -1444,6 +1442,14 @@
 						                <th>Opción</th>
 						            </tr>
 						        </thead>
+						        <tfoot>
+						             <tr>
+						                <th class="text-center">N°</th>
+						                <th>Fuente</th>
+						                <th>Valor</th>
+						                <th>Opción</th>
+						            </tr>						       
+						        </tfoot>
 						        <tbody>
 						        </tbody>
 						    </table>
@@ -1548,6 +1554,15 @@
 						                <th>Opción</th>
 						            </tr>
 						        </thead>
+						         <tfoot>
+						             <tr>
+						                 <th class="text-center">N°</th>
+						                <th>Fuente</th>
+						                <th>Componente</th>
+						                <th>Valor</th>
+						                <th>Opción</th>
+						            </tr>						       
+						        </tfoot>
 						        <tbody>
 						        </tbody>
 						    </table>
