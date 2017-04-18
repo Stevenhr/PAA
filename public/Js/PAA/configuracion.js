@@ -42,6 +42,9 @@ $(function()
     $('input[name="valor_fuente_crear"]').on('keyup', function(e){
         formatCurrency(this);
     });
+    $('input[name="precio_actividad"]').on('keyup', function(e){
+        formatCurrency(this);
+    });
 
     $('select[name="Id_Pais"]').on('change', function(e){
         popular_ciudades($(this).val());
@@ -349,6 +352,12 @@ $(function()
 
 /*############################   PLAN DE INVERSION    ###########################*/
 
+    $('#Tabla0 tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Opción" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
 
     var t_0 = $('#Tabla0').DataTable({
         dom: 'Bfrtip',
@@ -358,6 +367,17 @@ $(function()
             'csvHtml5',
             'pdfHtml5'
         ]
+    });
+
+     t_0.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
     });
 
     $('#form_plan_Desarrollo').on('submit', function(e){
@@ -400,7 +420,7 @@ $(function()
                         $("#id_btn_plan").html('Registrar');
                         $("#id_btn_plan_canc").hide();
                     }, 2000)
-                    //location.reload();
+                    location.reload();
                 }else{
                     $('#mensaje_pplan2').html('<strong>Error!</strong> el valor del plan que intenta modificar es menor a la suma de las vigencias: $'+data.sum_proyectos);
                     $('#mensaje_pplan2').show();
@@ -563,17 +583,14 @@ $(function()
         $.post(URL+'/validar/presupuesto',$(this).serialize(),function(data){
             if(data.status == 'error')
             {
-           
                 validad_error(data.errors);
-           
             } else {
                 validad_error(data.errors);
+                console.log(data.status);
                 if(data.status == 'modelo')
                 {
-                    
                     document.getElementById("form_presupuesto").reset(); 
                   
-               
                     $("#div_Tabla3").show();
                     var num=1;
                     t.clear().draw();
@@ -601,6 +618,7 @@ $(function()
                         });
                     });
 
+                    $('#mensaje_presupuesto').html('<strong>Bien!</strong> Registro creado con exíto. Disponible: $'+number_format(data.disponible));
                     $('#mensaje_presupuesto').show();
                     setTimeout(function(){
                         $('#mensaje_presupuesto').hide();
@@ -608,6 +626,12 @@ $(function()
                         $("#id_btn_presup_canc").hide();
                     }, 2000)
                     //location.reload();
+                }else if(data.status == 'valor'){
+                    $('#mensaje_presupuesto2').html('<strong>Error... Valor Superado!!</strong> el valor ingresado supera el presupuesto del plan de desarrollo, disponible: $'+number_format(data.disponible));
+                    $('#mensaje_presupuesto2').show();
+                    setTimeout(function(){
+                        $('#mensaje_presupuesto2').hide();
+                    }, 6000)
                 }else{
                     $('#mensaje_presupuesto2').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
                     $('#mensaje_presupuesto2').show();

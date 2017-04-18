@@ -91,7 +91,7 @@
 			            		<hr><hr>
 					        </div>
             			    <div class="col-xs-12 col-md-12">
-			            		<h5>Listado de Presupuestos:</h5>
+			            		<h5>Listado de Planes de desarrollo:</h5>
 					        </div>
 						    <div class="col-xs-12 col-md-12">
 						    	<div class="table-responsive" id="div_Tabla_0">
@@ -219,9 +219,7 @@
 						    <div class="col-xs-12 col-md-4">
 			        		</div>
 						    <div class="col-xs-12 col-md-4 text-center"><br>
-						    		<div class="alert alert-success" style="display:none;" id="mensaje_presupuesto">
-									  <strong>Bien!</strong> Registro creado con exíto.
-									</div>
+						    		<div class="alert alert-success" style="display:none;" id="mensaje_presupuesto"></div>
 									<div class="alert alert-danger" style="display:none;" id="mensaje_presupuesto2"></div>
 									<button class="btn btn-primary" type="submit" id="id_btn_presupuesto">Registrar</button>
 									<button class="btn btn-danger" type="submit" id="id_btn_presup_canc" style="display:none;">Cancelar</button>

@@ -153,34 +153,65 @@ class PaaController extends Controller
 
 	public function crear_presspuesto($model, $input)
 	{
-		$valo= str_replace('.', '', $input['precio']);
-		$model['Id_proyectoDesarrollo'] = $input['idProyectoDesa'];
-		$model['vigencia'] = $input['vigencia'];
-		$model['fecha_inicio'] = $input['fecha_inicial_presupuesto'];
-		$model['fecha_fin'] = $input['fecha_final_presupuesto'];
-		$model['presupuesto'] = $valo;
-		$model->save();
+		$proyectoDesa = ProyectoDesarrollo::find($input['idProyectoDesa']);
 
-		$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos')->get();
-		return response()->json(array('status' => 'modelo', 'proyectoDesarrollo' => $proyectoDesarrollo));
+		$proyectos = Presupuesto::where('Id_proyectoDesarrollo',$input['idProyectoDesa'])->get();
+		$sum = $proyectos->sum( 'presupuesto' );
+
+		$disponible=$proyectoDesa['valor']-$sum;
+		$valo= str_replace('.', '', $input['precio']);
+
+		if($disponible>=$valo){
+			$model['Id_proyectoDesarrollo'] = $input['idProyectoDesa'];
+			$model['vigencia'] = $input['vigencia'];
+			$model['fecha_inicio'] = $input['fecha_inicial_presupuesto'];
+			$model['fecha_fin'] = $input['fecha_final_presupuesto'];
+			$model['presupuesto'] = $valo;
+			$model->save();
+			$disponible=$disponible-$valo;
+			$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos')->get();
+		    return response()->json(array('status' => 'modelo', 'proyectoDesarrollo' => $proyectoDesarrollo,'disponible'=>$disponible));
+		}else{
+			$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos')->get();
+		    return response()->json(array('status' => 'valor', 'proyectoDesarrollo' => $proyectoDesarrollo,'disponible'=>$disponible));
+		}
 	}
 
 	public function modificar_actividad($model, $input)
 	{
 		$proyectos = Proyecto::where('Id_presupuesto',$input['Id_presupuesto'])->get();
 		$sum = $proyectos->sum( 'valor' );
+		$valo= str_replace('.', '', $input['precio']);
+		
+		if($valo>=$sum){	
+			$proyectoDesa = ProyectoDesarrollo::find($input['idProyectoDesa']);
 
-		if($input['precio']>=$sum){
-			$valo= str_replace('.', '', $input['precio']);
-			$model['vigencia'] = $input['vigencia'];
-			$model['Id_proyectoDesarrollo'] = $input['idProyectoDesa'];
-			$model['fecha_inicio'] = $input['fecha_inicial_presupuesto'];
-			$model['fecha_fin'] = $input['fecha_final_presupuesto'];
-			$model['presupuesto'] = $valo;
-			$model->save();
+			$proyectos = Presupuesto::where('Id_proyectoDesarrollo',$input['idProyectoDesa'])->get();
+			$sum = $proyectos->sum( 'presupuesto' );
+			
+			$disponible=$proyectoDesa['valor']-$sum;	
+			$disponible1=$disponible+$model['presupuesto'];
 
-			$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos')->get();
-			return response()->json(array('status' => 'modelo', 'proyectoDesarrollo' => $proyectoDesarrollo));
+			if($disponible1>=$valo){
+
+				$model['vigencia'] = $input['vigencia'];
+				$model['Id_proyectoDesarrollo'] = $input['idProyectoDesa'];
+				$model['fecha_inicio'] = $input['fecha_inicial_presupuesto'];
+				$model['fecha_fin'] = $input['fecha_final_presupuesto'];
+				$model['presupuesto'] = $valo;
+				$model->save();
+
+				$proyectoDesa = ProyectoDesarrollo::find($input['idProyectoDesa']);
+				$proyectos = Presupuesto::where('Id_proyectoDesarrollo',$input['idProyectoDesa'])->get();
+				$sum = $proyectos->sum( 'presupuesto' );
+				$disponible=$proyectoDesa['valor']-$sum;
+
+				$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos')->get();
+				return response()->json(array('status' => 'modelo', 'proyectoDesarrollo' => $proyectoDesarrollo,'disponible'=>$disponible));
+			}else{
+				$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos')->get();
+			    return response()->json(array('status' => 'valor', 'proyectoDesarrollo' => $proyectoDesarrollo,'disponible'=>$disponible));
+			}
 		}else{
 			return response()->json(array('status' => 'Saldo','sum_proyectos' => $sum));
 		}
