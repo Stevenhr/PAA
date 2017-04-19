@@ -1509,8 +1509,7 @@ class PaaController extends Controller
 
 	public function modificar_rubroFuncionamiento($input)
 	{
-		$modelo= new RubroFuncionamiento;
-		$modelo->where('id',$input["Id_rubro_funcionamient"])->get();
+		$modelo= RubroFuncionamiento::find($input["Id_rubro_funcionamient"]);
 		return $this->crear_rubroF($modelo, $input);
 	}
 
@@ -1596,8 +1595,7 @@ class PaaController extends Controller
 
 	public function modificar_act_rubroFuncionamiento($input)
 	{
-		$modelo= new ActividadFuncionamiento;
-		$modelo->where('id',$input["Id_act_rubro_funcionamient"])->get();
+		$modelo= ActividadFuncionamiento::find($input["Id_act_rubro_funcionamient"]);
 		return $this->crear_Acti_rubroF($modelo, $input);
 	}
 

@@ -2639,7 +2639,7 @@ $(function()
             function(data)
             {   
                 $("#espera_rubrofunciona"+id).html("");
-                $('input[name="Id_rubro_funcionamient"]').val(data.Id);
+                $('input[name="Id_rubro_funcionamient"]').val(data.id);
                 $('input[name="codigo_rubro_funciona"]').val(data.codigo);
                 $('input[name="nombre_rubro_funciona"]').val(data.nombre);
                 $('input[name="fecha_inicial_rubro_funciona"]').val(data.fecha_inicio);
