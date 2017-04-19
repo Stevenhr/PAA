@@ -65,6 +65,9 @@ Route::post('/configuracionPaa/validar/eliminarpresupestado/', 'PaaController@el
 Route::post('/configuracionPaa/validar/proyecto/', 'PaaController@validar_proyecto');
 Route::get('/configuracionPaa/proyecto/eliminar/{id}', 'PaaController@eliminar_proyecto');
 Route::get('/configuracionPaa/proyecto/modificar/{id}', 'PaaController@modificar_proyecto2');
+Route::post('/configuracionPaa/validar/rubro_funcionamiento/', 'PaaController@rubro_funcionamiento');
+Route::get('/configuracionPaa/rubrofuncionamiento/eliminar/{id}', 'PaaController@eliminarrubrofuncionamiento');
+Route::get('/configuracionPaa/rubrofuncionamiento/modificar/{id}', 'PaaController@modificarrubrofuncionamiento');
 
 Route::post('/configuracionPaa/validar/meta/', 'PaaController@validar_meta');
 Route::get('/configuracionPaa/meta/eliminar/{id}', 'PaaController@eliminar_meta');

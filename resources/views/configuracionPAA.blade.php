@@ -1118,44 +1118,43 @@
 	            	<br>
 	                <p class="text-justify">Registro de rubro.</p>
 			        <br>
-			        <form id="form_proyecto">
+			        <form id="form_rubro_funcionamiento">
 			            <div id="div_form_presupuesto"><br></div>
-				        
 
 				        <div class="row" >
 				        	<div class="col-xs-12 col-md-3 text-">
 						    	<div class="form-group">	
 						    		<label>Codigo</label>
-									<input type="text" class="form-control" name="codigo_proyecto">
+									<input type="text" class="form-control" name="codigo_rubro_funciona">
 								</div>
 			        		</div>
 
 						    <div class="col-xs-12 col-md-3 text-">
 						    	<div class="form-group">	
 						    		<label>Nombre</label>
-						    		<input type="hidden" class="form-control" name="Id_proyecto" value="0">
-									<input type="text" class="form-control" name="nombre_proyecto">
+						    		<input type="hidden" class="form-control" name="Id_rubro_funcionamient" value="0">
+									<input type="text" class="form-control" name="nombre_rubro_funciona">
 								</div>
 			        		</div>
 
 						    <div class="col-xs-12 col-md-2 ">
 						    	<div class="form-group">
 						    		<label>Fecha inicial de implementación</label>
-									<input type="text" class="form-control .form-group" data-role="datepicker_1" name="fecha_inicial_proyecto">
+									<input type="text" class="form-control .form-group" data-role="datepicker_1" name="fecha_inicial_rubro_funciona">
 								</div>
 			        		</div>
 
 						    <div class="col-xs-12 col-md-2 ">
 			        			<div class="form-group">
 			        				<label>Fecha final de implementación</label>
-									<input type="text" class="form-control" data-role="datepicker_1" name="fecha_final_proyecto">
+									<input type="text" class="form-control" data-role="datepicker_1" name="fecha_final_rubro_funciona">
 								</div>
 			        		</div>
 
 			        		<div class="col-xs-12 col-md-2 ">
 			        			<div class="form-group">
 			        				<label>Valor </label>
-									<input type="text" class="form-control precio" name="precio_proyecto">
+									<input type="text" class="form-control precio" name="precio_rubro_funciona">
 								</div>
 			        		</div>
 						</div>
@@ -1166,10 +1165,10 @@
 						    <div class="col-xs-12 col-md-4">
 			        		</div>
 						    <div class="col-xs-12 col-md-4 text-center"><br>
-						    		<div class="alert alert-success" style="display:none;" id="mensaje_proyecto"></div>
-						    		<div class="alert alert-danger" style="display:none;" id="mensaje_proyecto2"></div>
-									<button class="btn btn-primary" type="submit" id="id_btn_proyecto">Registrar</button>
-									<button class="btn btn-danger" type="submit" id="id_btn_proyect_canc" style="display:none;">Cancelar</button>
+						    		<div class="alert alert-success" style="display:none;" id="mensaje_rubrofuncionam"></div>
+						    		<div class="alert alert-danger" style="display:none;" id="mensaje_rubrofuncionam2"></div>
+									<button class="btn btn-primary" type="submit" id="id_btn_rubrof">Registrar</button>
+									<button class="btn btn-danger" type="submit" id="id_btn_rubrof_canc" style="display:none;">Cancelar</button>
 			        		</div>
 			        		<div class="col-xs-12 col-md-4">
 			        		</div>
@@ -1187,7 +1186,7 @@
 			            		<h5>Listado de rubros de funcionamiento:</h5>
 					        </div>
 						    <div class="col-xs-12 col-md-12">
-						    	<div class="table-responsive" id="div_Tabla4">
+						    	<div class="table-responsive" id="div_Tabla_rubro_f">
 							      		<table id="Tabla10_rubros_funcionamiento" class="display" width="100%" cellspacing="0">
 								        <thead>
 								            <tr>
@@ -1233,7 +1232,7 @@
 																				    <button type="button" data-rel="{{ $rubroFuncionamiento['id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 																				  </div>
 																				</div>
-																				<div id="espera_a{{ $rubroFuncionamiento['id'] }}"></div>
+																				<div id="espera_rubrofunciona{{ $rubroFuncionamiento['id'] }}"></div>
 													                        </td>
 													                        </tr>
 											                        		<?php $var++; ?>

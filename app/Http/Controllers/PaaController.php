@@ -1470,4 +1470,93 @@ class PaaController extends Controller
 	}
 
 
+
+
+
+	/*###########################    RUBRO DE FUNCIONAMIENTO     ################################*/
+
+	public function rubro_funcionamiento(Request $request)
+	{
+		$validator = Validator::make($request->all(),
+		    [
+	            'codigo_rubro_funciona' => 'required',
+				'precio_rubro_funciona' => 'required',
+				'fecha_inicial_rubro_funciona' => 'required',
+				'fecha_final_rubro_funciona' => 'required',
+				'nombre_rubro_funciona' => 'required',
+        	]
+        );
+
+           if ($validator->fails())
+            return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+
+        	if($request->input('Id_rubro_funcionamient') == '0')
+        	{
+        		return $this->guardar_rubroFuncionamiento($request->all());
+        	}
+        	else
+        	{
+        		return $this->modificar_rubroFuncionamiento($request->all());	
+        	}	
+	}
+
+	public function guardar_rubroFuncionamiento($input)
+	{
+		$model_A = new RubroFuncionamiento;
+		return $this->crear_rubroF($model_A, $input);
+	}
+
+	public function modificar_rubroFuncionamiento($input)
+	{
+		$modelo= new RubroFuncionamiento;
+		$modelo->where('id',$input["Id_rubro_funcionamient"])->get();
+		return $this->crear_rubroF($modelo, $input);
+	}
+
+	public function crear_rubroF($model, $input)
+	{
+		/*$proyectos = Proyecto::where('Id_presupuesto',$input['idPresupuesto'])->get();
+		$sum = $proyectos->sum( 'valor' );
+		$presupuestos = Presupuesto::find($input['idPresupuesto']);
+		$sum_proyectos = $proyectos->sum( 'valor' );
+		$sum_presupuesto = $presupuestos['presupuesto'];
+		$valor_nuevProyecto= str_replace('.', '', $input['precio_proyecto']);
+
+		$Saldo=$sum_presupuesto-$sum_proyectos;
+
+		if($valor_nuevProyecto<=$Saldo){*/
+			$valor_nuevProyecto= str_replace('.', '', $input['precio_rubro_funciona']);
+
+			$model['codigo'] = $input['codigo_rubro_funciona'];
+			$model['nombre'] = $input['nombre_rubro_funciona'];
+			$model['fecha_inicio'] = $input['fecha_inicial_rubro_funciona'];
+			$model['fecha_fin'] = $input['fecha_final_rubro_funciona'];
+			$model['valor'] = $valor_nuevProyecto;
+			$model->save();
+			$rubroFuncionam = RubroFuncionamiento::with('actividadesfuncionamiento')->get();
+			return response()->json(array('status' => 'modelo', 'rubroFuncionamiento' => $rubroFuncionam));
+		/*}else{
+			return response()->json(array('status' => 'Saldo', 'saldo' => $Saldo, 'valorNuevo' => $input['precio_proyecto'],'mensaje'=>'es mayor al saldo del presupuesto que es de'));
+		}*/
+	}
+
+	public function eliminarrubrofuncionamiento(Request $request, $id)
+	{
+		$rubroFuncionam = RubroFuncionamiento::with('actividadesfuncionamiento')->find($id);
+      	if(count($rubroFuncionam->actividadesfuncionamiento)>0){
+      		return response()->json(array('status' => 'error'));	
+      	}
+      	else{
+      		$rubroFuncionamiento = RubroFuncionamiento::find($id);
+			$rubroFuncionamiento->delete();
+	      	$rubroFuncionam = RubroFuncionamiento::with('actividadesfuncionamiento')->get();
+			return response()->json(array('status' => 'modelo', 'rubroFuncionamiento' => $rubroFuncionam));
+		}
+	}
+
+	public function modificarrubrofuncionamiento(Request $request, $id)
+	{
+		$rubroFuncionamiento = RubroFuncionamiento::find($id);
+		return response()->json($rubroFuncionamiento);
+	}
 }

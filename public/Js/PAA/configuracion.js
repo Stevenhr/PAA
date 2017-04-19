@@ -45,6 +45,9 @@ $(function()
     $('input[name="precio_actividad"]').on('keyup', function(e){
         formatCurrency(this);
     });
+    $('input[name="precio_rubro_funciona"]').on('keyup', function(e){
+        formatCurrency(this);
+    });
 
     $('select[name="Id_Pais"]').on('change', function(e){
         popular_ciudades($(this).val());
@@ -2478,10 +2481,188 @@ $(function()
             ]
     });
 
+    $('#form_rubro_funcionamiento').on('submit', function(e){
+
+        $.post(URL+'/validar/rubro_funcionamiento',$(this).serialize(),function(data)
+        {
+            if(data.status == 'error'){
+                validad_error2(data.errors);
+            }else{
+                if(data.status == 'modelo')
+                {
+                    validad_error2(data.errors);
+                    document.getElementById("form_rubro_funcionamiento").reset();
+                    $("#div_Tabla_rubro_f").show();
+                    var num=1;
+                    t_rubro_f.clear().draw();
+                    $.each(data.rubroFuncionamiento, function(i, e){
+                        t_rubro_f.row.add( [
+                            '<th scope="row" class="text-center">'+num+'</th>',
+                            '<td><h4>'+e['codigo']+'</h4></td>',
+                            '<td><h4>'+e['nombre']+'</h4></td>',
+                            '<td>'+e['fecha_inicio']+'</td>',
+                            '<td>'+e['fecha_fin']+'</td>',
+                            '<td>'+number_format(e['valor'],1)+'</td>',
+                            '<td><div class="btn-group btn-group-justified tama">'+
+                                '<div class="btn-group">'+
+                                '<button type="button" data-rel="'+e['id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                '</div>'+
+                                '<div class="btn-group">'+
+                                '<button type="button" data-rel="'+e['id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                '</div>'+
+                                '</div>'+
+                                '<div id="espera_rubrofunciona'+e['id']+'"></div>'+
+                            '</td>'
+                        ] ).draw( false );
+                        num++;
+                    });
+
+                    $('#mensaje_rubrofuncionam').html('<strong>Bien!</strong> Registro creado con exíto.');
+                    $('#mensaje_rubrofuncionam').show();
+                    setTimeout(function(){
+                        $('#mensaje_rubrofuncionam').hide();
+                        $("#id_btn_rubrof").html('Registrar');
+                        $("#id_btn_rubrof_canc").hide();
+                    }, 2000)
+                    $('input[name="Id_rubro_funcionamient"]').val('0');
+                }else{
+                    $('#mensaje_rubrofuncionam2').html('<strong>Error!</strong> el valor del proyecto que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
+                    $('#mensaje_rubrofuncionam2').show();
+                    setTimeout(function(){
+                        $('#mensaje_rubrofuncionam2').hide();
+                    }, 6000)
+                }
+                
+            }
+        },'json');
+        e.preventDefault();
+    });
+
+
+    var validad_error2 = function(data)
+    {
+        $('#form_rubro_funcionamiento .form-group').removeClass('has-error');
+        var selector = '';
+        for (var error in data){
+            if (typeof data[error] !== 'function') {
+                switch(error)
+                {
+                    case 'codigo_rubro_funciona':
+                    case 'precio_rubro_funciona':
+                    case 'fecha_inicial_rubro_funciona':
+                    case 'fecha_final_rubro_funciona':
+                    case 'nombre_rubro_funciona':
+                        selector = 'input';
+                    break;
+
+                }
+                $('#form_rubro_funcionamiento '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
+            }
+        }
+    }
+
+    $('#Tabla10_rubros_funcionamiento').delegate('button[data-funcion="ver_eli"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        $("#espera_rubrofunciona"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/rubrofuncionamiento/eliminar/'+id,
+            {},
+            function(data)
+            {   
+                    if(data.status == 'error')
+                    {
+                        var proyects="";
+                        $("#espera_rubrofunciona"+id).html('<div class="form_paaalert alert-danger"><strong>Error!</strong> No se puede eliminar el rubro de funcionamiento ya que existen actividades enlazadas con este rubro.</div>');
+                        setTimeout(function(){
+                            $("#espera_rubrofunciona"+id).html('');
+                        }, 5000)
+                   
+                    } else {
+                        $("#espera_rubrofunciona"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino la fuente correctamente.</div>');
+                        setTimeout(function(){
+                                
+                                var num=1;
+                                t_rubro_f.clear().draw();
+                                $.each(data.rubroFuncionamiento, function(i, e){
+                                    t_rubro_f.row.add( [
+                                        '<th scope="row" class="text-center">'+num+'</th>',
+                                        '<td><h4>'+e['codigo']+'</h4></td>',
+                                        '<td><h4>'+e['nombre']+'</h4></td>',
+                                        '<td>'+e['fecha_inicio']+'</td>',
+                                        '<td>'+e['fecha_fin']+'</td>',
+                                        '<td>'+number_format(e['valor'],1)+'</td>',
+                                        '<td><div class="btn-group btn-group-justified tama">'+
+                                            '<div class="btn-group">'+
+                                            '<button type="button" data-rel="'+e['id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                            '</div>'+
+                                            '<div class="btn-group">'+
+                                            '<button type="button" data-rel="'+e['id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                            '</div>'+
+                                            '</div>'+
+                                            '<div id="espera_rubrofunciona'+e['id']+'"></div>'+
+                                        '</td>'
+                                    ] ).draw( false );
+                                    num++;
+                                });
+                        }, 2000)
+                    }
+            }
+        );
+    });
+
+
+    $('#Tabla10_rubros_funcionamiento').delegate('button[data-funcion="ver_upd"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        $("#espera_rubrofunciona"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/rubrofuncionamiento/modificar/'+id,
+            {},
+            function(data)
+            {   
+                $("#espera_rubrofunciona"+id).html("");
+                $('input[name="Id_rubro_funcionamient"]').val(data.Id);
+                $('input[name="codigo_rubro_funciona"]').val(data.codigo);
+                $('input[name="nombre_rubro_funciona"]').val(data.nombre);
+                $('input[name="fecha_inicial_rubro_funciona"]').val(data.fecha_inicio);
+                $('input[name="fecha_final_rubro_funciona"]').val(data.fecha_fin);
+                $('input[name="precio_rubro_funciona"]').val(data.valor);
+                $("#id_btn_rubrof").html('Modificar');
+                $("#id_btn_rubrof_canc").show();
+                $("#div_Tabla_rubro_f").hide();
+
+                $('html,body').animate({
+                    scrollTop: $("#main_paa_configuracion").offset().top
+                }, 1000);
+                               
+            }
+        );
+    }); 
+
+
+    $('#id_btn_rubrof_canc').on('click', function(e){
+
+                $('input[name="Id_rubro_funcionamient"]').val('0');         
+                $('input[name="codigo_rubro_funciona"]').val('');
+                $('input[name="nombre_rubro_funciona"]').val('');
+                $('input[name="fecha_inicial_rubro_funciona"]').val('');
+                $('input[name="fecha_final_rubro_funciona"]').val('');
+                $('input[name="precio_rubro_funciona"]').val('');
+
+                $("#id_btn_rubrof").html('Registrar');
+                $("#id_btn_rubrof_canc").hide();
+                $("#div_Tabla_rubro_f").show();
+
+                $('html,body').animate({
+                    scrollTop: $("#Tabla10_rubros_funcionamiento").offset().top
+                }, 1000);
+                return false;
+
+    }); 
 
 
 
-     /*############################   CREAR RUBRO DE FUNCIONAMIENTO    ###########################*/
+
+     /*############################   CREAR ACTIVIDAD DE FUNCIONAMIENTO    ###########################*/
 
     var t_activi_rubro = $('#Tabla11_actividad_rubro').DataTable({
             dom: 'Bfrtip',
