@@ -336,7 +336,7 @@
 				<div class="row">
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					    	<label>Estado de solicitud de vigencias futuras </label>
+					    	<label>Estado de solicitud de vigencias futuras </label><br><br>
 							<select class="form-control" name="estado_solicitud">
 								<option value="">Seleccionar</option>
 								<option value="NO SOLICITADAS">NO SOLICITADAS</option>
@@ -393,16 +393,26 @@
 				<div class="row">
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					    	<label>Numero de Contratistas</label>
+					    	<label>Numero de Contratistas</label><br><br>
 							<input type="text" class="form-control" name="numero_contratista" autocomplete="off">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					  		<label>Ordenador de Gasto Encargado:</label>
+					  		<label>Ordenador de Gasto Encargado:</label><br><br>
 							<select class="form-control" id="ordenadorGasto">
 								<option value="No" >No</option>
 								<option value="Si" >Si</option>
+							</select>
+						</div>
+				  </div>
+				  <div class="col-xs-6 col-sm-4">
+				  		<div class="form-group">
+					  		<label>Proyecto de inversión o Rubro de funcionamiento?:</label>
+							<select class="form-control" id="ProyectOrubro" name="ProyectOrubro">
+								<option value="" >Selecionar</option>
+								<option value="1" >Poyecto de inversión</option>
+								<option value="2" >Rubro de funcionamiento</option>
 							</select>
 						</div>
 				  </div>
@@ -431,10 +441,7 @@
 					    	<label>Proyecto de inversión o rubro</label>
 					    	<input type="hidden" name="id_pivot_comp" id="id_pivot_comp"></input>
 							<select class="form-control" name="Proyecto_inversion" id="Proyecto_inversion">
-								<option value="" >Selecionar</option>
-								@foreach($proyectos as $proyecto)
-									<option value="{{ $proyecto['Id'] }}" >{{ $proyecto['Nombre'] }}</option>
-							    @endforeach
+								<option value="" >Selecione Proyecto o Rubro</option>
 							</select>
 						</div>
 				  </div>

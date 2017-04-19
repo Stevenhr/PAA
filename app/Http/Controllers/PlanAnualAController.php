@@ -24,6 +24,7 @@ use App\ActividadComponente;
 use App\Actividad;
 use Mail;
 use App\Persona;
+use App\RubroFuncionamiento;
 use App\Datos;
 use Idrd\Usuarios\Repo\PersonaInterface;
 
@@ -151,8 +152,8 @@ class PlanAnualAController extends Controller
         $modeloPA['Id_TipoContrato'] = $input['tipo_contrato'];
         $modeloPA['ObjetoContractual'] = $input['objeto_contrato'];
         $modeloPA['FuenteRecurso'] = $input['fuente_recurso'];
-        $modeloPA['ValorEstimado'] = $input['valor_estimado'];
-        $modeloPA['ValorEstimadoVigencia'] = $input['valor_estimado_actualVigencia'];
+        $modeloPA['ValorEstimado'] = str_replace('.', '', $input['valor_estimado']);
+        $modeloPA['ValorEstimadoVigencia'] = str_replace('.','',$input['valor_estimado_actualVigencia']);
         $modeloPA['VigenciaFutura'] = $input['vigencias_futuras'];
         $modeloPA['EstadoVigenciaFutura'] = $input['estado_solicitud'];
         $modeloPA['FechaEstudioConveniencia'] = $input['estudio_conveniencia'];
@@ -191,8 +192,8 @@ class PlanAnualAController extends Controller
             $modeloPA['Id_TipoContrato'] = $input['tipo_contrato'];
             $modeloPA['ObjetoContractual'] = $input['objeto_contrato'];
             $modeloPA['FuenteRecurso'] = $input['fuente_recurso'];
-            $modeloPA['ValorEstimado'] = $input['valor_estimado'];
-            $modeloPA['ValorEstimadoVigencia'] = $input['valor_estimado_actualVigencia'];
+            $modeloPA['ValorEstimado'] = str_replace('.','',$input['valor_estimado']);
+            $modeloPA['ValorEstimadoVigencia'] = str_replace(',','',$input['valor_estimado_actualVigencia']);
             $modeloPA['VigenciaFutura'] = $input['vigencias_futuras'];
             $modeloPA['EstadoVigenciaFutura'] = $input['estado_solicitud'];
             $modeloPA['FechaEstudioConveniencia'] = $input['estudio_conveniencia'];
@@ -341,6 +342,18 @@ class PlanAnualAController extends Controller
         return response()->json($proyecto);
     }
 
+    public function select_ProyectOrubro(Request $request, $id)
+    {
+        if($id==1){ //Proyecto
+            $proyecto = Proyecto::all();
+            return response()->json($proyecto);
+        }
+        if($id==2){//Rubro
+            $rubro = RubroFuncionamiento::all();
+            return response()->json($rubro);
+        }
+        
+    }
 
     public function verFinanciacion(Request $request, $id)
     {

@@ -83,6 +83,27 @@ $(function()
       changeYear: true,
     });
 
+   function formatCurrency(input)
+    {
+        var num = input.value.replace(/\./g,'');
+        if(!isNaN(num)){
+            num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+            num = num.split('').reverse().join('').replace(/^[\.]/,'');
+            input.value = num;
+        }
+          
+        else{ 
+            input.value = input.value.replace(/[^\d\.]*/g,'');
+        }
+    }
+ $('input[name="valor_estimado"]').on('keyup', function(e){
+        formatCurrency(this);
+ });
+ $('input[name="valor_estimado_actualVigencia"]').on('keyup', function(e){
+        formatCurrency(this);
+ });
+
+
  $('#form_paa').on('submit', function(e){
 
     var datos_acti = JSON.stringify(vector_datos_actividad);
@@ -207,6 +228,39 @@ $(function()
         }
     }
 
+     $('select[name="ProyectOrubro"]').on('change', function(e){
+        select_ProyectOrubro($(this).val());
+    });
+
+
+    var select_ProyectOrubro = function(id)
+    { 
+        $.ajax({
+            url: URL+'/service/select_ProyectOrubro/'+id,
+            data: {},
+            dataType: 'json',
+            success: function(data)
+            {
+                
+                if(id==1){ //Proyecto
+                  var html = '<option value="">Seleccionar Proyecto</option>';
+                  $.each(data, function(i, eee){
+                        html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
+                  });   
+                  $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
+                }
+
+                 if(id==2){ //Rubro 
+                  vector_datos_actividad.length=1;
+                  var html = '<option value="">Seleccionar Rubro</option>';
+                  $.each(data, function(i, eee){
+                        html += '<option value="'+eee['id']+'">'+eee['nombre'].toLowerCase()+'</option>';
+                  });   
+                  $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
+                }
+            }
+        });
+    };
 
     $('select[name="Proyecto_inversion"]').on('change', function(e){
         select_Meta($(this).val());
@@ -263,7 +317,6 @@ $(function()
             dataType: 'json',
             success: function(data)
             {
-                //console.log(data);
                 var html = '<option value="">Seleccionar</option>';
           
                         $.each(data.componentes, function(i, eee){
