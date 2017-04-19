@@ -1259,13 +1259,13 @@
 	                <p class="text-justify">Registro de actividades a rubros de funcionamiento.</p>
 			        <br>
 
-			        <form id="form_actividad">				      
+			        <form id="form_actividad_rubro_funcionamiento">				      
 
 						<div class="row" >
 						    <div class="col-xs-12 col-md-6">
 						    	<div class="form-group">	
-						    		<label>Presupuesto</label>
-									<select class="form-control" name="idPresupuesto_C">
+						    		<label>Rubro de funcionamiento</label>
+									<select class="form-control" name="id_rubro_func_act" id="id_rubro_func_act">
 											<option value="">Seleccionar</option>
 										@foreach($rubrosFuncionamiento as $rubroFuncionamiento)
 											<option value="{{ $rubroFuncionamiento['id'] }}" >{{ $rubroFuncionamiento['nombre'] }}</option>
@@ -1275,8 +1275,9 @@
 			        		</div>
 						    <div class="col-xs-12 col-md-6">
 						    	<div class="form-group">	
-						    		<label>Nombre</label>
-									<input type="text" class="form-control" name="nombre_proyecto">
+						    		<label>Nombre Actividad</label>
+						    		<input type="hidden" class="form-control" name="Id_act_rubro_funcionamient" value="0">
+									<input type="text" class="form-control" name="nombre_acividad_funcionamiento">
 								</div>
 			        		</div>
 						</div>
@@ -1285,10 +1286,10 @@
 						    <div class="col-xs-12 col-md-4">
 			        		</div>
 						    <div class="col-xs-12 col-md-4 text-center"><br>
-						    		<div class="alert alert-success" style="display:none;" id="mensaje_actividad"></div>
-						    		<div class="alert alert-danger" style="display:none;" id="mensaje_actividad2"></div>
-									<button class="btn btn-primary" type="submit" id="id_btn_actividad">Registrar</button>
-									<button class="btn btn-danger" type="submit" id="id_btn_actividad_canc" style="display:none;">Cancelar</button>
+						    		<div class="alert alert-success" style="display:none;" id="mensaje_act_rubrofuncionam"></div>
+						    		<div class="alert alert-danger" style="display:none;" id="mensaje_act_rubrofuncionam2"></div>
+									<button class="btn btn-primary" type="submit" id="id_btn_rf_actividad">Registrar</button>
+									<button class="btn btn-danger" type="submit" id="id_btn_actividad_rf_canc" style="display:none;">Cancelar</button>
 			        		</div>
 			        		<div class="col-xs-12 col-md-4">
 			        		</div>
@@ -1305,7 +1306,7 @@
 			            		<h5>Listado de Metas:</h5>
 					        </div>
 						    <div class="col-xs-12 col-md-12">
-						    	<div class="table-responsive" id="div_Tabla6">
+						    	<div class="table-responsive" id="div_Tabla_act_rf">
 							      		<table id="Tabla11_actividad_rubro" class="display" width="100%" cellspacing="0">
 								        <thead>
 								            <tr>
@@ -1336,7 +1337,7 @@
 											        						<th scope="row" class="text-center">{{ $var }}</th>
 											        						<th >{{ $rubroFuncionamiento['codigo'] }}</th>
 											        						<th >{{ $rubroFuncionamiento['nombre'] }}</th>
-													                        <td scope="row">{{ $actividadrubro['nombre'] }}</td>
+													                        <td scope="row"><h4>{{ $actividadrubro['nombre'] }}</h4></td>
 													                        <td>
 																				<div class="btn-group btn-group-justified tama">
 																				  <div class="btn-group">
@@ -1347,7 +1348,7 @@
 																				    <button type="button" data-rel="{{ $actividadrubro['id'] }}" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
 																				  </div>
 																				</div>
-																				<div id="espera_a{{ $rubroFuncionamiento['id'] }}"></div>
+																				<div id="espera_act_funciona{{ $rubroFuncionamiento['id'] }}"></div>
 													                        </td>
 													                        </tr>
 											                        		<?php $var++; ?>

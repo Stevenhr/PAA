@@ -18,6 +18,7 @@ use App\RubroFuncionamiento;
 use App\PersonaPaa;
 use App\ProyectoDesarrollo;
 use App\Presupuestado;
+use App\ActividadFuncionamiento;
 use App\ActividadComponente;
 use Idrd\Usuarios\Repo\PersonaInterface;
 
@@ -1558,5 +1559,88 @@ class PaaController extends Controller
 	{
 		$rubroFuncionamiento = RubroFuncionamiento::find($id);
 		return response()->json($rubroFuncionamiento);
+	}
+
+
+
+	/*###########################   ACTIVIDAD RUBRO DE FUNCIONAMINEOT  ##############################*/
+
+
+	public function act_rubro_funcionamiento(Request $request)
+	{
+		$validator = Validator::make($request->all(),
+		    [
+	            'id_rubro_func_act' => 'required',
+				'nombre_acividad_funcionamiento' => 'required',
+        	]
+        );
+
+           if ($validator->fails())
+            return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+
+        	if($request->input('Id_act_rubro_funcionamient') == '0')
+        	{
+        		return $this->guardar_act_rubroFuncionamiento($request->all());
+        	}
+        	else
+        	{
+        		return $this->modificar_act_rubroFuncionamiento($request->all());	
+        	}	
+	}
+
+	public function guardar_act_rubroFuncionamiento($input)
+	{
+		$model_A = new ActividadFuncionamiento;;
+		return $this->crear_Acti_rubroF($model_A, $input);
+	}
+
+	public function modificar_act_rubroFuncionamiento($input)
+	{
+		$modelo= new ActividadFuncionamiento;
+		$modelo->where('id',$input["Id_act_rubro_funcionamient"])->get();
+		return $this->crear_Acti_rubroF($modelo, $input);
+	}
+
+	public function crear_Acti_rubroF($model, $input)
+	{
+		/*$proyectos = Proyecto::where('Id_presupuesto',$input['idPresupuesto'])->get();
+		$sum = $proyectos->sum( 'valor' );
+		$presupuestos = Presupuesto::find($input['idPresupuesto']);
+		$sum_proyectos = $proyectos->sum( 'valor' );
+		$sum_presupuesto = $presupuestos['presupuesto'];
+		$valor_nuevProyecto= str_replace('.', '', $input['precio_proyecto']);
+
+		$Saldo=$sum_presupuesto-$sum_proyectos;
+
+		if($valor_nuevProyecto<=$Saldo){*/
+
+			$model['id_rubro_funcionamiento'] = $input['id_rubro_func_act'];
+			$model['nombre'] = $input['nombre_acividad_funcionamiento'];
+			$model->save();
+			$rubroFuncionam = RubroFuncionamiento::with('actividadesfuncionamiento')->get();
+			return response()->json(array('status' => 'modelo', 'rubroFuncionamiento' => $rubroFuncionam));
+		/*}else{
+			return response()->json(array('status' => 'Saldo', 'saldo' => $Saldo, 'valorNuevo' => $input['precio_proyecto'],'mensaje'=>'es mayor al saldo del presupuesto que es de'));
+		}*/
+	}
+
+	public function ElimActividarubrofuncionamiento(Request $request, $id)
+	{
+		/*$rubroFuncionam = RubroFuncionamiento::with('actividadesfuncionamiento')->find($id);
+      	if(count($rubroFuncionam->actividadesfuncionamiento)>0){
+      		return response()->json(array('status' => 'error'));	
+      	}
+      	else{*/
+      		$actividadFuncionamiento = ActividadFuncionamiento::find($id);
+			$actividadFuncionamiento->delete();
+	      	$rubroFuncionam = RubroFuncionamiento::with('actividadesfuncionamiento')->get();
+			return response()->json(array('status' => 'modelo', 'rubroFuncionamiento' => $rubroFuncionam));
+		/*}*/
+	}
+
+	public function modificarActrubrofuncionamiento(Request $request, $id)
+	{
+		$actividadFuncionamiento = ActividadFuncionamiento::find($id);
+		return response()->json($actividadFuncionamiento);
 	}
 }

@@ -2471,6 +2471,14 @@ $(function()
      /*############################   CREAR RUBRO DE FUNCIONAMIENTO    ###########################*/
 
 
+
+    $('#Tabla10_rubros_funcionamiento tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Opción" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
+
     var t_rubro_f = $('#Tabla10_rubros_funcionamiento').DataTable({
             dom: 'Bfrtip',
             buttons: [
@@ -2479,6 +2487,17 @@ $(function()
                 'csvHtml5',
                 'pdfHtml5'
             ]
+    });
+
+    t_rubro_f.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
     });
 
     $('#form_rubro_funcionamiento').on('submit', function(e){
@@ -2664,6 +2683,15 @@ $(function()
 
      /*############################   CREAR ACTIVIDAD DE FUNCIONAMIENTO    ###########################*/
 
+    
+
+    $('#Tabla11_actividad_rubro tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Opción" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
+
     var t_activi_rubro = $('#Tabla11_actividad_rubro').DataTable({
             dom: 'Bfrtip',
             buttons: [
@@ -2673,6 +2701,195 @@ $(function()
                 'pdfHtml5'
             ]
     });
+
+    t_activi_rubro.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    });
+
+     $('#form_actividad_rubro_funcionamiento').on('submit', function(e){
+
+        $.post(URL+'/validar/act_rubro_funcionamiento',$(this).serialize(),function(data)
+        {
+            if(data.status == 'error'){
+                validad_error2_rf(data.errors);
+            }else{
+                if(data.status == 'modelo')
+                {
+                    validad_error2_rf(data.errors);
+                    document.getElementById("form_actividad_rubro_funcionamiento").reset();
+                    $("#div_Tabla_act_rf").show();
+                    var num=1;
+                    t_activi_rubro.clear().draw();
+                    $.each(data.rubroFuncionamiento, function(i, e){
+                        $.each(e.actividadesfuncionamiento, function(i, ee){
+                            t_activi_rubro.row.add( [
+                                '<th scope="row" class="text-center">'+num+'</th>',
+                                '<td>'+e['codigo']+'</td>',
+                                '<td>'+e['nombre']+'</td>',
+                                '<td><h4>'+ee['nombre']+'</h4></td>',
+                                '<td><div class="btn-group btn-group-justified tama">'+
+                                    '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+ee['id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '<div class="btn-group">'+
+                                    '<button type="button" data-rel="'+ee['id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                    '</div>'+
+                                    '</div>'+
+                                    '<div id="espera_act_funciona'+ee['id']+'"></div>'+
+                                '</td>'
+                            ] ).draw( false );
+                            num++;
+                        });
+                    });
+
+                    $('#mensaje_act_rubrofuncionam').html('<strong>Bien!</strong> Registro creado con exíto.');
+                    $('#mensaje_act_rubrofuncionam').show();
+                    setTimeout(function(){
+                        $('#mensaje_act_rubrofuncionam').hide();
+                        $("#id_btn_rf_actividad").html('Registrar');
+                        $("#id_btn_actividad_rf_canc").hide();
+                    }, 2000)
+                    $('input[name="Id_act_rubro_funcionamient"]').val('0');
+                }else{
+                    $('#mensaje_act_rubrofuncionam2').html('<strong>Error!</strong> el valor del proyecto que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
+                    $('#mensaje_act_rubrofuncionam2').show();
+                    setTimeout(function(){
+                        $('#mensaje_act_rubrofuncionam2').hide();
+                    }, 6000)
+                }
+            }
+        },'json');
+        e.preventDefault();
+    });
+
+    var validad_error2_rf = function(data)
+    {
+        $('#form_actividad_rubro_funcionamiento .form-group').removeClass('has-error');
+        var selector = '';
+        for (var error in data){
+            if (typeof data[error] !== 'function') {
+                switch(error)
+                {
+                    case 'id_rubro_func_act':
+                        selector = 'select';
+                    break;
+
+                    case 'nombre_acividad_funcionamiento':
+                        selector = 'input';
+                    break;
+
+                }
+                $('#form_actividad_rubro_funcionamiento '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
+            }
+        }
+    }
+
+
+    $('#Tabla11_actividad_rubro').delegate('button[data-funcion="ver_eli"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        $("#espera_act_funciona"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/Actividarubrofuncionamiento/eliminar/'+id,
+            {},
+            function(data)
+            {   
+                if(data.status == 'error')
+                {
+                    var proyects="";
+                    $("#espera_rubrofunciona"+id).html('<div class="form_paaalert alert-danger"><strong>Error!</strong> No se puede eliminar el rubro de funcionamiento ya que existen actividades enlazadas con este rubro.</div>');
+                    setTimeout(function(){
+                        $("#espera_act_funciona"+id).html('');
+                    }, 5000)
+               
+                } else {
+                    $("#espera_act_funciona"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino la fuente correctamente.</div>');
+                    setTimeout(function(){
+                            
+                            var num=1;
+                            t_activi_rubro.clear().draw();
+                            $.each(data.rubroFuncionamiento, function(i, e){
+                                $.each(e.actividadesfuncionamiento, function(i, ee){
+                                    t_activi_rubro.row.add( [
+                                        '<th scope="row" class="text-center">'+num+'</th>',
+                                        '<td>'+e['codigo']+'</td>',
+                                        '<td>'+e['nombre']+'</td>',
+                                        '<td><h4>'+ee['nombre']+'</h4></td>',
+                                        '<td><div class="btn-group btn-group-justified tama">'+
+                                            '<div class="btn-group">'+
+                                            '<button type="button" data-rel="'+ee['id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                            '</div>'+
+                                            '<div class="btn-group">'+
+                                            '<button type="button" data-rel="'+ee['id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                            '</div>'+
+                                            '</div>'+
+                                            '<div id="espera_act_funciona'+ee['id']+'"></div>'+
+                                        '</td>'
+                                    ] ).draw( false );
+                                    num++;
+                                });
+                            });
+
+                    }, 2000)
+                }
+            }
+        );
+    });
+
+
+
+    $('#Tabla11_actividad_rubro').delegate('button[data-funcion="ver_upd"]','click',function (e){  
+        var id = $(this).data('rel'); 
+        $("#espera_act_funciona"+id).html("<img src='public/Img/loading.gif'/>");
+        $.get(
+            URL+'/Actrubrofuncionamiento/modificar/'+id,
+            {},
+            function(data)
+            {   
+
+                console.log(data.id_rubro_funcionamiento);
+                $("#espera_act_funciona"+id).html("");
+                $('input[name="Id_act_rubro_funcionamient"]').val(data.id);
+                $('#id_rubro_func_act').val(data.id_rubro_funcionamiento);
+                $('input[name="nombre_acividad_funcionamiento"]').val(data.nombre);
+
+                $("#id_btn_rf_actividad").html('Modificar');
+                $("#id_btn_actividad_rf_canc").show();
+                $("#div_Tabla_act_rf").hide();
+
+
+                $('html,body').animate({
+                    scrollTop: $("#main_paa_configuracion").offset().top
+                }, 1000);
+                               
+            }
+        );
+    }); 
+
+
+    $('#id_btn_actividad_rf_canc').on('click', function(e){
+
+                $('input[name="Id_act_rubro_funcionamient"]').val('0');         
+                $('input[name="id_rubro_func_act"]').val('');
+                $('input[name="nombre_acividad_funcionamiento"]').val('');
+
+                $("#id_btn_rf_actividad").html('Registrar');
+                $("#id_btn_actividad_rf_canc").hide();
+                $("#div_Tabla_act_rf").show();
+
+                $('html,body').animate({
+                    scrollTop: $("#Tabla11_actividad_rubro").offset().top
+                }, 1000);
+                return false;
+
+    }); 
+
 
 
 

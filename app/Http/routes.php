@@ -68,6 +68,9 @@ Route::get('/configuracionPaa/proyecto/modificar/{id}', 'PaaController@modificar
 Route::post('/configuracionPaa/validar/rubro_funcionamiento/', 'PaaController@rubro_funcionamiento');
 Route::get('/configuracionPaa/rubrofuncionamiento/eliminar/{id}', 'PaaController@eliminarrubrofuncionamiento');
 Route::get('/configuracionPaa/rubrofuncionamiento/modificar/{id}', 'PaaController@modificarrubrofuncionamiento');
+Route::post('/configuracionPaa/validar/act_rubro_funcionamiento/', 'PaaController@act_rubro_funcionamiento');
+Route::get('/configuracionPaa/Actividarubrofuncionamiento/eliminar/{id}', 'PaaController@ElimActividarubrofuncionamiento');
+Route::get('/configuracionPaa/Actrubrofuncionamiento/modificar/{id}', 'PaaController@modificarActrubrofuncionamiento');
 
 Route::post('/configuracionPaa/validar/meta/', 'PaaController@validar_meta');
 Route::get('/configuracionPaa/meta/eliminar/{id}', 'PaaController@eliminar_meta');
