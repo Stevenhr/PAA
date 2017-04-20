@@ -109,14 +109,20 @@ $(function()
     var datos_acti = JSON.stringify(vector_datos_actividad);
     $('input[name="Dato_Actividad"]').val(datos_acti);
     var upd=$('input[name="id_Paa"]').val();
+    var ProyectOrubro=$('input[name="ProyectOrubro"]').val();
 
     var datos_cod = JSON.stringify(vector_datos_codigos);
     $('input[name="Dato_Actividad_Codigos"]').val(datos_cod);
     
     if(vector_datos_actividad.length > 0){
-          $('#mjs_registroPaa').html(' <center><strong>Cargando... Espere un momento!</strong>  Registrando plan...</center>');
-          $('#mjs_registroPaa').show();
-          $('#crear_paa_btn').attr('disabled',true);
+
+          if(ProyectOrubro==2){
+             vector_datos_actividad.length=0;
+          }
+
+              $('#mjs_registroPaa').html(' <center><strong>Cargando... Espere un momento!</strong>  Registrando plan...</center>');
+              $('#mjs_registroPaa').show();
+              $('#crear_paa_btn').attr('disabled',true);
           $.post(
             URL+'/validar/paa',
             $(this).serialize(),
@@ -124,8 +130,16 @@ $(function()
               if(data.status == 'error')
               {
                   validad_error(data.errors);
+                   $('#mjs_registroPaa').hide();
+                  $('#mjs_registroPaa2').html('<center><strong>Error!</strong> Valores vacios.</center>');
+                  $('#mjs_registroPaa2').show();
+                  setTimeout(function(){
+                      $('#mjs_registroPaa2').hide();
+                  }, 6000)
              
               } else {
+
+                  
 
                   validad_error(data.errors);
 
@@ -171,7 +185,6 @@ $(function()
           },'json');
           
     }else{
-
             $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> No se ha registrado ninguna fuente de financiación.</div>');
             $('#mensaje_actividad').show();
             setTimeout(function(){
@@ -241,22 +254,29 @@ $(function()
             dataType: 'json',
             success: function(data)
             {
-                
                 if(id==1){ //Proyecto
                   var html = '<option value="">Seleccionar Proyecto</option>';
                   $.each(data, function(i, eee){
                         html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
                   });   
                   $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
+                  $('select[name="meta"]').prop( "disabled", false );
+                  $('#meta0').prop( "disabled", true);
+                  $('#div_finaciacion').show();
+
+
                 }
 
-                 if(id==2){ //Rubro 
+                if(id==2){ //Rubro 
                   vector_datos_actividad.length=1;
                   var html = '<option value="">Seleccionar Rubro</option>';
                   $.each(data, function(i, eee){
                         html += '<option value="'+eee['id']+'">'+eee['nombre'].toLowerCase()+'</option>';
                   });   
                   $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
+                  $('select[name="meta"]').prop( "disabled", true );
+                  $('#meta0').prop( "disabled", false);
+                  $('#div_finaciacion').hide();
                 }
             }
         });
@@ -266,24 +286,30 @@ $(function()
         select_Meta($(this).val());
     });
 
-
     var select_Meta = function(id)
     { 
         $.ajax({
-            url: URL+'/service/select_meta/'+id,
+            url: URL+'/service/select_meta_fuente/'+id,
             data: {},
             dataType: 'json',
             success: function(data)
             {
+                var datos=data.Proyecto;
                 var html = '<option value="">Seleccionar</option>';
-                $.each(data.metas, function(i, eee){
+                $.each(datos.metas, function(i, eee){
                       html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
                 });   
                 $('select[name="meta"]').html(html).val($('select[name="meta"]').data('value'));
+
+                var datos2=data.Presupuestado;
+                var html2 = '<option value="">Seleccionar</option>';
+                $.each(datos2, function(i, eee){
+                      html2 += '<option value="'+eee.fuente['Id']+'">'+eee.fuente['nombre'].toLowerCase()+'</option>';
+                });   
+                $('select[name="Fuente_inversion"]').html(html2).val($('select[name="Fuente_inversion"]').data('value'));
             }
         });
     };
-
 
     var select_Meta2 = function(id)
     { 
@@ -303,15 +329,15 @@ $(function()
         });
     };
 
-
     $('select[name="Fuente_inversion"]').on('change', function(e){
-        select_fuente($(this).val());
+        var proyecto=$('select[name="Proyecto_inversion"]').val();
+        select_fuente(proyecto,$(this).val());
     });
 
-    var select_fuente = function(id)
+    var select_fuente = function(proyecto, fuente)
     { 
-        $('.mjs_componente').html('');
-        $.ajax({
+        
+       /* $.ajax({
             url: URL+'/service/fuenteComponente/'+id,
             data: {},
             dataType: 'json',
@@ -326,7 +352,24 @@ $(function()
                 
                 $('select[name="componnente"]').html(html).val($('select[name="componnente"]').data('value'));
             }
-        });
+        });*/
+
+        $('.mjs_componente').html('');
+        $.post(
+          URL+'/service/fuenteComponente',
+          {proyecto: proyecto, fuente:fuente},
+          function(data)
+          {
+            console.log(data);
+                var html = '<option value="">Seleccionar</option>';
+             
+                        $.each(data.componentes, function(i, eee){
+                                    html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
+                                    $('input[name="id_pivot_comp"]').val(eee['Id']);
+                        });
+                
+                $('select[name="componnente"]').html(html).val($('select[name="componnente"]').data('value'));
+          },'json');
     };
 
     $('select[name="componnente"]').on('change', function(e){
@@ -1362,8 +1405,12 @@ $(function()
                           else
                               var1 = '';
 
-
-                     var $tr1 =   $('<tr '+clase+'></tr>').html(
+                          $nombrementa="";
+                          if(e.meta){
+                            $nombrementa=e.meta['Nombre'];
+                          }
+                          
+                          var $tr1 =   $('<tr '+clase+'></tr>').html(
                             '<th scope="row" class="text-center">'+num+'</th>'+
                                 '<td><b><p class="text-info text-center">'+e['Registro']+'<br>'+var0+var1+'</p></b></td>'+
                                 '<td><b>'+estado+'</b></td>'+
@@ -1383,7 +1430,7 @@ $(function()
                                 '<td>'+e['NumeroContratista']+'</td>'+
                                 '<td>'+e['DatosResponsable']+'</td>'+
                                 '<td>'+e.proyecto['Nombre']+'</td>'+
-                                '<td>'+e.meta['Nombre']+'</td>'+
+                                '<td>'+$nombrementa+'</td>'+
                                 '<td>'+
                                   '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+
                                     '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>'+

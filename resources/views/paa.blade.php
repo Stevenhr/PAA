@@ -347,13 +347,13 @@
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					    	<label>Fecha estudio de  conveniencia</label><br><br>
-							<input type="text" class="form-control" name="estudio_conveniencia" data-role="datepicker" placeholder="No aplica" autocomplete="off"  disabled>
+					    	<label>Fecha estimada de estudio de  conveniencia</label><br><br>
+							<input type="text" class="form-control" name="estudio_conveniencia" data-role="datepicker" placeholder="No aplica" autocomplete="off" readonly="readonly">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					  		<label> Fecha estimada de inicio de proceso de selección</label>
+					  		<label> Fecha estimada de inicio de proceso de selección</label><br><br>
 							<input type="text" class="form-control" name="fecha_inicio"  data-role1="datepicker" placeholder="aa/mm/dd" autocomplete="off" readonly="readonly">
 						</div>
 				  </div>
@@ -448,6 +448,7 @@
 				  <div class="col-xs-6 col-sm-6">
 				  		<div class="form-group">
 					    	<label>Meta Plan</label>
+					    	<input type="hidden" name="meta" id="meta0" value="0" disabled></input>
 					    	<select class="form-control" name="meta" id="meta">
 								<option value="" >Selecionar</option>
 							</select>
@@ -470,9 +471,9 @@
 					    	<input type="hidden" name="id_pivot_comp" id="id_pivot_comp"></input>
 							<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
 								<option value="" >Selecionar</option>
-								@foreach($fuentes as $fuente)
+								<!--</select>@foreach($fuentes as $fuente)
 									<option value="{{ $fuente['Id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
-							    @endforeach
+							        @endforeach-->
 							</select>
 						</div>
 				  </div>
@@ -532,6 +533,7 @@
       </div>
       <div class="modal-footer">
         <div id="mjs_registroPaa" class="alert alert-success" style="display: none"></div>
+        <div id="mjs_registroPaa2" class="alert alert-danger" style="display: none"></div>
         <input type="hidden" name="Dato_Actividad" class="form-control">
         <input type="hidden" name="Dato_Actividad_Codigos" class="form-control">
         <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>

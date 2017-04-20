@@ -22,6 +22,7 @@ use App\FuenteHacienda;
 use App\Area;
 use App\ActividadComponente;
 use App\Actividad;
+use App\Presupuestado;
 use Mail;
 use App\Persona;
 use App\RubroFuncionamiento;
@@ -222,12 +223,15 @@ class PlanAnualAController extends Controller
             $modeloP->save();
 
             $data0 = json_decode($input['Dato_Actividad']);
-            foreach($data0 as $obj){
-                $modeloPA->componentes()->attach($obj->id_componente,[
-                    'id_paa'=>$id_paa2,
-                    'valor'=>$obj->valor,
-                    'estado'=>1,
-                ]);
+            
+            if($data0[0] != null){
+                foreach($data0 as $obj){
+                    $modeloPA->componentes()->attach($obj->id_componente,[
+                        'id_paa'=>$id_paa2,
+                        'valor'=>$obj->valor,
+                        'estado'=>1,
+                    ]);
+                }
             }
         }else{
 
@@ -291,21 +295,28 @@ class PlanAnualAController extends Controller
             }
         }
 
-        //dd($emails); 
+        
+        if(!empty($emails))
+        {
+            dd($emails);
+            Mail::send('mail', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
+                $m->from('no-reply@paa.com', $mensaje);
 
-        Mail::send('mail', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
-            $m->from('no-reply@paa.com', $mensaje);
-
-            $m->to($emails, 'Estevenhr')->subject($mensaje."!");
-        });
+                $m->to($emails, 'Estevenhr')->subject($mensaje."!");
+            });
+        }
 
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
-    public function fuenteComponente(Request $request, $id)
+    public function fuenteComponente(Request $request)
     {
-        $proyecto = Fuente::with('componentes')->find($id);
-        return response()->json($proyecto);
+        //$proyecto = Fuente::with('componentes')->find($id);
+        $proyecto=$request['observacion'];
+        $fuente=$request['observacion'];
+        $presupuestado= Presupuestado::with('fuente')->where('proyecto_id',$proyecto)->get();
+
+        return response()->json($presupuestado);
     }
 
     public function PresupuestoComponente(Request $request, $id)
@@ -340,6 +351,13 @@ class PlanAnualAController extends Controller
     {
         $proyecto = Proyecto::with('metas')->find($id);
         return response()->json($proyecto);
+    }
+
+    public function select_meta_fuente(Request $request, $id)
+    {
+        $presupuestado= Presupuestado::with('fuente')->where('proyecto_id',$id)->get();
+        $proyecto = Proyecto::with('metas')->find($id);
+        return response()->json(array('Proyecto'=>$proyecto,'Presupuestado'=>$presupuestado));
     }
 
     public function select_ProyectOrubro(Request $request, $id)
