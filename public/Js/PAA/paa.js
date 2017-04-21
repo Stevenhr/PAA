@@ -336,36 +336,18 @@ $(function()
 
     var select_fuente = function(proyecto, fuente)
     { 
-        
-       /* $.ajax({
-            url: URL+'/service/fuenteComponente/'+id,
-            data: {},
-            dataType: 'json',
-            success: function(data)
-            {
-                var html = '<option value="">Seleccionar</option>';
-          
-                        $.each(data.componentes, function(i, eee){
-                                    html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
-                                    $('input[name="id_pivot_comp"]').val(eee['Id']);
-                        });
-                
-                $('select[name="componnente"]').html(html).val($('select[name="componnente"]').data('value'));
-            }
-        });*/
-
         $('.mjs_componente').html('');
         $.post(
           URL+'/service/fuenteComponente',
           {proyecto: proyecto, fuente:fuente},
           function(data)
           {
-            console.log(data);
-                var html = '<option value="">Seleccionar</option>';
+            //console.log(data.componentes);
+                var html = '<option value="">Seleccionar componente</option>';
              
-                        $.each(data.componentes, function(i, eee){
-                                    html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
-                                    $('input[name="id_pivot_comp"]').val(eee['Id']);
+                        $.each(data, function(i, eee){
+                                    html += '<option value="'+eee.componente['Id']+'">'+eee.componente['Nombre'].toLowerCase()+'</option>';
+                                    $('input[name="id_pivot_comp"]').val(eee.componente['Id']);
                         });
                 
                 $('select[name="componnente"]').html(html).val($('select[name="componnente"]').data('value'));

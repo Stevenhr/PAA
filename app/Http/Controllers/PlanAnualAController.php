@@ -312,9 +312,9 @@ class PlanAnualAController extends Controller
     public function fuenteComponente(Request $request)
     {
         //$proyecto = Fuente::with('componentes')->find($id);
-        $proyecto=$request['observacion'];
-        $fuente=$request['observacion'];
-        $presupuestado= Presupuestado::with('fuente')->where('proyecto_id',$proyecto)->get();
+        $proyecto=$request['proyecto'];
+        $fuente=$request['fuente'];
+        $presupuestado= Presupuestado::with('componente')->where('proyecto_id',$proyecto)->where('fuente_id',$fuente)->get();
 
         return response()->json($presupuestado);
     }
