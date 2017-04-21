@@ -34,7 +34,8 @@ class Paa extends Model
 	'Estado',
 	'IdPersonaObservo',
 	'EsatdoObservo',
-	'Observacion',
+    'Observacion',
+	'Proyecto1Rubro2',
     'Id_Area'];
 	
 	protected $connection = ''; 
@@ -43,8 +44,9 @@ class Paa extends Model
     {
         return $this->belongsTo('App\ModalidadSeleccion','Id_ModalidadSeleccion');
     }
-
-    public function estudioComveniencia(){
+    
+    public function estudioComveniencia()
+    {
         return $this->hasOne('App\EstudioConveniencia', 'id_paa', 'Id');
     }
      
@@ -62,27 +64,26 @@ class Paa extends Model
     {
         return $this->belongsTo('App\Proyecto','Id_ProyectoRubro');
     }
-
+    
     public function meta()
     {
         return $this->belongsTo('App\Meta','MetaPlan');
     }
-
+    
     public function componentes()
     {
         return $this->belongsToMany('\App\Componente','actividadComponente','id_paa','componente_id')
             ->withPivot('id','actividad_id','estado','valor','created_at');
     }
-
+    
     public function cambiosPaa()
     {
         return $this->hasMany('App\CambioPaa','id_paa');
     }
-
+    
     public function save(array $options = [])
     {
     	$cambios = $this->isDirty() ? $this->getDirty() : false;
-
     	if($cambios)
     	{
     		foreach ($cambios as $key => $value) {
@@ -105,7 +106,6 @@ class Paa extends Model
     			}
     		}
     	}
-
     	parent::save($options);
     }
 

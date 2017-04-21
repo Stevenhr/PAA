@@ -86,6 +86,7 @@ class PlanAnualAController extends Controller
                 'meta' =>'required',
                 'Proyecto_inversion' =>'required',
                 'recurso_humano' =>'required',
+                'ProyectOrubro' =>'required',
                 'numero_contratista' =>'required',
             ]
         );
@@ -125,16 +126,16 @@ class PlanAnualAController extends Controller
 
     public function gestionar_Paa($model, $input,$estado,$estadoObservo,$Modifica)
     {
-        $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
 
-            $data0 = json_decode($input['Dato_Actividad_Codigos']);
-            $cod="";
-            foreach($data0 as $obj){
-                if($cod=="")
-                 $cod= $cod."".trim($obj->codigo)."";
-                else
-                 $cod= $cod.", ".trim($obj->codigo)."";
-            }
+        $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
+        $data0 = json_decode($input['Dato_Actividad_Codigos']);
+        $cod="";
+        foreach($data0 as $obj){
+            if($cod=="")
+             $cod= $cod."".trim($obj->codigo)."";
+            else
+             $cod= $cod.", ".trim($obj->codigo)."";
+        }
 
             //var_dump($cod);
         $ordenador="";
@@ -166,6 +167,7 @@ class PlanAnualAController extends Controller
         $modeloPA['NumeroContratista'] = $input['numero_contratista'];
         $modeloPA['DatosResponsable'] = $ordenador;
         $modeloPA['Id_ProyectoRubro'] = $input['Proyecto_inversion'];
+        $modeloPA['Proyecto1Rubro2'] = $input['ProyectOrubro'];
         $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
         $modeloPA['Estado'] = $estado;
         $modeloPA['IdPersonaObservo'] = '';
@@ -175,8 +177,8 @@ class PlanAnualAController extends Controller
         $modeloPA->save();
 
         
-        if($Modifica==0){
-
+        if($Modifica==0)
+        {
             $ModiRegi=0;
             $id_paa=$modeloPA->Id;
             $id_paa2=$modeloPA->Id;
@@ -206,6 +208,7 @@ class PlanAnualAController extends Controller
             $modeloPA['NumeroContratista'] = $input['numero_contratista'];
             $modeloPA['DatosResponsable'] = $input['datos_contacto'];
             $modeloPA['Id_ProyectoRubro'] = $input['Proyecto_inversion'];
+            $modeloPA['Proyecto1Rubro2'] = $input['ProyectOrubro'];
             $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
             $modeloPA['Estado'] = 2;
             $modeloPA['IdPersonaObservo'] = '';
@@ -229,11 +232,15 @@ class PlanAnualAController extends Controller
                     $modeloPA->componentes()->attach($obj->id_componente,[
                         'id_paa'=>$id_paa2,
                         'valor'=>$obj->valor,
+                        'fuente_id'=>$obj->id_Proyecto,
+                        'proyecto_id'=>$input['Proyecto_inversion'],
                         'estado'=>1,
                     ]);
                 }
             }
-        }else{
+        }
+        else
+        {
 
             $ModiRegi=1;
             $id_paa2=$model->Id;

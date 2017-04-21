@@ -348,7 +348,7 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Fecha estimada de estudio de  conveniencia</label><br><br>
-							<input type="text" class="form-control" name="estudio_conveniencia" data-role="datepicker" placeholder="No aplica" autocomplete="off" readonly="readonly">
+							<input type="text" class="form-control" name="estudio_conveniencia" data-role="datepicker" placeholder="Fecha estimada" autocomplete="off" readonly="readonly">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
@@ -410,7 +410,6 @@
 				  		<div class="form-group">
 					  		<label>Proyecto de inversión o Rubro de funcionamiento?:</label>
 							<select class="form-control" id="ProyectOrubro" name="ProyectOrubro">
-								<option value="" >Selecionar</option>
 								<option value="1" >Poyecto de inversión</option>
 								<option value="2" >Rubro de funcionamiento</option>
 							</select>

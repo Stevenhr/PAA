@@ -122,7 +122,7 @@ $(function()
 
               $('#mjs_registroPaa').html(' <center><strong>Cargando... Espere un momento!</strong>  Registrando plan...</center>');
               $('#mjs_registroPaa').show();
-              $('#crear_paa_btn').attr('disabled',true);
+              
           $.post(
             URL+'/validar/paa',
             $(this).serialize(),
@@ -131,7 +131,7 @@ $(function()
               {
                   validad_error(data.errors);
                    $('#mjs_registroPaa').hide();
-                  $('#mjs_registroPaa2').html('<center><strong>Error!</strong> Valores vacios.</center>');
+                  $('#mjs_registroPaa2').html('<center><strong>Error!</strong> Campos vacios.</center>');
                   $('#mjs_registroPaa2').show();
                   setTimeout(function(){
                       $('#mjs_registroPaa2').hide();
@@ -140,7 +140,7 @@ $(function()
               } else {
 
                   
-
+                  $('#crear_paa_btn').attr('disabled',true);
                   validad_error(data.errors);
 
                   if(data.status == 'modelo')
@@ -228,6 +228,7 @@ $(function()
                     case 'estado_solicitud':
                     case 'Proyecto_inversion':
                     case 'meta':
+                    case 'ProyectOrubro':
                     selector = 'select';
                     break;
 
@@ -263,6 +264,7 @@ $(function()
                   $('select[name="meta"]').prop( "disabled", false );
                   $('#meta0').prop( "disabled", true);
                   $('#div_finaciacion').show();
+                  vector_datos_actividad.length=0;
 
 
                 }
