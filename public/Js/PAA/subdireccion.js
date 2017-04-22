@@ -451,7 +451,7 @@ $(function()
                              else
                               $estilo17="color: green !important;";
 
-                            if(campos.indexOf("Id_ProyectoRubro")=='-1')
+                            if(campos.indexOf("Id_Proyecto")=='-1')
                               $estilo18="";
                              else
                               $estilo18="color: green !important;";

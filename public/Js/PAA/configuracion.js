@@ -3450,6 +3450,7 @@ $(function()
                             }, 3000)
                           }else{
                               var num=1;
+                              console.log(data);
                               Tabla_componentes_fuentes_financia.clear().draw();
                               $.each(data.presupuestado, function(i, e){
                                   var $tr1 = tabla_presupuestado(e,num);    

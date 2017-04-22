@@ -23,7 +23,7 @@ class TablaPaa extends Migration
             $table->foreign('Id_ModalidadSeleccion')->references('Id')->on('modalidadseleccion')->onDelete('cascade');
 
             $table->integer('Id_TipoContrato')->unsigned();
-            $table->foreign('Id_TipoContrato')->references('Id')->on('tipocontrato')->onDelete('cascade');
+            $table->foreign('Id_TipoContrato')->references('Id')->on('tipocontrato');
 
             $table->text('ObjetoContractual');
             $table->string('FuenteRecurso');
@@ -40,9 +40,11 @@ class TablaPaa extends Migration
             $table->integer('NumeroContratista');
             $table->text('DatosResponsable');
 
-            $table->integer('Id_ProyectoRubro')->unsigned();
-            $table->foreign('Id_ProyectoRubro')->references('Id')->on('rubro')->onDelete('cascade');
+            $table->integer('Id_Proyecto')->nullable()->unsigned();
+            $table->foreign('Id_Proyecto')->references('Id')->on('proyecto');
+
             
+        
             $table->integer('IdPersona');
             $table->string('Estado');
             $table->integer('IdPersonaObservo');

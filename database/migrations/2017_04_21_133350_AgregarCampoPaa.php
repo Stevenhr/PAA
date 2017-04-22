@@ -15,6 +15,8 @@ class AgregarCampoPaa extends Migration
         //
         Schema::table('paa', function ($table) {
             $table->string('Proyecto1Rubro2');
+            $table->integer('Id_Rubro')->nullable()->unsigned();
+            $table->foreign('Id_Rubro')->references('id')->on('rubro_funcionamiento');
         });
     }
 
@@ -28,6 +30,8 @@ class AgregarCampoPaa extends Migration
         //
         Schema::table('paa', function ($table) {
             $table->dropColumn('Proyecto1Rubro2');
+            $table->dropForeign('paa_Id_Rubro_foreign');
+            $table->dropColumn('Id_Rubro');
         });
     }
 }

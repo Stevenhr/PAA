@@ -15,6 +15,6 @@ class Rubro extends Model
 
 	public function paas()
     {
-        return $this->hasMany('App\Paa','Id_ProyectoRubro');
+        return $this->hasMany('App\Paa','Id_Rubro');
     }
 }

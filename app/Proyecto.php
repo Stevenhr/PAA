@@ -23,7 +23,7 @@ class Proyecto extends Model
     }
     public function paas()
     {
-        return $this->hasMany('App\Paa','Id_ProyectoRubro');
+        return $this->hasMany('App\Paa','Id_Proyecto');
     }
     public function fuente()
     {

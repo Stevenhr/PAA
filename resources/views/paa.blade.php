@@ -410,6 +410,7 @@
 				  		<div class="form-group">
 					  		<label>Proyecto de inversión o Rubro de funcionamiento?:</label>
 							<select class="form-control" id="ProyectOrubro" name="ProyectOrubro">
+								<option value="" >Selecionar</option>
 								<option value="1" >Poyecto de inversión</option>
 								<option value="2" >Rubro de funcionamiento</option>
 							</select>

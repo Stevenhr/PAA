@@ -166,7 +166,8 @@ class PlanAnualAController extends Controller
         $modeloPA['RecursoHumano'] = $input['recurso_humano'];
         $modeloPA['NumeroContratista'] = $input['numero_contratista'];
         $modeloPA['DatosResponsable'] = $ordenador;
-        $modeloPA['Id_ProyectoRubro'] = $input['Proyecto_inversion'];
+        $modeloPA['Id_Proyecto'] = $input['Proyecto_inversion'];
+        $modeloPA['Id_Rubro'] = $input['Proyecto_inversion'];
         $modeloPA['Proyecto1Rubro2'] = $input['ProyectOrubro'];
         $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
         $modeloPA['Estado'] = $estado;
@@ -207,7 +208,8 @@ class PlanAnualAController extends Controller
             $modeloPA['RecursoHumano'] = $input['recurso_humano'];
             $modeloPA['NumeroContratista'] = $input['numero_contratista'];
             $modeloPA['DatosResponsable'] = $input['datos_contacto'];
-            $modeloPA['Id_ProyectoRubro'] = $input['Proyecto_inversion'];
+            $modeloPA['Id_Proyecto'] = $input['Proyecto_inversion'];
+            $modeloPA['Id_Rubro'] = $input['Proyecto_inversion'];
             $modeloPA['Proyecto1Rubro2'] = $input['ProyectOrubro'];
             $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
             $modeloPA['Estado'] = 2;

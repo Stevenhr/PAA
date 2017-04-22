@@ -1249,7 +1249,7 @@ $(function()
         $('select[name="tipo_contrato"]').val(datos['Id_TipoContrato']).closest('.form-group').removeClass('has-error');;
         $('select[name="vigencias_futuras"]').val(datos['VigenciaFutura']).closest('.form-group').removeClass('has-error');;
         $('select[name="estado_solicitud"]').val(datos['EstadoVigenciaFutura']).closest('.form-group').removeClass('has-error');;
-        $('select[name="Proyecto_inversion"]').val(datos['Id_ProyectoRubro']).closest('.form-group').removeClass('has-error'); 
+        $('select[name="Proyecto_inversion"]').val(datos['Id_Proyecto']).closest('.form-group').removeClass('has-error'); 
         select_Meta2(datos['MetaPlan']);
         //$('select[name="meta"]').val(datos['MetaPlan']).closest('.form-group').removeClass('has-error'); 
         //$('select[name="Id_Localidad"]').val(datos['Localidad']).change();

@@ -12,10 +12,10 @@ class DeleteRelacionRubro extends Migration
      */
     public function up()
     {
-        //
+       /* //
         Schema::table('paa', function ($table) {
             $table->dropForeign('paa_Id_ProyectoRubro_foreign');
-        });
+        });*/
 
     }
 
@@ -27,8 +27,8 @@ class DeleteRelacionRubro extends Migration
     public function down()
     {
         //
-        Schema::table('paa', function ($table) {
+        /*Schema::table('paa', function ($table) {
             $table->foreign('Id_ProyectoRubro')->references('Id')->on('rubro')->onDelete('cascade');
-        });
+        });*/
     }
 }

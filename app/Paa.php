@@ -29,7 +29,8 @@ class Paa extends Model
 	'RecursoHumano',
 	'NumeroContratista',
 	'DatosResponsable',
-	'Id_ProyectoRubro',
+    'Id_Proyecto',
+	'Id_Rubro',
 	'IdPersona',
 	'Estado',
 	'IdPersonaObservo',
@@ -37,7 +38,7 @@ class Paa extends Model
     'Observacion',
 	'Proyecto1Rubro2',
     'Id_Area'];
-	
+
 	protected $connection = ''; 
 	 
 	public function modalidad()
@@ -57,12 +58,12 @@ class Paa extends Model
     
     public function rubro()
     {
-        return $this->belongsTo('App\Rubro','Id_ProyectoRubro');
+        return $this->belongsTo('App\Rubro','Id_Rubro');
     }
     
     public function proyecto()
     {
-        return $this->belongsTo('App\Proyecto','Id_ProyectoRubro');
+        return $this->belongsTo('App\Proyecto','Id_Proyecto');
     }
     
     public function meta()
