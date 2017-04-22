@@ -1421,7 +1421,7 @@ class PaaController extends Controller
 		$fuente_f_c=$input['id_componente_finza_f'];
 		$compoennte_f_c=$input['id_componente_finza_c'];
 		$proyecto_f_c=$input['id_proyect_fina_c'];
-		$valor_f_c=$input['valor_componente_proyecto'];
+		$valor_f_c=str_replace('.', '', $input['valor_componente_proyecto']);
 
 
 		$model['componente_id']=$compoennte_f_c;
@@ -1430,8 +1430,12 @@ class PaaController extends Controller
 		$model['valor']=$valor_f_c;
 		$model->save();
 
+		//$Proyecto = Proyecto::with('fuente')->find($proyecto_f_c);
+		//return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto,'upd'=>1));
+
 		$Proyecto = Proyecto::with('fuente')->find($proyecto_f_c);
-		return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto,'upd'=>1));
+			$presupuestado = Presupuestado::with('componente','fuente')->where('proyecto_id',$proyecto_f_c)->get(); //Cambiar a fuentes
+			return response()->json(array('status' => 'modelo', 'presupuestado' => $presupuestado,'proyecto'=>$Proyecto,'upd'=>1));	
 	}
 
 	public function consultacomponenteFinanza(Request $request, $id)

@@ -398,10 +398,10 @@ class ConsolidadoController extends Controller
                 $modeloCambioPaa = new CambioPaa;
                 $modeloCambioPaa['id_paa'] = $id[$i];
                 $modeloCambioPaa['cambio'] = $Nombre_r[$i];
-                $modeloCambioPaa['campo'] = 'Id_ProyectoRubro';
+                $modeloCambioPaa['campo'] = 'Id_Proyecto';
                 $modeloCambioPaa->save();
                 $paas = Paa::find($Registro[$i]);
-                $paas['Id_ProyectoRubro'] = $Nombre_r[$i];
+                $paas['Id_Proyecto'] = $Nombre_r[$i];
                 $paas->save();
               }
           }
