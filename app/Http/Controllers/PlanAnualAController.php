@@ -328,13 +328,19 @@ class PlanAnualAController extends Controller
         return response()->json($presupuestado);
     }
 
-    public function PresupuestoComponente(Request $request, $id)
+    public function PresupuestoComponente(Request $request)
     {
+        $componente=$request['componente'];
+        $Proyecto_inversion=$request['Proyecto_inversion'];
+        $Fuente_inversion=$request['Fuente_inversion'];
+
+        $presupuestado= Presupuestado::where('proyecto_id',$Proyecto_inversion)->where('fuente_id',$fuente)->where('componente_id',$componente)->get();
+
         $ModeloPa = Paa::with(['componentes' => function($query) use ($id)
         {
             $query->where('componente_id',$id)->get();
         }])->where('Estado','9')->get();
-
+        /*Voy aca  2017  24 de abril*/
         $ModeloCompoente=Componente::find($id);
         return response()->json(array('ModeloPa' => $ModeloPa, 'ModeloCompoente' => $ModeloCompoente));
     }

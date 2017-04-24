@@ -357,10 +357,15 @@ $(function()
     };
 
     $('select[name="componnente"]').on('change', function(e){
-        var texto=$(this).find(':selected').val();
+        var componente=$(this).find(':selected').val();
+        var Proyecto_inversion=$(this).find(':Proyecto_inversion').val();
+        var Fuente_inversion=$(this).find(':Fuente_inversion').val();
+        
+
         $.ajax({
-            url: URL+'/service/PresupuestoComponente/'+$(this).val(),
-            data: {},
+            type: "POST",
+            url: URL+'/service/PresupuestoComponente',
+            data: {componente:componente, Proyecto_inversion:Proyecto_inversion, Fuente_inversion:Fuente_inversion},
             dataType: 'json',
             success: function(data)
             {
