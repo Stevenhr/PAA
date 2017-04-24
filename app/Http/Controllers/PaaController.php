@@ -696,6 +696,7 @@ class PaaController extends Controller
 	public function update_Actividad($model, $input)
 	{
 		//var_dump($input['precio_meta']." ".$model['valor']." ".$input["Id_meta"]);
+		$input['precio_actividad']=str_replace('.', '', $input['precio_actividad']);
 		if($input['precio_actividad']<=$model['valor']){
 
 			$finanzas = Actividad::with('actividadescomponetes1')->find($input["Id_actividad"]);
@@ -751,7 +752,7 @@ class PaaController extends Controller
 		$meta = Meta::find($input['idMeta_A']);
 		$sum_presupuesto = $meta['valor'];
 
-		$valor_nuevMeta=$input['precio_actividad'];
+		$valor_nuevMeta=str_replace('.','',$input['precio_actividad']);
 
 		$Saldo=$sum_presupuesto-$sum_actividad;
 

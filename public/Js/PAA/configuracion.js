@@ -885,12 +885,20 @@ $(function()
                                     '<td>'+eee['fecha_fin']+'</td>',
                                     '<td>'+number_format(eee['valor'],1)+'</td>',
                                     '<td><div class="btn-group btn-group-justified tama">'+
+                                        
                                         '<div class="btn-group">'+
-                                        '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
+                                            '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                         '</div>'+
                                         '<div class="btn-group">'+
-                                        '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
+                                            '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_upd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+
                                         '</div>'+
+                                        '<div class="btn-group">'+
+                                            '<button type="button" data-rel="'+eee['Id']+'" data-nombre="'+eee['Nombre']+'" data-funcion="Modal_Finanza_Fuente" data-toggle="modal" data-target="#Modal_Finanza_Fuente" data-tooltip="tooltip" data-placement="top" title="Fuente" class="btn btn-success btn-xs">F</button>'+
+                                        '</div>'+
+                                        '<div class="btn-group">'+
+                                            '<button type="button" data-rel="'+eee['Id']+'" data-nombre="'+eee['Nombre']+'" data-funcion="Modal_Finanza_Componente" data-toggle="modal" data-target="#Modal_Finanza_Componente" data-tooltip="tooltip" data-placement="top" title="Componente"class="btn btn-success btn-xs">C</button>'+
+                                        '</div>'+
+                                        
                                         '</div>'+
                                         '<div id="espera'+eee['Id']+'"></div>'+
                                     '</td>'
