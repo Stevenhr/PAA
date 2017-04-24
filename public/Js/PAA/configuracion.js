@@ -900,13 +900,13 @@ $(function()
                         });
                     });
 
-                    $('#mensaje_proyecto').html('<strong>Bien!</strong> Registro creado con exíto.');
+                    $('#mensaje_proyecto').html('<strong>Bien!</strong> Registro creado con exíto... Disponible $'+data.saldo);
                     $('#mensaje_proyecto').show();
                     setTimeout(function(){
                         $('#mensaje_proyecto').hide();
                         $("#id_btn_proyecto").html('Registrar');
                         $("#id_btn_proyect_canc").hide();
-                    }, 2000)
+                    }, 5000)
                     $('input[name="Id_proyecto"]').val('0');
                 }else{
                     $('#mensaje_proyecto2').html('<strong>Error!</strong> el valor del proyecto que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
@@ -1187,7 +1187,7 @@ $(function()
                             });
                         });
                     });
-                    $('#mensaje_meta').html('<strong>Bien!</strong> Registro creado con exíto.');
+                    $('#mensaje_meta').html('<strong>Bien!</strong> Registro creado con exíto... Disponible $'+number_format(data.saldo)+'');
                     $('#mensaje_meta').show();
                     setTimeout(function(){
                         $('#mensaje_meta').hide();
@@ -1196,7 +1196,7 @@ $(function()
                     }, 2000)
                     $('input[name="Id_meta"]').val('0');
                 }else{
-                    $('#mensaje_meta2').html('<strong>Error!</strong> el valor de la meta que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
+                    $('#mensaje_meta2').html('<strong>Error!</strong> el valor de la meta que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+number_format(data.saldo));
                     $('#mensaje_meta2').show();
                     setTimeout(function(){
                         $('#mensaje_meta2').hide();
@@ -1521,7 +1521,7 @@ $(function()
                     }, 2000)
                     $('input[name="Id_actividad"]').val('0');
                 }else{
-                    $('#mensaje_actividad2').html('<strong>Error!</strong> el valor de la actividad que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
+                    $('#mensaje_actividad2').html('<strong>Error!</strong> el valor de la actividad que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+number_format(data.saldo));
                     $('#mensaje_actividad2').show();
                     setTimeout(function(){
                         $('#mensaje_actividad2').hide();
@@ -1863,7 +1863,7 @@ $(function()
                     }, 2000)
                     $('input[name="Id_actividad"]').val('0');
                 }else{
-                    $('#mensaje_componente2').html('<strong>Error!</strong> el valor del componente que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
+                    $('#mensaje_componente2').html('<strong>Error!</strong> el valor del componente que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+number_format(data.saldo));
                     $('#mensaje_componente2').show();
                     setTimeout(function(){
                         $('#mensaje_componente2').hide();
@@ -2111,7 +2111,7 @@ $(function()
                     $('input[name="Id_componente_crear"]').val('0');
                     //location.reload();
                 }else{
-                    $('#mensaje_componente2_crear').html('<strong>Error!</strong> el valor del componente que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
+                    $('#mensaje_componente2_crear').html('<strong>Error!</strong> el valor del componente que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+number_format(data.saldo));
                     $('#mensaje_componente2_crear').show();
                     setTimeout(function(){
                         $('#mensaje_componente2_crear').hide();
@@ -2338,7 +2338,7 @@ $(function()
                 }else{
                     
 
-                    $('#mensaje_fuente2_crear').html('<strong>Error!</strong> el valor de la fuente que intenta modificar es menor a la suma de los proyectos de inversión ya relacionados que es de: $'+data.suma);
+                    $('#mensaje_fuente2_crear').html('<strong>Error!</strong> el valor de la fuente que intenta modificar es menor a la suma de los proyectos de inversión ya relacionados que es de: $'+number_format(data.suma));
                     $('#mensaje_fuente2_crear').show();
                     setTimeout(function(){
                         $('#mensaje_fuente2_crear').hide();
@@ -2545,7 +2545,7 @@ $(function()
                     }, 2000)
                     $('input[name="Id_rubro_funcionamient"]').val('0');
                 }else{
-                    $('#mensaje_rubrofuncionam2').html('<strong>Error!</strong> el valor del proyecto que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
+                    $('#mensaje_rubrofuncionam2').html('<strong>Error!</strong> el valor del proyecto que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+number_format(data.saldo));
                     $('#mensaje_rubrofuncionam2').show();
                     setTimeout(function(){
                         $('#mensaje_rubrofuncionam2').hide();
@@ -2758,7 +2758,7 @@ $(function()
                     }, 2000)
                     $('input[name="Id_act_rubro_funcionamient"]').val('0');
                 }else{
-                    $('#mensaje_act_rubrofuncionam2').html('<strong>Error!</strong> el valor del proyecto que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+data.saldo);
+                    $('#mensaje_act_rubrofuncionam2').html('<strong>Error!</strong> el valor del proyecto que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+number_format(data.saldo));
                     $('#mensaje_act_rubrofuncionam2').show();
                     setTimeout(function(){
                         $('#mensaje_act_rubrofuncionam2').hide();
@@ -2944,7 +2944,7 @@ $(function()
                             }, 3000)
                           }
                       }else{
-                          $('#mensaje_presupuesto2').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
+                          $('#mensaje_presupuesto2').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+number_format(data.sum_proyectos));
                           $('#mensaje_presupuesto2').show();
                           setTimeout(function(){
                               $('#mensaje_presupuesto2').hide();
@@ -3049,25 +3049,25 @@ $(function()
                             $('#mjs_registroFinanza_fuente').show();
                             setTimeout(function(){
                                 $('#mjs_registroFinanza_fuente').hide();
-                            }, 3000)
+                            }, 4000)
                           }else if(data.upd==2){
                             $('#mjs_registroFinanza_fuente').html('<div class="alert alert-danger"><center><strong>Ya existe la fuente!! </strong>Registro no se ha podido ingresar, la fuente ya existe en este proyecto....</center></div>');
                             $('#mjs_registroFinanza_fuente').show();
                             setTimeout(function(){
                                 $('#mjs_registroFinanza_fuente').hide();
-                            }, 3000)
+                            }, 4000)
                           }else if(data.upd==3){
-                            $('#mjs_registroFinanza_fuente').html('<div class="alert alert-danger"><center><strong>Valor invalido!! </strong>El valor supera el valor disponible de esta fuente. </center></div>');
+                            $('#mjs_registroFinanza_fuente').html('<div class="alert alert-danger"><center><strong>Valor invalido!! </strong>El valor supera el valor disponible de esta fuente. Disponible Fuente: $'+number_format(data.disponibilidad)+'</center></div>');
                             $('#mjs_registroFinanza_fuente').show();
                             setTimeout(function(){
                                 $('#mjs_registroFinanza_fuente').hide();
-                            }, 3000)
+                            }, 5000)
                           }else if(data.upd==4){
-                            $('#mjs_registroFinanza_fuente').html('<div class="alert alert-danger"><center><strong>Valor Superado!! </strong>El valor ingresado supera la disponibilidad del Proyecto.</center></div>');
+                            $('#mjs_registroFinanza_fuente').html('<div class="alert alert-danger"><center><strong>Valor Superado!! </strong>El valor ingresado supera la disponibilidad del Proyecto.  Disponible Proyecto: $'+number_format(data.disponibilidad)+'</center></div>');
                             $('#mjs_registroFinanza_fuente').show();
                             setTimeout(function(){
                                 $('#mjs_registroFinanza_fuente').hide();
-                            }, 3000)
+                            }, 5000)
                           }else{
                               var num=1;
                               Tabla_fuentes_financia.clear().draw();
@@ -3076,11 +3076,11 @@ $(function()
                                   Tabla_fuentes_financia.row.add($tr1).draw(false);
                                   num++;
                               });
-                              $('#mjs_registroFinanza_fuente').html('<div class="alert alert-success"><center><strong>Exitoso!!</strong>Registro creado...</center></div>');
+                              $('#mjs_registroFinanza_fuente').html('<div class="alert alert-success"><center><strong>Exitoso!!</strong>Registro creado...  Disponible Fuente: $'+number_format(data.disponibilidad)+'</center></div>');
                               $('#mjs_registroFinanza_fuente').show();
                               setTimeout(function(){
                                    $('#mjs_registroFinanza_fuente').hide();
-                              }, 3000)
+                              }, 4000)
 
                           }
 
@@ -3285,7 +3285,7 @@ $(function()
               if(data.proyecto.fuente.length > 0)
               {
                 $.each(data.proyecto.fuente, function(i, e){
-                    html += '<option value="'+e.pivot['id']+'">'+e['nombre']+'</option>';
+                    html += '<option value="'+e['Id']+'">'+e['nombre']+'</option>';
                 });
               }
               $('select[name="id_componente_finza_f"]').html(html).val($('select[name="id_componente_finza_f"]').data('value'));
@@ -3425,7 +3425,7 @@ $(function()
                                 $('#mjs_registroFinanza_fuente_componente').hide();
                             }, 3000)
                           }else if(data.upd==3){
-                            $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-danger"><center><strong>Valor invalido!! </strong>El valor supera el valor disponible de esta fuente. </center></div>');
+                            $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-danger"><center><strong>Valor invalido!! </strong>El valor supera el valor disponible de esta fuente. Disponible: $'+number_format(data.valor_disponible)+'</center></div>');
                             $('#mjs_registroFinanza_fuente_componente').show();
                             setTimeout(function(){
                                 $('#mjs_registroFinanza_fuente_componente').hide();
@@ -3450,7 +3450,6 @@ $(function()
                             }, 3000)
                           }else{
                               var num=1;
-                              console.log(data);
                               Tabla_componentes_fuentes_financia.clear().draw();
                               $.each(data.presupuestado, function(i, e){
                                   var $tr1 = tabla_presupuestado(e,num);    
@@ -3463,14 +3462,14 @@ $(function()
                                 $('input[name="valor_componente_proyecto"]').val('');
                                 $("#agregar_finanza").text('Registrar');
                                 $("#cancelar_finanza").hide();
-                                $('#id_proyect_fina_c').val(""); 
+                                
                                 $('#id_finanza_fuenteCompoente_crear').val(0);
                                 
-                                $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-success"><center><strong>Exitoso!!</strong>Registro creado...</center></div>');
+                                $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-success"><center><strong>Exitoso!!</strong>Registro creado...  Disponible: $'+number_format(data.valor_disponible)+'</center></div>');
                                 $('#mjs_registroFinanza_fuente_componente').show();
                                   setTimeout(function(){
                                        $('#mjs_registroFinanza_fuente_componente').hide();
-                                }, 3000)
+                                }, 4000)
                           }
 
                               document.getElementById("form_agregar_finanza_fuente").reset(); 

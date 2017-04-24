@@ -407,6 +407,7 @@ class PaaController extends Controller
 		$Saldo=$sum_presupuesto-$sum_proyectos;
 
 		if($valor_nuevProyecto<=$Saldo){
+			$Saldo=$Saldo-$valor_nuevProyecto;
 			$model['Id_presupuesto'] = $input['idPresupuesto'];
 			$model['codigo'] = $input['codigo_proyecto'];
 			$model['Nombre'] = $input['nombre_proyecto'];
@@ -415,7 +416,7 @@ class PaaController extends Controller
 			$model['valor'] = $valor_nuevProyecto;
 			$model->save();
 			$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos')->get();
-			return response()->json(array('status' => 'modelo', 'proyectoDesarrollo' => $proyectoDesarrollo));
+			return response()->json(array('status' => 'modelo', 'saldo' => $Saldo, 'proyectoDesarrollo' => $proyectoDesarrollo));
 		}else{
 			return response()->json(array('status' => 'Saldo', 'saldo' => $Saldo, 'valorNuevo' => $input['precio_proyecto'],'mensaje'=>'es mayor al saldo del presupuesto que es de'));
 		}
@@ -600,6 +601,7 @@ class PaaController extends Controller
 
 		if($valor_nuevMeta<=$Saldo)
 		{
+			$Saldo=$Saldo-$valor_nuevMeta;
 			$model['Id_proyecto'] = $input['idProyecto_M'];
 			$model['Nombre'] = $input['nombre_meta'];
 			$model['fecha_inicio'] = $input['fecha_inicial_meta'];
@@ -608,7 +610,7 @@ class PaaController extends Controller
 			$model->save();
 			
 			$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos','presupuestos.proyectos.metas')->get();
-			return response()->json(array('status' => 'modelo', 'proyectoDesarrollo' => $proyectoDesarrollo));
+			return response()->json(array('status' => 'modelo', 'saldo' => $Saldo, 'proyectoDesarrollo' => $proyectoDesarrollo));
 		}
 		else
 		{
@@ -1187,7 +1189,7 @@ class PaaController extends Controller
 		
 		if($valor_dispo_proy<$valor_fuente_proyecto)
 		{
-			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>4));
+			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>4,'disponibilidad'=>$valor_dispo_proy));
 		}
 		else if($Fuente->proyecto->count())
 		{
@@ -1195,11 +1197,12 @@ class PaaController extends Controller
 		}
 		else if($valor_dispo<$valor_fuente_proyecto)
 		{
-			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>3));
+			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>3,'disponibilidad'=>$valor_dispo));
 		}
 		else
 		{
-			return $this->crear_finanza_fuente($Fuente, $input);
+			$valor_dispo=$valor_dispo-$valor_fuente_proyecto;
+			return $this->crear_finanza_fuente($Fuente, $input,$valor_dispo);
 		}
 	}
 
@@ -1268,13 +1271,13 @@ class PaaController extends Controller
 		return response()->json($Fuente);
 	}
 
-	public function crear_finanza_fuente($model, $input)
+	public function crear_finanza_fuente($model, $input,$valor_dispo)
 	{
 		$valor_fuente_proyecto=str_replace('.', '', $input['valor_fuente_proyecto']);
 		$model->proyecto()->attach($input['id_proyect_fina_f'],['valor'=>$valor_fuente_proyecto]);
 
 		$Proyecto = Proyecto::with('fuente')->find($input['id_proyect_fina_f']);
-		return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto,'upd'=>1));
+		return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto,'upd'=>1,'disponibilidad'=>$valor_dispo));
 	}
 
 	public function consultaproyectoFinanza(Request $request, $id)
@@ -1375,7 +1378,6 @@ class PaaController extends Controller
 
 	public function guardar_fuente_finanzaComponente($input)
 	{	
-
 		$fuente_f_c=$input['id_componente_finza_f'];
 		$compoennte_f_c=$input['id_componente_finza_c'];
 		$proyecto_f_c=$input['id_proyect_fina_c'];
@@ -1393,11 +1395,17 @@ class PaaController extends Controller
 
 		$Proyecto = Proyecto::with(['fuente' => function($q) use ($fuente_f_c)
 		{
-		    $q->where('FuenteProyecto.id', '=', $fuente_f_c);
+		    $q->where('fuente.Id', '=', $fuente_f_c);
 
 		}])->find($proyecto_f_c);
 		
-		$valor_dispo=$Proyecto->fuente[0]->pivot['valor']-$valorSumFC;
+	
+		if($Proyecto->fuente->count()>0)
+			$Sum_Proye_fuente=$Proyecto->fuente[0]->pivot['valor'];
+		else
+			$Sum_Proye_fuente=0;
+
+		$valor_dispo=$Sum_Proye_fuente-$valorSumFC;
 
 		if($Presupuestado_1->count()>0)
 		{
@@ -1405,18 +1413,17 @@ class PaaController extends Controller
 		}
 		else if($valor_dispo<$valor_f_c)
 		{
-			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>3));
+			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>3, 'valor_disponible'=>$valor_dispo));
 		}
 		else
 		{	
+			$valor_dispo=$valor_dispo-$valor_f_c;
 			$Presupuestado_ = new Presupuestado;
-			return $this->crear_finanza_fuente_componente_proyecto($Presupuestado_, $input);
+			return $this->crear_finanza_fuente_componente_proyecto($Presupuestado_, $input, $valor_dispo);
 		}
-
-		
 	}
 
-	public function crear_finanza_fuente_componente_proyecto($model, $input)
+	public function crear_finanza_fuente_componente_proyecto($model, $input, $valor_dispo)
 	{
 		$fuente_f_c=$input['id_componente_finza_f'];
 		$compoennte_f_c=$input['id_componente_finza_c'];
@@ -1435,7 +1442,7 @@ class PaaController extends Controller
 
 		$Proyecto = Proyecto::with('fuente')->find($proyecto_f_c);
 			$presupuestado = Presupuestado::with('componente','fuente')->where('proyecto_id',$proyecto_f_c)->get(); //Cambiar a fuentes
-			return response()->json(array('status' => 'modelo', 'presupuestado' => $presupuestado,'proyecto'=>$Proyecto,'upd'=>1));	
+			return response()->json(array('status' => 'modelo', 'presupuestado' => $presupuestado,'proyecto'=>$Proyecto,'upd'=>1,'valor_disponible'=>$valor_dispo));	
 	}
 
 	public function consultacomponenteFinanza(Request $request, $id)

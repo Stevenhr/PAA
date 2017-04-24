@@ -388,9 +388,7 @@ $(function()
                     }
                   });
                 }
-
-                //console.log(valor_ingresado_conso);
-
+                
                 $('.mjs_componente').html('<div class="alert "><table class="table table-bordered">'+
                  '<tr class="info"><td>Presupuesto total:</td><td><center><strong>  $'+valorCocenpto+'</strong>.<br></td></tr>'+
                  '<tr class="success"><td>Presupuesto aprobado:</td><td><center><strong>                 $'+suma+'</strong>.<br></td></tr>'+
