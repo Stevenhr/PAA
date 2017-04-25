@@ -24,6 +24,7 @@ use App\ActividadComponente;
 use App\Actividad;
 use App\Presupuestado;
 use Mail;
+use App\FuenteProyecto;
 use App\Persona;
 use App\RubroFuncionamiento;
 use App\Datos;
@@ -320,29 +321,24 @@ class PlanAnualAController extends Controller
 
     public function fuenteComponente(Request $request)
     {
-        //$proyecto = Fuente::with('componentes')->find($id);
-        $proyecto=$request['proyecto'];
-        $fuente=$request['fuente'];
-        $presupuestado= Presupuestado::with('componente')->where('proyecto_id',$proyecto)->where('fuente_id',$fuente)->get();
-
+        $fuenteProyecto=$request['fuenteProyecto'];
+        $presupuestado= Presupuestado::with('componente')->where('fuente_proyecto_id',$fuenteProyecto)->get();
         return response()->json($presupuestado);
     }
 
     public function PresupuestoComponente(Request $request)
     {
-        $componente=$request['componente'];
-        $Proyecto_inversion=$request['Proyecto_inversion'];
-        $Fuente_inversion=$request['Fuente_inversion'];
-
-        $presupuestado= Presupuestado::where('proyecto_id',$Proyecto_inversion)->where('fuente_id',$fuente)->where('componente_id',$componente)->get();
+        $id_presupuestado=$request['id_presupuestado'];
+        $presupuestado= Presupuestado::find($id_presupuestado);
+        $id=$presupuestado['componente_id'];
 
         $ModeloPa = Paa::with(['componentes' => function($query) use ($id)
         {
             $query->where('componente_id',$id)->get();
         }])->where('Estado','9')->get();
-        /*Voy aca  2017  24 de abril*/
+        
         $ModeloCompoente=Componente::find($id);
-        return response()->json(array('ModeloPa' => $ModeloPa, 'ModeloCompoente' => $ModeloCompoente));
+        return response()->json(array('ModeloPa' => $ModeloPa, 'ModeloCompoente' => $ModeloCompoente,'presupuestado'=>$presupuestado));
     }
 
     public function select_area(Request $request, $id)
@@ -370,9 +366,9 @@ class PlanAnualAController extends Controller
 
     public function select_meta_fuente(Request $request, $id)
     {
-        $presupuestado= Presupuestado::with('fuente')->where('proyecto_id',$id)->get();
+        $FuenteProyecto = FuenteProyecto::with('fuente')->where('proyecto_id',$id)->get();
         $proyecto = Proyecto::with('metas')->find($id);
-        return response()->json(array('Proyecto'=>$proyecto,'Presupuestado'=>$presupuestado));
+        return response()->json(array('Proyecto'=>$proyecto,'FuenteProyecto'=>$FuenteProyecto));
     }
 
     public function select_ProyectOrubro(Request $request, $id)

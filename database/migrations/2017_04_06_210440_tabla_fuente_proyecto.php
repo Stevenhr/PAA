@@ -31,7 +31,7 @@ class TablaFuenteProyecto extends Migration
     public function down()
     {
         //
-         Schema::table('FuenteProyecto', function (Blueprint $table) {
+        Schema::table('FuenteProyecto', function (Blueprint $table) {
             $table->dropForeign(['fuente_id']);
             $table->dropForeign(['proyecto_id']);
         });

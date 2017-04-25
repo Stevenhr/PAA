@@ -16,6 +16,7 @@ use App\Persona;
 use App\Datos;
 use App\RubroFuncionamiento;
 use App\PersonaPaa;
+use App\FuenteProyecto;
 use App\ProyectoDesarrollo;
 use App\Presupuestado;
 use App\ActividadFuncionamiento;
@@ -1339,19 +1340,20 @@ class PaaController extends Controller
 		$valor_f_c=str_replace('.', '', $input['valor_componente_proyecto']);
 
 		$valorSumFC=0;
-		$Presupuestado=Presupuestado::where('fuente_id',$fuente_f_c)->where('proyecto_id',$proyecto_f_c)->get();
+		$Presupuestado=Presupuestado::where('fuente_id',$fuente_f_c)->get();
 		foreach ($Presupuestado as $value) {
 			if($value['componente_id']!=$compoennte_f_c)
 			$valorSumFC=$valorSumFC+$value['valor'];
 		}
 
-		$Proyecto = Proyecto::with(['fuente' => function($q) use ($fuente_f_c)
-		{
-		    $q->where('FuenteProyecto.id', '=', $fuente_f_c);
-
-		}])->find($proyecto_f_c);
+		$FuenteProyecto=FuenteProyecto::find($fuente_f_c);
+	
+		if($FuenteProyecto->count()>0)
+			$Sum_Proye_fuente=$FuenteProyecto->sum('valor');
+		else
+			$Sum_Proye_fuente=0;
 		
-		$valor_dispo=$Proyecto->fuente[0]->pivot['valor']-$valorSumFC;
+		$valor_dispo=$Sum_Proye_fuente-$valorSumFC;
 
 		$actividadComponente=ActividadComponente::where('componente_id',$compoennte_f_c)->where('fuente_id',$fuente_f_c)->where('proyecto_id',$proyecto_f_c)->get();
 		$sum = $actividadComponente->sum( 'valor' );
@@ -1385,24 +1387,20 @@ class PaaController extends Controller
 		$valor_f_c=str_replace('.', '', $input['valor_componente_proyecto']);
 
 
-		$Presupuestado_1=Presupuestado::where('fuente_id',$fuente_f_c)->where('proyecto_id',$proyecto_f_c)->where('componente_id',$compoennte_f_c)->get();
+		$Presupuestado_1=Presupuestado::where('fuente_proyecto_id',$fuente_f_c)->where('componente_id',$compoennte_f_c)->get();
 		
 
 		$valorSumFC=0;
-		$Presupuestado=Presupuestado::where('fuente_id',$fuente_f_c)->where('proyecto_id',$proyecto_f_c)->get();
+		$Presupuestado=Presupuestado::where('fuente_proyecto_id',$fuente_f_c)->get();
 		foreach ($Presupuestado as $value) {
 			$valorSumFC=$valorSumFC+$value['valor'];
 		}
 
-		$Proyecto = Proyecto::with(['fuente' => function($q) use ($fuente_f_c)
-		{
-		    $q->where('fuente.Id', '=', $fuente_f_c);
 
-		}])->find($proyecto_f_c);
-		
+		$FuenteProyecto=FuenteProyecto::find($fuente_f_c);
 	
-		if($Proyecto->fuente->count()>0)
-			$Sum_Proye_fuente=$Proyecto->fuente[0]->pivot['valor'];
+		if($FuenteProyecto->count()>0)
+			$Sum_Proye_fuente=$FuenteProyecto->sum('valor');
 		else
 			$Sum_Proye_fuente=0;
 
@@ -1433,8 +1431,7 @@ class PaaController extends Controller
 
 
 		$model['componente_id']=$compoennte_f_c;
-		$model['fuente_id']=$fuente_f_c;
-		$model['proyecto_id']=$proyecto_f_c;
+		$model['fuente_proyecto_id']=$fuente_f_c;
 		$model['valor']=$valor_f_c;
 		$model->save();
 
@@ -1442,15 +1439,18 @@ class PaaController extends Controller
 		//return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto,'upd'=>1));
 
 		$Proyecto = Proyecto::with('fuente')->find($proyecto_f_c);
-			$presupuestado = Presupuestado::with('componente','fuente')->where('proyecto_id',$proyecto_f_c)->get(); //Cambiar a fuentes
-			return response()->json(array('status' => 'modelo', 'presupuestado' => $presupuestado,'proyecto'=>$Proyecto,'upd'=>1,'valor_disponible'=>$valor_dispo));	
+			$FuenteProyecto = FuenteProyecto::with('presupuestados','fuente','presupuestados.componente_c')->where('proyecto_id',$proyecto_f_c)->get();
+			//$presupuestado = Presupuestado::with('componente','fuente')->where('proyecto_id',$id)->get(); //Cambiar a fuentes
+			return response()->json(array('status' => 'modelo', 'FuenteProyecto' => $FuenteProyecto,'proyecto'=>$Proyecto,'upd'=>1,'valor_disponible'=>$valor_dispo));	
+			
 	}
 
 	public function consultacomponenteFinanza(Request $request, $id)
 	{	
 			$Proyecto = Proyecto::with('fuente')->find($id);
-			$presupuestado = Presupuestado::with('componente','fuente')->where('proyecto_id',$id)->get(); //Cambiar a fuentes
-			return response()->json(array('status' => 'modelo', 'presupuestado' => $presupuestado,'proyecto'=>$Proyecto));		
+			$FuenteProyecto = FuenteProyecto::with('presupuestados','fuente','presupuestados.componente_c')->where('proyecto_id',$id)->get();
+			//$presupuestado = Presupuestado::with('componente','fuente')->where('proyecto_id',$id)->get(); //Cambiar a fuentes
+			return response()->json(array('status' => 'modelo', 'FuenteProyecto' => $FuenteProyecto,'proyecto'=>$Proyecto));		
 	}
 
 	public function eliminarpresupestado(Request $request)
@@ -1458,9 +1458,9 @@ class PaaController extends Controller
 		$id=$request['idPresupuestado'];
       	$id_p=$request['proyecto_id'];
       	$componente_id=$request['componente_id'];
-      	$fuente_id=$request['fuente_id'];
+      	$id_fuenteProyecto=$request['id_fuenteProyecto'];
 
-		$actividadComponente=ActividadComponente::where('componente_id',$componente_id)->where('fuente_id',$fuente_id)->where('proyecto_id',$id_p)->get();
+		$actividadComponente=ActividadComponente::where('componente_id',$componente_id)->where('fuente_id',$id_fuenteProyecto)->get();
 		$sum = $actividadComponente->sum( 'valor' );
 
       	if($sum>0){
@@ -1469,9 +1469,11 @@ class PaaController extends Controller
       	else{
       		$presu = Presupuestado::find($id);
 			$presu->delete();
-	      	$Proyecto = Proyecto::with('fuente')->find($id_p);
-			$presupuestado = Presupuestado::with('componente','fuente')->where('proyecto_id',$id_p)->get();
-			return response()->json(array('status' => 'Autorizado', 'presupuestado' => $presupuestado,'proyecto'=>$Proyecto));	
+
+			$Proyecto = Proyecto::with('fuente')->find($id_p);
+			$FuenteProyecto = FuenteProyecto::with('presupuestados','fuente','presupuestados.componente_c')->where('proyecto_id',$id_p)->get();
+			//$presupuestado = Presupuestado::with('componente','fuente')->where('proyecto_id',$id)->get(); //Cambiar a fuentes
+			return response()->json(array('status' => 'Autorizado', 'FuenteProyecto' => $FuenteProyecto,'proyecto'=>$Proyecto));	
 		}
 	}
 

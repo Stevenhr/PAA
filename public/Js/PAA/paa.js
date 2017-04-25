@@ -35,6 +35,47 @@ $(function()
         } );
     });
 
+    function number_format(amount, decimals) {
+
+        amount += ''; // por si pasan un numero en vez de un string
+        amount = parseFloat(amount.replace(/[^0-9\.]/g, '')); // elimino cualquier cosa que no sea numero o punto
+
+        decimals = decimals || 0; // por si la variable no fue fue pasada
+
+        // si no es un numero o es igual a cero retorno el mismo cero
+        if (isNaN(amount) || amount === 0) 
+            return parseFloat(0).toFixed(decimals);
+
+        // si es mayor o menor que cero retorno el valor formateado como numero
+        amount = '' + amount.toFixed(decimals);
+
+        var amount_parts = amount.split('.'),
+            regexp = /(\d+)(\d{3})/;
+
+        while (regexp.test(amount_parts[0]))
+            amount_parts[0] = amount_parts[0].replace(regexp, '$1' + ',' + '$2');
+
+        return amount_parts.join('.');
+    }
+
+      function formatCurrency(input)
+    {
+        var num = input.value.replace(/\./g,'');
+        if(!isNaN(num)){
+            num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+            num = num.split('').reverse().join('').replace(/^[\.]/,'');
+            input.value = num;
+        }
+          
+        else{ alert('Solo se permiten numeros');
+            input.value = input.value.replace(/[^\d\.]*/g,'');
+        }
+    }
+
+    $('input[name="valor_contrato"]').on('keyup', function(e){
+        formatCurrency(this);
+    });
+
 
   var tb1 = $('#Tabla1').DataTable( {responsive: true   } );
   var tb2 = $('#Tabla2').DataTable( {responsive: true,  } );
@@ -303,10 +344,10 @@ $(function()
                 });   
                 $('select[name="meta"]').html(html).val($('select[name="meta"]').data('value'));
 
-                var datos2=data.Presupuestado;
+                var datos2=data.FuenteProyecto;
                 var html2 = '<option value="">Seleccionar</option>';
                 $.each(datos2, function(i, eee){
-                      html2 += '<option value="'+eee.fuente['Id']+'">'+eee.fuente['nombre'].toLowerCase()+'</option>';
+                      html2 += '<option value="'+eee['id']+'">'+eee.fuente['nombre'].toLowerCase()+'</option>';
                 });   
                 $('select[name="Fuente_inversion"]').html(html2).val($('select[name="Fuente_inversion"]').data('value'));
             }
@@ -332,24 +373,22 @@ $(function()
     };
 
     $('select[name="Fuente_inversion"]').on('change', function(e){
-        var proyecto=$('select[name="Proyecto_inversion"]').val();
-        select_fuente(proyecto,$(this).val());
+        select_fuente($(this).val());
     });
 
-    var select_fuente = function(proyecto, fuente)
+    var select_fuente = function(fuenteProyecto)
     { 
         $('.mjs_componente').html('');
         $.post(
           URL+'/service/fuenteComponente',
-          {proyecto: proyecto, fuente:fuente},
+          {fuenteProyecto:fuenteProyecto},
           function(data)
           {
-            //console.log(data.componentes);
                 var html = '<option value="">Seleccionar componente</option>';
              
                         $.each(data, function(i, eee){
-                                    html += '<option value="'+eee.componente['Id']+'">'+eee.componente['Nombre'].toLowerCase()+'</option>';
-                                    $('input[name="id_pivot_comp"]').val(eee.componente['Id']);
+                                    html += '<option value="'+eee['id']+'">'+eee.componente['Nombre'].toLowerCase()+'</option>';
+                                    //$('input[name="id_pivot_comp"]').val(eee.componente['Id']);
                         });
                 
                 $('select[name="componnente"]').html(html).val($('select[name="componnente"]').data('value'));
@@ -357,15 +396,12 @@ $(function()
     };
 
     $('select[name="componnente"]').on('change', function(e){
-        var componente=$(this).find(':selected').val();
-        var Proyecto_inversion=$(this).find(':Proyecto_inversion').val();
-        var Fuente_inversion=$(this).find(':Fuente_inversion').val();
-        
-
+        var id_presupuestado=$(this).find(':selected').val();
+      
         $.ajax({
             type: "POST",
             url: URL+'/service/PresupuestoComponente',
-            data: {componente:componente, Proyecto_inversion:Proyecto_inversion, Fuente_inversion:Fuente_inversion},
+            data: {id_presupuestado:id_presupuestado},
             dataType: 'json',
             success: function(data)
             {
@@ -374,30 +410,30 @@ $(function()
                 
                 $.each(data.ModeloPa, function(i, eee){
                   if(eee.componentes!=''){
-                    
                     $.each(eee.componentes, function(ii, eeee){
                        if(eeee.pivot['valor']!='')
                        suma=suma + parseInt(eeee.pivot['valor']);
                     });
                   }
                 });
-                valorCocenpto=data.ModeloCompoente['valor'];
+
+                valorCocenpto=data.presupuestado['valor'];
                 valorAfavor=parseInt(valorCocenpto)-parseInt(suma);
 
                 valor_ingresado_conso=0;
                 if(vector_datos_actividad.length > 0)
                 {
                   $.each(vector_datos_actividad, function(i, e){
-                    if(e['id_componente']==texto){
+                    //if(e['id_componente']==texto){
                       valor_ingresado_conso=parseInt(valor_ingresado_conso)+parseInt(e['valor']);
-                    }
+                    //}
                   });
                 }
                 
                 $('.mjs_componente').html('<div class="alert "><table class="table table-bordered">'+
-                 '<tr class="info"><td>Presupuesto total:</td><td><center><strong>  $'+valorCocenpto+'</strong>.<br></td></tr>'+
-                 '<tr class="success"><td>Presupuesto aprobado:</td><td><center><strong>                 $'+suma+'</strong>.<br></td></tr>'+
-                 '<tr class="active"><td>Presupuesto libre: </td><td><center><strong>  $'+valorAfavor+'</strong>.<br>'+'</td></tr></table></div>');
+                 '<tr class="info"><td>Presupuesto total:</td><td><center><strong>  $'+number_format(valorCocenpto)+'</strong>.<br></td></tr>'+
+                 '<tr class="success"><td>Presupuesto aprobado:</td><td><center><strong>                 $'+number_format(suma)+'</strong>.<br></td></tr>'+
+                 '<tr class="active"><td>Presupuesto libre: </td><td><center><strong>  $'+number_format(valorAfavor)+'</strong>.<br>'+'</td></tr></table></div>');
             }
         });
     });

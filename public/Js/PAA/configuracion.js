@@ -3293,17 +3293,21 @@ $(function()
               if(data.proyecto.fuente.length > 0)
               {
                 $.each(data.proyecto.fuente, function(i, e){
-                    html += '<option value="'+e['Id']+'">'+e['nombre']+'</option>';
+                    html += '<option value="'+e.pivot['id']+'">'+e['nombre']+'</option>';
                 });
               }
               $('select[name="id_componente_finza_f"]').html(html).val($('select[name="id_componente_finza_f"]').data('value'));
 
               var num=1;
               Tabla_componentes_fuentes_financia.clear().draw();
-              $.each(data.presupuestado, function(i, e){
-                  var $tr1 = tabla_presupuestado(e,num);    
-                  Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
-                  num++;
+              $.each(data.FuenteProyecto, function(i, e){
+                  if(e.presupuestados.length){
+                     $.each(e.presupuestados, function(i, ee){
+                      var $tr1 = tabla_presupuestado(e,ee,num); 
+                      Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
+                      num++;
+                     });
+                  }   
               });
 
             }
@@ -3312,32 +3316,33 @@ $(function()
     }); 
 
 
-     function tabla_presupuestado(e, num){
+     function tabla_presupuestado(e, ee, num){
 
              var $tr1 =   $('<tr></tr>').html(
                 '<th scope="row" class="text-center">'+num+'</th>'+
                     '<td><b><p class="text-info">'+e.fuente['nombre']+'<br></p></b></td>'+
-                    '<td><b><p class="text-info">'+e.componente['Nombre']+'<br></p></b></td>'+
-                    '<td><b> $'+number_format(e['valor'])+'</b></td>'+
+                    '<td><b><p class="text-info">'+ee.componente_c['Nombre']+'<br></p></b></td>'+
+                    '<td><b> $'+number_format(ee['valor'])+'</b></td>'+
                     '<td>'+
                       '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+
-                        '<li><button type="button" data-rel="'+e['id']+'" data-rel2="'+e['componente_id']+'" data-rel3="'+e['proyecto_id']+'" data-rel4="'+e['fuente_id']+'" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>'+
-                        '<li><button type="button" data-rel="'+e['id']+'" data-rel2="'+e['componente_id']+'" data-rel3="'+e['proyecto_id']+'" data-rel4="'+e['fuente_id']+'" data-funcion="Modificacion" class="btn btn-link btn-xs"  title="Editar Paa" {{$disable}}><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>   Modificación</button></li>'+
+                        '<li><button type="button" data-rel="'+ee['id']+'" data-rel2="'+ee['componente_id']+'" data-rel3="'+e['proyecto_id']+'" data-rel4="'+e['id']+'" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>'+
+                        '<li><button type="button" data-rel="'+ee['id']+'" data-rel2="'+ee['componente_id']+'" data-rel3="'+e['proyecto_id']+'" data-rel4="'+e['id']+'" data-funcion="Modificacion" class="btn btn-link btn-xs"  title="Editar Paa" {{$disable}}><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>   Modificación</button></li>'+
                       '</div>'+
                     '</td>'
               );
+            
               return $tr1 ;
-        }
+    }
 
      $('#Tabla_componentes_fuentes_financia').delegate('button[data-funcion="ver_eli"]','click',function (e){  
             var idPresupuestado = $(this).data('rel'); 
             var componente_id = $(this).data('rel2'); 
             var proyecto_id = $(this).data('rel3'); 
-            var fuente_id = $(this).data('rel4'); 
+            var id_fuenteProyecto = $(this).data('rel4'); 
 
            $.ajax({
                 url: URL+'/validar/eliminarpresupestado',
-                data: {'idPresupuestado':idPresupuestado,'componente_id':componente_id,'proyecto_id':proyecto_id,'fuente_id':fuente_id},
+                data: {'idPresupuestado':idPresupuestado,'componente_id':componente_id,'proyecto_id':proyecto_id,'id_fuenteProyecto':id_fuenteProyecto},
                 type: 'POST',
                 dataType: 'json',
 
@@ -3352,10 +3357,14 @@ $(function()
                   }else{
                       var num=1;
                       Tabla_componentes_fuentes_financia.clear().draw();
-                      $.each(data.presupuestado, function(i, e){
-                          var $tr1 = tabla_presupuestado(e,num);    
-                          Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
-                          num++;
+                      $.each(data.FuenteProyecto, function(i, e){
+                          if(e.presupuestados.length){
+                             $.each(e.presupuestados, function(i, ee){
+                              var $tr1 = tabla_presupuestado(e,ee,num); 
+                              Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
+                              num++;
+                             });
+                          }   
                       });
                       $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-success"><center><strong>Eliminación Exitosa !!</strong> Registro eliminado correctamente...</center></div>');
                       $('#mjs_registroFinanza_fuente_componente').show();
@@ -3458,12 +3467,16 @@ $(function()
                             }, 3000)
                           }else{
                               var num=1;
-                              Tabla_componentes_fuentes_financia.clear().draw();
-                              $.each(data.presupuestado, function(i, e){
-                                  var $tr1 = tabla_presupuestado(e,num);    
-                                  Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
-                                  num++;
-                              });
+                                Tabla_componentes_fuentes_financia.clear().draw();
+                                  $.each(data.FuenteProyecto, function(i, e){
+                                      if(e.presupuestados.length){
+                                         $.each(e.presupuestados, function(i, ee){
+                                          var $tr1 = tabla_presupuestado(e,ee,num); 
+                                          Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
+                                          num++;
+                                         });
+                                      }   
+                                  });
                              
                                 $('#id_componente_finza_f').val("");
                                 $('#id_componente_finza_c').val("");

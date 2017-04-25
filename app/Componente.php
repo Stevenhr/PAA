@@ -35,4 +35,9 @@ class Componente extends Model
             ->withPivot('actividad_id','estado','valor','created_at');
     }
 
+    public function fuentes_proyectos()
+    {
+        return $this->hasMany('App\FuenteProyecto','componente_id');
+    }
+
 }

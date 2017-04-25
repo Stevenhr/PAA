@@ -16,8 +16,9 @@ class TablaPresupuestado extends Migration
         Schema::create('presupuestado', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('componente_id')->unsigned();
-            $table->integer('fuente_id')->nullable()->unsigned();
-            $table->integer('proyecto_id')->nullable()->unsigned();
+            $table->foreign('componente_id')->references('id')->on('componente');
+            $table->integer('fuente_proyecto_id')->unsigned();
+            $table->foreign('fuente_proyecto_id')->references('id')->on('FuenteProyecto');
             $table->bigInteger('valor')->unsigned()->index();
             $table->timestamps();
         });
