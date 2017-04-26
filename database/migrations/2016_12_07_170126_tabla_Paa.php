@@ -41,7 +41,7 @@ class TablaPaa extends Migration
             $table->text('DatosResponsable');
 
             $table->integer('Id_Proyecto')->nullable()->unsigned();
-            //$table->foreign('Id_Proyecto')->references('Id')->on('proyecto');
+            $table->foreign('Id_Proyecto')->references('Id')->on('proyecto');
 
             
         
