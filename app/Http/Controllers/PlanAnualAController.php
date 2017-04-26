@@ -149,11 +149,11 @@ class PlanAnualAController extends Controller
 
         if($input['ProyectOrubro']==1){
             $Id_Proyecto=$input['ProyectOrubro'];
-            $Id_Rubro=0;
+            $Id_Rubro=null;
         }
         
         if($input['ProyectOrubro']==2){
-            $Id_Proyecto=0;
+            $Id_Proyecto=null;
             $Id_Rubro=$input['ProyectOrubro'];
         }
 
@@ -220,8 +220,8 @@ class PlanAnualAController extends Controller
             $modeloPA['RecursoHumano'] = $input['recurso_humano'];
             $modeloPA['NumeroContratista'] = $input['numero_contratista'];
             $modeloPA['DatosResponsable'] = $input['datos_contacto'];
-            $modeloPA['Id_Proyecto'] = $input['Proyecto_inversion'];
-            $modeloPA['Id_Rubro'] = $input['Proyecto_inversion'];
+            $modeloPA['Id_Proyecto'] = $Id_Proyecto;
+            $modeloPA['Id_Rubro'] = $Id_Rubro;
             $modeloPA['Proyecto1Rubro2'] = $input['ProyectOrubro'];
             $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
             $modeloPA['Estado'] = 2;
@@ -243,7 +243,9 @@ class PlanAnualAController extends Controller
             
             if($data0[0] != null){
                 foreach($data0 as $obj){
-                    $modeloPA->componentes()->attach($obj->id_componente,[
+                    $presupuestado= Presupuestado::find($obj->id_componente);
+                    $id_com=$presupuestado['componente_id'];
+                    $modeloPA->componentes()->attach($id_com,[
                         'id_paa'=>$id_paa2,
                         'valor'=>$obj->valor,
                         'fuente_id'=>$obj->id_Proyecto,
@@ -397,22 +399,32 @@ class PlanAnualAController extends Controller
 
     public function verFinanciacion(Request $request, $id)
     {
+
+        $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente')->where('id_paa',$id)->get();
         $model_A = Paa::with('componentes','componentes.fuente')->find($id);
         //dd($model_A);
         //exit();
-        return response()->json(array('dataInfo' => $model_A, 'estado' => $model_A['Estado']) );
+        $Proyecto = Proyecto::with('fuente')->find($model_A['Id_Proyecto']);
+        return response()->json(array('estado' => $model_A['Estado'],'proyecto'=>$Proyecto, 'ActividadComponente'=>$ActividadComponente) );
     }
 
      public function EliminarFinanciamiento(Request $request)
     {
  
         $id=$request['id'];
+        $id_eli=$request['id_eli'];
+
+        $ActividadComponente1 = ActividadComponente::find($id_eli);
+        $ActividadComponente1->delete();
+
+        $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente')->where('id_paa',$id)->get();
+
         $paa = Paa::find($id);
         //  $paa->componentes()->detach($request['id_eli']);
-        $paa->componentes()->newPivotStatementForId($request['id_eli'])->whereid($request['id_key'])->delete();
-        $model_A = Paa::with('componentes','componentes.fuente')->find($id);
+        //$paa->componentes()->newPivotStatementForId($request['id_eli'])->whereid($request['id_key'])->delete();
+        //$model_A = Paa::with('componentes','componentes.fuente')->find($id);
 
-        return response()->json($model_A);
+        return response()->json(array('ActividadComponente'=>$ActividadComponente, 'paa'=>$paa));
     }
 
     public function agregar_finza(Request $request)

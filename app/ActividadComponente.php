@@ -39,5 +39,15 @@ class ActividadComponente extends Model
         return $this->belongsTo('App\Fuente','fuente_id');
     }
 
+    public function proyecto()
+    {
+        return $this->belongsTo('App\Proyecto','proyecto_id');
+    }
+
+    public function fuenteproyecto()
+    {
+        return $this->belongsTo('App\FuenteProyecto','fuente_id');
+    }
+
 
 }

@@ -35,6 +35,16 @@ $(function()
         } );
     });
 
+    function replaceAll( text, busca, reemplaza ){
+       while (text.toString().indexOf(busca) != -1)
+        text = text.toString().replace(busca,reemplaza);
+      
+      return text;
+    }
+
+
+
+
     function number_format(amount, decimals) {
 
         amount += ''; // por si pasan un numero en vez de un string
@@ -419,7 +429,7 @@ $(function()
 
                 valorCocenpto=data.presupuestado['valor'];
                 valorAfavor=parseInt(valorCocenpto)-parseInt(suma);
-
+                console.log(valorAfavor+" - "+valorCocenpto+" - "+suma);
                 valor_ingresado_conso=0;
                 if(vector_datos_actividad.length > 0)
                 {
@@ -523,15 +533,21 @@ $(function()
         var indice = form_paa.Fuente_inversion.selectedIndex;
         var Nom_Proyecto_inversion= form_paa.Fuente_inversion.options[indice].text ;
 
+        var Proyecto_inversion=$('select[name="Proyecto_inversion"]').find(':selected').text();
+        //console.log("uuuu-> "+Proyecto_inversion);
         var componnente=$('select[name="componnente"]').find(':selected').val();
         var indice = form_paa.componnente.selectedIndex;
         var Nombre_componnente= form_paa.componnente.options[indice].text ;
 
-        console.log('id Componente: '+componnente+' - '+Nombre_componnente);
+        //console.log('id Componente: '+componnente+' - '+Nombre_componnente);
         var valor_contrato = $('input[name="valor_contrato"]').val();
-        valor_ingresado_conso=parseInt(valor_ingresado_conso)+parseInt(valor_contrato);
 
-        if(Proyecto_inversion===''){
+        valor_contrato=replaceAll(valor_contrato, ".", "" );
+        //console.log(valorAfavor+" "+valor_contrato);
+        valor_ingresado_conso=parseInt(valor_ingresado_conso)+parseInt(valor_contrato);
+        //console.log(valorAfavor+" "+valor_ingresado_conso);
+
+        if(Nom_Proyecto_inversion===''){
           $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe seleccionar un fuente de financiación para poder realizar el registro.</div>');
           $('#mensaje_actividad').show(60);
           $('#mensaje_actividad').delay(2500).hide(600);
@@ -548,19 +564,18 @@ $(function()
                 $('#mensaje_actividad').delay(2500).hide(600);
                 return false;
               }else{
-                    if(valor_ingresado_conso<=valorAfavor){
+                  if(valor_ingresado_conso<=valorAfavor){
                     
                     $('input[name="valor_contrato"]').val('');
                     
-
                     $('#alert_actividad').html('<div class="alert alert-dismissible alert-success" ><strong>Exito!</strong> Dato registrados con éxito. </div>');
                     $('#mensaje_actividad').show(60);
                     $('#mensaje_actividad').delay(1500).hide(600);
-                    vector_datos_actividad.push({"id_Proyecto": Fuente_inversion, "Nom_Proyecto":Nom_Proyecto_inversion, "id_componente": componnente, "Nom_Componente":Nombre_componnente,"valor": valor_contrato,"id_pivot_comp":id_pivot_comp});
+                    vector_datos_actividad.push({"id_Proyecto": Fuente_inversion, "Nom_Proyecto":Nom_Proyecto_inversion, "id_componente": componnente, "Nom_Componente":Nombre_componnente,"valor": valor_contrato,"id_pivot_comp":id_pivot_comp, "Proyecto":Proyecto_inversion});
                     $('#VerAgregarFinanciacion').click();
                   }else{
                     valor_ingresado_conso=parseInt(valor_ingresado_conso)-parseInt(valor_contrato);
-                    $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El valor ingresado o consolidado es mayor al valor de disponibilidad del componete que es de: $'+valorAfavor+'  -  '+valor_ingresado_conso+'</div>');
+                    $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El valor ingresado o consolidado es mayor al valor de disponibilidad del componete que es de: $'+number_format(valorAfavor)+'  -  '+number_format(valor_ingresado_conso)+'</div>');
                     $('#mensaje_actividad').show(60);
                     $('#mensaje_actividad').delay(2500).hide(600);
                   }
@@ -634,14 +649,17 @@ $(function()
 
     $('#VerAgregarFinanciacion').on('click', function(e)
     {
-
-      //console.log(vector_datos_actividad);
         var html = '';
             if(vector_datos_actividad.length > 0)
             {
               var num=1;
               $.each(vector_datos_actividad, function(i, e){
-                html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['Nom_Proyecto']+'</td><td>'+e['Nom_Componente']+'</td><td>'+e['valor']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                html += '<tr><th scope="row" class="text-center">'+num+'</th>'+
+                             '<td>'+e['Proyecto']+'</td>'+
+                             '<td>'+e['Nom_Proyecto']+'</td>'+
+                             '<td>'+e['Nom_Componente']+'</td>'+
+                             '<td>'+e['valor']+'</td>'+
+                             '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                 num++;
               });
             }
@@ -689,7 +707,7 @@ $(function()
               dataType: 'json',
               success: function(data)
               {   
-                  var html = '';
+                  
 
                   if($.inArray(data.estado,['4','5','7','8','9','11'])!=-1){
                     desactivo="none";
@@ -699,13 +717,25 @@ $(function()
                     $('#btn_agregar_finaza').show();
                   }
                     var num=1;
-                  $.each(data.dataInfo.componentes, function(i, dato){
+
+                  var html = '<option value="">Seleccionar</option>';
+                  if(data.proyecto.fuente.length > 0)
+                  {
+                    $.each(data.proyecto.fuente, function(i, e){
+                        html += '<option value="'+e.pivot['id']+'">'+e['nombre']+'</option>';
+                    });
+                  }
+                  $('select[name="Fuente_inversion"]').html(html).val($('select[name="Fuente_inversion"]').data('value'));
+
+                  var html = '';
+                  $.each(data.ActividadComponente, function(i, dato){
                     html += '<tr>'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
-                            '<td>'+dato.fuente['nombre']+'</td>'+
-                            '<td>'+dato['Nombre']+'</td>'+
-                            '<td>'+dato.pivot['valor']+'</td>'+
-                            '<td class="text-center"><button type="button" data-id="'+dato.pivot['id']+'" data-dat="'+dato.pivot['componente_id']+'" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                            '<td>'+dato.proyecto['Nombre']+'</td>'+
+                            '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
+                            '<td>'+dato.componente['Nombre']+'</td>'+
+                            '<td> $ '+number_format(dato['valor'])+'</td>'+
+                            '<td class="text-center"><button type="button" data-id="'+dato['id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
                   });
                   $('#registrosFinanzas').html(html);
@@ -715,21 +745,20 @@ $(function()
 
 
      $('#datos_actividad2').delegate('button[data-funcion="eliminar_finanza"]','click',function (e) {   
-      var id_act = $(this).data('rel'); 
-      var id_eli = $(this).data('dat');
-      var id_key = $(this).data('id');
+      var id_act_paa = $(this).data('rel'); 
+      var id_key_ele = $(this).data('id');
       
         $.ajax({
               type: "POST",
               url: URL+'/service/EliminarFinanciamiento',
-              data: {id:id_act,id_eli:id_eli,id_key:id_key},
+              data: {id:id_act_paa,id_eli:id_key_ele},
               dataType: 'json',
               success: function(data)
               {   
                   var html = '';
                   $('#registrosFinanzas').html('');
                   
-                  if($.inArray(data.estado,['4','5','7'])!=-1){
+                  if($.inArray(data.paa.estado,['4','5','7'])!=-1){
                     desactivo="none";
                     $('#btn_agregar_finaza').hide();
                   }else{
@@ -737,15 +766,15 @@ $(function()
                     $('#btn_agregar_finaza').show();
                   }
 
-
                     var num=1;
-                  $.each(data.componentes, function(i, dato){
+                  $.each(data.ActividadComponente, function(i, dato){
                     html += '<tr>'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
-                            '<td>'+dato.fuente['nombre']+'</td>'+
-                            '<td>'+dato['Nombre']+'</td>'+
-                            '<td>'+dato.pivot['valor']+'</td>'+
-                            '<td class="text-center"><button type="button" data-id="'+dato.pivot['id']+'" data-dat="'+dato.pivot['componente_id']+'" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                            '<td>'+dato.proyecto['Nombre']+'</td>'+
+                            '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
+                            '<td>'+dato.componente['Nombre']+'</td>'+
+                            '<td> $ '+number_format(dato['valor'])+'</td>'+
+                            '<td class="text-center"><button type="button" data-id="'+dato['id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
                   });
                   $('#registrosFinanzas').html(html);

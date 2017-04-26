@@ -1439,9 +1439,9 @@ class PaaController extends Controller
 		//return response()->json(array('status' => 'modelo', 'proyecto' => $Proyecto,'upd'=>1));
 
 		$Proyecto = Proyecto::with('fuente')->find($proyecto_f_c);
-			$FuenteProyecto = FuenteProyecto::with('presupuestados','fuente','presupuestados.componente_c')->where('proyecto_id',$proyecto_f_c)->get();
+		$FuenteProyecto = FuenteProyecto::with('presupuestados','fuente','presupuestados.componente_c')->where('proyecto_id',$proyecto_f_c)->get();
 			//$presupuestado = Presupuestado::with('componente','fuente')->where('proyecto_id',$id)->get(); //Cambiar a fuentes
-			return response()->json(array('status' => 'modelo', 'FuenteProyecto' => $FuenteProyecto,'proyecto'=>$Proyecto,'upd'=>1,'valor_disponible'=>$valor_dispo));	
+		return response()->json(array('status' => 'modelo', 'FuenteProyecto' => $FuenteProyecto,'proyecto'=>$Proyecto,'upd'=>1,'valor_disponible'=>$valor_dispo));	
 			
 	}
 

@@ -512,6 +512,7 @@
 							<tr>
 							<th>#</th>
 							<th>Proyecto</th>
+							<th>Fuente</th>
 							<th>Componente</th>
 							<th>Valor</th>
 							<th>Eliminar</th>
@@ -567,6 +568,7 @@
 						<thead>
 						<tr>
 						<th>#</th>
+						<th>Proyecto</th>
 						<th>Fuente</th>
 						<th>Componente</th>
 						<th>Valor</th>

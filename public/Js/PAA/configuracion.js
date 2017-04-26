@@ -2552,6 +2552,7 @@ $(function()
                         $("#id_btn_rubrof_canc").hide();
                     }, 2000)
                     $('input[name="Id_rubro_funcionamient"]').val('0');
+                    location.reload();
                 }else{
                     $('#mensaje_rubrofuncionam2').html('<strong>Error!</strong> el valor del proyecto que intenta ingresar $'+data.valorNuevo+' '+data.mensaje+': $'+number_format(data.saldo));
                     $('#mensaje_rubrofuncionam2').show();
