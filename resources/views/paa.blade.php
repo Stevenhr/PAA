@@ -596,10 +596,10 @@
 								<option value="" >Selecionar</option>
 								<!--@foreach($proyectos as $proyecto)
 									<option value="{{ $proyecto['Id'] }}" >{{ $proyecto['Nombre'] }}</option>
-							    @endforeach-->
+							    @endforeach
 							    @foreach($fuentes as $fuente)
 									<option value="{{ $fuente['Id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
-							    @endforeach
+							    @endforeach-->
 							</select>
 						</div>
 				  </div>

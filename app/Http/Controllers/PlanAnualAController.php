@@ -442,15 +442,19 @@ class PlanAnualAController extends Controller
 
         $id=$request['id_act_agre'];
         $id_componente=$request['componnente'];
-        $valor=$request['valor_contrato'];
+        $Fuente_inversion=$request['Fuente_inversion'];
+        $valor=str_replace('.','',$request['valor_contrato']);
 
-        $ModeloPa = Paa::with(['componentes' => function($query) use ($id_componente)
+        $ModeloCompoente=Presupuestado::find($id_componente);
+        $compo_id=$ModeloCompoente['componente_id'];
+
+        $FuenteProyecto=FuenteProyecto::find($Fuente_inversion);
+        
+        $ModeloPa = Paa::with(['componentes' => function($query) use ($compo_id,$Fuente_inversion)
         {
-            $query->where('componente_id',$id_componente)->get();
+            $query->where('componente_id',$compo_id)->where('fuente_id',$Fuente_inversion)->get();
         }])->where('Estado','9')->get();
-        $ModeloCompoente=Componente::find($id_componente);
-
-
+            
         $suma_aprobado=0;
         $valorCocenpto=0;
         $suma_por_aprobar=0;
@@ -465,10 +469,10 @@ class PlanAnualAController extends Controller
           }
         }
         $valorCocenpto=$ModeloCompoente['valor'];
-
-        $ModeloAprobado = Paa::with(['componentes' => function($query) use ($id_componente)
+        //dd($ModeloCompoente['valor']."   -   ".$suma_aprobado." - ".$compo_id." - ".$Fuente_inversion);
+        $ModeloAprobado = Paa::with(['componentes' => function($query) use ($compo_id)
         {
-            $query->where('componente_id',$id_componente)->get();
+            $query->where('componente_id',$compo_id)->get();
         }])->find($id);
 
         foreach($ModeloAprobado->componentes as $componente){
@@ -477,26 +481,27 @@ class PlanAnualAController extends Controller
            }
         }
          
-
         $valor2=$valor+$suma_por_aprobar;
         $valorAfavor=$valorCocenpto-$suma_aprobado;
         $estado="";
+        //dd($ModeloCompoente['valor']."   -   ".$suma_aprobado." - ".$valor2." - ".$valorAfavor);
         //echo $valorAfavor." - ".$valor."";
         if($valorAfavor>=$valor2){
             $paa = new Paa;
-            $paa->componentes()->attach($id_componente,[
+            $paa->componentes()->attach($compo_id,[
                         'id_paa'=>$id,
                         'valor'=>$valor,
+                        'fuente_id'=>$Fuente_inversion,
+                        'proyecto_id'=>$FuenteProyecto['proyecto_id'],
                         'estado'=>1,
                     ]);
             $estado="1";
         }else{
             $estado="0";
         }
-        $model_A = Paa::with('componentes','componentes.fuente')->find($id);
-
-        return response()->json(array('status' => $estado, 'errors' => $validator->errors(),'inf'=>$model_A ));
         
+        $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente')->where('id_paa',$id)->get();
+        return response()->json(array('status' => $estado, 'errors' => $validator->errors(),'ActividadComponente'=>$ActividadComponente));
     }
 
     public function agregar_estudio(Request $request)

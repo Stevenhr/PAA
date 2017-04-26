@@ -395,7 +395,7 @@ $(function()
           function(data)
           {
                 var html = '<option value="">Seleccionar componente</option>';
-             
+                        console.log(data);
                         $.each(data, function(i, eee){
                                     html += '<option value="'+eee['id']+'">'+eee.componente['Nombre'].toLowerCase()+'</option>';
                                     //$('input[name="id_pivot_comp"]').val(eee.componente['Id']);
@@ -783,63 +783,63 @@ $(function()
      });
 
      $('#form_agregar_finza').on('submit', function(e){
-
           var id_act=$('#id_act_agre').val();
           $('.mjs_componente').html('');
-                  $.ajax({
-                      type: "POST",
-                      url: URL+'/service/agregar_finza',
-                      data: $(this).serialize(),
-                      dataType: 'json',
-                      success: function(data)
-                      {   
-                        if(data.status == 'error')
+              $.ajax({
+                  type: "POST",
+                  url: URL+'/service/agregar_finza',
+                  data: $(this).serialize(),
+                  dataType: 'json',
+                  success: function(data)
+                  {   
+                    if(data.status == 'error')
+                    {
+                        validad_error_agre(data.errors);
+                    } else {
+
+                        if(data.status == 0)
                         {
+                            $('.mjs_componente').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> La sumatoria de los valores ingresados superan el valor del presupuesto disponible.</div>');
+                            setTimeout(function(){
+                                $('.mjs_componente').html('');
+                            }, 2000)
                             validad_error_agre(data.errors);
-                        } else {
+                        }else{
+                          validad_error_agre(data.errors);
+                          var html = '';
+                          $('#registrosFinanzas').html('');
+                          var num=1;
+                          desactivo="";
 
-                            if(data.status == 0)
-                            {
-                                $('.mjs_componente').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> La sumatoria de los valores ingresados superan el valor del presupuesto disponible.</div>');
-                                setTimeout(function(){
-                                    $('.mjs_componente').html('');
-                                }, 2000)
-                                validad_error_agre(data.errors);
-                            }else{
-                              validad_error_agre(data.errors);
-                              var html = '';
-                              $('#registrosFinanzas').html('');
-                              var num=1;
-                              desactivo="";
+                          if($.inArray(data.estado,['4','5','7'])!=-1){
+                            desactivo="none";
+                            $('#btn_agregar_finaza').hide();
+                          }else{
+                            desactivo="";
+                            $('#btn_agregar_finaza').show();
+                          }
 
-                              if($.inArray(data.estado,['4','5','7'])!=-1){
-                                desactivo="none";
-                                $('#btn_agregar_finaza').hide();
-                              }else{
-                                desactivo="";
-                                $('#btn_agregar_finaza').show();
-                              }
+                         
 
-                              $.each(data.inf.componentes, function(i, dato){
-                                html += '<tr>'+
-                                        '<th scope="row" class="text-center">'+num+'</th>'+
-                                        '<td>'+dato.fuente['nombre']+'</td>'+
-                                        '<td>'+dato['Nombre']+'</td>'+
-                                        '<td>'+dato.pivot['valor']+'</td>'+
-                                        '<td class="text-center"><button type="button" data-id="'+dato.pivot['id']+'" data-dat="'+dato.pivot['componente_id']+'" data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
-                                num++;
-                              });
+                          var html = '';
+                          $.each(data.ActividadComponente, function(i, dato){
+                            html += '<tr>'+
+                                    '<th scope="row" class="text-center">'+num+'</th>'+
+                                    '<td>'+dato.proyecto['Nombre']+'</td>'+
+                                    '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
+                                    '<td>'+dato.componente['Nombre']+'</td>'+
+                                    '<td> $ '+number_format(dato['valor'])+'</td>'+
+                                    '<td class="text-center"><button type="button" data-id="'+dato['id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                            num++;
+                          });
 
-                              $('#registrosFinanzas').html(html);
-                              document.getElementById("form_agregar_finza").reset();
-                           }
-                        }
-                      }
-                  });
-              
-
+                          $('#registrosFinanzas').html(html);
+                          document.getElementById("form_agregar_finza").reset();
+                       }
+                    }
+                  }
+              });
            return false;
-  
     });
 
 
