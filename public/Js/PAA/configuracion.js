@@ -391,7 +391,7 @@ $(function()
             {
                 validad_error_plan(data.errors);
             } else {
-                console.log(data);
+                //console.log(data);
                 if(data.status == 'modelo')
                 {
                     var datos=data.proyectodesarrollo;
@@ -609,7 +609,7 @@ $(function()
                 validad_error(data.errors);
             } else {
                 validad_error(data.errors);
-                console.log(data.status);
+                //console.log(data.status);
                 if(data.status == 'modelo')
                 {
                     document.getElementById("form_presupuesto").reset(); 
@@ -1577,7 +1577,7 @@ $(function()
             {},
             function(data)
             {   
-                    console.log(data);
+                   // console.log(data);
                     if(data.status == 'error')
                     {
                         var actividades="";
@@ -1825,7 +1825,7 @@ $(function()
                 if(data.status == 'modelo')
                 {
                     var datos=data.presupuesto;
-                    console.log(datos);
+                   // console.log(datos);
                     document.getElementById("form_componente").reset();
                     $('select[name="idPresupuesto_A"]').val('');
                     $('select[name="idProyecto_A"]').val('');
@@ -2861,7 +2861,7 @@ $(function()
             function(data)
             {   
 
-                console.log(data.id_rubro_funcionamiento);
+                //console.log(data.id_rubro_funcionamiento);
                 $("#espera_act_funciona"+id).html("");
                 $('input[name="Id_act_rubro_funcionamient"]').val(data.id);
                 $('#id_rubro_func_act').val(data.id_rubro_funcionamiento);
@@ -3200,7 +3200,7 @@ $(function()
 
                 success: function(data)
                 {
-                    console.log(data.proyecto[0].pivot.fuente_id);
+                    //console.log(data.proyecto[0].pivot.fuente_id);
                     if(data.proyecto){
                         $('input[name="id_proyect_fina_f"]').val(data.proyecto[0].pivot.proyecto_id);
                         /*$("#id_fuente_finanza_fuente option").each(function() {
