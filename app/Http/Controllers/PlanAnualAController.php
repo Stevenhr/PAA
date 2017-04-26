@@ -147,6 +147,16 @@ class PlanAnualAController extends Controller
         if($input['datos_contacto']!="")
         $ordenador=$input['datos_contacto']." -C.C. ".$input['cedula_contacto'];
 
+        if($input['ProyectOrubro']==1){
+            $Id_Proyecto=$input['ProyectOrubro'];
+            $Id_Rubro=0;
+        }
+        
+        if($input['ProyectOrubro']==2){
+            $Id_Proyecto=0;
+            $Id_Rubro=$input['ProyectOrubro'];
+        }
+
         $modeloPA = new Paa;
         $modeloPA['Id_paa'] = 0;
         $modeloPA['Registro'] = $input['id_registro'];
@@ -167,8 +177,8 @@ class PlanAnualAController extends Controller
         $modeloPA['RecursoHumano'] = $input['recurso_humano'];
         $modeloPA['NumeroContratista'] = $input['numero_contratista'];
         $modeloPA['DatosResponsable'] = $ordenador;
-        $modeloPA['Id_Proyecto'] = $input['Proyecto_inversion'];
-        $modeloPA['Id_Rubro'] = $input['Proyecto_inversion'];
+        $modeloPA['Id_Proyecto'] = $Id_Proyecto;
+        $modeloPA['Id_Rubro'] = $Id_Rubro;
         $modeloPA['Proyecto1Rubro2'] = $input['ProyectOrubro'];
         $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
         $modeloPA['Estado'] = $estado;
@@ -209,8 +219,8 @@ class PlanAnualAController extends Controller
             $modeloPA['RecursoHumano'] = $input['recurso_humano'];
             $modeloPA['NumeroContratista'] = $input['numero_contratista'];
             $modeloPA['DatosResponsable'] = $input['datos_contacto'];
-            $modeloPA['Id_Proyecto'] = $input['Proyecto_inversion'];
-            $modeloPA['Id_Rubro'] = $input['Proyecto_inversion'];
+            $modeloPA['Id_Proyecto'] = $Id_Proyecto;
+            $modeloPA['Id_Rubro'] = $Id_Rubro;
             $modeloPA['Proyecto1Rubro2'] = $input['ProyectOrubro'];
             $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
             $modeloPA['Estado'] = 2;
