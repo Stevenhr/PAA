@@ -658,7 +658,7 @@ $(function()
                              '<td>'+e['Proyecto']+'</td>'+
                              '<td>'+e['Nom_Proyecto']+'</td>'+
                              '<td>'+e['Nom_Componente']+'</td>'+
-                             '<td>'+e['valor']+'</td>'+
+                             '<td>'+number_format(e['valor'])+'</td>'+
                              '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                 num++;
               });
@@ -683,7 +683,12 @@ $(function()
             {
               var num=1;
               $.each(vector_datos_actividad, function(i, e){
-                html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['Nom_Proyecto']+'</td><td>'+e['Nom_Componente']+'</td><td>'+e['valor']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                html += '<tr><th scope="row" class="text-center">'+num+'</th>'+
+                        '<td>'+e['Proyecto']+'</td>'+
+                        '<td>'+e['Nom_Proyecto']+'</td>'+
+                        '<td>'+e['Nom_Componente']+'</td>'+
+                        '<td>'+number_format(e['valor'])+'</td>'+
+                        '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                 num++;
                 if(e['id_componente']==texto){
                   valor_ingresado_conso=parseInt(valor_ingresado_conso)+parseInt(e['valor']);
@@ -774,7 +779,7 @@ $(function()
                             '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
                             '<td>'+dato.componente['Nombre']+'</td>'+
                             '<td> $ '+number_format(dato['valor'])+'</td>'+
-                            '<td class="text-center"><button type="button" data-id="'+dato['id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                            '<td class="text-center"><button type="button" data-id="'+dato['id']+'"  data-rel="'+id_act_paa+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
                   });
                   $('#registrosFinanzas').html(html);
