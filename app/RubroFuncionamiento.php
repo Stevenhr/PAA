@@ -17,4 +17,8 @@ class RubroFuncionamiento extends Model
     {
         return $this->hasMany('App\ActividadFuncionamiento','id_rubro_funcionamiento');
     }
+    public function paas()
+    {
+        return $this->hasMany('App\Paa','Id_Rubro');
+    }
 }

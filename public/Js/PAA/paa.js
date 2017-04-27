@@ -90,7 +90,33 @@ $(function()
   var tb1 = $('#Tabla1').DataTable( {responsive: true   } );
   var tb2 = $('#Tabla2').DataTable( {responsive: true,  } );
   var tb3 = $('#Tabla3').DataTable( {responsive: true,  } );
-  var tb4 = $('#Tabla4').DataTable( {responsive: true,  } );
+
+
+    $('#Tabla4 tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Menu" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
+ 
+    // DataTable
+    var tb4 = $('#Tabla4').DataTable( {responsive: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf'],
+        pageLength: 5
+    });
+ 
+    tb4.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    });
 
   $('#Modal_AgregarNuevo').on('shown.bs.modal', function () {
 	  $('#myInput').focus()
@@ -173,6 +199,10 @@ $(function()
 
               $('#mjs_registroPaa').html(' <center><strong>Cargando... Espere un momento!</strong>  Registrando plan...</center>');
               $('#mjs_registroPaa').show();
+
+              $('#ProyectOrubro').prop("disabled",false);
+              $('#Proyecto_inversion').prop("disabled",false);
+              $('#meta').prop("disabled",false);  
               
           $.post(
             URL+'/validar/paa',
@@ -188,51 +218,55 @@ $(function()
                       $('#mjs_registroPaa2').hide();
                   }, 6000)
              
-              } else {
+              } else 
+              {
+                
+                $('#crear_paa_btn').attr('disabled',true);
+                validad_error(data.errors);
 
-                  
-                  $('#crear_paa_btn').attr('disabled',true);
-                  validad_error(data.errors);
+                if(data.status == 'modelo')
+                {
+                    document.getElementById("form_paa").reset(); 
+                    $('#crear_paa_btn').html("CREAR");
+                    $('#crear_paa_btn').prop('disabled',false);
+                    vector_datos_actividad=[];
+                    $('#registros').html('');               
+                    var num=1;
+                    t.clear().draw();
+                    $.each(data.datos, function(i, e){
 
-                  if(data.status == 'modelo')
-                  {
-                      document.getElementById("form_paa").reset(); 
-                      $('#crear_paa_btn').html("CREAR");
-                      $('#crear_paa_btn').prop('disabled',false);
-                      vector_datos_actividad=[];
-                      $('#registros').html('');               
-                      var num=1;
-                      t.clear().draw();
-                      $.each(data.datos, function(i, e){
-  
-                          var $tr1 = tabla_opciones(e,num);    
-                          t.row.add($tr1).draw( false );
-                          num++;
+                        var $tr1 = tabla_opciones(e,num);    
+                        t.row.add($tr1).draw( false );
+                        num++;
 
-                      });
+                    });
 
-                      if(upd==0){
-                        $('#mjs_registroPaa').html(' <strong>Registro Exitoso!</strong> Se realizo el resgistro de su PAA.');
-                        $('#mjs_registroPaa').show();
-                        setTimeout(function(){
-                            $('#mjs_registroPaa').hide();
-                        }, 3000)
-                      }else{
-                        $('#mjs_registroPaa').html(' <strong>Se Registro la Modificación!</strong> Entra en cola de espera para la aprobación de los cambios.');
-                        $('#mjs_registroPaa').show();
-                        setTimeout(function(){
-                            $('#mjs_registroPaa').hide();
-                        }, 3000)
-                      }
-                  }else{
-                      $('#mensaje_presupuesto2').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
-                      $('#mensaje_presupuesto2').show();
+                    if(upd==0){
+                      $('#mjs_registroPaa').html(' <strong>Registro Exitoso!</strong> Se realizo el resgistro de su PAA.');
+                      $('#mjs_registroPaa').show();
                       setTimeout(function(){
-                          $('#mensaje_presupuesto2').hide();
-                      }, 6000)
-                  }
-                  
-              }
+                          $('#mjs_registroPaa').hide();
+                          $('#Modal_AgregarNuevo').modal('hide');
+                      }, 4000)
+                      
+                    }else{
+                      $('#mjs_registroPaa').html(' <strong>Se Registro la Modificación!</strong> Entra en cola de espera para la aprobación de los cambios.');
+                      $('#mjs_registroPaa').show();
+                      setTimeout(function(){
+                          $('#mjs_registroPaa').hide();
+                          $('#Modal_AgregarNuevo').modal('hide');
+                      }, 4000)
+                      
+                    }
+                }else{
+                    $('#mensaje_presupuesto2').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
+                    $('#mensaje_presupuesto2').show();
+                    setTimeout(function(){
+                        $('#mensaje_presupuesto2').hide();
+                    }, 6000)
+                }
+                
+            }
           },'json');
           
     }else{
@@ -364,7 +398,7 @@ $(function()
         });
     };
 
-    var select_Meta2 = function(id)
+    var select_Meta2 = function(id,id_meta)
     { 
         $.ajax({
             url: URL+'/service/select_meta/'+id,
@@ -372,12 +406,30 @@ $(function()
             dataType: 'json',
             success: function(data)
             {
+                
                 var html = '';
-                $.each(data.metas, function(i, eee){
-                      html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
+                $.each(data.proyecto, function(i, e){
+                    if(e['Id']!=id){
+                      html += '<option value="'+e['Id']+'">'+e['Nombre'].toLowerCase()+'</option>';
+                    }else{
+                      html += '<option value="'+e['Id']+'" selected="selected">'+e['Nombre'].toLowerCase()+'</option>';
+                    }
                 });   
                 html +='<option value="">Seleccionar</option>';
-                $('select[name="meta"]').html(html).val($('select[name="meta"]').data('value').attr('selected', 'selected'));
+                $('select[name="Proyecto_inversion"]').html(html);
+                $('#Proyecto_inversion').prop("disabled",true);
+
+                var html = '';
+                $.each(data.proyectometas.metas, function(i, eee){
+                    if(eee['Id']!=id_meta){
+                      html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
+                    }else{
+                      html += '<option value="'+eee['Id']+'" selected="selected">'+eee['Nombre'].toLowerCase()+'</option>';
+                    }
+                });   
+                html +='<option value="">Seleccionar</option>';
+                $('select[name="meta"]').html(html);
+                $('#meta').prop("disabled",true);
             }
         });
     };
@@ -611,6 +663,13 @@ $(function()
 
         $('textarea[name="objeto_contrato"]').val("").closest('.form-group').removeClass('has-error');;
         vector_datos_actividad.length=0;
+        vector_datos_codigos.length=0;
+        $('#t_datos_actividad_codigo').hide();
+        $('#ProyectOrubro').prop("disabled",false);
+        $('#Proyecto_inversion').prop("disabled",false);
+        $('#meta').prop("disabled",false);  
+
+
         $('#div_finaciacion').show();
         $('#crear_paa_btn').html("CREAR");
         $('.mjs_componente').html('');
@@ -1185,6 +1244,17 @@ $(function()
                       tb2.clear().draw();
                       tb3.clear().draw();
                       $.each(data, function(i, dato){
+
+                        if(dato['Proyecto1Rubro2']==1){
+                             nom_pro_rubr=dato.proyecto['Nombre'];
+                             nom_meta=dato.meta['Nombre'];
+                          }else if(dato['Proyecto1Rubro2']==2){
+                             nom_pro_rubr=dato.rubro_funcionamiento['nombre'];
+                             nom_meta="Na";
+                          }else{
+                             nom_pro_rubr="";
+                             nom_meta="";
+                          }
                         
                        if(dato['Estado']==0 || dato['Estado']==4 || dato['Estado']==5 || dato['Estado']==6 || dato['Estado']==7){ // Registro Actual
                             tb1.row.add( [
@@ -1193,21 +1263,20 @@ $(function()
                                 '<td>'+dato['CodigosU']+'</td>',
                                 '<td>'+dato.modalidad['Nombre']+'</td>',
                                 '<td>'+dato.tipocontrato['Nombre']+'</td>',
-                                '<td>'+dato['ObjetoContractual']+'</td>',
-                                '<td>'+dato['FuenteRecurso']+'</td>',
-                                '<td>'+dato['ValorEstimado']+'</td>',
-                                '<td>'+dato['ValorEstimadoVigencia']+'</td>',
+                                '<td><div class="campoArea">'+dato['ObjetoContractual']+'</div></td>',
+                                '<td>'+number_format(dato['ValorEstimado'])+'</td>',
+                                '<td>'+number_format(dato['ValorEstimadoVigencia'])+'</td>',
                                 '<td>'+dato['VigenciaFutura']+'</td>',
                                 '<td>'+dato['EstadoVigenciaFutura']+'</td>',
                                 '<td>'+dato['FechaEstudioConveniencia']+'</td>',
                                 '<td>'+dato['FechaInicioProceso']+'</td>',
                                 '<td>'+dato['FechaSuscripcionContrato']+'</td>',
                                 '<td>'+dato['DuracionContrato']+'</td>',
-                                '<td>'+dato['MetaPlan']+'</td>',
                                 '<td>'+dato['RecursoHumano']+'</td>',
                                 '<td>'+dato['NumeroContratista']+'</td>',
                                 '<td>'+dato['DatosResponsable']+'</td>',
-                                '<td>'+dato.rubro['Nombre']+'</td>'
+                                '<td>'+nom_pro_rubr+'</td>',
+                                '<td>'+nom_meta+'</td>'
                             ] ).draw( false );
                             num++;
                         }
@@ -1219,21 +1288,20 @@ $(function()
                                   '<td>'+dato['CodigosU']+'</td>',
                                   '<td>'+dato.modalidad['Nombre']+'</td>',
                                   '<td>'+dato.tipocontrato['Nombre']+'</td>',
-                                  '<td>'+dato['ObjetoContractual']+'</td>',
-                                  '<td>'+dato['FuenteRecurso']+'</td>',
-                                  '<td>'+dato['ValorEstimado']+'</td>',
-                                  '<td>'+dato['ValorEstimadoVigencia']+'</td>',
+                                  '<td><div class="campoArea">'+dato['ObjetoContractual']+'</div></td>',
+                                  '<td>'+number_format(dato['ValorEstimado'])+'</td>',
+                                  '<td>'+number_format(dato['ValorEstimadoVigencia'])+'</td>',
                                   '<td>'+dato['VigenciaFutura']+'</td>',
                                   '<td>'+dato['EstadoVigenciaFutura']+'</td>',
                                   '<td>'+dato['FechaEstudioConveniencia']+'</td>',
                                   '<td>'+dato['FechaInicioProceso']+'</td>',
                                   '<td>'+dato['FechaSuscripcionContrato']+'</td>',
                                   '<td>'+dato['DuracionContrato']+'</td>',
-                                  '<td>'+dato['MetaPlan']+'</td>',
                                   '<td>'+dato['RecursoHumano']+'</td>',
                                   '<td>'+dato['NumeroContratista']+'</td>',
                                   '<td>'+dato['DatosResponsable']+'</td>',
-                                  '<td>'+dato.rubro['Nombre']+'</td>'
+                                  '<td>'+nom_pro_rubr+'</td>',
+                                  '<td>'+nom_meta+'</td>'
                               ] ).draw( false );
                           num2++;
                         }
@@ -1245,21 +1313,21 @@ $(function()
                                   '<td>'+dato['CodigosU']+'</td>',
                                   '<td>'+dato.modalidad['Nombre']+'</td>',
                                   '<td>'+dato.tipocontrato['Nombre']+'</td>',
-                                  '<td>'+dato['ObjetoContractual']+'</td>',
-                                  '<td>'+dato['FuenteRecurso']+'</td>',
-                                  '<td>'+dato['ValorEstimado']+'</td>',
-                                  '<td>'+dato['ValorEstimadoVigencia']+'</td>',
+                                  '<td><div class="campoArea">'+dato['ObjetoContractual']+'</div></td>',
+                                  '<td>'+number_format(dato['ValorEstimado'])+'</td>',
+                                  '<td>'+number_format(dato['ValorEstimadoVigencia'])+'</td>',
                                   '<td>'+dato['VigenciaFutura']+'</td>',
                                   '<td>'+dato['EstadoVigenciaFutura']+'</td>',
                                   '<td>'+dato['FechaEstudioConveniencia']+'</td>',
                                   '<td>'+dato['FechaInicioProceso']+'</td>',
                                   '<td>'+dato['FechaSuscripcionContrato']+'</td>',
                                   '<td>'+dato['DuracionContrato']+'</td>',
-                                  '<td>'+dato['MetaPlan']+'</td>',
                                   '<td>'+dato['RecursoHumano']+'</td>',
                                   '<td>'+dato['NumeroContratista']+'</td>',
                                   '<td>'+dato['DatosResponsable']+'</td>',
-                                  '<td>'+dato.rubro['Nombre']+'</td>'
+                                  '<td>'+nom_pro_rubr+'</td>',
+                                  '<td>'+nom_meta+'</td>'
+
                               ] ).draw( false );
                           num1++;
                         } 
@@ -1322,8 +1390,14 @@ $(function()
         $('select[name="tipo_contrato"]').val(datos['Id_TipoContrato']).closest('.form-group').removeClass('has-error');;
         $('select[name="vigencias_futuras"]').val(datos['VigenciaFutura']).closest('.form-group').removeClass('has-error');;
         $('select[name="estado_solicitud"]').val(datos['EstadoVigenciaFutura']).closest('.form-group').removeClass('has-error');;
-        $('select[name="Proyecto_inversion"]').val(datos['Id_Proyecto']).closest('.form-group').removeClass('has-error'); 
-        select_Meta2(datos['MetaPlan']);
+       
+
+        $('select[name="ProyectOrubro"]').val(datos['Proyecto1Rubro2']).closest('.form-group').removeClass('has-error');
+        $('#ProyectOrubro').prop("disabled",true);
+
+        //$('select[name="Proyecto_inversion"]').val(datos['Id_Proyecto']).closest('.form-group').removeClass('has-error'); 
+        if(datos['Proyecto1Rubro2']==1)//Proyecto
+        select_Meta2(datos['Id_Proyecto'],datos['MetaPlan']);
         //$('select[name="meta"]').val(datos['MetaPlan']).closest('.form-group').removeClass('has-error'); 
         //$('select[name="Id_Localidad"]').val(datos['Localidad']).change();
 
@@ -1527,31 +1601,43 @@ $(function()
             $(this).serialize(),
             function(data){
                   if(data.status == 'modelo')
-                  {           
+                  {     
+
                       var num=1;
                       tb4.clear().draw();
                       $.each(data.datos, function(i, e){
+                          
+                          if(e['Proyecto1Rubro2']==1){
+                             $nom_pro_rubr=e.proyecto['Nombre'];
+                             $nom_meta=e.meta['Nombre'];
+                          }else if(e['Proyecto1Rubro2']==2){
+                             $nom_pro_rubr=e.rubro_funcionamiento['nombre'];
+                             $nom_meta="Na";
+                          }else{
+                             $nom_pro_rubr="";
+                             $nom_meta="";
+                          }
+
                           tb4.row.add( [
                               '<th scope="row" class="text-center">'+num+'</th>',
                               '<td>'+e['Registro']+'</td>',
                               '<td>'+e['CodigosU']+'</td>',
                               '<td>'+e.modalidad['Nombre']+'</td>',
                               '<td>'+e.tipocontrato['Nombre']+'</td>',
-                              '<td>'+e['ObjetoContractual']+'</td>',
-                              '<td>'+e['FuenteRecurso']+'</td>',
-                              '<td>'+e['ValorEstimado']+'</td>',
-                              '<td>'+e['ValorEstimadoVigencia']+'</td>',
+                              '<td><div class="campoArea">'+e['ObjetoContractual']+'</div></td>',
+                              '<td>'+number_format(e['ValorEstimado'])+'</td>',
+                              '<td>'+number_format(e['ValorEstimadoVigencia'])+'</td>',
                               '<td>'+e['VigenciaFutura']+'</td>',
                               '<td>'+e['EstadoVigenciaFutura']+'</td>',
                               '<td>'+e['FechaEstudioConveniencia']+'</td>',
                               '<td>'+e['FechaInicioProceso']+'</td>',
                               '<td>'+e['FechaSuscripcionContrato']+'</td>',
                               '<td>'+e['DuracionContrato']+'</td>',
-                              '<td>'+e['MetaPlan']+'</td>',
                               '<td>'+e['RecursoHumano']+'</td>',
                               '<td>'+e['NumeroContratista']+'</td>',
                               '<td>'+e['DatosResponsable']+'</td>',
-                              '<td>'+e.rubro['Nombre']+'</td>',
+                              '<td>'+$nom_pro_rubr+'</td>',
+                              '<td>'+$nom_meta+'</td>',
                           ] ).draw( false );
                           num++;
                       });

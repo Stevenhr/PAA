@@ -60,6 +60,11 @@ class Paa extends Model
     {
         return $this->belongsTo('App\Rubro','Id_Rubro');
     }
+
+    public function rubro_funcionamiento()
+    {
+        return $this->belongsTo('App\RubroFuncionamiento','Id_Rubro');
+    }
     
     public function proyecto()
     {

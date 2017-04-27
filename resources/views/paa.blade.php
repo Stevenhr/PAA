@@ -137,7 +137,7 @@
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
-					                        <td><div  style="width:500px;text-align: justify; height: 100px; overflow-y: scroll;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); padding: 10px">{{$paa['ObjetoContractual']}}</div></td>
+					                        <td><div  class="campoArea">{{$paa['ObjetoContractual']}}</div></td>
 					                        <td>{{$paa['ValorEstimado']}}</td>
 					                        <td>{{$paa['DuracionContrato']}}</td>
 					                        <!--<td>{{$paa['FuenteRecurso']}}</td>-->
@@ -363,7 +363,7 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Fecha suscripción Contrato </label><br><br>
-							<input type="text" class="form-control" name="fecha_suscripcion"  data-role="datepicker" placeholder="aa/mm/dd" autocomplete="off">
+							<input type="text" class="form-control" name="fecha_suscripcion"  data-role="datepicker" placeholder="aa/mm/dd" autocomplete="off" readonly="readonly">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
@@ -407,16 +407,6 @@
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
-				  		<div class="form-group">
-					  		<label>Proyecto de inversión o Rubro de funcionamiento?:</label>
-							<select class="form-control" id="ProyectOrubro" name="ProyectOrubro">
-								<option value="" >Selecionar</option>
-								<option value="1" >Poyecto de inversión</option>
-								<option value="2" >Rubro de funcionamiento</option>
-							</select>
-						</div>
-				  </div>
-				  <div class="col-xs-6 col-sm-4">
 				  </div>
 				</div>
 				<div class="row" style="display: none" id="contenidoOrdenado">
@@ -434,9 +424,22 @@
 				  </div>
 				</div>
 
+				<div class="row">
+				<div class="col-xs-12 col-sm-12"><hr></div>
+				</div>
 
 				<div class="row">
-				  <div class="col-xs-6 col-sm-6">
+				  <div class="col-xs-12 col-sm-12">
+				  		<div class="form-group">
+					  		<label>Proyecto de inversión o Rubro de funcionamiento?:</label>
+							<select class="form-control" id="ProyectOrubro" name="ProyectOrubro">
+								<option value="" >Selecionar</option>
+								<option value="1" >Poyecto de inversión</option>
+								<option value="2" >Rubro de funcionamiento</option>
+							</select>
+						</div>
+				  </div>
+				  <div class="col-xs-12 col-sm-12">
 				  		<div class="form-group">
 					    	<label>Proyecto de inversión o rubro</label>
 					    	<input type="hidden" name="id_pivot_comp" id="id_pivot_comp"></input>
@@ -445,7 +448,7 @@
 							</select>
 						</div>
 				  </div>
-				  <div class="col-xs-6 col-sm-6">
+				  <div class="col-xs-12 col-sm-12">
 				  		<div class="form-group">
 					    	<label>Meta Plan</label>
 					    	<input type="hidden" name="meta" id="meta0" value="0" disabled></input>
@@ -667,7 +670,6 @@
 												<th>Modalidad de selección</th>
 												<th>Tipo de contrato</th>
 												<th>Descripción/Objeto</th>
-												<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
 												<th>Valor total estimado	</th>
 												<th>Valor estimado en la vigencia actual	</th>
 												<th>¿Se requieren vigencias futuras?	</th>
@@ -676,11 +678,11 @@
 												<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 												<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
 												<th>Duración estimada del contrato (meses)	</th>
-												<th>Meta plan	</th>
 												<th>Recurso Humano (Si / No)</th>
 												<th>Numero de Contratistas	</th>
 												<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 												<th>Proyecto de inversión o rubro de funcionamiento</th>
+												<th>Meta plan	</th>
 								            </tr>
 								        </thead>						       
 								        <tbody id="registrosHtml">
@@ -711,7 +713,6 @@
 												<th>Modalidad de selección</th>
 												<th>Tipo de contrato</th>
 												<th>Descripción/Objeto</th>
-												<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
 												<th>Valor total estimado	</th>
 												<th>Valor estimado en la vigencia actual	</th>
 												<th>¿Se requieren vigencias futuras?	</th>
@@ -719,12 +720,12 @@
 												<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
 												<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 												<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-												<th>Duración estimada del contrato (meses)	</th>
-												<th>Meta plan	</th>
+												<th>Duración estimada del contrato (meses)	</th>			
 												<th>Recurso Humano (Si / No)</th>
 												<th>Numero de Contratistas	</th>
 												<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 												<th>Proyecto de inversión o rubro de funcionamiento</th>
+												<th>Meta plan	</th>
 								            </tr>
 								        </thead>	
 								        <tbody id="registrosHtml1">
@@ -753,7 +754,6 @@
 											<th>Modalidad de selección</th>
 											<th>Tipo de contrato</th>
 											<th>Descripción/Objeto</th>
-											<th>Fuente de los recursos (Nombre de la Fuente (s))</th>
 											<th>Valor total estimado</th>
 											<th>Valor estimado en la vigencia actual</th>
 											<th>¿Se requieren vigencias futuras?</th>
@@ -762,11 +762,11 @@
 											<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)</th>
 											<th>Fecha suscripción Contrato (dd/mm/aaaa)</th>
 											<th>Duración estimada del contrato (meses)</th>
-											<th>Meta plan</th>
 											<th>Recurso Humano (Si / No)</th>
 											<th>Numero de Contratistas</th>
 											<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 											<th>Proyecto de inversión o rubro de funcionamiento</th>
+											<th>Meta plan	</th>
 							            </tr>
 							        </thead>	
 							        <tbody id="registrosHtml1">
@@ -846,7 +846,8 @@
 							    <p>Los siguientes registros estan en estado eliminado.</p>
 							</div>	
 							<div class="table-responsive"> 
-						  		<table  id="Tabla4" class="display nowrap table-bordered" width="780px" cellspacing="0">
+						  		<table  id="Tabla4" class="display responsive no-wrap table table-min" width="100%"  
+						  		cellspacing="0">
 								        <thead>
 											<tr class="success">
 								                <th>N°</th>
@@ -855,7 +856,6 @@
 												<th>Modalidad de selección</th>
 												<th>Tipo de contrato</th>
 												<th>Descripción/Objeto</th>
-												<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
 												<th>Valor total estimado	</th>
 												<th>Valor estimado en la vigencia actual	</th>
 												<th>¿Se requieren vigencias futuras?	</th>
@@ -864,13 +864,36 @@
 												<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 												<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
 												<th>Duración estimada del contrato (meses)	</th>
-												<th>Meta plan	</th>
-												<th>Recurso Humano (Si / No)</th>
+												<th >Recurso Humano (Si / No)</th>
 												<th>Numero de Contratistas	</th>
 												<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 												<th>Proyecto de inversión o rubro de funcionamiento</th>
+												<th>Meta plan	</th>
 								            </tr>
 								        </thead>	
+								        <tfoot>
+								            <tr>
+								            	<th>N°</th>
+								                <th>Id Registro</th>
+												<th>Códigos UNSPSC</th>
+												<th>Modalidad de selección</th>
+												<th>Tipo de contrato</th>
+												<th>Descripción/Objeto</th>
+												<th>Valor total estimado	</th>
+												<th>Valor estimado en la vigencia actual	</th>
+												<th>¿Se requieren vigencias futuras?	</th>
+												<th>Estado de solicitud de vigencias futuras	</th>
+												<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
+												<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
+												<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
+												<th>Duración estimada del contrato (meses)	</th>
+												<th >Recurso Humano (Si / No)</th>
+												<th>Numero de Contratistas	</th>
+												<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
+												<th>Proyecto de inversión o rubro de funcionamiento</th>
+												<th>Meta plan</th>
+								            </tr>
+								        </tfoot>
 								        <tbody id="registrosHtml1">
 								        </tbody>
 								</table>

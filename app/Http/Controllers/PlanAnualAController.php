@@ -209,7 +209,7 @@ class PlanAnualAController extends Controller
             $modeloPA['ObjetoContractual'] = $input['objeto_contrato'];
             $modeloPA['FuenteRecurso'] = $input['fuente_recurso'];
             $modeloPA['ValorEstimado'] = str_replace('.','',$input['valor_estimado']);
-            $modeloPA['ValorEstimadoVigencia'] = str_replace(',','',$input['valor_estimado_actualVigencia']);
+            $modeloPA['ValorEstimadoVigencia'] = str_replace('.','',$input['valor_estimado_actualVigencia']);
             $modeloPA['VigenciaFutura'] = $input['vigencias_futuras'];
             $modeloPA['EstadoVigenciaFutura'] = $input['estado_solicitud'];
             $modeloPA['FechaEstudioConveniencia'] = $input['estudio_conveniencia'];
@@ -281,7 +281,7 @@ class PlanAnualAController extends Controller
             $mensaje="PAA ID. ".$id_reg_def.": Modificación Exitosa";
        
 
-        $paa = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro_funcionamiento','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
         $persona = $this->repositorio_personas->obtener($model->IdPersona);
         $area=Area::find($id_area_def);
 
@@ -373,8 +373,9 @@ class PlanAnualAController extends Controller
 
     public function select_meta(Request $request, $id)
     {
-        $proyecto = Proyecto::with('metas')->find($id);
-        return response()->json($proyecto);
+        $proyecto1 = Proyecto::all();
+        $proyecto2 = Proyecto::with('metas')->find($id);
+        return response()->json(array('proyecto' =>$proyecto1,'proyectometas'=>$proyecto2 ));
     }
 
     public function select_meta_fuente(Request $request, $id)
@@ -568,7 +569,7 @@ class PlanAnualAController extends Controller
 
     public function obtenerPaa(Request $request, $id)
     {
-        $model_A = Paa::with('rubro')->find($id);
+        $model_A = Paa::with('rubro','proyecto')->find($id);
         return response()->json($model_A);
     }
 
@@ -628,7 +629,7 @@ class PlanAnualAController extends Controller
 
     public function obtenerHistorialPaa(Request $request, $id)
     {
-        $model_A = Paa::with('modalidad','tipocontrato','rubro','cambiosPaa')->whereDoesnthave('cambiosPaa')->where('Registro', '=', $id)->get();
+        $model_A = Paa::with('modalidad','tipocontrato','meta','proyecto','cambiosPaa','rubro_funcionamiento')->whereDoesnthave('cambiosPaa')->where('Registro', '=', $id)->get();
         return response()->json($model_A);
     }
 
@@ -652,13 +653,13 @@ class PlanAnualAController extends Controller
 
     public function HistorialEliminarPaa(Request $request, $id)
     {
-        $paa = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->where('Estado','3')->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro_funcionamiento','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->where('Estado','3')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
     public function HistorialEliminarPaaEspecifico(Request $request, $id)
     {
-        $paa = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->where('Estado','0')->where('EsatdoObservo','0')->find(41);
+        $paa = Paa::with('modalidad','tipocontrato','rubro_funcionamiento','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->where('Estado','0')->where('EsatdoObservo','0')->find(41);
         $paas = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->where('Registro',41)->where('Estado','1')->get();
         foreach ($paas as &$temp) 
         {
