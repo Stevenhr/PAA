@@ -16,6 +16,7 @@ class TablaModalidadSeleccion extends Migration
         Schema::create('modalidadseleccion', function (Blueprint $table){
             $table->increments('Id');
             $table->string('Nombre');
+            $table->string('Codigo');
         });
     }
 

@@ -246,6 +246,7 @@
 							<tr>
 							<th>#</th>
 							<th>Codigo</th>
+							<th>Descripción</th>
 							<th>Eliminar</th>
 							</tr>
 							</thead>

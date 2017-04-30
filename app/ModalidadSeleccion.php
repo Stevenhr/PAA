@@ -9,7 +9,7 @@ class ModalidadSeleccion extends Model
     //
     protected $table = 'modalidadseleccion';
 	protected $primaryKey = 'Id';
-	protected $fillable = ['Nombre'];
+	protected $fillable = ['Nombre','Codigo'];
 	protected $connection = ''; 
 	public $timestamps = false;
 

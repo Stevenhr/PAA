@@ -500,6 +500,133 @@ $(function()
         });
     });
 
+  function lee_json(codigo_Unspsc) {
+    var promise = $.Deferred();
+    var res = codigo_Unspsc.substring(0,1);
+    var i=0;
+    
+      if(res=='1')
+      {
+        $.getJSON("public/Js/unspsc_10.json", function(datos) {
+            $.each(datos["UNSPSC"], function(idx,primo)
+            {
+                if(codigo_Unspsc==primo["Codigo"]){
+                    i=primo;
+                }
+            });
+            promise.resolve(i);
+        });
+      }
+
+      if(res=='2')
+      {
+        $.getJSON("public/Js/unspsc_20.json", function(datos) {
+            $.each(datos["UNSPSC"], function(idx,primo)
+            {
+                if(codigo_Unspsc==primo["Codigo"]){
+                    i=primo;
+                }
+            });
+            promise.resolve(i);
+        });
+      }
+
+      if(res=='3')
+      {
+        $.getJSON("public/Js/unspsc_30.json", function(datos) {
+            $.each(datos["UNSPSC"], function(idx,primo)
+            {
+                if(codigo_Unspsc==primo["Codigo"]){
+                    i=primo;
+                }
+            });
+            promise.resolve(i);
+        });
+      }
+
+      if(res=='4')
+      {
+        $.getJSON("public/Js/unspsc_40.json", function(datos) {
+            $.each(datos["UNSPSC"], function(idx,primo)
+            {
+                if(codigo_Unspsc==primo["Codigo"]){
+                    i=primo;
+                }
+            });
+            promise.resolve(i);
+        });
+      }
+
+      if(res=='5')
+      {
+        $.getJSON("public/Js/unspsc_50.json", function(datos) {
+            $.each(datos["UNSPSC"], function(idx,primo)
+            {
+                if(codigo_Unspsc==primo["Codigo"]){
+                    i=primo;
+                }
+            });
+            promise.resolve(i);
+        });
+      }
+
+      if(res=='6')
+      {
+        $.getJSON("public/Js/unspsc_60.json", function(datos) {
+            $.each(datos["UNSPSC"], function(idx,primo)
+            {
+                if(codigo_Unspsc==primo["Codigo"]){
+                    i=primo;
+                }
+            });
+            promise.resolve(i);
+        });
+      }
+
+      if(res=='7')
+      {
+        $.getJSON("public/Js/unspsc_70.json", function(datos) {
+            $.each(datos["UNSPSC"], function(idx,primo)
+            {
+                if(codigo_Unspsc==primo["Codigo"]){
+                    i=primo;
+                }
+            });
+            promise.resolve(i);
+        });
+      }
+
+      if(res=='8')
+      {
+        $.getJSON("public/Js/unspsc_80.json", function(datos) {
+            $.each(datos["UNSPSC"], function(idx,primo)
+            {
+                if(codigo_Unspsc==primo["Codigo"]){
+                    i=primo;
+                }
+            });
+            promise.resolve(i);
+        });
+      }
+
+      if(res=='9')
+      {
+        $.getJSON("public/Js/unspsc_90.json", function(datos) {
+            $.each(datos["UNSPSC"], function(idx,primo)
+            {
+                if(codigo_Unspsc==primo["Codigo"]){
+                    i=primo;
+                }
+            });
+            promise.resolve(i);
+        });
+      }
+    
+    return promise.promise();
+ }
+
+
+  
   $('#agregarCodigos').on('click', function(e)
   {
       $('#t_datos_actividad_codigo').hide();
@@ -515,11 +642,22 @@ $(function()
         if(codigo_Unspsc.length>=8){
           var res = codigo_Unspsc.substring(4,8);
           if(res!='0000'){
-            $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Código agregado.</div>');
-            vector_datos_codigos.push({"codigo": codigo_Unspsc});
+             $.when(lee_json(codigo_Unspsc).then(function(resultado)
+             {
+                var ver = resultado;
+                if(ver!=0){
+                  $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Código agregado.</div>');
+                  vector_datos_codigos.push({"codigo": codigo_Unspsc, "nombre":ver["Nombre"]});
+                  console.log(vector_datos_codigos);
+                }else{
+                  $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El código no se encuentra registrado en los listado de SECOP.</div>');
+                }
+             }));
+              //var ver=lee_json(codigo_Unspsc);
+           
           }else{
             $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El código tiene en sus últimos cuatros dígitos 0000.</div>');
-            vector_datos_codigos.push({"codigo": codigo_Unspsc});
+            //vector_datos_codigos.push({"codigo": codigo_Unspsc});
           }
         }else{
           $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Código agregado tiene menos de 8 numeros.</div>');          
@@ -537,7 +675,7 @@ $(function()
           {
             var num=1;
             $.each(vector_datos_codigos, function(i, e){
-              html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['codigo']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarCod" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+              html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['codigo']+'</td><td>'+e['nombre']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarCod" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
               num++;
             });
           }
@@ -561,7 +699,7 @@ $(function()
             {
               var num=1;
               $.each(vector_datos_codigos, function(i, e){
-                html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['codigo']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarCod" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['codigo']+'</td><td>'+e['nombre']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarCod" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                 num++;
               });
             }
