@@ -34,7 +34,7 @@ class TablaPaa extends Migration
             $table->date('FechaEstudioConveniencia');
             $table->date('FechaInicioProceso');
             $table->date('FechaSuscripcionContrato');
-            $table->integer('DuracionContrato');
+            $table->string('DuracionContrato');
             $table->string('MetaPlan');
             $table->string('RecursoHumano');
             $table->integer('NumeroContratista');

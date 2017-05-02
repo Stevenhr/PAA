@@ -203,6 +203,13 @@ $(function()
               $('#ProyectOrubro').prop("disabled",false);
               $('#Proyecto_inversion').prop("disabled",false);
               $('#meta').prop("disabled",false);  
+
+          var duracion=$('input[name="duracion_estimada"]').val();
+          var duracion_estimada =duracion.split(",",3);
+           if(isNaN(duracion_estimada[0]) || isNaN(duracion_estimada[1]) || isNaN(duracion_estimada[2]))
+           {
+            $('input[name="duracion_estimada"]').val("");
+           }
               
           $.post(
             URL+'/validar/paa',
@@ -211,8 +218,11 @@ $(function()
               if(data.status == 'error')
               {
                   validad_error(data.errors);
+                  var mej="Campos vacios.";
+                  if($('input[name="duracion_estimada"]').val()=="")
+                  mej="Dureación estimada no posee el formato indicad. Ejm: 30,12,1 ";
                    $('#mjs_registroPaa').hide();
-                  $('#mjs_registroPaa2').html('<center><strong>Error!</strong> Campos vacios.</center>');
+                  $('#mjs_registroPaa2').html('<center><strong>Error!</strong> '+mej+'</center>');
                   $('#mjs_registroPaa2').show();
                   setTimeout(function(){
                       $('#mjs_registroPaa2').hide();

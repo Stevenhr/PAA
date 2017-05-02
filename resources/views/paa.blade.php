@@ -369,7 +369,7 @@
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					    	<label>Duración estimada del contrato<br> (Ejem: 10 meses 15 dias)</label>
+					    	<label>Duración estimada del contrato<br> (Intervalo: dias,mes,años. Ejem: 29,11,1)</label>
 							<input type="text" class="form-control" name="duracion_estimada" autocomplete="off">
 						</div>
 				  </div>
