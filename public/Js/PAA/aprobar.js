@@ -84,21 +84,44 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
     }
 
      $('#TablaPAA').delegate('button[data-funcion="Financiacion"]','click',function (e){   
-          var id = $(this).data('rel'); 
-          var html="";
+          var id_act = $(this).data('rel'); 
+          var desactivo="";
+          $('#id_act_agre').val(id_act);
+
           $.ajax({
-              url: URL+'/service/VerFinanciamiento/'+id,
+              url: URL+'/service/VerFinanciamiento/'+id_act,
               data: {},
               dataType: 'json',
               success: function(data)
               {   
-                   var num=1;
-                  $.each(data.dataInfo.componentes, function(i, dato){
+                  
+
+                  if($.inArray(data.estado,['4','5','7','8','9','11'])!=-1){
+                    desactivo="none";
+                    $('#btn_agregar_finaza').hide();
+                  }else{
+                    desactivo="";
+                    $('#btn_agregar_finaza').show();
+                  }
+                    var num=1;
+
+                  var html = '<option value="">Seleccionar</option>';
+                  if(data.proyecto.fuente.length > 0)
+                  {
+                    $.each(data.proyecto.fuente, function(i, e){
+                        html += '<option value="'+e.pivot['id']+'">'+e['nombre']+'</option>';
+                    });
+                  }
+                  $('select[name="Fuente_inversion"]').html(html).val($('select[name="Fuente_inversion"]').data('value'));
+
+                  var html = '';
+                  $.each(data.ActividadComponente, function(i, dato){
                     html += '<tr>'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
-                            '<td>'+dato.fuente['nombre']+'</td>'+
-                            '<td>'+dato['Nombre']+'</td>'+
-                            '<td>'+dato.pivot['valor']+'</td>';
+                            '<td>'+dato.proyecto['Nombre']+'</td>'+
+                            '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
+                            '<td>'+dato.componente['Nombre']+'</td>'+
+                            '<td> $ '+number_format(dato['valor'])+'</td>';
                     num++;
                   });
                   $('#registrosFinanzas').html(html);
@@ -159,7 +182,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                 '<td>'+dato['CodigosU']+'</td>',
                                 '<td>'+dato.modalidad['Nombre']+'</td>',
                                 '<td>'+dato.tipocontrato['Nombre']+'</td>',
-                                '<td><div style="width:500px;text-align: justify;">'+dato['ObjetoContractual']+'</div></td>',
+                                '<td><div class="campoArea">'+dato['ObjetoContractual']+'</div></td>',
                                 '<td>'+number_format(dato['ValorEstimado'])+'</td>',
                                 '<td>'+number_format(dato['ValorEstimadoVigencia'])+'</td>',
                                 '<td>'+dato['VigenciaFutura']+'</td>',
@@ -184,7 +207,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   '<td>'+dato['CodigosU']+'</td>',
                                   '<td>'+dato.modalidad['Nombre']+'</td>',
                                   '<td>'+dato.tipocontrato['Nombre']+'</td>',
-                                  '<td><div style="width:500px;text-align: justify;">'+dato['ObjetoContractual']+'</div></td>',
+                                  '<td><div class="campoArea">'+dato['ObjetoContractual']+'</div></td>',
                                   '<td>'+number_format(dato['ValorEstimado'])+'</td>',
                                   '<td>'+number_format(dato['ValorEstimadoVigencia'])+'</td>',
                                   '<td>'+dato['VigenciaFutura']+'</td>',
@@ -321,7 +344,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   '<td><div style="'+$estilo1+'">'+dato['CodigosU']+'</div></td>',
                                   '<td><div style="'+$estilo2+'">'+dato.modalidad['Nombre']+'</div></td>',
                                   '<td><div style="'+$estilo3+'">'+dato.tipocontrato['Nombre']+'</div></td>',
-                                  '<td><div style="'+$estilo4+'">'+dato['ObjetoContractual']+'</div></td>',
+                                  '<td><div <div class="campoArea" style="'+$estilo4+'">'+dato['ObjetoContractual']+'</div></td>',
                                   '<td><div style="'+$estilo6+'">'+number_format(dato['ValorEstimado'])+'</div></td>',
                                   '<td><div style="'+$estilo7+'">'+number_format(dato['ValorEstimadoVigencia'])+'</div></td>',
                                   '<td><div style="'+$estilo8+'">'+dato['VigenciaFutura']+'</div></td>',

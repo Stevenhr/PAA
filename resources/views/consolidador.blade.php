@@ -497,18 +497,19 @@
       <div class="modal-body">
       		<div class="row">
 					<div class="col-xs-12 col-sm-12">
-				  		<table class="table table-bordered" id="datos_actividad" > 
-						<thead>
-						<tr>
-						<th>#</th>
-						<th>Fuente</th>
-						<th>Componente</th>
-						<th>Valor</th>
-						</tr>
-						</thead>
-						<tbody id="registrosFinanzas"> 
-						</tbody> 
-					</table>
+				  		<table class="table table-bordered" id="datos_actividad2" > 
+							<thead>
+							<tr>
+							<th>#</th>
+							<th>Proyecto</th>
+							<th>Fuente</th>
+							<th>Componente</th>
+							<th>Valor</th>
+							</tr>
+							</thead>
+							<tbody id="registrosFinanzas"> 
+							</tbody> 
+						</table>
 					</div>
 				</div>
       </div>
