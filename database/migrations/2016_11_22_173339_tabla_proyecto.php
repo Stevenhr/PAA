@@ -27,6 +27,7 @@ class TablaProyecto extends Migration
             $table->string('descripcion');
 
             $table->timestamps();
+            $table->softDeletes();
 
         });
     }

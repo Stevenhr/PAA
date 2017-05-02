@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Actividad extends Model
 {
@@ -11,7 +12,7 @@ class Actividad extends Model
 	protected $primaryKey = 'Id';
 	protected $fillable = ['Id_meta','Nombre','fecha_inicio','fecha_fin','valor','descripcion'];
 	protected $connection = ''; 
-	public $timestamps = false;
+	public $timestamps = true;
 
 	
     public function meta()
@@ -35,5 +36,5 @@ class Actividad extends Model
         return $this->belongsToMany('\App\ActividadComponente','actividadEstudioComponente','actividad_id','componeActiv_id')
             ->withPivot('id','estado','fuentehacienda','valor','created_at','porcentaje','total');
     }
-    
+    use SoftDeletes;
 }

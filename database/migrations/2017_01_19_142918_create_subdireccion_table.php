@@ -17,6 +17,7 @@ class CreateSubdireccionTable extends Migration
             $table->increments('id');
             $table->string('nombre', 100);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

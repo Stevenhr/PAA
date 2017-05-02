@@ -19,6 +19,8 @@ class TablaPresupuesto extends Migration
             $table->dateTime('fecha_inicio');
             $table->dateTime('fecha_fin');
             $table->bigInteger('presupuesto')->unsigned()->index();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

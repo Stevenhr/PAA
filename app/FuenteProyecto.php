@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FuenteProyecto extends Model
 {
@@ -32,4 +33,6 @@ class FuenteProyecto extends Model
     {
         return $this->hasMany('App\ActividadComponente','fuente_id');
     }*/
+
+    use SoftDeletes;
 }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ActividadComponente extends Model
 {
@@ -11,7 +12,7 @@ class ActividadComponente extends Model
 	protected $primaryKey = 'id';
 	protected $fillable = ['componente_id','actividad_id','fuente_id','proyecto_id','valor','estado'];
 	protected $connection = ''; 
-	public $timestamps = false;
+	public $timestamps = true;
 
 
 	public function paas()
@@ -49,5 +50,5 @@ class ActividadComponente extends Model
         return $this->belongsTo('App\FuenteProyecto','fuente_id');
     }
 
-
+    use SoftDeletes;
 }

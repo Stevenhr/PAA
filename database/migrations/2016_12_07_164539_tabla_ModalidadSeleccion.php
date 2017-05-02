@@ -17,6 +17,8 @@ class TablaModalidadSeleccion extends Migration
             $table->increments('Id');
             $table->string('Nombre');
             $table->string('Codigo');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

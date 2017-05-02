@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProyectoDesarrollo extends Model
 {
@@ -17,4 +18,6 @@ class ProyectoDesarrollo extends Model
     {
         return $this->hasMany('App\Presupuesto','Id_proyectoDesarrollo');
     }
+
+    use SoftDeletes;
 }

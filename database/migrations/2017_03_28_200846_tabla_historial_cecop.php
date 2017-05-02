@@ -20,6 +20,7 @@ class TablaHistorialCecop extends Migration
             $table->string('codigo_cecop');
             $table->text('ubicacion_archivo');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

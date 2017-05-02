@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EstudioConveniencia extends Model
 {
@@ -18,4 +19,5 @@ class EstudioConveniencia extends Model
 	{
 	  return $this->belongsTo('App\User','id_paa');
 	}
+	use SoftDeletes;
 }

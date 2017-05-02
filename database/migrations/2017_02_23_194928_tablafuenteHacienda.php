@@ -17,6 +17,9 @@ class TablafuenteHacienda extends Migration
             $table->increments('id');
             $table->text('nombre');
             $table->string('codigo');
+
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Area extends Model
 {
@@ -27,4 +28,6 @@ class Area extends Model
     {
         return $this->belongsTo('App\SubDireccion','id_subdireccion');
     }
+
+    use SoftDeletes;
 }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Observacion extends Model
 {
@@ -19,4 +20,6 @@ class Observacion extends Model
     {
         return $this->belongsTo('App\Paa','id_registro');
     }
+
+    use SoftDeletes;
 }

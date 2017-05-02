@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Fuente extends Model
 {
@@ -11,7 +13,7 @@ class Fuente extends Model
 	protected $primaryKey = 'Id';
 	protected $fillable = ['codigo','nombre','descripcion','valor'];
 	protected $connection = ''; 
-	public $timestamps = false;
+	public $timestamps = true;
 
 	public function componentes()
     {
@@ -33,4 +35,6 @@ class Fuente extends Model
     {
         return $this->hasMany('App\FuenteProyecto','fuente_id');
     }
+
+    use SoftDeletes;
 }

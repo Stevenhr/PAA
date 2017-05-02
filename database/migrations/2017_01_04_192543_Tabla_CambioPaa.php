@@ -23,6 +23,7 @@ class TablaCambioPaa extends Migration
             $table->string('campo');
             $table->integer('persona');
             $table->timestamps();
+            $table->softDeletes();
 
         });
     }

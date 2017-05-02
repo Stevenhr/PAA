@@ -21,6 +21,7 @@ class TablaPresupuestado extends Migration
             $table->foreign('fuente_proyecto_id')->references('id')->on('FuenteProyecto');
             $table->bigInteger('valor')->unsigned()->index();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

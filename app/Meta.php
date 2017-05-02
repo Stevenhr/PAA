@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Meta extends Model
 {
@@ -22,4 +23,6 @@ class Meta extends Model
     {
         return $this->belongsTo('App\Proyecto','Id_proyecto');
     }
+
+    use SoftDeletes;
 }

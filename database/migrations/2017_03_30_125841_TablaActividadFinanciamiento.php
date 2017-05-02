@@ -19,6 +19,7 @@ class TablaActividadFinanciamiento extends Migration
             $table->foreign('id_rubro_funcionamiento')->references('id')->on('rubro_funcionamiento');
             $table->string('nombre');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

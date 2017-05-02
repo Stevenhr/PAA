@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FuenteHacienda extends Model
 {
@@ -11,7 +12,8 @@ class FuenteHacienda extends Model
 	protected $primaryKey = 'id';
 	protected $fillable = ['id','nombre','codigo'];
 	protected $connection = ''; 
-	public $timestamps = false;
+	public $timestamps = true;
+	use SoftDeletes;
 
 
 }

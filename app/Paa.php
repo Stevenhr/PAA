@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Paa extends Model
 {
@@ -39,6 +40,7 @@ class Paa extends Model
 	'Proyecto1Rubro2',
     'Id_Area'];
 
+    public $timestamps = true;
 	protected $connection = ''; 
 	 
 	public function modalidad()
@@ -124,4 +126,6 @@ class Paa extends Model
     {
         return $this->hasMany('App\Observacion','id_registro');
     }
+
+    use SoftDeletes;
 }

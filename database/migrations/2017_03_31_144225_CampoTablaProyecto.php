@@ -17,7 +17,6 @@ class CampoTablaProyecto extends Migration
            $table->integer('Id_proyectoDesarrollo')->unsigned()->nullable();
            $table->string('vigencia');
            $table->foreign('Id_proyectoDesarrollo')->references('id')->on('proyecto_desarrollo');
-           $table->timestamps();
         });
 
     }

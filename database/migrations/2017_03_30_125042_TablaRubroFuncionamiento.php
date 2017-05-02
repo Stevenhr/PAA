@@ -21,6 +21,7 @@ class TablaRubroFuncionamiento extends Migration
             $table->date('fecha_fin');
             $table->bigInteger('valor')->unsigned()->index();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

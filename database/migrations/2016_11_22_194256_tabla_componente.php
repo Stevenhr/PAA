@@ -23,7 +23,8 @@ class TablaComponente extends Migration
             $table->string('descripcion');
             $table->string('codigo');
 
-          
+            $table->timestamps();
+            $table->softDeletes();
 
         });
     }

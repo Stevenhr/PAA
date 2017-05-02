@@ -52,6 +52,7 @@ class TablaPaa extends Migration
             $table->text('Observacion');
            
             $table->timestamps();
+            $table->softDeletes();
 
         });
     }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CambioPaa extends Model
 {
@@ -17,4 +18,6 @@ class CambioPaa extends Model
     {
         return $this->belongsTo('App\Paa','id_paa');
     }
+
+    use SoftDeletes;
 }

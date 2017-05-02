@@ -21,6 +21,7 @@ class TablaEstudioConvencia extends Migration
             $table->text('justificacion');
             $table->timestamps();
             $table->foreign('id_paa')->references('Id')->on('paa');
+            $table->softDeletes();
         });
     }
 

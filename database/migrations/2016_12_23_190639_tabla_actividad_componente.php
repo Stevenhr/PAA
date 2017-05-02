@@ -22,6 +22,7 @@ class TablaActividadComponente extends Migration
             $table->foreign('actividad_id')->references('Id')->on('actividad');
             $table->bigInteger('valor')->unsigned()->index();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

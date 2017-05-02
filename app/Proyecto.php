@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Proyecto extends Model
 {
@@ -30,4 +31,6 @@ class Proyecto extends Model
         return $this->belongsToMany('\App\Fuente','FuenteProyecto','proyecto_id','fuente_id')
             ->withPivot('id','valor','created_at');
     }
+
+    use SoftDeletes;
 }

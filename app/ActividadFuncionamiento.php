@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ActividadFuncionamiento extends Model
 {
@@ -18,5 +19,7 @@ class ActividadFuncionamiento extends Model
     {
         return $this->belongsTo('App\RubroFuncionamiento','id_rubro_funcionamiento');
     }
+
+    use SoftDeletes;
 
 }

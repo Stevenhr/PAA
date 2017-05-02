@@ -20,6 +20,7 @@ class TablaObservaciones extends Migration
             $table->text('observacion');
             $table->string('estado');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

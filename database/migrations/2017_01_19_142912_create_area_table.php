@@ -18,6 +18,7 @@ class CreateAreaTable extends Migration
             $table->integer('id_subdireccion')->unsigned();
             $table->string('nombre', 100);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

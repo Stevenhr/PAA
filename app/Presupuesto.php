@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Presupuesto extends Model
 {
@@ -11,7 +12,7 @@ class Presupuesto extends Model
 	protected $primaryKey = 'Id';
 	protected $fillable = ['Nombre_Actividad','fecha_inicio','fecha_fin','vigencia','presupuesto','Id_proyectoDesarrollo'];
 	protected $connection = ''; 
-	public $timestamps = false;
+	public $timestamps = true;
 
 
 	public function proyectos()
@@ -23,4 +24,6 @@ class Presupuesto extends Model
     {
         return $this->belongsTo('App\ProyectoDesarrollo','Id_proyectoDesarrollo');
     }
+
+    use SoftDeletes;
 }

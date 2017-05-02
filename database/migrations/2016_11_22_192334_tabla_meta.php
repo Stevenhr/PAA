@@ -25,6 +25,9 @@ class TablaMeta extends Migration
             $table->bigInteger('valor')->unsigned()->index();
             $table->string('descripcion');
 
+            $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

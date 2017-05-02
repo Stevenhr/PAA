@@ -20,6 +20,7 @@ class TablaFuenteProyecto extends Migration
             $table->foreign('proyecto_id')->references('Id')->on('proyecto');
             $table->bigInteger('valor')->unsigned()->index();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

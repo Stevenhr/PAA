@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SubDireccion extends Model
 {
@@ -22,4 +23,7 @@ class SubDireccion extends Model
     {
         return $this->hasMany('App\Area','id_subdireccion');
     }
+
+    use SoftDeletes;
+
 }
