@@ -30,15 +30,18 @@ class DireccionGeneralController extends Controller
 
     public function obtenerHistorialPaaTodo(Request $request, $id)
     {
-        $model_A = Paa::with('modalidad','tipocontrato','rubro','cambiosPaa')->where('Registro', '=', $id)->get();
+        $model_A = Paa::with('modalidad','tipocontrato','cambiosPaa','meta','proyecto','rubro_funcionamiento')->where('Registro', '=', $id)->get();
         return response()->json($model_A);
     }
+
     public function verFinanciacion(Request $request, $id)
     {
+        $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente')->where('id_paa',$id)->get();
         $model_A = Paa::with('componentes','componentes.fuente')->find($id);
         //dd($model_A);
         //exit();
-        return response()->json(array('dataInfo' => $model_A, 'estado' => $model_A['Estado']) );
+        $Proyecto = Proyecto::with('fuente')->find($model_A['Id_Proyecto']);
+        return response()->json(array('estado' => $model_A['Estado'],'proyecto'=>$Proyecto, 'ActividadComponente'=>$ActividadComponente) );
     }
     public function historialObservaciones(Request $request, $id)
     {

@@ -539,7 +539,7 @@
 							    <p>Registro que actualmente es valido para todos los usuarios.</p>
 							</div>						 
 							<div class="table-responsive">
-								<table  id="Tabla1" class="display nowrap table-bordered" width="780px" cellspacing="0">
+								<table  id="Tabla1" class="table display nowrap table-bordered" width="780px" cellspacing="0">
 								        <thead>
 											<tr class="success">
 								                <th>N°</th>
@@ -583,7 +583,7 @@
 							    <p>Los siguientes registros son el historial de cambios aprobados por los difrentes usuarios durante el actual proceso.</p>
 							</div>	
 					  		<div class="table-responsive"> 
-						  		<table  id="Tabla2" class="display nowrap table-bordered" width="780px" cellspacing="0">
+						  		<table  id="Tabla2" class="table display nowrap table-bordered" width="780px" cellspacing="0">
 								        <thead>
 											<tr class="success">
 								                <th>N°</th>
@@ -624,7 +624,7 @@
 							    <p>Los siguientes registros estan pedintes de revision.</p>
 							</div>	
 							<div class="table-responsive"> 
-						  		<table  id="Tabla3" class="display nowrap table-bordered" width="780px" cellspacing="0">
+						  		<table  id="Tabla3" class="table display nowrap table-bordered" width="780px" cellspacing="0">
 							        <thead>
 										<tr class="success">
 							                <th>N°</th>

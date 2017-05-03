@@ -95,26 +95,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
               success: function(data)
               {   
                   
-
-                  if($.inArray(data.estado,['4','5','7','8','9','11'])!=-1){
-                    desactivo="none";
-                    $('#btn_agregar_finaza').hide();
-                  }else{
-                    desactivo="";
-                    $('#btn_agregar_finaza').show();
-                  }
-                    var num=1;
-
-                  var html = '<option value="">Seleccionar</option>';
-                  if(data.proyecto.fuente.length > 0)
-                  {
-                    $.each(data.proyecto.fuente, function(i, e){
-                        html += '<option value="'+e.pivot['id']+'">'+e['nombre']+'</option>';
-                    });
-                  }
-                  $('select[name="Fuente_inversion"]').html(html).val($('select[name="Fuente_inversion"]').data('value'));
-
                   var html = '';
+                  var num=1;
                   $.each(data.ActividadComponente, function(i, dato){
                     html += '<tr>'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
@@ -161,7 +143,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                         /*$.each(cambios, function(ii2, camb){
                           console.log(camb);
                         });  */
-
 
                         if(dato['Proyecto1Rubro2']==1){
                              nom_pro_rubr=dato.proyecto['Nombre'];
@@ -251,92 +232,92 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                              if(campos.indexOf("CodigosU")=='-1')
                               $estilo1="";
                              else
-                              $estilo1="color: green !important;";
+                              $estilo1="color: green !important;     font-size: 18px;  font-family: inherit;";
 
                              if(campos.indexOf("Id_ModalidadSeleccion")=='-1')
                               $estilo2="";
                              else
-                              $estilo2="color: green !important;";
+                              $estilo2="color: green !important;     font-size: 18px;  font-family: inherit;";
 
                              if(campos.indexOf("Id_TipoContrato")=='-1')
                               $estilo3="";
                              else
-                              $estilo3="color: green !important;";
+                              $estilo3="color: green !important;     font-size: 18px;  font-family: inherit;";
 
                              if(campos.indexOf("ObjetoContractual")=='-1')
                               $estilo4="";
                              else
-                              $estilo4="color: green !important;";
+                              $estilo4="color: green !important;     font-size: 18px;  font-family: inherit;";
 
                              if(campos.indexOf("FuenteRecurso")=='-1')
                               $estilo5="";
                              else
-                              $estilo5="color: green !important;";
+                              $estilo5="color: green !important;     font-size: 18px;   font-family: inherit;";
 
                              if(campos.indexOf("ValorEstimado")=='-1')
                               $estilo6="";
                              else
-                              $estilo6="color: green !important;";
+                              $estilo6="color: green !important;     font-size: 18px;   font-family: inherit;";
 
                              if(campos.indexOf("ValorEstimadoVigencia")=='-1')
                               $estilo7="";
                              else
-                              $estilo7="color: green !important;";
+                              $estilo7="color: green !important;     font-size: 18px;   font-family: inherit;";
 
                              if(campos.indexOf("VigenciaFutura")=='-1')
                               $estilo8="";
                              else
-                              $estilo8="color: green !important;";
+                              $estilo8="color: green !important;     font-size: 18px;   font-family: inherit;";
 
                              if(campos.indexOf("EstadoVigenciaFutura")=='-1')
                               $estilo9="";
                              else
-                              $estilo9="color: green !important;";
+                              $estilo9="color: green !important;     font-size: 18px;   font-family: inherit;";
 
                              if(campos.indexOf("FechaEstudioConveniencia")=='-1')
                               $estilo10="";
                              else
-                              $estilo10="color: green !important;";
+                              $estilo10="color: green !important;     font-size: 18px;   font-family: inherit;";
 
                              if(campos.indexOf("FechaInicioProceso")=='-1')
                               $estilo11="";
                              else
-                              $estilo11="color: green !important;";
+                              $estilo11="color: green !important;     font-size: 18px;   font-family: inherit;";
 
                              if(campos.indexOf("FechaSuscripcionContrato")=='-1')
                               $estilo12="";
                              else
-                              $estilo12="color: green !important;";
+                              $estilo12="color: green !important;     font-size: 18px;   font-family: inherit;";
 
                              if(campos.indexOf("DuracionContrato")=='-1')
                               $estilo13="";
                              else
-                              $estilo13="color: green !important;";
+                              $estilo13="color: green !important;     font-size: 18px;   font-family: inherit;";
 
                              if(campos.indexOf("MetaPlan")=='-1')
                               $estilo14="";
                              else
-                              $estilo14="color: green !important;";
+                              $estilo14="color: green !important;     font-size: 18px;   font-family: inherit;";
 
                              if(campos.indexOf("RecursoHumano")=='-1')
                               $estilo15="";
                              else
-                              $estilo15="color: green !important;";
+                              $estilo15="color: green !important;     font-size: 18px;   font-family: inherit;";
 
                              if(campos.indexOf("NumeroContratista")=='-1')
                               $estilo16="";
                              else
-                              $estilo16="color: green !important;";
+                              $estilo16="color: green !important;     font-size: 18px;   font-family: inherit;";
 
                             if(campos.indexOf("DatosResponsable")=='-1')
                               $estilo17="";
                              else
-                              $estilo17="color: green !important;";
+                              $estilo17="color: green !important;     font-size: 18px;   font-family: inherit;";
 
                             if(campos.indexOf("Id_Proyecto")=='-1')
                               $estilo18="";
                              else
-                              $estilo18="color: green !important;";
+                              $estilo18="color: green !important;     font-size: 18px;   font-family: inherit;";
 
                             tb2.row.add( [
                                   '<th scope="row" class="text-center">'+num1+'</th>',
