@@ -359,25 +359,25 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
      }); 
 
     
-                        $Registro="";
-                        $CodigosU="";
-                        $Nombre_m="";
-                        $Nombre_t="";
-                        $ObjetoContractual="";
-                        $FuenteRecurso="";
-                        $ValorEstimado="";
-                        $ValorEstimadoVigencia="";
-                        $VigenciaFutura="";
-                        $EstadoVigenciaFutura="";
-                        $FechaEstudioConveniencia="";
-                        $FechaInicioProceso="";
-                        $FechaSuscripcionContrato="";
-                        $DuracionContrato="";
-                        $MetaPlan="";
-                        $RecursoHumano="";
-                        $NumeroContratista="";
-                        $DatosResponsable="";
-                        $Nombre_r="";
+      Registro="";
+      CodigosU="";
+      Nombre_m="";
+      Nombre_t="";
+      ObjetoContractual="";
+      FuenteRecurso="";
+      ValorEstimado="";
+      ValorEstimadoVigencia="";
+      VigenciaFutura="";
+      EstadoVigenciaFutura="";
+      FechaEstudioConveniencia="";
+      FechaInicioProceso="";
+      FechaSuscripcionContrato="";
+      DuracionContrato="";
+      MetaPlan="";
+      RecursoHumano="";
+      NumeroContratista="";
+      DatosResponsable="";
+      Nombre_r="";
 
     $('#TablaPAA').delegate('button[data-funcion="Aprobacion"]','click',function (e)
     {
@@ -412,7 +412,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                              nom_meta="";
                           }
 
-                        if(dato['Estado']==0){ // Registro Actual
+                        if(dato['Estado']==0 || dato['Estado']==4 || dato['Estado']==5 || dato['Estado']==6 || dato['Estado']==7 || dato['Estado']==9 || dato['Estado']==10 || dato['Estado']==11){ // Registro Actual
                                   Registro=dato['Registro'];
                                   CodigosU=dato['CodigosU'];
                                   Nombre_m=dato.modalidad['Nombre'];
