@@ -1025,7 +1025,7 @@ $(function()
                       tb3.clear().draw();
                       $.each(data, function(i, dato){
                         
-                       if(dato['Estado']==0 || dato['Estado']==4 || dato['Estado']==5 || dato['Estado']==6 || dato['Estado']==7){ // Registro Actual
+                       if(dato['Estado']==0 || dato['Estado']==4 || dato['Estado']==5 || dato['Estado']==6 || dato['Estado']==7 || dato['Estado']==9){ // Registro Actual
                             tb1.row.add( [
                                 '<th scope="row" class="text-center">'+num+'</th>',
                                 '<td>'+dato['Registro']+'</td>',

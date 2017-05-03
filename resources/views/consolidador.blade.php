@@ -88,7 +88,7 @@
 			        						    <?php $disable="disabled"; $estado="En Subdireción";?>
 			        						@elseif($paa['Estado']==5)	
 			        							<tr class="success">
-			        							<?php $disable="disabled"; $estado="Aprobado Subdireción"; ?>
+			        							<?php $disable="disabled"; $estado="Aprobado Subdireción. (Sin registro de estudio)"; ?>
 			        						@elseif($paa['Estado']==6)	
 			        							<tr class="danger">
 			        							<?php $disable=""; $estado="Denegado Subdireción"; ?>

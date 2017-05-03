@@ -42,18 +42,17 @@ class TablaPaa extends Migration
 
             $table->integer('Id_Proyecto')->nullable()->unsigned();
             $table->foreign('Id_Proyecto')->references('Id')->on('proyecto');
-
-            
         
             $table->integer('IdPersona');
             $table->string('Estado');
             $table->integer('IdPersonaObservo');
             $table->string('EsatdoObservo');
             $table->text('Observacion');
+            $table->string('compartida');
+            $table->string('vinculada');
            
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 

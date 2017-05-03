@@ -8,6 +8,8 @@ use App\Estado;
 use App\Paa;
 use App\SubDireccion;
 use App\Area;
+use App\Proyecto;
+use App\ActividadComponente;
 use App\Observacion;
 
 class DireccionGeneralController extends Controller

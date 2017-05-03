@@ -182,6 +182,7 @@
 						<thead>
 						<tr>
 						<th>#</th>
+						<th>Proyecto</th>
 						<th>Fuente</th>
 						<th>Componente</th>
 						<th>Valor</th>
@@ -219,27 +220,26 @@
 								<table id="Tabla1" class="display nowrap table-bordered" width="780px" cellspacing="0">
 							        <thead>
 										<tr class="success">
-							                <th>N°</th>
-							                <th>Id Registro</th>
-											<th>Códigos UNSPSC</th>
-											<th>Modalidad de selección</th>
-											<th>Tipo de contrato</th>
-											<th>Descripción/Objeto</th>
-											<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
-											<th>Valor total estimado	</th>
-											<th>Valor estimado en la vigencia actual	</th>
-											<th>¿Se requieren vigencias futuras?	</th>
-											<th>Estado de solicitud de vigencias futuras	</th>
-											<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
-											<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
-											<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-											<th>Duración estimada del contrato (meses)	</th>
-											<th>Meta plan	</th>
-											<th>Recurso Humano (Si / No)</th>
-											<th>Numero de Contratistas	</th>
-											<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
-											<th>Proyecto de inversión o rubro de funcionamiento</th>
-							            </tr>
+								                <th>N°</th>
+								                <th>Id Registro</th>
+												<th>Códigos UNSPSC</th>
+												<th>Modalidad de selección</th>
+												<th>Tipo de contrato</th>
+												<th>Descripción/Objeto</th>
+												<th>Valor total estimado	</th>
+												<th>Valor estimado en la vigencia actual	</th>
+												<th>¿Se requieren vigencias futuras?	</th>
+												<th>Estado de solicitud de vigencias futuras	</th>
+												<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
+												<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
+												<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
+												<th>Duración estimada del contrato (meses)	</th>
+												<th>Recurso Humano (Si / No)</th>
+												<th>Numero de Contratistas	</th>
+												<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
+												<th>Proyecto de inversión o rubro de funcionamiento</th>
+												<th>Meta plan	</th>
+								            </tr>
 							        </thead>						       
 							        <tbody id="registrosHtml">
 							        </tbody>
@@ -261,27 +261,26 @@
 						  		<table id="Tabla2" class="display nowrap table-bordered" width="780px" cellspacing="0">
 							        <thead>
 										<tr class="success">
-							                <th>N°</th>
-							                <th>Id Registro</th>
-											<th>Códigos UNSPSC</th>
-											<th>Modalidad de selección</th>
-											<th>Tipo de contrato</th>
-											<th>Descripción/Objeto</th>
-											<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
-											<th>Valor total estimado	</th>
-											<th>Valor estimado en la vigencia actual	</th>
-											<th>¿Se requieren vigencias futuras?	</th>
-											<th>Estado de solicitud de vigencias futuras	</th>
-											<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
-											<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
-											<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
-											<th>Duración estimada del contrato (meses)	</th>
-											<th>Meta plan	</th>
-											<th>Recurso Humano (Si / No)</th>
-											<th>Numero de Contratistas	</th>
-											<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
-											<th>Proyecto de inversión o rubro de funcionamiento</th>
-							            </tr>
+								                <th>N°</th>
+								                <th>Id Registro</th>
+												<th>Códigos UNSPSC</th>
+												<th>Modalidad de selección</th>
+												<th>Tipo de contrato</th>
+												<th>Descripción/Objeto</th>
+												<th>Valor total estimado	</th>
+												<th>Valor estimado en la vigencia actual	</th>
+												<th>¿Se requieren vigencias futuras?	</th>
+												<th>Estado de solicitud de vigencias futuras	</th>
+												<th>Estudio de  conveniencia (dd/mm/aaaa)</th>
+												<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
+												<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
+												<th>Duración estimada del contrato (meses)	</th>
+												<th>Recurso Humano (Si / No)</th>
+												<th>Numero de Contratistas	</th>
+												<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
+												<th>Proyecto de inversión o rubro de funcionamiento</th>
+												<th>Meta plan	</th>
+								            </tr>
 							        </thead>	
 							        <tbody id="registrosHtml1">
 							        </tbody>
@@ -308,7 +307,6 @@
 											<th>Modalidad de selección</th>
 											<th>Tipo de contrato</th>
 											<th>Descripción/Objeto</th>
-											<th>Fuente de los recursos (Nombre de la Fuente (s))</th>
 											<th>Valor total estimado</th>
 											<th>Valor estimado en la vigencia actual</th>
 											<th>¿Se requieren vigencias futuras?</th>
@@ -317,11 +315,11 @@
 											<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)</th>
 											<th>Fecha suscripción Contrato (dd/mm/aaaa)</th>
 											<th>Duración estimada del contrato (meses)</th>
-											<th>Meta plan</th>
 											<th>Recurso Humano (Si / No)</th>
 											<th>Numero de Contratistas</th>
 											<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 											<th>Proyecto de inversión o rubro de funcionamiento</th>
+											<th>Meta plan	</th>
 							            </tr>
 							        </thead>	
 							        <tbody id="registrosHtml1">
