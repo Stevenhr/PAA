@@ -457,7 +457,7 @@ $(function()
           function(data)
           {
                 var html = '<option value="">Seleccionar componente</option>';
-                        console.log(data);
+                        //console.log(data);
                         $.each(data, function(i, eee){
                                     html += '<option value="'+eee['id']+'">'+eee.componente['Nombre'].toLowerCase()+'</option>';
                                     //$('input[name="id_pivot_comp"]').val(eee.componente['Id']);
@@ -479,6 +479,7 @@ $(function()
             {
                 var valorCocenpto=0;
                 var suma=0;
+                var suma2=0;
                 
                 $.each(data.ModeloPa, function(i, eee){
                   if(eee.componentes!=''){
@@ -489,9 +490,21 @@ $(function()
                   }
                 });
 
+                $.each(data.ModeloPaPendi, function(i, eee){
+                  if(eee.componentes!=''){
+                    $.each(eee.componentes, function(ii, eeee){
+                       if(eeee.pivot['valor']!='')
+                       suma2=suma2 + parseInt(eeee.pivot['valor']);
+                    });
+                  }
+                });
+
+                console.log(suma2+"  -  "+suma);
+
                 valorCocenpto=data.presupuestado['valor'];
                 valorAfavor=parseInt(valorCocenpto)-parseInt(suma);
-                console.log(valorAfavor+" - "+valorCocenpto+" - "+suma);
+        
+               // console.log(valorAfavor+" - "+valorCocenpto+" - "+suma);
                 valor_ingresado_conso=0;
                 if(vector_datos_actividad.length > 0)
                 {
@@ -505,6 +518,7 @@ $(function()
                 $('.mjs_componente').html('<div class="alert "><table class="table table-bordered">'+
                  '<tr class="info"><td>Presupuesto total:</td><td><center><strong>  $'+number_format(valorCocenpto)+'</strong>.<br></td></tr>'+
                  '<tr class="success"><td>Presupuesto aprobado:</td><td><center><strong>                 $'+number_format(suma)+'</strong>.<br></td></tr>'+
+                 '<tr class="warning"><td>Presupuesto reservado por aprobar:</td><td><center><strong>                 $'+number_format(suma2)+'</strong>.<br></td></tr>'+
                  '<tr class="active"><td>Presupuesto libre: </td><td><center><strong>  $'+number_format(valorAfavor)+'</strong>.<br>'+'</td></tr></table></div>');
             }
         });
@@ -658,7 +672,7 @@ $(function()
                 if(ver!=0){
                   $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Código agregado.</div>');
                   vector_datos_codigos.push({"codigo": codigo_Unspsc, "nombre":ver["Nombre"]});
-                  console.log(vector_datos_codigos);
+                  //console.log(vector_datos_codigos);
                 }else{
                   $('#alert_actividad_codigos').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El código no se encuentra registrado en los listado de SECOP.</div>');
                 }
@@ -743,8 +757,8 @@ $(function()
         var valor_contrato = $('input[name="valor_contrato"]').val();
 
         valor_contrato=replaceAll(valor_contrato, ".", "" );
-        //console.log(valorAfavor+" "+valor_contrato);
-        valor_ingresado_conso=parseInt(valor_ingresado_conso)+parseInt(valor_contrato);
+        //console.log("-->"+valorAfavor+" "+valor_contrato);
+        valor_ingresado_conso=parseInt(valor_contrato);
         //console.log(valorAfavor+" "+valor_ingresado_conso);
 
         if(Nom_Proyecto_inversion===''){

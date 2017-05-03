@@ -11,7 +11,7 @@ $(function()
   } );
 
   // DataTable
-  var table = $('#TablaHCecop').DataTable({
+  /*var table = $('#TablaHCecop').DataTable({
     responsive: true,
     columnDefs: [
     		{
@@ -22,7 +22,14 @@ $(function()
       ],
       dom: 'Bfrtip',
       buttons: ['copy', 'csv', 'excel', 'pdf']
-  });
+  });*/
+
+  var table = $('#TablaHCecop').DataTable( {responsive: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf'],
+        pageLength: 5
+    });
 
   // Apply the search
   table.columns().every( function () {

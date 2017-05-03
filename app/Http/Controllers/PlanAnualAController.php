@@ -347,11 +347,16 @@ class PlanAnualAController extends Controller
 
         $ModeloPa = Paa::with(['componentes' => function($query) use ($id)
         {
-            $query->where('componente_id',$id)->get();
+            $query->where('componente_id',$id);
         }])->where('Estado','9')->get();
+
+        $ModeloPa2 = Paa::with(['componentes' => function($query) use ($id)
+        {
+            $query->where('componente_id',$id);
+        }])->whereIn('Estado',[4,5,8,9,10])->get();
         
         $ModeloCompoente=Componente::find($id);
-        return response()->json(array('ModeloPa' => $ModeloPa, 'ModeloCompoente' => $ModeloCompoente,'presupuestado'=>$presupuestado));
+        return response()->json(array('ModeloPa' => $ModeloPa,'ModeloPaPendi'=>$ModeloPa2, 'ModeloCompoente' => $ModeloCompoente,'presupuestado'=>$presupuestado));
     }
 
     public function select_area(Request $request, $id)
