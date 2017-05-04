@@ -974,7 +974,7 @@
 					  
 					  <div class="col-xs-12 col-sm-6">
 					  		<div class="form-group">
-						    	<label>Actividades de la meta:  </label><label id="mensj_meta"></label>
+						    	<label id="tit_actividades">Actividades de la meta:  </label><label id="mensj_meta"></label>
 								<select class="form-control" name="actividad_ingre" id="actividad_ingre">
 									<option value="" >Selecionar</option>								    
 								</select>

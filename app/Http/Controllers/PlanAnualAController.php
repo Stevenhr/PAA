@@ -353,7 +353,7 @@ class PlanAnualAController extends Controller
         $ModeloPa2 = Paa::with(['componentes' => function($query) use ($id)
         {
             $query->where('componente_id',$id);
-        }])->whereIn('Estado',[4,5,8,9,10])->get();
+        }])->whereIn('Estado',[0,4,5,8,10])->get();
         
         $ModeloCompoente=Componente::find($id);
         return response()->json(array('ModeloPa' => $ModeloPa,'ModeloPaPendi'=>$ModeloPa2, 'ModeloCompoente' => $ModeloCompoente,'presupuestado'=>$presupuestado));
@@ -602,9 +602,10 @@ class PlanAnualAController extends Controller
     public function obtenerEstidioConveniencia(Request $request, $id)
     {
         
-        $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes')->find($id);
-        $finanzas = ActividadComponente::with('actividades')->where('id_paa',$id)->get();
+        $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes','rubro_funcionamiento','rubro_funcionamiento.actividadesfuncionamiento')->find($id);
+        
 
+        $finanzas = ActividadComponente::with('actividades')->where('id_paa',$id)->get();
         foreach ($finanzas as $finanza) {
                 $finanza->Componente = Componente::find($finanza['componente_id']);
             foreach ($finanza->actividades as &$actividad){

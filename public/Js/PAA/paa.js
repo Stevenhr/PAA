@@ -210,6 +210,11 @@ $(function()
            {
             $('input[name="duracion_estimada"]').val("");
            }
+
+           if($('#ProyectOrubro').val()==2)
+           {
+            $('#meta').val("1");
+           }
               
           $.post(
             URL+'/validar/paa',
@@ -360,8 +365,6 @@ $(function()
                   $('#meta0').prop( "disabled", true);
                   $('#div_finaciacion').show();
                   vector_datos_actividad.length=0;
-
-
                 }
 
                 if(id==2){ //Rubro 
@@ -502,7 +505,7 @@ $(function()
                 console.log(suma2+"  -  "+suma);
 
                 valorCocenpto=data.presupuestado['valor'];
-                valorAfavor=parseInt(valorCocenpto)-parseInt(suma);
+                valorAfavor=parseInt(valorCocenpto)-parseInt(suma)-parseInt(suma2);
         
                // console.log(valorAfavor+" - "+valorCocenpto+" - "+suma);
                 valor_ingresado_conso=0;
@@ -1119,7 +1122,9 @@ $(function()
                       });
                     });
                    verFinanciacion();
-                }else{
+                }
+                else
+                {
                     vector_datos_financiacion.length=0;
                     verFinanciacion();
                     $('#id_estudio_pass').val(0);
@@ -1152,19 +1157,37 @@ $(function()
                     $('#mjs_estado_estudio2').hide();
                 }
 
-                var html = '<option value="">Selecionar</option>';
-               
-                $.each(data.paas.componentes, function(i, eee){
-                            html += '<option data-valor="'+eee.pivot['valor']+'" value="'+eee.pivot['id']+'">'+eee['Nombre']+'</option>';
-                });
-                $('select[name="Componente_ingresado"]').html(html).val($('select[name="Componente_ingresado"]').data('value'));
+                if(data.paas['Proyecto1Rubro2']==2){
+                   var html = '<option value="1" selected>No aplica para rubro de funcionamiento</option>';
+                  $('select[name="Componente_ingresado"]').html(html).val(1);
+                  $('select[name="Componente_ingresado"]').prop('disabled',true);
+                  $('#tit_actividades').text('Actividades del Rubro: ');
 
-                var html1 = '<option value="">Selecionar</option>';
-                 $('#mensj_meta').text(data.paas.meta['Nombre']);
-                $.each(data.paas.meta.actividades, function(i, eee){
-                            html1 += '<option value="'+eee['Id']+'">'+eee['Nombre']+'</option>';
-                });
-                $('select[name="actividad_ingre"]').html(html1).val($('select[name="actividad_ingre"]').data('value'));
+                  var html1 = '<option value="">Selecionar</option>';
+                  $('#mensj_meta').text(data.paas.rubro_funcionamiento['nombre']);
+                  $.each(data.paas.rubro_funcionamiento.actividadesfuncionamiento, function(i, eee){
+                              html1 += '<option value="'+eee['id']+'">'+eee['nombre']+'</option>';
+                  });
+                  $('select[name="actividad_ingre"]').html(html1).val($('select[name="actividad_ingre"]').data('value'));
+                  $('input[name="valor_componente"]').val(data.paas['ValorEstimado']);
+                }else{
+                  $('select[name="Componente_ingresado"]').prop('disabled',false);
+                  var html = '<option value="">Selecionar</option>';
+                  $.each(data.paas.componentes, function(i, eee){
+                      html += '<option data-valor="'+eee.pivot['valor']+'" value="'+eee.pivot['id']+'">'+eee['Nombre']+'</option>';
+                  });
+                  $('select[name="Componente_ingresado"]').html(html).val($('select[name="Componente_ingresado"]').data('value'));
+                  $('#tit_actividades').text('Actividades de la meta: ');
+
+                  var html1 = '<option value="">Selecionar</option>';
+                  $('#mensj_meta').text(data.paas.meta['Nombre']);
+                  $.each(data.paas.meta.actividades, function(i, eee){
+                              html1 += '<option value="'+eee['Id']+'">'+eee['Nombre']+'</option>';
+                  });
+                  $('select[name="actividad_ingre"]').html(html1).val($('select[name="actividad_ingre"]').data('value'));
+                }
+
+                
             },
             'json'
           );
