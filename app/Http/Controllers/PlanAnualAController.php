@@ -28,6 +28,7 @@ use App\FuenteProyecto;
 use App\Persona;
 use App\RubroFuncionamiento;
 use App\Datos;
+use App\ActividadFuncionamiento;
 use Idrd\Usuarios\Repo\PersonaInterface;
 
 
@@ -524,13 +525,19 @@ class PlanAnualAController extends Controller
         return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
 
         $id=$request['id_estudio'];
+        $paa = Paa::with('actividadesFuncionamiento')->find($id);
+
         $texta_Conveniencia=$request['texta_Conveniencia'];
         $texta_Oportunidad=$request['texta_Oportunidad'];
         $texta_Justificacion=$request['texta_Justificacion'];
 
         $data0 = json_decode($request['campos_Clasi_Finan']);
-        $modeloAct = new ActividadComponente;
-        $finanzas = ActividadComponente::with('actividades')->where('id_paa',$id)->get();
+            
+
+        if($paa['Proyecto1Rubro2']!=2)
+        {
+            $modeloAct = new ActividadComponente;
+            $finanzas = ActividadComponente::with('actividades')->where('id_paa',$id)->get();
 
             foreach ($finanzas as $finanza) {
                 foreach ($finanza->actividades as &$actividad) {
@@ -550,6 +557,33 @@ class PlanAnualAController extends Controller
                     'total'=>$obj->valor_total_ingr,
                 ]);
             }
+        }
+        else
+        {
+            
+            
+            if($paa->actividadesFuncionamiento){
+                foreach ($paa->actividadesFuncionamiento as &$actividad) {
+                    $actividad->pivot['estado']=1;
+                    $actividad->pivot->save();
+                }
+            }
+            
+
+
+            $paas = new Paa;
+            foreach($data0 as $obj){
+                $paas->actividadesFuncionamiento()->attach($obj->actividad_ingre,[
+                    'paa_id'=>$id,
+                    'valor'=>$obj->valor_componente,
+                    'estado'=>0,
+                    'fuentehacienda'=>$obj->Fuente_ingre,
+                    'porcentaje'=>$obj->porcentaje,
+                    'valor'=>$obj->valor_componente,
+                    'total'=>$obj->valor_total_ingr,
+                ]);
+            }
+        }
 
         if($request['id_estudio_pass']==0)
         {
@@ -604,12 +638,25 @@ class PlanAnualAController extends Controller
         
         $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes','rubro_funcionamiento','rubro_funcionamiento.actividadesfuncionamiento')->find($id);
         
-
-        $finanzas = ActividadComponente::with('actividades')->where('id_paa',$id)->get();
-        foreach ($finanzas as $finanza) {
-                $finanza->Componente = Componente::find($finanza['componente_id']);
-            foreach ($finanza->actividades as &$actividad){
-                $actividad->Actividad = Actividad::find($actividad->pivot['actividad_id']);
+        if($paa['Proyecto1Rubro2']!=2)
+        {
+            $finanzas = ActividadComponente::with('actividades')->where('id_paa',$id)->get();
+            foreach ($finanzas as $finanza) 
+            {
+                    $finanza->Componente = Componente::find($finanza['componente_id']);
+                foreach ($finanza->actividades as &$actividad)
+                {
+                    $actividad->Actividad = Actividad::find($actividad->pivot['actividad_id']);
+                    $actividad->Fuente = FuenteHacienda::find($actividad->pivot['fuentehacienda']);
+                }
+            }
+        }
+        else
+        {
+            $finanzas = Paa::with('actividadesFuncionamiento')->find($id);
+            foreach ($finanzas->actividadesFuncionamiento as &$actividad)
+            {
+                $actividad->Actividad = ActividadFuncionamiento::find($actividad->pivot['actividad_f_id']);
                 $actividad->Fuente = FuenteHacienda::find($actividad->pivot['fuentehacienda']);
             }
         }

@@ -1096,6 +1096,7 @@ $(function()
             {},
             function(data)
             { 
+                console.log(data.finanzas);
                 if(data.EstudioConveniencias!= null)
                 {
                     $('#id_estudio_pass').val(id_act);
@@ -1104,23 +1105,46 @@ $(function()
                     $('textarea[name="texta_Justificacion"]').val(data.EstudioConveniencias['justificacion']);
                     $('#RegistrarEstudio').text('Modificar'); 
                     //console.log(data.finanzas);
-                    $.each(data.finanzas, function(i, eee){
-                      $.each(eee.actividades, function(j, ee){ 
-                             if(ee.pivot['estado']==0){
-                                vector_datos_financiacion.push({
-                                  "componente_name": eee.Componente['Nombre'],
-                                  "componente": eee['id'],
-                                  "Fuente_ingre_name": ee.Fuente['nombre'],
-                                  "Fuente_ingre": ee.Fuente['id'],
-                                  "actividad_ingre_name": ee.Actividad['Nombre'],
-                                  "actividad_ingre": ee.Actividad['Id'],
-                                  "valor_componente": ee.pivot['valor'],
-                                  "porcentaje": ee.pivot['porcentaje'],
-                                  "valor_total_ingr": ee.pivot['total'],
-                                });
-                              }
+                    
+                    if(data.paas['Proyecto1Rubro2']!=2){
+                      $.each(data.finanzas, function(i, eee){
+                        $.each(eee.actividades, function(j, ee){ 
+                           if(ee.pivot['estado']==0){
+                              vector_datos_financiacion.push({
+                                "componente_name": eee.Componente['Nombre'],
+                                "componente": eee['id'],
+                                "Fuente_ingre_name": ee.Fuente['nombre'],
+                                "Fuente_ingre": ee.Fuente['id'],
+                                "actividad_ingre_name": ee.Actividad['Nombre'],
+                                "actividad_ingre": ee.Actividad['Id'],
+                                "valor_componente": ee.pivot['valor'],
+                                "porcentaje": ee.pivot['porcentaje'],
+                                "valor_total_ingr": ee.pivot['total'],
+                              });
+                            }
+                        });
                       });
-                    });
+                    }else{
+                 
+                      
+                        $.each(data.finanzas.actividades_funcionamiento, function(j, ee){ 
+                           if(ee.pivot['estado']==0){
+                              vector_datos_financiacion.push({
+                                "componente_name": "No aplica para rubro de funcionamiento",
+                                "componente": "1",
+                                "Fuente_ingre_name": ee.Fuente['nombre'],
+                                "Fuente_ingre": ee.Fuente['id'],
+                                "actividad_ingre_name": ee.Actividad['nombre'],
+                                "actividad_ingre": ee.Actividad['id'],
+                                "valor_componente": ee.pivot['valor'],
+                                "porcentaje": ee.pivot['porcentaje'],
+                                "valor_total_ingr": ee.pivot['total'],
+                              });
+                            }
+                        });
+                  
+                    }
+
                    verFinanciacion();
                 }
                 else
