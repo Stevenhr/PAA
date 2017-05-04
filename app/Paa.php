@@ -127,5 +127,11 @@ class Paa extends Model
         return $this->hasMany('App\Observacion','id_registro');
     }
 
+
+    public function actividadesFuncionamiento()
+    {
+        return $this->belongsToMany('\App\ActividadFuncionamiento','actividadEstudioRubro','paa_id','actividad_f_id')->withPivot('id','estado','fuentehacienda','valor','created_at','porcentaje','total');
+    }
+
     use SoftDeletes;
 }

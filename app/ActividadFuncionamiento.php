@@ -20,6 +20,11 @@ class ActividadFuncionamiento extends Model
         return $this->belongsTo('App\RubroFuncionamiento','id_rubro_funcionamiento');
     }
 
+    public function paas()
+    {
+        return $this->belongsToMany('\App\Paa','actividadEstudioRubro','actividad_f_id','paa_id')->withPivot('id','estado','fuentehacienda','valor','created_at','porcentaje','total');
+    }
+
     use SoftDeletes;
 
 }
