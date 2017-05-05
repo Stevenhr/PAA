@@ -112,8 +112,44 @@
 			        							<?php $estado="Por revisión"; ?>
 			        						@endif
 
+
+
+			        						@if ($paa['compartida']>0)
+			        							<?php $var0 = 'C'; ?>
+									        @else
+									        	<?php $var0 = ''; ?>
+									        @endif
+
+
+									        @if ($paa['vinculada']>0)
+									            <?php $var1 = 'V'; ?>
+									            <?php $var11 = $paa['vinculada']; ?>
+									        @else
+									        	<?php $var1 = ''; ?>
+									        	<?php $var11 = ''; ?>
+									        @endif
+
+									        <?php $nombrementa=""; 
+						                          $nomProyRubro="";
+						                          $Proyecto1Rubro2="";?>
+
+						                    @if ($paa['Proyecto1Rubro2']==2)
+						                           <?php 
+						                            $nomProyRubro=$paa->rubro_funcionamiento['nombre'];
+						                            $nombrementa="N.a";
+						                            $Proyecto1Rubro2="R";
+						                            ?>
+						                    @else
+						                    		<?php 
+						                            $nomProyRubro=$paa->proyecto['Nombre'];
+						                            $nombrementa=$paa->meta['Nombre'];
+						                            $Proyecto1Rubro2="P";
+						                            ?>
+						                    @endif
+
+
 			        						<th scope="row" class="text-center">{{$var}}</th>
-					                        <td><b><p class="text-info text-center">{{$paa['Registro']}}</p></b></td>
+					                        <td class="text-center"><b><p class="text-info text-center" style="font-size: 15px">{{$paa['Registro']}}<BR>{{$var0}}{{$var1}}{{$var11}}<br>{{$Proyecto1Rubro2}}</b></p></td>
 					                        <td><?php echo "<b>".$estado."</b>" ?></td>
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>
@@ -133,8 +169,8 @@
 					                        <td>{{$paa['RecursoHumano']}}</td>
 					                        <td>{{$paa['NumeroContratista']}}</td>
 					                        <td>{{$paa['DatosResponsable']}}</td>
-					                        <td>{{$paa->proyecto['Nombre']}}</td>
-					                        <td>{{$paa->meta['Nombre']}}</td>
+					                        <td>{{$nomProyRubro}}</td>
+					                        <td>{{$nombrementa}}</td>
 					                  
 					                        <td>
 					                        	
@@ -177,6 +213,9 @@
 					                @endforeach
 						        </tbody>
 						    </table>
+						    <b>C</b>= compartida   <b>V</b>= vinculada   
+						    <br>
+						    <b>P</b>= Proyecto de inversion   <b>R</b>= Rubro de funcionamiento
 					</div>
 					<div class="col-xs-12 col-md-12 ">
 		            	<br><br><br>

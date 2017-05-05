@@ -461,12 +461,15 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                             if(dato['Proyecto1Rubro2']==1){
                                nom_pro_rubr=dato.proyecto['Nombre'];
                                nom_meta=dato.meta['Nombre'];
+                               id_p_r=dato.proyecto['Id'];
                             }else if(dato['Proyecto1Rubro2']==2){
                                nom_pro_rubr=dato.rubro_funcionamiento['nombre'];
+                               id_p_r=dato.rubro_funcionamiento['id'];
                                nom_meta="Na";
                             }else{
                                nom_pro_rubr="";
                                nom_meta="";
+                               id_p_r="";
                             }
 
                              $(this).children('td').eq(0).css('background-color', 'red');
@@ -565,7 +568,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   '<td><div style="'+estilo14+'">'+dato['RecursoHumano']+'<br><input type="radio" value="'+dato['RecursoHumano']+'" name="RecursoHumano[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+estilo15+'">'+dato['NumeroContratista']+'<br><input type="radio" value="'+dato['NumeroContratista']+'" name="NumeroContratista[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+estilo16+'">'+dato['DatosResponsable']+'<br><input type="radio" value="'+dato['DatosResponsable']+'" name="DatosResponsable[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
-                                  '<td><div style="">'+nom_pro_rubr+'<br><input type="radio" value="'+dato.proyecto['Id']+'" name="Nombre_r[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
+                                  '<td><div style="">'+nom_pro_rubr+'<br><input type="radio" value="'+id_p_r+'" name="Nombre_r[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="">'+nom_meta+'<br><input type="radio" value="'+dato.meta['Id']+'" name="Meta_r[]"><label for="radio1"><span><span></span></span></label>Selecionar</div></td>',
                               ] ).draw( false );
                           num1++;
@@ -895,9 +898,33 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                             estudioComve="1";
                           }
 
+                          if (e['compartida']>0)
+                            var0 = 'C'; 
+                          else
+                            var0 = '';
+
+
+                          if (e['vinculada']>0)
+                              var1 = 'V';
+                          else
+                              var1 = '';
+
+                          nombrementa="";
+                          nomProyRubro="";
+                          Proyecto1Rubro2="";
+                          if(e['Proyecto1Rubro2']==2){
+                            nomProyRubro=e.rubro_funcionamiento['nombre'];
+                            nombrementa="N.a";
+                            Proyecto1Rubro2="R";
+                          }else{
+                            nomProyRubro=e.proyecto['Nombre'];
+                            nombrementa=e.meta['Nombre'];
+                            Proyecto1Rubro2="P";
+                          }
+
                       var $tr1 = $('<tr '+clase+'></tr>').html(
                           '<th scope="row" class="text-center">'+num+'</th>'+
-                          '<td><b><p class="text-info text-center">'+e['Registro']+'</p></b></td>'+
+                          '<td><b><p class="text-info text-center" style="font-size: 15px">'+e['Registro']+'<br>'+var0+var1+'<br>'+Proyecto1Rubro2+'</p></b></td>'+
                           '<td><b>'+estado+'</b></td>'+
                           '<td>'+e['CodigosU']+'</td>'+
                           '<td>'+e.modalidad['Nombre']+'</td>'+
@@ -917,8 +944,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td>'+e['RecursoHumano']+'</td>'+
                           '<td>'+e['NumeroContratista']+'</td>'+
                           '<td>'+e['DatosResponsable']+'</td>'+
-                          '<td>'+e.proyecto['Nombre']+'</td>'+
-                          '<td>'+e.meta['Nombre']+'</td>'+
+                          '<td>'+nomProyRubro+'</td>'+
+                          '<td>'+nombrementa+'</td>'+
                           '<td>'+
                             '<div class="btn-group tama">'+
                               '<div class="btn-group">'+

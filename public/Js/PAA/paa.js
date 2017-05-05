@@ -1770,17 +1770,20 @@ $(function()
 
                           nombrementa="";
                           nomProyRubro="";
+                          Proyecto1Rubro2="";
                           if(e['Proyecto1Rubro2']==2){
                             nomProyRubro=e.rubro_funcionamiento['nombre'];
                             nombrementa="N.a";
+                            Proyecto1Rubro2="R";
                           }else{
                             nomProyRubro=e.proyecto['Nombre'];
                             nombrementa=e.meta['Nombre'];
+                            Proyecto1Rubro2="P";
                           }
                           
                           var $tr1 =   $('<tr '+clase+'></tr>').html(
                             '<th scope="row" class="text-center">'+num+'</th>'+
-                                '<td><b><p class="text-info text-center">'+e['Registro']+'<br>'+var0+var1+'</p></b></td>'+
+                                '<td><b><p class="text-info text-center" style="font-size: 15px">'+e['Registro']+'<br>'+var0+var1+'<br>'+Proyecto1Rubro2+'</p></b></td>'+
                                 '<td><b>'+estado+'</b></td>'+
                                 '<td>'+e['CodigosU']+'</td>'+
                                 '<td>'+e.modalidad['Nombre']+'</td>'+
