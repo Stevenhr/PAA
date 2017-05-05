@@ -100,6 +100,7 @@ Route::get('/paa/service/select_paVinculada/{id}', 'PlanAnualAController@select_
 Route::post('/paa/service/fuenteComponente', 'PlanAnualAController@fuenteComponente');
 Route::post('/paa/service/PresupuestoComponente', 'PlanAnualAController@PresupuestoComponente');
 Route::get('/paa/service/select_meta/{id}', 'PlanAnualAController@select_meta');
+Route::get('/paa/service/select_rubro/{id}', 'PlanAnualAController@select_rubro');
 Route::get('/paa/service/select_meta_fuente/{id}', 'PlanAnualAController@select_meta_fuente');
 Route::get('/paa/service/select_ProyectOrubro/{id}', 'PlanAnualAController@select_ProyectOrubro');
 Route::get('/paa/service/VerFinanciamiento/{id}', 'PlanAnualAController@verFinanciacion');

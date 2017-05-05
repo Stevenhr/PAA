@@ -384,6 +384,13 @@ class PlanAnualAController extends Controller
         return response()->json(array('proyecto' =>$proyecto1,'proyectometas'=>$proyecto2 ));
     }
 
+
+    public function select_rubro(Request $request, $id)
+    {
+        $RubroFuncionamiento = RubroFuncionamiento::find($id);
+        return response()->json($RubroFuncionamiento);
+    }
+
     public function select_meta_fuente(Request $request, $id)
     {
         $FuenteProyecto = FuenteProyecto::with('fuente')->where('proyecto_id',$id)->get();

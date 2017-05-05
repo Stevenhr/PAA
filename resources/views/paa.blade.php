@@ -131,6 +131,21 @@
 									        	<?php $var11 = ''; ?>
 									        @endif
 
+									        <?php $nombrementa=""; 
+						                          $nomProyRubro="";?>
+
+						                    @if ($paa['Proyecto1Rubro2']==2)
+						                           <?php 
+						                            $nomProyRubro=$paa->rubro_funcionamiento['nombre'];
+						                            $nombrementa="N.a";
+						                            ?>
+						                    @else
+						                    		<?php 
+						                            $nomProyRubro=$paa->proyecto['Nombre'];
+						                            $nombrementa=$paa->meta['Nombre'];
+						                            ?>
+						                    @endif
+
 			        						<th scope="row" class="text-center">{{$var}}</th>
 					                        <td class="text-center"><b><p class="text-info text-center" style="font-size: 15px">{{$paa['Registro']}}<BR>{{$var0}}{{$var1}}</p>{{$var11}}</b></td>
 					                        <td><?php echo "<b>".$estado."</b>" ?></td>
@@ -150,8 +165,8 @@
 					                        <td>{{$paa['RecursoHumano']}}</td>
 					                        <td>{{$paa['NumeroContratista']}}</td>
 					                        <td>{{$paa['DatosResponsable']}}</td>
-					                        <td>{{$paa->proyecto['Nombre']}}</td>
-					                        <td>{{$paa->meta['Nombre']}}</td>
+					                        <td>{{$nomProyRubro}}</td>
+					                        <td>{{$nombrementa}}</td>
 					                  
 					                        <td>
 												<!--

@@ -447,6 +447,28 @@ $(function()
         });
     };
 
+    var select_Rubro = function(id)
+    { 
+        $.ajax({
+            url: URL+'/service/select_rubro/'+id,
+
+
+            data: {},
+            dataType: 'json',
+            success: function(e)
+            {
+                var html = '';
+                html += '<option value="'+e['id']+'" selected="selected">'+e['nombre'].toLowerCase()+'</option>';
+                $('select[name="Proyecto_inversion"]').html(html);
+                $('#Proyecto_inversion').prop("disabled",true);
+
+                var html1 ='<option value="1">N.A</option>';
+                $('select[name="meta"]').html(html1);
+                $('#meta').prop("disabled",true);
+            }
+        });
+    };
+
     $('select[name="Fuente_inversion"]').on('change', function(e){
         select_fuente($(this).val());
     });
@@ -1605,7 +1627,9 @@ $(function()
 
         //$('select[name="Proyecto_inversion"]').val(datos['Id_Proyecto']).closest('.form-group').removeClass('has-error'); 
         if(datos['Proyecto1Rubro2']==1)//Proyecto
-        select_Meta2(datos['Id_Proyecto'],datos['MetaPlan']);
+          select_Meta2(datos['Id_Proyecto'],datos['MetaPlan']);
+        else
+          select_Rubro(datos['Id_Rubro']);
         //$('select[name="meta"]').val(datos['MetaPlan']).closest('.form-group').removeClass('has-error'); 
         //$('select[name="Id_Localidad"]').val(datos['Localidad']).change();
 
@@ -1618,7 +1642,7 @@ $(function()
           {
             var num=1;
             $.each(vector_datos_codigos, function(i, e){
-              html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['codigo']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarCod" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+              html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['codigo']+'</td><td></td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarCod" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
               num++;
             });
           }
@@ -1744,9 +1768,14 @@ $(function()
                           else
                               var1 = '';
 
-                          $nombrementa="";
-                          if(e.meta){
-                            $nombrementa=e.meta['Nombre'];
+                          nombrementa="";
+                          nomProyRubro="";
+                          if(e['Proyecto1Rubro2']==2){
+                            nomProyRubro=e.rubro_funcionamiento['nombre'];
+                            nombrementa="N.a";
+                          }else{
+                            nomProyRubro=e.proyecto['Nombre'];
+                            nombrementa=e.meta['Nombre'];
                           }
                           
                           var $tr1 =   $('<tr '+clase+'></tr>').html(
@@ -1768,8 +1797,8 @@ $(function()
                                 '<td>'+e['RecursoHumano']+'</td>'+
                                 '<td>'+e['NumeroContratista']+'</td>'+
                                 '<td>'+e['DatosResponsable']+'</td>'+
-                                '<td>'+e.proyecto['Nombre']+'</td>'+
-                                '<td>'+$nombrementa+'</td>'+
+                                '<td>'+nomProyRubro+'</td>'+
+                                '<td>'+nombrementa+'</td>'+
                                 '<td>'+
                                   '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+
                                     '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>'+
