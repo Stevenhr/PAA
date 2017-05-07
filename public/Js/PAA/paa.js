@@ -388,6 +388,8 @@ $(function()
 
     var select_Meta = function(id)
     { 
+
+      if($('select[name="ProyectOrubro"]').val()!=2){
         $.ajax({
             url: URL+'/service/select_meta_fuente/'+id,
             data: {},
@@ -409,6 +411,7 @@ $(function()
                 $('select[name="Fuente_inversion"]').html(html2).val($('select[name="Fuente_inversion"]').data('value'));
             }
         });
+      }
     };
 
     var select_Meta2 = function(id,id_meta)

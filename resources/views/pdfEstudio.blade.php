@@ -636,6 +636,8 @@
 			<TD ALIGN=LEFT><BR></TD>
 		</TR>
 		<?php /**/ $var = 0; ?>
+
+	@if($RubroPryecto==1)
 		@foreach($finanzas as $finanza)
 			@foreach($finanza->actividades as &$actividad)
 			<TR>
@@ -666,7 +668,39 @@
 			</TR>
 			@endforeach
 		@endforeach
+	@else
+			@if($finanzas->actividadesFuncionamiento)
+			@foreach($finanzas->actividadesFuncionamiento as &$actividad)
+			<TR>
+			<TD HEIGHT=auto ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
+			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
+			
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px; " COLSPAN=2 VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=5 COLOR="#000000">{{$actividad->rubrofuncionamiento['codigo']}} - {{$actividad->rubrofuncionamiento['nombre']}}</FONT></TD>
 
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=5 COLOR="#000000">N.A</FONT></TD>	
+			
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=3 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF">
+			<FONT SIZE=5 COLOR="#000000">{{$actividad['nombre']}} - ${{$actividad->pivot['porcentaje']}}%</FONT>
+			</TD>
+
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;"  COLSPAN=3 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=5 COLOR="#000000">N.A</FONT></TD>
+
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=5 COLOR="#000000">{{$actividad->Fuente['nombre']}}</FONT></TD>
+
+
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=5 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=5 COLOR="#000000">Otros Distrito</FONT></TD>
+
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;[$$-240A] #,##0"><FONT SIZE=4 COLOR="#000000">${{number_format ($actividad->pivot['valor'])}}</FONT></TD>
+
+			<?php /**/ $var = $var+$actividad->pivot['valor'] /**/ ?>
+			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"></TD>
+
+			<TD ALIGN=LEFT></TD>
+			</TR>
+			@endforeach
+			@endif
+		
+	@endif
 			<TR>
 				<TD HEIGHT=auto ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 				<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
@@ -675,7 +709,7 @@
 
 				<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=15 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"></TD>
 
-				<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;[$$-240A] #,##0"><FONT SIZE=5 COLOR="#000000">${{$var}}</FONT></TD>
+				<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;[$$-240A] #,##0"><FONT SIZE=5 COLOR="#000000">${{number_format($var)}}</FONT></TD>
 
 				<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"></TD>
 

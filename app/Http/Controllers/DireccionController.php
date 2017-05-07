@@ -20,6 +20,7 @@ use Idrd\Usuarios\Repo\PersonaInterface;
 use App\Persona;
 use App\Datos;
 use App\PersonaPaa;
+use App\ActividadFuncionamiento;
 
 class DireccionController extends BaseController 
 {
@@ -162,16 +163,31 @@ class DireccionController extends BaseController
     		$id=$request->input('id_paa_estudio_f');
 
     		$EstudioConveniencias =  EstudioConveniencia::find($id);
-	        $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes','proyecto')->find($id);
-	        $finanzas = ActividadComponente::with('actividades','actividades.meta','componente.fuente')->where('id_paa',$id)->get();
+	        $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes','proyecto','rubro_funcionamiento','rubro_funcionamiento.actividadesfuncionamiento')->find($id);
+	       
 	        
 	        $subdireccion = Subdireccion::with('areas')->find($this->Usuario['Id_SubDireccion']);
 
-	        
-	        foreach ($finanzas as $finanza) {
-	                $finanza->Componente = Componente::find($finanza['componente_id']);
-	            foreach ($finanza->actividades as &$actividad){
-	                $actividad->Actividad = Actividad::find($actividad->pivot['actividad_id']);
+
+	        if($paa['Proyecto1Rubro2']==1)
+	        {
+	             $finanzas = ActividadComponente::with('actividades','actividades.meta','componente.fuente')->where('id_paa',$id)->get();
+	            foreach ($finanzas as $finanza) 
+	            {
+	                    $finanza->Componente = Componente::find($finanza['componente_id']);
+	                foreach ($finanza->actividades as &$actividad)
+	                {
+	                    $actividad->Actividad = Actividad::find($actividad->pivot['actividad_id']);
+	                    $actividad->Fuente = FuenteHacienda::find($actividad->pivot['fuentehacienda']);
+	                }
+	            }
+	        }
+	        else
+	        {
+	            $finanzas = Paa::with('actividadesFuncionamiento')->find($id);
+	            foreach ($finanzas->actividadesFuncionamiento as &$actividad)
+	            {
+	                $actividad->Actividad = ActividadFuncionamiento::find($actividad->pivot['actividad_f_id']);
 	                $actividad->Fuente = FuenteHacienda::find($actividad->pivot['fuentehacienda']);
 	            }
 	        }
@@ -181,14 +197,16 @@ class DireccionController extends BaseController
 	            'EstudioConveniencias' => $EstudioConveniencias,
 	            'paas' => $paa,
 	            'finanzas' =>$finanzas,
-	            'subdireccion'=>$subdireccion
+	            'subdireccion'=>$subdireccion,
+	            'RubroPryecto'=>$paa['Proyecto1Rubro2']
 	        ];
-
+	        
 	        $view =  view('pdfEstudio',$datos)->render();
-	        //return $view;
-	        //exit();
-	        $pdf = PDF::loadHTML($view);
-	        return $pdf->setPaper(array(0,0,1800,2620), 'portrait')->download('Estudio_'.$paa['Id'].'.pdf');
+
+	        return $view;
+	        exit();
+	        //$pdf = PDF::loadHTML($view);
+	        //return $pdf->setPaper(array(0,0,1800,2620), 'portrait')->download('Estudio_'.$paa['Id'].'.pdf');
 
     }
 
