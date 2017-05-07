@@ -136,9 +136,9 @@
 				                        <td>{{$paa->modalidad['Nombre']}}</td>
 				                        <td>{{$paa->tipocontrato['Nombre']}}</td>
 				                        <td><div style="width:500px;text-align: justify; height: 100px; overflow-y: scroll;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); padding: 10px">'{{$paa['ObjetoContractual']}}</div></td>
-				                        <td>{{$paa['ValorEstimado']}}</td>
+				                        <td>{{number_format ($paa['ValorEstimado'])}}</td>
 				                        <td>{{$paa['DuracionContrato']}}</td>
-				                        <td>{{$paa['ValorEstimadoVigencia']}}</td>
+				                        <td>{{number_format ($paa['ValorEstimadoVigencia'])}}</td>
 				                        <td>{{$paa['VigenciaFutura']}}</td>
 				                        <td>{{$paa['EstadoVigenciaFutura']}}</td>
 				                        <td>{{ substr($paa['FechaEstudioConveniencia'], 0, 10) }}</td>

@@ -203,10 +203,10 @@ class DireccionController extends BaseController
 	        
 	        $view =  view('pdfEstudio',$datos)->render();
 
-	        return $view;
-	        exit();
-	        //$pdf = PDF::loadHTML($view);
-	        //return $pdf->setPaper(array(0,0,1800,2620), 'portrait')->download('Estudio_'.$paa['Id'].'.pdf');
+	        //return $view;
+	        //exit();
+	        $pdf = PDF::loadHTML($view);
+	        return $pdf->setPaper(array(0,0,1800,2620), 'portrait')->download('Estudio_'.$paa['Id'].'.pdf');
 
     }
 
