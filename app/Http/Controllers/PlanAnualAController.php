@@ -416,15 +416,17 @@ class PlanAnualAController extends Controller
 
         $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente')->where('id_paa',$id)->get();
         $model_A = Paa::with('componentes','componentes.fuente')->find($id);
+        $RubroFuncionamiento = RubroFuncionamiento::find($model_A['Id_Rubro']);
+        $RubroFuncionamiento1 = RubroFuncionamiento::all();
         //dd($model_A);
         //exit();
         $Proyecto = Proyecto::with('fuente')->find($model_A['Id_Proyecto']);
-        return response()->json(array('estado' => $model_A['Estado'],'proyecto'=>$Proyecto, 'ActividadComponente'=>$ActividadComponente) );
+        return response()->json(array('estado' => $model_A['Estado'],'proyecto'=>$Proyecto, 'ActividadComponente'=>$ActividadComponente,'Rubro'=>$RubroFuncionamiento,'Modelo'=>$model_A, 'rubros_all'=>$RubroFuncionamiento1) );
     }
 
-     public function EliminarFinanciamiento(Request $request)
+    public function EliminarFinanciamiento(Request $request)
     {
- 
+
         $id=$request['id'];
         $id_eli=$request['id_eli'];
 
@@ -437,7 +439,6 @@ class PlanAnualAController extends Controller
         //  $paa->componentes()->detach($request['id_eli']);
         //$paa->componentes()->newPivotStatementForId($request['id_eli'])->whereid($request['id_key'])->delete();
         //$model_A = Paa::with('componentes','componentes.fuente')->find($id);
-
         return response()->json(array('ActividadComponente'=>$ActividadComponente, 'paa'=>$paa));
     }
 
@@ -516,6 +517,27 @@ class PlanAnualAController extends Controller
         
         $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente')->where('id_paa',$id)->get();
         return response()->json(array('status' => $estado, 'errors' => $validator->errors(),'ActividadComponente'=>$ActividadComponente));
+    }
+
+    public function agregar_rubro(Request $request)
+    {   
+        $validator = Validator::make($request->all(),
+            [
+                'Fuente_inversion' =>'required',
+            ]
+        );
+
+        if ($validator->fails())
+        return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+
+
+        $id=$request['id_act_agre'];
+        $paa = Paa::find($id);
+        $paa['Id_Rubro']= $request['Fuente_inversion'];
+        $paa->save();
+        $RubroFuncionamiento = RubroFuncionamiento::find($paa['Id_Rubro']);
+        return response()->json(array('Rubro'=>$RubroFuncionamiento));
+        
     }
 
     public function agregar_estudio(Request $request)

@@ -592,7 +592,7 @@
 						<thead>
 						<tr>
 						<th>#</th>
-						<th>Proyecto</th>
+						<th>Proyecto/Rubro</th>
 						<th>Fuente</th>
 						<th>Componente</th>
 						<th>Valor</th>
@@ -614,7 +614,7 @@
 			<div class="row"  >
 				<div class="col-xs-12 col-sm-12">
 				  		<div class="form-group">
-					    	<label>Fuente</label>
+					    	<label id="fuenPproy">Fuente</label>
 					    	<input type="hidden" name="id_act_agre" id="id_act_agre"></input>
 							<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
 								<option value="" >Selecionar</option>
@@ -641,6 +641,7 @@
 				  	<div class="form-group">
 					  		<label>Valor</label>
 							<input type="text" class="form-control" name="valor_contrato" autocomplete="off">
+							<input type="hidden" class="form-control" name="proyectorubro" autocomplete="off">
 					</div>
 					<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza">Agregar Financiación</button>
 				  </div>
