@@ -472,7 +472,8 @@ $(function()
 
     $('select[name="Fuente_inversion"]').on('change', function(e){
         var com=$('input[name="proyectorubro"]').val();
-        if(com==1)
+        console.log(com);
+        if(com!=2)
         select_fuente($(this).val());
     });
 
@@ -857,7 +858,7 @@ $(function()
         $('#Proyecto_inversion').prop("disabled",false);
         $('#meta').prop("disabled",false);  
 
-
+        $('input[name="proyectorubro"]').val('');
         $('#div_finaciacion').show();
         $('#crear_paa_btn').html("CREAR");
         $('.mjs_componente').html('');
