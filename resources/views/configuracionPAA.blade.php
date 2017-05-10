@@ -340,7 +340,7 @@
 				        <div class="row" >
 				        	<div class="col-xs-12 col-md-3 text-">
 						    	<div class="form-group">	
-						    		<label>Codigo</label>
+						    		<label>Código</label>
 									<input type="text" class="form-control" name="codigo_proyecto">
 								</div>
 			        		</div>
@@ -889,7 +889,7 @@
 						<div class="row" >
 							<div class="col-xs-12 col-md-4">
 			        			<div class="form-group">
-			        				<label>Codigo</label>
+			        				<label>Código</label>
 									<input type="text" class="form-control precio" name="codigo_componente_crear">
 								</div>
 			        		</div>
@@ -949,7 +949,7 @@
 								        <thead>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Codigo</th>
+								                <th>Código</th>
 								                <th>Componente</th>
 								                <th>Opción</th>
 								            </tr>
@@ -957,7 +957,7 @@
 								        <tfoot>
 								            <tr>
 								            	<th class="text-center">N°</th>
-								                <th>Codigo</th>
+								                <th>Código</th>
 								                <th>Componente</th>
 								                <th>Opción</th>
 								            </tr>
@@ -1012,7 +1012,7 @@
 						<div class="row" >
 							<div class="col-xs-12 col-md-4">
 			        			<div class="form-group">
-			        				<label>Codigo</label>
+			        				<label>Código</label>
 									<input type="text" class="form-control precio" name="codigo_fuente_crear">
 								</div>
 			        		</div>
@@ -1060,7 +1060,7 @@
 								        <thead>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Codigo</th>
+								                <th>Código</th>
 								                <th>Fuente</th>
 								                <th>Valor</th>
 								                <th>Opción</th>
@@ -1069,7 +1069,7 @@
 								        <tfoot>
 								            <tr>
 								            	<th class="text-center">N°</th>
-								                <th>Codigo</th>
+								                <th>Código</th>
 								                <th>Fuente</th>
 								                <th>Valor</th>
 								                <th>Opción</th>
@@ -1124,7 +1124,7 @@
 				        <div class="row" >
 				        	<div class="col-xs-12 col-md-3 text-">
 						    	<div class="form-group">	
-						    		<label>Codigo</label>
+						    		<label>Código</label>
 									<input type="text" class="form-control" name="codigo_rubro_funciona">
 								</div>
 			        		</div>
@@ -1191,7 +1191,7 @@
 								        <thead>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Codigo</th>
+								                <th>Código</th>
 								                <th>Rubro</th>
 								                <th>Fecha inicial de implementación</th>
 								                <th>Fecha final de implementación</th>
@@ -1202,7 +1202,7 @@
 								        <tfoot>
 								            <tr>
 								                <th class="text-center">N°</th>
-								                <th>Codigo</th>
+								                <th>Código</th>
 								                <th>Rubro</th>
 								                <th>Fecha inicial de implementación</th>
 								                <th>Fecha final de implementación</th>

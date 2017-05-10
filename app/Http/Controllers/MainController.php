@@ -125,6 +125,8 @@ class MainController extends Controller {
 				$_SESSION['Usuario'] = '';
 		}
 
+
+
 		if ($_SESSION['Usuario'] == '')
 			return redirect()->away('http://www.idrd.gov.co/SIM/Presentacion/');
 
@@ -133,9 +135,10 @@ class MainController extends Controller {
 
 	public function logout()
 	{
+	//dd($_SESSION['Usuario']);
 		$_SESSION['Usuario'] = '';
-		Session::set('Usuario', ''); 
-
+		session_destroy();
 		return redirect()->to('/');
 	}
+
 }

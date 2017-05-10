@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Redirect;
 use App\ModalidadSeleccion;
 use App\TipoContrato;
 use App\Componente;
@@ -40,4 +41,12 @@ class GeneralController extends Controller
 
 		return view('paa_general',$datos);
 	}
+
+    public function salir()
+    {
+        //Desconctamos al usuario
+        session_destroy();
+        //Redireccionamos al inicio de la app con un mensaje
+        return Redirect::to('/')->with('msg', 'Gracias por visitarnos!.');
+    }
 }

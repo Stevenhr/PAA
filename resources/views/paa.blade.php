@@ -48,7 +48,7 @@
 										<th>Fecha estimada de inicio de <br>proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 										<th>Fecha suscripción <br>Contrato (dd/mm/aaaa)	</th>
 										<th>Recurso Humano (Si / No)</th>
-										<th>Numero de Contratistas	</th>
+										<th>Número de Contratistas	</th>
 										<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 										<th>Proyecto de inversión o rubro de funcionamiento</th>
 										<th>Meta plan	</th>
@@ -74,7 +74,7 @@
 										<th>Fecha estimada de inicio de <br>proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 										<th>Fecha suscripción <br>Contrato (dd/mm/aaaa)	</th>
 										<th>Recurso Humano (Si / No)</th>
-										<th>Numero de Contratistas	</th>
+										<th>Número de Contratistas	</th>
 										<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 										<th>Proyecto de inversión o rubro de funcionamiento</th>
 										<th>Meta plan	</th>
@@ -224,7 +224,7 @@
 						    </table>
 						    <b>C</b>= compartida   <b>V</b>= vinculada   
 						    <br>
-						    <b>P</b>= Proyecto de inversion   <b>R</b>= Rubro de funcionamiento
+						    <b>P</b>= Proyecto de inversión   <b>R</b>= Rubro de funcionamiento
 					</div>
 					<div class="col-xs-12 col-md-12 ">
 		            	<br><br><br>
@@ -414,7 +414,7 @@
 				<div class="row">
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					    	<label>Numero de Contratistas</label><br><br>
+					    	<label>Número de Contratistas</label><br><br>
 							<input type="text" class="form-control" name="numero_contratista" autocomplete="off">
 						</div>
 				  </div>
@@ -701,7 +701,7 @@
 												<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
 												<th>Duración estimada del contrato (meses)	</th>
 												<th>Recurso Humano (Si / No)</th>
-												<th>Numero de Contratistas	</th>
+												<th>Número de Contratistas	</th>
 												<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 												<th>Proyecto de inversión o rubro de funcionamiento</th>
 												<th>Meta plan	</th>
@@ -744,7 +744,7 @@
 												<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
 												<th>Duración estimada del contrato (meses)	</th>			
 												<th>Recurso Humano (Si / No)</th>
-												<th>Numero de Contratistas	</th>
+												<th>Número de Contratistas	</th>
 												<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 												<th>Proyecto de inversión o rubro de funcionamiento</th>
 												<th>Meta plan	</th>
@@ -764,7 +764,7 @@
 						  <!-- Default panel contents -->
 							<div class="panel-heading">Registros pendientes por aprobación</div>
 							<div class="panel-body">
-							    <p>Los siguientes registros estan pedintes de aprobación.</p>
+							    <p>Los siguientes registros están pendientes de aprobación.</p>
 							</div>	
 							<div class="table-responsive"> 
 						  		<table  id="Tabla3" class="display nowrap table-bordered" width="780px" cellspacing="0">
@@ -785,7 +785,7 @@
 											<th>Fecha suscripción Contrato (dd/mm/aaaa)</th>
 											<th>Duración estimada del contrato (meses)</th>
 											<th>Recurso Humano (Si / No)</th>
-											<th>Numero de Contratistas</th>
+											<th>Número de Contratistas</th>
 											<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 											<th>Proyecto de inversión o rubro de funcionamiento</th>
 											<th>Meta plan	</th>
@@ -887,7 +887,7 @@
 												<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
 												<th>Duración estimada del contrato (meses)	</th>
 												<th >Recurso Humano (Si / No)</th>
-												<th>Numero de Contratistas	</th>
+												<th>Número de Contratistas	</th>
 												<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 												<th>Proyecto de inversión o rubro de funcionamiento</th>
 												<th>Meta plan	</th>
@@ -910,7 +910,7 @@
 												<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
 												<th>Duración estimada del contrato (meses)	</th>
 												<th >Recurso Humano (Si / No)</th>
-												<th>Numero de Contratistas	</th>
+												<th>Número de Contratistas	</th>
 												<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 												<th>Proyecto de inversión o rubro de funcionamiento</th>
 												<th>Meta plan</th>

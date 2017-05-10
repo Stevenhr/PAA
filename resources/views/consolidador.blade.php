@@ -215,7 +215,7 @@
 						    </table>
 						    <b>C</b>= compartida   <b>V</b>= vinculada   
 						    <br>
-						    <b>P</b>= Proyecto de inversion   <b>R</b>= Rubro de funcionamiento
+						    <b>P</b>= Proyecto de inversión   <b>R</b>= Rubro de funcionamiento
 					</div>
 					<div class="col-xs-12 col-md-12 ">
 		            	<br><br><br>
@@ -658,11 +658,11 @@
 					<div class="col-xs-12 col-sm-12">
 						<div class="panel panel-danger">
 						  <!-- Default panel contents -->
-							<div class="panel-heading">Registros pendientes por revision</div>
+							<div class="panel-heading">Registros pendientes por revisión</div>
 							<div class="panel-body">
-							    <p>Los siguientes registros estan pedintes de revision.</p>
-							</div>	
-							<div class="table-responsive"> 
+							    <p>Los siguientes registros están pendientes de revisión.</p>
+							</div>
+							<div class="table-responsive">
 						  		<table  id="Tabla3" class="table display nowrap table-bordered" width="780px" cellspacing="0">
 							        <thead>
 										<tr class="success">

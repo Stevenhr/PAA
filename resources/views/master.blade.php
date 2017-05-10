@@ -144,7 +144,7 @@
 
             <ul class="nav navbar-nav navbar-right">
               <li><a href="http://www.idrd.gov.co/sitio/idrd/" target="_blank">I.D.R.D</a></li>
-              <li><a href="#" target="_blank">Cerrar Sesión</a></li>
+              <li class=”{{ Request::is( 'logout') ? 'active' : '' }}”><a href="{{ URL::to( 'logout') }}">Cerrar Sesión</a></li>
             </ul>
 
           </div>
