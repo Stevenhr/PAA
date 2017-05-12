@@ -3388,7 +3388,8 @@ $(function()
             success: function(data)
             {
                 if(data){
-                    $('#id_proyect_fina_c').val(data['proyecto_id']); 
+                    //console.log(data.fuenteproyecto['proyecto_id']);
+                    $('#id_proyect_fina_c').val(data.fuenteproyecto['proyecto_id']); 
                     $('#id_finanza_fuenteCompoente_crear').val(data['id']);
                     $('#id_componente_finza_f').val(data['fuente_id']);
                     $('#id_componente_finza_c').val(data['componente_id']);
@@ -3460,7 +3461,7 @@ $(function()
                             setTimeout(function(){
                                 $('#mjs_registroFinanza_fuente_componente').hide();
                             }, 3000)
-                          }else if(data.upd==6){
+                          }else if(data.upd==6){ 
                             $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-danger"><center><strong>Valor Excedido!! </strong>El valor ingresado es mayor a la disponibilidad de esta fuente.</center></div>');
                             $('#mjs_registroFinanza_fuente_componente').show();
                             setTimeout(function(){

@@ -1340,7 +1340,7 @@ class PaaController extends Controller
 		$valor_f_c=str_replace('.', '', $input['valor_componente_proyecto']);
 
 		$valorSumFC=0;
-		$Presupuestado=Presupuestado::where('fuente_id',$fuente_f_c)->get();
+		$Presupuestado=Presupuestado::where('fuente_proyecto_id',$fuente_f_c)->get();
 		foreach ($Presupuestado as $value) {
 			if($value['componente_id']!=$compoennte_f_c)
 			$valorSumFC=$valorSumFC+$value['valor'];
@@ -1349,7 +1349,7 @@ class PaaController extends Controller
 		$FuenteProyecto=FuenteProyecto::find($fuente_f_c);
 	
 		if($FuenteProyecto->count()>0)
-			$Sum_Proye_fuente=$FuenteProyecto->sum('valor');
+			$Sum_Proye_fuente=$FuenteProyecto['valor'];
 		else
 			$Sum_Proye_fuente=0;
 		
@@ -1369,13 +1369,15 @@ class PaaController extends Controller
 		}
 		else
 		{	
+			
 			$presu = Presupuestado::find($id);
 			$presu['valor']=$valor_f_c;
 			$presu->save();
-	      	
-	      	$Proyecto = Proyecto::with('fuente')->find($proyecto_f_c);
-			$presupuestado = Presupuestado::with('componente','fuente')->where('proyecto_id',$proyecto_f_c)->get(); //Cambiar a fuentes
-			return response()->json(array('status' => 'modelo', 'presupuestado' => $presupuestado,'proyecto'=>$Proyecto,'upd'=>1));	
+	 
+			$Proyecto = Proyecto::with('fuente')->find($proyecto_f_c);
+			$FuenteProyecto = FuenteProyecto::with('presupuestados','fuente','presupuestados.componente_c')->where('proyecto_id',$proyecto_f_c)->get();
+				//$presupuestado = Presupuestado::with('componente','fuente')->where('proyecto_id',$id)->get(); //Cambiar a fuentes
+			return response()->json(array('status' => 'modelo', 'FuenteProyecto' => $FuenteProyecto,'proyecto'=>$Proyecto,'upd'=>1,'valor_disponible'=>$valor_dispo-$valor_f_c));	
 		}
 	}
 
@@ -1392,20 +1394,24 @@ class PaaController extends Controller
 
 		$valorSumFC=0;
 		$Presupuestado=Presupuestado::where('fuente_proyecto_id',$fuente_f_c)->get();
-		foreach ($Presupuestado as $value) {
+		foreach ($Presupuestado as $value)
+		{
 			$valorSumFC=$valorSumFC+$value['valor'];
 		}
 
 
 		$FuenteProyecto=FuenteProyecto::find($fuente_f_c);
-	
+		$Sum_Proye_fuente=0;
+
 		if($FuenteProyecto->count()>0)
-			$Sum_Proye_fuente=$FuenteProyecto->sum('valor');
+			$Sum_Proye_fuente=$FuenteProyecto['valor'];
 		else
 			$Sum_Proye_fuente=0;
 
 		$valor_dispo=$Sum_Proye_fuente-$valorSumFC;
-
+		
+		//dd($valor_dispo." - ".$Sum_Proye_fuente." - ".$valorSumFC." - ".$FuenteProyecto);
+		
 		if($Presupuestado_1->count()>0)
 		{
 			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>2));
@@ -1480,7 +1486,7 @@ class PaaController extends Controller
 	public function modificarFuenteProyectoCompoente(Request $request)
 	{
 		$id_p=$request['idPresupuestado'];
-		$presu = Presupuestado::find($id_p);
+		$presu = Presupuestado::with('fuenteproyecto')->find($id_p);
 		return response()->json($presu);
 	}
 
