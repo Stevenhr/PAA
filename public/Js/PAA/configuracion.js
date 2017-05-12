@@ -3304,9 +3304,11 @@ $(function()
               $.each(data.FuenteProyecto, function(i, e){
                   if(e.presupuestados.length){
                      $.each(e.presupuestados, function(i, ee){
-                      var $tr1 = tabla_presupuestado(e,ee,num); 
-                      Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
-                      num++;
+
+                          var $tr1 = tabla_presupuestado(e,ee,num); 
+                          Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
+                          num++;
+                      
                      });
                   }   
               });
@@ -3361,9 +3363,11 @@ $(function()
                       $.each(data.FuenteProyecto, function(i, e){
                           if(e.presupuestados.length){
                              $.each(e.presupuestados, function(i, ee){
-                              var $tr1 = tabla_presupuestado(e,ee,num); 
-                              Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
-                              num++;
+                              if(ee.length){
+                                  var $tr1 = tabla_presupuestado(e,ee,num); 
+                                  Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
+                                  num++;
+                              }
                              });
                           }   
                       });
@@ -3473,9 +3477,11 @@ $(function()
                                   $.each(data.FuenteProyecto, function(i, e){
                                       if(e.presupuestados.length){
                                          $.each(e.presupuestados, function(i, ee){
-                                          var $tr1 = tabla_presupuestado(e,ee,num); 
-                                          Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
-                                          num++;
+                                           
+                                              var $tr1 = tabla_presupuestado(e,ee,num); 
+                                              Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
+                                              num++;
+                                            
                                          });
                                       }   
                                   });

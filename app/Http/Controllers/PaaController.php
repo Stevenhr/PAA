@@ -998,13 +998,19 @@ class PaaController extends Controller
 
 	public function eliminar_componente_crear(Request $request, $id)
 	{
+		
+
 		$Componente = Componente::with('actividadescomponetes')->whereHas('actividadescomponetes', function($q) use ($id)
 		{
 		    $q->where('componente_id', '=', $id);
 
 		})->get();
 
-		if(count($Componente)>0){
+		$Presupuestado=Presupuestado::where('componente_id',$id)->get();
+
+		if(count($Presupuestado)>0){
+			return response()->json(array('status' => 'error', 'datos' => $Componente));
+		}else if(count($Componente)>0){
 			return response()->json(array('status' => 'error', 'datos' => $Componente));
 		}
 		else
@@ -1093,9 +1099,13 @@ class PaaController extends Controller
 		    $q->where('fuente_id', '=', $id);
 
 		})->get();
+
+		$FuenteProyecto = FuenteProyecto::where('fuente_id',$id)->get();
 		
 
-		if(count($Fuente)>0){
+		if(count($FuenteProyecto)>0){
+			return response()->json(array('status' => 'error', 'datos' => $Fuente));
+		}else if(count($Fuente)>0){
 			return response()->json(array('status' => 'error', 'datos' => $Fuente));
 		}
 		else
