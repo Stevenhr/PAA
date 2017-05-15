@@ -41,8 +41,8 @@ class CecopController extends Controller
 
 	public function descargarInformeCecop(Request $request)
     {
-		$paas = Paa::with('modalidad', 'tipocontrato', 'rubro','componentes.fuente')
-					->whereIn('Estado', [Estado::Subdireccion, Estado::Aprobado, Estado::Rechazado, Estado::Cancelado,Estado::EstudioConveniencia,Estado::EstudioAprobado,Estado::EstudioCorregido,Estado::EstudioCancelado])
+		$paas = Paa::with('modalidad', 'tipocontrato', 'rubro','componentes.fuente','area.subdirecion')
+					/*->whereIn('Estado', [Estado::Subdireccion, Estado::Aprobado, Estado::Rechazado, Estado::Cancelado,Estado::EstudioConveniencia,Estado::EstudioAprobado,Estado::EstudioCorregido,Estado::EstudioCancelado])*/
 					->orderBy('id')
 					->get();
 

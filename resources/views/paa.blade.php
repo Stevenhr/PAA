@@ -359,10 +359,10 @@
 				  		<div class="form-group">
 					    	<label>Estado de solicitud de vigencias futuras </label><br><br>
 							<select class="form-control" name="estado_solicitud">
-								<option value="">Seleccionar</option>
-								<option value="NO SOLICITADAS">NO SOLICITADAS</option>
-								<option value="SI SOLICITADAS">SI SOLICITADAS</option>
-								<option value="N/A">N/A</option>
+								<option value="0">N/A</option>
+								<option value="1">NO SOLICITADAS</option>
+								<option value="2">SOLICITADAS</option>
+								<option value="3">APROBADAS</option>
 							</select>
 						</div>
 				  </div>
