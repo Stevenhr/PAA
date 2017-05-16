@@ -11,8 +11,8 @@
 	<div class="row">
 
         <div class="col-xs-12 col-md-12 text-">
-        <h3>Generacion Informe CECOP:</h3>
-        <p>Historial y generación de informes de cecop.</p>
+        <h3>Generacion Informe SECOP:</h3>
+        <p>Historial y generación de informes de secop.</p>
 	    	<div class="form-group">	
 				<div class="btn-group" role="group" aria-label="...">
 				  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Modal_AgregarNuevoCecop" id="Btn_Agregar_Nuevo">
@@ -77,14 +77,14 @@
 
 
 
-<!-- MODAL GENERACION CECOP-->
+<!-- MODAL GENERACION SECOP-->
 
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_AgregarNuevoCecop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Generación informe Cecop</h4>
+        <h4 class="modal-title" id="myModalLabel">Generación informe secop</h4>
       </div>
      
 	      <div class="modal-body">
@@ -92,9 +92,9 @@
 						<div class="col-xs-12 col-sm-12">
 							<div class="panel panel-warning">
 							  <!-- Default panel contents -->
-								<div class="panel-heading">Procedimiento Informe Cecop <label class="NumPaa"></label></div>
+								<div class="panel-heading">Procedimiento Informe secop <label class="NumPaa"></label></div>
 								<div class="panel-body">
-								    <p>En el momento que se genera el informe se crea un registro en la tabla historial, aqui usted debera ingresar el codigo que recibe del sistema Cecop y ademas subir archivo que envio a este sistema.</p>
+								    <p>En el momento que se genera el informe se crea un registro en la tabla historial, aqui usted debera ingresar el codigo que recibe del sistema secop y ademas subir archivo que envio a este sistema.</p>
 								    <form action="informececop" >
 								    <input type="hidden" name="id_paa_estudio_f" id="id_paa_estudio_f" value="1"/>
 								    <div class="text-center"><button type="submit" id="aprobacion_Sub_Direccion" class="btn btn-success">Generar Informe</button></div>
