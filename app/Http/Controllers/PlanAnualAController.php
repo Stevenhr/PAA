@@ -283,7 +283,7 @@ class PlanAnualAController extends Controller
        
 
         $paa = Paa::with('modalidad','tipocontrato','rubro_funcionamiento','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
-        $persona = $this->repositorio_personas->obtener($model->IdPersona);
+        $persona = $this->repositorio_personas->obtener($_SESSION['Id_Persona']);
         $area=Area::find($id_area_def);
 
         
@@ -319,12 +319,12 @@ class PlanAnualAController extends Controller
             }
         }
 
-        
+        //var_dump($emails);
         if(!empty($emails))
         {
-            dd($emails);
+            //dd($emails);
             Mail::send('mail', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
-                $m->from('no-reply@paa.com', $mensaje);
+                $m->from('no-reply_Paa@idrd.gov.co', $mensaje);
 
                 $m->to($emails, 'Estevenhr')->subject($mensaje."!");
             });

@@ -118,7 +118,7 @@ class DireccionController extends BaseController
 	        }
 	        $mensaje="PAA ID. ".$id.": Plan Aprobado!, aprobado por la Sub Dirección.";
 	        Mail::send('mailSubDirecc', ['mensaje'=>$mensaje,'personaOperativo'=>$personaOperativo,'personaSubDirecc'=>$personaSubDirecc,'area'=>$area], function ($m) use ($mensaje,$emails)  {
-	            $m->from('no-reply@paa.com', $mensaje);
+	            $m->from('no-reply_Paa@idrd.gov.co', $mensaje);
 
 	            $m->to($emails, 'Estevenhr')->subject($mensaje."!");
 	        });

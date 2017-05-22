@@ -110,13 +110,13 @@ class ConsolidadoController extends Controller
         }
         $mensaje="PAA ID. ".$id.": Consolidado para aprobación de la sub dirección.";
         Mail::send('mailConsolidado', ['mensaje'=>$mensaje,'personaOperativo'=>$personaOperativo,'personaConsolidador'=>$personaConsolidador,'area'=>$area], function ($m) use ($mensaje,$emails)  {
-            $m->from('no-reply@paa.com', $mensaje);
+            $m->from('no-reply_Paa@idrd.gov.co', $mensaje);
 
             $m->to($emails, 'Estevenhr')->subject($mensaje."!");
         });
         
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta','rubro_funcionamiento')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
-        $paa2 = Paa::where('IdPersona','1046')->where('Estado','1')->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta','rubro_funcionamiento')->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $paa2 = Paa::where('Estado','1')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa, 'datos2' => $paa2));
     }
 
@@ -408,8 +408,8 @@ class ConsolidadoController extends Controller
 
         }
         
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta','rubro_funcionamiento')->where('IdPersona','1046')->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
-        $paa2 = Paa::where('IdPersona','1046')->where('Estado','1')->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta','rubro_funcionamiento')->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $paa2 = Paa::where('Estado','1')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa, 'datos2' => $paa2));
 
     }
