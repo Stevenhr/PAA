@@ -135,12 +135,16 @@
                 <li class=”{{ Request::is( 'Generalpaa') ? 'active' : '' }}”><a href="{{ URL::to( 'Generalpaa') }}">General</a></li>
               @endif
                 
-
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Reporte<span class="caret"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="download">
+                  @if($_SESSION['Usuario']['Permisos']['Gestion_Direccion_General'])
+                    <li class=”{{ Request::is('reporteProyecto') ? 'active' : '' }}”><a href="{{ URL::to('reporteProyecto') }}">Proyecto</a></li>
+                  @endif
+                </ul>
+              </li>
+              
             </ul>
-
-            <form class="navbar-form navbar-left" role="search">
-
-            </form>
 
             <ul class="nav navbar-nav navbar-right">
               <li><a href="http://www.idrd.gov.co/sitio/idrd/" target="_blank">I.D.R.D</a></li>

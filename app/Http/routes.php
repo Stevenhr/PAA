@@ -142,7 +142,6 @@ Route::get('estudiopdf', 'DireccionController@descargarEstudio');
 Route::get('/aprobar/service/validarEstudio/{id}', 'DireccionController@validarEstudio');
 Route::get('AprobacionPlaneacion', 'PlaneacionController@index');
 
-
 Route::get('AprobacionDireccion', 'DireccionGeneralController@index');
 Route::get('/direccion/service/historialObservaciones/{id}', 'DireccionGeneralController@historialObservaciones');
 Route::get('/direccion/service/obtenerHistorialPaaTodo/{id}', 'DireccionGeneralController@obtenerHistorialPaaTodo');
@@ -150,11 +149,12 @@ Route::get('/direccion/service/VerFinanciamiento/{id}', 'DireccionGeneralControl
 Route::post('/direccion/service/RegistrarObservacion', 'DireccionGeneralController@RegistrarObservacion');
 
 Route::any('/Generalpaa/', 'GeneralController@index'); 
-
-
 Route::any('/GestionCecop/', 'CecopController@index'); 
 Route::get('informececop', 'CecopController@descargarInformeCecop');
 
+Route::get('reporteProyecto', 'ControllerReporteProyecto@index');
+Route::get('/reporteProyecto/service/vigencias/{id}', 'ControllerReporteProyecto@select_vigencia');
+Route::get('/reporteProyecto/service/proyecto/{id}', 'ControllerReporteProyecto@select_proyecto');
 
 Route::any('/', 'MainController@index');
 Route::any('/logout', 'MainController@logout');
