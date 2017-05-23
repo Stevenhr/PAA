@@ -484,7 +484,7 @@ class PlanAnualAController extends Controller
           }
         }
         $valorCocenpto=$ModeloCompoente['valor'];
-        //dd($ModeloCompoente['valor']."   -   ".$suma_aprobado." - ".$compo_id." - ".$Fuente_inversion);
+
         $ModeloAprobado = Paa::with(['componentes' => function($query) use ($compo_id)
         {
             $query->where('componente_id',$compo_id)->get();

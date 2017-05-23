@@ -37,6 +37,8 @@
           <script src="{{ asset('public/Js/js_datatable/buttons.html5.min.js') }}"></script>  
           <script src="https://cdn.datatables.net/responsive/2.0.1/js/dataTables.responsive.min.js"></script>
           <script src="https://cdn.datatables.net/responsive/2.0.1/js/responsive.bootstrap.min.js"></script>
+          <script src="https://code.highcharts.com/highcharts.js"></script>
+          <script src="https://code.highcharts.com/modules/exporting.js"></script>
       @show
       <title>P.A.A</title>
   </head>
