@@ -98,15 +98,16 @@ $(function()
 			success: function(data)
 			{
 				//console.log(data);
+				$('#NomPro').html(data.Proyecto+' - '+data.Codigo);
 				var html='';
-				html += '<table class="table">'+
+				html += '<table class="table table-bordered" id="tablaProyecto">'+
 				        '<thead>'+
 				        '<tr>'+
-							'<th>Proyecto</th>'+
+							'<th class="text-center">Proyecto</th>'+
 							'<th>Código</th>'+
 							'<th>Presupuesto Total</th>'+
 							'<th>Presupuesto Aprobado</th>'+
-							'<th>Presupuesto Reservado</th>'+
+							'<th>Presupuesto reservado por aprobar</th>'+
 							'<th>Presupuesto Libre</th>'+
 						'</tr>'+
 						'</thead>'+
@@ -114,10 +115,18 @@ $(function()
 						'<tr>'+
                             '<th scope="row" class="text-center">'+data.Proyecto+'</th>'+
                             '<td>'+data.Codigo+'</td>'+
-                            '<td> $ '+number_format(data.Total)+'</td>'+
-                            '<td> $ '+number_format(data.aprobado)+'</td>'+
-                            '<td> $ '+number_format(data.reservado_por_aprobar)+'</td>'+
-                            '<td> $ '+number_format(data.Saldo_libre)+'</td>'+
+                            '<th> $'+number_format(data.Total)+'</th>'+
+                            '<td> $'+number_format(data.aprobado)+'</td>'+
+                            '<td> $'+number_format(data.reservado_por_aprobar)+'</td>'+
+                            '<td> $'+number_format(data.Saldo_libre)+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<th scope="row" class="text-center"></th>'+
+                            '<td></td>'+
+                            '<th> </th>'+
+                            '<td> <button type="button" class="btn btn-primary btn-block btn-xs" data-rel="'+data.Id_Proyecto+'" data-funcion="paaAprobado">Planes aprobados</button></td>'+
+                            '<td> <button type="button" class="btn btn-primary btn-block btn-xs" data-rel="'+data.Id_Proyecto+'" data-funcion="paaReservado">Planes por aprobar</button></td>'+
+                            '<td></td>'+
                         '</tr>';
 						'</tbody>'+
 						'</table>'+
@@ -129,6 +138,149 @@ $(function()
 		});
 	    return false;
 	});
+
+
+    var tb1 = $('#Tabla1').DataTable( {responsive: true   } );
+	$('body').delegate('button[data-funcion="paaAprobado"]','click',function (e) {   
+      var id = $(this).data('rel'); 
+
+            $.get(
+              URL+'/service/obtenerPaaAprobado/'+id,
+              {},
+              function(data)
+              {
+                  if(data)
+                  {
+                      var num=1;
+                      var num1=1;
+                      var num2=1;
+                      var html = '';
+                      var html1 = '';
+                      var html2 = '';
+
+                      //console.log(data);
+                      tb1.clear().draw();
+                      $.each(data, function(i, dato){
+
+                        if(dato['Proyecto1Rubro2']==1){
+                             nom_pro_rubr=dato.proyecto['Nombre'];
+                             nom_meta=dato.meta['Nombre'];
+                          }else if(dato['Proyecto1Rubro2']==2){
+                             nom_pro_rubr=dato.rubro_funcionamiento['nombre'];
+                             nom_meta="Na";
+                          }else{
+                             nom_pro_rubr="";
+                             nom_meta="";
+                          }
+
+                            tb1.row.add( [
+                                '<th scope="row" class="text-center">'+num+'</th>',
+                                '<td>'+dato['Registro']+'</td>',
+                                '<td>'+dato['CodigosU']+'</td>',
+                                '<td>'+dato.modalidad['Nombre']+'</td>',
+                                '<td>'+dato.tipocontrato['Nombre']+'</td>',
+                                '<td><div class="campoArea">'+dato['ObjetoContractual']+'</div></td>',
+                                '<td>'+number_format(dato['ValorEstimado'])+'</td>',
+                                '<td>'+number_format(dato['ValorEstimadoVigencia'])+'</td>',
+                                '<td>'+dato['VigenciaFutura']+'</td>',
+                                '<td>'+dato['EstadoVigenciaFutura']+'</td>',
+                                '<td>'+dato['FechaEstudioConveniencia']+'</td>',
+                                '<td>'+dato['FechaInicioProceso']+'</td>',
+                                '<td>'+dato['FechaSuscripcionContrato']+'</td>',
+                                '<td>'+dato['DuracionContrato']+'</td>',
+                                '<td>'+dato['RecursoHumano']+'</td>',
+                                '<td>'+dato['NumeroContratista']+'</td>',
+                                '<td>'+dato['DatosResponsable']+'</td>',
+                                '<td>'+nom_pro_rubr+'</td>',
+                                '<td>'+nom_meta+'</td>'
+                            ] ).draw( false );
+                            num++;
+                        
+
+                      });
+                      $('#panel').removeClass('panel-primary');
+                      $('#panel').addClass('panel-success');
+                      $('#myModalLabel').html('Presupuesto Aprobado');
+                      $('#heading').html('Planes con estudio de conveniencia aprobado.');
+                      $('#mnjs').html('Los siguientes planes cuentan con el estudio de conveniencia aprobado.');
+                      $('#Modal_Paa_Repor').modal('show'); 
+                  }
+              },
+              'json'
+          );
+           
+     }); 
+
+
+	$('body').delegate('button[data-funcion="paaReservado"]','click',function (e) {   
+      var id = $(this).data('rel'); 
+
+            $.get(
+              URL+'/service/obtenerPaaReservado/'+id,
+              {},
+              function(data)
+              {
+                  if(data)
+                  {
+                      var num=1;
+                      var num1=1;
+                      var num2=1;
+                      var html = '';
+                      var html1 = '';
+                      var html2 = '';
+
+                      //console.log(data);
+                      tb1.clear().draw();
+                      $.each(data, function(i, dato){
+
+                        if(dato['Proyecto1Rubro2']==1){
+                             nom_pro_rubr=dato.proyecto['Nombre'];
+                             nom_meta=dato.meta['Nombre'];
+                          }else if(dato['Proyecto1Rubro2']==2){
+                             nom_pro_rubr=dato.rubro_funcionamiento['nombre'];
+                             nom_meta="Na";
+                          }else{
+                             nom_pro_rubr="";
+                             nom_meta="";
+                          }
+
+                            tb1.row.add( [
+                                '<th scope="row" class="text-center">'+num+'</th>',
+                                '<td>'+dato['Registro']+'</td>',
+                                '<td>'+dato['CodigosU']+'</td>',
+                                '<td>'+dato.modalidad['Nombre']+'</td>',
+                                '<td>'+dato.tipocontrato['Nombre']+'</td>',
+                                '<td><div class="campoArea">'+dato['ObjetoContractual']+'</div></td>',
+                                '<td>'+number_format(dato['ValorEstimado'])+'</td>',
+                                '<td>'+number_format(dato['ValorEstimadoVigencia'])+'</td>',
+                                '<td>'+dato['VigenciaFutura']+'</td>',
+                                '<td>'+dato['EstadoVigenciaFutura']+'</td>',
+                                '<td>'+dato['FechaEstudioConveniencia']+'</td>',
+                                '<td>'+dato['FechaInicioProceso']+'</td>',
+                                '<td>'+dato['FechaSuscripcionContrato']+'</td>',
+                                '<td>'+dato['DuracionContrato']+'</td>',
+                                '<td>'+dato['RecursoHumano']+'</td>',
+                                '<td>'+dato['NumeroContratista']+'</td>',
+                                '<td>'+dato['DatosResponsable']+'</td>',
+                                '<td>'+nom_pro_rubr+'</td>',
+                                '<td>'+nom_meta+'</td>'
+                            ] ).draw( false );
+                            num++;
+                        
+
+                      });
+                      $('#panel').removeClass('panel-success');
+                      $('#panel').addClass('panel-primary');
+                      $('#myModalLabel').html('Presupuesto Reservado');
+                      $('#heading').html('Planes con estudio de conveniencia por aprobar.');
+                      $('#mnjs').html('Los siguientes planes se encuentran en proceso de aprobación.');
+                      $('#Modal_Paa_Repor').modal('show'); 
+                  }
+              },
+              'json'
+          );
+           
+     }); 
 
 
 	function grafica_reporte(datos){
@@ -155,6 +307,7 @@ $(function()
 	                },
 	                showInLegend: true
 	            }
+
 	        },
 	        series: [{
 	            name: 'Porcentaje',
@@ -175,3 +328,5 @@ $(function()
 	    });
 	}
 });
+
+

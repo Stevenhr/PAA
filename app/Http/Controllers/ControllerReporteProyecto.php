@@ -63,6 +63,7 @@ class ControllerReporteProyecto extends Controller
         }
         $Saldo_libre=$proyecto['valor']-($suma_aprobado+$reservado_por_aprobar);
         $datos=[
+	        "Id_Proyecto"=>$proyecto['Id'],
 	        "Proyecto"=>$proyecto['Nombre'],
 	        "Codigo"=>$proyecto['codigo'],
 	        "aprobado"=>$suma_aprobado,
@@ -72,5 +73,21 @@ class ControllerReporteProyecto extends Controller
         ];
         
         return response()->json($datos);
+    }
+
+
+    public function obtenerPaaAprobado(Request $request, $id)
+    {
+    	
+    	$model_A = Paa::with('modalidad','tipocontrato','meta','proyecto','cambiosPaa','rubro_funcionamiento')->where('Id_Proyecto',$id)->whereIn('Estado',['9'])->get();
+        return response()->json($model_A);
+    }
+
+    
+    public function obtenerPaaReservado(Request $request, $id)
+    {
+    	
+    	$model_A = Paa::with('modalidad','tipocontrato','meta','proyecto','cambiosPaa','rubro_funcionamiento')->where('Id_Proyecto',$id)->whereIn('Estado',['0','4','5','8','10'])->get();
+        return response()->json($model_A);
     }
 }
