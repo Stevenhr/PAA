@@ -74,6 +74,7 @@
     	    	<div class="panel panel-default" >
 				  <div class="panel-heading">Datos:</div>
 				  <div class="panel-body">
+				  <div class="table-responsive" id="datosproyecto"></div>
 				  </div>
 				</div>
     		</div>
