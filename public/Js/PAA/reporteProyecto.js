@@ -71,9 +71,11 @@ $(function()
 				{
 					
 					var html = '<option value="">Seleccionar</option>';
-					if(data.proyecto)
+					
+          if(data.proyecto)
 					{
-						$.each(data, function(i, e){
+            console.log(data);
+						$.each(data.proyecto, function(i, e){
 							html += '<option value="'+e['Id']+'">'+e['Nombre']+'</option>';
 						});
 					}
@@ -105,10 +107,10 @@ $(function()
 				        '<tr>'+
 							'<th class="text-center">Proyecto</th>'+
 							'<th>Código</th>'+
-							'<th>Presupuesto Total</th>'+
-							'<th>Presupuesto Aprobado</th>'+
-							'<th>Presupuesto reservado por aprobar</th>'+
-							'<th>Presupuesto Libre</th>'+
+							'<th>Presupuesto/Items Total</th>'+
+							'<th>Presupuesto/Items aprobado</th>'+
+							'<th>Presupuesto/Items en tramite de aprobación</th>'+
+							'<th>Presupuesto/Items pendiente por aprobar</th>'+
 						'</tr>'+
 						'</thead>'+
 						'<tbody>'+

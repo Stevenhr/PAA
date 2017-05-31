@@ -156,7 +156,7 @@
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
 					                        <td><div style="width:500px;text-align: justify; height: 100px; overflow-y: scroll;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); padding: 10px">{{$paa['ObjetoContractual']}}</div></td>
 					                        <td>{{number_format($paa['ValorEstimado'])}}</td>
-					                        <td>{{$paa->area['nombre']}}</td>
+					                        <td>{{$paa->area['nombre']}} <br> <?php echo "<b>".$paa->persona['Primer_Nombre']." ".$paa->persona['Primer_Apellido']."" ?></td>
 					                        <td>{{$paa['DuracionContrato']}}</td>
 					                        <!--<td>{{$paa['FuenteRecurso']}}</td>-->
 					                        <td>{{number_format ($paa['ValorEstimadoVigencia'])}}</td>

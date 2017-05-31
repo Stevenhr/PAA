@@ -39,11 +39,11 @@ $(function()
         responsive: true,
         columnDefs: [
         {
-          targets: 20,
+          targets: 21,
           searchable: false,
           orderable: false
         },{
-          targets: 21,
+          targets: 22,
           searchable: false,
           orderable: false,
           width: '1%',
@@ -60,7 +60,7 @@ $(function()
               case 'Denegado por subdirección':
               case 'Cancelado por subdirección':
                 disabled = true;
-                break;
+              break;
             }
 
     				return '<input type="checkbox" class="default" '+(disabled ? 'disabled' : '')+'>';

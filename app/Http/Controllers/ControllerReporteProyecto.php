@@ -29,7 +29,7 @@ class ControllerReporteProyecto extends Controller
 
     public function select_proyecto(Request $request, $id)
     {
-        $proyecto = Proyecto::find($id);
+        $proyecto = Proyecto::where('Id_presupuesto',$id)->get();
         return response()->json(array('proyecto'=>$proyecto ));
     }
 

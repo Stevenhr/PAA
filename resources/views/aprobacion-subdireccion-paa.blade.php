@@ -28,6 +28,7 @@
 		                <th class="info">ID</th>
 						<th>Códigos<br>UNSPSC</th>
 						<th>Estado</th>
+						<th>Área</th>
 						<th>Modalidad<br>Selección</th>
 						<th>Tipo<br>Contrato</th>
 						<th>Descripción<br>Objeto</th>
@@ -146,6 +147,7 @@
 	                        <td class="estado">
 	                        	{{ $estado }}
 	                        </td>
+	                        <td>{{$paa->area['nombre']}} <br> <?php echo "<b>".$paa->persona['Primer_Nombre']." ".$paa->persona['Primer_Apellido']."" ?></td>
 	                        <td>{{$paa->modalidad['Nombre']}}</td>
 	                        <td>{{$paa->tipocontrato['Nombre']}}</td>
 	                        <td><div style="width:500px;text-align: justify; height: 100px; overflow-y: scroll;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); padding: 10px">'{{$paa['ObjetoContractual']}}</div></td>
@@ -193,6 +195,7 @@
 		                <th class="info">ID</th>
 						<th>Códigos<br>UNSPSC</th>
 						<th>Estado</th>
+						<th>Área</th>
 						<th>Modalidad<br>Selección</th>
 						<th>Tipo<br>Contrato</th>
 						<th>Descripción<br>Objeto</th>

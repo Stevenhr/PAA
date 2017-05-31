@@ -931,7 +931,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td>'+e.tipocontrato['Nombre']+'</td>'+
                           '<td><div style="width:500px;text-align: justify; height: 100px; overflow-y: scroll;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); padding: 10px">'+e['ObjetoContractual']+'</div></td>'+
                           '<td>'+e['ValorEstimado']+'</td>'+
-                          '<td>'+e.area['nombre']+'</td>'+
+                          '<td>'+e.area['nombre']+' <br> <b>'+e.persona['Primer_Apellido']+' '+e.persona['Primer_Nombre']+'</b> </td>'+
                           '<td>'+e['DuracionContrato']+'</td>'+
                           //'<td>'+e['FuenteRecurso']+'</td>'+
                           '<td>'+e['ValorEstimadoVigencia']+'</td>'+
