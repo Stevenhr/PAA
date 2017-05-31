@@ -1884,14 +1884,15 @@ $(function()
                           var $tr1 =   $('<tr '+clase+'></tr>').html(
                             '<th scope="row" class="text-center">'+num+'</th>'+
                                 '<td><b><p class="text-info text-center" style="font-size: 15px">'+e['Registro']+'<br>'+var0+var1+'<br>'+Proyecto1Rubro2+'</p></b></td>'+
+                                '<td><b>'+e.persona['Primer_Apellido']+' '+e.persona['Primer_Nombre']+'</b></td>'+
                                 '<td><b>'+estado+'</b></td>'+
                                 '<td>'+e['CodigosU']+'</td>'+
                                 '<td>'+e.modalidad['Nombre']+'</td>'+
                                 '<td>'+e.tipocontrato['Nombre']+'</td>'+
                                 '<td><div style="width:500px;text-align: justify;height: 100px; overflow-y: scroll;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); padding: 10px">'+e['ObjetoContractual']+'</div></td>'+
-                                '<td>'+e['ValorEstimado']+'</td>'+
+                                '<td>'+number_format(e['ValorEstimado'])+'</td>'+
                                 '<td>'+e['DuracionContrato']+'</td>'+
-                                '<td>'+e['ValorEstimadoVigencia']+'</td>'+
+                                '<td>'+number_format(e['ValorEstimadoVigencia'])+'</td>'+
                                 '<td>'+e['VigenciaFutura']+'</td>'+
                                 '<td>'+e['EstadoVigenciaFutura']+'</td>'+
                                 '<td>'+e['FechaEstudioConveniencia']+'</td>'+

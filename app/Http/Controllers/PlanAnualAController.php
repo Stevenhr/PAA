@@ -45,6 +45,9 @@ class PlanAnualAController extends Controller
 
     public function index()
 	{
+        if (!isset($_SESSION['Id_Persona']))
+            return redirect()->away('http://www.idrd.gov.co/SIM/Presentacion/');
+        
 		$modalidadSeleccion = ModalidadSeleccion::all();
 		$proyecto = Proyecto::all();
 		$tipoContrato = TipoContrato::all();
@@ -52,8 +55,12 @@ class PlanAnualAController extends Controller
         $fuente = Fuente::all();
         $subDireccion = SubDireccion::all();
         $fuenteHacienda = FuenteHacienda::all();
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area','componentes','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
 
+        $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
+
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area','componentes','proyecto','meta','persona')->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+
+        //dd($paa);
         $datos = [        
             'modalidades' => $modalidadSeleccion,
             'proyectos' => $proyecto,
@@ -111,7 +118,6 @@ class PlanAnualAController extends Controller
         $estado=0;
         $estadoObservo=0;
         $Modifica=0;
-        $input['estudio_conveniencia']="0000-00-00";
         return $this->gestionar_Paa($model_A, $input,$estado,$estadoObservo,$Modifica);
     }
     
@@ -282,7 +288,10 @@ class PlanAnualAController extends Controller
             $mensaje="PAA ID. ".$id_reg_def.": Modificación Exitosa";
        
 
-        $paa = Paa::with('modalidad','tipocontrato','rubro_funcionamiento','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
+        
+        
+        $paa = Paa::with('modalidad','tipocontrato','rubro_funcionamiento','proyecto','meta','persona')->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
         $persona = $this->repositorio_personas->obtener($_SESSION['Id_Persona']);
         $area=Area::find($id_area_def);
 
@@ -729,7 +738,9 @@ class PlanAnualAController extends Controller
         $modeloPA['EsatdoObservo'] = 3;
         $modeloPA->save();
 
-        $paa = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta')->where('IdPersona',$_SESSION['Id_Persona'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
+
+        $paa = Paa::with('modalidad','tipocontrato','rubro','proyecto','meta','persona')->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 

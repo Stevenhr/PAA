@@ -33,6 +33,7 @@
 						            <tr>
 						                <th>N°</th>
 						                <th>ID</th>
+						                <th>Usuario</th>
 						                <th>Estado</th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
@@ -59,6 +60,7 @@
 						            <tr>
 						            	<th>N°</th>
 						                <th>ID</th>
+						                <th>Usuario</th>
 						                <th>Estado</th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
@@ -151,6 +153,7 @@
 
 			        						<th scope="row" class="text-center">{{$var}}</th>
 					                        <td class="text-center"><b><p class="text-info text-center" style="font-size: 15px">{{$paa['Registro']}}<BR>{{$var0}}{{$var1}}{{$var11}}<br>{{$Proyecto1Rubro2}}</b></p></td>
+					                        <td><?php echo "<b>".$paa->persona['Primer_Nombre']." ".$paa->persona['Primer_Apellido']."</b>" ?></td>
 					                        <td><?php echo "<b>".$estado."</b>" ?></td>
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>

@@ -47,7 +47,7 @@ class MainController extends Controller {
 
         $deportista = $_SESSION['Usuario']['Persona'];*/
 
-            $vectorArreglaso="a%3A12%3A%7Bi%3A0%3Bs%3A4%3A%221046%22%3Bi%3A1%3Bs%3A1%3A%221%22%3Bi%3A2%3Bs%3A1%3A%221%22%3Bi%3A3%3Bs%3A1%3A%221%22%3Bi%3A4%3Bs%3A1%3A%221%22%3Bi%3A5%3Bs%3A1%3A%221%22%3Bi%3A6%3Bs%3A1%3A%221%22%3Bi%3A7%3Bs%3A1%3A%221%22%3Bi%3A8%3Bs%3A1%3A%221%22%3Bi%3A9%3Bs%3A1%3A%221%22%3Bi%3A10%3Bs%3A1%3A%221%22%3Bi%3A11%3Bs%3A1%3A%221%22%3B%7D";
+            $vectorArreglaso="a%3A13%3A%7Bi%3A0%3Bs%3A4%3A%221046%22%3Bi%3A1%3Bs%3A1%3A%221%22%3Bi%3A2%3Bs%3A1%3A%221%22%3Bi%3A3%3Bs%3A1%3A%221%22%3Bi%3A4%3Bs%3A1%3A%221%22%3Bi%3A5%3Bs%3A1%3A%221%22%3Bi%3A6%3Bs%3A1%3A%221%22%3Bi%3A7%3Bs%3A1%3A%221%22%3Bi%3A8%3Bs%3A1%3A%221%22%3Bi%3A9%3Bs%3A1%3A%221%22%3Bi%3A10%3Bs%3A1%3A%221%22%3Bi%3A11%3Bs%3A1%3A%221%22%3Bi%3A12%3Bs%3A1%3A%221%22%3B%7D";
 
             /*
             $vectorArreglaso="a%3A9%3A%7Bi%3A0%3Bs%3A4%3A%221046%22%3Bi%3A1%3Bs%3A1%3A%221%22%3Bi%3A2%3Bs%3A1%3A%221%22%3Bi%3A3%3Bs%3A1%3A%221%22%3Bi%3A4%3Bs%3A1%3A%221%22%3Bi%3A5%3Bs%3A1%3A%220%22%3Bi%3A6%3Bs%3A1%3A%220%22%3Bi%3A7%3Bs%3A1%3A%221%22%3Bi%3A8%3Bs%3A1%3A%221%22%3B%7D2";*/
@@ -72,7 +72,8 @@ class MainController extends Controller {
 				'Asignar_Tipo_Persona'=> intval($permissions_array[8]),
 				'Gestion_Direccion_General'=> intval($permissions_array[9]),
 				'General'=> intval($permissions_array[10]),
-				'Gestion_cecop'=> intval($permissions_array[11])
+				'Gestion_cecop'=> intval($permissions_array[11]),
+				'Reporte_proyecto'=> intval($permissions_array[12])
 			];
 
 			$_SESSION['Usuario']['Permisos'] = $permisos;
