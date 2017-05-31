@@ -38,29 +38,32 @@ class ControllerReporteProyecto extends Controller
     	
     	$proyecto = Proyecto::find($request['proyecto']);
 
-        $paa = Paa::with('componentes')->where('Id_Proyecto',$request['proyecto'])->whereIn('Estado',['9'])->get();
+        $paa = Paa::with('componentes')->where('Id_Proyecto','1')->whereIn('Estado',['9'])->get();
         $suma_aprobado=0;
         foreach($paa as $eee){
           if($eee->componentes!=''){
             foreach($eee->componentes as $eeee){
-               if($eeee->pivot['valor']!=''){
+               if($eeee->pivot['valor']!='' && $eeee->pivot['proyecto_id']==$request['proyecto']){
                    $suma_aprobado=$suma_aprobado + $eeee->pivot['valor'];
                }
             }
           }
         }
 
-        $paa2 = Paa::with('componentes')->where('Id_Proyecto',$request['proyecto'])->whereIn('Estado',['0','4','5','8','10'])->get();
+        $paa2 = Paa::with('componentes')->where('Id_Proyecto','1')->whereIn('Estado',['0','4','5','8','10'])->get();
         $reservado_por_aprobar=0;
+        
         foreach($paa2 as $eee){
           if($eee->componentes!=''){
             foreach($eee->componentes as $eeee){
-               if($eeee->pivot['valor']!=''){
+               //dd($eee->componentes);
+               if($eeee->pivot['valor']!='' && $eeee->pivot['proyecto_id']==$request['proyecto']){
                    $reservado_por_aprobar=$reservado_por_aprobar + $eeee->pivot['valor'];
                }
             }
           }
         }
+    
         $Saldo_libre=$proyecto['valor']-($suma_aprobado+$reservado_por_aprobar);
         $datos=[
 	        "Id_Proyecto"=>$proyecto['Id'],
