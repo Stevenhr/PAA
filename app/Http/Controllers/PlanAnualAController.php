@@ -155,13 +155,13 @@ class PlanAnualAController extends Controller
         $ordenador=$input['datos_contacto']." -C.C. ".$input['cedula_contacto'];
 
         if($input['ProyectOrubro']==1){
-            $Id_Proyecto=$input['ProyectOrubro'];
+            $Id_Proyecto=$input['Proyecto_inversion'];
             $Id_Rubro=null;
         }
         
         if($input['ProyectOrubro']==2){
             $Id_Proyecto=null;
-            $Id_Rubro=$input['ProyectOrubro'];
+            $Id_Rubro=$input['Proyecto_inversion'];
         }
 
         $modeloPA = new Paa;

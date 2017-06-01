@@ -38,7 +38,7 @@ class ControllerReporteProyecto extends Controller
     	
     	$proyecto = Proyecto::find($request['proyecto']);
 
-        $paa = Paa::with('componentes')->where('Id_Proyecto','1')->whereIn('Estado',['9'])->get();
+        $paa = Paa::with('componentes')->where('Id_Proyecto',$request['proyecto'])->whereIn('Estado',['9'])->get();
         $suma_aprobado=0;
         foreach($paa as $eee){
           if($eee->componentes!=''){
@@ -50,7 +50,7 @@ class ControllerReporteProyecto extends Controller
           }
         }
 
-        $paa2 = Paa::with('componentes')->where('Id_Proyecto','1')->whereIn('Estado',['0','4','5','8','10'])->get();
+        $paa2 = Paa::with('componentes')->where('Id_Proyecto',$request['proyecto'])->whereIn('Estado',['0','4','5','8','10'])->get();
         $reservado_por_aprobar=0;
         
         foreach($paa2 as $eee){
