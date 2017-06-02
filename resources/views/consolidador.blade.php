@@ -946,6 +946,7 @@
 								    <a href="#"  id="regisgtrar_observacion" class="btn btn-block btn-primary btn-success"><span class="glyphicon glyphicon-ok"></span> Agregar Observación</a>
 							</div>
 							<div id="mjs_Observa" class="alert alert-success" style="display: none"></div>
+							<div id="mjs_Observa_danger" class="alert alert-danger" style="display: none"></div>
 						</div>
 					</div>
 	      </div>

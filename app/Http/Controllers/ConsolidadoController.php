@@ -432,8 +432,31 @@ class ConsolidadoController extends Controller
 
     public function RegistrarObservacion(Request $request)
     {
-        $id_persona=$_SESSION['Id_Persona'];
+      
 
+      if($request['observacion']!="")
+      {
+        $id=$request['id'];
+        $model_A = Paa::find($id);
+        $personaOperativo = $this->repositorio_personas->obtener($model_A['IdPersona']);
+        $personaConsolidador = $this->repositorio_personas->obtener($_SESSION['Id_Persona']);
+        $emails = array();
+        $DatosEmail = Datos::whereIn('Id_Persona',[$model_A['IdPersona'],$_SESSION['Id_Persona']])->get();
+        foreach ($DatosEmail as &$DatoEmail) 
+        {
+            if($DatoEmail){
+                array_push($emails, $DatoEmail['Email']);
+            }
+        }
+        //dd($emails);
+        $mensaje="PAA ID. ".$id.": Observación.";
+        Mail::send('mailMensaje', ['mensaje'=>$mensaje,'personaOperativo'=>$personaOperativo,'personaConsolidador'=>$personaConsolidador,'mensaje'=>$request['observacion']], 
+        function ($m) use ($mensaje,$emails)  {
+              $m->from('no-reply_Paa@idrd.gov.co', $mensaje);
+              $m->to($emails, 'Estevenhr')->subject($mensaje."!");
+        });
+
+        $id_persona=$_SESSION['Id_Persona'];
         $modeloObserva = new Observacion;
         $modeloObserva['id_persona'] = $id_persona;
         $modeloObserva['id_registro'] = $request['id'];
@@ -441,6 +464,11 @@ class ConsolidadoController extends Controller
         $modeloObserva['observacion'] = $request['observacion'];
         $modeloObserva->save();
         return response()->json(array('status' => 'ok'));
+      }
+      else
+      {
+        return response()->json(array('status' => 'vacio'));
+      }
     }
 
    

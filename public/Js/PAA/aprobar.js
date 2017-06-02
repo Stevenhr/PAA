@@ -1075,14 +1075,21 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
           function(data){
             if(data.status == 'ok')
               {
-                      $('#mjs_Observa').html('<strong>Bien!</strong> observación registrada con exíto..');
-                      $('#mjs_Observa').show();
-                      setTimeout(function(){
-                          $('#observacio').val('');
-                          $('#mjs_Observa').hide();
-                          $('#mjs_Observa').modal('hide'); 
-                          $('#Modal_Observaciones').modal('hide');
-                      }, 3000)
+                  $('#mjs_Observa').html('<strong>Bien!</strong> observación registrada con exíto..');
+                  $('#mjs_Observa').show();
+                  setTimeout(function(){
+                      $('#observacio').val('');
+                      $('#mjs_Observa').hide();
+                      $('#mjs_Observa').modal('hide'); 
+                      $('#Modal_Observaciones').modal('hide');
+                  }, 3000)
+              }else{
+                  $('#mjs_Observa_danger').html('<strong>ERROR!</strong> campos vacios..');
+                  $('#mjs_Observa_danger').show();
+                  setTimeout(function(){
+                      $('#observacio').val('');
+                      $('#mjs_Observa_danger').hide();
+                  }, 3000)
               }
           },'json');
 
