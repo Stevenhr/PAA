@@ -35,11 +35,11 @@ class ConsolidadoController extends Controller
         $this->repositorio_personas = $repositorio_personas;
     }
     public function index()
-	{
-		$modalidadSeleccion = ModalidadSeleccion::all();
-		$proyecto = Proyecto::all();
-		$tipoContrato = TipoContrato::all();
-		$componente = Componente::all();
+  {
+    $modalidadSeleccion = ModalidadSeleccion::all();
+    $proyecto = Proyecto::all();
+    $tipoContrato = TipoContrato::all();
+    $componente = Componente::all();
     $fuente = Fuente::all();
        
         $PersonaPaa = PersonaPaa::with('area')->where('id',$_SESSION['Id_Persona'])->get();
@@ -64,29 +64,38 @@ class ConsolidadoController extends Controller
             'paas' => $paa,
             'paas2' => $paa2
         ];
-		return view('consolidador',$datos);
-	}
+    return view('consolidador',$datos);
+  }
 
 
     public function aprobarSubDireccion($id)
     {
         $model_A = Paa::find($id);
-        $model_A['Estado'] = 4;
+        //$model_A['Estado'] = 4;
         $id_area_def=$model_A['Id_Area'];
         $model_A->save();
 
         $personaOperativo = $this->repositorio_personas->obtener($model_A['IdPersona']);
         $personaConsolidador = $this->repositorio_personas->obtener($_SESSION['Id_Persona']);
-        $area=Area::with('subdirecion')->find($id_area_def);
-
-        $personapaas = PersonaPaa::where('id_area',$id_area_def)->get();
+        $subdirecion=Area::with('subdirecion')->find($id_area_def);
+        
+        $areas=Area::where('id_subdireccion',$subdirecion['id_subdireccion'])->get();
+        $array_areas = array();
+        foreach ($areas as &$area_) 
+        {
+            array_push($array_areas, $area_['id']);
+        }
+        
+        $personapaas = PersonaPaa::whereIn('id_area',$array_areas)->get();
         $pila = array();
+
         foreach ($personapaas as &$personapaa) 
         {
             array_push($pila, $personapaa['id']);
         }
+        
 
-        $id_Tipos=[61,63]; //Enviado Operario y Subdirector
+        $id_Tipos=[63,62]; //Enviado Operario y Subdirector
     
         $ModeloPersona = Persona::whereHas('tipo', function ($query) use ($id_Tipos) {
             $query->whereIn('persona_tipo.Id_Tipo',$id_Tipos);
@@ -96,9 +105,9 @@ class ConsolidadoController extends Controller
         $Consolidadore = array();
         foreach ($ModeloPersona as &$Mpersonapaa) 
         {
-            array_push($Consolidadore, $Mpersonapaa['Id_Persona']);
+            array_push($Consolidadore, $Mpersonapaa['Id_Persona']); //Consolidadior  y Sub director
         }
-        
+           array_push($Consolidadore, $model_A['IdPersona']); // Operario
 
         $emails = array();
         $DatosEmail = Datos::whereIn('Id_Persona',$Consolidadore)->get();
@@ -108,12 +117,13 @@ class ConsolidadoController extends Controller
                 array_push($emails, $DatoEmail['Email']);
             }
         }
+        //dd($emails);
+
         $mensaje="PAA ID. ".$id.": Consolidado para aprobación de la sub dirección.";
         Mail::send('mailConsolidado', ['mensaje'=>$mensaje,'personaOperativo'=>$personaOperativo,'personaConsolidador'=>$personaConsolidador,'area'=>$area], function ($m) use ($mensaje,$emails)  {
-            $m->from('no-reply_Paa@idrd.gov.co', $mensaje);
-
-            $m->to($emails, 'Estevenhr')->subject($mensaje."!");
-        });
+              $m->from('no-reply_Paa@idrd.gov.co', $mensaje);
+              $m->to($emails, 'Estevenhr')->subject($mensaje."!");
+          });
         
         $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta','rubro_funcionamiento','persona')->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
         $paa2 = Paa::where('Estado','1')->get();
