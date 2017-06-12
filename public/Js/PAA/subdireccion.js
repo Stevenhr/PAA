@@ -736,11 +736,10 @@ $(function()
 
 
     $('#regisgtrar_observacion').on('click', function(e){
-
          id=$('#paa_registro').val();
          observacion=$('#observacio').val();
          $.post(
-          URL+'/service/RegistrarObservacion',
+          URL+'/service/RegistrarObservacionSubD',
           {id: id, Estado:'Observación',observacion:observacion},
           function(data){
             if(data.status == 'ok')

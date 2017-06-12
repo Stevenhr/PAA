@@ -130,6 +130,7 @@ Route::get('/aprobar/service/aprobarSubDireccion/{id}', 'ConsolidadoController@a
 Route::get('/aprobar/imprimir/{id}', 'ConsolidadoController@imprimir');
 Route::get('/aprobar/service/historialObservaciones/{id}', 'ConsolidadoController@historialObservaciones');
 Route::post('/aprobar/service/RegistrarObservacion', 'ConsolidadoController@RegistrarObservacion');
+
 Route::post('/aprobar/service/AprobarEstudio', 'ConsolidadoController@AprobarEstudio');
 
 Route::any('/PresupuestoPAA/', 'PaaController@index');
@@ -140,6 +141,7 @@ Route::post('/enviar/paa', 'DireccionController@enviar');
 Route::post('/aprobar/service/AprobarEstudio', 'DireccionController@AprobarEstudio');
 Route::get('estudiopdf', 'DireccionController@descargarEstudio');
 Route::get('/aprobar/service/validarEstudio/{id}', 'DireccionController@validarEstudio');
+Route::post('/aprobar/service/RegistrarObservacionSubD', 'DireccionController@RegistrarObservacion');
 Route::get('AprobacionPlaneacion', 'PlaneacionController@index');
 
 Route::get('AprobacionDireccion', 'DireccionGeneralController@index');
