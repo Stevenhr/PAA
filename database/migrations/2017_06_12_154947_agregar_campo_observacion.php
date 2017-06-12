@@ -15,6 +15,8 @@ class AgregarCampoObservacion extends Migration
         //
         Schema::table('observacion', function ($table) {
             $table->boolean('check')->default(0);
+            $table->boolean('check_cons')->default(0);
+            $table->boolean('check_subd')->default(0);
         });
     }
 
@@ -26,8 +28,10 @@ class AgregarCampoObservacion extends Migration
     public function down()
     {
         //
-         Schema::table('paa', function ($table) {
+         Schema::table('observacion', function ($table) {
             $table->dropColumn('check');
+            $table->dropColumn('check_cons');
+            $table->dropColumn('check_subd');
         });
     }
 }

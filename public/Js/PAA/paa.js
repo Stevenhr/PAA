@@ -2011,10 +2011,15 @@ $(function()
               {   
                   var html = '';
                   var num=1;
+                  var notifica='';
                   
                   $.each(data, function(i, dato){
+                    if(!dato['check'])
+                      notifica="bg-warning";
+                    else
+                      notifica="";
 
-                    html += '<tr class="bg-info">'+
+                    html += '<tr class="'+notifica+'">'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+dato['id_persona']+'</td>'+
                             '<td>'+dato['observacion']+'</td>'+

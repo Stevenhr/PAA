@@ -51,7 +51,7 @@ class ConsolidadoController extends Controller
           $arreglo1[]=$value['id'];
         }
 
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta','persona')->whereIn('Id_Area',$arreglo1)->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta','persona','observaciones')->whereIn('Id_Area',$arreglo1)->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
 
         $paa2 = Paa::whereIn('Id_Area',$arreglo1)->where('Estado','1')->get();
 
@@ -62,7 +62,7 @@ class ConsolidadoController extends Controller
             'componentes' => $componente,
             'fuentes'=>$fuente,
             'paas' => $paa,
-            'paas2' => $paa2
+            'paas2' => $paa2,
         ];
     return view('consolidador',$datos);
   }
@@ -427,6 +427,11 @@ class ConsolidadoController extends Controller
     public function historialObservaciones(Request $request, $id)
     {
         $model_A = Observacion::where('id_registro',$id)->get();
+        foreach ($model_A as $key) {
+            $modeloOb = Observacion::find($key['id']);
+            $modeloOb['check_cons']=1;
+            $modeloOb->save();
+        }
         return response()->json($model_A);
     }
 
@@ -461,6 +466,7 @@ class ConsolidadoController extends Controller
         $modeloObserva['id_persona'] = $id_persona;
         $modeloObserva['id_registro'] = $request['id'];
         $modeloObserva['estado'] = $request['Estado'];
+        $modeloObserva['check_cons']=1;
         $modeloObserva['observacion'] = $request['observacion'];
         $modeloObserva->save();
         return response()->json(array('status' => 'ok'));

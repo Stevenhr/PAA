@@ -785,6 +785,7 @@ class PlanAnualAController extends Controller
         $modeloObserva['id_persona'] = $id_persona;
         $modeloObserva['id_registro'] = $request['id'];
         $modeloObserva['estado'] = $request['Estado'];
+        $modeloObserva['check']=1;
         $modeloObserva['observacion'] = $request['observacion'];
         $modeloObserva->save();
         return response()->json(array('status' => 'ok'));

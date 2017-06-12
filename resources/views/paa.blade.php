@@ -17,7 +17,7 @@
             				<div class="col-xs-3 col-md-3">
 			            		<div class="alert alert-warning alert-dismissable">
 								  <button type="button" class="close" data-dismiss="alert">&times;</button>
-								  <strong>¡Cuidado!</strong> Tienes observaciones pendinetes en el paa N° <b>{{$observarcion['id_registro']}}</b>
+								  <strong>¡Cuidado!</strong> Tienes observaciones pendientes en el paa N° <b>{{$observarcion['id_registro']}}</b>
 								</div> 
 							</div>
 							@endif
@@ -1229,7 +1229,7 @@
 							  <!-- Default panel contents -->
 								<div class="panel-heading">Observaciones PAA N° <label class="NumPaa"></label></div>
 								<div class="panel-body">
-								    <table class="table table-bordered table-striped table-responsive" id="datos_actividad" > 
+								    <table class="table table-bordered table-responsive" id="datos_actividad" > 
 										<thead>
 										<tr>
 										<th>#</th>

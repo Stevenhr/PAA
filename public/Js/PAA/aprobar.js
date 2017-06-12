@@ -1049,7 +1049,12 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                   var html = '';
                   var num=1;
                   $.each(data, function(i, dato){
-                    html += '<tr>'+
+                    if(!dato['check_cons'])
+                      notifica="bg-warning";
+                    else
+                      notifica="";
+
+                    html += '<tr class="'+notifica+'">'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+dato['id_persona']+'</td>'+
                             '<td>'+dato['observacion']+'</td>'+
