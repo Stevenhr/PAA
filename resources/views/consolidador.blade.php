@@ -8,8 +8,8 @@
 @section('content') 
         	<div class="content" id="main_paa_Aprobar" class="row" data-url="aprobar" ></div>
             <div class="content">
-            	<div class="row">
             	
+            	<div class="row">
             		@foreach($paas as $paa_ob)	
             			@foreach($paa_ob->observaciones as $observarcion)	
             				@if(!$observarcion['check_cons'])

@@ -711,7 +711,7 @@ $(function()
         $('#paa_registro').val(id);
 
         $.ajax({
-              url: URL+'/service/historialObservaciones/'+id,
+              url: URL+'/service/historialObservacionessubD/'+id,
               data: {},
               dataType: 'json',
               success: function(data)
@@ -719,7 +719,12 @@ $(function()
                   var html = '';
                   var num=1;
                   $.each(data, function(i, dato){
-                    html += '<tr>'+
+                    if(!dato['check_subd'])
+                      notifica="bg-warning";
+                    else
+                      notifica="";
+
+                    html += '<tr class="'+notifica+'">'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+dato['id_persona']+'</td>'+
                             '<td>'+dato['observacion']+'</td>'+

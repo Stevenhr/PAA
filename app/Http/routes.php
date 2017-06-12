@@ -142,6 +142,7 @@ Route::post('/aprobar/service/AprobarEstudio', 'DireccionController@AprobarEstud
 Route::get('estudiopdf', 'DireccionController@descargarEstudio');
 Route::get('/aprobar/service/validarEstudio/{id}', 'DireccionController@validarEstudio');
 Route::post('/aprobar/service/RegistrarObservacionSubD', 'DireccionController@RegistrarObservacion');
+Route::get('/aprobar/service/historialObservacionessubD/{id}', 'DireccionController@historialObservaciones');
 Route::get('AprobacionPlaneacion', 'PlaneacionController@index');
 
 Route::get('AprobacionDireccion', 'DireccionGeneralController@index');

@@ -7,6 +7,22 @@
 
 @section('content') 
 <div id="main" class="content" data-url="aprobar">
+	
+	<div class="row">
+		@foreach($paas as $paa_ob)	
+			@foreach($paa_ob->observaciones as $observarcion)	
+				@if(!$observarcion['check_subd'])
+				<div class="col-xs-3 col-md-3">
+            		<div class="alert alert-warning alert-dismissable">
+					  <button type="button" class="close" data-dismiss="alert">&times;</button>
+					  <strong>¡Cuidado!</strong> Tienes observaciones pendientes en el paa N° <b>{{$observarcion['id_registro']}}</b>
+					</div> 
+				</div>
+				@endif
+			@endforeach
+		@endforeach
+	</div>
+
 	<div class="row">
 		<div class="col-md-12">
 			<p class="lead">
