@@ -11,7 +11,7 @@ class Observacion extends Model
 
     protected $table = 'observacion';
 	protected $primaryKey = 'id';
-	protected $fillable = ['id_registro','id_persona','observacion','estado'];
+	protected $fillable = ['id_registro','id_persona','observacion','estado','check'];
 	protected $connection = ''; 
 	public $timestamps = true;
 

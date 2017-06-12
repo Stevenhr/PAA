@@ -57,6 +57,7 @@ class PlanAnualAController extends Controller
         $fuenteHacienda = FuenteHacienda::all();
 
         $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
+        $paa_obs=Paa::with('observaciones')->where('IdPersona',$_SESSION['Id_Persona'])->get();
 
         $paa = Paa::with('modalidad','tipocontrato','rubro','area','componentes','proyecto','meta','persona')->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
 
@@ -68,6 +69,7 @@ class PlanAnualAController extends Controller
             'componentes' => $componente,
             'fuentes'=>$fuente,
             'paas' => $paa,
+            'paa_obs' => $paa_obs,
             'subDirecciones' => $subDireccion,
             'fuenteHaciendas'=>$fuenteHacienda 
         ];
@@ -766,6 +768,12 @@ class PlanAnualAController extends Controller
     public function historialObservaciones(Request $request, $id)
     {
         $model_A = Observacion::where('id_registro',$id)->get();
+        foreach ($model_A as $key) {
+            $modeloOb = Observacion::find($key['id']);
+            $modeloOb['check']=1;
+            $modeloOb->save();
+        }
+        
         return response()->json($model_A);
     }
 

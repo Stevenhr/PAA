@@ -2013,12 +2013,13 @@ $(function()
                   var num=1;
                   
                   $.each(data, function(i, dato){
-                    html += '<tr>'+
+
+                    html += '<tr class="bg-info">'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+dato['id_persona']+'</td>'+
                             '<td>'+dato['observacion']+'</td>'+
                             '<td>'+dato['estado']+'</td>'+
-                            '<td>'+dato['created_at']+'</td>';
+                            '<td>'+dato['created_at']+'</td></tr>';
                     num++;
                   });
                   $('#registrosObser').html(html);
