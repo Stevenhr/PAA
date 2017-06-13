@@ -591,7 +591,7 @@ $(function()
          var id=$('#id_paa_estudio').val();
          var observacion=$('#observacio').val();
          $.post(
-          URL+'/service/AprobarEstudio',
+          URL+'/service/AprobarEstudioSub',
           {id: id,estado:'9',observacion:observacion,tipo:'Estudio Aprobado'},
           function(data){
             if(data.status == 'ok')
@@ -615,7 +615,7 @@ $(function()
          var observacion=$('#observacionesEstudio').val();
          if(observacion!=""){
            $.post(
-            URL+'/service/AprobarEstudio',
+            URL+'/service/AprobarEstudioSub',
             {id: id,estado:'11',observacion:observacion,tipo:'Estudio Cancelado'},
             function(data){
               if(data.status == 'ok')
@@ -648,7 +648,7 @@ $(function()
          var observacion=$('#observacionesEstudio').val();
          if(observacion!=""){
            $.post(
-            URL+'/service/AprobarEstudio',
+            URL+'/service/AprobarEstudioSub',
             {id: id,estado:'10',observacion:observacion,tipo:'Estudio Devuelto'},
             function(data){
               if(data.status == 'ok')

@@ -139,10 +139,31 @@ class DireccionController extends BaseController
 
 	 public function AprobarEstudio(Request $request)
     {
+    	$id=$request['id'];
+    	$paa = Paa::find($id);
+    	$personaSubDirecc = $this->repositorio_personas->obtener($_SESSION['Id_Persona']);
+    	$personaOperativo = $this->repositorio_personas->obtener($paa['IdPersona']);
+    	$area=Area::with('subdirecion')->find($paa['Id_Area']);
+
+    		$emails = array();
+	        $DatosEmail = Datos::whereIn('Id_Persona',[$_SESSION['Id_Persona'],$paa['IdPersona']])->get();
+	        foreach ($DatosEmail as &$DatoEmail) 
+	        {
+	            if($DatoEmail){
+	                array_push($emails, $DatoEmail['Email']);
+	            }
+	        }
+	        $mensaje="PAA ID. ".$id.": ".$request['tipo'];
+	        Mail::send('mailSubDirecc', ['mensaje'=>$mensaje,'personaOperativo'=>$personaOperativo,'personaSubDirecc'=>$personaSubDirecc,'area'=>$area], function ($m) use ($mensaje,$emails)  {
+	            $m->from('no-reply_Paa@idrd.gov.co', $mensaje);
+
+	            $m->to($emails, 'Estevenhr')->subject($mensaje."!");
+	        });
+
  		$ldate = date('Y-m-d H:i:s');
-        $id=$request['id'];
+        
         $estado=$request['estado'];
-        $paa = Paa::find($id);
+        
         $paa['estado'] =$estado;
         $paa['FechaEstudioConveniencia'] =$ldate;
         $paa->save();

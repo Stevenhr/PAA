@@ -138,7 +138,7 @@ Route::get('AprobacionPaaSubDireccion', 'DireccionController@index');
 Route::post('/rechazar/paa', 'DireccionController@rechazar');
 Route::post('/cancelar/paa', 'DireccionController@cancelar');
 Route::post('/enviar/paa', 'DireccionController@enviar');
-Route::post('/aprobar/service/AprobarEstudio', 'DireccionController@AprobarEstudio');
+Route::post('/aprobar/service/AprobarEstudioSub', 'DireccionController@AprobarEstudio');
 Route::get('estudiopdf', 'DireccionController@descargarEstudio');
 Route::get('/aprobar/service/validarEstudio/{id}', 'DireccionController@validarEstudio');
 Route::post('/aprobar/service/RegistrarObservacionSubD', 'DireccionController@RegistrarObservacion');
