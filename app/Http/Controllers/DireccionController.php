@@ -221,7 +221,7 @@ class DireccionController extends BaseController
 
 	public function historialObservaciones(Request $request, $id)
     {
-        $model_A = Observacion::where('id_registro',$id)->get();
+        $model_A = Observacion::with('persona')->where('id_registro',$id)->get();
         foreach ($model_A as $key) {
             $modeloOb = Observacion::find($key['id']);
             $modeloOb['check_subd']=1;

@@ -1039,7 +1039,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
         var id = $(this).data('rel');
         $('.NumPaa').text(id);
         $('#paa_registro').val(id);
-
+        $('#registrosObser').html("<h3>Cargando...</h3>");
         $.ajax({
               url: URL+'/service/historialObservaciones/'+id,
               data: {},
@@ -1056,7 +1056,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
 
                     html += '<tr class="'+notifica+'">'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
-                            '<td>'+dato['id_persona']+'</td>'+
+                            '<td>'+dato.persona['Primer_Nombre']+' '+dato.persona['Primer_Apellido']+'</td>'+
                             '<td>'+dato['observacion']+'</td>'+
                             '<td>'+dato['estado']+'</td>'+
                             '<td>'+dato['created_at']+'</td>';

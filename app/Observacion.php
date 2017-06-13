@@ -21,5 +21,10 @@ class Observacion extends Model
         return $this->belongsTo('App\Paa','id_registro');
     }
 
+    public function persona()
+    {
+        return $this->belongsTo('App\Persona','id_persona');
+    }
+
     use SoftDeletes;
 }

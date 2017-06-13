@@ -2002,7 +2002,7 @@ $(function()
         var id = $(this).data('rel');
         $('.NumPaa').text(id);
         $('#paa_registro').val(id);
-
+        $('#registrosObser').html("<h3>Cargando...</h3>");
         $.ajax({
               url: URL+'/service/historialObservaciones/'+id,
               data: {},
@@ -2012,7 +2012,7 @@ $(function()
                   var html = '';
                   var num=1;
                   var notifica='';
-                  
+                  //console.log(data);
                   $.each(data, function(i, dato){
                     if(!dato['check'])
                       notifica="bg-warning";
@@ -2021,7 +2021,7 @@ $(function()
 
                     html += '<tr class="'+notifica+'">'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
-                            '<td>'+dato['id_persona']+'</td>'+
+                            '<td>'+dato.persona['Primer_Nombre']+' '+dato.persona['Primer_Apellido']+'</td>'+
                             '<td>'+dato['observacion']+'</td>'+
                             '<td>'+dato['estado']+'</td>'+
                             '<td>'+dato['created_at']+'</td></tr>';

@@ -767,7 +767,8 @@ class PlanAnualAController extends Controller
 
     public function historialObservaciones(Request $request, $id)
     {
-        $model_A = Observacion::where('id_registro',$id)->get();
+        $model_A = Observacion::with('persona')->where('id_registro',$id)->get();
+   
         foreach ($model_A as $key) {
             $modeloOb = Observacion::find($key['id']);
             $modeloOb['check']=1;
@@ -813,7 +814,7 @@ class PlanAnualAController extends Controller
             }
         }
 
-        dd($DatosEmail);
+        //dd($DatosEmail);
         if(!empty($emails))
         {
             //dd($emails);
