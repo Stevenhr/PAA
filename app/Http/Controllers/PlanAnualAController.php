@@ -761,7 +761,7 @@ class PlanAnualAController extends Controller
             $temp->cambios = Comparador::comparar($temp->toArray(), $paa->toArray());
         }
 
-        dd($paas);
+        //dd($paas);
         return response()->json(array('status' => 'modelo', 'datos' => $paa));
     }
 
@@ -780,6 +780,49 @@ class PlanAnualAController extends Controller
     public function RegistrarObservacion(Request $request)
     {
         $id_persona=$_SESSION['Id_Persona'];
+
+        $paa=Paa::find($request['id']);
+        $personapaas = PersonaPaa::where('id_area',$paa['Id_Area'])->get();
+        $pila = array();
+        foreach ($personapaas as &$personapaa) 
+        {
+            array_push($pila, $personapaa['id']);
+        }
+
+        $id_Tipos=[62]; //Reviar por q me trea todos y no solo los 62
+      
+        $ModeloPersona = Persona::whereHas('tipo', function ($query) use ($id_Tipos) {
+            $query->whereIn('persona_tipo.Id_Tipo',$id_Tipos);
+        })->whereIn('Id_Persona',$pila)->get();
+
+         
+
+        $Consolidadore = array();
+        foreach ($ModeloPersona as &$Mpersonapaa) 
+        {
+            array_push($Consolidadore, $Mpersonapaa['Id_Persona']);
+        }
+        
+
+        $emails = array();
+        $DatosEmail = Datos::whereIn('Id_Persona',$Consolidadore)->get();
+        foreach ($DatosEmail as &$DatoEmail) 
+        {
+            if($DatoEmail){
+                array_push($emails, $DatoEmail['Email']);
+            }
+        }
+
+        dd($DatosEmail);
+        if(!empty($emails))
+        {
+            //dd($emails);
+            Mail::send('mail', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
+                $m->from('no-reply_Paa@idrd.gov.co', $mensaje);
+
+                $m->to($emails, 'Estevenhr')->subject($mensaje."!");
+            });
+        }
 
         $modeloObserva = new Observacion;
         $modeloObserva['id_persona'] = $id_persona;
