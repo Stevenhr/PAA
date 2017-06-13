@@ -641,6 +641,64 @@ class PlanAnualAController extends Controller
         $EstudioConveniencia->save();
 
         $model_A = Paa::with('componentes','componentes.fuente')->find($id);
+        
+
+        $id_Tipos=[63]; //Tipo sibdirector
+        
+        $subdirecion=Area::with('subdirecion')->find($model_A['Id_Area']);
+        
+        $areas=Area::where('id_subdireccion',$subdirecion['id_subdireccion'])->get();
+        $array_areas = array();
+        foreach ($areas as &$area_) 
+        {
+            array_push($array_areas, $area_['id']);
+        }
+
+        $personapaas = PersonaPaa::whereIn('id_area',$array_areas)->get();
+        $pila = array();
+        foreach ($personapaas as &$personapaa) 
+        {
+            array_push($pila, $personapaa['id']);
+        }
+
+        $ModeloPersona = Persona::whereHas('tipo', function ($query) use ($id_Tipos) {
+            $query->whereIn('persona_tipo.Id_Tipo',$id_Tipos);
+        })->whereIn('Id_Persona',$pila)->get();
+
+         
+
+        $Consolidadore = array();
+        foreach ($ModeloPersona as &$Mpersonapaa) 
+        {
+            array_push($Consolidadore, $Mpersonapaa['Id_Persona']);
+        }
+        
+
+        $emails = array();
+        $DatosEmail = Datos::whereIn('Id_Persona',$Consolidadore)->get();
+        foreach ($DatosEmail as &$DatoEmail) 
+        {
+            if($DatoEmail){
+                array_push($emails, $DatoEmail['Email']);
+            }
+        }
+        
+        $id_persona=$_SESSION['Id_Persona'];
+        $persona = $this->repositorio_personas->obtener($id_persona);
+        $area=Area::find($model_A['Id_Area']);
+
+        $mensaje="PAA ID. ".$id.": Estudio de conveniencia registrado";
+       // dd($pila);
+        if(!empty($emails))
+        {
+            //dd($emails);
+            Mail::send('mail', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
+                $m->from('no-reply_Paa@idrd.gov.co', $mensaje);
+
+                $m->to($emails, 'Estevenhr')->subject($mensaje."!");
+            });
+        }
+
         $model_A['Estado']=8;
         $model_A->save();
         return response()->json($model_A->componentes);
@@ -781,8 +839,9 @@ class PlanAnualAController extends Controller
     public function RegistrarObservacion(Request $request)
     {
         $id_persona=$_SESSION['Id_Persona'];
-
+        $persona = $this->repositorio_personas->obtener($id_persona);
         $paa=Paa::find($request['id']);
+        $area=Area::find($paa['Id_Area']);
         $personapaas = PersonaPaa::where('id_area',$paa['Id_Area'])->get();
         $pila = array();
         foreach ($personapaas as &$personapaa) 
@@ -814,11 +873,12 @@ class PlanAnualAController extends Controller
             }
         }
 
+        $mensaje="PAA ID. ".$request['id'].": Observación";
         //dd($DatosEmail);
         if(!empty($emails))
         {
             //dd($emails);
-            Mail::send('mail', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
+            Mail::send('mail', ['mensaje'=>$request['observacion'],'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
                 $m->from('no-reply_Paa@idrd.gov.co', $mensaje);
 
                 $m->to($emails, 'Estevenhr')->subject($mensaje."!");

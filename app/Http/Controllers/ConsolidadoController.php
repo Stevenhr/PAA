@@ -71,9 +71,8 @@ class ConsolidadoController extends Controller
     public function aprobarSubDireccion($id)
     {
         $model_A = Paa::find($id);
-        //$model_A['Estado'] = 4;
+        $model_A['Estado'] = 4;
         $id_area_def=$model_A['Id_Area'];
-        $model_A->save();
 
         $personaOperativo = $this->repositorio_personas->obtener($model_A['IdPersona']);
         $personaConsolidador = $this->repositorio_personas->obtener($_SESSION['Id_Persona']);
@@ -120,11 +119,14 @@ class ConsolidadoController extends Controller
         //dd($emails);
 
         $mensaje="PAA ID. ".$id.": Consolidado para aprobación de la sub dirección.";
-        Mail::send('mailConsolidado', ['mensaje'=>$mensaje,'personaOperativo'=>$personaOperativo,'personaConsolidador'=>$personaConsolidador,'area'=>$area], function ($m) use ($mensaje,$emails)  {
+        Mail::send('mailConsolidado', ['mensaje'=>$mensaje,'personaOperativo'=>$personaOperativo,'personaConsolidador'=>$personaConsolidador,'area'=>$subdirecion], function ($m) use ($mensaje,$emails)  {
               $m->from('no-reply_Paa@idrd.gov.co', $mensaje);
               $m->to($emails, 'Estevenhr')->subject($mensaje."!");
           });
         
+        
+        $model_A->save();
+
         $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta','rubro_funcionamiento','persona')->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
         $paa2 = Paa::where('Estado','1')->get();
         return response()->json(array('status' => 'modelo', 'datos' => $paa, 'datos2' => $paa2));
