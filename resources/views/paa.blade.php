@@ -349,6 +349,10 @@
 				</div>
 
 				<div class="row">
+				<div class="col-xs-12 col-sm-12"><hr style="color: #123455"></div>
+				</div>
+				
+				<div class="row">
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Valor total estimado </label>
@@ -386,7 +390,14 @@
 							</select>
 						</div>
 				  </div>
-				  <div class="col-xs-6 col-sm-4">
+				</div>
+
+				<div class="row">
+				<div class="col-xs-12 col-sm-12"><hr></div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Fecha estimada de estudio de  conveniencia</label><br><br>
 							<input type="text" class="form-control" name="estudio_conveniencia" data-role="datepicker" placeholder="Fecha estimada" autocomplete="off" readonly="readonly">
@@ -398,15 +409,15 @@
 							<input type="text" class="form-control" name="fecha_inicio"  data-role1="datepicker" placeholder="aa/mm/dd" autocomplete="off" readonly="readonly">
 						</div>
 				  </div>
-				</div>
-
-				<div class="row">
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
-					    	<label>Fecha suscripción Contrato </label><br><br>
+					    	<label>Fecha suscripción Contrato </label><br><br><br>
 							<input type="text" class="form-control" name="fecha_suscripcion"  data-role="datepicker" placeholder="aa/mm/dd" autocomplete="off" readonly="readonly">
 						</div>
 				  </div>
+				</div>
+				<div class="row">
+				  
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Duración estimada del contrato<br> (Intervalo: dias,mes,años. Ejem: 29,11,1)</label>
@@ -419,7 +430,14 @@
 							<input type="text" class="form-control" name="meta_plan" autocomplete="off">
 						</div>
 				  </div>
-				   <div class="col-xs-6 col-sm-4">
+				</div>
+
+				<div class="row">
+				<div class="col-xs-12 col-sm-12"><hr></div>
+				</div>
+
+				<div class="row">
+				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Recurso Humano </label><br><br>
 							<select class="form-control" name="recurso_humano">
@@ -429,9 +447,6 @@
 							</select>
 						</div>
 				  </div>
-				</div>
-
-				<div class="row">
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Número de Contratistas</label><br><br>
@@ -450,6 +465,7 @@
 				  <div class="col-xs-6 col-sm-4">
 				  </div>
 				</div>
+
 				<div class="row" style="display: none" id="contenidoOrdenado">
 				  <div class="col-xs-6 col-sm-6">
 				  		<div class="form-group">
