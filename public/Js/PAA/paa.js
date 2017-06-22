@@ -342,7 +342,14 @@ $(function()
         }
     }
 
-     $('select[name="ProyectOrubro"]').on('change', function(e){
+    $('select[name="recurso_humano"]').on('change', function(e){
+        if($(this).val()=='No')
+            $('#numero_contratista').val(0);
+        else
+            $('#numero_contratista').val('');
+    });
+
+    $('select[name="ProyectOrubro"]').on('change', function(e){
         select_ProyectOrubro($(this).val());
     });
 

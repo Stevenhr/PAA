@@ -440,7 +440,7 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Recurso Humano </label><br><br>
-							<select class="form-control" name="recurso_humano">
+							<select class="form-control" name="recurso_humano" id="recurso_humano">
 								<option value="" >Selecionar</option>
 								<option value="Si" >Si</option>
 								<option value="No" >No</option>
@@ -450,7 +450,7 @@
 				  <div class="col-xs-6 col-sm-4">
 				  		<div class="form-group">
 					    	<label>Número de Contratistas</label><br><br>
-							<input type="text" class="form-control" name="numero_contratista" autocomplete="off">
+							<input type="text" class="form-control" name="numero_contratista" id="numero_contratista" autocomplete="off">
 						</div>
 				  </div>
 				  <div class="col-xs-6 col-sm-4">
