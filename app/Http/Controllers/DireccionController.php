@@ -191,7 +191,7 @@ class DireccionController extends BaseController
 
 	        if($paa['Proyecto1Rubro2']==1)
 	        {
-	             $finanzas = ActividadComponente::with('actividades','actividades.meta','componente.fuente')->where('id_paa',$id)->get();
+	             $finanzas = ActividadComponente::with('actividades','actividades.meta','fuenteproyecto.fuente')->where('id_paa',$id)->get();
 	            foreach ($finanzas as $finanza) 
 	            {
 	                    $finanza->Componente = Componente::find($finanza['componente_id']);
@@ -220,7 +220,7 @@ class DireccionController extends BaseController
 	            'subdireccion'=>$subdireccion,
 	            'RubroPryecto'=>$paa['Proyecto1Rubro2']
 	        ];
-	        
+	        //dd($datos);
 	        $view =  view('pdfEstudio',$datos)->render();
 
 	        //return $view;

@@ -576,7 +576,7 @@ class PlanAnualAController extends Controller
 
         if($paa['Proyecto1Rubro2']!=2)
         {
-            $modeloAct = new ActividadComponente;
+
             $finanzas = ActividadComponente::with('actividades')->where('id_paa',$id)->get();
 
             foreach ($finanzas as $finanza) {
@@ -587,6 +587,11 @@ class PlanAnualAController extends Controller
             }
 
             foreach($data0 as $obj){
+                $modeloAct = ActividadComponente::find($obj->componente);
+                $modeloAct->actividades()->detach();
+            }
+            foreach($data0 as $obj){
+                $modeloAct = ActividadComponente::find($obj->componente);
                 $modeloAct->actividades()->attach($obj->actividad_ingre,[
                     'componeActiv_id'=>$obj->componente,
                     'valor'=>$obj->valor_componente,
