@@ -368,7 +368,8 @@ $(function()
                         html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
                   });   
                   $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
-                  $('select[name="meta"]').prop( "disabled", false );
+                  $('.hide_meta').show();
+                  $("#pro_rub").html("<h4>Proyecto de inversión.</h4>");
                   $('#meta0').prop( "disabled", true);
                   $('#div_finaciacion').show();
                   vector_datos_actividad.length=0;
@@ -381,7 +382,8 @@ $(function()
                         html += '<option value="'+eee['id']+'">'+eee['nombre'].toLowerCase()+'</option>';
                   });   
                   $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
-                  $('select[name="meta"]').prop( "disabled", true );
+                  $('.hide_meta').hide();
+                  $("#pro_rub").html("<h4>Rubro de funcionamiento.</h4>");
                   $('#meta0').prop( "disabled", false);
                   $('#div_finaciacion').hide();
                 }
@@ -479,7 +481,6 @@ $(function()
 
     $('select[name="Fuente_inversion"]').on('change', function(e){
         var com=$('input[name="proyectorubro"]').val();
-        console.log(com);
         if(com!=2)
         select_fuente($(this).val());
     });
