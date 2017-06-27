@@ -505,8 +505,15 @@
 									</select>
 								</div>
                                 <button type="button" class="btn btn-primary" id="agregarRubro" style="display: none;">Agregar Rubro</button>
-                                <button  type="button" class="btn btn-info" id="VerAgregarRubro" style="display: none;">Ver</button>
+                                <button  type="button" class="btn btn-info" id="VerAgregarRubro_f" style="display: none;">Ver</button>
 							</div>
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="form-group"  id="mensaje_actividad_rubro" style="display: none;">
+                                    <div id="alert_actividad_rubro"></div>
+                                </div>
+                                <hr>
+                            </div>
+
 							<div class="col-xs-12 col-sm-12">
 								<div class="form-group">
 									<label class="hide_meta">Meta Plan</label>
@@ -517,6 +524,7 @@
 									</select>
 								</div>
 							</div>
+
 						</div>
 
 						<div id="div_finaciacion">
@@ -570,25 +578,39 @@
 									</div>
 									<hr>
 								</div>
-								<div class="col-xs-12 col-sm-12">
-									<table class="table table-bordered" id="datos_actividad" >
-										<thead>
-										<tr>
-											<th>#</th>
-											<th>Proyecto</th>
-											<th>Fuente</th>
-											<th>Componente</th>
-											<th>Valor</th>
-											<th>Eliminar</th>
-										</tr>
-										</thead>
-										<tbody id="registros">
-										</tbody>
-									</table>
-								</div>
+
 							</div>
 						</div>
 						<div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <table class="table table-bordered" id="datos_actividad" >
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Proyecto</th>
+                                        <th>Fuente</th>
+                                        <th>Componente</th>
+                                        <th>Valor</th>
+                                        <th>Eliminar</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="registros">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-xs-12 col-sm-12" id="tabla_rubro_f" style="display: none">
+                                <table class="table table-bordered" id="datos_actividad_rubro" >
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Rubro de funcionamiento</th>
+                                        <th>Eliminar</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="registros_rubro">
+                                    </tbody>
+                                </table>
+                            </div>
 							<div class="col-xs-12 col-sm-12">
 								<div class="alert alert-info" id="mjs_mod_denegada" style="display: none">
 									<strong>Información</strong> Actualmente se encuentra en aprobación por la Sub Dirección y no puede ser modificada.

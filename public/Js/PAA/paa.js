@@ -3,6 +3,7 @@ $(function()
   
   var URL = $('#main_paa_').data('url');
   vector_datos_actividad = new Array();
+    vector_datos_actividad_rubro_f = new Array();
   vector_datos_codigos = new Array();
   vector_datos_financiacion = new Array();
   var valorAfavor=0;
@@ -370,7 +371,7 @@ $(function()
                   $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
                   $('.hide_meta').show();
                   $('#agregarRubro').hide();
-                  $('#VerAgregarRubro').hide();
+                  $('#VerAgregarRubro_f').hide();
                   $("#pro_rub").html("<h4>Proyecto de inversión.</h4>");
                   $('#meta0').prop( "disabled", true);
                   $('#div_finaciacion').show();
@@ -378,7 +379,7 @@ $(function()
                 }
 
                 if(id==2){ //Rubro 
-                  vector_datos_actividad.length=1;
+
                   var html = '<option value="">Seleccionar Rubro</option>';
                   $.each(data, function(i, eee){
                         html += '<option value="'+eee['id']+'">'+eee['nombre'].toLowerCase()+'</option>';
@@ -386,7 +387,7 @@ $(function()
                   $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
                   $('.hide_meta').hide();
                   $('#agregarRubro').show();
-                  $('#VerAgregarRubro').show();
+                  $('#VerAgregarRubro_f').show();
 
                   $("#pro_rub").html("<h4>Rubro de funcionamiento.</h4>");
                   $('#meta0').prop( "disabled", false);
@@ -777,6 +778,56 @@ $(function()
         return false;
     });
 
+    $('#agregarRubro').on('click', function(e)
+    {
+        var id_rubro_funcionamiento = $('select[name="Proyecto_inversion"]').find(':selected').val();
+        var Nombre_rubro_funcionamiento= $('select[name="Proyecto_inversion"]').find(':selected').text();
+        if(id_rubro_funcionamiento!='')
+        {
+            $('#alert_actividad_rubro').html('<div class="alert alert-dismissible alert-success" ><strong>Exito!</strong> Dato registrados con éxito. </div>');
+            $('#mensaje_actividad_rubro').show(60);
+            $('#mensaje_actividad_rubro').delay(1500).hide(600);
+            vector_datos_actividad_rubro_f.push({
+                "nombre_r": Nombre_rubro_funcionamiento,
+                "id_rubro": id_rubro_funcionamiento
+            });
+        }
+        else
+        {
+            $('#alert_actividad_rubro').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe selecionar un valor para realizar el registro.</div>');
+            $('#mensaje_actividad_rubro').show(60);
+            $('#mensaje_actividad_rubro').delay(2500).hide(600);
+        }
+        $('#VerAgregarRubro_f').click();
+    });
+
+
+
+    $('#datos_actividad_rubro').delegate('button[data-funcion="eliminar"]','click',function (e) {
+        var id = $(this).data('rel');
+        vector_datos_actividad_rubro_f.splice(id, 1);
+
+        $('#alert_actividad_rubro').html('<div class="alert alert-dismissible alert-success" ><strong>Exito!</strong> Dato eliminado de la actividad con exito. </div>');
+        $('#mensaje_actividad_rubro').show(60);
+        $('#mensaje_actividad_rubro').delay(1500).hide(600);
+        var html = '';
+        valor_ingresado_conso=0;
+        if(vector_datos_actividad_rubro_f.length > 0)
+        {
+            var num=1;
+            $.each(vector_datos_actividad_rubro_f, function(i, e){
+                html += '<tr><th scope="row" class="text-center">'+num+'</th>'+
+                    '<td>'+e['nombre_r']+'</td>'+
+                    '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminar" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                num++;
+            });
+        }
+        $('#registros_rubro').html(html);
+
+        $('#tabla_rubro_f').show();
+
+    });
+
     
   $('#agregarFinanciacion').on('click', function(e)
     {
@@ -836,6 +887,7 @@ $(function()
               }
           }
         }
+        $('#VerAgregarFinanciacion').click();
         //console.log(vector_datos_actividad);
     });
 
@@ -910,7 +962,21 @@ $(function()
 
     $('#VerAgregarFinanciacion').on('click', function(e)
     {
+
         var html = '';
+        if(vector_datos_actividad_rubro_f.length > 0)
+        {
+            var num=1;
+            $.each(vector_datos_actividad_rubro_f, function(i, e){
+                html += '<tr><th scope="row" class="text-center">'+num+'</th>'+
+                    '<td>'+e['nombre_r']+'</td>'+
+                    '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminar" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                num++;
+            });
+        }
+        $('#registros_rubro').html(html);
+
+        html = '';
             if(vector_datos_actividad.length > 0)
             {
               var num=1;
@@ -924,9 +990,49 @@ $(function()
                 num++;
               });
             }
-            $('#registros').html(html);
+        $('#tabla_rubro_f').show();
+        $('#registros').html(html);
+        $('#ver_registros').show();
+        return false;
+    });
 
-        $('#ver_registros').modal('show');
+    $('#VerAgregarRubro_f').on('click', function(e)
+    {
+        var html = '';
+        if(vector_datos_actividad_rubro_f.length > 0)
+        {
+            var num=1;
+            $.each(vector_datos_actividad_rubro_f, function(i, e){
+                html += '<tr><th scope="row" class="text-center">'+num+'</th>'+
+                    '<td>'+e['nombre_r']+'</td>'+
+                    '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminar" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                num++;
+            });
+        }
+        $('#registros_rubro').html(html);
+
+
+        html = '';
+
+            num=1;
+            $.each(vector_datos_actividad, function(i, e){
+                if(e['Proyecto']) {
+                    html += '<tr><th scope="row" class="text-center">' + num + '</th>' +
+                        '<td>' + e['Proyecto'] + '</td>' +
+                        '<td>' + e['Nom_Proyecto'] + '</td>' +
+                        '<td>' + e['Nom_Componente'] + '</td>' +
+                        '<td>' + number_format(e['valor']) + '</td>' +
+                        '<td class="text-center"><button type="button" data-rel="' + i + '" data-funcion="crear" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                    num++;
+                }
+            });
+
+
+
+        $('#tabla_rubro_f').show();
+        $('#registros').html(html);
+        $('#ver_registros').show();
+
         return false;
     });
 
