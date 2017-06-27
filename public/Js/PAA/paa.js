@@ -369,6 +369,8 @@ $(function()
                   });   
                   $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
                   $('.hide_meta').show();
+                  $('#agregarRubro').hide();
+                  $('#VerAgregarRubro').hide();
                   $("#pro_rub").html("<h4>Proyecto de inversión.</h4>");
                   $('#meta0').prop( "disabled", true);
                   $('#div_finaciacion').show();
@@ -383,6 +385,9 @@ $(function()
                   });   
                   $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
                   $('.hide_meta').hide();
+                  $('#agregarRubro').show();
+                  $('#VerAgregarRubro').show();
+
                   $("#pro_rub").html("<h4>Rubro de funcionamiento.</h4>");
                   $('#meta0').prop( "disabled", false);
                   $('#div_finaciacion').hide();

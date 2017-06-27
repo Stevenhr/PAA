@@ -266,7 +266,6 @@ class PlanAnualAController extends Controller
         }
         else
         {
-
             $ModiRegi=1;
             $id_paa2=$model->Id;
             $id_paa=$modeloPA->Id;

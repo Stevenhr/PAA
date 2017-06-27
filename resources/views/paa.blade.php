@@ -488,7 +488,7 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-12">
 								<div class="form-group">
-									<h3>PROYECTO DE INVERSIÓN O RUBRO DE FUNCIONAMIENTO?:</h3>
+									<h3>PROYECTO DE INVERSIÓN O RUBRO DE FUNCIONAMIENTO?</h3>
 									<select class="form-control" id="ProyectOrubro" name="ProyectOrubro">
 										<option value="" >Selecionar</option>
 										<option value="1" >Poyecto de inversión</option>
@@ -504,12 +504,15 @@
 										<option value="" >Selecione Proyecto o Rubro</option>
 									</select>
 								</div>
+                                <button type="button" class="btn btn-primary" id="agregarRubro" style="display: none;">Agregar Rubro</button>
+                                <button  type="button" class="btn btn-info" id="VerAgregarRubro" style="display: none;">Ver</button>
 							</div>
 							<div class="col-xs-12 col-sm-12">
 								<div class="form-group">
 									<label class="hide_meta">Meta Plan</label>
 									<input type="hidden" name="meta" id="meta0" value="0" disabled></input>
 									<select class="form-control hide_meta" name="meta" id="meta">
+										<option value="" >Selecionar</option>
 										<option value="" >Selecionar</option>
 									</select>
 								</div>
