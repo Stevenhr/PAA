@@ -909,18 +909,33 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           else
                               var1 = '';
 
-                          nombrementa="";
-                          nomProyRubro="";
-                          Proyecto1Rubro2="";
-                          if(e['Proyecto1Rubro2']==2){
-                            nomProyRubro=e.rubro_funcionamiento['nombre'];
-                            nombrementa="N.a";
-                            Proyecto1Rubro2="R";
-                          }else{
-                            nomProyRubro=e.proyecto['Nombre'];
-                            nombrementa=e.meta['Nombre'];
-                            Proyecto1Rubro2="P";
-                          }
+                      nombrementa="";
+                      nomProyRubro="";
+                      Proyecto1Rubro2="";
+                      //console.log(e);
+                      if (e.rubro_funcionamiento.length>0 && e.componentes.length>0)
+                      {
+                          nomProyRubro = "Areglar";//$paa->rubro_funcionamiento['nombre'];
+                          nombrementa = "N.A";
+                          Proyecto1Rubro2 = "P-R";
+                      }
+                      else if (e.componentes.length>0)
+                      {
+                        //  console.log(e);
+                          if(e.proyecto!= null)
+                              nomProyRubro = e.proyecto['Nombre'];
+
+                          if(e.meta!=null)
+                              nombrementa = e.meta['Nombre'];
+
+                          Proyecto1Rubro2 = "P";
+                      }
+                      else if (e.rubro_funcionamiento.length>0)
+                      {
+                          nomProyRubro = "";
+                          nombrementa = "N.A";
+                          Proyecto1Rubro2 = "R";
+                      }
 
                       var $tr1 = $('<tr '+clase+'></tr>').html(
                           '<th scope="row" class="text-center">'+num+'</th>'+

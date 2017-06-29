@@ -41,7 +41,7 @@ class DireccionController extends BaseController
 		$subdireccion = Subdireccion::with('areas')->find($this->Usuario['Id_SubDireccion']);
 
 
-		$paas = Paa::with('modalidad', 'tipocontrato', 'rubro','area','persona','observaciones')->whereIn('Estado', [Estado::Subdireccion, Estado::Aprobado, Estado::Rechazado, Estado::Cancelado,Estado::EstudioConveniencia,Estado::EstudioAprobado,Estado::EstudioCorregido,Estado::EstudioCancelado])
+		$paas = Paa::with('modalidad', 'tipocontrato', 'rubro','area','persona','observaciones','rubro_funcionamiento','componentes')->whereIn('Estado', [Estado::Subdireccion, Estado::Aprobado, Estado::Rechazado, Estado::Cancelado,Estado::EstudioConveniencia,Estado::EstudioAprobado,Estado::EstudioCorregido,Estado::EstudioCancelado])
 						->whereIn('Id_Area', $subdireccion->areas->pluck('id'))
 						->orderBy('id')
 						->get();

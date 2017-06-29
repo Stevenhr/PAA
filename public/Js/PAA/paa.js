@@ -1933,51 +1933,51 @@ $(function()
     });
 
     function tabla_opciones(e, num){
-                          var disable=""; 
+                          var disable="";
                           var estado="";
                           var clase="";
                           var var0="";
                           var var1="";
 
-                          if(e['Estado']==4){              
+                          if(e['Estado']==4){
                             clase="class=\"warning\"";
-                            disable="disabled"; 
+                            disable="disabled";
                             estado="En Subdireción";
                             estudioComve="1";
-                          }else if(e['Estado']==5){  
+                          }else if(e['Estado']==5){
                             clase="class=\"success\"";
-                            disable="disabled"; 
-                            estado="Aprobado Subdireción. (Sin registro de estudio)"; 
+                            disable="disabled";
+                            estado="Aprobado Subdireción. (Sin registro de estudio)";
                             estudioComve="0";
-                          }else if(e['Estado']==6){  
+                          }else if(e['Estado']==6){
                             clase="class=\"danger\"";
-                            disable=""; 
-                            estado="Denegado Subdireción"; 
+                            disable="";
+                            estado="Denegado Subdireción";
                             estudioComve="1";
-                          }else if(e['Estado']==7){  
+                          }else if(e['Estado']==7){
                             clase="class=\"danger\"";
-                            disable="disabled"; 
-                            estado="CANCELADO"; 
+                            disable="disabled";
+                            estado="CANCELADO";
                             estudioComve="1";
-                          }else if(e['Estado']==8){  
+                          }else if(e['Estado']==8){
                             clase="style=\"background-color: #DFFFD8 !important;\"";
-                            disable="disabled"; 
-                            estado="Aprobado Subdireción <b>(Por aprobación del estudio)"; 
+                            disable="disabled";
+                            estado="Aprobado Subdireción <b>(Por aprobación del estudio)";
                             estudioComve="1";
-                          }else if(e['Estado']==9){  
+                          }else if(e['Estado']==9){
                             clase="style=\"background-color: #DCFFB3 !important;\"";
-                            disable="disabled"; 
-                            estado="Aprobado Subdireción <b>(Estudio  aprobado)"; 
+                            disable="disabled";
+                            estado="Aprobado Subdireción <b>(Estudio  aprobado)";
                             estudioComve="1";
-                          }else if(e['Estado']==10){  
+                          }else if(e['Estado']==10){
                             clase="style=\"background-color: #DCD664 !important;\"";
-                            disable="disabled"; 
-                            estado="Aprobado Subdireción <b>(Correciones pendientes del estudio)"; 
+                            disable="disabled";
+                            estado="Aprobado Subdireción <b>(Correciones pendientes del estudio)";
                             estudioComve="0";
-                          }else if(e['Estado']==11){  
+                          }else if(e['Estado']==11){
                             clase="style=\"background-color: #829E48 !important;\"";
-                            disable="disabled"; 
-                            estado="Aprobado Subdireción <b>(Cancelado el estudio)"; 
+                            disable="disabled";
+                            estado="Aprobado Subdireción <b>(Cancelado el estudio)";
                             estudioComve="1";
                           }else{
                             estado="En Consolidación";
@@ -1987,7 +1987,7 @@ $(function()
 
 
                           if (e['compartida']>0)
-                            var0 = 'C'; 
+                            var0 = 'C';
                           else
                             var0 = '';
 
@@ -2000,15 +2000,30 @@ $(function()
                           nombrementa="";
                           nomProyRubro="";
                           Proyecto1Rubro2="";
-                          if(e['Proyecto1Rubro2']==2){
-                            nomProyRubro=e.rubro_funcionamiento['nombre'];
-                            nombrementa="N.a";
-                            Proyecto1Rubro2="R";
-                          }else{
-                            nomProyRubro=e.proyecto['Nombre'];
-                            nombrementa=e.meta['Nombre'];
-                            Proyecto1Rubro2="P";
-                          }
+                            console.log(e.componentes.length+' '+e.rubro_funcionamiento.length);
+                            if (e.rubro_funcionamiento.length>0 && e.componentes.length>0)
+                            {
+                                nomProyRubro = "Areglar";//$paa->rubro_funcionamiento['nombre'];
+                                nombrementa = "N.A";
+                                Proyecto1Rubro2 = "P-R";
+                            }
+                            else if (e.componentes.length>0)
+                            {
+                                //console.log(e);
+                                if(e.proyecto!= null)
+                                nomProyRubro = e.proyecto['Nombre'];
+
+                                if(e.meta!=null)
+                                nombrementa = e.meta['Nombre'];
+
+                                Proyecto1Rubro2 = "P";
+                            }
+                            else if (e.rubro_funcionamiento.length>0)
+                            {
+                                nomProyRubro = "";
+                                nombrementa = "N.A";
+                                Proyecto1Rubro2 = "R";
+                            }
                           
                           var $tr1 =   $('<tr '+clase+'></tr>').html(
                             '<th scope="row" class="text-center">'+num+'</th>'+

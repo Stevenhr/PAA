@@ -302,7 +302,7 @@ class PlanAnualAController extends Controller
         $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
         
         
-        $paa = Paa::with('modalidad','tipocontrato','rubro_funcionamiento','proyecto','meta','persona')->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro_funcionamiento','proyecto','meta','componentes','persona')->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
         $persona = $this->repositorio_personas->obtener($_SESSION['Id_Persona']);
         $area=Area::find($id_area_def);
 
