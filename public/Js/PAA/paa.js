@@ -1135,7 +1135,8 @@ $(function()
                     $('#registrosFinanzas').html(html);
                 }
                 else
-                { 
+                {
+                    //console.log(data);
                     var num=1;
                     $('input[name="valor_contrato"]').val('N.A').prop('readonly', true);
                     $('#fuenPproy').text('Rubro');
@@ -1150,17 +1151,17 @@ $(function()
                     }
                     $('select[name="Fuente_inversion"]').html(html).val($('select[name="Fuente_inversion"]').data('value'));
 
-                      var html = '';
-
+                    var html = '';
+                    $.each(data.Modelo.rubro_funcionamiento, function(i,e){
                       html += '<tr>'+
                               '<th scope="row" class="text-center">'+num+'</th>'+
-                              '<td>'+data.Rubro['nombre']+'</td>'+
+                              '<td>'+e['nombre']+'</td>'+
                               '<td>Otros Distrito</td>'+
                               '<td>N.A</td>'+
                               '<td>N.A</td>'+
                               '<td class="text-center"></td></tr>';
                       num++;
-
+                    });
                     $('#registrosFinanzas').html(html);
                     $('#btn_agregar_finaza').html('Modificar Rubro');
                             

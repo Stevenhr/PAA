@@ -666,7 +666,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Listado de Financiación</h4>
+					<h4 class="modal-title" id="myModalLabel">Listado de Financiación Proyecto de Inversión.</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
@@ -688,64 +688,54 @@
 						</div>
 					</div>
 				</div>
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Agregar Finaciación</h4>
-				</div>
 				<div class="modal-body">
 					<form id="form_agregar_finza">
 						<div class="row"  >
 							<div class="col-xs-12 col-sm-12">
+								Agregar Finaciación
+							</div>
+							<div class="col-xs-12 col-sm-12">
 								<div class="form-group">
 									<label id="fuenPproy">Fuente</label>
-									<input type="hidden" name="id_act_agre" id="id_act_agre"></input>
+									<input type="hidden" name="id_act_agre" id="id_act_agre">
 									<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
 										<option value="" >Selecionar</option>
-									<!--@foreach($proyectos as $proyecto)
-										<option value="{{ $proyecto['Id'] }}" >{{ $proyecto['Nombre'] }}</option>
-							    @endforeach
-									@foreach($fuentes as $fuente)
-										<option value="{{ $fuente['Id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
-							    @endforeach-->
-							</select>
+									</select>
+								</div>
+						    </div>
+						    <div class="col-xs-12 col-sm-12">
+						  		<div class="form-group">
+							    	<label>Componente de gasto</label>
+									<select class="form-control" name="componnente" id="componnente">
+										<option value="" >Selecionar</option>
+									</select>
+								</div>
+						    </div>
+						  <div class="col-xs-12 col-sm-4">
+						  	<div class="form-group">
+							  		<label>Valor</label>
+									<input type="text" class="form-control" name="valor_contrato" autocomplete="off">
+									<input type="hidden" class="form-control" name="proyectorubro" autocomplete="off">
+							</div>
+							<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza">Agregar Financiación</button>
+						  </div>
+						  <div class="col-xs-12 col-sm-8">
+						  	<div class="mjs_componente"></div>
+						  </div>
 						</div>
-				  </div>
-				  <div class="col-xs-12 col-sm-12">
-				  		<div class="form-group">
-					    	<label>Componente de gasto</label>
-							<select class="form-control" name="componnente" id="componnente">
-								<option value="" >Selecionar</option>
-							</select>
-						</div>
-				  </div>
-				
-
-				  <div class="col-xs-12 col-sm-4">
-				  	<div class="form-group">
-					  		<label>Valor</label>
-							<input type="text" class="form-control" name="valor_contrato" autocomplete="off">
-							<input type="hidden" class="form-control" name="proyectorubro" autocomplete="off">
-					</div>
-					<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza">Agregar Financiación</button>
-				  </div>
-				  <div class="col-xs-12 col-sm-8">
-				  	<div class="mjs_componente"></div>
-				  </div>
-			</div>
-			</form>
-      </div>
+					</form>
+     			 </div>
       
-      <div class="modal-footer">
-      	<div class="row">
-        	<div class="col-xs-12 col-sm-12">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
+			      <div class="modal-footer">
+			      	<div class="row">
+			        	<div class="col-xs-12 col-sm-12">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						</div>
+			        </div>
+			      </div>
+    		</div>
+  		</div>
+	</div>
 
 
 <!-- MODAL FIANANCIACION-->

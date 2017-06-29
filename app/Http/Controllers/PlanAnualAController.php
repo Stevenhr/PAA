@@ -428,14 +428,12 @@ class PlanAnualAController extends Controller
             $rubro = RubroFuncionamiento::all();
             return response()->json($rubro);
         }
-        
     }
 
     public function verFinanciacion(Request $request, $id)
     {
-
         $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente')->where('id_paa',$id)->get();
-        $model_A = Paa::with('componentes','componentes.fuente')->find($id);
+        $model_A = Paa::with('componentes','componentes.fuente','rubro_funcionamiento')->find($id);
         $RubroFuncionamiento = RubroFuncionamiento::find($model_A['Id_Rubro']);
         $RubroFuncionamiento1 = RubroFuncionamiento::all();
         //dd($model_A);
