@@ -65,7 +65,8 @@ class Paa extends Model
 
     public function rubro_funcionamiento()
     {
-        return $this->belongsTo('App\RubroFuncionamiento','Id_Rubro');
+        //return $this->belongsTo('App\RubroFuncionamiento','Id_Rubro');
+      return $this->belongsToMany('\App\RubroFuncionamiento','paarubrofuncionamiento','paa_id','rubro_id')->withPivot('created_at');
     }
     
     public function proyecto()

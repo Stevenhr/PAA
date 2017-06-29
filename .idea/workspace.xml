@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="196356d9-eaf6-43b4-b219-ce4682329c03" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/PlanAnualAController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/PlanAnualAController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Paa.php" afterPath="$PROJECT_DIR$/app/Paa.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/Js/PAA/paa.js" afterPath="$PROJECT_DIR$/public/Js/PAA/paa.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/paa.blade.php" afterPath="$PROJECT_DIR$/resources/views/paa.blade.php" />
     </list>
@@ -27,15 +29,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="paa.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="paa.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/Js/PAA/paa.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="1040" column="38" lean-forward="false" selection-start-line="1040" selection-start-column="16" selection-end-line="1040" selection-end-column="38" />
+            <state relative-caret-position="429">
+              <caret line="798" column="25" lean-forward="false" selection-start-line="798" selection-start-column="17" selection-end-line="798" selection-end-column="25" />
               <folding>
-                <marker date="1498598075692" expanded="true" signature="44423:44431" ph="..." />
-                <marker date="1498598075692" expanded="true" signature="48130:48138" ph="..." />
-                <marker date="1498598075692" expanded="true" signature="50962:50970" ph="..." />
+                <marker date="1498663875276" expanded="true" signature="44961:44969" ph="..." />
+                <marker date="1498663875276" expanded="true" signature="48668:48676" ph="..." />
+                <marker date="1498663875276" expanded="true" signature="51500:51508" ph="..." />
               </folding>
             </state>
           </provider>
@@ -44,8 +46,8 @@
       <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="86" column="19" lean-forward="true" selection-start-line="86" selection-start-column="19" selection-end-line="86" selection-end-column="19" />
+            <state relative-caret-position="260">
+              <caret line="91" column="0" lean-forward="true" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -54,24 +56,47 @@
       <file leaf-file-name="paa.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/paa.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="935">
-              <caret line="612" column="34" lean-forward="false" selection-start-line="612" selection-start-column="34" selection-end-line="612" selection-end-column="34" />
+            <state relative-caret-position="495">
+              <caret line="252" column="113" lean-forward="false" selection-start-line="252" selection-start-column="113" selection-end-line="252" selection-end-column="113" />
               <folding>
-                <element signature="e#22710#22732#0#HTML" expanded="true" />
-                <element signature="e#22855#22877#0#HTML" expanded="true" />
-                <element signature="e#23053#23075#0#HTML" expanded="true" />
-                <element signature="e#25546#25568#0#HTML" expanded="true" />
-                <element signature="e#26633#26654#0#HTML" expanded="true" />
+                <element signature="e#22181#22211#0#HTML" expanded="true" />
+                <element signature="e#23297#23318#0#HTML" expanded="true" />
+                <element signature="e#23595#23617#0#HTML" expanded="true" />
+                <element signature="e#23740#23762#0#HTML" expanded="true" />
+                <element signature="e#23892#23914#0#HTML" expanded="true" />
+                <element signature="e#24843#24865#0#HTML" expanded="true" />
+                <element signature="e#26873#26895#0#HTML" expanded="true" />
+                <element signature="e#27147#27177#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlanAnualAController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PlanAnualAController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PlanAnualAController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="258" column="45" lean-forward="false" selection-start-line="258" selection-start-column="45" selection-end-line="258" selection-end-column="45" />
+            <state relative-caret-position="-4598">
+              <caret line="46" column="5" lean-forward="true" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Paa.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Paa.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="440">
+              <caret line="81" column="31" lean-forward="false" selection-start-line="81" selection-start-column="20" selection-end-line="81" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="unspsc_30.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/Js/unspsc_30.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="31" column="26" lean-forward="false" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -81,23 +106,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>estudiopdf</find>
-      <find>recurso_humano</find>
-      <find>$actividad</find>
-      <find>Id_fuente</find>
-      <find>componente_id</find>
-      <find>$finanza</find>
-      <find>Fuente_ingre</find>
-      <find>select</find>
-      <find>$finanzas</find>
-      <find>ProyectOrubro&quot;</find>
-      <find>select_ProyectOrubro</find>
-      <find>Proyecto de inversión o rubro</find>
-      <find>Btn_Agregar_Nuevo</find>
-      <find>div_finaciacion</find>
-      <find>PROYECTO DE INVERSIÓN O RUBRO DE FUNCIONAMIENTO</find>
-      <find>validar_paa</find>
-      <find>form_paa</find>
       <find>Proyecto1Rubro2</find>
       <find>crear_paa_btn</find>
       <find>agregarFinanciacion</find>
@@ -106,11 +114,28 @@
       <find>datos_actividad</find>
       <find>texto</find>
       <find>VerAgregarRubro</find>
-      <find>registros</find>
-      <find>/validar/paa</find>
       <find>VerAgregarRubro_f</find>
-      <find>ProyectOrubro</find>
       <find>vector_datos_actividad</find>
+      <find>console</find>
+      <find>Fuente_inversion</find>
+      <find>div_finaciacion</find>
+      <find>Proyecto de inversión o rubro</find>
+      <find>ProyectOrubro</find>
+      <find>PROCESO PROYECTO DE INVERSIÓN</find>
+      <find>label</find>
+      <find>Btn_Agregar_Nuevo</find>
+      <find>/validar/paa</find>
+      <find>registros</find>
+      <find>mjs_componente</find>
+      <find>hr</find>
+      <find>Dato_Actividad_Codigos</find>
+      <find>validar_paa</find>
+      <find>$nombre</find>
+      <find>json_decode</find>
+      <find>nombre</find>
+      <find>validar/paa</find>
+      <find>componentes</find>
+      <find>rubro_funcionamiento</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -122,12 +147,13 @@
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/DireccionController.php" />
         <option value="$PROJECT_DIR$/resources/views/pdfEstudio.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/PlanAnualAController.php" />
         <option value="$PROJECT_DIR$/database/migrations/2017_06_27_170803_tabla_pivot_rubroFuncionamient_Paa.php" />
         <option value="$PROJECT_DIR$/database/migrations/2017_06_27_171216_eliminar_relaciones_rubroFuncionamiento_paa.php" />
         <option value="$PROJECT_DIR$/database/migrations/2017_06_27_172506_tabla_pivot_rubroFuncionamient_Paa.php" />
-        <option value="$PROJECT_DIR$/resources/views/paa.blade.php" />
         <option value="$PROJECT_DIR$/public/Js/PAA/paa.js" />
+        <option value="$PROJECT_DIR$/app/Paa.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/PlanAnualAController.php" />
+        <option value="$PROJECT_DIR$/resources/views/paa.blade.php" />
       </list>
     </option>
   </component>
@@ -188,7 +214,7 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="database" />
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -202,11 +228,11 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="database" />
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="migrations" />
+              <option name="myItemId" value="Js" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -312,12 +338,12 @@
       <updated>1497621987442</updated>
       <workItem from="1497621990375" duration="1163000" />
       <workItem from="1498226548848" duration="6891000" />
-      <workItem from="1498569918967" duration="16933000" />
+      <workItem from="1498569918967" duration="32513000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39806000" />
+    <option name="totallyTimeSpent" value="55386000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -368,9 +394,9 @@
         <state relative-caret-position="19118">
           <caret line="869" column="37" lean-forward="true" selection-start-line="869" selection-start-column="37" selection-end-line="869" selection-end-column="37" />
           <folding>
-            <marker date="1498598075692" expanded="true" signature="44423:44431" ph="..." />
-            <marker date="1498598075692" expanded="true" signature="48130:48138" ph="..." />
-            <marker date="1498598075692" expanded="true" signature="50962:50970" ph="..." />
+            <marker date="1498663875276" expanded="true" signature="44961:44969" ph="..." />
+            <marker date="1498663875276" expanded="true" signature="48668:48676" ph="..." />
+            <marker date="1498663875276" expanded="true" signature="51500:51508" ph="..." />
           </folding>
         </state>
       </provider>
@@ -388,11 +414,14 @@
         <state relative-caret-position="11484">
           <caret line="522" column="66" lean-forward="true" selection-start-line="522" selection-start-column="66" selection-end-line="522" selection-end-column="66" />
           <folding>
-            <element signature="e#22710#22732#0#HTML" expanded="true" />
-            <element signature="e#22855#22877#0#HTML" expanded="true" />
-            <element signature="e#23053#23075#0#HTML" expanded="true" />
-            <element signature="e#25546#25568#0#HTML" expanded="true" />
-            <element signature="e#26633#26654#0#HTML" expanded="true" />
+            <element signature="e#22181#22211#0#HTML" expanded="true" />
+            <element signature="e#23297#23318#0#HTML" expanded="true" />
+            <element signature="e#23595#23617#0#HTML" expanded="true" />
+            <element signature="e#23740#23762#0#HTML" expanded="true" />
+            <element signature="e#23892#23914#0#HTML" expanded="true" />
+            <element signature="e#24843#24865#0#HTML" expanded="true" />
+            <element signature="e#26873#26895#0#HTML" expanded="true" />
+            <element signature="e#27147#27177#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -402,9 +431,9 @@
         <state relative-caret-position="7722">
           <caret line="351" column="63" lean-forward="false" selection-start-line="351" selection-start-column="63" selection-end-line="351" selection-end-column="63" />
           <folding>
-            <marker date="1498598075692" expanded="true" signature="44423:44431" ph="..." />
-            <marker date="1498598075692" expanded="true" signature="48130:48138" ph="..." />
-            <marker date="1498598075692" expanded="true" signature="50962:50970" ph="..." />
+            <marker date="1498663875276" expanded="true" signature="44961:44969" ph="..." />
+            <marker date="1498663875276" expanded="true" signature="48668:48676" ph="..." />
+            <marker date="1498663875276" expanded="true" signature="51500:51508" ph="..." />
           </folding>
         </state>
       </provider>
@@ -467,11 +496,14 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#22710#22732#0#HTML" expanded="true" />
-            <element signature="e#22855#22877#0#HTML" expanded="true" />
-            <element signature="e#23053#23075#0#HTML" expanded="true" />
-            <element signature="e#25546#25568#0#HTML" expanded="true" />
-            <element signature="e#26633#26654#0#HTML" expanded="true" />
+            <element signature="e#22181#22211#0#HTML" expanded="true" />
+            <element signature="e#23297#23318#0#HTML" expanded="true" />
+            <element signature="e#23595#23617#0#HTML" expanded="true" />
+            <element signature="e#23740#23762#0#HTML" expanded="true" />
+            <element signature="e#23892#23914#0#HTML" expanded="true" />
+            <element signature="e#24843#24865#0#HTML" expanded="true" />
+            <element signature="e#26873#26895#0#HTML" expanded="true" />
+            <element signature="e#27147#27177#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -502,11 +534,14 @@
         <state relative-caret-position="-198">
           <caret line="383" column="41" lean-forward="true" selection-start-line="383" selection-start-column="41" selection-end-line="383" selection-end-column="41" />
           <folding>
-            <element signature="e#22710#22732#0#HTML" expanded="true" />
-            <element signature="e#22855#22877#0#HTML" expanded="true" />
-            <element signature="e#23053#23075#0#HTML" expanded="true" />
-            <element signature="e#25546#25568#0#HTML" expanded="true" />
-            <element signature="e#26633#26654#0#HTML" expanded="true" />
+            <element signature="e#22181#22211#0#HTML" expanded="true" />
+            <element signature="e#23297#23318#0#HTML" expanded="true" />
+            <element signature="e#23595#23617#0#HTML" expanded="true" />
+            <element signature="e#23740#23762#0#HTML" expanded="true" />
+            <element signature="e#23892#23914#0#HTML" expanded="true" />
+            <element signature="e#24843#24865#0#HTML" expanded="true" />
+            <element signature="e#26873#26895#0#HTML" expanded="true" />
+            <element signature="e#27147#27177#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -586,26 +621,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Paa.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1686">
-          <caret line="131" column="89" lean-forward="false" selection-start-line="131" selection-start-column="68" selection-end-line="131" selection-end-column="89" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/Js/unspsc_40.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="6" column="26" lean-forward="false" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/Js/unspsc_30.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="18" column="26" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -699,51 +718,70 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="13" lean-forward="true" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PlanAnualAController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="258" column="45" lean-forward="false" selection-start-line="258" selection-start-column="45" selection-end-line="258" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/paa.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="612" column="34" lean-forward="false" selection-start-line="612" selection-start-column="34" selection-end-line="612" selection-end-column="34" />
-          <folding>
-            <element signature="e#22710#22732#0#HTML" expanded="true" />
-            <element signature="e#22855#22877#0#HTML" expanded="true" />
-            <element signature="e#23053#23075#0#HTML" expanded="true" />
-            <element signature="e#25546#25568#0#HTML" expanded="true" />
-            <element signature="e#26633#26654#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="86" column="19" lean-forward="true" selection-start-line="86" selection-start-column="19" selection-end-line="86" selection-end-column="19" />
+        <state relative-caret-position="361">
+          <caret line="21" column="13" lean-forward="true" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/Js/PAA/paa.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="1040" column="38" lean-forward="false" selection-start-line="1040" selection-start-column="16" selection-end-line="1040" selection-end-column="38" />
+        <state relative-caret-position="429">
+          <caret line="798" column="25" lean-forward="false" selection-start-line="798" selection-start-column="17" selection-end-line="798" selection-end-column="25" />
           <folding>
-            <marker date="1498598075692" expanded="true" signature="44423:44431" ph="..." />
-            <marker date="1498598075692" expanded="true" signature="48130:48138" ph="..." />
-            <marker date="1498598075692" expanded="true" signature="50962:50970" ph="..." />
+            <marker date="1498663875276" expanded="true" signature="44961:44969" ph="..." />
+            <marker date="1498663875276" expanded="true" signature="48668:48676" ph="..." />
+            <marker date="1498663875276" expanded="true" signature="51500:51508" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="91" column="0" lean-forward="true" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/Js/unspsc_30.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="31" column="26" lean-forward="false" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Paa.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="81" column="31" lean-forward="false" selection-start-line="81" selection-start-column="20" selection-end-line="81" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/paa.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="252" column="113" lean-forward="false" selection-start-line="252" selection-start-column="113" selection-end-line="252" selection-end-column="113" />
+          <folding>
+            <element signature="e#22181#22211#0#HTML" expanded="true" />
+            <element signature="e#23297#23318#0#HTML" expanded="true" />
+            <element signature="e#23595#23617#0#HTML" expanded="true" />
+            <element signature="e#23740#23762#0#HTML" expanded="true" />
+            <element signature="e#23892#23914#0#HTML" expanded="true" />
+            <element signature="e#24843#24865#0#HTML" expanded="true" />
+            <element signature="e#26873#26895#0#HTML" expanded="true" />
+            <element signature="e#27147#27177#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PlanAnualAController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4598">
+          <caret line="46" column="5" lean-forward="true" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>

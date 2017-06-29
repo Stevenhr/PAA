@@ -154,17 +154,23 @@
                                 $nomProyRubro="";
                                 $Proyecto1Rubro2="";?>
 
-								@if ($paa['Proyecto1Rubro2']==2)
+								@if ($paa->rubro_funcionamiento->count()>0 && $paa->componentes->count()>0)
                                     <?php
-                                    $nomProyRubro=$paa->rubro_funcionamiento['nombre'];
-                                    $nombrementa="N.a";
-                                    $Proyecto1Rubro2="R";
+                                    $nomProyRubro="Areglar";//$paa->rubro_funcionamiento['nombre'];
+                                    $nombrementa="N.A";
+                                    $Proyecto1Rubro2="P-R";
                                     ?>
-								@else
+								@elseif ($paa->componentes->count()>0)
                                     <?php
                                     $nomProyRubro=$paa->proyecto['Nombre'];
                                     $nombrementa=$paa->meta['Nombre'];
                                     $Proyecto1Rubro2="P";
+                                    ?>
+                                @elseif ($paa->rubro_funcionamiento->count()>0)
+                                    <?php
+                                    $nomProyRubro="";
+                                    $nombrementa="N.A";
+                                    $Proyecto1Rubro2="R";
                                     ?>
 								@endif
 
@@ -244,7 +250,7 @@
 				</table>
 				<b>C</b>= compartida   <b>V</b>= vinculada
 				<br>
-				<b>P</b>= Proyecto de inversión   <b>R</b>= Rubro de funcionamiento
+				<b>P</b>= Proyecto de inversión   <b>R</b>= Rubro de funcionamiento        <b>P-R</b>= Proyecto y Rubro
 			</div>
 			<div class="col-xs-12 col-md-12 ">
 				<br><br><br>
@@ -260,6 +266,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title" id="myModalLabel">CREAR PAA</h4>
+
 				</div>
 				<div class="modal-body">
 					<form id="form_paa">
@@ -482,52 +489,57 @@
 						</div>
 
 						<div class="row">
-							<div class="col-xs-12 col-sm-12"><hr></div>
+							<div class="col-xs-12 col-sm-12"><hr style="border-color: #178acc;"></div>
 						</div>
 
 						<div class="row">
 							<div class="col-xs-12 col-sm-12">
 								<div class="form-group">
-									<h3>PROYECTO DE INVERSIÓN O RUBRO DE FUNCIONAMIENTO?</h3>
-									<select class="form-control" id="ProyectOrubro" name="ProyectOrubro">
+									<h4>Selecione proyecto de inversión o rubro de funcionamiento.</h4>
+									<select class="form-control input-lg" id="ProyectOrubro" name="ProyectOrubro">
 										<option value="" >Selecionar</option>
 										<option value="1" >Poyecto de inversión</option>
 										<option value="2" >Rubro de funcionamiento</option>
 									</select>
 								</div>
 							</div>
-							<div class="col-xs-12 col-sm-12">
-								<div class="form-group">
-									<label id="pro_rub">Proyecto de inversión o rubro</label>
-									<input type="hidden" name="id_pivot_comp" id="id_pivot_comp"></input>
-									<select class="form-control" name="Proyecto_inversion" id="Proyecto_inversion">
-										<option value="" >Selecione Proyecto o Rubro</option>
-									</select>
-								</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="form-group">
+
+                                    <label id="pro_rub"></label>
+                                    <input type="hidden" name="id_pivot_comp" id="id_pivot_comp"></input>
+                                    <br>
+                                    <label id="paso_1"></label>
+                                    <select class="form-control" name="Proyecto_inversion" id="Proyecto_inversion" style="display: none">
+                                        <option value="" >Selecione Proyecto o Rubro</option>
+                                    </select>
+                                </div>
                                 <button type="button" class="btn btn-primary" id="agregarRubro" style="display: none;">Agregar Rubro</button>
                                 <button  type="button" class="btn btn-info" id="VerAgregarRubro_f" style="display: none;">Ver</button>
-							</div>
-                            <div class="col-xs-12 col-sm-12">
-                                <div class="form-group"  id="mensaje_actividad_rubro" style="display: none;">
-                                    <div id="alert_actividad_rubro"></div>
-                                </div>
-                                <hr>
                             </div>
+                        </div>
+                        <div id="div_finaciacion" style="display: none;">
+                            <div class="row">
 
-							<div class="col-xs-12 col-sm-12">
-								<div class="form-group">
-									<label class="hide_meta">Meta Plan</label>
-									<input type="hidden" name="meta" id="meta0" value="0" disabled></input>
-									<select class="form-control hide_meta" name="meta" id="meta">
-										<option value="" >Selecionar</option>
-										<option value="" >Selecionar</option>
-									</select>
-								</div>
-							</div>
 
-						</div>
-
-						<div id="div_finaciacion">
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="hide_meta">2. Meta Plan</label>
+                                        <input type="hidden" name="meta" id="meta0" value="0" disabled></input>
+                                        <select class="form-control hide_meta" name="meta" id="meta">
+                                            <option value="" >Selecionar</option>
+                                            <option value="" >Selecionar</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="form-group"  id="mensaje_actividad_rubro" style="display: none;">
+                                        <div id="alert_actividad_rubro"></div>
+                                    </div>
+                                </div>
+                            </div>
 							<div class="row">
 								<div class="col-xs-12 col-sm-12">
 									<hr>
@@ -536,7 +548,7 @@
 							</div>
 
 							<div class="row">
-								<div class="col-xs-12 col-sm-12">
+								<div class="col-xs-12 col-sm-6">
 									<div class="form-group">
 										<label>Fuente</label>
 										<input type="hidden" name="id_pivot_comp" id="id_pivot_comp"></input>
@@ -549,7 +561,7 @@
 										</select>
 									</div>
 								</div>
-								<div class="col-xs-12 col-sm-12">
+								<div class="col-xs-12 col-sm-6">
 									<div class="form-group">
 										<label>Componente</label>
 										<select class="form-control" name="componnente" id="componnente">
@@ -576,12 +588,17 @@
 									<div class="form-group"  id="mensaje_actividad" style="display: none;">
 										<div id="alert_actividad"></div>
 									</div>
-									<hr>
 								</div>
 
 							</div>
 						</div>
-						<div class="row">
+                        <div class="row"><br><br>
+                            <div class="col-xs-12 col-sm-12">
+                                <hr style="border-color: #178acc;">
+                            </div>
+                            <div class="col-xs-12 col-sm-12">
+                                <label>Datos agregados de proyectos de inversión:</label>
+                            </div>
                             <div class="col-xs-12 col-sm-12">
                                 <table class="table table-bordered" id="datos_actividad" >
                                     <thead>
@@ -598,7 +615,10 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-xs-12 col-sm-12" id="tabla_rubro_f" style="display: none">
+                            <div class="col-xs-12 col-sm-12">
+                                <label>Datos agregados de rubros de financiamiento:</label>
+                            </div>
+                            <div class="col-xs-12 col-sm-12" id="tabla_rubro_f">
                                 <table class="table table-bordered" id="datos_actividad_rubro" >
                                     <thead>
                                     <tr>
@@ -623,6 +643,7 @@
 					<div id="mjs_registroPaa2" class="alert alert-danger" style="display: none"></div>
 					<input type="hidden" name="Dato_Actividad" class="form-control">
 					<input type="hidden" name="Dato_Actividad_Codigos" class="form-control">
+                    <input type="hidden" name="Dato_Actividad_Acti_rubro" class="form-control">
 					<button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
 					<button  type="submit" class="btn btn-success" id="crear_paa_btn">CREAR</button>
 				</div>

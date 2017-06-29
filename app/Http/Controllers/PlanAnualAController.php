@@ -59,9 +59,9 @@ class PlanAnualAController extends Controller
         $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
         $paa_obs=Paa::with('observaciones')->where('IdPersona',$_SESSION['Id_Persona'])->get();
 
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area','componentes','proyecto','meta','persona')->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area','componentes','proyecto','meta','persona','rubro_funcionamiento')->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
 
-        //dd($paa);
+        //dd($paa[0]->componentes->count());
         $datos = [        
             'modalidades' => $modalidadSeleccion,
             'proyectos' => $proyecto,
@@ -260,6 +260,16 @@ class PlanAnualAController extends Controller
                         'fuente_id'=>$obj->id_Proyecto,
                         'proyecto_id'=>$input['Proyecto_inversion'],
                         'estado'=>1,
+                    ]);
+                }
+            }
+
+            $data_r = json_decode($input['Dato_Actividad_Acti_rubro']);
+
+            if($data_r[0] != null){
+                foreach($data_r as $obj){
+                    $modeloPA->rubro_funcionamiento()->attach($obj->id_rubro,[
+                        'paa_id'=>$id_paa2,
                     ]);
                 }
             }

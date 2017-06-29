@@ -191,6 +191,9 @@ $(function()
 
     var datos_cod = JSON.stringify(vector_datos_codigos);
     $('input[name="Dato_Actividad_Codigos"]').val(datos_cod);
+
+     var datos_act_rubro = JSON.stringify(vector_datos_actividad_rubro_f);
+     $('input[name="Dato_Actividad_Acti_rubro"]').val(datos_act_rubro);
     
     if(vector_datos_actividad.length > 0){
 
@@ -370,12 +373,14 @@ $(function()
                   });   
                   $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
                   $('.hide_meta').show();
+                  $('#Proyecto_inversion').show();
+                  $('#paso_1').html('1. Proyecto');
                   $('#agregarRubro').hide();
                   $('#VerAgregarRubro_f').hide();
-                  $("#pro_rub").html("<h4>Proyecto de inversión.</h4>");
+                  $("#pro_rub").html("<h4 class='text-success'>PROCESO PROYECTO DE INVERSIÓN.</h4>");
                   $('#meta0').prop( "disabled", true);
                   $('#div_finaciacion').show();
-                  vector_datos_actividad.length=0;
+                  //vector_datos_actividad.length=0;
                 }
 
                 if(id==2){ //Rubro 
@@ -386,10 +391,12 @@ $(function()
                   });   
                   $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
                   $('.hide_meta').hide();
+                  $('#Proyecto_inversion').show();
+                    $('#paso_1').html('1. Rubro');
                   $('#agregarRubro').show();
                   $('#VerAgregarRubro_f').show();
 
-                  $("#pro_rub").html("<h4>Rubro de funcionamiento.</h4>");
+                  $("#pro_rub").html("<h4 class='text-warning'>PROCESO RUBRO DE FUNCIONAMIENTO.</h4>");
                   $('#meta0').prop( "disabled", false);
                   $('#div_finaciacion').hide();
                 }
@@ -917,6 +924,7 @@ $(function()
 
         $('textarea[name="objeto_contrato"]').val("").closest('.form-group').removeClass('has-error');;
         vector_datos_actividad.length=0;
+        vector_datos_actividad_rubro_f.length=0;
         vector_datos_codigos.length=0;
         $('#t_datos_actividad_codigo').hide();
         $('#ProyectOrubro').prop("disabled",false);
@@ -924,9 +932,11 @@ $(function()
         $('#meta').prop("disabled",false);  
 
         $('input[name="proyectorubro"]').val('');
-        $('#div_finaciacion').show();
+        //$('#div_finaciacion').show();
         $('#crear_paa_btn').html("CREAR");
         $('.mjs_componente').html('');
+        $('#registros_rubro').html('');
+        $('#registros').html('');
 
     });
        
