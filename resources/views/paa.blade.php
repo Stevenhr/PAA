@@ -672,7 +672,7 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-12">
 							<table class="table table-bordered" id="datos_actividad2" >
-								<thead>
+								<thead class="thead-inverse table-success">
 								<tr>
 									<th>#</th>
 									<th>Proyecto de Inversión</th>
@@ -691,7 +691,7 @@
 				<div class="modal-body">
 					<form id="form_agregar_finza">
 						<div class="row"  >
-							<div class="col-xs-12 col-sm-12">
+							  <div class="col-xs-12 col-sm-12">
 								<div class="form-group">
 									<label id="fuenPproy">Proyecto de inversión</label>
 									<input type="hidden" name="id_act_agre" id="id_act_agre">
@@ -699,26 +699,26 @@
 										<option value="" >Selecionar</option>
 									</select>
 								</div>
-						    </div>
-						    <div class="col-xs-12 col-sm-12">
+						      </div>
+						      <div class="col-xs-12 col-sm-12">
 						  		<div class="form-group">
 							    	<label>Componente de gasto</label>
 									<select class="form-control" name="componnente" id="componnente">
 										<option value="" >Selecionar</option>
 									</select>
 								</div>
-						    </div>
-						  <div class="col-xs-12 col-sm-4">
-						  	<div class="form-group">
-							  		<label>Valor</label>
-									<input type="text" class="form-control" name="valor_contrato" autocomplete="off">
-									<input type="hidden" class="form-control" name="proyectorubro" autocomplete="off">
-							</div>
-							<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza">Agregar Proyecto</button>
-						  </div>
-						  <div class="col-xs-12 col-sm-8">
-						  	<div class="mjs_componente"></div>
-						  </div>
+						      </div>
+							  <div class="col-xs-12 col-sm-4">
+							  	<div class="form-group">
+								  		<label>Valor</label>
+										<input type="text" class="form-control" name="valor_contrato" autocomplete="off">
+										<input type="hidden" class="form-control" name="proyectorubro" autocomplete="off">
+								</div>
+								<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza">Agregar Proyecto</button>
+							  </div>
+							  <div class="col-xs-12 col-sm-8">
+							  	<div class="mjs_componente"></div>
+							  </div>
 						</div>
 					</form>
      			 </div>
@@ -734,8 +734,8 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12">
-							<table class="table table-bordered" id="datos_actividad2" >
-								<thead>
+							<table class="table table-bordered" id="datos_actividad3" >
+								<thead class="thead-inverse">
 								<tr>
 									<th>#</th>
 									<th>Rubro de funcionamiento.</th>
@@ -761,12 +761,14 @@
 									</select>
 								</div>
 						    </div>
-							<div class="col-xs-12 col-sm-8">
+							<div class="col-xs-12 col-sm-12">
 							  	<div class="mjs_componente"></div>
 							</div>
-							<div class="col-xs-12 col-sm-4">
+							
+							<div class="col-xs-12 col-md-4">
 								<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza_rubro">Agregar Rubro</button>
 							</div>
+							<div class="col-xs-12 col-md-8"></div>
 						</div>
 					</form>
      			 </div>

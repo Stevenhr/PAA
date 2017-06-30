@@ -105,6 +105,7 @@ Route::get('/paa/service/select_meta_fuente/{id}', 'PlanAnualAController@select_
 Route::get('/paa/service/select_ProyectOrubro/{id}', 'PlanAnualAController@select_ProyectOrubro');
 Route::get('/paa/service/VerFinanciamiento/{id}', 'PlanAnualAController@verFinanciacion');
 Route::post('/paa/service/EliminarFinanciamiento/', 'PlanAnualAController@EliminarFinanciamiento');
+Route::post('/paa/service/EliminarFinanciamientoRubro/', 'PlanAnualAController@EliminarFinanciamientoRubro');
 Route::post('/paa/service/agregar_rubro/', 'PlanAnualAController@agregar_rubro');
 Route::post('/paa/service/agregar_finza/', 'PlanAnualAController@agregar_finza');
 Route::post('/paa/service/agregar_estudio/', 'PlanAnualAController@agregar_estudio');

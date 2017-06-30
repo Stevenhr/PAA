@@ -460,6 +460,19 @@ class PlanAnualAController extends Controller
         return response()->json(array('ActividadComponente'=>$ActividadComponente, 'paa'=>$paa));
     }
 
+    public function EliminarFinanciamientoRubro(Request $request)
+    {
+
+        $id=$request['id'];
+        $id_pivot=$request['id_eli'];
+
+        $Paa = Paa::find($id);
+        $Paa->rubro_funcionamiento()->detach($id_pivot);
+
+        $paa_data = Paa::with('componentes','componentes.fuente','rubro_funcionamiento')->find($id);
+        return response()->json(array('Modelo'=>$paa_data));
+    }
+
     public function agregar_finza(Request $request)
     {   
         $validator = Validator::make($request->all(),

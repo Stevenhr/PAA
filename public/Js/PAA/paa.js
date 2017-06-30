@@ -1105,15 +1105,8 @@ $(function()
                   $('#registrosFinanzas').html('');
                   $('#registrosFinanzasRubro').html('');
 
-                if(data.Modelo.componentes.length>0)
-                {
-                    $('input[name="valor_contrato"]').val('').prop('readonly', false);
-                    $('#fuenPproy').text('Fuente');
-                    $('input[name="proyectorubro"]').val(data.Modelo['Proyecto1Rubro2']);
 
-                    
-                    console.log(data.estado+' '+desactivo);
-                    var num=1;
+
                     var html = '<option value="">Seleccionar</option>';
                     if(data.proyecto!=null && data.proyecto.fuente.length > 0)
                     {
@@ -1123,6 +1116,16 @@ $(function()
                     }
                     $('select[name="Fuente_inversion"]').html(html).val($('select[name="Fuente_inversion"]').data('value'));
 
+                if(data.Modelo.componentes.length>0)
+                {
+                    $('input[name="valor_contrato"]').val('').prop('readonly', false);
+                    $('#fuenPproy').text('Fuente');
+                    $('input[name="proyectorubro"]').val(data.Modelo['Proyecto1Rubro2']);
+
+                    
+                    console.log(data.estado+' '+desactivo);
+                    var num=1;
+                    
                     var html = '';
                     $.each(data.ActividadComponente, function(i, dato){
                       html += '<tr>'+
@@ -1141,15 +1144,7 @@ $(function()
 
                     $('#registrosFinanzas').html(html);
                 }
-                
-                if(data.Modelo.rubro_funcionamiento.length>0)
-                {
-                    console.log(data.estado+' '+desactivo);
-                    var num=1;
-                    $('input[name="valor_contrato"]').val('N.A').prop('readonly', true);
-                    $('#fuenPproy').text('Rubro');
-                    $('input[name="proyectorubro"]').val(data.Modelo['Proyecto1Rubro2']);
-
+                    
                     var html = '<option value="">Seleccionar</option>';
                     if(data.rubros_all.length > 0)
                     {
@@ -1159,13 +1154,24 @@ $(function()
                     }
                     $('select[name="Fuente_funcionamiento"]').html(html).val($('select[name="Fuente_funcionamiento"]').data('value'));
 
+
+                if(data.Modelo.rubro_funcionamiento.length>0)
+                {
+                    console.log(data.estado+' '+desactivo);
+                    var num=1;
+                    $('input[name="valor_contrato"]').val('N.A').prop('readonly', true);
+                    $('#fuenPproy').text('Rubro');
+                    $('input[name="proyectorubro"]').val(data.Modelo['Proyecto1Rubro2']);
+
+                    
                     var html = '';
                     $.each(data.Modelo.rubro_funcionamiento, function(i,e){
+                      //console.log(e.pivot['rubro_id']);
                       html += '<tr>'+
                               '<th scope="row" class="text-center">'+num+'</th>'+
                               '<td>'+e['nombre']+'</td>'+
                               '<td>Otros Distrito</td>'+
-                              '<td class="text-center"><button type="button" data-id="'+e['id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                              '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                       num++;
                     });
                     $('#registrosFinanzasRubro').html(html);
@@ -1216,6 +1222,45 @@ $(function()
                     num++;
                   });
                   $('#registrosFinanzas').html(html);
+              }
+          });
+     });
+
+
+    $('#datos_actividad3').delegate('button[data-funcion="eliminar_finanza"]','click',function (e) {   
+      var id_act_paa = $(this).data('rel'); 
+      var id_key_ele = $(this).data('id');
+      
+        $.ajax({
+              type: "POST",
+              url: URL+'/service/EliminarFinanciamientoRubro',
+              data: {id:id_act_paa,id_eli:id_key_ele},
+              dataType: 'json',
+              success: function(data)
+              {   
+                  var html = '';
+                  $('#registrosFinanzas').html('');
+                  
+                  if($.inArray(data.Modelo.estado,['4','5','7'])!=-1){
+                    desactivo="none";
+                    $('#btn_agregar_finaza').hide();
+                  }else{
+                    desactivo="";
+                    $('#btn_agregar_finaza').show();
+                  }
+
+                  var html = '';
+                  var num=1;
+                  console.log(data.Modelo.rubro_funcionamiento);
+                  $.each(data.Modelo.rubro_funcionamiento, function(i,e){
+                    html += '<tr>'+
+                            '<th scope="row" class="text-center">'+num+'</th>'+
+                            '<td>'+e['nombre']+'</td>'+
+                            '<td>Otros Distrito</td>'+
+                            '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act_paa+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                    num++;
+                  });
+                  $('#registrosFinanzasRubro').html(html);
               }
           });
      });
