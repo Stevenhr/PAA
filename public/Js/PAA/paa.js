@@ -1092,23 +1092,30 @@ $(function()
                 
                 $('#registrosFinanzas').html('');
 
-                if(data.Modelo['Proyecto1Rubro2']==1)
+                if($.inArray(data.estado,['4','5','7','8','9','11'])!=-1){
+                    desactivo="none";
+                    $('#btn_agregar_finaza_rubro').hide();
+                    $('#btn_agregar_finaza').hide();
+                  }
+                  else{
+                    desactivo="block";
+                    $('#btn_agregar_finaza_rubro').show();
+                    $('#btn_agregar_finaza').show();
+                  }
+                  $('#registrosFinanzas').html('');
+                  $('#registrosFinanzasRubro').html('');
+
+                if(data.Modelo.componentes.length>0)
                 {
                     $('input[name="valor_contrato"]').val('').prop('readonly', false);
                     $('#fuenPproy').text('Fuente');
                     $('input[name="proyectorubro"]').val(data.Modelo['Proyecto1Rubro2']);
 
-                    if($.inArray(data.estado,['4','5','7','8','9','11'])!=-1){
-                      desactivo="none";
-                      $('#btn_agregar_finaza').hide();
-                    }else{
-                      desactivo="";
-                      $('#btn_agregar_finaza').show();
-                    }
-                      var num=1;
-
+                    
+                    console.log(data.estado+' '+desactivo);
+                    var num=1;
                     var html = '<option value="">Seleccionar</option>';
-                    if(data.proyecto.fuente.length > 0)
+                    if(data.proyecto!=null && data.proyecto.fuente.length > 0)
                     {
                       $.each(data.proyecto.fuente, function(i, e){
                           html += '<option value="'+e.pivot['id']+'">'+e['nombre']+'</option>';
@@ -1134,9 +1141,10 @@ $(function()
 
                     $('#registrosFinanzas').html(html);
                 }
-                else
+                
+                if(data.Modelo.rubro_funcionamiento.length>0)
                 {
-                    //console.log(data);
+                    console.log(data.estado+' '+desactivo);
                     var num=1;
                     $('input[name="valor_contrato"]').val('N.A').prop('readonly', true);
                     $('#fuenPproy').text('Rubro');
@@ -1149,7 +1157,7 @@ $(function()
                           html += '<option value="'+e['id']+'">'+e['nombre']+'</option>';
                       });
                     }
-                    $('select[name="Fuente_inversion"]').html(html).val($('select[name="Fuente_inversion"]').data('value'));
+                    $('select[name="Fuente_funcionamiento"]').html(html).val($('select[name="Fuente_funcionamiento"]').data('value'));
 
                     var html = '';
                     $.each(data.Modelo.rubro_funcionamiento, function(i,e){
@@ -1157,12 +1165,10 @@ $(function()
                               '<th scope="row" class="text-center">'+num+'</th>'+
                               '<td>'+e['nombre']+'</td>'+
                               '<td>Otros Distrito</td>'+
-                              '<td>N.A</td>'+
-                              '<td>N.A</td>'+
-                              '<td class="text-center"></td></tr>';
+                              '<td class="text-center"><button type="button" data-id="'+e['id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                       num++;
                     });
-                    $('#registrosFinanzas').html(html);
+                    $('#registrosFinanzasRubro').html(html);
                     $('#btn_agregar_finaza').html('Modificar Rubro');
                             
                     var html1 ='<option value="1">N.A</option>';
@@ -1170,6 +1176,7 @@ $(function()
                     $('#meta').prop("disabled",true);
                     //$('#btn_agregar_finaza').hide();
                 }
+
               }
           });
      }); 

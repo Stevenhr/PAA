@@ -675,7 +675,7 @@
 								<thead>
 								<tr>
 									<th>#</th>
-									<th>Proyecto/Rubro</th>
+									<th>Proyecto de Inversión</th>
 									<th>Fuente</th>
 									<th>Componente</th>
 									<th>Valor</th>
@@ -692,11 +692,8 @@
 					<form id="form_agregar_finza">
 						<div class="row"  >
 							<div class="col-xs-12 col-sm-12">
-								Agregar Finaciación
-							</div>
-							<div class="col-xs-12 col-sm-12">
 								<div class="form-group">
-									<label id="fuenPproy">Fuente</label>
+									<label id="fuenPproy">Proyecto de inversión</label>
 									<input type="hidden" name="id_act_agre" id="id_act_agre">
 									<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
 										<option value="" >Selecionar</option>
@@ -717,11 +714,59 @@
 									<input type="text" class="form-control" name="valor_contrato" autocomplete="off">
 									<input type="hidden" class="form-control" name="proyectorubro" autocomplete="off">
 							</div>
-							<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza">Agregar Financiación</button>
+							<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza">Agregar Proyecto</button>
 						  </div>
 						  <div class="col-xs-12 col-sm-8">
 						  	<div class="mjs_componente"></div>
 						  </div>
+						</div>
+					</form>
+     			 </div>
+
+     			<div class="row">
+					<div class="col-xs-12 col-sm-12"><hr style="border-color: #178acc;"></div>
+				</div>
+
+     			 <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Listado de Financiación Rubros de Funcionamiento.</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12">
+							<table class="table table-bordered" id="datos_actividad2" >
+								<thead>
+								<tr>
+									<th>#</th>
+									<th>Rubro de funcionamiento.</th>
+									<th>Fuente</th>
+									<th>Eliminar</th>
+								</tr>
+								</thead>
+								<tbody id="registrosFinanzasRubro">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">
+					<form id="form_agregar_finza">
+						<div class="row"  >
+							<div class="col-xs-12 col-sm-12">
+								<div class="form-group">
+									<label id="fuenPproy">Fuente de funcionamiento</label>
+									<input type="hidden" name="id_act_agre" id="id_act_agre">
+									<select class="form-control" name="Fuente_funcionamiento" id="Fuente_funcionamiento">
+										<option value="" >Selecionar</option>
+									</select>
+								</div>
+						    </div>
+							<div class="col-xs-12 col-sm-8">
+							  	<div class="mjs_componente"></div>
+							</div>
+							<div class="col-xs-12 col-sm-4">
+								<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza_rubro">Agregar Rubro</button>
+							</div>
 						</div>
 					</form>
      			 </div>
