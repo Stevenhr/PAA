@@ -1080,6 +1080,8 @@ $(function()
           var id_act = $(this).data('rel'); 
           var desactivo="";
           $('#id_act_agre').val(id_act);
+          $('#id_act_agre2').val(id_act);
+
 
           $.ajax({
               url: URL+'/service/VerFinanciamiento/'+id_act,
@@ -1315,8 +1317,10 @@ $(function()
            return false;
     });
 
-     /*
-          $.ajax({
+
+    $('#form_agregar_finza_2').on('submit', function(e){
+          
+           $.ajax({
                   type: "POST",
                   url: URL+'/service/agregar_rubro',
                   data: $(this).serialize(),
@@ -1330,20 +1334,21 @@ $(function()
 
                         var html = '';
                         var num = 1;
-                        html += '<tr>'+
-                                '<th scope="row" class="text-center">'+num+'</th>'+
-                                '<td>'+data.Rubro['nombre']+'</td>'+
-                                '<td>Otros Distrito</td>'+
-                                '<td>N.A</td>'+
-                                '<td>N.A</td>'+
-                                '<td class="text-center"></td></tr>';
-                        num++;
-                       $('#registrosFinanzas').html(html);
+                         html += '<tr>'+
+                                  '<th scope="row" class="text-center">'+num+'</th>'+
+                                  '<td>'+data.Rubro['nombre']+'</td>'+
+                                  '<td>Otros Distrito</td>'+
+                                  '<td class="text-center"></td></tr>';
+                          num++;
+                       $('#registrosFinanzasRubro').html(html);
 
                     }
                   }
               });
-     */
+
+           return false;
+    });
+
 
 
      $('#TablaPAA').delegate('button[data-funcion="EstudioComveniencia"]','click',function (e){   

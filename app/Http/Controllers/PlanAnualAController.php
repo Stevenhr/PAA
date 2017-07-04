@@ -555,7 +555,7 @@ class PlanAnualAController extends Controller
     {   
         $validator = Validator::make($request->all(),
             [
-                'Fuente_inversion' =>'required',
+                'Fuente_funcionamiento' =>'required',
             ]
         );
 
@@ -563,9 +563,9 @@ class PlanAnualAController extends Controller
         return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
 
 
-        $id=$request['id_act_agre'];
+        $id=$request['id_act_agre2'];
         $paa = Paa::find($id);
-        $paa['Id_Rubro']= $request['Fuente_inversion'];
+        $paa['Id_Rubro']= $request['Fuente_funcionamiento'];
         $paa->save();
         $RubroFuncionamiento = RubroFuncionamiento::find($paa['Id_Rubro']);
         return response()->json(array('Rubro'=>$RubroFuncionamiento));

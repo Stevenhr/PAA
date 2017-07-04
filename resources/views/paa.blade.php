@@ -753,12 +753,12 @@
 					</div>
 				</div>
 				<div class="modal-body">
-					<form id="form_agregar_finza">
+					<form id="form_agregar_finza_2">
 						<div class="row"  >
 							<div class="col-xs-12 col-sm-12">
 								<div class="form-group">
 									<label >Fuente de funcionamiento</label>
-									<input type="hidden" name="id_act_agre" id="id_act_agre">
+									<input type="hidden" name="id_act_agre2" id="id_act_agre2">
 									<select class="form-control" name="Fuente_funcionamiento" id="Fuente_funcionamiento">
 										<option value="" >Selecionar</option>
 									</select>
