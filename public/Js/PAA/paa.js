@@ -1258,9 +1258,7 @@ $(function()
           var id_act=$('#id_act_agre').val();
           $('.mjs_componente').html('');
             var proyRu=$('input[name="proyectorubro"]').val();
-            console.log(id_act);
 
-            if(proyRu==1){
               $.ajax({
                   type: "POST",
                   url: URL+'/service/agregar_finza',
@@ -1314,8 +1312,11 @@ $(function()
                   }
               });
 
-            }else{
-              $.ajax({
+           return false;
+    });
+
+     /*
+          $.ajax({
                   type: "POST",
                   url: URL+'/service/agregar_rubro',
                   data: $(this).serialize(),
@@ -1342,9 +1343,7 @@ $(function()
                     }
                   }
               });
-            }
-           return false;
-    });
+     */
 
 
      $('#TablaPAA').delegate('button[data-funcion="EstudioComveniencia"]','click',function (e){   
