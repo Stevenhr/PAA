@@ -195,7 +195,7 @@ $(function()
      var datos_act_rubro = JSON.stringify(vector_datos_actividad_rubro_f);
      $('input[name="Dato_Actividad_Acti_rubro"]').val(datos_act_rubro);
     
-    if(vector_datos_actividad.length > 0){
+    if(vector_datos_actividad.length > 0 || vector_datos_actividad_rubro_f.length>0){
 
           if(ProyectOrubro==2){
              vector_datos_actividad.length=0;
@@ -229,7 +229,7 @@ $(function()
                   validad_error(data.errors);
                   var mej="Campos vacios.";
                   if($('input[name="duracion_estimada"]').val()=="")
-                  mej="Dureación estimada no posee el formato indicad. Ejm: 30,12,1 ";
+                  mej="Duración estimada no posee el formato indicado. Ejm: 30,12,1 ";
                    $('#mjs_registroPaa').hide();
                   $('#mjs_registroPaa2').html('<center><strong>Error!</strong> '+mej+'</center>');
                   $('#mjs_registroPaa2').show();
@@ -493,8 +493,6 @@ $(function()
     };
 
     $('select[name="Fuente_inversion"]').on('change', function(e){
-        var com=$('input[name="proyectorubro"]').val();
-        if(com!=2)
         select_fuente($(this).val());
     });
 
@@ -1106,7 +1104,6 @@ $(function()
                   $('#registrosFinanzasRubro').html('');
 
 
-
                     var html = '<option value="">Seleccionar</option>';
                     if(data.proyecto!=null && data.proyecto.fuente.length > 0)
                     {
@@ -1117,15 +1114,11 @@ $(function()
                     $('select[name="Fuente_inversion"]').html(html).val($('select[name="Fuente_inversion"]').data('value'));
 
                 if(data.Modelo.componentes.length>0)
-                {
-                    $('input[name="valor_contrato"]').val('').prop('readonly', false);
-                    $('#fuenPproy').text('Fuente');
+                { 
+
                     $('input[name="proyectorubro"]').val(data.Modelo['Proyecto1Rubro2']);
 
-                    
-                    console.log(data.estado+' '+desactivo);
                     var num=1;
-                    
                     var html = '';
                     $.each(data.ActividadComponente, function(i, dato){
                       html += '<tr>'+
@@ -1141,7 +1134,6 @@ $(function()
 
                     var html1 ='<option value="1">Seleccionar</option>';
                     $('select[name="componnente"]').html(html1);
-
                     $('#registrosFinanzas').html(html);
                 }
                     
@@ -1157,9 +1149,9 @@ $(function()
 
                 if(data.Modelo.rubro_funcionamiento.length>0)
                 {
-                    console.log(data.estado+' '+desactivo);
+                    
                     var num=1;
-                    $('input[name="valor_contrato"]').val('N.A').prop('readonly', true);
+               
                     $('#fuenPproy').text('Rubro');
                     $('input[name="proyectorubro"]').val(data.Modelo['Proyecto1Rubro2']);
 
@@ -1177,10 +1169,7 @@ $(function()
                     $('#registrosFinanzasRubro').html(html);
                     $('#btn_agregar_finaza').html('Modificar Rubro');
                             
-                    var html1 ='<option value="1">N.A</option>';
-                    $('select[name="componnente"]').html(html1);
-                    $('#meta').prop("disabled",true);
-                    //$('#btn_agregar_finaza').hide();
+                    $('.mjs_componente').hide();
                 }
 
               }

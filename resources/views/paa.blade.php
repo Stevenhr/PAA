@@ -530,7 +530,6 @@
                                         <input type="hidden" name="meta" id="meta0" value="0" disabled></input>
                                         <select class="form-control hide_meta" name="meta" id="meta">
                                             <option value="" >Selecionar</option>
-                                            <option value="" >Selecionar</option>
                                         </select>
                                     </div>
                                 </div>
@@ -583,19 +582,23 @@
 								</div>
 							</div>
 
-							<div class="row">
-								<div class="col-xs-12 col-sm-12">
-									<div class="form-group"  id="mensaje_actividad" style="display: none;">
-										<div id="alert_actividad"></div>
-									</div>
-								</div>
-
-							</div>
+							
 						</div>
+
                         <div class="row"><br><br>
                             <div class="col-xs-12 col-sm-12">
                                 <hr style="border-color: #178acc;">
                             </div>
+                            <div class="col-xs-12 col-sm-12">
+								<div class="form-group"  id="mensaje_actividad" style="display: none;">
+									<div id="alert_actividad"></div>
+								</div>
+							</div>
+                            <div class="col-xs-12 col-sm-12" style="text-align: left;">
+								<div class="form-group"  id="mensaje_actividad_finan" style="display: none;">
+									<div id="alert_actividad_finca"></div>
+								</div>
+							</div>
                             <div class="col-xs-12 col-sm-12">
                                 <label>Datos agregados de proyectos de inversión:</label>
                             </div>
@@ -693,7 +696,7 @@
 						<div class="row"  >
 							  <div class="col-xs-12 col-sm-12">
 								<div class="form-group">
-									<label id="fuenPproy">Proyecto de inversión</label>
+									<label >Fuente</label>
 									<input type="hidden" name="id_act_agre" id="id_act_agre">
 									<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
 										<option value="" >Selecionar</option>
@@ -754,7 +757,7 @@
 						<div class="row"  >
 							<div class="col-xs-12 col-sm-12">
 								<div class="form-group">
-									<label id="fuenPproy">Fuente de funcionamiento</label>
+									<label >Fuente de funcionamiento</label>
 									<input type="hidden" name="id_act_agre" id="id_act_agre">
 									<select class="form-control" name="Fuente_funcionamiento" id="Fuente_funcionamiento">
 										<option value="" >Selecionar</option>
@@ -1167,9 +1170,7 @@
 																			</tbody>
 																		</table>
 
-																		<div class="form-group"  id="mensaje_actividad_finan" style="display: none;">
-																			<div id="alert_actividad_finca"></div>
-																		</div>
+																		
 																	</div>
 																	<div class="col-xs-12 col-sm-12">
 																		<div id="mjs_Observa_Fina" class="alert alert-success" style="display: none"></div>
@@ -1180,8 +1181,8 @@
 
 															<div class="modal-footer" >
 																<div class="row">
-																	<div class="col-xs-12 col-sm-12" style="text-align: left;">
 
+																	<div class="col-xs-12 col-sm-12" style="text-align: left;">
 
 																		<input type="hidden" name="campos_Clasi_Finan" id="campos_Clasi_Finan"></input>
 																		<input type="hidden" name="id_estudio" id="id_estudio"></input>

@@ -434,11 +434,12 @@ class PlanAnualAController extends Controller
     {
         $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente')->where('id_paa',$id)->get();
         $model_A = Paa::with('componentes','componentes.fuente','rubro_funcionamiento')->find($id);
+        
         $RubroFuncionamiento = RubroFuncionamiento::find($model_A['Id_Rubro']);
         $RubroFuncionamiento1 = RubroFuncionamiento::all();
-        //dd($model_A);
+
         //exit();
-        $Proyecto = Proyecto::with('fuente')->find($model_A['Id_Proyecto']);
+        $Proyecto = Proyecto::with('fuente')->find($ActividadComponente[0]->proyecto['Id']);
         return response()->json(array('estado' => $model_A['Estado'],'proyecto'=>$Proyecto, 'ActividadComponente'=>$ActividadComponente,'Rubro'=>$RubroFuncionamiento,'Modelo'=>$model_A, 'rubros_all'=>$RubroFuncionamiento1) );
     }
 
