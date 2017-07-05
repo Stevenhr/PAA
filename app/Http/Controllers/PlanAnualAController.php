@@ -339,12 +339,12 @@ class PlanAnualAController extends Controller
             }
         }
 
-        //var_dump($emails);
+     
         if(!empty($emails))
         {
-            //dd($emails);
+           
             Mail::send('mail', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
-                $m->from('no-reply_Paa@idrd.gov.co', $mensaje);
+                $m->from('steven.hernandez@idrd.gov.co', $mensaje);
 
                 $m->to($emails, 'Estevenhr')->subject($mensaje."!");
             });
@@ -564,12 +564,11 @@ class PlanAnualAController extends Controller
 
 
         $id=$request['id_act_agre2'];
-        $paa = Paa::find($id);
-        $paa['Id_Rubro']= $request['Fuente_funcionamiento'];
-        $paa->save();
-        $RubroFuncionamiento = RubroFuncionamiento::find($paa['Id_Rubro']);
-        return response()->json(array('Rubro'=>$RubroFuncionamiento));
-        
+        $paa = Paa::find($id);                 
+        $paa->rubro_funcionamiento()->attach($request['Fuente_funcionamiento']);
+
+        $paa_data = Paa::with('componentes','componentes.fuente','rubro_funcionamiento')->find($id);
+        return response()->json(array('Modelo'=>$paa_data));        
     }
 
     public function agregar_estudio(Request $request)

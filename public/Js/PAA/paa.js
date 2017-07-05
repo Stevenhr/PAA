@@ -1165,7 +1165,7 @@ $(function()
                               '<th scope="row" class="text-center">'+num+'</th>'+
                               '<td>'+e['nombre']+'</td>'+
                               '<td>Otros Distrito</td>'+
-                              '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                              '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza_rubro" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                       num++;
                     });
                     $('#registrosFinanzasRubro').html(html);
@@ -1218,7 +1218,7 @@ $(function()
      });
 
 
-    $('#datos_actividad3').delegate('button[data-funcion="eliminar_finanza"]','click',function (e) {   
+    $('#datos_actividad3').delegate('button[data-funcion="eliminar_finanza_rubro"]','click',function (e) {   
       var id_act_paa = $(this).data('rel'); 
       var id_key_ele = $(this).data('id');
       
@@ -1230,7 +1230,7 @@ $(function()
               success: function(data)
               {   
                   var html = '';
-                  $('#registrosFinanzas').html('');
+                  $('#registrosFinanzasRubro').html('');
                   
                   if($.inArray(data.Modelo.estado,['4','5','7'])!=-1){
                     desactivo="none";
@@ -1242,13 +1242,13 @@ $(function()
 
                   var html = '';
                   var num=1;
-                  console.log(data.Modelo.rubro_funcionamiento);
+                  //console.log(data.Modelo.rubro_funcionamiento);
                   $.each(data.Modelo.rubro_funcionamiento, function(i,e){
                     html += '<tr>'+
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+e['nombre']+'</td>'+
                             '<td>Otros Distrito</td>'+
-                            '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act_paa+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                            '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act_paa+'" data-funcion="eliminar_finanza_rubro" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
                   });
                   $('#registrosFinanzasRubro').html(html);
@@ -1319,14 +1319,15 @@ $(function()
 
 
     $('#form_agregar_finza_2').on('submit', function(e){
-          
+          var id_act=$('#id_act_agre2').val();
            $.ajax({
                   type: "POST",
                   url: URL+'/service/agregar_rubro',
                   data: $(this).serialize(),
                   dataType: 'json',
                   success: function(data)
-                  {   
+                  { 
+                    console.log(data);  
                     if(data.status == 'error')
                     {
                         validad_error_agre_rubro(data.errors);
@@ -1334,12 +1335,16 @@ $(function()
 
                         var html = '';
                         var num = 1;
-                         html += '<tr>'+
-                                  '<th scope="row" class="text-center">'+num+'</th>'+
-                                  '<td>'+data.Rubro['nombre']+'</td>'+
-                                  '<td>Otros Distrito</td>'+
-                                  '<td class="text-center"></td></tr>';
+
+                        $.each(data.Modelo.rubro_funcionamiento, function(i,e){
+                          html += '<tr>'+
+                            '<th scope="row" class="text-center">'+num+'</th>'+
+                            '<td>'+e['nombre']+'</td>'+
+                            '<td>Otros Distrito</td>'+
+                            '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza_rubro" class="eliminar_dato_actividad" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                           num++;
+                        });
+                         
                        $('#registrosFinanzasRubro').html(html);
 
                     }
