@@ -87,6 +87,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
           var id_act = $(this).data('rel'); 
           var desactivo="";
           $('#id_act_agre').val(id_act);
+          $('#id_act_agre2').val(id_act);
 
           $.ajax({
               url: URL+'/service/VerFinanciamiento/'+id_act,
@@ -94,19 +95,47 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
               dataType: 'json',
               success: function(data)
               {   
-                  
-                  var html = '';
-                  var num=1;
-                  $.each(data.ActividadComponente, function(i, dato){
-                    html += '<tr>'+
-                            '<th scope="row" class="text-center">'+num+'</th>'+
-                            '<td>'+dato.proyecto['Nombre']+'</td>'+
-                            '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
-                            '<td>'+dato.componente['Nombre']+'</td>'+
-                            '<td> $ '+number_format(dato['valor'])+'</td>';
-                    num++;
-                  });
-                  $('#registrosFinanzas').html(html);
+           
+                  $('#registrosFinanzas').html('');
+                  $('#registrosFinanzasRubro').html('');
+
+
+                if(data.Modelo.componentes.length>0)
+                { 
+
+                    var num=1;
+                    var html = '';
+                    $.each(data.ActividadComponente, function(i, dato){
+                      html += '<tr>'+
+                              '<th scope="row" class="text-center">'+num+'</th>'+
+                              '<td>'+dato.proyecto['Nombre']+'</td>'+
+                              '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
+                              '<td>'+dato.componente['Nombre']+'</td>'+
+                              '<td> $ '+number_format(dato['valor'])+'</td>';
+                      num++;
+                    });
+                    $('#registrosFinanzas').html(html);
+                }
+                    
+  
+
+                if(data.Modelo.rubro_funcionamiento.length>0)
+                {
+                    
+                    var num=1;
+                    var html = '';
+                    $.each(data.Modelo.rubro_funcionamiento, function(i,e){
+                      //console.log(e.pivot['rubro_id']);
+                      html += '<tr>'+
+                              '<th scope="row" class="text-center">'+num+'</th>'+
+                              '<td>'+e['nombre']+'</td>'+
+                              '<td>Otros Distrito</td>';
+                      num++;
+                    });
+                    $('#registrosFinanzasRubro').html(html);
+                    $('.mjs_componente').hide();
+                }
+
               }
           });
      }); 
