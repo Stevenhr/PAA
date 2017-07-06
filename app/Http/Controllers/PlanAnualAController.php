@@ -382,8 +382,14 @@ class PlanAnualAController extends Controller
 
     public function select_area(Request $request, $id)
     {
-        $areas = SubDireccion::with('areas')->find($id);
+        $areas = RubroFuncionamiento::with('areas')->find($id);
         return response()->json($areas);
+    }
+
+    public function selectActividadesRubro(Request $request, $id)
+    {
+        $rubroFuncionamiento = RubroFuncionamiento::with('actividadesfuncionamiento')->find($id);
+        return response()->json($rubroFuncionamiento);
     }
 
     public function select_paVinculada(Request $request, $id)
@@ -784,7 +790,6 @@ class PlanAnualAController extends Controller
             }
         }
 
-        
         if($paa['vinculada']!=""){
             $EstudioConveniencias =  EstudioConveniencia::find($paa['vinculada']);
             $vinculada=0;
@@ -799,7 +804,6 @@ class PlanAnualAController extends Controller
             'finanzas' =>$finanzas,
             'vinculada' =>$vinculada
         ];
-        //dd($paa->componentes);
         return response()->json($datos);
     }
 

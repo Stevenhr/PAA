@@ -96,6 +96,7 @@ Route::get('/configuracionPaa/service/meta/{id}', 'PaaController@listadoMetas');
 Route::get('/configuracionPaa/service/actividad/{id}', 'PaaController@listadoActividad');
 
 Route::get('/paa/service/select_area/{id}', 'PlanAnualAController@select_area');
+Route::get('/paa/service/selectActividadesRubro/{id}', 'PlanAnualAController@selectActividadesRubro');
 Route::get('/paa/service/select_paVinculada/{id}', 'PlanAnualAController@select_paVinculada');
 Route::post('/paa/service/fuenteComponente', 'PlanAnualAController@fuenteComponente');
 Route::post('/paa/service/PresupuestoComponente', 'PlanAnualAController@PresupuestoComponente');

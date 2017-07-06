@@ -425,10 +425,21 @@
 						</div>
 						<div class="row">
 
-							<div class="col-xs-6 col-sm-4">
+							<div class="col-xs-6 col-sm-2">
 								<div class="form-group">
-									<label>Duración estimada del contrato<br> (Intervalo: dias,mes,años. Ejem: 29,11,1)</label>
-									<input type="text" class="form-control" name="duracion_estimada" autocomplete="off">
+									<label>Duración estimada del contrato</label>
+									<input type="text" class="form-control" name="duracion_estimada" autocomplete="off" placeholder="1">
+								</div>
+							</div>
+							<div class="col-xs-6 col-sm-2">
+								<div class="form-group">
+									<label>Unidad de Tiempo</label><br><br>
+									<select class="form-control" name="estado_solicitud">
+										<option value="">Seleccionar</option>
+										<option value="0">Dias</option>
+										<option value="1">Meses</option>
+										<option value="2">Años</option>
+									</select>
 								</div>
 							</div>
 							<div class="col-xs-6 col-sm-4" style="display: none">
@@ -608,6 +619,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Proyecto</th>
+                                        <th>Meta</th>
                                         <th>Fuente</th>
                                         <th>Componente</th>
                                         <th>Valor</th>
@@ -1107,10 +1119,14 @@
 																			</select>
 																		</div>
 																	</div>
+																	<div class="col-xs-12 col-sm-12">
+																		<label class="text-success">Meta</label>
+																		<p class="form-control-static" id="mensj_meta"></p>
+																	</div>
 
 																	<div class="col-xs-12 col-sm-6">
 																		<div class="form-group">
-																			<label>Componentes ingresados</label>
+																			<label class="text-success">Componetes ingresados</label>
 																			<select class="form-control" name="Componente_ingresado" id="Componente_ingresado">
 																			</select>
 																		</div>
@@ -1118,22 +1134,43 @@
 
 																	<div class="col-xs-12 col-sm-6">
 																		<div class="form-group">
-																			<label id="tit_actividades">Actividades de la meta:  </label><label id="mensj_meta"></label>
+																			<label class="text-warning" >Rubros ingresados</label>
+																			<select class="form-control" name="Rubros_ingresado" id="Rubros_ingresado">
+																			 <option value="" >Selecionar</option>
+																			</select>
+																		</div>
+																	</div>
+
+																	<div class="col-xs-12 col-sm-6">
+																		<div class="form-group">
+																			<label id="tit_actividades" class="text-success">Actividades de la meta:  </label>
 																			<select class="form-control" name="actividad_ingre" id="actividad_ingre">
 																				<option value="" >Selecionar</option>
 																			</select>
 																		</div>
 																	</div>
 
-																	<div class="col-xs-12 col-sm-3">
+																	<div class="col-xs-12 col-sm-6">
+																		<div class="form-group">
+																			<label id="tit_actividades" class="text-warning">Actividades del rubro:  </label>
+																			<!--<label id="mensj_meta"></label>-->
+																			<select class="form-control" name="Actividades_rubros_ingresado" id="Actividades_rubros_ingresado">
+																				<option value="" >Selecionar</option>
+																			</select>
+																		</div>
+																	</div>
+																</div>
+
+																<div class="row">
+																	<div class="col-xs-12 col-sm-2">
 																		<div class="form-group">
 																			<label>Valor</label>
 																			<input type="text" class="form-control" name="valor_componente" readonly="readonly" value="0">
 																		</div>
 																	</div>
-																	<div class="col-xs-12 col-sm-3">
+																	<div class="col-xs-12 col-sm-1">
 																		<div class="form-group">
-																			<label>Porcentaje</label>
+																			<label>%</label>
 																			<input type="text" class="form-control" name="valor_conponente_ingre">
 																		</div>
 																	</div>
@@ -1143,13 +1180,34 @@
 																			<input type="text" class="form-control" name="valor_total_ingr" readonly="readonly">
 																		</div>
 																	</div>
-																	<div class="col-xs-12 col-sm-3">
+																	<div class="col-xs-12 col-sm-6"></div>
+																</div>
+
+																<div class="row">
+																	<div class="col-xs-12 col-sm-6">
 																		<div class="form-group">
-																			<label>Opciones</label><br>
-																			<div class="btn-group" role="group" aria-label="Basic example">
-																				<button type="button" class="btn btn-primary" id="agregar_financiacion">Agregar</button>
-																				<button type="button" class="btn btn-info" id="ver_tabla_finanza">Ver</button>
+																			<div class="btn-group btn-group-justified">
+																				<div class="btn-group">
+																					<button type="button" class="btn btn-success" id="agregar_financiacion">Agregar</button>
+																				</div>
 																			</div>
+																		</div>
+																	</div>
+																	<div class="col-xs-12 col-sm-6">
+																		<div class="form-group">
+																			<div class="btn-group btn-group-justified">
+																				<div class="btn-group">
+																					<button type="button" class="btn btn-warning" id="agregar_financiacion_r">Agregar</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+
+																<div class="row">
+																	<div class="col-xs-12 col-sm-12" style="text-align: left;">
+																		<div class="form-group"  id="mensaje_actividad_finan_estudio" style="display: none;">
+																			<div id="alert_actividad_finca_estudio"></div>
 																		</div>
 																	</div>
 																	<div class="col-xs-12 col-sm-12">
@@ -1157,26 +1215,25 @@
 																			<thead class="thead-inverse">
 																			<tr>
 																				<th>#</th>
-																				<th>Fuente</th>
-																				<th>Componente</th>
-																				<th>Actividad</th>
+																				<th>Fuente <BR> hacienda</th>
+																				<th>Componente / Rubro</th>
+																				<th>Actividad / Actividad Rubro</th>
 																				<th>Valor</th>
 																				<th>Porcentaje</th>
 																				<th>Total</th>
 																				<th>Eliminar</th>
 																			</tr>
 																			</thead>
-																			<tbody id="registros_finanza">
+																			<tbody id="registros_finanza_estudio">
 																			</tbody>
 																		</table>
-
-																		
 																	</div>
 																	<div class="col-xs-12 col-sm-12">
 																		<div id="mjs_Observa_Fina" class="alert alert-success" style="display: none"></div>
 																		<div id="mjs_Observa_Fina2" class="alert alert-danger" style="display: none"></div>
 																	</div>
 																</div>
+
 															</div>
 
 															<div class="modal-footer" >
