@@ -250,7 +250,7 @@ class PlanAnualAController extends Controller
 
             $data0 = json_decode($input['Dato_Actividad']);
             
-            if($data0[0] != null){
+            if($data0){
                 foreach($data0 as $obj){
                     $presupuestado= Presupuestado::find($obj->id_componente);
                     $id_com=$presupuestado['componente_id'];
@@ -269,7 +269,7 @@ class PlanAnualAController extends Controller
             if($data_r[0] != null){
                 foreach($data_r as $obj){
                     $modeloPA->rubro_funcionamiento()->attach($obj->id_rubro,[
-                        'paa_id'=>$id_paa2,
+                        'paa_id'=>$id_paa2, 'valor'=>str_replace('.','',$obj->valor_rubro)
                     ]);
                 }
             }

@@ -878,7 +878,7 @@ $(function()
           $('#mensaje_actividad').delay(2500).hide(600);
         }else{
           if(componnente===''){
-            $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe seleccionar un compoente para realizar el registro.</div>');
+            $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe seleccionar un componente para realizar el registro.</div>');
             $('#mensaje_actividad').show(60);
             $('#mensaje_actividad').delay(2500).hide(600);
             return false;
