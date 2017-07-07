@@ -265,7 +265,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">CREAR PAA</h4>
+					<h4 class="modal-title" id="myModalLabel">DATOS GENERAL</h4>
 
 				</div>
 				<div class="modal-body">
@@ -500,14 +500,17 @@
 						</div>
 
 						<div class="row">
-							<div class="col-xs-12 col-sm-12"><hr style="border-color: #178acc;"></div>
+							<div class="col-xs-12 col-sm-12">
+								<h4 class="modal-title" id="myModalLabel">AGREGAR FINANCIACIÓN</h4>
+								<hr style="border-color: #178acc;">
+							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-xs-12 col-sm-12">
 								<div class="form-group">
-									<h4>Selecione proyecto de inversión o rubro de funcionamiento.</h4>
-									<select class="form-control input-lg" id="ProyectOrubro" name="ProyectOrubro">
+									<label>Selecione proyecto de inversión o rubro de funcionamiento.</label>
+									<select class="form-control" id="ProyectOrubro" name="ProyectOrubro">
 										<option value="" >Selecionar</option>
 										<option value="1" >Poyecto de inversión</option>
 										<option value="2" >Rubro de funcionamiento</option>
@@ -527,9 +530,25 @@
                                         <option value="" >Selecione Proyecto o Rubro</option>
                                     </select>
                                 </div>
-                                <button type="button" class="btn btn-primary" id="agregarRubro" style="display: none;">Agregar Rubro</button>
-                                <button  type="button" class="btn btn-info" id="VerAgregarRubro_f" style="display: none;">Ver</button>
+                                
                             </div>
+                            <div class="col-xs-12 col-sm-4">
+                            	<div class="form-group valor">
+									<label ><h5 class='text-warning valor' style="display: none;">2. Valor</h5></label>
+									<input type="text" class="form-control valor" name="valor_contrato_rubro" autocomplete="off" style="display: none;">
+								</div>
+
+                            	<button type="button" class="btn btn-warning btn-sm btn-block" id="agregarRubro" style="display: none;">AGREGAR RUBRO</button>
+
+                                <button  type="button" class="btn btn-info" id="VerAgregarRubro_f" style="display: none;">Ver</button>
+
+                            </div>
+                            <div class="col-xs-12 col-sm-8"></div>
+                            <div class="col-xs-12 col-sm-12">
+                                    <div class="form-group"  id="mensaje_actividad_rubro" style="display: none;">
+                                        <div id="alert_actividad_rubro"></div>
+                                    </div>
+                                </div>
                         </div>
                         <div id="div_finaciacion" style="display: none;">
                             <div class="row">
@@ -537,30 +556,18 @@
 
                                 <div class="col-xs-12 col-sm-12">
                                     <div class="form-group">
-                                        <label class="hide_meta">2. Meta Plan</label>
+                                        <label class="hide_meta "><h5 class='text-success'>2. Meta Plan</h5></label>
                                         <input type="hidden" name="meta" id="meta0" value="0" disabled></input>
                                         <select class="form-control hide_meta" name="meta" id="meta">
                                             <option value="" >Selecionar</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-12">
-                                    <div class="form-group"  id="mensaje_actividad_rubro" style="display: none;">
-                                        <div id="alert_actividad_rubro"></div>
-                                    </div>
-                                </div>
                             </div>
 							<div class="row">
 								<div class="col-xs-12 col-sm-12">
-									<hr>
-									<h4>Agregar Financiación:</h4>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-xs-12 col-sm-6">
 									<div class="form-group">
-										<label>Fuente</label>
+										<label><h5 class='text-success'>3. Fuente</h5></label>
 										<input type="hidden" name="id_pivot_comp" id="id_pivot_comp"></input>
 										<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
 											<option value="" >Selecionar</option>
@@ -571,9 +578,9 @@
 										</select>
 									</div>
 								</div>
-								<div class="col-xs-12 col-sm-6">
+								<div class="col-xs-12 col-sm-12">
 									<div class="form-group">
-										<label>Componente</label>
+										<label><h5 class='text-success'>4. Componente</h5></label>
 										<select class="form-control" name="componnente" id="componnente">
 											<option value="" >Selecionar</option>
 										</select>
@@ -582,15 +589,20 @@
 								</div>
 								<div class="col-xs-12 col-sm-4">
 									<div class="form-group">
-										<label>Valor</label>
+										<label><h5 class='text-success'>5. Valor</h5></label>
 										<input type="text" class="form-control" name="valor_contrato" autocomplete="off">
 									</div>
-									<button type="button" class="btn btn-primary" id="agregarFinanciacion">Agregar</button>
-									<button  type="button" class="btn btn-info" id="VerAgregarFinanciacion">Ver</button>
+									<button type="button" class="btn btn-success btn-sm btn-block" id="agregarFinanciacion">AGREGAR PROYECTO</button>
+									<button  type="button" class="btn btn-info" id="VerAgregarFinanciacion" style="display: none">Ver</button>
 								</div>
 								<div class="col-xs-12 col-sm-8">
 									<div class="mjs_componente"></div>
 								</div>
+								<div class="col-xs-12 col-sm-12">
+								<div class="form-group"  id="mensaje_actividad" style="display: none;">
+									<div id="alert_actividad"></div>
+								</div>
+							</div>
 							</div>
 
 							
@@ -598,13 +610,12 @@
 
                         <div class="row"><br><br>
                             <div class="col-xs-12 col-sm-12">
-                                <hr style="border-color: #178acc;">
-                            </div>
-                            <div class="col-xs-12 col-sm-12">
-								<div class="form-group"  id="mensaje_actividad" style="display: none;">
-									<div id="alert_actividad"></div>
-								</div>
+								<h4 class="modal-title" id="myModalLabel">DATOS AGREGADOS</h4>
+								<hr style="border-color: #178acc;">
 							</div>
+
+                            
+                 
                             <div class="col-xs-12 col-sm-12" style="text-align: left;">
 								<div class="form-group"  id="mensaje_actividad_finan" style="display: none;">
 									<div id="alert_actividad_finca"></div>
@@ -616,7 +627,7 @@
                             <div class="col-xs-12 col-sm-12">
                                 <table class="table table-bordered" id="datos_actividad" >
                                     <thead>
-                                    <tr>
+                                    <tr class="success">
                                         <th>#</th>
                                         <th>Proyecto</th>
                                         <th>Meta</th>
@@ -636,9 +647,11 @@
                             <div class="col-xs-12 col-sm-12" id="tabla_rubro_f">
                                 <table class="table table-bordered" id="datos_actividad_rubro" >
                                     <thead>
-                                    <tr>
+                                    <tr class="warning">
                                         <th>#</th>
                                         <th>Rubro de funcionamiento</th>
+                                        <th>Fuente</th>
+                                        <th>Valor</th>
                                         <th>Eliminar</th>
                                     </tr>
                                     </thead>

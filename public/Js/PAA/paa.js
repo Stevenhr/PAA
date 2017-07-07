@@ -87,6 +87,10 @@ $(function()
         formatCurrency(this);
     });
 
+    $('input[name="valor_contrato_rubro"]').on('keyup', function(e){
+        formatCurrency(this);
+    });
+
 
   var tb1 = $('#Tabla1').DataTable( {responsive: true   } );
   var tb2 = $('#Tabla2').DataTable( {responsive: true,  } );
@@ -366,7 +370,8 @@ $(function()
             dataType: 'json',
             success: function(data)
             {
-                if(id==1){ //Proyecto
+                if(id==1)
+                { //Proyecto
                   var html = '<option value="">Seleccionar Proyecto</option>';
                   $.each(data, function(i, eee){
                         html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
@@ -374,16 +379,18 @@ $(function()
                   $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
                   $('.hide_meta').show();
                   $('#Proyecto_inversion').show();
-                  $('#paso_1').html('1. Proyecto');
+                  $('#paso_1').html("<h5 class='text-success'>1. Proyecto</h4>");
                   $('#agregarRubro').hide();
                   $('#VerAgregarRubro_f').hide();
                   $("#pro_rub").html("<h4 class='text-success'>PROCESO PROYECTO DE INVERSIÓN.</h4>");
                   $('#meta0').prop( "disabled", true);
                   $('#div_finaciacion').show();
+                  $('.valor').hide();
                   //vector_datos_actividad.length=0;
                 }
 
-                if(id==2){ //Rubro 
+                if(id==2)
+                { //Rubro 
 
                   var html = '<option value="">Seleccionar Rubro</option>';
                   $.each(data, function(i, eee){
@@ -392,9 +399,9 @@ $(function()
                   $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
                   $('.hide_meta').hide();
                   $('#Proyecto_inversion').show();
-                    $('#paso_1').html('1. Rubro');
+                  $('#paso_1').html("<h5 class='text-warning'>1. Rubro</h5>");
                   $('#agregarRubro').show();
-                  $('#VerAgregarRubro_f').show();
+                  $('.valor').show();
 
                   $("#pro_rub").html("<h4 class='text-warning'>PROCESO RUBRO DE FUNCIONAMIENTO.</h4>");
                   $('#meta0').prop( "disabled", false);
@@ -787,19 +794,22 @@ $(function()
     {
         var id_rubro_funcionamiento = $('select[name="Proyecto_inversion"]').find(':selected').val();
         var Nombre_rubro_funcionamiento= $('select[name="Proyecto_inversion"]').find(':selected').text();
-        if(id_rubro_funcionamiento!='')
+        var valor_rubro = $('input[name="valor_contrato_rubro"]').val();
+
+        if(id_rubro_funcionamiento!='' && valor_rubro!='')
         {
             $('#alert_actividad_rubro').html('<div class="alert alert-dismissible alert-success" ><strong>Exito!</strong> Dato registrados con éxito. </div>');
             $('#mensaje_actividad_rubro').show(60);
             $('#mensaje_actividad_rubro').delay(1500).hide(600);
             vector_datos_actividad_rubro_f.push({
                 "nombre_r": Nombre_rubro_funcionamiento,
-                "id_rubro": id_rubro_funcionamiento
+                "id_rubro": id_rubro_funcionamiento,
+                "valor_rubro":valor_rubro
             });
         }
         else
         {
-            $('#alert_actividad_rubro').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe selecionar un valor para realizar el registro.</div>');
+            $('#alert_actividad_rubro').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Campos vacios en el formulario.</div>');
             $('#mensaje_actividad_rubro').show(60);
             $('#mensaje_actividad_rubro').delay(2500).hide(600);
         }
@@ -821,8 +831,10 @@ $(function()
         {
             var num=1;
             $.each(vector_datos_actividad_rubro_f, function(i, e){
-                html += '<tr><th scope="row" class="text-center">'+num+'</th>'+
+                html += '<tr class="warning"><th scope="row" class="text-center">'+num+'</th>'+
                     '<td>'+e['nombre_r']+'</td>'+
+                    '<td>Otros distritos</td>'+
+                    '<td>'+e['valor_rubro']+'</td>'+
                     '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminar" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                 num++;
             });
@@ -979,8 +991,10 @@ $(function()
         {
             var num=1;
             $.each(vector_datos_actividad_rubro_f, function(i, e){
-                html += '<tr><th scope="row" class="text-center">'+num+'</th>'+
+                html += '<tr class="warning"><th scope="row" class="text-center">'+num+'</th>'+
                     '<td>'+e['nombre_r']+'</td>'+
+                    '<td>Otros distritos</td>'+
+                    '<td>'+e['valor_rubro']+'</td>'+
                     '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminar" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                 num++;
             });
@@ -992,7 +1006,7 @@ $(function()
             {
               var num=1;
               $.each(vector_datos_actividad, function(i, e){
-                html += '<tr><th scope="row" class="text-center">'+num+'</th>'+
+                html += '<tr class="success"><th scope="row" class="text-center">'+num+'</th>'+
                              '<td>'+e['Proyecto']+'</td>'+
                              '<td>'+e['Meta']+'</td>'+
                              '<td>'+e['Nom_Proyecto']+'</td>'+
@@ -1015,8 +1029,10 @@ $(function()
         {
             var num=1;
             $.each(vector_datos_actividad_rubro_f, function(i, e){
-                html += '<tr><th scope="row" class="text-center">'+num+'</th>'+
+                html += '<tr class="warning"><th scope="row" class="text-center">'+num+'</th>'+
                     '<td>'+e['nombre_r']+'</td>'+
+                    '<td>Otros distritos</td>'+
+                    '<td>'+e['valor_rubro']+'</td>'+
                     '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminar" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                 num++;
             });
@@ -1029,7 +1045,7 @@ $(function()
             num=1;
             $.each(vector_datos_actividad, function(i, e){
                 if(e['Proyecto']) {
-                    html += '<tr><th scope="row" class="text-center">' + num + '</th>' +
+                    html += '<tr class="success"><th scope="row" class="text-center">' + num + '</th>' +
                         '<td>' + e['Proyecto'] + '</td>' +
                         '<td>' + e['Meta'] + '</td>' +
                         '<td>' + e['Nom_Proyecto'] + '</td>' +
@@ -1063,7 +1079,7 @@ $(function()
             {
               var num=1;
               $.each(vector_datos_actividad, function(i, e){
-                html += '<tr><th scope="row" class="text-center">'+num+'</th>'+
+                html += '<tr class="success"><th scope="row" class="text-center">'+num+'</th>'+
                         '<td>'+e['Proyecto']+'</td>'+
                         '<td>'+e['Meta']+'</td>'+
                         '<td>'+e['Nom_Proyecto']+'</td>'+
