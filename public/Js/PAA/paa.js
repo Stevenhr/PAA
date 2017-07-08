@@ -1231,7 +1231,6 @@ $(function()
                               '<td class="text-center"><button type="button" data-id="'+dato['id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                       num++;
                     });
-                    $('#btn_agregar_finaza').html('Agregar Financiación');
 
                     var html1 ='<option value="1">Seleccionar</option>';
                     $('select[name="componnente"]').html(html1);
@@ -1269,7 +1268,6 @@ $(function()
                       num++;
                     });
                     $('#registrosFinanzasRubro').html(html);
-                    $('#btn_agregar_finaza').html('Modificar Rubro');
                             
                     $('.mjs_componente').hide();
                 }
@@ -1282,7 +1280,8 @@ $(function()
      $('#datos_actividad2').delegate('button[data-funcion="eliminar_finanza"]','click',function (e) {   
       var id_act_paa = $(this).data('rel'); 
       var id_key_ele = $(this).data('id');
-      
+        $('#registrosFinanzas').html('');
+        
         $.ajax({
               type: "POST",
               url: URL+'/service/EliminarFinanciamiento',
@@ -1291,7 +1290,7 @@ $(function()
               success: function(data)
               {   
                   var html = '';
-                  $('#registrosFinanzas').html('');
+                  
                   
                   if($.inArray(data.paa.estado,['4','5','7'])!=-1){
                     desactivo="none";
@@ -1309,7 +1308,7 @@ $(function()
                             '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
                             '<td>'+dato.componente['Nombre']+'</td>'+
                             '<td>'+dato.meta['Nombre']+'</td>'+
-                            '<td> $ '+number_format(dato['valor'])+'</td>'+
+                            '<td> $'+number_format(dato['valor'])+'</td>'+
                             '<td class="text-center"><button type="button" data-id="'+dato['id']+'"  data-rel="'+id_act_paa+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
                   });
@@ -1322,7 +1321,8 @@ $(function()
     $('#datos_actividad3').delegate('button[data-funcion="eliminar_finanza_rubro"]','click',function (e) {   
       var id_act_paa = $(this).data('rel'); 
       var id_key_ele = $(this).data('id');
-      
+        $('#registrosFinanzasRubro').html('');
+
         $.ajax({
               type: "POST",
               url: URL+'/service/EliminarFinanciamientoRubro',
@@ -1331,7 +1331,7 @@ $(function()
               success: function(data)
               {   
                   var html = '';
-                  $('#registrosFinanzasRubro').html('');
+                  
                   
                   if($.inArray(data.Modelo.estado,['4','5','7'])!=-1){
                     desactivo="none";
@@ -1349,7 +1349,7 @@ $(function()
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+e['nombre']+'</td>'+
                             '<td>Otros Distrito</td>'+
-                            '<td>'+e.pivot['valor']+'</td>'+
+                            '<td> $'+number_format(e.pivot['valor'])+'</td>'+
                             '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act_paa+'" data-funcion="eliminar_finanza_rubro" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
                   });

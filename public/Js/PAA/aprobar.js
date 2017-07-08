@@ -89,6 +89,9 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
           $('#id_act_agre').val(id_act);
           $('#id_act_agre2').val(id_act);
 
+          $('#registrosFinanzas').html('');
+          $('#registrosFinanzasRubro').html('');
+
           $.ajax({
               url: URL+'/service/VerFinanciamiento/'+id_act,
               data: {},
@@ -96,8 +99,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
               success: function(data)
               {   
            
-                  $('#registrosFinanzas').html('');
-                  $('#registrosFinanzasRubro').html('');
+                  
 
 
                 if(data.Modelo.componentes.length>0)
@@ -111,7 +113,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                               '<td>'+dato.proyecto['Nombre']+'</td>'+
                               '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
                               '<td>'+dato.componente['Nombre']+'</td>'+
-                              '<td> $ '+number_format(dato['valor'])+'</td>';
+                              '<td>'+dato.meta['Nombre']+'</td>'+
+                              '<td> $'+number_format(dato['valor'])+'</td>'+
                       num++;
                     });
                     $('#registrosFinanzas').html(html);
@@ -129,7 +132,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                       html += '<tr>'+
                               '<th scope="row" class="text-center">'+num+'</th>'+
                               '<td>'+e['nombre']+'</td>'+
-                              '<td>Otros Distrito</td>';
+                              '<td>Otros Distrito</td>'+
+                              '<td>$'+number_format(e.pivot['valor'])+'</td>'+
                       num++;
                     });
                     $('#registrosFinanzasRubro').html(html);

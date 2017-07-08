@@ -261,18 +261,19 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Listado de Financiación Proyecto de Inversión.</h4>
+					<h4 class="modal-title text-success" id="myModalLabel">Listado de Financiación Proyecto de Inversión.</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12">
 							<table class="table table-bordered" id="datos_actividad2" >
 								<thead class="thead-inverse table-success">
-								<tr>
+								<tr class="success">
 									<th>#</th>
 									<th>Proyecto de Inversión</th>
 									<th>Fuente</th>
 									<th>Componente</th>
+									<th>Meta</th>
 									<th>Valor</th>
 								</tr>
 								</thead>
@@ -289,17 +290,18 @@
 
      			 <div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Listado de Financiación Rubros de Funcionamiento.</h4>
+					<h4 class="modal-title text-warning" id="myModalLabel">Listado de Financiación Rubros de Funcionamiento.</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12">
 							<table class="table table-bordered" id="datos_actividad3" >
 								<thead class="thead-inverse">
-								<tr>
+								<tr class="warning">
 									<th>#</th>
 									<th>Rubro de funcionamiento.</th>
 									<th>Fuente</th>
+									<th>Valor</th>
 								</tr>
 								</thead>
 								<tbody id="registrosFinanzasRubro">

@@ -38,7 +38,7 @@ class DireccionGeneralController extends Controller
 
     public function verFinanciacion(Request $request, $id)
     {
-        $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente')->where('id_paa',$id)->get();
+        $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente','meta')->where('id_paa',$id)->get();
         $model_A = Paa::with('componentes','componentes.fuente')->find($id);
         //dd($model_A);
         //exit();
