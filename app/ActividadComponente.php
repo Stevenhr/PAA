@@ -10,7 +10,7 @@ class ActividadComponente extends Model
     //
     protected $table = 'actividadComponente';
 	protected $primaryKey = 'id';
-	protected $fillable = ['componente_id','actividad_id','fuente_id','proyecto_id','valor','estado'];
+	protected $fillable = ['componente_id','actividad_id','fuente_id','proyecto_id','valor','estado','id_fk_meta'];
 	protected $connection = ''; 
 	public $timestamps = true;
 
@@ -50,5 +50,9 @@ class ActividadComponente extends Model
         return $this->belongsTo('App\FuenteProyecto','fuente_id');
     }
 
+    public function meta()
+    {
+        return $this->belongsTo('App\Meta','id_fk_meta');
+    }
     use SoftDeletes;
 }

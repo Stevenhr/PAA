@@ -260,6 +260,7 @@ class PlanAnualAController extends Controller
                         'fuente_id'=>$obj->id_Proyecto,
                         'proyecto_id'=>$input['Proyecto_inversion'],
                         'estado'=>1,
+                        'id_fk_meta'=>$obj->id_meta,
                     ]);
                 }
             }

@@ -10,7 +10,7 @@ class Presupuestado extends Model
     //
     protected $table = 'presupuestado';
 	protected $primaryKey = 'id';
-	protected $fillable = ['componente_id','fuente_proyecto_id','valor'];
+	protected $fillable = ['componente_id','fuente_proyecto_id','valor','id_fk_meta'];
 	protected $connection = ''; 
 	public $timestamps = true;
 
@@ -33,5 +33,10 @@ class Presupuestado extends Model
     {
         return $this->belongsTo('App\Componente','componente_id');
     }
+    public function meta()
+    {
+        return $this->belongsTo('App\Meta','id_fk_meta');
+    }
+
     use SoftDeletes;
 }
