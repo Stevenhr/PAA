@@ -461,7 +461,7 @@ class PlanAnualAController extends Controller
         $ActividadComponente1 = ActividadComponente::find($id_eli);
         $ActividadComponente1->delete();
 
-        $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente')->where('id_paa',$id)->get();
+        $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente','meta')->where('id_paa',$id)->get();
 
         $paa = Paa::find($id);
         //  $paa->componentes()->detach($request['id_eli']);
@@ -571,16 +571,16 @@ class PlanAnualAController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'Fuente_funcionamiento' =>'required',
+                'valor_contrato' =>'required',
             ]
         );
 
         if ($validator->fails())
         return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
 
-
         $id=$request['id_act_agre2'];
         $paa = Paa::find($id);                 
-        $paa->rubro_funcionamiento()->attach($request['Fuente_funcionamiento']);
+        $paa->rubro_funcionamiento()->attach($request['Fuente_funcionamiento'],['valor'=>str_replace('.','',$request['valor_contrato'])]);
 
         $paa_data = Paa::with('componentes','componentes.fuente','rubro_funcionamiento')->find($id);
         return response()->json(array('Modelo'=>$paa_data));        

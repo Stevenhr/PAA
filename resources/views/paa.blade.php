@@ -811,7 +811,7 @@
 							<div class="col-xs-12 col-md-4">
 								<div class="form-group">
 								  		<label class="text-warning">Valor</label>
-										<input type="text" class="form-control " name="valor_contrato" autocomplete="off">
+										<input type="text" class="form-control " name="valor_contrato" id="valor_contrato" autocomplete="off">
 										<input type="hidden" class="form-control" name="proyectorubro" autocomplete="off">
 								</div>
 								<button type="submit" class="btn btn-block btn-sm btn-warning" id="btn_agregar_finaza_rubro">Agregar Rubro</button>

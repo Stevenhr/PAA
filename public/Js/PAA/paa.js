@@ -1264,7 +1264,7 @@ $(function()
                               '<th scope="row" class="text-center">'+num+'</th>'+
                               '<td>'+e['nombre']+'</td>'+
                               '<td>Otros Distrito</td>'+
-                              '<td>'+e['valor']+'</td>'+
+                              '<td>'+e.pivot['valor']+'</td>'+
                               '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza_rubro" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                       num++;
                     });
@@ -1349,7 +1349,7 @@ $(function()
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+e['nombre']+'</td>'+
                             '<td>Otros Distrito</td>'+
-                            '<td>'+e['valor']+'</td>'+
+                            '<td>'+e.pivot['valor']+'</td>'+
                             '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act_paa+'" data-funcion="eliminar_finanza_rubro" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
                   });
@@ -1430,11 +1430,11 @@ $(function()
                   dataType: 'json',
                   success: function(data)
                   { 
-                    console.log(data);  
                     if(data.status == 'error')
                     {
                         validad_error_agre_rubro(data.errors);
                     } else {
+                        validad_error_agre_rubro(data.errors);
 
                         var html = '';
                         var num = 1;
@@ -1444,7 +1444,7 @@ $(function()
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+e['nombre']+'</td>'+
                             '<td>Otros Distrito</td>'+
-                            '<td>'+e['valor']+'</td>'+
+                            '<td>'+e.pivot['valor']+'</td>'+
                             '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza_rubro" class="eliminar_dato_actividad" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                           num++;
                         });
@@ -1941,17 +1941,22 @@ $(function()
 
   var validad_error_agre_rubro = function(data)
     {
-        $('#form_agregar_finza .form-group').removeClass('has-error');
+        $('#form_agregar_finza_2 .form-group').removeClass('has-error');
         var selector = '';
         for (var error in data){
             if (typeof data[error] !== 'function') {
                 switch(error)
                 {
                     case 'Fuente_inversion':
+                    selector = 'select';
+                    break;
+
+                    case 'valor_contrato':
+                    selector = 'input';
                     break;
                 
                 }
-                $('#form_agregar_finza '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
+                $('#form_agregar_finza_2 '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
             }
         }
     }
