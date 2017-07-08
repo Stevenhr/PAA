@@ -1150,6 +1150,7 @@ $(function()
                               '<td>'+dato.proyecto['Nombre']+'</td>'+
                               '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
                               '<td>'+dato.componente['Nombre']+'</td>'+
+                              '<td>'+dato.meta['Nombre']+'</td>'+
                               '<td> $ '+number_format(dato['valor'])+'</td>'+
                               '<td class="text-center"><button type="button" data-id="'+dato['id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                       num++;
@@ -1187,6 +1188,7 @@ $(function()
                               '<th scope="row" class="text-center">'+num+'</th>'+
                               '<td>'+e['nombre']+'</td>'+
                               '<td>Otros Distrito</td>'+
+                              '<td>'+e['valor']+'</td>'+
                               '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza_rubro" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                       num++;
                     });
@@ -1230,6 +1232,7 @@ $(function()
                             '<td>'+dato.proyecto['Nombre']+'</td>'+
                             '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
                             '<td>'+dato.componente['Nombre']+'</td>'+
+                            '<td>'+dato.meta['Nombre']+'</td>'+
                             '<td> $ '+number_format(dato['valor'])+'</td>'+
                             '<td class="text-center"><button type="button" data-id="'+dato['id']+'"  data-rel="'+id_act_paa+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
@@ -1270,6 +1273,7 @@ $(function()
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+e['nombre']+'</td>'+
                             '<td>Otros Distrito</td>'+
+                            '<td>'+e['valor']+'</td>'+
                             '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act_paa+'" data-funcion="eliminar_finanza_rubro" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                     num++;
                   });
@@ -1324,6 +1328,7 @@ $(function()
                                     '<td>'+dato.proyecto['Nombre']+'</td>'+
                                     '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
                                     '<td>'+dato.componente['Nombre']+'</td>'+
+                                    '<td>'+dato.meta['Nombre']+'</td>'+
                                     '<td> $ '+number_format(dato['valor'])+'</td>'+
                                     '<td class="text-center"><button type="button" data-id="'+dato['id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                             num++;
@@ -1363,6 +1368,7 @@ $(function()
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+e['nombre']+'</td>'+
                             '<td>Otros Distrito</td>'+
+                            '<td>'+e['valor']+'</td>'+
                             '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza_rubro" class="eliminar_dato_actividad" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                           num++;
                         });

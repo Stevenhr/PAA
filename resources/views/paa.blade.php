@@ -706,6 +706,7 @@
 									<th>Proyecto de Inversión</th>
 									<th>Fuente</th>
 									<th>Componente</th>
+									<th>Meta</th>
 									<th>Valor</th>
 									<th>Eliminar</th>
 								</tr>
@@ -768,6 +769,7 @@
 									<th>#</th>
 									<th>Rubro de funcionamiento.</th>
 									<th>Fuente</th>
+									<th>Valor</th>
 									<th>Eliminar</th>
 								</tr>
 								</thead>
