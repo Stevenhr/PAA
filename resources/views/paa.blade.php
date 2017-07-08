@@ -694,14 +694,14 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Listado de Financiación Proyecto de Inversión.</h4>
+					<h4 class="modal-title text-success" id="myModalLabel">Listado de Financiación Proyecto de Inversión.</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12">
 							<table class="table table-bordered" id="datos_actividad2" >
 								<thead class="thead-inverse table-success">
-								<tr>
+								<tr class="success">
 									<th>#</th>
 									<th>Proyecto de Inversión</th>
 									<th>Fuente</th>
@@ -722,25 +722,41 @@
 						<div class="row"  >
 							  <div class="col-xs-12 col-sm-12">
 								<div class="form-group">
-									<label >Fuente</label>
+									<label class="text-success">Proyecto</label>
 									<input type="hidden" name="id_act_agre" id="id_act_agre">
-									<select class="form-control" name="Fuente_inversion" id="Fuente_inversion">
+									<select class="form-control" name="Proyecto_Finanza" id="Proyecto_Finanza">
+										<option value="" >Selecionar</option>
+									</select>
+								</div>
+						      </div>
+						      <div class="col-xs-12 col-sm-12">
+								<div class="form-group">
+									<label class="text-success" >Meta</label>
+									<select class="form-control" name="Meta_Finanza" id="Meta_Finanza">
+										<option value="" >Selecionar</option>
+									</select>
+								</div>
+						      </div>
+							  <div class="col-xs-12 col-sm-12">
+								<div class="form-group">
+									<label class="text-success" >Fuente</label>
+									<select class="form-control" name="Fuente_Finanza" id="Fuente_Finanza">
 										<option value="" >Selecionar</option>
 									</select>
 								</div>
 						      </div>
 						      <div class="col-xs-12 col-sm-12">
 						  		<div class="form-group">
-							    	<label>Componente de gasto</label>
-									<select class="form-control" name="componnente" id="componnente">
+							    	<label class="text-success">Componente de gasto</label>
+									<select class="form-control" name="Componnente_Finanza" id="Componnente_Finanza">
 										<option value="" >Selecionar</option>
 									</select>
 								</div>
 						      </div>
 							  <div class="col-xs-12 col-sm-4">
 							  	<div class="form-group">
-								  		<label>Valor</label>
-										<input type="text" class="form-control" name="valor_contrato" autocomplete="off">
+								  		<label class="text-success">Valor</label>
+										<input type="text" class="form-control success" name="valor_contrato" id="valor_contrato" autocomplete="off">
 										<input type="hidden" class="form-control" name="proyectorubro" autocomplete="off">
 								</div>
 								<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza">Agregar Proyecto</button>
@@ -758,14 +774,14 @@
 
      			 <div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Listado de Financiación Rubros de Funcionamiento.</h4>
+					<h4 class="modal-title text-warning" id="myModalLabel">Listado de Financiación Rubros de Funcionamiento.</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12">
 							<table class="table table-bordered" id="datos_actividad3" >
 								<thead class="thead-inverse">
-								<tr>
+								<tr class="warning">
 									<th>#</th>
 									<th>Rubro de funcionamiento.</th>
 									<th>Fuente</th>
@@ -784,19 +800,21 @@
 						<div class="row"  >
 							<div class="col-xs-12 col-sm-12">
 								<div class="form-group">
-									<label >Fuente de funcionamiento</label>
+									<label class="text-warning" >Fuente de funcionamiento</label>
 									<input type="hidden" name="id_act_agre2" id="id_act_agre2">
 									<select class="form-control" name="Fuente_funcionamiento" id="Fuente_funcionamiento">
 										<option value="" >Selecionar</option>
 									</select>
 								</div>
 						    </div>
-							<div class="col-xs-12 col-sm-12">
-							  	<div class="mjs_componente"></div>
-							</div>
-							
+
 							<div class="col-xs-12 col-md-4">
-								<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza_rubro">Agregar Rubro</button>
+								<div class="form-group">
+								  		<label class="text-warning">Valor</label>
+										<input type="text" class="form-control " name="valor_contrato" autocomplete="off">
+										<input type="hidden" class="form-control" name="proyectorubro" autocomplete="off">
+								</div>
+								<button type="submit" class="btn btn-block btn-sm btn-warning" id="btn_agregar_finaza_rubro">Agregar Rubro</button>
 							</div>
 							<div class="col-xs-12 col-md-8"></div>
 						</div>

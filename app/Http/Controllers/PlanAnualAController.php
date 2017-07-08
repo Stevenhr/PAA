@@ -446,8 +446,10 @@ class PlanAnualAController extends Controller
         $RubroFuncionamiento1 = RubroFuncionamiento::all();
 
         //exit();
+        $proyectos = Proyecto::all();
         $Proyecto = Proyecto::with('fuente')->find($ActividadComponente[0]->proyecto['Id']);
-        return response()->json(array('estado' => $model_A['Estado'],'proyecto'=>$Proyecto, 'ActividadComponente'=>$ActividadComponente,'Rubro'=>$RubroFuncionamiento,'Modelo'=>$model_A, 'rubros_all'=>$RubroFuncionamiento1) );
+
+        return response()->json(array('estado' => $model_A['Estado'],'proyecto'=>$Proyecto,'proyectos'=>$proyectos, 'ActividadComponente'=>$ActividadComponente,'Rubro'=>$RubroFuncionamiento,'Modelo'=>$model_A, 'rubros_all'=>$RubroFuncionamiento1) );
     }
 
     public function EliminarFinanciamiento(Request $request)
@@ -486,8 +488,10 @@ class PlanAnualAController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'valor_contrato' =>'required',
-                'Fuente_inversion' =>'required',
-                'componnente' =>'required',
+                'Proyecto_Finanza' =>'required',
+                'Meta_Finanza' =>'required',
+                'Fuente_Finanza' =>'required',
+                'Componnente_Finanza' =>'required',
             ]
         );
 
@@ -495,8 +499,10 @@ class PlanAnualAController extends Controller
         return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
 
         $id=$request['id_act_agre'];
-        $id_componente=$request['componnente'];
-        $Fuente_inversion=$request['Fuente_inversion'];
+        $proyecto_Finanza=$request['Proyecto_Finanza'];
+        $meta_Finanza=$request['Meta_Finanza'];
+        $id_componente=$request['Componnente_Finanza'];
+        $Fuente_inversion=$request['Fuente_Finanza'];
         $valor=str_replace('.','',$request['valor_contrato']);
 
         $ModeloCompoente=Presupuestado::find($id_componente);
@@ -528,11 +534,13 @@ class PlanAnualAController extends Controller
         {
             $query->where('componente_id',$compo_id)->get();
         }])->find($id);
-
-        foreach($ModeloAprobado->componentes as $componente){
-           if($componente->pivot['valor']!=''){
-               $suma_por_aprobar=$suma_por_aprobar + $componente->pivot['valor'];
-           }
+        
+        if($ModeloAprobado!=''){
+            foreach($ModeloAprobado->componentes as $componente){
+               if($componente->pivot['valor']!=''){
+                   $suma_por_aprobar=$suma_por_aprobar + $componente->pivot['valor'];
+               }
+            }
         }
          
         $valor2=$valor+$suma_por_aprobar;
@@ -541,20 +549,20 @@ class PlanAnualAController extends Controller
         //dd($ModeloCompoente['valor']."   -   ".$suma_aprobado." - ".$valor2." - ".$valorAfavor);
         //echo $valorAfavor." - ".$valor."";
         if($valorAfavor>=$valor2){
-            $paa = new Paa;
+            $paa = Paa::find($id);
             $paa->componentes()->attach($compo_id,[
-                        'id_paa'=>$id,
                         'valor'=>$valor,
                         'fuente_id'=>$Fuente_inversion,
                         'proyecto_id'=>$FuenteProyecto['proyecto_id'],
                         'estado'=>1,
+                        'id_fk_meta'=>$meta_Finanza,
                     ]);
             $estado="1";
         }else{
             $estado="0";
         }
         
-        $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente')->where('id_paa',$id)->get();
+        $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente','meta')->where('id_paa',$id)->get();
         return response()->json(array('status' => $estado, 'errors' => $validator->errors(),'ActividadComponente'=>$ActividadComponente));
     }
 

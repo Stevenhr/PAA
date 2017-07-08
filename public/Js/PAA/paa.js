@@ -443,6 +443,36 @@ $(function()
       }
     };
 
+
+     $('select[name="Proyecto_Finanza"]').on('change', function(e){
+        select_Meta_Fin($(this).val());
+    });
+
+    var select_Meta_Fin = function(id)
+    { 
+        $.ajax({
+            url: URL+'/service/select_meta_fuente/'+id,
+            data: {},
+            dataType: 'json',
+            success: function(data)
+            {
+                var datos=data.Proyecto;
+                var html = '<option value="">Seleccionar</option>';
+                $.each(datos.metas, function(i, eee){
+                      html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
+                });   
+                $('select[name="Meta_Finanza"]').html(html).val($('select[name="Meta_Finanza"]').data('value'));
+
+                var datos2=data.FuenteProyecto;
+                var html2 = '<option value="">Seleccionar</option>';
+                $.each(datos2, function(i, eee){
+                      html2 += '<option value="'+eee['id']+'">'+eee.fuente['nombre'].toLowerCase()+'</option>';
+                });   
+                $('select[name="Fuente_Finanza"]').html(html2).val($('select[name="Fuente_Finanza"]').data('value'));
+            }
+        });
+    };
+
     var select_Meta2 = function(id,id_meta)
     { 
         $.ajax({
@@ -520,10 +550,44 @@ $(function()
           },'json');
     };
 
+
+    $('select[name="Fuente_Finanza"]').on('change', function(e){
+        select_fuente_finan($(this).val());
+    });
+
+    var select_fuente_finan = function(fuenteProyecto)
+    { 
+        $('.mjs_componente').html('');
+        $.post(
+          URL+'/service/fuenteComponente',
+          {fuenteProyecto:fuenteProyecto},
+          function(data)
+          {
+                var html = '<option value="">Seleccionar componente</option>';
+                $.each(data, function(i, eee){
+                            html += '<option value="'+eee['id']+'">'+eee.componente['Nombre'].toLowerCase()+'</option>';
+                });
+                
+                $('select[name="Componnente_Finanza"]').html(html).val($('select[name="Componnente_Finanza"]').data('value'));
+          },'json');
+    };
+
+    $('select[name="Componnente_Finanza"]').on('change', function(e){
+        var id_presupuestado=$(this).find(':selected').val();
+        presupuesto_vista(id_presupuestado);
+      
+        
+    });
+
     $('select[name="componnente"]').on('change', function(e){
         var id_presupuestado=$(this).find(':selected').val();
-      
-        $.ajax({
+        presupuesto_vista(id_presupuestado);
+
+    });
+
+    function presupuesto_vista(id_presupuestado){
+
+      $.ajax({
             type: "POST",
             url: URL+'/service/PresupuestoComponente',
             data: {id_presupuestado:id_presupuestado},
@@ -575,7 +639,8 @@ $(function()
                  '<tr class="active"><td>Presupuesto libre: </td><td><center><strong>  $'+number_format(valorAfavor)+'</strong>.<br>'+'</td></tr></table></div>');
             }
         });
-    });
+
+    }
 
   function lee_json(codigo_Unspsc) {
     var promise = $.Deferred();
@@ -1128,6 +1193,17 @@ $(function()
                   $('#registrosFinanzasRubro').html('');
 
 
+                    // Select Proyecto
+                    var html = '<option value="">Seleccionar</option>';
+                    if(data.proyectos!=null && data.proyectos.length > 0)
+                    {
+                      $.each(data.proyectos, function(i, e){
+                          html += '<option value="'+e['Id']+'">'+e['Nombre']+'</option>';
+                      });
+                    }
+                    $('select[name="Proyecto_Finanza"]').html(html).val($('select[name="Proyecto_Finanza"]').data('value'));
+
+                    //Select Fuente
                     var html = '<option value="">Seleccionar</option>';
                     if(data.proyecto!=null && data.proyecto.fuente.length > 0)
                     {
@@ -1845,13 +1921,14 @@ $(function()
             if (typeof data[error] !== 'function') {
                 switch(error)
                 {
-                    
                     case 'valor_contrato':
                         selector = 'input';
                     break;
 
-                    case 'Proyecto_inversion':
-                    case 'componnente':
+                    case 'Proyecto_Finanza':
+                    case 'Meta_Finanza':
+                    case 'Fuente_Finanza':
+                    case 'Componnente_Finanza':
                     selector = 'select';
                     break;
                 
