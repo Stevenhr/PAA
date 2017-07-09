@@ -10,6 +10,7 @@ use App\TipoContrato;
 use App\Componente;
 use App\Fuente;
 use App\Paa;
+use App\Meta;
 use App\Utilidades\Comparador;
 use Validator;
 use App\Proyecto;
@@ -391,6 +392,19 @@ class PlanAnualAController extends Controller
     {
         $rubroFuncionamiento = RubroFuncionamiento::with('actividadesfuncionamiento')->find($id);
         return response()->json($rubroFuncionamiento);
+    }
+
+    public function selectMetasProyecto(Request $request)
+    {
+
+        $actividadcomponente = ActividadComponente::with('meta')->where('id_paa',$request['id_paa'])->where('proyecto_id',$request['id_proyecto'])->get();
+        return response()->json($actividadcomponente);
+    }
+
+    public function selecActivMeta(Request $request, $id)
+    {
+        $meta = Meta::with('actividades')->find($id);
+        return response()->json($meta);
     }
 
     public function select_paVinculada(Request $request, $id)
@@ -776,28 +790,29 @@ class PlanAnualAController extends Controller
         
         $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes','rubro_funcionamiento','rubro_funcionamiento.actividadesfuncionamiento')->find($id);
         
-        if($paa['Proyecto1Rubro2']!=2)
-        {
-            $finanzas = ActividadComponente::with('actividades')->where('id_paa',$id)->get();
-            foreach ($finanzas as $finanza) 
-            {
-                    $finanza->Componente = Componente::find($finanza['componente_id']);
-                foreach ($finanza->actividades as &$actividad)
+       
+            $finanzas_p = ActividadComponente::with('actividades','proyecto')->where('id_paa',$id)->get();
+            if($finanzas_p){
+                foreach ($finanzas_p as $finanza) 
                 {
-                    $actividad->Actividad = Actividad::find($actividad->pivot['actividad_id']);
+                        $finanza->Componente = Componente::find($finanza['componente_id']);
+                    foreach ($finanza->actividades as &$actividad)
+                    {
+                        $actividad->Actividad = Actividad::find($actividad->pivot['actividad_id']);
+                        $actividad->Fuente = FuenteHacienda::find($actividad->pivot['fuentehacienda']);
+                    }
+                }
+            }
+        
+            $finanzas_r = Paa::with('actividadesFuncionamiento')->find($id);
+            if($finanzas_r){
+                foreach ($finanzas_r->actividadesFuncionamiento as &$actividad)
+                {
+                    $actividad->Actividad = ActividadFuncionamiento::find($actividad->pivot['actividad_f_id']);
                     $actividad->Fuente = FuenteHacienda::find($actividad->pivot['fuentehacienda']);
                 }
             }
-        }
-        else
-        {
-            $finanzas = Paa::with('actividadesFuncionamiento')->find($id);
-            foreach ($finanzas->actividadesFuncionamiento as &$actividad)
-            {
-                $actividad->Actividad = ActividadFuncionamiento::find($actividad->pivot['actividad_f_id']);
-                $actividad->Fuente = FuenteHacienda::find($actividad->pivot['fuentehacienda']);
-            }
-        }
+        
 
         if($paa['vinculada']!=""){
             $EstudioConveniencias =  EstudioConveniencia::find($paa['vinculada']);
@@ -810,7 +825,8 @@ class PlanAnualAController extends Controller
         $datos = [        
             'EstudioConveniencias' => $EstudioConveniencias,
             'paas' => $paa,
-            'finanzas' =>$finanzas,
+            'finanzas_p' =>$finanzas_p,
+            'finanzas_r' =>$finanzas_r,
             'vinculada' =>$vinculada
         ];
         return response()->json($datos);

@@ -1136,107 +1136,138 @@
 																			<textarea class="form-control" rows="3" name="texta_Justificacion"></textarea>
 																		</div>
 																	</div>
+																</div>
 
+																<div class="row" >
 																	<div class="col-xs-12 col-sm-12">
 																		<h4>Clasificación Fuentes de Financiación</h4>
 																		<hr/>
 																	</div>
+
 																	<div class="col-xs-12 col-sm-12">
-																		<div class="form-group">
-																			<label>Detalle fuente hacienda</label>
-																			<select class="form-control" name="Fuente_ingre" id="Fuente_ingre">
-																				<option value="" >Selecionar</option>
-																				@foreach($fuenteHaciendas as $fuente)
-																					<option value="{{ $fuente['id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
-																				@endforeach
-																			</select>
-																		</div>
-																	</div>
-																	<div class="col-xs-12 col-sm-12">
-																		<label class="text-success">Meta</label>
-																		<p class="form-control-static" id="mensj_meta"></p>
-																	</div>
-
-																	<div class="col-xs-12 col-sm-6">
-																		<div class="form-group">
-																			<label class="text-success">Componetes ingresados</label>
-																			<select class="form-control" name="Componente_ingresado" id="Componente_ingresado">
-																			</select>
+																		<div class="col-xs-12 col-sm-12">
+																			<div class="form-group">
+																				<label>1. Detalle fuente hacienda</label>
+																				<select class="form-control" name="Fuente_ingre" id="Fuente_ingre">
+																					<option value="" >Selecionar</option>
+																					@foreach($fuenteHaciendas as $fuente)
+																						<option value="{{ $fuente['id'] }}" >{{ $fuente['codigo'] }} - {{ $fuente['nombre'] }}</option>
+																					@endforeach
+																				</select>
+																				<br>
+																			</div>
 																		</div>
 																	</div>
 
 																	<div class="col-xs-12 col-sm-6">
-																		<div class="form-group">
-																			<label class="text-warning" >Rubros ingresados</label>
-																			<select class="form-control" name="Rubros_ingresado" id="Rubros_ingresado">
-																			 <option value="" >Selecionar</option>
-																			</select>
-																		</div>
-																	</div>
 
-																	<div class="col-xs-12 col-sm-6">
-																		<div class="form-group">
-																			<label id="tit_actividades" class="text-success">Actividades de la meta:  </label>
-																			<select class="form-control" name="actividad_ingre" id="actividad_ingre">
-																				<option value="" >Selecionar</option>
-																			</select>
+																		<div class="col-xs-12 col-sm-12">
+																			<div class="form-group">
+																				<label class="text-success">2. Proyectos ingresados</label>
+																				<select class="form-control" name="Proyecto_ingresado" id="Proyecto_ingresado">
+																				</select>
+																			</div>
 																		</div>
-																	</div>
 
-																	<div class="col-xs-12 col-sm-6">
-																		<div class="form-group">
-																			<label id="tit_actividades" class="text-warning">Actividades del rubro:  </label>
-																			<!--<label id="mensj_meta"></label>-->
-																			<select class="form-control" name="Actividades_rubros_ingresado" id="Actividades_rubros_ingresado">
-																				<option value="" >Selecionar</option>
-																			</select>
+																		<div class="col-xs-12 col-sm-12">
+																			<div class="form-group">
+																				<label class="text-success">3. Metas ingresados</label>
+																				<select class="form-control" name="Metas_ingresado" id="Metas_ingresado">
+																					<option value="" >Selecionar</option>
+																				</select>
+																			</div>
 																		</div>
-																	</div>
-																</div>
 
-																<div class="row">
-																	<div class="col-xs-12 col-sm-2">
-																		<div class="form-group">
-																			<label>Valor</label>
-																			<input type="text" class="form-control" name="valor_componente" readonly="readonly" value="0">
+																		<div class="col-xs-12 col-sm-12">
+																			<div class="form-group">
+																				<label class="text-success">4. Actividades de la meta:  </label>
+																				<select class="form-control" name="actividad_ingre" id="actividad_ingre">
+																					<option value="" >Selecionar</option>
+																				</select>
+																			</div>
 																		</div>
-																	</div>
-																	<div class="col-xs-12 col-sm-1">
-																		<div class="form-group">
-																			<label>%</label>
-																			<input type="text" class="form-control" name="valor_conponente_ingre">
-																		</div>
-																	</div>
-																	<div class="col-xs-12 col-sm-3">
-																		<div class="form-group">
-																			<label>Total</label>
-																			<input type="text" class="form-control" name="valor_total_ingr" readonly="readonly">
-																		</div>
-																	</div>
-																	<div class="col-xs-12 col-sm-6"></div>
-																</div>
 
-																<div class="row">
-																	<div class="col-xs-12 col-sm-6">
-																		<div class="form-group">
-																			<div class="btn-group btn-group-justified">
-																				<div class="btn-group">
-																					<button type="button" class="btn btn-success" id="agregar_financiacion">Agregar</button>
+																		<div class="col-xs-12 col-sm-12">
+																			<div class="form-group">
+																				<label class="text-success">5. Componetes ingresados</label>
+																				<select class="form-control" name="Componente_ingresado" id="Componente_ingresado">
+																				</select>
+																			</div>
+																		</div>
+
+																		<div class="col-xs-12 col-sm-12">
+																				<label class="text-success">6. Porcentajes</label>
+																		</div>
+																		<div class="col-xs-12 col-sm-4">
+																			<div class="form-group">
+																				<label class="text-success">Valor</label>
+																				<input type="text" class="form-control" name="valor_componente" readonly="readonly" value="0">
+																			</div>
+																		</div>
+																		<div class="col-xs-12 col-sm-2">
+																			<div class="form-group">
+																				<label class="text-success"> %</label>
+																				<input type="text" class="form-control" name="valor_conponente_ingre">
+																			</div>
+																		</div>
+																		<div class="col-xs-12 col-sm-6">
+																			<div class="form-group">
+																				<label class="text-success">Total</label>
+																				<input type="text" class="form-control" name="valor_total_ingr" readonly="readonly">
+																			</div>
+																		</div>
+
+																		<div class="col-xs-12 col-sm-12">
+																			<div class="form-group">
+																				<div class="btn-group btn-group-justified">
+																					<div class="btn-group">
+																						<button type="button" class="btn btn-success" id="agregar_financiacion">Agregar</button>
+																					</div>
 																				</div>
 																			</div>
 																		</div>
 																	</div>
+
 																	<div class="col-xs-12 col-sm-6">
-																		<div class="form-group">
-																			<div class="btn-group btn-group-justified">
-																				<div class="btn-group">
-																					<button type="button" class="btn btn-warning" id="agregar_financiacion_r">Agregar</button>
+																		<div class="col-xs-12 col-sm-12">
+																			<div class="form-group">
+																				<label class="text-warning" >2. Rubros ingresados</label>
+																				<select class="form-control" name="Rubros_ingresado" id="Rubros_ingresado">
+																				 <option value="" >Selecionar</option>
+																				</select>
+																			</div>
+																		</div>
+																		<!--
+																		<div class="col-xs-12 col-sm-12">
+																			<div class="form-group">
+																				<label id="tit_actividades" class="text-warning">Actividades del rubro:  </label>
+																				<label id="mensj_meta"></label>
+																				<select class="form-control" name="Actividades_rubros_ingresado" id="Actividades_rubros_ingresado">
+																					<option value="" >Selecionar</option>
+																				</select>
+																			</div>
+																		</div>
+																		-->
+																		<div class="col-xs-12 col-sm-12">
+																			<div class="form-group">
+																				<label>Total</label>
+																				<input type="text" class="form-control" name="valor_total_rubro" readonly="readonly">
+																			</div>
+																		</div>
+
+																		<div class="col-xs-12 col-sm-12">
+																			<div class="form-group">
+																				<div class="btn-group btn-group-justified">
+																					<div class="btn-group">
+																						<button type="button" class="btn btn-warning" id="agregar_financiacion_r">Agregar</button>
+																					</div>
 																				</div>
 																			</div>
 																		</div>
 																	</div>
-																</div>
 
+																</div>
+																
 																<div class="row">
 																	<div class="col-xs-12 col-sm-12" style="text-align: left;">
 																		<div class="form-group"  id="mensaje_actividad_finan_estudio" style="display: none;">

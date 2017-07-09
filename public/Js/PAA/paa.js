@@ -1281,7 +1281,7 @@ $(function()
       var id_act_paa = $(this).data('rel'); 
       var id_key_ele = $(this).data('id');
         $('#registrosFinanzas').html('');
-        
+
         $.ajax({
               type: "POST",
               url: URL+'/service/EliminarFinanciamiento',
@@ -1465,17 +1465,17 @@ $(function()
           var id_act = $(this).data('rel'); 
           var estado = $(this).data('estado'); 
 
-                if(estado!=0){
-                  $('#RegistrarEstudio').hide();
-                  $('#agregar_financiacion').hide();
-                  $('#agregar_financiacion_r').hide();
-                  $('#mjs_estado_estudio').html('<strong>Edición no activa!</strong>.');
-                }else{
-                  $('#RegistrarEstudio').show();
-                  $('#agregar_financiacion').show();
-                  $('#agregar_financiacion_r').show();
-                  $('#mjs_estado_estudio').html('<strong>ACTIVA!</strong> Aprobado por subdirección');
-                }
+          if(estado!=0){
+            $('#RegistrarEstudio').hide();
+            $('#agregar_financiacion').hide();
+            $('#agregar_financiacion_r').hide();
+            $('#mjs_estado_estudio').html('<strong>Edición no activa!</strong>.');
+          }else{
+            $('#RegistrarEstudio').show();
+            $('#agregar_financiacion').show();
+            $('#agregar_financiacion_r').show();
+            $('#mjs_estado_estudio').html('<strong>ACTIVA!</strong> Aprobado por subdirección');
+          }
 
 
           $('#id_estudio').val(id_act);
@@ -1496,10 +1496,10 @@ $(function()
                     $('#RegistrarEstudio').text('Modificar'); 
                     //console.log(data.finanzas);
                     
-                    if(data.paas['Proyecto1Rubro2']!=2){
+                    
 
 
-                      $.each(data.finanzas, function(i, eee){
+                      $.each(data.finanzas_p, function(i, eee){
                         $.each(eee.actividades, function(j, ee){ 
                            if(ee.pivot['estado']==0){
                               vector_datos_financiacion.push({
@@ -1518,10 +1518,10 @@ $(function()
                       });
 
 
-                    }else{
+            
                  
                       
-                        $.each(data.finanzas.actividades_funcionamiento, function(j, ee){ 
+                        $.each(data.finanzas_r.actividades_funcionamiento, function(j, ee){ 
                            if(ee.pivot['estado']==0){
                               vector_datos_financiacion.push({
                                 "componente_name": "No aplica para rubro de funcionamiento",
@@ -1537,7 +1537,6 @@ $(function()
                             }
                         });
                   
-                    }
 
                    verFinanciacion();
                 }
@@ -1581,39 +1580,40 @@ $(function()
                   
                   var html = '<option value="1" selected>No aplica para rubro de funcionamiento</option>';
                   $('select[name="Componente_ingresado"]').html(html).val(1);
-                  $('select[name="Componente_ingresado"]').prop('disabled',true);
-                  $('#tit_actividades').text('Actividades del Rubro: ');
+                  //$('select[name="Componente_ingresado"]').prop('disabled',true);
+                  //$('#tit_actividades').text('Actividades del Rubro: ');
+
 
                   var html1 = '<option value="">Selecionar</option>';
-                  $('#mensj_meta').text(data.paas.rubro_funcionamiento['nombre']);
-                  
+                  //$('#mensj_meta').text(data.paas.rubro_funcionamiento['nombre']);
                   $.each(data.paas.rubro_funcionamiento, function(i, eee){
-                      console.log(eee.nombre);
                       html1 += '<option value="'+eee.id+'">'+eee.nombre+'</option>';
                   });
-                  
                   $('select[name="Rubros_ingresado"]').html(html1).val($('select[name="Rubros_ingresado"]').data('value'));
+
                   $('input[name="valor_componente"]').val(data.paas['ValorEstimado']);
 
                 }
 
                 if(data.paas.componentes.length>0){
                   
-                  $('select[name="Componente_ingresado"]').prop('disabled',false);
+                  //$('select[name="Componente_ingresado"]').prop('disabled',false);
+
+                  //Proyectos
+                  var html_p = '<option value="">Selecionar</option>';
+                  $.each(data.finanzas_p, function(i, eee){
+                      
+                      html_p += '<option data-id="'+eee['id_paa']+'" value="'+eee.proyecto['Id']+'">'+eee.proyecto['Nombre']+'</option>';
+                  });
+                  $('select[name="Proyecto_ingresado"]').html(html_p).val($('select[name="Proyecto_ingresado"]').data('value'));
+
+                  //Componentes
                   var html = '<option value="">Selecionar</option>';
                   $.each(data.paas.componentes, function(i, eee){
                       html += '<option data-valor="'+eee.pivot['valor']+'" value="'+eee.pivot['id']+'">'+eee['Nombre']+'</option>';
                   });
-                  
                   $('select[name="Componente_ingresado"]').html(html).val($('select[name="Componente_ingresado"]').data('value'));
-                  $('#tit_actividades').text('Actividades de la meta: ');
-
-                  var html1 = '<option value="">Selecionar</option>';
-                  $('#mensj_meta').text(data.paas.meta['Nombre']);
-                  $.each(data.paas.meta.actividades, function(i, eee){
-                              html1 += '<option value="'+eee['Id']+'">'+eee['Nombre']+'</option>';
-                  });
-                  $('select[name="actividad_ingre"]').html(html1).val($('select[name="actividad_ingre"]').data('value'));
+                  
 
                 }
 
@@ -1623,6 +1623,57 @@ $(function()
           );
 
      }); 
+
+    $('select[name="Proyecto_ingresado"]').on('change', function(e){
+        selectMetasIngresadasProyecto($(this).val(),$(this).find(':selected').data('id'));
+    });
+
+    var selectMetasIngresadasProyecto = function(id_proyecto,id_paa)
+    { 
+        
+        $.post(
+          URL+'/service/selectMetasProyecto',
+          {id_proyecto: id_proyecto, id_paa:id_paa},
+          function(data){
+            
+                    var html = '<option value="">Selecionar</option>';
+                    $('select[name="Actividades_rubros_ingresado"]').html(html);
+                    $('select[name="actividad_ingre"]').html(html);
+                    $('select[name="Actividades_rubros_ingresado"]').html(html);
+                    if(data.length>0){
+                      $.each(data, function(i, eee){
+                                  html += '<option value="'+eee.meta['Id']+'">'+eee.meta['Nombre'].toLowerCase()+'</option>';
+                      });
+                    }
+                    $('select[name="Metas_ingresado"]').html(html).val($('select[name="Metas_ingresado"]').data('value'));
+
+                    
+
+              
+          },'json');
+    };
+
+    $('select[name="Metas_ingresado"]').on('change', function(e){
+        selecActivMeta($(this).val());
+    });
+
+    var selecActivMeta = function(id)
+    { 
+        $.ajax({
+            url: URL+'/service/selecActivMeta/'+id,
+            data: {},
+            dataType: 'json',
+            success: function(data)
+            {
+                var html = '<option value="">Selecionar</option>';
+                $('select[name="Actividades_rubros_ingresado"]').html(html);
+                $.each(data.actividades, function(i, eee){
+                            html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
+                });
+                $('select[name="actividad_ingre"]').html(html).val($('select[name="actividad_ingre"]').data('value'));
+            }
+        });
+    };
 
     $('select[name="Rubros_ingresado"]').on('change', function(e){
         selectActividadesRubro($(this).val());
