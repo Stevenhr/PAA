@@ -1578,20 +1578,14 @@ $(function()
 
                 if(data.paas.rubro_funcionamiento.length>0){
                   
-                  var html = '<option value="1" selected>No aplica para rubro de funcionamiento</option>';
-                  $('select[name="Componente_ingresado"]').html(html).val(1);
-                  //$('select[name="Componente_ingresado"]').prop('disabled',true);
-                  //$('#tit_actividades').text('Actividades del Rubro: ');
-
+                  //var html = '<option value="1" selected>No aplica para rubro de funcionamiento</option>';
+                  //$('select[name="Componente_ingresado"]').html(html).val(1);
 
                   var html1 = '<option value="">Selecionar</option>';
-                  //$('#mensj_meta').text(data.paas.rubro_funcionamiento['nombre']);
                   $.each(data.paas.rubro_funcionamiento, function(i, eee){
-                      html1 += '<option value="'+eee.id+'">'+eee.nombre+'</option>';
+                      html1 += '<option data-id="'+eee.pivot.paa_id+'" value="'+eee.id+'">'+eee.nombre+'</option>';
                   });
                   $('select[name="Rubros_ingresado"]').html(html1).val($('select[name="Rubros_ingresado"]').data('value'));
-
-                  $('input[name="valor_componente"]').val(data.paas['ValorEstimado']);
 
                 }
 
@@ -1623,6 +1617,26 @@ $(function()
           );
 
      }); 
+    
+    $('select[name="Rubros_ingresado"]').on('change', function(e)
+    {
+        selectRubrosIngresados($(this).val(),$(this).find(':selected').data('id'));
+    });
+
+    var selectRubrosIngresados = function(id_rubro,id_paa)
+    { 
+        $.post(
+          URL+'/service/selectRubrosIngresados',
+          {id_rubro: id_rubro, id_paa:id_paa},
+          function(data){
+
+                    if(data.rubro_funcionamiento)
+                      $('input[name="valor_total_rubro"]').val(data.rubro_funcionamiento[0].pivot['valor']);
+                    else
+                      $('input[name="valor_total_rubro"]').val(0);
+
+          },'json');
+    };
 
     $('select[name="Proyecto_ingresado"]').on('change', function(e){
         selectMetasIngresadasProyecto($(this).val(),$(this).find(':selected').data('id'));
@@ -1675,7 +1689,7 @@ $(function()
         });
     };
 
-    $('select[name="Rubros_ingresado"]').on('change', function(e){
+   /* $('select[name="Rubros_ingresado"]').on('change', function(e){
         selectActividadesRubro($(this).val());
     });
 
@@ -1695,7 +1709,7 @@ $(function()
                 $('select[name="Actividades_rubros_ingresado"]').html(html).val($('select[name="Actividades_rubros_ingresado"]').data('value'));
             }
         });
-    };
+    };*/
 
     $('select[name="Componente_ingresado"]').on('change', function(e){
         $('input[name="valor_componente"]').val($(this).find(':selected').data('valor'));
@@ -1718,6 +1732,15 @@ $(function()
 
     $('#agregar_financiacion').on('click', function(e)
     {
+          
+          //Proyecto
+          var Id_P_R =$('select[name="Proyecto_ingresado"]').find(':selected').val();
+          var poryecto_name =$('select[name="Proyecto_ingresado"]').find(':selected').text();
+
+          //Meta
+          var Id_Meta =$('select[name="Metas_ingresado"]').find(':selected').val();
+          var meta_name =$('select[name="Metas_ingresado"]').find(':selected').text();
+
           var componente =$('select[name="Componente_ingresado"]').find(':selected').val();
           var componente_name =$('select[name="Componente_ingresado"]').find(':selected').text();
           var Fuente_ingre =$('select[name="Fuente_ingre"]').find(':selected').val();
@@ -1757,6 +1780,10 @@ $(function()
                 $('#mensaje_actividad_finan_estudio').show(30);
                 $('#mensaje_actividad_finan_estudio').delay(1000).hide(300);
                 vector_datos_financiacion.push({
+                  "ProyectoRubro":poryecto_name,
+                  "Id_P_R":Id_P_R,
+                  "Meta":meta_name,
+                  "Id_Meta":Id_Meta,
                   "componente_name": componente_name,
                   "componente": componente,
                   "Fuente_ingre_name": Fuente_ingre_name,
@@ -1765,7 +1792,8 @@ $(function()
                   "actividad_ingre": actividad_ingre,
                   "valor_componente": valor_componente,
                   "porcentaje": valor_conponente_ingre,
-                  "valor_total_ingr": valor_total_ingr
+                  "valor_total_ingr": valor_total_ingr,
+                  "clase_color":1
                 });
               }
               else{
@@ -1775,28 +1803,28 @@ $(function()
               }
           }
 
-          verFinanciacion(1);
+          verFinanciacion();
     });
 
     $('#agregar_financiacion_r').on('click', function(e)
     {
-          var componente =$('select[name="Rubros_ingresado"]').find(':selected').val();
-          var componente_name =$('select[name="Rubros_ingresado"]').find(':selected').text();
+          var Id_P_R =$('select[name="Rubros_ingresado"]').find(':selected').val();
+          var rubro_name =$('select[name="Rubros_ingresado"]').find(':selected').text();
 
           var Fuente_ingre =$('select[name="Fuente_ingre"]').find(':selected').val();
           var Fuente_ingre_name =$('select[name="Fuente_ingre"]').find(':selected').text();
 
-          var actividad_ingre =$('select[name="Actividades_rubros_ingresado"]').find(':selected').val();
-          var actividad_ingre_nom =$('select[name="Actividades_rubros_ingresado"]').find(':selected').text();
+          var actividad_ingre ='N.A';
+          var actividad_ingre_nom ='N.A';
 
-          var valor_componente=$('input[name="valor_componente"]').val();
-          var valor_conponente_ingre=$('input[name="valor_conponente_ingre"]').val();
+          var valor_componente='N.A';
+          var valor_conponente_ingre='100';
 
-          var valor_total_ingr=$('input[name="valor_total_ingr"]').val();
+          var valor_total_ingr=$('input[name="valor_total_rubro"]').val();
           var vali_porce=0;
 
           
-          if(Fuente_ingre==='' || valor_conponente_ingre==='' || valor_total_ingr==='' || actividad_ingre==='')
+          if(Fuente_ingre==='' || valor_conponente_ingre==='' || valor_total_ingr==='' )
           {
               $('#alert_actividad_finca_estudio').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Campos vacios en el formulario.</div>');
               $('#mensaje_actividad_finan_estudio').show(60);
@@ -1804,45 +1832,64 @@ $(function()
 
           }else{
               
-              if(vector_datos_financiacion.length >= 0)
-              {
-                $.each(vector_datos_financiacion, function(i, e){
-                  if(e['componente']==componente){
-                    vali_porce=parseInt(vali_porce)+parseInt(e['porcentaje']);
-                  }
-                });
-                vali_porce=parseInt(vali_porce)+parseInt(valor_conponente_ingre);
-              }
-              else{
-                    vali_porce=parseInt(vali_porce)+parseInt(e['porcentaje']);
-              }
-
-              if(vali_porce<=100)
-              {
+             
                 $('#alert_actividad_finca_estudio').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Registro agregado.</div>');
                 $('#mensaje_actividad_finan_estudio').show(30);
                 $('#mensaje_actividad_finan_estudio').delay(1000).hide(300);
                 vector_datos_financiacion.push({
-                  "componente_name": componente_name,
-                  "componente": componente,
+                  "ProyectoRubro":rubro_name,
+                  "Id_P_R":Id_P_R,
+                  "Meta":'N.A',
+                  "Id_Meta":'',
+                  "componente_name": 'N.A',
+                  "componente": '',
                   "Fuente_ingre_name": Fuente_ingre_name,
                   "Fuente_ingre": Fuente_ingre,
                   "actividad_ingre_name": actividad_ingre_nom,
                   "actividad_ingre": actividad_ingre,
                   "valor_componente": valor_componente,
                   "porcentaje": valor_conponente_ingre,
-                  "valor_total_ingr": valor_total_ingr
-                });
-              }
-              else{
-                $('#alert_actividad_finca_estudio').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El porcentaje que intenta ingresar para el componente "'+componente_name+'" sobre pasa el 100%.</div>');                $('#mensaje_actividad_finan').show(60);
-                $('#mensaje_actividad_finan_estudio').show(30);
-                $('#mensaje_actividad_finan_estudio').delay(2500).hide(600);
-              }
+                  "valor_total_ingr": valor_total_ingr,
+                  "clase_color":2
+                });              
           }
 
-          verFinanciacion(2);
+          verFinanciacion();
     });
+
+    function  verFinanciacion(variable){
+        var html = '';
+        var classeBoostrap="";
+
+            if(vector_datos_financiacion.length > 0)
+            {
+              var num=1;
+
+              $.each(vector_datos_financiacion, function(i, e){
+                if(e['clase_color']==1)
+                  classeBoostrap="success";
+                else
+                  classeBoostrap="warning";
+
+                html += '<tr class="'+classeBoostrap+'">'+
+                        '<th scope="row" class="text-center">'+num+'</th>'+
+                        '<td>'+e['ProyectoRubro']+'</td>'+
+                        '<td>'+e['Meta']+'</td>'+
+                        '<td>'+e['actividad_ingre_name']+'</td>'+
+                        '<td>'+e['componente_name']+'</td>'+
+                        '<td>'+e['Fuente_ingre_name']+'</td>'+
+                        '<td>'+e['valor_componente']+'</td>'+
+                        '<td>'+e['porcentaje']+'%</td>'+
+                        '<td> $'+e['valor_total_ingr']+'</td>'+
+                        '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarFinan" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                num++;
+              });
+            }
+            $('#registros_finanza_estudio').html(html);
+
+        $('#t_datos_ingreso_finanza').show();
+        return false;
+    }
 
     $('#ver_tabla_finanza').on('click', function(e)
     {
@@ -1861,28 +1908,7 @@ $(function()
         return false;
     });
 
-    function  verFinanciacion(variable){
-        var html = '';
-        var classeBoostrap="";
-            
-            if(variable==1)
-              classeBoostrap="success";
-            else
-              classeBoostrap="warning";
-
-            if(vector_datos_financiacion.length > 0)
-            {
-              var num=1;
-              $.each(vector_datos_financiacion, function(i, e){
-                html += '<tr class="'+classeBoostrap+'"><th scope="row" class="text-center">'+num+'</th><td>'+e['Fuente_ingre_name']+'</td><td>'+e['componente_name']+'</td><td>'+e['actividad_ingre_name']+'</td><td>'+e['valor_componente']+'</td><td>'+e['porcentaje']+'%</td><td> $'+e['valor_total_ingr']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarFinan" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
-                num++;
-              });
-            }
-            $('#registros_finanza_estudio').html(html);
-
-        $('#t_datos_ingreso_finanza').show();
-        return false;
-    }
+    
 
     $('#t_datos_ingreso_finanza').delegate('button[data-funcion="eliminarFinan"]','click',function (e) {   
       var id = $(this).data('rel'); 

@@ -1279,9 +1279,11 @@
 																			<thead class="thead-inverse">
 																			<tr>
 																				<th>#</th>
-																				<th>Fuente <BR> hacienda</th>
+																				<th>Proyecto/Rubro</th>
+																				<th>Meta</th>
+																				<th>Actividad</th>
 																				<th>Componente / Rubro</th>
-																				<th>Actividad / Actividad Rubro</th>
+																				<th>Fuente <BR> hacienda</th>
 																				<th>Valor</th>
 																				<th>Porcentaje</th>
 																				<th>Total</th>

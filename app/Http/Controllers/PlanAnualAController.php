@@ -401,6 +401,15 @@ class PlanAnualAController extends Controller
         return response()->json($actividadcomponente);
     }
 
+    public function selectRubrosIngresados(Request $request)
+    {
+        $idRubro=$request['id_rubro'];
+        $paa = Paa::with('rubro_funcionamiento')->whereHas('rubro_funcionamiento', function($query) use ($idRubro) {
+            $query->where('rubro_id',$idRubro);
+        })->find($request['id_paa']);
+        return response()->json($paa);
+    }
+
     public function selecActivMeta(Request $request, $id)
     {
         $meta = Meta::with('actividades')->find($id);
