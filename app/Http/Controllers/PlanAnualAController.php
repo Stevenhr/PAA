@@ -410,10 +410,19 @@ class PlanAnualAController extends Controller
         return response()->json($paa);
     }
 
-    public function selecActivMeta(Request $request, $id)
+    public function selecActivMeta(Request $request)
     {
-        $meta = Meta::with('actividades')->find($id);
-        return response()->json($meta);
+        
+        $meta = Meta::with('actividades')->find($request['id_meta']);
+        
+        $actividadcomponente = ActividadComponente::with('componente')->where('id_paa',$request['id_paa'])->where('id_fk_meta',$request['id_meta'])->get();
+        
+        $data=[
+        'metas'=>$meta,
+        'Componentes'=>$actividadcomponente,
+        ];
+
+        return response()->json($data);
     }
 
     public function select_paVinculada(Request $request, $id)

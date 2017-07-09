@@ -1601,12 +1601,7 @@ $(function()
                   });
                   $('select[name="Proyecto_ingresado"]').html(html_p).val($('select[name="Proyecto_ingresado"]').data('value'));
 
-                  //Componentes
-                  var html = '<option value="">Selecionar</option>';
-                  $.each(data.paas.componentes, function(i, eee){
-                      html += '<option data-valor="'+eee.pivot['valor']+'" value="'+eee.pivot['id']+'">'+eee['Nombre']+'</option>';
-                  });
-                  $('select[name="Componente_ingresado"]').html(html).val($('select[name="Componente_ingresado"]').data('value'));
+                  
                   
 
                 }
@@ -1656,37 +1651,41 @@ $(function()
                     $('select[name="Actividades_rubros_ingresado"]').html(html);
                     if(data.length>0){
                       $.each(data, function(i, eee){
-                                  html += '<option value="'+eee.meta['Id']+'">'+eee.meta['Nombre'].toLowerCase()+'</option>';
+                                  html += '<option data-id="'+eee['id_paa']+'" value="'+eee.meta['Id']+'">'+eee.meta['Nombre'].toLowerCase()+'</option>';
                       });
                     }
                     $('select[name="Metas_ingresado"]').html(html).val($('select[name="Metas_ingresado"]').data('value'));
-
-                    
-
               
           },'json');
     };
 
     $('select[name="Metas_ingresado"]').on('change', function(e){
-        selecActivMeta($(this).val());
+        selecActivMeta($(this).val(),$(this).find(':selected').data('id'));
     });
 
-    var selecActivMeta = function(id)
+    var selecActivMeta = function(id_meta,id_paa)
     { 
-        $.ajax({
-            url: URL+'/service/selecActivMeta/'+id,
-            data: {},
-            dataType: 'json',
-            success: function(data)
-            {
-                var html = '<option value="">Selecionar</option>';
-                $('select[name="Actividades_rubros_ingresado"]').html(html);
-                $.each(data.actividades, function(i, eee){
-                            html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
-                });
-                $('select[name="actividad_ingre"]').html(html).val($('select[name="actividad_ingre"]').data('value'));
-            }
-        });
+        $.post(
+          URL+'/service/selecActivMeta',
+          {id_meta: id_meta, id_paa:id_paa},
+          function(data){
+
+                //Actividades meta
+                  var html = '<option value="">Selecionar</option>';
+                  $('select[name="Actividades_rubros_ingresado"]').html(html);
+                  $.each(data.metas.actividades, function(i, eee){
+                              html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
+                  });
+                  $('select[name="actividad_ingre"]').html(html).val($('select[name="actividad_ingre"]').data('value'));
+
+                //Componentes
+                  var html = '<option value="">Selecionar</option>';
+                  $.each(data.Componentes, function(i, eee){
+                      html += '<option data-valor="'+eee['valor']+'" value="'+eee.componente['Id']+'">'+eee.componente['Nombre']+'</option>';
+                  });
+                  $('select[name="Componente_ingresado"]').html(html).val($('select[name="Componente_ingresado"]').data('value'));
+
+          },'json');
     };
 
    /* $('select[name="Rubros_ingresado"]').on('change', function(e){
@@ -1753,13 +1752,34 @@ $(function()
           var vali_porce=0;
 
           
-          if(Fuente_ingre==='' || valor_conponente_ingre==='' || valor_total_ingr==='' || actividad_ingre==='')
+          if(Fuente_ingre==='')
           {
-              $('#alert_actividad_finca_estudio').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Campos vacios en el formulario.</div>');
+              $('#alert_actividad_finca_estudio').html('<div class="alert alert-dismissible alert-danger" ><strong>Fuente de hacienda!</strong> Campo vacio.</div>');
               $('#mensaje_actividad_finan_estudio').show(60);
               $('#mensaje_actividad_finan_estudio').delay(2500).hide(600);
 
-          }else{
+          }else if(Id_P_R===''){
+              $('#alert_actividad_finca_estudio').html('<div class="alert alert-dismissible alert-danger" ><strong>Proyecto de inversión!</strong> Campo vacio.</div>');
+              $('#mensaje_actividad_finan_estudio').show(60);
+              $('#mensaje_actividad_finan_estudio').delay(2500).hide(600);
+          }else if(Id_Meta===''){
+              $('#alert_actividad_finca_estudio').html('<div class="alert alert-dismissible alert-danger" ><strong>Meta!</strong> Campo vacio.</div>');
+              $('#mensaje_actividad_finan_estudio').show(60);
+              $('#mensaje_actividad_finan_estudio').delay(2500).hide(600);
+          }else if(actividad_ingre===''){
+              $('#alert_actividad_finca_estudio').html('<div class="alert alert-dismissible alert-danger" ><strong>Actividad de Meta!</strong> Campo vacio.</div>');
+              $('#mensaje_actividad_finan_estudio').show(60);
+              $('#mensaje_actividad_finan_estudio').delay(2500).hide(600);
+          }else if(componente===''){
+              $('#alert_actividad_finca_estudio').html('<div class="alert alert-dismissible alert-danger" ><strong>Componente!</strong> Campo vacio.</div>');
+              $('#mensaje_actividad_finan_estudio').show(60);
+              $('#mensaje_actividad_finan_estudio').delay(2500).hide(600);
+          }else if(valor_conponente_ingre===''){
+              $('#alert_actividad_finca_estudio').html('<div class="alert alert-dismissible alert-danger" ><strong>Porcentaje %!</strong> Campo vacio.</div>');
+              $('#mensaje_actividad_finan_estudio').show(60);
+              $('#mensaje_actividad_finan_estudio').delay(2500).hide(600);
+          }
+          else{
               
               if(vector_datos_financiacion.length >= 0)
               {
@@ -1824,12 +1844,16 @@ $(function()
           var vali_porce=0;
 
           
-          if(Fuente_ingre==='' || valor_conponente_ingre==='' || valor_total_ingr==='' )
+          if(Fuente_ingre==='')
           {
-              $('#alert_actividad_finca_estudio').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Campos vacios en el formulario.</div>');
+              $('#alert_actividad_finca_estudio').html('<div class="alert alert-dismissible alert-danger" ><strong>Fuente de hacienda!</strong> Campo vacio.</div>');
               $('#mensaje_actividad_finan_estudio').show(60);
               $('#mensaje_actividad_finan_estudio').delay(2500).hide(600);
 
+          }else if(Id_P_R===''){
+              $('#alert_actividad_finca_estudio').html('<div class="alert alert-dismissible alert-danger" ><strong>Rubro de funcionamiento!</strong> Campo vacio.</div>');
+              $('#mensaje_actividad_finan_estudio').show(60);
+              $('#mensaje_actividad_finan_estudio').delay(2500).hide(600);
           }else{
               
              

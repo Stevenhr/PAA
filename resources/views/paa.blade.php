@@ -1191,6 +1191,7 @@
 																			<div class="form-group">
 																				<label class="text-success">5. Componetes ingresados</label>
 																				<select class="form-control" name="Componente_ingresado" id="Componente_ingresado">
+																					<option value="" >Selecionar</option>
 																				</select>
 																			</div>
 																		</div>
