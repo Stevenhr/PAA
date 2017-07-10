@@ -1596,8 +1596,8 @@ $(function()
                   //Proyectos
                   var html_p = '<option value="">Selecionar</option>';
                   $.each(data.finanzas_p, function(i, eee){
-                      
-                      html_p += '<option data-id="'+eee['id_paa']+'" value="'+eee.proyecto['Id']+'">'+eee.proyecto['Nombre']+'</option>';
+                      console.log(eee);
+                      html_p += '<option data-ac="'+eee['id']+'" data-id="'+eee['id_paa']+'" value="'+eee.proyecto['Id']+'">'+eee.proyecto['Nombre']+'</option>';
                   });
                   $('select[name="Proyecto_ingresado"]').html(html_p).val($('select[name="Proyecto_ingresado"]').data('value'));
 
@@ -1620,6 +1620,7 @@ $(function()
 
     var selectRubrosIngresados = function(id_rubro,id_paa)
     { 
+        
         $.post(
           URL+'/service/selectRubrosIngresados',
           {id_rubro: id_rubro, id_paa:id_paa},
@@ -1634,12 +1635,13 @@ $(function()
     };
 
     $('select[name="Proyecto_ingresado"]').on('change', function(e){
-        selectMetasIngresadasProyecto($(this).val(),$(this).find(':selected').data('id'));
+        selectMetasIngresadasProyecto($(this).val(),$(this).find(':selected').data('id'),$(this).find(':selected').data('ac'));
     });
 
-    var selectMetasIngresadasProyecto = function(id_proyecto,id_paa)
+    var selectMetasIngresadasProyecto = function(id_proyecto,id_paa,id_ac)
     { 
-        
+        //console.log(id_ac);
+        $('#id_actividadcomponente').val(id_ac);
         $.post(
           URL+'/service/selectMetasProyecto',
           {id_proyecto: id_proyecto, id_paa:id_paa},
@@ -1799,7 +1801,9 @@ $(function()
                 $('#alert_actividad_finca_estudio').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Registro agregado.</div>');
                 $('#mensaje_actividad_finan_estudio').show(30);
                 $('#mensaje_actividad_finan_estudio').delay(1000).hide(300);
+                var id_act_com =$('input[name="id_actividadcomponente"]').val();
                 vector_datos_financiacion.push({
+                  "id_act_com":id_act_com,
                   "ProyectoRubro":poryecto_name,
                   "Id_P_R":Id_P_R,
                   "Meta":meta_name,
@@ -1813,7 +1817,7 @@ $(function()
                   "valor_componente": valor_componente,
                   "porcentaje": valor_conponente_ingre,
                   "valor_total_ingr": valor_total_ingr,
-                  "clase_color":1
+                  "tipo":1
                 });
               }
               else{
@@ -1861,6 +1865,7 @@ $(function()
                 $('#mensaje_actividad_finan_estudio').show(30);
                 $('#mensaje_actividad_finan_estudio').delay(1000).hide(300);
                 vector_datos_financiacion.push({
+                  "id_act_com":'',
                   "ProyectoRubro":rubro_name,
                   "Id_P_R":Id_P_R,
                   "Meta":'N.A',
@@ -1874,7 +1879,7 @@ $(function()
                   "valor_componente": valor_componente,
                   "porcentaje": valor_conponente_ingre,
                   "valor_total_ingr": valor_total_ingr,
-                  "clase_color":2
+                  "tipo":2
                 });              
           }
 
@@ -1890,7 +1895,7 @@ $(function()
               var num=1;
 
               $.each(vector_datos_financiacion, function(i, e){
-                if(e['clase_color']==1)
+                if(e['tipo']==1)
                   classeBoostrap="success";
                 else
                   classeBoostrap="warning";
@@ -1943,11 +1948,26 @@ $(function()
             {
               var num=1;
               $.each(vector_datos_financiacion, function(i, e){
-                  html += '<tr><th scope="row" class="text-center">'+num+'</th><td>'+e['Fuente_ingre_name']+'</td><td>'+e['componente_name']+'</td><td>'+e['actividad_ingre_name']+'</td><td>'+e['valor_componente']+'</td><td>'+e['porcentaje']+'%</td><td> $'+e['valor_total_ingr']+'</td><td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarFinan" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
-                num++;
+                  if(e['tipo']==1)
+                   classeBoostrap="success";
+                  else
+                    classeBoostrap="warning";
+
+                    html += '<tr class="'+classeBoostrap+'">'+
+                            '<th scope="row" class="text-center">'+num+'</th>'+
+                            '<td>'+e['ProyectoRubro']+'</td>'+
+                            '<td>'+e['Meta']+'</td>'+
+                            '<td>'+e['actividad_ingre_name']+'</td>'+
+                            '<td>'+e['componente_name']+'</td>'+
+                            '<td>'+e['Fuente_ingre_name']+'</td>'+
+                            '<td>'+e['valor_componente']+'</td>'+
+                            '<td>'+e['porcentaje']+'%</td>'+
+                            '<td> $'+e['valor_total_ingr']+'</td>'+
+                            '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarFinan" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                    num++;
               });
             }
-            $('#registros_finanza').html(html);
+            $('#registros_finanza_estudio').html(html);
 
      }); 
 

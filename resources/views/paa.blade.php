@@ -1166,6 +1166,7 @@
 																				<label class="text-success">2. Proyectos ingresados</label>
 																				<select class="form-control" name="Proyecto_ingresado" id="Proyecto_ingresado">
 																				</select>
+																				<input type="hidden" name="id_actividadcomponente" id="id_actividadcomponente" value="0">
 																			</div>
 																		</div>
 

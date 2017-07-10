@@ -641,9 +641,7 @@ class PlanAnualAController extends Controller
         $data0 = json_decode($request['campos_Clasi_Finan']);
             
 
-        if($paa['Proyecto1Rubro2']!=2)
-        {
-
+        // Registro de proyecto de inversión
             $finanzas = ActividadComponente::with('actividades')->where('id_paa',$id)->get();
 
             foreach ($finanzas as $finanza) {
@@ -654,26 +652,30 @@ class PlanAnualAController extends Controller
             }
 
             foreach($data0 as $obj){
-                $modeloAct = ActividadComponente::find($obj->componente);
-                $modeloAct->actividades()->detach();
+                if($obj->tipo==1){
+                    //var_dump($obj->componente);
+                    $modeloAct = ActividadComponente::find($obj->id_act_com);
+                    if($modeloAct)
+                    $modeloAct->actividades()->detach();
+                }
             }
             foreach($data0 as $obj){
-                $modeloAct = ActividadComponente::find($obj->componente);
-                $modeloAct->actividades()->attach($obj->actividad_ingre,[
-                    'componeActiv_id'=>$obj->componente,
-                    'valor'=>$obj->valor_componente,
-                    'estado'=>0,
-                    'fuentehacienda'=>$obj->Fuente_ingre,
-                    'porcentaje'=>$obj->porcentaje,
-                    'valor'=>$obj->valor_componente,
-                    'total'=>$obj->valor_total_ingr,
-                ]);
+                if($obj->tipo==1){
+                    $modeloAct = ActividadComponente::find($obj->id_act_com);
+                    $modeloAct->actividades()->attach($obj->actividad_ingre,[
+                        'componeActiv_id'=>$obj->id_act_com,
+                        'valor'=>$obj->valor_componente,
+                        'estado'=>0,
+                        'fuentehacienda'=>$obj->Fuente_ingre,
+                        'porcentaje'=>$obj->porcentaje,
+                        'valor'=>$obj->valor_componente,
+                        'total'=>$obj->valor_total_ingr,
+                    ]);
+                }
             }
-        }
-        else
-        {
-            
-            
+        
+
+        // Registro de rubro de funcionamiento
             if($paa->actividadesFuncionamiento){
                 foreach ($paa->actividadesFuncionamiento as &$actividad) {
                     $actividad->pivot['estado']=1;
@@ -683,19 +685,20 @@ class PlanAnualAController extends Controller
             
 
 
-            $paas = new Paa;
+            $paas = Paa::find($id);
             foreach($data0 as $obj){
-                $paas->actividadesFuncionamiento()->attach($obj->actividad_ingre,[
-                    'paa_id'=>$id,
-                    'valor'=>$obj->valor_componente,
-                    'estado'=>0,
-                    'fuentehacienda'=>$obj->Fuente_ingre,
-                    'porcentaje'=>$obj->porcentaje,
-                    'valor'=>$obj->valor_componente,
-                    'total'=>$obj->valor_total_ingr,
-                ]);
+                if($obj->tipo==2){
+                    $paas->actividadesFuncionamiento()->attach($obj->Id_P_R,[
+                        'valor'=>$obj->valor_componente,
+                        'estado'=>0,
+                        'fuentehacienda'=>$obj->Fuente_ingre,
+                        'porcentaje'=>100,
+                        'valor'=>$obj->valor_componente,
+                        'total'=>$obj->valor_total_ingr,
+                    ]);
+                }
             }
-        }
+        
 
         if($request['id_estudio_pass']==0)
         {
