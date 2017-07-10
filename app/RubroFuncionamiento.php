@@ -18,9 +18,14 @@ class RubroFuncionamiento extends Model
     {
         return $this->hasMany('App\ActividadFuncionamiento','id_rubro_funcionamiento');
     }
-    public function paas()
+    /*public function paas()
     {
         return $this->hasMany('App\Paa','Id_Rubro');
+    }*/
+
+    public function paas()
+    {
+        return $this->belongsToMany('\App\Paa','actividadEstudioRubro','actividad_f_id','paa_id')->withPivot('id','estado','fuentehacienda','valor','created_at','porcentaje','total');
     }
 
     use SoftDeletes;

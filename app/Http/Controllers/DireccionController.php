@@ -186,12 +186,9 @@ class DireccionController extends BaseController
 	        $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes','proyecto','rubro_funcionamiento','rubro_funcionamiento.actividadesfuncionamiento')->find($id);
 	       
 	        
-	        $subdireccion = Subdireccion::with('areas')->find($this->Usuario['Id_SubDireccion']);
 
-
-	        if($paa['Proyecto1Rubro2']==1)
-	        {
-	             $finanzas = ActividadComponente::with('actividades','actividades.meta','fuenteproyecto.fuente')->where('id_paa',$id)->get();
+	       
+	            $finanzas = ActividadComponente::with('actividades','actividades.meta','fuenteproyecto.fuente')->where('id_paa',$id)->get();
 	            foreach ($finanzas as $finanza) 
 	            {
 	                    $finanza->Componente = Componente::find($finanza['componente_id']);
@@ -201,32 +198,51 @@ class DireccionController extends BaseController
 	                    $actividad->Fuente = FuenteHacienda::find($actividad->pivot['fuentehacienda']);
 	                }
 	            }
-	        }
-	        else
-	        {
-	            $finanzas = Paa::with('actividadesFuncionamiento')->find($id);
-	            foreach ($finanzas->actividadesFuncionamiento as &$actividad)
+	       
+	            $finanzas_rubro = Paa::with('actividadesFuncionamiento')->find($id);
+	            foreach ($finanzas_rubro->actividadesFuncionamiento as &$actividad)
 	            {
 	                $actividad->Actividad = ActividadFuncionamiento::find($actividad->pivot['actividad_f_id']);
 	                $actividad->Fuente = FuenteHacienda::find($actividad->pivot['fuentehacienda']);
 	            }
-	        }
 
 
+	            $PersonaPaa = PersonaPaa::with('area')->where('id_area',$finanzas_rubro['Id_Area'])->get();
+		        $idSub=$PersonaPaa[0]->area['id_subdireccion'];
+	        	$subdireccion = Subdireccion::with('areas')->find($idSub);
+		        $arreglo1 = array();
+		        $PaaSubDireccion= SubDireccion::with('areas')->find($idSub);
+		        foreach ($PaaSubDireccion->areas as $value) {
+		          $arreglo1[]=$value['id'];
+		        }
+		        
+	            $personapaas = PersonaPaa::whereIn('id_area',$arreglo1)->get();
+		        $pila = array();
+		        foreach ($personapaas as &$personapaa) 
+		        {
+		            array_push($pila, $personapaa['id']);
+		        }
+		        $id_Tipos=[63]; //Enviado Subdirector
+		        $ModeloPersona = Persona::whereHas('tipo', function ($query) use ($id_Tipos) {
+		            $query->whereIn('persona_tipo.Id_Tipo',$id_Tipos);
+		        })->whereIn('Id_Persona',$pila)->get(); 
+	        	
 	        $datos = [        
 	            'EstudioConveniencias' => $EstudioConveniencias,
 	            'paas' => $paa,
 	            'finanzas' =>$finanzas,
+	            'finanzas_rubro' =>$finanzas_rubro,
 	            'subdireccion'=>$subdireccion,
-	            'RubroPryecto'=>$paa['Proyecto1Rubro2']
+	            'RubroPryecto'=>$paa['Proyecto1Rubro2'],
+	            'subdirectora'=>$ModeloPersona,
 	        ];
-	        //dd($datos);
+	        // dd($datos);
 	        $view =  view('pdfEstudio',$datos)->render();
 
 	        //return $view;
 	        //exit();
 	        $pdf = PDF::loadHTML($view);
-	        return $pdf->setPaper(array(0,0,1800,2620), 'portrait')->download('Estudio_'.$paa['Id'].'.pdf');
+	        return $pdf->setPaper(array(0,0,1800,2820), 'portrait')->download('Estudio_'.$paa['Id'].'.pdf');
 
     }
 
