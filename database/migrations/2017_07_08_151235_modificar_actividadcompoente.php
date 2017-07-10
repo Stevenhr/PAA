@@ -28,7 +28,7 @@ class ModificarActividadcompoente extends Migration
     {
         //
         Schema::table('actividadComponente', function (Blueprint $table) {
-            $table->Integer('id_fk_meta');
+           
             $table->dropForeign('actividadComponente_id_fk_meta_foreign');
         });
     }

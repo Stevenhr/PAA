@@ -688,7 +688,7 @@ class PlanAnualAController extends Controller
             $paas = Paa::find($id);
             foreach($data0 as $obj){
                 if($obj->tipo==2){
-                    $paas->actividadesFuncionamiento()->attach($obj->actividad_ingre,[
+                    $paas->actividadesFuncionamiento()->attach($obj->Id_P_R,[
                         'valor'=>$obj->valor_componente,
                         'estado'=>0,
                         'fuentehacienda'=>$obj->Fuente_ingre,
