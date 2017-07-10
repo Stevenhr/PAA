@@ -212,12 +212,12 @@ $(function()
               $('#Proyecto_inversion').prop("disabled",false);
               $('#meta').prop("disabled",false);  
 
-          var duracion=$('input[name="duracion_estimada"]').val();
+          /*var duracion=$('input[name="duracion_estimada"]').val();
           var duracion_estimada =duracion.split(",",3);
            if(isNaN(duracion_estimada[0]) || isNaN(duracion_estimada[1]) || isNaN(duracion_estimada[2]))
            {
             $('input[name="duracion_estimada"]').val("");
-           }
+           }*/
 
            if($('#ProyectOrubro').val()==2)
            {
@@ -232,9 +232,10 @@ $(function()
               {
                   validad_error(data.errors);
                   var mej="Campos vacios.";
-                  if($('input[name="duracion_estimada"]').val()=="")
-                  mej="Duración estimada no posee el formato indicado. Ejm: 30,12,1 ";
-                   $('#mjs_registroPaa').hide();
+                  /*if($('input[name="duracion_estimada"]').val()=="")
+                  mej="Duración estimada no posee el formato indicado. Ejm: 30,12,1 ";*/
+
+                  $('#mjs_registroPaa').hide();
                   $('#mjs_registroPaa2').html('<center><strong>Error!</strong> '+mej+'</center>');
                   $('#mjs_registroPaa2').show();
                   setTimeout(function(){
@@ -293,10 +294,11 @@ $(function()
           },'json');
           
     }else{
-            $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> No se ha registrado ninguna fuente de financiación.</div>');
-            $('#mensaje_actividad').show();
+       
+            $('#alert_actividad_paa').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> No se ha registrado ninguna fuente de financiación.</div>');
+            $('#mensaje_actividad_paa').show();
             setTimeout(function(){
-                $('#mensaje_actividad').hide();
+                $('#mensaje_actividad_paa').hide();
             }, 6000)
     }
 

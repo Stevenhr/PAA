@@ -667,6 +667,9 @@
 						</div>
 				</div>
 				<div class="modal-footer">
+					<div class="form-group"  id="mensaje_actividad_paa" style="display: none;">
+						<div id="alert_actividad_paa"></div>
+					</div>
 					<div id="mjs_registroPaa" class="alert alert-success" style="display: none"></div>
 					<div id="mjs_registroPaa2" class="alert alert-danger" style="display: none"></div>
 					<input type="hidden" name="Dato_Actividad" class="form-control">
