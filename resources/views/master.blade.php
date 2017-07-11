@@ -144,6 +144,9 @@
                   @if($_SESSION['Usuario']['Permisos']['Gestion_Direccion_General'])
                     <li class=”{{ Request::is('reporteProyecto') ? 'active' : '' }}”><a href="{{ URL::to('reporteProyecto') }}">Proyecto</a></li>
                   @endif
+                  @if($_SESSION['Usuario']['Permisos']['Gestion_Direccion_General'])
+                    <li class=”{{ Request::is('reporteGeneral') ? 'active' : '' }}”><a href="{{ URL::to('reporteGeneral') }}">General</a></li>
+                  @endif
                 </ul>
               </li>
               

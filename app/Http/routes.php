@@ -161,6 +161,7 @@ Route::any('/GestionCecop/', 'CecopController@index');
 Route::get('informececop', 'CecopController@descargarInformeCecop');
 
 Route::get('reporteProyecto', 'ControllerReporteProyecto@index');
+Route::get('reporteGeneral', 'ControllerReporteGeneral@index');
 Route::get('/reporteProyecto/service/vigencias/{id}', 'ControllerReporteProyecto@select_vigencia');
 Route::get('/reporteProyecto/service/proyecto/{id}', 'ControllerReporteProyecto@select_proyecto');
 Route::post('/reporteProyecto/service/proyecto_finanza', 'ControllerReporteProyecto@proyecto_finanza');

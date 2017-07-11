@@ -198,7 +198,7 @@ class PlanAnualAController extends Controller
         $modeloPA['Id_Area'] = $personapaa['id_area'];
         $modeloPA->save();
 
-
+        $objeto_contrato=$input['objeto_contrato'];
         
         if($Modifica==0)
         {
@@ -336,7 +336,8 @@ class PlanAnualAController extends Controller
         $DatosEmail = Datos::whereIn('Id_Persona',$Consolidadore)->get();
         foreach ($DatosEmail as &$DatoEmail) 
         {
-            if($DatoEmail){
+            if($DatoEmail)
+            {
                 array_push($emails, $DatoEmail['Email']);
             }
         }
@@ -344,8 +345,7 @@ class PlanAnualAController extends Controller
      
         if(!empty($emails))
         {
-           
-            Mail::send('mail', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
+            Mail::send('mail', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area,'objeto'=>$objeto_contrato], function ($m) use ($paa,$mensaje,$emails)  {
                 $m->from('steven.hernandez@idrd.gov.co', $mensaje);
 
                 $m->to($emails, 'Estevenhr')->subject($mensaje."!");

@@ -636,10 +636,32 @@
 			<TD ALIGN=LEFT><BR></TD>
 		</TR>
 		<?php /**/ $var = 0; ?>
+		<?php /**/ $cien = 0; ?>
+		<?php /**/ $porcentaje = 0; ?>
+		
+		@if($finanzas)
+		@foreach($finanzas as $finanza)
+				@foreach($finanza->actividades as &$actividad)
+					<?php /**/ $cien = $cien+$actividad->pivot['valor'] /**/ ?>
+				@endforeach
+			@endforeach
+		@endif
+
+		@if($finanzas_rubro->actividadesFuncionamiento)
+			@foreach($finanzas_rubro->actividadesFuncionamiento as $actividad)
+				@if($actividad->pivot['estado']==0)
+					<?php /**/ $cien = $cien+$actividad->pivot['total'] /**/ ?>
+				@endif
+			@endforeach
+		@endif
 
 	@if($finanzas)
 		@foreach($finanzas as $finanza)
 			@foreach($finanza->actividades as &$actividad)
+
+			<?php
+				$porcentaje= ($actividad->pivot['valor']*100)/$cien;
+			?>
 			<TR>
 			<TD HEIGHT=auto ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
@@ -649,7 +671,7 @@
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=3 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">{{$actividad->Actividad->meta['Nombre']}}</FONT></TD>	
 			
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=3 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF">
-			<FONT SIZE=6 COLOR="#000000">{{$actividad->Actividad['Nombre']}} - <b>{{$actividad->pivot['porcentaje']}}%</b></FONT>
+			<FONT SIZE=6 COLOR="#000000">{{$actividad->Actividad['Nombre']}} - <b>{{$porcentaje}}%</b></FONT>
 			</TD>
 
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;"  COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">{{$finanza->Componente['Nombre']}}</FONT></TD>
@@ -674,6 +696,10 @@
 	@if($finanzas_rubro->actividadesFuncionamiento)
 		@foreach($finanzas_rubro->actividadesFuncionamiento as $actividad)
 			@if($actividad->pivot['estado']==0)
+
+			<?php
+				$porcentaje= ($actividad->pivot['total']*100)/$cien;
+			?>
 			<TR>
 			<TD HEIGHT=auto ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
@@ -683,7 +709,7 @@
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=3 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">N.A</FONT></TD>	
 			
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=3 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF">
-			<FONT SIZE=6 COLOR="#000000">N.A - <b>100%</b></FONT>
+			<FONT SIZE=6 COLOR="#000000">N.A - <b>{{$porcentaje}}%</b></FONT>
 			</TD>
 
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;"  COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">N.A</FONT></TD>
