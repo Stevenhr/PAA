@@ -24,6 +24,11 @@ class FuenteProyecto extends Model
         return $this->belongsTo('App\Fuente','fuente_id');
     }
 
+    public function proyecto()
+    {
+        return $this->belongsTo('App\Proyecto','proyecto_id');
+    }
+
 	/*public function componentes()
     {
         return $this->hasMany('App\Componente','Id_fuente');

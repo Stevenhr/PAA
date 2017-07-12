@@ -9,6 +9,11 @@ use App\ProyectoDesarrollo;
 use App\Presupuesto;
 use App\Proyecto;
 use App\Paa;
+use App\Meta;
+use App\FuenteProyecto;
+use App\ActividadComponente;
+use App\Estado;
+use Validator;
 
 class ControllerReporteGeneral extends Controller
 {
@@ -18,79 +23,106 @@ class ControllerReporteGeneral extends Controller
 		$datos = [        
             'planDesarrollo' => $proyectoDesarrollo
         ];
+
+
+        $finanzas_r = Paa::with('componentes')->where('Estado',Estado::EstudioAprobado)->get();
+                    if($finanzas_r)
+                    {
+                        foreach ($finanzas_r as &$paa)
+                        {
+                            foreach ($paa->componentes as &$actividad)
+                            {
+                                
+                                $actividad->Meta = Meta::find($actividad->pivot['id_fk_meta']);
+                                $actividad->FuenteProyecto = FuenteProyecto::with('fuente','proyecto')->find($actividad->pivot['fuente_id']);
+                                $actividad->actividadMeta = ActividadComponente::with('actividades')->find($actividad->pivot['id']);
+                            }
+                        }
+                    }
+       //dd($finanzas_r);
+
 		return view('reportegeneral',$datos);
 	}
 
-	public function select_vigencia(Request $request, $id)
+    public function validar_form(Request $request)
     {
-        $vigencias = Presupuesto::find($id);
-        return response()->json(array('vigencias'=>$vigencias ));
-    }
+        $validator = Validator::make($request->all(),
+            [
+                'fecha_inicial' =>'required',
+                'fecha_final' =>'required',
+                'planDesarrollo' =>'required',
+            ]
+        );
 
-    public function select_proyecto(Request $request, $id)
-    {
-        $proyecto = Proyecto::where('Id_presupuesto',$id)->get();
-        return response()->json(array('proyecto'=>$proyecto ));
-    }
+           if ($validator->fails()){
+                return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+           }
+           else
+           {
+                $proyecto = Paa::with('componentes')->get();
 
-    public function proyecto_finanza(Request $request)
-    {
-    	
-    	$proyecto = Proyecto::find($request['proyecto']);
-
-        $paa = Paa::with('componentes')->where('Id_Proyecto',$request['proyecto'])->whereIn('Estado',['9'])->get();
-        $suma_aprobado=0;
-        foreach($paa as $eee){
-          if($eee->componentes!=''){
-            foreach($eee->componentes as $eeee){
-               if($eeee->pivot['valor']!='' && $eeee->pivot['proyecto_id']==$request['proyecto']){
-                   $suma_aprobado=$suma_aprobado + $eeee->pivot['valor'];
-               }
+                $finanzas_r = Paa::with('componentes')->where('Estado',Estado::EstudioAprobado)->get();
+                    if($finanzas_r)
+                    {
+                        foreach ($finanzas_r as &$paa)
+                        {
+                            foreach ($paa->componentes as &$actividad)
+                            {
+                                
+                                $actividad->Meta = Meta::find($actividad->pivot['id_fk_meta']);
+                                $actividad->FuenteProyecto = FuenteProyecto::with('fuente','proyecto')->find($actividad->pivot['fuente_id']);
+                                $actividad->actividadMeta = ActividadComponente::with('actividades')->find($actividad->pivot['id']);
+                            }
+                        }
+                    }
+                
+                $tabla="  <div class='table-responsive'> 
+                <table id='Tabla_Reporte2'>
+                    <thead>
+                        <tr>
+                            <th>Id</b></th>
+                            <th>Objeto</th>
+                            <th>Valor</th> 
+                            <th>Proyecto</th>
+                            <th>Meta</th>
+                            <th>Actividad</th>
+                            <th>Concepto</th>
+                            <th>Fuente</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Id</b></th>
+                            <th>Objeto</th>
+                            <th>Valor</th> 
+                            <th>Proyecto</th>
+                            <th>Meta</th>
+                            <th>Actividad</th>
+                            <th>Concepto</th>
+                            <th>Fuente</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>";
+                        foreach ($finanzas_r as $key => $value) {
+                            foreach ($value->componentes as $key => $componente) {
+                                foreach ($componente->actividadMeta->actividades as $key => $atividadmet) {
+                                    $tabla=$tabla."<tr>
+                                        <td>".$value['Id']."</td>
+                                        <td ><div  class='campoArea'>".$value['ObjetoContractual']."</div></td>
+                                        <td> $".number_format ($atividadmet->pivot['valor'])."</td>
+                                        <td>".$componente->FuenteProyecto->proyecto['Nombre']."</td>
+                                        <td>".$componente->Meta['Nombre']."</td>
+                                        <td>".$atividadmet['Nombre']."</td>
+                                        <td>".$componente['Nombre']."</td>
+                                        <td>".$componente->FuenteProyecto->fuente['nombre']."</td>
+                                    </tr>";
+                                }
+                            }                        
+                        }                        
+                $tabla=$tabla."</tbody>
+                </table></div>";
+                return response()->json(array('status' => 'ok', 'tabla' => $tabla));
             }
-          }
-        }
-
-        $paa2 = Paa::with('componentes')->where('Id_Proyecto',$request['proyecto'])->whereIn('Estado',['0','4','5','8','10'])->get();
-        $reservado_por_aprobar=0;
-        
-        foreach($paa2 as $eee){
-          if($eee->componentes!=''){
-            foreach($eee->componentes as $eeee){
-               //dd($eee->componentes);
-               if($eeee->pivot['valor']!='' && $eeee->pivot['proyecto_id']==$request['proyecto']){
-                   $reservado_por_aprobar=$reservado_por_aprobar + $eeee->pivot['valor'];
-               }
-            }
-          }
-        }
-    
-        $Saldo_libre=$proyecto['valor']-($suma_aprobado+$reservado_por_aprobar);
-        $datos=[
-	        "Id_Proyecto"=>$proyecto['Id'],
-	        "Proyecto"=>$proyecto['Nombre'],
-	        "Codigo"=>$proyecto['codigo'],
-	        "aprobado"=>$suma_aprobado,
-	        "reservado_por_aprobar"=>$reservado_por_aprobar,
-	        "Saldo_libre"=>$Saldo_libre,
-	        "Total"=>$proyecto['valor']
-        ];
-        
-        return response()->json($datos);
     }
-
-
-    public function obtenerPaaAprobado(Request $request, $id)
-    {
-    	
-    	$model_A = Paa::with('modalidad','tipocontrato','meta','proyecto','cambiosPaa','rubro_funcionamiento')->where('Id_Proyecto',$id)->whereIn('Estado',['9'])->get();
-        return response()->json($model_A);
-    }
-
-    
-    public function obtenerPaaReservado(Request $request, $id)
-    {
-    	
-    	$model_A = Paa::with('modalidad','tipocontrato','meta','proyecto','cambiosPaa','rubro_funcionamiento')->where('Id_Proyecto',$id)->whereIn('Estado',['0','4','5','8','10'])->get();
-        return response()->json($model_A);
-    }
+	
 }
