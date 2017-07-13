@@ -110,7 +110,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                     $.each(data.ActividadComponente, function(i, dato){
                       html += '<tr>'+
                               '<th scope="row" class="text-center">'+num+'</th>'+
-                              '<td>'+dato.proyecto['Nombre']+'</td>'+
+                              '<td>'+dato.fuenteproyecto.proyecto['Nombre']+'</td>'+
                               '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
                               '<td>'+dato.componente['Nombre']+'</td>'+
                               '<td>'+dato.meta['Nombre']+'</td>'+

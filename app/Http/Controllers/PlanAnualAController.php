@@ -402,7 +402,7 @@ class PlanAnualAController extends Controller
     public function selectMetasProyecto(Request $request)
     {
 
-        $actividadcomponente = ActividadComponente::with('meta')->where('id_paa',$request['id_paa'])->where('proyecto_id',$request['id_proyecto'])->get();
+        $actividadcomponente = ActividadComponente::with('meta')->find($request['id_ac']);
         return response()->json($actividadcomponente);
     }
 
@@ -476,7 +476,7 @@ class PlanAnualAController extends Controller
 
     public function verFinanciacion(Request $request, $id)
     {
-        $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente','meta')->where('id_paa',$id)->get();
+        $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','fuenteproyecto.proyecto','componente','meta')->where('id_paa',$id)->get();
         $model_A = Paa::with('componentes','componentes.fuente','rubro_funcionamiento')->find($id);
         
         $RubroFuncionamiento = RubroFuncionamiento::find($model_A['Id_Rubro']);
@@ -817,7 +817,7 @@ class PlanAnualAController extends Controller
         $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes','rubro_funcionamiento','rubro_funcionamiento.actividadesfuncionamiento')->find($id);
         
        
-            $finanzas_p = ActividadComponente::with('actividades','proyecto','meta')->where('id_paa',$id)->get();
+            $finanzas_p = ActividadComponente::with('actividades','proyecto','meta','fuenteproyecto','fuenteproyecto.fuente','fuenteproyecto.proyecto')->where('id_paa',$id)->get();
             if($finanzas_p){
                 foreach ($finanzas_p as $finanza) 
                 {

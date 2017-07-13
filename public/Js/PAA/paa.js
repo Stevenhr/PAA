@@ -623,9 +623,8 @@ $(function()
                     });
                   }
                 });
-                
-                console.log(suma2+"  -  "+suma);
 
+              
                 valorCocenpto=data.presupuestado['valor'];
                 valorAfavor=parseInt(valorCocenpto)-parseInt(suma)-parseInt(suma2);
         
@@ -965,7 +964,7 @@ $(function()
                   if(valor_ingresado_conso<=valorAfavor){
                     
                     $('input[name="valor_contrato"]').val('');
-                    
+                    valorAfavor=valorAfavor-valor_ingresado_conso;
                     $('#alert_actividad').html('<div class="alert alert-dismissible alert-success" ><strong>Exito!</strong> Dato registrados con éxito. </div>');
                     $('#mensaje_actividad').show(60);
                     $('#mensaje_actividad').delay(1500).hide(600);
@@ -973,7 +972,7 @@ $(function()
                     $('#VerAgregarFinanciacion').click();
                   }else{
                     valor_ingresado_conso=parseInt(valor_ingresado_conso)-parseInt(valor_contrato);
-                    $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El valor ingresado o consolidado es mayor al valor de disponibilidad del componente que es de: $'+number_format(valorAfavor)+'  -  '+number_format(valor_ingresado_conso)+'</div>');
+                    $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El valor ingresado o consolidado es mayor al valor de disponibilidad del componente que es de: $'+number_format(valorAfavor)+'</div>');
                     $('#mensaje_actividad').show(60);
                     $('#mensaje_actividad').delay(2500).hide(600);
                   }
@@ -1233,7 +1232,7 @@ $(function()
                     $.each(data.ActividadComponente, function(i, dato){
                       html += '<tr>'+
                               '<th scope="row" class="text-center">'+num+'</th>'+
-                              '<td>'+dato.proyecto['Nombre']+'</td>'+
+                              '<td>'+dato.fuenteproyecto.proyecto['Nombre']+'</td>'+
                               '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
                               '<td>'+dato.componente['Nombre']+'</td>'+
                               '<td>'+dato.meta['Nombre']+'</td>'+
@@ -1611,7 +1610,7 @@ $(function()
                   var html_p = '<option value="">Selecionar</option>';
                   $.each(data.finanzas_p, function(i, eee){
                       //console.log(eee);
-                      html_p += '<option data-ac="'+eee['id']+'" data-id="'+eee['id_paa']+'" value="'+eee.proyecto['Id']+'">'+eee.proyecto['Nombre']+'</option>';
+                      html_p += '<option data-ac="'+eee['id']+'" data-id="'+eee['id_paa']+'" value="'+eee.fuenteproyecto.proyecto['Id']+'">'+eee.fuenteproyecto.proyecto['Nombre']+'</option>';
                   });
                   $('select[name="Proyecto_ingresado"]').html(html_p).val($('select[name="Proyecto_ingresado"]').data('value'));
 
@@ -1658,16 +1657,20 @@ $(function()
         $('#id_actividadcomponente').val(id_ac);
         $.post(
           URL+'/service/selectMetasProyecto',
-          {id_proyecto: id_proyecto, id_paa:id_paa},
+          {id_proyecto: id_proyecto, id_paa:id_paa,id_ac:id_ac},
           function(data){
-            
+                     
                     var html = '<option value="">Selecionar</option>';
                     $('select[name="Actividades_rubros_ingresado"]').html(html);
                     $('select[name="actividad_ingre"]').html(html);
                     $('select[name="Actividades_rubros_ingresado"]').html(html);
-                    if(data.length>0){
+                    if(data){
+
                       $.each(data, function(i, eee){
-                                  html += '<option data-id="'+eee['id_paa']+'" value="'+eee.meta['Id']+'">'+eee.meta['Nombre'].toLowerCase()+'</option>';
+
+                                  html += '<option data-id="'+eee['id_paa']+
+                                  '" value="'+eee.meta['Id']+'">'+
+                                  eee.meta['Nombre'].toLowerCase()+'</option>';
                       });
                     }
                     $('select[name="Metas_ingresado"]').html(html).val($('select[name="Metas_ingresado"]').data('value'));
