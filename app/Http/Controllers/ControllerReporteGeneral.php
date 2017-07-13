@@ -24,23 +24,6 @@ class ControllerReporteGeneral extends Controller
             'planDesarrollo' => $proyectoDesarrollo
         ];
 
-
-        $finanzas_r = Paa::with('componentes')->where('Estado',Estado::EstudioAprobado)->get();
-                    if($finanzas_r)
-                    {
-                        foreach ($finanzas_r as &$paa)
-                        {
-                            foreach ($paa->componentes as &$actividad)
-                            {
-                                
-                                $actividad->Meta = Meta::find($actividad->pivot['id_fk_meta']);
-                                $actividad->FuenteProyecto = FuenteProyecto::with('fuente','proyecto')->find($actividad->pivot['fuente_id']);
-                                $actividad->actividadMeta = ActividadComponente::with('actividades')->find($actividad->pivot['id']);
-                            }
-                        }
-                    }
-       //dd($finanzas_r);
-
 		return view('reportegeneral',$datos);
 	}
 

@@ -156,6 +156,7 @@ $(function()
       yearRange: "-100:+0",
       changeMonth: true,
       changeYear: true,
+      minDate: 0 ,
     });
 
   $('input[data-role1="datepicker"]').datepicker({
@@ -163,6 +164,7 @@ $(function()
       yearRange: "-100:+0",
       changeMonth: true,
       changeYear: true,
+      minDate: 0 ,
     });
 
    function formatCurrency(input)
@@ -339,6 +341,7 @@ $(function()
                     case 'Proyecto_inversion':
                     case 'meta':
                     case 'ProyectOrubro':
+                    case 'unidad_tiempo':
                     selector = 'select';
                     break;
 
@@ -600,6 +603,7 @@ $(function()
                 var suma=0;
                 var suma2=0;
                 
+                // valor de la suma de los paa con estudio aprobado.
                 $.each(data.ModeloPa, function(i, eee){
                   if(eee.componentes!=''){
                     $.each(eee.componentes, function(ii, eeee){
@@ -608,7 +612,9 @@ $(function()
                     });
                   }
                 });
+               
 
+                //valor de la suma de los paa pendientes
                 $.each(data.ModeloPaPendi, function(i, eee){
                   if(eee.componentes!=''){
                     $.each(eee.componentes, function(ii, eeee){
@@ -617,7 +623,7 @@ $(function()
                     });
                   }
                 });
-
+                
                 console.log(suma2+"  -  "+suma);
 
                 valorCocenpto=data.presupuestado['valor'];
@@ -967,7 +973,7 @@ $(function()
                     $('#VerAgregarFinanciacion').click();
                   }else{
                     valor_ingresado_conso=parseInt(valor_ingresado_conso)-parseInt(valor_contrato);
-                    $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El valor ingresado o consolidado es mayor al valor de disponibilidad del componete que es de: $'+number_format(valorAfavor)+'  -  '+number_format(valor_ingresado_conso)+'</div>');
+                    $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> El valor ingresado o consolidado es mayor al valor de disponibilidad del componente que es de: $'+number_format(valorAfavor)+'  -  '+number_format(valor_ingresado_conso)+'</div>');
                     $('#mensaje_actividad').show(60);
                     $('#mensaje_actividad').delay(2500).hide(600);
                   }
@@ -1036,7 +1042,8 @@ $(function()
             changeMonth: true,
             changeYear: true,
             minDate: n+'-01-01',
-            maxDate: n+'-12-31'});
+            maxDate: n+'-12-31',
+            minDate: 0 });
         }
 
         if($('#proceso_curso').val()=="Si"){
@@ -1045,6 +1052,7 @@ $(function()
             dateFormat: 'yy-mm-dd',
             yearRange: "-100:+0",
             changeMonth: true,
+            minDate: 0,
             changeYear: true});
         }
 

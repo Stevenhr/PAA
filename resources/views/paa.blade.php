@@ -407,7 +407,7 @@
 							<div class="col-xs-6 col-sm-4">
 								<div class="form-group">
 									<label>Fecha estimada de estudio de  conveniencia</label><br><br>
-									<input type="text" class="form-control" name="estudio_conveniencia" data-role="datepicker" placeholder="Fecha estimada" autocomplete="off" readonly="readonly">
+									<input type="text" class="form-control" name="estudio_conveniencia" data-role1="datepicker" placeholder="Fecha estimada" autocomplete="off" readonly="readonly">
 								</div>
 							</div>
 							<div class="col-xs-6 col-sm-4">
@@ -419,7 +419,7 @@
 							<div class="col-xs-6 col-sm-4">
 								<div class="form-group">
 									<label>Fecha suscripción Contrato </label><br><br><br>
-									<input type="text" class="form-control" name="fecha_suscripcion"  data-role="datepicker" placeholder="aa/mm/dd" autocomplete="off" readonly="readonly">
+									<input type="text" class="form-control" name="fecha_suscripcion"  data-role1="datepicker" placeholder="aa/mm/dd" autocomplete="off" readonly="readonly">
 								</div>
 							</div>
 						</div>
@@ -434,7 +434,7 @@
 							<div class="col-xs-6 col-sm-2">
 								<div class="form-group">
 									<label>Unidad de Tiempo</label><br><br>
-									<select class="form-control" name="estado_solicitud">
+									<select class="form-control" name="unidad_tiempo">
 										<option value="">Seleccionar</option>
 										<option value="0">Dias</option>
 										<option value="1">Meses</option>

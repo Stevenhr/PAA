@@ -100,6 +100,7 @@ class PlanAnualAController extends Controller
                 'recurso_humano' =>'required',
                 'ProyectOrubro' =>'required',
                 'numero_contratista' =>'required',
+                'unidad_tiempo' =>'required',
             ]
         );
 
@@ -196,6 +197,7 @@ class PlanAnualAController extends Controller
         $modeloPA['EsatdoObservo'] = $estadoObservo;
         $modeloPA['Observacion'] = '';
         $modeloPA['Id_Area'] = $personapaa['id_area'];
+        $modeloPA['unidad_tiempo'] = $input['unidad_tiempo'];
         $modeloPA->save();
 
         $objeto_contrato=$input['objeto_contrato'];
@@ -239,6 +241,7 @@ class PlanAnualAController extends Controller
             $modeloPA['EsatdoObservo'] = 2;
             $modeloPA['Observacion'] = '';
             $modeloPA['Id_Area'] = $personapaa['id_area'];
+            $modeloPA['unidad_tiempo'] = $input['unidad_tiempo'];
             $modeloPA->save();
 
             $id_paa=$modeloPA->Id;
@@ -267,12 +270,13 @@ class PlanAnualAController extends Controller
             }
 
             $data_r = json_decode($input['Dato_Actividad_Acti_rubro']);
-
-            if($data_r[0] != null){
-                foreach($data_r as $obj){
-                    $modeloPA->rubro_funcionamiento()->attach($obj->id_rubro,[
-                        'paa_id'=>$id_paa2, 'valor'=>str_replace('.','',$obj->valor_rubro)
-                    ]);
+            if($data_r){
+                if($data_r[0] != null){
+                    foreach($data_r as $obj){
+                        $modeloPA->rubro_funcionamiento()->attach($obj->id_rubro,[
+                            'paa_id'=>$id_paa2, 'valor'=>str_replace('.','',$obj->valor_rubro)
+                        ]);
+                    }
                 }
             }
         }
@@ -366,19 +370,20 @@ class PlanAnualAController extends Controller
     {
         $id_presupuestado=$request['id_presupuestado'];
         $presupuestado= Presupuestado::find($id_presupuestado);
-        $id=$presupuestado['componente_id'];
+        $id_c=$presupuestado['componente_id'];
+        $id_f_p=$presupuestado['fuente_proyecto_id'];
 
-        $ModeloPa = Paa::with(['componentes' => function($query) use ($id)
+        $ModeloPa = Paa::with(['componentes' => function($query) use ($id_c,$id_f_p)
         {
-            $query->where('componente_id',$id);
+            $query->where('componente_id',$id_c)->where('fuente_id',$id_f_p);
         }])->where('Estado','9')->get();
 
-        $ModeloPa2 = Paa::with(['componentes' => function($query) use ($id)
+        $ModeloPa2 = Paa::with(['componentes' => function($query) use ($id_c,$id_f_p)
         {
-            $query->where('componente_id',$id);
+            $query->where('componente_id',$id_c)->where('fuente_id',$id_f_p);
         }])->whereIn('Estado',[0,4,5,8,10])->get();
         
-        $ModeloCompoente=Componente::find($id);
+        $ModeloCompoente=Componente::find($id_c);
         return response()->json(array('ModeloPa' => $ModeloPa,'ModeloPaPendi'=>$ModeloPa2, 'ModeloCompoente' => $ModeloCompoente,'presupuestado'=>$presupuestado));
     }
 
