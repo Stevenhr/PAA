@@ -1666,12 +1666,10 @@ $(function()
                     $('select[name="Actividades_rubros_ingresado"]').html(html);
                     if(data){
 
-                      $.each(data, function(i, eee){
+                                  html += '<option data-id="'+data['id']+
+                                  '" value="'+data.meta['Id']+'">'+
+                                      data.meta['Nombre'].toLowerCase()+'</option>';
 
-                                  html += '<option data-id="'+eee['id_paa']+
-                                  '" value="'+eee.meta['Id']+'">'+
-                                  eee.meta['Nombre'].toLowerCase()+'</option>';
-                      });
                     }
                     $('select[name="Metas_ingresado"]').html(html).val($('select[name="Metas_ingresado"]').data('value'));
               
@@ -1682,11 +1680,11 @@ $(function()
         selecActivMeta($(this).val(),$(this).find(':selected').data('id'));
     });
 
-    var selecActivMeta = function(id_meta,id_paa)
+    var selecActivMeta = function(id_meta,id)
     { 
         $.post(
           URL+'/service/selecActivMeta',
-          {id_meta: id_meta, id_paa:id_paa},
+          {id_meta: id_meta, id:id},
           function(data){
 
                 //Actividades meta
@@ -1699,9 +1697,10 @@ $(function()
 
                 //Componentes
                   var html = '<option value="">Selecionar</option>';
-                  $.each(data.Componentes, function(i, eee){
-                      html += '<option data-valor="'+eee['valor']+'" value="'+eee.componente['Id']+'">'+eee.componente['Nombre']+'</option>';
-                  });
+                  console.log(data);
+                  if(data.Componentes){
+                      html += '<option data-valor="'+data['valor']+'" value="'+data.Componentes['Id']+'">'+data.Componentes['Nombre']+'</option>';
+                  };
                   $('select[name="Componente_ingresado"]').html(html).val($('select[name="Componente_ingresado"]').data('value'));
 
           },'json');

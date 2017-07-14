@@ -420,7 +420,7 @@ class PlanAnualAController extends Controller
         
         $meta = Meta::with('actividades')->find($request['id_meta']);
         
-        $actividadcomponente = ActividadComponente::with('componente')->where('id_paa',$request['id_paa'])->where('id_fk_meta',$request['id_meta'])->get();
+        $actividadcomponente = ActividadComponente::with('componente')->find($request['id_paa']);
         
         $data=[
         'metas'=>$meta,
@@ -815,8 +815,7 @@ class PlanAnualAController extends Controller
     {
         
         $paa = Paa::with('modalidad','tipocontrato','meta.actividades','area','componentes','rubro_funcionamiento','rubro_funcionamiento.actividadesfuncionamiento')->find($id);
-        
-       
+
             $finanzas_p = ActividadComponente::with('actividades','proyecto','meta','fuenteproyecto','fuenteproyecto.fuente','fuenteproyecto.proyecto')->where('id_paa',$id)->get();
             if($finanzas_p){
                 foreach ($finanzas_p as $finanza) 
