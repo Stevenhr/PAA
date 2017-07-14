@@ -420,7 +420,7 @@ class PlanAnualAController extends Controller
         
         $meta = Meta::with('actividades')->find($request['id_meta']);
         
-        $actividadcomponente = ActividadComponente::with('componente')->find($request['id_paa']);
+        $actividadcomponente = ActividadComponente::with('componente')->find($request['id']);
         
         $data=[
         'metas'=>$meta,

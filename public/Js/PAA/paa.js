@@ -1699,7 +1699,7 @@ $(function()
                   var html = '<option value="">Selecionar</option>';
                   console.log(data);
                   if(data.Componentes){
-                      html += '<option data-valor="'+data['valor']+'" value="'+data.Componentes['Id']+'">'+data.Componentes['Nombre']+'</option>';
+                      html += '<option data-valor="'+data.Componentes['valor']+'" value="'+data.Componentes.componente['Id']+'">'+data.Componentes.componente['Nombre']+'</option>';
                   };
                   $('select[name="Componente_ingresado"]').html(html).val($('select[name="Componente_ingresado"]').data('value'));
 
