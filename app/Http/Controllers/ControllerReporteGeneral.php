@@ -58,7 +58,7 @@ class ControllerReporteGeneral extends Controller
                             }
                         }
                     }
-                
+                //dd($finanzas_r);
                 $tabla="  <div class='table-responsive'> 
                 <table id='Tabla_Reporte2'>
                     <thead>
@@ -88,17 +88,19 @@ class ControllerReporteGeneral extends Controller
                     <tbody>";
                         foreach ($finanzas_r as $key => $value) {
                             foreach ($value->componentes as $key => $componente) {
-                                foreach ($componente->actividadMeta->actividades as $key => $atividadmet) {
-                                    $tabla=$tabla."<tr>
-                                        <td>".$value['Id']."</td>
-                                        <td ><div  class='campoArea'>".$value['ObjetoContractual']."</div></td>
-                                        <td> $".number_format ($atividadmet->pivot['valor'])."</td>
-                                        <td>".$componente->FuenteProyecto->proyecto['Nombre']."</td>
-                                        <td>".$componente->Meta['Nombre']."</td>
-                                        <td>".$atividadmet['Nombre']."</td>
-                                        <td>".$componente['Nombre']."</td>
-                                        <td>".$componente->FuenteProyecto->fuente['nombre']."</td>
-                                    </tr>";
+                                if($componente->actividadMeta){
+                                    foreach ($componente->actividadMeta->actividades as $key => $atividadmet) {
+                                        $tabla=$tabla."<tr>
+                                            <td>".$value['Id']."</td>
+                                            <td ><div  class='campoArea'>".$value['ObjetoContractual']."</div></td>
+                                            <td> $".number_format ($atividadmet->pivot['valor'])."</td>
+                                            <td>".$componente->FuenteProyecto->proyecto['Nombre']."</td>
+                                            <td>".$componente->Meta['Nombre']."</td>
+                                            <td>".$atividadmet['Nombre']."</td>
+                                            <td>".$componente['Nombre']."</td>
+                                            <td>".$componente->FuenteProyecto->fuente['nombre']."</td>
+                                        </tr>";
+                                    }
                                 }
                             }                        
                         }                        

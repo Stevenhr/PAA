@@ -1924,7 +1924,7 @@ $(function()
                         '<td>'+e['Fuente_ingre_name']+'</td>'+
                         '<td>'+e['valor_componente']+'</td>'+
                         '<td>'+e['porcentaje']+'%</td>'+
-                        '<td> $'+e['valor_total_ingr']+'</td>';
+                        '<td> $'+number_format(e['valor_total_ingr'])+'</td>';
                         if(estado==1)
                         html += '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminarFinan" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                         else
