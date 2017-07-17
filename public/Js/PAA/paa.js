@@ -1749,7 +1749,6 @@ $(function()
 
     $('#agregar_financiacion').on('click', function(e)
     {
-          
           //Proyecto
           var Id_P_R =$('select[name="Proyecto_ingresado"]').find(':selected').val();
           var poryecto_name =$('select[name="Proyecto_ingresado"]').find(':selected').text();
@@ -1802,7 +1801,7 @@ $(function()
               if(vector_datos_financiacion.length >= 0)
               {
                 $.each(vector_datos_financiacion, function(i, e){
-                  if(e['componente']==componente){
+                  if(e['componente']==componente && e['Id_Meta']==Id_Meta){
                     vali_porce=parseInt(vali_porce)+parseInt(e['porcentaje']);
                   }
                 });
