@@ -141,10 +141,10 @@
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Reporte<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
-                  @if($_SESSION['Usuario']['Permisos']['Gestion_Direccion_General'])
+                  @if($_SESSION['Usuario']['Permisos']['Reporte_proyecto'])
                     <li class=”{{ Request::is('reporteProyecto') ? 'active' : '' }}”><a href="{{ URL::to('reporteProyecto') }}">Proyecto</a></li>
                   @endif
-                  @if($_SESSION['Usuario']['Permisos']['Gestion_Direccion_General'])
+                  @if($_SESSION['Usuario']['Permisos']['Reporte_general'])
                     <li class=”{{ Request::is('reporteGeneral') ? 'active' : '' }}”><a href="{{ URL::to('reporteGeneral') }}">General</a></li>
                   @endif
                 </ul>

@@ -91,7 +91,7 @@ class ControllerReporteGeneral extends Controller
                                 if($componente->actividadMeta){
                                     foreach ($componente->actividadMeta->actividades as $key => $atividadmet) {
                                         $tabla=$tabla."<tr>
-                                            <td>".$value['Id']."</td>
+                                            <td><h5>".$value['Id']."</h5></td>
                                             <td ><div  class='campoArea'>".$value['ObjetoContractual']."</div></td>
                                             <td> $".number_format ($atividadmet->pivot['valor'])."</td>
                                             <td>".$componente->FuenteProyecto->proyecto['Nombre']."</td>
