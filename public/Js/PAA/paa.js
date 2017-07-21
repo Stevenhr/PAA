@@ -225,7 +225,9 @@ $(function()
            {
             $('#meta').val("1");
            }
-              
+             
+          $('#crear_paa_btn').html('Registrando...'); 
+          $('#crear_paa_btn').prop('disabled',true);
           $.post(
             URL+'/validar/paa',
             $(this).serialize(),
@@ -234,17 +236,17 @@ $(function()
               {
                   validad_error(data.errors);
                   var mej="Campos vacios.";
-                  /*if($('input[name="duracion_estimada"]').val()=="")
-                  mej="Duración estimada no posee el formato indicado. Ejm: 30,12,1 ";*/
 
                   $('#mjs_registroPaa').hide();
                   $('#mjs_registroPaa2').html('<center><strong>Error!</strong> '+mej+'</center>');
                   $('#mjs_registroPaa2').show();
                   setTimeout(function(){
                       $('#mjs_registroPaa2').hide();
+                      $('#crear_paa_btn').prop('disabled',false);
                   }, 6000)
              
-              } else 
+              } 
+              else 
               {
                 
                 $('#crear_paa_btn').attr('disabled',true);
@@ -267,32 +269,38 @@ $(function()
 
                     });
 
-                    if(upd==0){
+                    if(upd==0)
+                    {
                       $('#mjs_registroPaa').html(' <strong>Registro Exitoso!</strong> Se realizo el resgistro de su PAA.');
                       $('#mjs_registroPaa').show();
                       setTimeout(function(){
                           $('#mjs_registroPaa').hide();
                           $('#Modal_AgregarNuevo').modal('hide');
+                          $('#crear_paa_btn').prop('disabled',false);
                       }, 4000)
                       
-                    }else{
+                    }
+                    else
+                    {
                       $('#mjs_registroPaa').html(' <strong>Se Registro la Modificación!</strong> Entra en cola de espera para la aprobación de los cambios.');
                       $('#mjs_registroPaa').show();
                       setTimeout(function(){
                           $('#mjs_registroPaa').hide();
                           $('#Modal_AgregarNuevo').modal('hide');
-                      }, 4000)
-                      
+                          $('#crear_paa_btn').prop('disabled',false);
+                      }, 4000) 
                     }
                 }else{
                     $('#mensaje_presupuesto2').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
                     $('#mensaje_presupuesto2').show();
                     setTimeout(function(){
                         $('#mensaje_presupuesto2').hide();
+                        $('#crear_paa_btn').prop('disabled',false);
                     }, 6000)
                 }
                 
             }
+            
           },'json');
           
     }else{
@@ -1997,6 +2005,9 @@ $(function()
               if(vector_datos_financiacion.length>0){
                   var datos_cod = JSON.stringify(vector_datos_financiacion);
                   $('input[name="campos_Clasi_Finan"]').val(datos_cod);
+                      
+                  $('#RegistrarEstudio').html("Registrando...");
+                  $('#RegistrarEstudio').prop("disabled",true); 
                       $.ajax({
                           type: "POST",
                           url: URL+'/service/agregar_estudio',
@@ -2008,6 +2019,7 @@ $(function()
                             if(data.status == 'error')
                             {
                                 validad_error_estidioC(data.errors);
+                                $('#RegistrarEstudio').prop("disabled",false); 
                             } else {
 
                                 validad_error_estidioC(data.errors);
@@ -2016,6 +2028,7 @@ $(function()
                                 setTimeout(function(){
                                     $('#mjs_Observa_Fina').hide();
                                     $('#Modal_EstudioComveniencia').modal('hide');
+                                    $('#RegistrarEstudio').prop("disabled",false); 
                                 }, 2000)
                             }
                           }

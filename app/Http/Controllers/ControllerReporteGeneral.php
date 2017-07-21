@@ -44,7 +44,7 @@ class ControllerReporteGeneral extends Controller
            {
                 $proyecto = Paa::with('componentes')->get();
 
-                $finanzas_r = Paa::with('componentes')->where('Estado',Estado::EstudioAprobado)->get();
+                $finanzas_r = Paa::with('componentes')->whereBetween('FechaEstudioConveniencia',array($request['fecha_inicial'], $request['fecha_final']))->where('Estado',Estado::EstudioAprobado)->get();
                     if($finanzas_r)
                     {
                         foreach ($finanzas_r as &$paa)
@@ -58,12 +58,13 @@ class ControllerReporteGeneral extends Controller
                             }
                         }
                     }
-                //dd($finanzas_r);
-                $tabla="  <div class='table-responsive'> 
-                <table id='Tabla_Reporte2'>
+
+                $tabla="  
+                <table id='Tabla_Reporte2' class='display responsive no-wrap' width='100%' cellspacing='0'>
                     <thead>
                         <tr>
-                            <th>Id</b></th>
+                            <th>#</th>
+                            <th><center>Id</center></th>
                             <th>Objeto</th>
                             <th>Valor</th> 
                             <th>Proyecto</th>
@@ -75,7 +76,8 @@ class ControllerReporteGeneral extends Controller
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Id</b></th>
+                            <th>#</th>
+                            <th><center>Id</center></th>
                             <th>Objeto</th>
                             <th>Valor</th> 
                             <th>Proyecto</th>
@@ -86,12 +88,14 @@ class ControllerReporteGeneral extends Controller
                         </tr>
                     </tfoot>
                     <tbody>";
+                       $num=1;
                         foreach ($finanzas_r as $key => $value) {
                             foreach ($value->componentes as $key => $componente) {
                                 if($componente->actividadMeta){
                                     foreach ($componente->actividadMeta->actividades as $key => $atividadmet) {
                                         $tabla=$tabla."<tr>
-                                            <td><h5>".$value['Id']."</h5></td>
+                                            <td>".$num."</td>
+                                            <td><center><h4>".$value['Id']."</h4></center></td>
                                             <td ><div  class='campoArea'>".$value['ObjetoContractual']."</div></td>
                                             <td> $".number_format ($atividadmet->pivot['valor'])."</td>
                                             <td>".$componente->FuenteProyecto->proyecto['Nombre']."</td>
@@ -100,12 +104,13 @@ class ControllerReporteGeneral extends Controller
                                             <td>".$componente['Nombre']."</td>
                                             <td>".$componente->FuenteProyecto->fuente['nombre']."</td>
                                         </tr>";
+                                        $num++;
                                     }
                                 }
                             }                        
                         }                        
                 $tabla=$tabla."</tbody>
-                </table></div>";
+                </table>";
                 return response()->json(array('status' => 'ok', 'tabla' => $tabla));
             }
     }

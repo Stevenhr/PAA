@@ -590,6 +590,9 @@ $(function()
 
          var id=$('#id_paa_estudio').val();
          var observacion=$('#observacio').val();
+
+         $('#AprobadoEstudio').html("Registrando... por favor espere un momento!.");
+         $('#AprobadoEstudio').prop("disabled",true);
          $.post(
           URL+'/service/AprobarEstudioSub',
           {id: id,estado:'9',observacion:observacion,tipo:'Estudio Aprobado'},
@@ -603,6 +606,8 @@ $(function()
                           $('#mjs_Observa_estudio').hide();
                           $('#mjs_Observa_estudio').modal('hide'); 
                           $('#Modal_EstudioConvenincia').modal('hide');
+                          $('#AprobadoEstudio').prop("disabled",false);
+                          $('#AprobadoEstudio').html("Aprobado");
                       }, 3000)
                       location.reload(true);
               }
@@ -614,6 +619,10 @@ $(function()
          var id=$('#id_paa_estudio').val();
          var observacion=$('#observacionesEstudio').val();
          if(observacion!=""){
+           
+           $('#CancelarEstudio').html("Registrando... por favor espere un momento!.");
+           $('#CancelarEstudio').prop("disabled",true);
+
            $.post(
             URL+'/service/AprobarEstudioSub',
             {id: id,estado:'11',observacion:observacion,tipo:'Estudio Cancelado'},
@@ -627,6 +636,8 @@ $(function()
                             $('#mjs_Observa_estudio').hide();
                             $('#mjs_Observa_estudio').modal('hide'); 
                             $('#Modal_EstudioConvenincia').modal('hide');
+                            $('#CancelarEstudio').prop("disabled",false);
+                            $('#CancelarEstudio').html("Cancelado");
                         }, 3000)
                         location.reload(true);
                 }
@@ -647,6 +658,10 @@ $(function()
          var id=$('#id_paa_estudio').val();
          var observacion=$('#observacionesEstudio').val();
          if(observacion!=""){
+
+           $('#devolverEstudio').html("Registrando... por favor espere un momento!.");
+           $('#devolverEstudio').prop("disabled",true);
+
            $.post(
             URL+'/service/AprobarEstudioSub',
             {id: id,estado:'10',observacion:observacion,tipo:'Estudio Devuelto'},
@@ -657,6 +672,8 @@ $(function()
                         $('#mjs_Observa_estudio').show();
                         setTimeout(function(){
                             //$('#observacio').val('');
+                            $('#devolverEstudio').prop("disabled",false);
+                            $('#devolverEstudio').html("Devuelto");
                             $('#mjs_Observa_estudio').hide();
                             $('#mjs_Observa_estudio').modal('hide'); 
                             $('#Modal_EstudioConvenincia').modal('hide');
