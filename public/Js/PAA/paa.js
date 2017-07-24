@@ -2029,6 +2029,7 @@ $(function()
                                     $('#mjs_Observa_Fina').hide();
                                     $('#Modal_EstudioComveniencia').modal('hide');
                                     $('#RegistrarEstudio').prop("disabled",false); 
+                                    location.reload();
                                 }, 2000)
                             }
                           }

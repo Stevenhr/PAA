@@ -726,7 +726,7 @@ class PlanAnualAController extends Controller
         $id_Tipos=[63]; //Tipo sibdirector
         
         $subdirecion=Area::with('subdirecion')->find($model_A['Id_Area']);
-        
+        $objeto=$model_A['ObjetoContractual'];
         $areas=Area::where('id_subdireccion',$subdirecion['id_subdireccion'])->get();
         $array_areas = array();
         foreach ($areas as &$area_) 
@@ -768,11 +768,11 @@ class PlanAnualAController extends Controller
         $area=Area::find($model_A['Id_Area']);
 
         $mensaje="PAA ID. ".$id.": Estudio de conveniencia registrado";
-       // dd($pila);
+       
         if(!empty($emails))
         {
             //dd($emails);
-            Mail::send('mail', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
+            Mail::send('mail', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area,'objeto'=>$objeto], function ($m) use ($paa,$mensaje,$emails)  {
                 $m->from('no-reply_Paa@idrd.gov.co', $mensaje);
 
                 $m->to($emails, 'Estevenhr')->subject($mensaje."!");
