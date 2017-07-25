@@ -60,6 +60,7 @@
           <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
               
+              @if($_SESSION['Usuario']['Permisos']['Configuracion_paa'] || $_SESSION['Usuario']['Permisos']['Crear_Usuario'] || $_SESSION['Usuario']['Permisos']['Asignar_Actividades'] || $_SESSION['Usuario']['Permisos']['Asignar_Tipo_Persona'])
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Configuración<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="themes">
@@ -81,7 +82,9 @@
                   @endif
                 </ul>
               </li>
+              @endif
 
+              @if($_SESSION['Usuario']['Permisos']['Gestion_operador'])
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Operativo<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
@@ -90,8 +93,9 @@
                   @endif
                 </ul>
               </li>
+              @endif
 
-
+              @if($_SESSION['Usuario']['Permisos']['Gestion_consolidador'])
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Consolidador<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
@@ -100,8 +104,9 @@
                   @endif
                 </ul>
               </li>
+              @endif
 
-
+              @if($_SESSION['Usuario']['Permisos']['Gestion_subdireccion'])
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Sub Dirección<span class="caret"></span></a>
                  <ul class="dropdown-menu" aria-labelledby="download">
@@ -110,8 +115,9 @@
                   @endif
                 </ul>
               </li>
+              @endif
 
-
+              @if($_SESSION['Usuario']['Permisos']['Gestion_planeacion'] || $_SESSION['Usuario']['Permisos']['Gestion_cecop'])
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Planeación<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
@@ -123,7 +129,10 @@
                   @endif
                 </ul>
               </li>
+              @endif
 
+
+              @if($_SESSION['Usuario']['Permisos']['Gestion_Direccion_General'])
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Dirección<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
@@ -132,12 +141,14 @@
                   @endif
                 </ul>
               </li>
+              @endif
 
-  
+
               @if($_SESSION['Usuario']['Permisos']['General'])
                 <li class=”{{ Request::is( 'Generalpaa') ? 'active' : '' }}”><a href="{{ URL::to( 'Generalpaa') }}">General</a></li>
               @endif
                 
+              @if($_SESSION['Usuario']['Permisos']['Reporte_proyecto'] || $_SESSION['Usuario']['Permisos']['Reporte_general'])
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Reporte<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
@@ -149,7 +160,7 @@
                   @endif
                 </ul>
               </li>
-              
+              @endif
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
