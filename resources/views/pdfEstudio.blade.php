@@ -119,7 +119,8 @@
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
 			<TD ALIGN=RIGHT BGCOLOR="#FFFFFF"><B>No.</B>  </TD>
-			<TD STYLE="border-bottom: 1px solid #333333" COLSPAN=6 ALIGN=CENTER BGCOLOR="#FFFFFF"><B>{{$paas['Id']}}  -  {{$subdireccion['Iniciales']}}</B></TD>
+			<?php $year = date('Y',strtotime($paas['FechaEstudioConveniencia']));?>
+			<TD STYLE="border-bottom: 1px solid #333333" COLSPAN=6 ALIGN=CENTER BGCOLOR="#FFFFFF"><B>{{$paas['Id']}}  - {{$year}} -  {{$subdireccion['Iniciales']}}</B></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><B><BR></B></TD>
 		</TR>
@@ -549,7 +550,10 @@
 			<TD HEIGHT=36 ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=4 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#969696"><B><FONT SIZE=3>PLAZO DE EJECUCIÓN  </FONT></B></TD>
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=15 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><B>{{$paas['DuracionContrato']}} </B></TD>
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333" COLSPAN=15 ALIGN=CENTER VALIGN=MIDDLE BGCOLOR="#FFFFFF"><B>{{$paas['DuracionContrato']}} - 
+
+			<?php if($paas['unidad_tiempo']==0){ echo "dias";}else if($paas['unidad_tiempo']==1){echo "meses";}else{ echo "años";}?>
+			</B></TD>
 			<TD STYLE="border-right: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 		</TR>
@@ -676,10 +680,10 @@
 
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;"  COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">{{$finanza->Componente['Nombre']}}</FONT></TD>
 
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">{{$actividad->Fuente['nombre']}}</FONT></TD>
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">{{$actividad->Fuente['codigo']}} - {{$actividad->Fuente['nombre']}}</FONT></TD>
 
 
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=5 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">{{$finanza->fuenteproyecto->fuente['nombre']}}</FONT></TD>
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=5 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">{{$finanza->fuenteproyecto->fuente['codigo']}} - {{$finanza->fuenteproyecto->fuente['nombre']}}</FONT></TD>
 
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF" SDNUM="2058;0;[$$-240A] #,##0"><FONT SIZE=4 COLOR="#000000">${{number_format($actividad->pivot['valor'])}}</FONT></TD>
 
@@ -714,7 +718,7 @@
 
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;"  COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">N.A</FONT></TD>
 
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">{{$actividad->Fuente['nombre']}}</FONT></TD>
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=2 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">{{$actividad->Fuente['codigo']}} - {{$actividad->Fuente['nombre']}}</FONT></TD>
 
 
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=5 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">Otros Distrito</FONT></TD>

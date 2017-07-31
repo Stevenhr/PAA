@@ -1184,7 +1184,7 @@
 
 																		<div class="col-xs-12 col-sm-12">
 																			<div class="form-group">
-																				<label class="text-success">4. Actividades de la meta:  </label>
+																				<label class="text-success">4. Actividades:  </label>
 																				<select class="form-control" name="actividad_ingre" id="actividad_ingre">
 																					<option value="" >Selecionar</option>
 																				</select>
