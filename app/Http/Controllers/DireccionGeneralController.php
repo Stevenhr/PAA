@@ -26,7 +26,7 @@ class DireccionGeneralController extends Controller
 		$datos = [
 			'subdirecciones' => $subdirecciones,
 		];
-
+       // dd($datos);
 		return view('aprobacion-direccion-general', $datos);
 	}
 

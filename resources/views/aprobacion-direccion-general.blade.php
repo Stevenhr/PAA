@@ -108,23 +108,27 @@
 							        	<?php $var11 = ''; ?>
 							        @endif
 
-							        <?php $nombrementa=""; 
-				                          $nomProyRubro="";
-				                          $Proyecto1Rubro2="";?>
+							 
 
-				                    @if ($paa['Proyecto1Rubro2']==2)
-				                           <?php 
-				                            $nomProyRubro=$paa->rubro_funcionamiento['nombre'];
-				                            $nombrementa="N.a";
-				                            $Proyecto1Rubro2="R";
-				                            ?>
-				                    @else
-				                    		<?php 
-				                            $nomProyRubro=$paa->proyecto['Nombre'];
-				                            $nombrementa=$paa->meta['Nombre'];
-				                            $Proyecto1Rubro2="P";
-				                            ?>
-				                    @endif
+					                @if ($paa->rubro_funcionamiento->count()>0 && $paa->componentes->count()>0)
+	                                    <?php
+	                                    $nomProyRubro="Areglar";//$paa->rubro_funcionamiento['nombre'];
+	                                    $nombrementa="N.A";
+	                                    $Proyecto1Rubro2="P-R";
+	                                    ?>
+									@elseif ($paa->componentes->count()>0)
+	                                    <?php
+	                                    $nomProyRubro=$paa->proyecto['Nombre'];
+	                                    $nombrementa=$paa->meta['Nombre'];
+	                                    $Proyecto1Rubro2="P";
+	                                    ?>
+	                                @elseif ($paa->rubro_funcionamiento->count()>0)
+	                                    <?php
+	                                    $nomProyRubro="";
+	                                    $nombrementa="N.A";
+	                                    $Proyecto1Rubro2="R";
+	                                    ?>
+									@endif
 
 
 									<tr data-row="{{ $paa['Id'] }}" class="{{ $class }}">
