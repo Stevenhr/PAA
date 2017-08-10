@@ -18,6 +18,7 @@ use App\RubroFuncionamiento;
 use App\PersonaPaa;
 use App\FuenteProyecto;
 use App\ProyectoDesarrollo;
+use App\SubDireccion;
 use App\Presupuestado;
 use App\ActividadFuncionamiento;
 use App\ActividadComponente;
@@ -34,16 +35,17 @@ class PaaController extends Controller
 	}
     public function index()
 	{
-		$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos','presupuestos.proyectos.metas','presupuestos.proyectos.metas.actividades','presupuestos.proyectos.metas.actividades')->get();
+		$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos','presupuestos.proyectos.metas','presupuestos.proyectos.metas.actividades','presupuestos.proyectos.metas.actividades','presupuestos.proyectos.subDireccion')->get();
 		$fuente = Fuente::all();
 		$componente = Componente::with('fuente')->get();
 		$rubroFuncionam = RubroFuncionamiento::with('actividadesfuncionamiento')->get();
-		
+		$subdirecciones=SubDireccion::all();
         $datos = [        
             'proyectoDesarrollo' => $proyectoDesarrollo,
             'fuentes'=>$fuente,
             'componentes'=>$componente,
             'rubrosFuncionamiento'=>$rubroFuncionam,
+            'subdirecciones'=>$subdirecciones,
         ];
 
 		return view('configuracionPAA',$datos);
@@ -366,6 +368,7 @@ class PaaController extends Controller
 	            'idPresupuesto' => 'required',
 				'codigo_proyecto' => 'required',
 				'precio_proyecto' => 'required',
+				'id_subdireccion' => 'required',
 				'fecha_final_proyecto' => 'required',
 				'fecha_inicial_proyecto' => 'required',
 				'nombre_proyecto' => 'required',
@@ -415,8 +418,9 @@ class PaaController extends Controller
 			$model['fecha_inicio'] = $input['fecha_inicial_proyecto'];
 			$model['fecha_fin'] = $input['fecha_final_proyecto'];
 			$model['valor'] = $valor_nuevProyecto;
+			$model['id_subdireccion'] = $input['id_subdireccion'];
 			$model->save();
-			$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos')->get();
+			$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos','presupuestos.proyectos.subDireccion')->get();
 			return response()->json(array('status' => 'modelo', 'saldo' => $Saldo, 'proyectoDesarrollo' => $proyectoDesarrollo));
 		}else{
 			return response()->json(array('status' => 'Saldo', 'saldo' => $Saldo, 'valorNuevo' => $input['precio_proyecto'],'mensaje'=>'es mayor al saldo del presupuesto que es de'));
@@ -437,8 +441,9 @@ class PaaController extends Controller
 				$model['fecha_inicio'] = $input['fecha_inicial_proyecto'];
 				$model['fecha_fin'] = $input['fecha_final_proyecto'];
 				$model['valor'] = $precio_proyecto;
+				$model['id_subdireccion'] = $input['id_subdireccion'];
 				$model->save();
-				$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos')->get();
+				$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos','presupuestos.proyectos.subDireccion')->get();
 				return response()->json(array('status' => 'modelo', 'proyectoDesarrollo' => $proyectoDesarrollo,'mensaje'=>''));
 			}else{
 				return response()->json(array('status' => 'Saldo', 'saldo' => $sum, 'valorNuevo' => $input['precio_proyecto'],'mensaje'=>'es menor al valor de las metas que es de'));
@@ -461,8 +466,9 @@ class PaaController extends Controller
 				$model['fecha_inicio'] = $input['fecha_inicial_proyecto'];
 				$model['fecha_fin'] = $input['fecha_final_proyecto'];
 				$model['valor'] = $valor_nuevProyecto;
+				$model['id_subdireccion'] = $input['id_subdireccion'];
 				$model->save();
-				$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos')->get();
+				$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos','presupuestos.proyectos.subDireccion')->get();
 				return response()->json(array('status' => 'modelo', 'proyectoDesarrollo' => $proyectoDesarrollo,'mensaje'=>'sobrepasa el presupuesto actual que tiene un saldo de'));
 			}else{
 				return response()->json(array('status' => 'Saldo', 'saldo' => $Saldo, 'valorNuevo' => $input['precio_proyecto'],'mensaje'=>' es mayor al presupuesto, el saldo del presupuesto total es'));
@@ -485,7 +491,7 @@ class PaaController extends Controller
 		{
 			$user = Proyecto::find($id);
 			$user->delete();
-			$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos')->get();
+			$proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos','presupuestos.proyectos.subDireccion')->get();
 			return $proyectoDesarrollo;
 		}
 	}

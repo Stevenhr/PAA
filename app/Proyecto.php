@@ -10,7 +10,7 @@ class Proyecto extends Model
     //
     protected $table = 'proyecto';
 	protected $primaryKey = 'Id';
-	protected $fillable = ['Id_presupuesto','codigo','Nombre','fecha_inicio','fecha_fin','valor','descripcion'];
+	protected $fillable = ['Id_presupuesto','codigo','Nombre','fecha_inicio','fecha_fin','valor','descripcion','id_subdireccion'];
 	protected $connection = ''; 
 	public $timestamps = true;
 
@@ -22,6 +22,12 @@ class Proyecto extends Model
     {
         return $this->belongsTo('App\Presupuesto','Id_presupuesto');
     }
+
+    public function subDireccion()
+    {
+        return $this->belongsTo('App\SubDireccion','id_subdireccion');
+    }
+
     public function paas()
     {
         return $this->hasMany('App\Paa','Id_Proyecto');

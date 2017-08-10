@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
 Route::get('/actividad_usuario', function () {
     return view('persona_actividades');
 });
@@ -41,6 +42,7 @@ Route::get('/personas/service/obtener/{id}', 'PaaController@obtener');
 Route::any('/obtener_area/', 'PaaController@obtener_area'); 
 Route::any('/GestionarPaa/', 'PlanAnualAController@index'); 
 Route::any('/AprobacionPaa/', 'ConsolidadoController@index'); 
+Route::any('/Componente/', 'ConsolidadoController@componenteConsolidador'); 
 Route::get('/configuracionPaa/proyecto/{id}', 'PaaController@proyecto'); 
 Route::any('/asignarTipoPersona', 'PaaController@asignarTipoPersona');
 Route::post('/configuracionPaa/validar/presupuesto/', 'PaaController@validar_presupuesto');

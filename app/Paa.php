@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Idrd\Usuarios\Seguridad\TraitSeguridad;
 
 class Paa extends Model
 {
@@ -137,6 +138,6 @@ class Paa extends Model
     {
         return $this->belongsTo('App\Persona','IdPersona');
     }
-
+    use TraitSeguridad;
     use SoftDeletes;
 }

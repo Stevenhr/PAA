@@ -873,6 +873,7 @@ $(function()
                     $("#div_Tabla4").show();
                     var num=1;
                     tt.clear().draw();
+                    console.log(data);
                     $.each(data.proyectoDesarrollo, function(i, e){
                         $.each(e.presupuestos, function(i, ee){
                             $.each(ee.proyectos, function(i, eee){
@@ -880,7 +881,9 @@ $(function()
                                     '<th scope="row" class="text-center">'+num+'</th>',
                                     '<td><h4>'+e['nombre']+'</h4></td>',
                                     '<td><h4>'+ee['vigencia']+'<h4></td>',
+                                    '<td><h4>'+eee['codigo']+'</h4></td>',
                                     '<td><h4>'+eee['Nombre']+'</h4></td>',
+                                    '<td><h4>'+eee.sub_direccion['nombre']+'</h4></td>',
                                     '<td>'+eee['fecha_inicio']+'</td>',
                                     '<td>'+eee['fecha_fin']+'</td>',
                                     '<td>'+number_format(eee['valor'],1)+'</td>',
@@ -989,13 +992,15 @@ $(function()
                                         $.each(ee.proyectos, function(i, eee){
                                             tt.row.add( [
                                                 '<th scope="row" class="text-center">'+num+'</th>',
-                                                '<td><h4>'+e['nombre']+'<h4></td>',
-                                                '<td><h4>'+ee['vigencia']+'<h4></td>',
-                                                '<td><h4>'+eee['Nombre']+'</h4></td>',
-                                                '<td>'+eee['fecha_inicio']+'</td>',
-                                                '<td>'+eee['fecha_fin']+'</td>',
-                                                '<td>'+number_format(eee['valor'],1)+'</td>',
-                                                '<td><div class="btn-group btn-group-justified tama">'+
+                                                    '<td><h4>'+e['nombre']+'</h4></td>',
+                                                    '<td><h4>'+ee['vigencia']+'<h4></td>',
+                                                    '<td><h4>'+eee['codigo']+'</h4></td>',
+                                                    '<td><h4>'+eee['Nombre']+'</h4></td>',
+                                                    '<td><h4>'+eee.sub_direccion['nombre']+'</h4></td>',
+                                                    '<td>'+eee['fecha_inicio']+'</td>',
+                                                    '<td>'+eee['fecha_fin']+'</td>',
+                                                    '<td>'+number_format(eee['valor'],1)+'</td>',
+                                                    '<td><div class="btn-group btn-group-justified tama">'+
                                                     '<div class="btn-group">'+
                                                     '<button type="button" data-rel="'+eee['Id']+'" data-funcion="ver_eli" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'+
                                                     '</div>'+

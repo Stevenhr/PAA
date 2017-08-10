@@ -17,6 +17,7 @@ use App\Proyecto;
 use App\CambioPaa;
 use App\Observacion;
 use App\PersonaPaa;
+use App\ProyectoDesarrollo;
 use App\SubDireccion;
 use PDF;
 use Mail;
@@ -34,7 +35,7 @@ class ConsolidadoController extends Controller
     {
         $this->repositorio_personas = $repositorio_personas;
     }
-    public function index()
+  public function index()
   {
     $modalidadSeleccion = ModalidadSeleccion::all();
     $proyecto = Proyecto::all();
@@ -65,6 +66,25 @@ class ConsolidadoController extends Controller
             'paas2' => $paa2,
         ];
     return view('consolidador',$datos);
+  }
+
+
+  public function componenteConsolidador()
+  { 
+    $PersonaPaa = PersonaPaa::with('area')->where('id',$_SESSION['Id_Persona'])->get();
+    $idSub=$PersonaPaa[0]->area['id_subdireccion'];
+
+    $proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos','presupuestos.proyectos.metas','presupuestos.proyectos.metas.actividades','presupuestos.proyectos.metas.actividades','presupuestos.proyectos.subDireccion')->get();
+    $fuente = Fuente::all();
+    $componente = Componente::with('fuente')->get();
+
+        $datos = [        
+            'proyectoDesarrollo' => $proyectoDesarrollo,
+            'id_subdireccion'=>$idSub,
+            'fuentes'=>$fuente,
+            'componentes'=>$componente,
+        ];
+    return view('componenteConsolidador',$datos);
   }
 
 

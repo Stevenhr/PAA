@@ -38,6 +38,9 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
         } );
     });
 
+
+
+
   var tb1 = $('#Tabla1').DataTable( {responsive: true  } );
 
   var tb2 = $('#Tabla2').DataTable( {responsive: true,  } );
@@ -1147,5 +1150,311 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
           },'json');
 
     });
-                  
-});
+  
+
+    $('#tb_componente tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Menu" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
+ 
+    // DataTable
+    var tb_componente = $('#tb_componente').DataTable( {responsive: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf'],
+        pageLength: 5
+    });
+ 
+    tb_componente.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    });
+
+     $('#tb_componente').delegate('button[data-funcion="Modal_Finanza_Fuente_compo"]','click',function (e){  
+            var id = $(this).data('rel'); 
+            var nombre = $(this).data('nombre');
+            $('#id_Nom_proy_fin_f').text(nombre);          
+            $('#id_proyect_fina_f').val(id);      
+            $.get(
+                URL+'/validar/consultaproyectoFinanza/'+id,
+                {},
+                function(data)
+                {   
+                  var num=1;
+                  Tabla_fuentes_financia.clear().draw();
+                  $.each(data.proyecto.fuente, function(i, e){
+                      var $tr1 = tabla_opciones(e,num);    
+                      Tabla_fuentes_financia.row.add($tr1).draw(false);
+                      num++;
+                  });
+                }
+            );    
+            e.preventDefault();
+      });
+
+       function tabla_opciones(e, num){
+
+             var $tr1 =   $('<tr></tr>').html(
+                '<th scope="row" class="text-center">'+num+'</th>'+
+                    '<td><b><p class="text-info">'+e['nombre']+'<br></p></b></td>'+
+                    '<td><b> $'+number_format(e.pivot['valor'])+'</b></td>'
+              );
+              return $tr1 ;
+        }
+
+
+        $('#Tabla_fuentes_financia tfoot th').each( function () {
+            var title = $(this).text();
+            if(title!="Opción" && title!="N°"){
+              $(this).html( '<input type="text" placeholder="Buscar"/>' );
+            }
+        } );
+
+       var Tabla_fuentes_financia = $('#Tabla_fuentes_financia').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ]
+        });
+
+        Tabla_fuentes_financia.columns().every( function () {
+            var that = this;
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        });
+
+
+
+
+    $('#Tabla_componentes_fuentes_financia tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Opción" && title!="N°"){
+          $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
+
+    var Tabla_componentes_fuentes_financia = $('#Tabla_componentes_fuentes_financia').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+    });
+
+    Tabla_componentes_fuentes_financia.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    });
+
+
+    $('#tb_componente').delegate('button[data-funcion="Modal_Finanza_Componente"]','click',function (e){  
+        var id_prty = $(this).data('rel'); 
+        var nombre = $(this).data('nombre');
+        $('#id_Nom_proy_fin_c').text(nombre);          
+        $('#id_proyect_fina_c').val(id_prty);      
+        $.get(
+            URL+'/validar/consultacomponenteFinanza/'+id_prty,
+            {},
+            function(data)
+            {   
+
+              var html = '<option value="">Seleccionar</option>';
+              if(data.proyecto.fuente.length > 0)
+              {
+                $.each(data.proyecto.fuente, function(i, e){
+                    html += '<option value="'+e.pivot['id']+'">'+e['nombre']+'</option>';
+                });
+              }
+              $('select[name="id_componente_finza_f"]').html(html).val($('select[name="id_componente_finza_f"]').data('value'));
+
+              var num=1;
+              Tabla_componentes_fuentes_financia.clear().draw();
+              $.each(data.FuenteProyecto, function(i, e){
+                  if(e.presupuestados.length){
+                     $.each(e.presupuestados, function(i, ee){
+
+                          var $tr1 = tabla_presupuestado(e,ee,num); 
+                          Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
+                          num++;
+                      
+                     });
+                  }   
+              });
+
+            }
+        );    
+        e.preventDefault();
+    }); 
+
+
+    function tabla_presupuestado(e, ee, num){
+
+             var $tr1 =   $('<tr></tr>').html(
+                '<th scope="row" class="text-center">'+num+'</th>'+
+                    '<td><b><p class="text-info">'+e.fuente['nombre']+'<br></p></b></td>'+
+                    '<td><b><p class="text-info">'+ee.componente_c['Nombre']+'<br></p></b></td>'+
+                    '<td><b> $'+number_format(ee['valor'])+'</b></td>'+
+                    '<td>'+
+                      '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+
+                        '<li><button type="button" data-rel="'+ee['id']+'" data-rel2="'+ee['componente_id']+'" data-rel3="'+e['proyecto_id']+'" data-rel4="'+e['id']+'" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>'+
+                        '<li><button type="button" data-rel="'+ee['id']+'" data-rel2="'+ee['componente_id']+'" data-rel3="'+e['proyecto_id']+'" data-rel4="'+e['id']+'" data-funcion="Modificacion" class="btn btn-link btn-xs"  title="Editar Paa" {{$disable}}><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>   Modificación</button></li>'+
+                      '</div>'+
+                    '</td>'
+              );
+            
+              return $tr1 ;
+    }
+
+
+    $('#form_agregar_finanza_componente').on('submit', function(e){
+              $('#id_fuente_finanza_fuente').prop('disabled', false);
+              $.post(
+                URL+'/validar/proyectoFinanzaFuenteCompoente',
+                $(this).serialize(),
+                function(data){
+
+                  if(data.status == 'error')
+                  {
+                      validad_error_finanza_componente(data.errors);
+                 
+                  } else {
+
+                      validad_error_finanza_componente(data.errors);
+                      $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-success"><center><strong>Cargando... Espere un momento! </strong>  Registrando finanza...</center></div>');
+                      $('#mjs_registroFinanza_fuente_componente').show();
+
+                      if(data.status == 'modelo')
+                      {
+                          if(data.upd==0){
+                            $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-success"><center><strong>Exitoso!! </strong>Registro modificado...</center></div>');
+                            $('#mjs_registroFinanza_fuente_componente').show();
+                            setTimeout(function(){
+                                $('#mjs_registroFinanza_fuente_componente').hide();
+                            }, 3000)
+                          }else if(data.upd==2){
+                            $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-danger"><center><strong>Ya existe la fuente y el componente!! </strong>Registro no se ha podido ingresar, la fuente y el componente ya existen en este proyecto....</center></div>');
+                            $('#mjs_registroFinanza_fuente_componente').show();
+                            setTimeout(function(){
+                                $('#mjs_registroFinanza_fuente_componente').hide();
+                            }, 3000)
+                          }else if(data.upd==3){
+                            $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-danger"><center><strong>Valor invalido!! </strong>El valor supera el valor disponible de esta fuente. Disponible: $'+number_format(data.valor_disponible)+'</center></div>');
+                            $('#mjs_registroFinanza_fuente_componente').show();
+                            setTimeout(function(){
+                                $('#mjs_registroFinanza_fuente_componente').hide();
+                            }, 3000)
+                          }else if(data.upd==4){
+                            $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-danger"><center><strong>Valor Superado!! </strong>El valor ingresado supera la disponibilidad del Proyecto.</center></div>');
+                            $('#mjs_registroFinanza_fuente_componente').show();
+                            setTimeout(function(){
+                                $('#mjs_registroFinanza_fuente_componente').hide();
+                            }, 3000)
+                          }else if(data.upd==5){
+                            $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-danger"><center><strong>Valor Insuficiente!! </strong>El valor ingresado es menor a la sumatoria de actividades ingresadas con este componente.</center></div>');
+                            $('#mjs_registroFinanza_fuente_componente').show();
+                            setTimeout(function(){
+                                $('#mjs_registroFinanza_fuente_componente').hide();
+                            }, 3000)
+                          }else if(data.upd==6){ 
+                            $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-danger"><center><strong>Valor Excedido!! </strong>El valor ingresado es mayor a la disponibilidad de esta fuente.</center></div>');
+                            $('#mjs_registroFinanza_fuente_componente').show();
+                            setTimeout(function(){
+                                $('#mjs_registroFinanza_fuente_componente').hide();
+                            }, 3000)
+                          }else{
+                              var num=1;
+                                Tabla_componentes_fuentes_financia.clear().draw();
+                                  $.each(data.FuenteProyecto, function(i, e){
+                                      if(e.presupuestados.length){
+                                         $.each(e.presupuestados, function(i, ee){
+                                           
+                                              var $tr1 = tabla_presupuestado(e,ee,num); 
+                                              Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
+                                              num++;
+                                            
+                                         });
+                                      }   
+                                  });
+                             
+                                $('#id_componente_finza_f').val("");
+                                $('#id_componente_finza_c').val("");
+                                $('input[name="valor_componente_proyecto"]').val('');
+                                $("#agregar_finanza").text('Registrar');
+                                $("#cancelar_finanza").hide();
+                                
+                                $('#id_finanza_fuenteCompoente_crear').val(0);
+                                
+                                $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-success"><center><strong>Exitoso!!</strong>Registro creado...  Disponible: $'+number_format(data.valor_disponible)+'</center></div>');
+                                $('#mjs_registroFinanza_fuente_componente').show();
+                                  setTimeout(function(){
+                                       $('#mjs_registroFinanza_fuente_componente').hide();
+                                }, 4000)
+                          }
+
+                              document.getElementById("form_agregar_finanza_fuente").reset(); 
+                              $('input[name="id_finanza_fuente_crear"]').val('0');
+                              $("#btn_agregar_finanza_ft").text('Registrar');
+                              $("#btn_agregar_finanza_ft_c").hide();
+                      }else{
+                          $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-danger"><center><strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos+'</div>');
+                          $('#mjs_registroFinanza_fuente_componente').show();
+                          setTimeout(function(){
+                              $('#mjs_registroFinanza_fuente_componente').hide();
+                          }, 6000)                          
+                      }
+                  }
+              },'json');
+          e.preventDefault();
+      });
+
+
+      var validad_error_finanza_componente = function(data)
+        {
+            $('#form_agregar_finanza_componente .form-group').removeClass('has-error');
+            var selector = '';
+            for (var error in data){
+                if (typeof data[error] !== 'function') {
+                    switch(error)
+                    {
+
+                        case 'id_componente_finza_f':
+                        case 'id_componente_finza_c':
+                        selector = 'select';
+                        break;
+
+                        case 'valor_componente_proyecto':
+                            selector = 'input';
+                        break;
+
+                    }
+                    $('#form_agregar_finanza_componente '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
+                }
+            }
+        }
+
+
+    });

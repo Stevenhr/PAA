@@ -102,6 +102,11 @@
                   @if($_SESSION['Usuario']['Permisos']['Gestion_consolidador'])
                     <li class=”{{ Request::is( 'AprobacionPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'AprobacionPaa') }}">Aprobación</a></li>
                   @endif
+
+                  @if($_SESSION['Usuario']['Permisos']['Gestion_consolidador'])
+                    <li class=”{{ Request::is( 'Componente') ? 'active' : '' }}”><a href="{{ URL::to( 'Componente') }}">Componente</a></li>
+                  @endif
+
                 </ul>
               </li>
               @endif

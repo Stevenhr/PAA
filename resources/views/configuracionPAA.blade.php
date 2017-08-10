@@ -333,7 +333,17 @@
 									</select>
 								</div>
 			        		</div>
-						    <div class="col-xs-12 col-md-3 "></div>
+						    <div class="col-xs-12 col-md-3 ">
+						    	<div class="form-group">	
+						    		<label>Subdirección</label>
+									<select class="form-control" name="id_subdireccion" id="id_subdireccion">
+											<option value="">Seleccionar</option>
+										@foreach($subdirecciones as $subdireccion)
+											<option value="{{ $subdireccion['id'] }}" >{{ $subdireccion['nombre'] }}</option>
+									    @endforeach
+									</select>
+								</div>
+						    </div>
 			        		<div class="col-xs-12 col-md-2 "></div>
 						</div>
 
@@ -375,8 +385,6 @@
 			        		</div>
 						</div>
 
-						
-
 						<div class="row">
 						    <div class="col-xs-12 col-md-4">
 			        		</div>
@@ -389,6 +397,7 @@
 			        		<div class="col-xs-12 col-md-4">
 			        		</div>
 						</div>
+
 					</form>
 
 
@@ -409,7 +418,9 @@
 								                <th class="text-center">N°</th>
 								                <th>Plan Desarrollo</th>
 								                <th>Vigencia</th>
+								                <th>Código</th>
 								                <th>Nombre Proyecto</th>
+								                <th>SubDirección</th>
 								                <th>Fecha inicial de implementación</th>
 								                <th>Fecha final de implementación</th>
 								                <th>Presupuesto</th>
@@ -421,7 +432,9 @@
 								                <th class="text-center">N°</th>
 								                <th>Plan Desarrollo</th>
 								                <th>Vigencia</th>
+								                <th>Código</th>
 								                <th>Nombre Proyecto</th>
+								                <th>SubDirección</th>
 								                <th>Fecha inicial de implementación</th>
 								                <th>Fecha final de implementación</th>
 								                <th>Presupuesto</th>
@@ -440,7 +453,9 @@
 								        						<th scope="row" class="text-center">{{ $var }}</th>
 								        						<td><h4>{{ $proyectoDesarrollos['nombre'] }}</h4></td>
 								                                <td><h4>{{ $presupuesto['vigencia'] }}</h4></td>
+										                        <td><h4>{{ $proyecto['codigo'] }}</h4></td>
 										                        <td><h4>{{ $proyecto['Nombre'] }}</h4></td>
+										                        <td><h4>{{ $proyecto->subDireccion['nombre'] }}</h4></td>
 										                        <td>{{ $proyecto['fecha_inicio'] }}</td>
 										                        <td>{{ $proyecto['fecha_fin'] }}</td>
 										                        <td>{{ number_format($proyecto['valor']) }}</td>
