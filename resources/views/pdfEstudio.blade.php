@@ -670,7 +670,7 @@
 			<TD HEIGHT=auto ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			<TD STYLE="border-left: 3px solid #000000" ALIGN=LEFT BGCOLOR="#FFFFFF"><BR></TD>
 			
-			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px; " COLSPAN=2 VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">{{$paas->proyecto['codigo']}} - {{strtoupper($paas->proyecto['Nombre'])}}</FONT></TD>
+			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px; " COLSPAN=2 VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">{{$finanza->fuenteproyecto->proyecto['codigo']}} - {{strtoupper($finanza->fuenteproyecto->proyecto['Nombre'])}}</FONT></TD>
 
 			<TD STYLE="border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #333333; border-right: 1px solid #333333; padding-left: 5px;" COLSPAN=3 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#FFFFFF"><FONT SIZE=6 COLOR="#000000">{{$actividad->Actividad->meta['Nombre']}}</FONT></TD>	
 			

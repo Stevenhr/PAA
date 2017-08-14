@@ -3329,13 +3329,21 @@ $(function()
                     '<td><b><p class="text-info">'+e.fuente['nombre']+'<br></p></b></td>'+
                     '<td><b><p class="text-info">'+ee.componente_c['Nombre']+'<br></p></b></td>'+
                     '<td><b> $'+number_format(ee['valor'])+'</b></td>'+
-                    '<td>'+
-                      '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+
-                        '<li><button type="button" data-rel="'+ee['id']+'" data-rel2="'+ee['componente_id']+'" data-rel3="'+e['proyecto_id']+'" data-rel4="'+e['id']+'" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>'+
-                        '<li><button type="button" data-rel="'+ee['id']+'" data-rel2="'+ee['componente_id']+'" data-rel3="'+e['proyecto_id']+'" data-rel4="'+e['id']+'" data-funcion="Modificacion" class="btn btn-link btn-xs"  title="Editar Paa" {{$disable}}><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>   Modificación</button></li>'+
-                      '</div>'+
-                    '</td>'
+                    '<td>N.A</td>'
               );
+
+              /*
+                '<th scope="row" class="text-center">'+num+'</th>'+
+                '<td><b><p class="text-info">'+e.fuente['nombre']+'<br></p></b></td>'+
+                '<td><b><p class="text-info">'+ee.componente_c['Nombre']+'<br></p></b></td>'+
+                '<td><b> $'+number_format(ee['valor'])+'</b></td>'+
+                '<td>'+
+                  '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+
+                    '<li><button type="button" data-rel="'+ee['id']+'" data-rel2="'+ee['componente_id']+'" data-rel3="'+e['proyecto_id']+'" data-rel4="'+e['id']+'" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>'+
+                    '<li><button type="button" data-rel="'+ee['id']+'" data-rel2="'+ee['componente_id']+'" data-rel3="'+e['proyecto_id']+'" data-rel4="'+e['id']+'" data-funcion="Modificacion" class="btn btn-link btn-xs"  title="Editar Paa" {{$disable}}><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>   Modificación</button></li>'+
+                  '</div>'+
+                '</td>'
+              */
             
               return $tr1 ;
     }

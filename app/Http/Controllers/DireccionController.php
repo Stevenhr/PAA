@@ -236,7 +236,7 @@ class DireccionController extends BaseController
 	            'RubroPryecto'=>$paa['Proyecto1Rubro2'],
 	            'subdirectora'=>$ModeloPersona,
 	        ];
-	        // dd($datos);
+	        //dd($datos);
 	        $view =  view('pdfEstudio',$datos)->render();
 
 	        //return $view;

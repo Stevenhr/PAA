@@ -1427,7 +1427,7 @@ class PaaController extends Controller
 		$valor_dispo=$Sum_Proye_fuente-$valorSumFC;
 		
 		//dd($valor_dispo." - ".$Sum_Proye_fuente." - ".$valorSumFC." - ".$FuenteProyecto);
-		
+//		dd($Presupuestado_1->count());
 		if($Presupuestado_1->count()>0)
 		{
 			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>2));

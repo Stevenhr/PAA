@@ -1291,7 +1291,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
         var id_prty = $(this).data('rel'); 
         var nombre = $(this).data('nombre');
         $('#id_Nom_proy_fin_c').text(nombre);          
-        $('#id_proyect_fina_c').val(id_prty);      
+        $('#id_proyect_fina_c').val(id_prty);    
+        Tabla_componentes_fuentes_financia.clear().draw();  
         $.get(
             URL+'/validar/consultacomponenteFinanza/'+id_prty,
             {},
@@ -1308,7 +1309,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
               $('select[name="id_componente_finza_f"]').html(html).val($('select[name="id_componente_finza_f"]').data('value'));
 
               var num=1;
-              Tabla_componentes_fuentes_financia.clear().draw();
+              
               $.each(data.FuenteProyecto, function(i, e){
                   if(e.presupuestados.length){
                      $.each(e.presupuestados, function(i, ee){
