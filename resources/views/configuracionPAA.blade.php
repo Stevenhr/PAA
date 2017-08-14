@@ -36,7 +36,6 @@
 			        <form id="form_plan_Desarrollo">
 			            <div id="div_plan_Desarrollo"><br></div>
 				        <div class="row" >
-
 						    <div class="col-xs-12 col-md-3">
 						    	<div class="form-group">	
 						    		<label>Nombre plan de desarrollo</label>

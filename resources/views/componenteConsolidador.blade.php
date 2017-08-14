@@ -142,13 +142,14 @@
 				</div>
 			</div>
 
-	      <div class="modal-footer">
-	      	<div class="row">
-	        	<div class="col-xs-12 col-sm-12">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				</div>
-	        </div>
-	      </div>
+		    <div class="modal-footer">
+		    	<div class="row">
+		        	<div class="col-xs-12 col-sm-12">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					</div>
+		        </div>
+		    </div>
+
       </form>
 
     </div>
@@ -182,7 +183,7 @@
 				<div class="row" >
 				    <div class="col-xs-12 col-md-4">
 				    	<div class="form-group">	
-				    		<input type="hidden" name="id_proyect_fina_c" id="id_proyect_fina_c" ></input>
+				    		<input type="hidden" name="id_proyect_fina_c" id="id_proyect_fina_c" >
 				    		<label>Fuente</label>					
 							<select class="form-control" name="id_componente_finza_f" id="id_componente_finza_f">
 									<option value="">Seleccionar</option>
@@ -215,7 +216,7 @@
 						</div>
 				  </div>
 				  <div class="col-xs-12 col-sm-12">
-				  		<input type="hidden" name="id_finanza_fuenteCompoente_crear" id="id_finanza_fuenteCompoente_crear"  value="0" ></input>
+				  		<input type="hidden" name="id_finanza_fuenteCompoente_crear" id="id_finanza_fuenteCompoente_crear"  value="0" >
 				  		<div id="mjs_registroFinanza_fuente_componente" style="display: none"></div>
 				  </div>
 				</div>

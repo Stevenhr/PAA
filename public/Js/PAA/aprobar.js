@@ -9,7 +9,23 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
   var URL = $('#main_paa_Aprobar').data('url');
   vector_datos_actividad = new Array();
 
-  
+  function formatCurrency(input)
+    {
+        var num = input.value.replace(/\./g,'');
+        if(!isNaN(num)){
+            num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+            num = num.split('').reverse().join('').replace(/^[\.]/,'');
+            input.value = num;
+        }
+          
+        else{ alert('Solo se permiten numeros');
+            input.value = input.value.replace(/[^\d\.]*/g,'');
+        }
+    }
+
+  $('input[name="valor_componente_proyecto"]').on('keyup', function(e){
+      formatCurrency(this);
+  });
 
    $('#TablaPAA tfoot th').each( function () {
         var title = $(this).text();
@@ -1328,6 +1344,88 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
             
               return $tr1 ;
     }
+
+
+
+    $('#Tabla_componentes_fuentes_financia').delegate('button[data-funcion="ver_eli"]','click',function (e){  
+            var idPresupuestado = $(this).data('rel'); 
+            var componente_id = $(this).data('rel2'); 
+            var proyecto_id = $(this).data('rel3'); 
+            var id_fuenteProyecto = $(this).data('rel4'); 
+
+           $.ajax({
+                url: URL+'/validar/eliminarpresupestado',
+                data: {'idPresupuestado':idPresupuestado,'componente_id':componente_id,'proyecto_id':proyecto_id,'id_fuenteProyecto':id_fuenteProyecto},
+                type: 'POST',
+                dataType: 'json',
+
+                success: function(data)
+                {
+                  if(data.status=='NoAutorizado'){
+                    $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-danger"><center><strong>Error... No se eliminó!! </strong>Ya existen valores ingresados en el plan anual de adquisiciones con esta relación.</center></div>');
+                    $('#mjs_registroFinanza_fuente_componente').show();
+                    setTimeout(function(){
+                        $('#mjs_registroFinanza_fuente_componente').hide();
+                    }, 3000)
+                  }else{
+                      var num=1;
+                      Tabla_componentes_fuentes_financia.clear().draw();
+                      $.each(data.FuenteProyecto, function(i, e){
+                          if(e.presupuestados.length){
+                             $.each(e.presupuestados, function(i, ee){
+                              if(ee.length){
+                                  var $tr1 = tabla_presupuestado(e,ee,num); 
+                                  Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
+                                  num++;
+                              }
+                             });
+                          }   
+                      });
+                      $('#mjs_registroFinanza_fuente_componente').html('<div class="alert alert-success"><center><strong>Eliminación Exitosa !!</strong> Registro eliminado correctamente...</center></div>');
+                      $('#mjs_registroFinanza_fuente_componente').show();
+                      setTimeout(function(){
+                           $('#mjs_registroFinanza_fuente_componente').hide();
+                      }, 3000)
+                  }
+                }
+            });
+            e.preventDefault();
+    });
+
+    $('#Tabla_componentes_fuentes_financia').delegate('button[data-funcion="Modificacion"]','click',function (e){  
+        var idPresupuestado = $(this).data('rel'); 
+        $.ajax({
+            url: URL+'/fuente/modificarFuenteProyectoCompoente',
+            data: {'idPresupuestado':idPresupuestado},
+            type: 'POST',
+            dataType: 'json',
+            success: function(data)
+            {
+                if(data){
+                    //console.log(data.fuenteproyecto['proyecto_id']);
+                    $('#id_proyect_fina_c').val(data.fuenteproyecto['proyecto_id']); 
+                    $('#id_finanza_fuenteCompoente_crear').val(data['id']);
+                    $('#id_componente_finza_f').val(data['fuente_id']);
+                    $('#id_componente_finza_c').val(data['componente_id']);
+                    $('input[name="valor_componente_proyecto"]').val(data['valor']);
+                    $("#agregar_finanza").text('Modificar');
+                    $("#cancelar_finanza").show();
+                }
+            }
+        });
+    });    
+
+    $('#cancelar_finanza').on('click', function(e){
+        $('#id_componente_finza_f').val("");
+        $('#id_componente_finza_c').val("");
+        $('input[name="valor_componente_proyecto"]').val('');
+        $("#agregar_finanza").text('Registrar');
+        $("#cancelar_finanza").hide();
+        $('#id_proyect_fina_c').val(""); 
+        $('#id_finanza_fuenteCompoente_crear').val(0);
+        e.preventDefault();
+    });  
+
 
 
     $('#form_agregar_finanza_componente').on('submit', function(e){

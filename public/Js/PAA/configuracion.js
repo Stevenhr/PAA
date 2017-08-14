@@ -474,7 +474,6 @@ $(function()
             {},
             function(data)
             {   
-
                     if(data.status == 'error')
                     {
                         var proyects="";
@@ -487,7 +486,6 @@ $(function()
                         setTimeout(function(){
                             $("#espera_plan"+id).html('');
                         }, 4000)
-                   
                     } else {
                         $("#espera_plan"+id).html('<div class="alert alert-success"><strong>Exito!</strong>Se elimino el plan de desarrollo correctamente.</div>');                        
                         setTimeout(function(){
