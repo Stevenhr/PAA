@@ -18,7 +18,12 @@ Route::get('/usuario_tipo', function () {
     return view('persona_tipoPersona');
 });
 
-// Rutas paquete usuario
+
+
+Route::any('/', 'MainController@index');
+Route::any('/logout', 'MainController@logout');
+
+	// Rutas paquete usuario
 Route::get('/personas', '\Idrd\Usuarios\Controllers\PersonaController@index');
 //Route::get('/personas/service/obtener/{id}', '\Idrd\Usuarios\Controllers\PersonaController@obtener');
 Route::get('/personas/service/buscar/{key}', '\Idrd\Usuarios\Controllers\PersonaController@buscar');
@@ -33,6 +38,15 @@ Route::any('PersonasActividadesProceso', '\Idrd\Usuarios\Controllers\AsignarActi
 
 Route::get('/tipo_modulo', '\Idrd\Usuarios\Controllers\AsignarActividadController@tipoModulo');
 Route::post('ProcesoTipoPersona', '\Idrd\Usuarios\Controllers\AsignarActividadController@AdicionTipoPersona');
+
+//rutas con filtro de autenticación
+Route::any('/welcome', 'MainController@welcome');
+Route::any('/', 'MainController@index');
+
+
+//rutas con filtro de autenticación
+Route::group(['middleware' => ['web']], function () {
+	//Route::get('/welcome', 'MainController@welcome');
 
 // Rutas proyecto local
 
@@ -171,11 +185,4 @@ Route::get('/reporteProyecto/service/obtenerPaaReservado/{id}', 'ControllerRepor
 
 Route::get('reporteGeneral', 'ControllerReporteGeneral@index');
 Route::post('/reporteProyectoGeneral/validar_form', 'ControllerReporteGeneral@validar_form');
-
-Route::any('/', 'MainController@index');
-Route::any('/logout', 'MainController@logout');
-
-//rutas con filtro de autenticación
-Route::group(['middleware' => ['web']], function () {
-	Route::get('/welcome', 'MainController@welcome');
 });
