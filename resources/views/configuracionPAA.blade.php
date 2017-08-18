@@ -1539,7 +1539,7 @@
 			    <div class="row"  >
 				   <div class="col-xs-12 col-sm-12">
 				  		<div class="form-group">
-					    	<button class="btn btn-success" type="submit" id="agregar_finanza">Agregar</button>
+					    	<button class="btn btn-success" type="submit" id="agregar_finanza" style="display: none;">Agregar</button>
 					    	<button class="btn btn-danger" type="submit" id="cancelar_finanza" style="display: none;">Cancelar</button>
 						</div>
 				  </div>
