@@ -863,7 +863,7 @@ class PlanAnualAController extends Controller
         return response()->json($model_A);
     }
 
-     public function obtenerHistorialPaaTodo(Request $request, $id)
+    public function obtenerHistorialPaaTodo(Request $request, $id)
     {
         $model_A = Paa::with('modalidad','tipocontrato','cambiosPaa','meta','proyecto','rubro_funcionamiento')->where('Registro', '=', $id)->get();
         return response()->json($model_A);

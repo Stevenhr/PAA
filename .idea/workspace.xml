@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="196356d9-eaf6-43b4-b219-ce4682329c03" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/Js/PAA/paa.js" afterPath="$PROJECT_DIR$/public/Js/PAA/paa.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/PlanAnualAController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/PlanAnualAController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/Js/PAA/aprobar.js" afterPath="$PROJECT_DIR$/public/Js/PAA/aprobar.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,8 +31,8 @@
       <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="56" column="25" lean-forward="false" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="25" />
+            <state relative-caret-position="96">
+              <caret line="137" column="17" lean-forward="false" selection-start-line="137" selection-start-column="17" selection-end-line="137" selection-end-column="44" />
               <folding>
                 <element signature="e#7#385#0#PHP" expanded="true" />
               </folding>
@@ -42,39 +43,39 @@
       <file leaf-file-name="paa.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/paa.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="436" column="84" lean-forward="false" selection-start-line="436" selection-start-column="71" selection-end-line="436" selection-end-column="84" />
+            <state relative-caret-position="360">
+              <caret line="440" column="71" lean-forward="true" selection-start-line="440" selection-start-column="71" selection-end-line="440" selection-end-column="71" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="paa.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="paa.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/Js/PAA/paa.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-213">
-              <caret line="2239" column="29" lean-forward="false" selection-start-line="2239" selection-start-column="29" selection-end-line="2239" selection-end-column="64" />
+            <state relative-caret-position="308">
+              <caret line="2249" column="42" lean-forward="true" selection-start-line="2249" selection-start-column="42" selection-end-line="2249" selection-end-column="42" />
               <folding>
-                <marker date="1503499335816" expanded="true" signature="49601:49609" ph="..." />
-                <marker date="1503499335816" expanded="true" signature="51472:51480" ph="..." />
-                <marker date="1503499335816" expanded="true" signature="53457:53465" ph="..." />
-                <marker date="1503499335816" expanded="true" signature="55299:55307" ph="..." />
-                <marker date="1503499335816" expanded="true" signature="58148:58156" ph="..." />
+                <marker date="1503499640170" expanded="true" signature="49601:49609" ph="..." />
+                <marker date="1503499640170" expanded="true" signature="51472:51480" ph="..." />
+                <marker date="1503499640170" expanded="true" signature="53457:53465" ph="..." />
+                <marker date="1503499640170" expanded="true" signature="55299:55307" ph="..." />
+                <marker date="1503499640170" expanded="true" signature="58148:58156" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="aprobar.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="aprobar.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/Js/PAA/aprobar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="1395" column="90" lean-forward="false" selection-start-line="1395" selection-start-column="55" selection-end-line="1395" selection-end-column="90" />
+            <state relative-caret-position="328">
+              <caret line="612" column="84" lean-forward="false" selection-start-line="612" selection-start-column="84" selection-end-line="612" selection-end-column="84" />
               <folding>
-                <marker date="1502729309355" expanded="true" signature="46326:46341" ph="..." />
-                <marker date="1502729309355" expanded="true" signature="46702:46833" ph="..." />
-                <marker date="1502729309355" expanded="true" signature="61301:61314" ph="..." />
-                <marker date="1502729309355" expanded="true" signature="61393:61411" ph="..." />
+                <marker date="1503502915063" expanded="true" signature="46156:46171" ph="..." />
+                <marker date="1503502915063" expanded="true" signature="46532:46663" ph="..." />
+                <marker date="1503502915063" expanded="true" signature="61131:61144" ph="..." />
+                <marker date="1503502915063" expanded="true" signature="61223:61241" ph="..." />
               </folding>
             </state>
           </provider>
@@ -83,11 +84,11 @@
       <file leaf-file-name="PlanAnualAController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PlanAnualAController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2156">
-              <caret line="421" column="8" lean-forward="false" selection-start-line="421" selection-start-column="8" selection-end-line="421" selection-end-column="8" />
+            <state relative-caret-position="338">
+              <caret line="859" column="39" lean-forward="false" selection-start-line="859" selection-start-column="20" selection-end-line="859" selection-end-column="39" />
               <folding>
-                <marker date="1502982988365" expanded="true" signature="15622:15789" ph="{...}" />
-                <marker date="1502982988365" expanded="true" signature="30167:31936" ph="{...}" />
+                <marker date="1503500095324" expanded="true" signature="15622:15789" ph="{...}" />
+                <marker date="1503500095324" expanded="true" signature="30167:31936" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -97,9 +98,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mjs_componente</find>
-      <find>hr</find>
-      <find>Dato_Actividad_Codigos</find>
       <find>validar_paa</find>
       <find>$nombre</find>
       <find>json_decode</find>
@@ -126,7 +124,10 @@
       <find>GestionarPaa</find>
       <find>data-funcion=&quot;Modificacion&quot;</find>
       <find>unidad_tiempo</find>
+      <find>obtenerHistorialPaa</find>
       <find>button[data-funcion=&quot;Modificacion&quot;]</find>
+      <find>service/obtenerHistorialPaa</find>
+      <find>radio</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -142,13 +143,13 @@
         <option value="$PROJECT_DIR$/app/Paa.php" />
         <option value="$PROJECT_DIR$/resources/views/consolidador.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/aprobacion-subdireccion-paa.blade.php" />
-        <option value="$PROJECT_DIR$/public/Js/PAA/aprobar.js" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/DireccionController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ConsolidadoController.php" />
         <option value="$PROJECT_DIR$/resources/views/paa.blade.php" />
         <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/PlanAnualAController.php" />
         <option value="$PROJECT_DIR$/public/Js/PAA/paa.js" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/PlanAnualAController.php" />
+        <option value="$PROJECT_DIR$/public/Js/PAA/aprobar.js" />
       </list>
     </option>
   </component>
@@ -343,12 +344,12 @@
       <workItem from="1498226548848" duration="6891000" />
       <workItem from="1498569918967" duration="46671000" />
       <workItem from="1500042731276" duration="4751000" />
-      <workItem from="1503498796262" duration="702000" />
+      <workItem from="1503498796262" duration="3867000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74997000" />
+    <option name="totallyTimeSpent" value="78162000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -366,7 +367,7 @@
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13177083" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977587" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15511551" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -414,24 +415,16 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/paa.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11484">
-          <caret line="522" column="66" lean-forward="true" selection-start-line="522" selection-start-column="66" selection-end-line="522" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/Js/PAA/paa.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7722">
           <caret line="351" column="63" lean-forward="false" selection-start-line="351" selection-start-column="63" selection-end-line="351" selection-end-column="63" />
           <folding>
-            <marker date="1503499335816" expanded="true" signature="49601:49609" ph="..." />
-            <marker date="1503499335816" expanded="true" signature="51472:51480" ph="..." />
-            <marker date="1503499335816" expanded="true" signature="53457:53465" ph="..." />
-            <marker date="1503499335816" expanded="true" signature="55299:55307" ph="..." />
-            <marker date="1503499335816" expanded="true" signature="58148:58156" ph="..." />
+            <marker date="1503499640170" expanded="true" signature="49601:49609" ph="..." />
+            <marker date="1503499640170" expanded="true" signature="51472:51480" ph="..." />
+            <marker date="1503499640170" expanded="true" signature="53457:53465" ph="..." />
+            <marker date="1503499640170" expanded="true" signature="55299:55307" ph="..." />
+            <marker date="1503499640170" expanded="true" signature="58148:58156" ph="..." />
           </folding>
         </state>
       </provider>
@@ -488,8 +481,8 @@
         <state relative-caret-position="12342">
           <caret line="588" column="36" lean-forward="true" selection-start-line="588" selection-start-column="36" selection-end-line="588" selection-end-column="36" />
           <folding>
-            <marker date="1502982988365" expanded="true" signature="15622:15789" ph="{...}" />
-            <marker date="1502982988365" expanded="true" signature="30167:31936" ph="{...}" />
+            <marker date="1503500095324" expanded="true" signature="15622:15789" ph="{...}" />
+            <marker date="1503500095324" expanded="true" signature="30167:31936" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -743,58 +736,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/paa.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="440" column="71" lean-forward="true" selection-start-line="440" selection-start-column="71" selection-end-line="440" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/Js/PAA/paa.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="2249" column="42" lean-forward="true" selection-start-line="2249" selection-start-column="42" selection-end-line="2249" selection-end-column="42" />
+          <folding>
+            <marker date="1503499640170" expanded="true" signature="49601:49609" ph="..." />
+            <marker date="1503499640170" expanded="true" signature="51472:51480" ph="..." />
+            <marker date="1503499640170" expanded="true" signature="53457:53465" ph="..." />
+            <marker date="1503499640170" expanded="true" signature="55299:55307" ph="..." />
+            <marker date="1503499640170" expanded="true" signature="58148:58156" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PlanAnualAController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="859" column="39" lean-forward="false" selection-start-line="859" selection-start-column="20" selection-end-line="859" selection-end-column="39" />
+          <folding>
+            <marker date="1503500095324" expanded="true" signature="15622:15789" ph="{...}" />
+            <marker date="1503500095324" expanded="true" signature="30167:31936" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="56" column="25" lean-forward="false" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="25" />
+        <state relative-caret-position="96">
+          <caret line="137" column="17" lean-forward="false" selection-start-line="137" selection-start-column="17" selection-end-line="137" selection-end-column="44" />
           <folding>
             <element signature="e#7#385#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/paa.blade.php">
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/html5/web-forms2.rnc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="436" column="84" lean-forward="false" selection-start-line="436" selection-start-column="71" selection-end-line="436" selection-end-column="84" />
+        <state relative-caret-position="293">
+          <caret line="451" column="22" lean-forward="false" selection-start-line="451" selection-start-column="22" selection-end-line="451" selection-end-column="22" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PlanAnualAController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2156">
-          <caret line="421" column="8" lean-forward="false" selection-start-line="421" selection-start-column="8" selection-end-line="421" selection-end-column="8" />
-          <folding>
-            <marker date="1502982988365" expanded="true" signature="15622:15789" ph="{...}" />
-            <marker date="1502982988365" expanded="true" signature="30167:31936" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/Js/PAA/aprobar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1395" column="90" lean-forward="false" selection-start-line="1395" selection-start-column="55" selection-end-line="1395" selection-end-column="90" />
+        <state relative-caret-position="328">
+          <caret line="612" column="84" lean-forward="false" selection-start-line="612" selection-start-column="84" selection-end-line="612" selection-end-column="84" />
           <folding>
-            <marker date="1502729309355" expanded="true" signature="46326:46341" ph="..." />
-            <marker date="1502729309355" expanded="true" signature="46702:46833" ph="..." />
-            <marker date="1502729309355" expanded="true" signature="61301:61314" ph="..." />
-            <marker date="1502729309355" expanded="true" signature="61393:61411" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/Js/PAA/paa.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-213">
-          <caret line="2239" column="29" lean-forward="false" selection-start-line="2239" selection-start-column="29" selection-end-line="2239" selection-end-column="64" />
-          <folding>
-            <marker date="1503499335816" expanded="true" signature="49601:49609" ph="..." />
-            <marker date="1503499335816" expanded="true" signature="51472:51480" ph="..." />
-            <marker date="1503499335816" expanded="true" signature="53457:53465" ph="..." />
-            <marker date="1503499335816" expanded="true" signature="55299:55307" ph="..." />
-            <marker date="1503499335816" expanded="true" signature="58148:58156" ph="..." />
+            <marker date="1503502915063" expanded="true" signature="46156:46171" ph="..." />
+            <marker date="1503502915063" expanded="true" signature="46532:46663" ph="..." />
+            <marker date="1503502915063" expanded="true" signature="61131:61144" ph="..." />
+            <marker date="1503502915063" expanded="true" signature="61223:61241" ph="..." />
           </folding>
         </state>
       </provider>
