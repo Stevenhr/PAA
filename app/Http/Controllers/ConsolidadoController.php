@@ -178,7 +178,8 @@ class ConsolidadoController extends Controller
         $FechaEstudioConveniencia=$request['FechaEstudioConveniencia'];
         $FechaInicioProceso=$request['FechaInicioProceso'];
         $FechaSuscripcionContrato=$request['FechaSuscripcionContrato'];
-        $DuracionContrato=$request['DuracionContrato'];
+        $DuracionContrato=$request['unidad_tiempo'];
+        $unidad_tiempo=$request['unidad_tiempo'];
         $MetaPlan=$request['MetaPlan'];
         $RecursoHumano=$request['RecursoHumano'];
         $NumeroContratista=$request['NumeroContratista'];
@@ -373,6 +374,19 @@ class ConsolidadoController extends Controller
               }
           }
 
+            if(sizeof($unidad_tiempo)>0){
+                // var_dump(sizeof($DuracionContrato));
+                if($unidad_tiempo[$i]!="0"){
+                    $modeloCambioPaa = new CambioPaa;
+                    $modeloCambioPaa['id_paa'] = $id[$i];
+                    $modeloCambioPaa['cambio'] = $unidad_tiempo[$i];
+                    $modeloCambioPaa['campo'] = 'unidad_tiempo';
+                    $modeloCambioPaa->save();
+                    $paas = Paa::find($Registro[$i]);
+                    $paas['$unidad_tiempo'] = $unidad_tiempo[$i];
+                    $paas->save();
+                }
+            }
         /*  if(sizeof($MetaPlan)>0){
               if($MetaPlan[$i]!="0"){
                 $modeloCambioPaa = new CambioPaa;

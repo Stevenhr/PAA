@@ -162,6 +162,18 @@
                             $Proyecto1Rubro2="R";
                             ?>
 						@endif
+
+
+						@if ($paa['unidad_tiempo']==0)
+                            <?php $uni_t = "Dias"; ?>
+						@elseif($paa['unidad_tiempo']==1)
+                            <?php $uni_t = "Mes"; ?>
+						@elseif($paa['unidad_tiempo']==2)
+                            <?php $uni_t = "Años"; ?>
+						@else
+                            <?php $uni_t = ""; ?>
+						@endif
+
 						<tr data-row="{{ $paa['Id'] }}" class="{{ $class }}">
     						<td scope="row" class="text-center">{{$var}}</th>
 	                        <td class="text-center"><b><p class="text-info text-center" style="font-size: 15px">{{$paa['Registro']}}<BR>{{$var0}}{{$var1}}{{$var11}}<br>{{$Proyecto1Rubro2}}</b></p></td>
@@ -174,7 +186,7 @@
 	                        <td>{{$paa->tipocontrato['Nombre']}}</td>
 	                        <td><div style="width:500px;text-align: justify; height: 100px; overflow-y: scroll;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); padding: 10px">'{{$paa['ObjetoContractual']}}</div></td>
 	                        <td>{{number_format ($paa['ValorEstimado'])}}</td>
-	                        <td>{{$paa['DuracionContrato']}}</td>
+	                        <td>{{$paa['DuracionContrato']}}  -  {{$uni_t}}</td>
 	                        <td>{{number_format ($paa['ValorEstimadoVigencia'])}}</td>
 	                        <td>{{$paa['VigenciaFutura']}}</td>
 	                        <td>{{$paa['EstadoVigenciaFutura']}}</td>

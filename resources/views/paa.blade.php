@@ -57,7 +57,7 @@
 						<th>Tipo<br>Contrato</th>
 						<th data-priority="3">Descripción<br>Objeto</th>
 						<th>Valor<br>Estimado</th>
-						<th>Duración<br>Estimada (mes)</th>
+						<th>Duración<br>Estimada</th>
 						<!--<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>-->
 						<th>Valor estimado <br> vigencia actual	</th>
 						<th>¿Se requieren <br>vigencias futuras?	</th>
@@ -142,12 +142,23 @@
 								@endif
 
 
-								@if ($paa['vinculada']>0)
+								@if ($paa['DuracionContrato']>0)
                                     <?php $var1 = 'V'; ?>
                                     <?php $var11 = $paa['vinculada']; ?>
 								@else
                                     <?php $var1 = ''; ?>
                                     <?php $var11 = ''; ?>
+								@endif
+
+
+								@if ($paa['unidad_tiempo']==0)
+									<?php $uni_t = "Dias"; ?>
+								@elseif($paa['unidad_tiempo']==1)
+									<?php $uni_t = "Mes"; ?>
+								@elseif($paa['unidad_tiempo']==2)
+									<?php $uni_t = "Años"; ?>
+								@else
+									<?php $uni_t = ""; ?>
 								@endif
 
                                 <?php $nombrementa="";
@@ -183,7 +194,7 @@
 								<td>{{$paa->tipocontrato['Nombre']}}</td>
 								<td><div  class="campoArea">{{$paa['ObjetoContractual']}}</div></td>
 								<td>{{number_format ($paa['ValorEstimado'])}}</td>
-								<td>{{$paa['DuracionContrato']}}</td>
+								<td>{{$paa['DuracionContrato']}} - {{$uni_t}}</td>
 							<!--<td>{{$paa['FuenteRecurso']}}</td>-->
 								<td>{{number_format($paa['ValorEstimadoVigencia'])}}</td>
 								<td>{{$paa['VigenciaFutura']}}</td>

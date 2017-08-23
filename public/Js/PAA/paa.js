@@ -2461,6 +2461,16 @@ $(function()
                                 nombrementa = "N.A";
                                 Proyecto1Rubro2 = "R";
                             }
+
+                            var uni_t="";
+                            if (e['unidad_tiempo']==0)
+                                uni_t = "Dias";
+                            else if(e['unidad_tiempo']==1)
+                                uni_t = "Mes";
+                            else if(e['unidad_tiempo']==2)
+                                uni_t = "Años";
+                            else
+                                uni_t = "";
                           
                           var $tr1 =   $('<tr '+clase+'></tr>').html(
                             '<th scope="row" class="text-center">'+num+'</th>'+
@@ -2472,7 +2482,7 @@ $(function()
                                 '<td>'+e.tipocontrato['Nombre']+'</td>'+
                                 '<td><div style="width:500px;text-align: justify;height: 100px; overflow-y: scroll;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); padding: 10px">'+e['ObjetoContractual']+'</div></td>'+
                                 '<td>'+number_format(e['ValorEstimado'])+'</td>'+
-                                '<td>'+e['DuracionContrato']+'</td>'+
+                                '<td>'+e['DuracionContrato']+' - '+uni_t+'</td>'+
                                 '<td>'+number_format(e['ValorEstimadoVigencia'])+'</td>'+
                                 '<td>'+e['VigenciaFutura']+'</td>'+
                                 '<td>'+e['EstadoVigenciaFutura']+'</td>'+

@@ -425,6 +425,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
       FechaInicioProceso="";
       FechaSuscripcionContrato="";
       DuracionContrato="";
+      unidad_tiempo="";
       MetaPlan="";
       RecursoHumano="";
       NumeroContratista="";
@@ -478,12 +479,22 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   FechaInicioProceso=dato['FechaInicioProceso'];
                                   FechaSuscripcionContrato=dato['FechaSuscripcionContrato'];
                                   DuracionContrato=dato['DuracionContrato'];
+                                  unidad_tiempo=dato['unidad_tiempo'];
                                   RecursoHumano=dato['RecursoHumano'];
                                   NumeroContratista=dato['NumeroContratista'];
                                   DatosResponsable=dato['DatosResponsable'];
                         }
 
                       });
+
+                      var un_t="";
+                      if(unidad_tiempo==0){
+                          un_t="Dias";
+                      }else if(unidad_tiempo==1){
+                          un_t="Meses";
+                      }else{
+                          un_t="Años";
+                      }
 
                        tb5.row.add( [
                           '<th scope="row" class="text-center">'+num1+'</th>',
@@ -499,6 +510,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td><h5>'+FechaInicioProceso+'</h5></td>',
                           '<td><h5>'+FechaSuscripcionContrato+'</h5></td>',
                           '<td><h5>'+DuracionContrato+'</h5></td>',
+                           '<td><h5>'+un_t+'</h5></td>',
                           '<td><h5>'+RecursoHumano+'</h5></td>',
                           '<td><h5>'+NumeroContratista+'</h5></td>',
                           '<td><h5>'+DatosResponsable+'</h5></td>',
@@ -585,9 +597,14 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                             if(dato['DuracionContrato']===DuracionContrato)
                               estilo12="";
                              else
-                              estilo12="color: red !important;";    
+                              estilo12="color: red !important;";
 
-                             if(dato['RecursoHumano']===RecursoHumano)
+                            if(dato['unidad_tiempo']===unidad_tiempo)
+                                estilo13="";
+                            else
+                                estilo13="color: red !important;";
+
+                            if(dato['RecursoHumano']===RecursoHumano)
                               estilo14="";
                              else
                               estilo14="color: red !important;";
@@ -602,6 +619,17 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                              else
                               estilo16="color: red !important;";                           
 
+                             var un_t="";
+                             if(dato['unidad_tiempo']==0)
+                             {
+                                 un_t="Dias";
+                             }else if(dato['unidad_tiempo']==1)
+                             {
+                                 un_t="Meses";
+                             }else
+                             {
+                                 un_t="Años";
+                             }
 
                             tb5.row.add( [
                                   '<th scope="row" class="text-center">'+num1+'<input type="hidden" value="'+dato['Id']+'" name="Id[]"><input type="hidden" value="'+dato['Registro']+'" name="Registro[]"></th>',
@@ -617,6 +645,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                   '<td><div style="'+estilo10+'">'+dato['FechaInicioProceso']+'<br><label><input type="checkbox" value="'+dato['FechaInicioProceso']+'" name="FechaInicioProceso[]"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+estilo11+'">'+dato['FechaSuscripcionContrato']+'<br><label><input type="checkbox" value="'+dato['FechaSuscripcionContrato']+'" name="FechaSuscripcionContrato[]"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+estilo12+'">'+dato['DuracionContrato']+'<br><label><input type="checkbox" value="'+dato['DuracionContrato']+'" name="DuracionContrato[]"><span><span></span></span></label>Selecionar</div></td>',
+                                  '<td><div style="'+estilo13+'">'+un_t+'<br><label><input type="checkbox" value="'+dato['unidad_tiempo']+'" name="unidad_tiempo[]"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+estilo14+'">'+dato['RecursoHumano']+'<br><label><input type="checkbox" value="'+dato['RecursoHumano']+'" name="RecursoHumano[]"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+estilo15+'">'+dato['NumeroContratista']+'<br><label><input type="checkbox" value="'+dato['NumeroContratista']+'" name="NumeroContratista[]"><span><span></span></span></label>Selecionar</div></td>',
                                   '<td><div style="'+estilo16+'">'+dato['DatosResponsable']+'<br><label><input type="checkbox" value="'+dato['DatosResponsable']+'" name="DatosResponsable[]"><span><span></span></span></label>Selecionar</div></td>',
@@ -989,6 +1018,17 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           Proyecto1Rubro2 = "R";
                       }
 
+                      var uni_t="";
+                      if (e['unidad_tiempo']==0)
+                        uni_t = "Dias";
+                      else if(e['unidad_tiempo']==1)
+                        uni_t = "Mes";
+                      else if(e['unidad_tiempo']==2)
+                        uni_t = "Años";
+                      else
+                        uni_t = "";
+
+
                       var $tr1 = $('<tr '+clase+'></tr>').html(
                           '<th scope="row" class="text-center">'+num+'</th>'+
                           '<td><b><p class="text-info text-center" style="font-size: 15px">'+e['Registro']+'<br>'+var0+var1+'<br>'+Proyecto1Rubro2+'</p></b></td>'+
@@ -999,7 +1039,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                           '<td><div style="width:500px;text-align: justify; height: 100px; overflow-y: scroll;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); padding: 10px">'+e['ObjetoContractual']+'</div></td>'+
                           '<td>'+e['ValorEstimado']+'</td>'+
                           '<td>'+e.area['nombre']+' <br> <b>'+e.persona['Primer_Apellido']+' '+e.persona['Primer_Nombre']+'</b> </td>'+
-                          '<td>'+e['DuracionContrato']+'</td>'+
+                          '<td>'+e['DuracionContrato']+' - '+uni_t+'</td>'+
                           //'<td>'+e['FuenteRecurso']+'</td>'+
                           '<td>'+e['ValorEstimadoVigencia']+'</td>'+
                           '<td>'+e['VigenciaFutura']+'</td>'+
