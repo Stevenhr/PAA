@@ -2263,8 +2263,8 @@ $(function()
         var CodigosU = datos['CodigosU'].split(","); 
         for (var i=0; i < CodigosU.length; i++) { 
             vector_datos_codigos.push({"codigo": CodigosU[i] }); 
-        } 
-        
+        }
+        console.log(datos);
         $('input[name="id_Paa"]').val(datos['Id']).closest('.form-group').removeClass('has-error');;;
         $('input[name="id_registro"]').val(datos['Registro']).closest('.form-group').removeClass('has-error');;
         $('input[name="codigo_Unspsc"]').val(datos['CodigosU']).closest('.form-group').removeClass('has-error');;
@@ -2289,6 +2289,7 @@ $(function()
 
         $('select[name="ProyectOrubro"]').val(datos['Proyecto1Rubro2']).closest('.form-group').removeClass('has-error');
         $('#ProyectOrubro').prop("disabled",true);
+        $('select[name="unidad_tiempo"]').val(datos['unidad_tiempo']).closest('.form-group').removeClass('has-error');
 
         //$('select[name="Proyecto_inversion"]').val(datos['Id_Proyecto']).closest('.form-group').removeClass('has-error'); 
         if(datos['Proyecto1Rubro2']==1)//Proyecto
