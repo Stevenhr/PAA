@@ -1251,18 +1251,19 @@ class PaaController extends Controller
 
 		$valor_fuente_proyecto=str_replace('.', '', $input['valor_fuente_proyecto']);
 
-	    if($valor_dispo_proy<$valor_fuente_proyecto)
-		{
-			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>4));
-		}
-		else if($valor_dispo<$valor_fuente_proyecto)
-		{
-			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>3));
-		}
-		else
-		{
-			return $this->modificar_finanza_fuente($Fuente, $input);
-		}
+		if($proyecto_vt['valor']>=$valor_fuente_proyecto) {
+            return $this->modificar_finanza_fuente($Fuente, $input);
+        }else
+        {
+            if ($valor_dispo_proy < $valor_fuente_proyecto) {
+                dd($valor_dispo_proy . "<=" . $valor_fuente_proyecto." - ".$proyecto_vt['valor']);
+                return response()->json(array('status' => 'modelo', 'proyecto' => '', 'upd' => 4));
+            } else if ($valor_dispo < $valor_fuente_proyecto) {
+                return response()->json(array('status' => 'modelo', 'proyecto' => '', 'upd' => 3));
+            } else {
+                return $this->modificar_finanza_fuente($Fuente, $input);
+            }
+        }
 	}
 
 	public function modificar_finanza_fuente($Fuente, $input)
@@ -1380,7 +1381,8 @@ class PaaController extends Controller
 		}
 		else if($valor_dispo<$valor_f_c)
 		{
-			//dd($valor_dispo."=".$Proyecto->fuente[0]->pivot['valor']." - ".$valorSumFC);
+            //dd($Sum_Proye_fuente." -  ".$valorSumFC." = ".$valor_dispo." < ".$valor_f_c);
+		    //dd($valor_dispo."=".$Proyecto->fuente[0]->pivot['valor']." - ".$valorSumFC);
 			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>6));
 		}
 		else

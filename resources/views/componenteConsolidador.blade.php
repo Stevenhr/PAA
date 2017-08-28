@@ -46,7 +46,7 @@
 				                <th>Opción</th>
 				            </tr>
 				        </tfoot>
-				        <tbody i>
+				        <tbody >
 				        	<?php $var=1; ?>
 				        	@foreach($proyectoDesarrollo as $proyectoDesarrollos)
 			        			@if(count($proyectoDesarrollos->presupuestos )!=0)

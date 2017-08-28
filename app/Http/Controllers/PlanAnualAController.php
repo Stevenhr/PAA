@@ -350,7 +350,7 @@ class PlanAnualAController extends Controller
         if(!empty($emails))
         {
             Mail::send('mail', ['mensaje'=>$mensaje,'persona'=>$persona,'area'=>$area,'objeto'=>$objeto_contrato], function ($m) use ($paa,$mensaje,$emails)  {
-                $m->from('steven.hernandez@idrd.gov.co', $mensaje);
+                $m->from('mails@idrd.gov.co', $mensaje);
 
                 $m->to($emails, 'Estevenhr')->subject($mensaje."!");
             });
