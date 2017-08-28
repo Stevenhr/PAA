@@ -10,7 +10,7 @@ class Componente extends Model
     //
     protected $table = 'componente';
 	protected $primaryKey = 'Id';
-	protected $fillable = ['Nombre','fecha_inicio','fecha_fin','valor','descripcion','codigo','Id_fuente'];
+	protected $fillable = ['Nombre','fecha_inicio','fecha_fin','valor','descripcion','codigo','Id_fuente','deleted_at'];
 	protected $connection = ''; 
 	public $timestamps = true;
 

@@ -623,11 +623,14 @@ $(function()
                
 
                 //valor de la suma de los paa pendientes
+
                 $.each(data.ModeloPaPendi, function(i, eee){
                   if(eee.componentes!=''){
                     $.each(eee.componentes, function(ii, eeee){
-                       if(eeee.pivot['valor']!='')
-                       suma2=suma2 + parseInt(eeee.pivot['valor']);
+                       if(eeee.pivot['valor']!='') {
+                           suma2 = suma2 + parseInt(eeee.pivot['valor']);
+                           console.log(eeee.pivot['id_paa']);
+                       }
                     });
                   }
                 });
