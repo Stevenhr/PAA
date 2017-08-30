@@ -45,6 +45,7 @@ class ControllerReporteGeneral extends Controller
                 $proyecto = Paa::with('componentes')->get();
 
                 $finanzas_r = Paa::with('componentes')->whereBetween('FechaEstudioConveniencia',array($request['fecha_inicial'], $request['fecha_final']))->where('Estado',Estado::EstudioAprobado)->get();
+               
                     if($finanzas_r)
                     {
                         foreach ($finanzas_r as &$paa)
@@ -59,8 +60,7 @@ class ControllerReporteGeneral extends Controller
                         }
                     }
 
-                $tabla="  
-                <table id='Tabla_Reporte2' class='display responsive no-wrap' width='100%' cellspacing='0'>
+                $tabla="<table id='Tabla_Reporte2' class='display responsive no-wrap' width='100%' cellspacing='0'>
                     <thead>
                         <tr>
                             <th>#</th>
