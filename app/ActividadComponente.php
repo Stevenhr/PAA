@@ -10,7 +10,7 @@ class ActividadComponente extends Model
     //
     protected $table = 'actividadComponente';
 	protected $primaryKey = 'id';
-	protected $fillable = ['componente_id','actividad_id','fuente_id','proyecto_id','valor','estado','id_fk_meta','id_paa'];
+	protected $fillable = ['componente_id','actividad_id','fuente_id','proyecto_id','valor','estado','id_fk_meta','id_paa','deleted_at'];
 	protected $connection = ''; 
 	public $timestamps = true;
 

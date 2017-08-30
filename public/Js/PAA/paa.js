@@ -623,19 +623,32 @@ $(function()
                
 
                 //valor de la suma de los paa pendientes
-
+                console.log(data.ModeloPaPendi);
                 $.each(data.ModeloPaPendi, function(i, eee){
                   if(eee.componentes!=''){
                     $.each(eee.componentes, function(ii, eeee){
                        if(eeee.pivot['valor']!='') {
                            suma2 = suma2 + parseInt(eeee.pivot['valor']);
-                           console.log(eeee.pivot['id_paa']);
+                           //console.log(eeee.pivot['id_paa']);
                        }
                     });
                   }
                 });
 
-              
+                /*$.each(data.ModeloPaPendi, function(i, eee){
+                    if(eee.componentes!=''){
+                        $.each(eee.componentes, function(ii, eeee){
+                            if(eeee.pivot['valor']!='')
+                                suma2=suma2 + parseInt(eeee.pivot['valor']);
+                            if(eeee.pivot['valor']!='') {
+                                suma2 = suma2 + parseInt(eeee.pivot['valor']);
+                                console.log(eeee.pivot['id_paa']);
+                            }
+                        });
+                    }
+                });*/
+
+
                 valorCocenpto=data.presupuestado['valor'];
                 valorAfavor=parseInt(valorCocenpto)-parseInt(suma)-parseInt(suma2);
         
@@ -953,7 +966,7 @@ $(function()
         valor_contrato=replaceAll(valor_contrato, ".", "" );
         //console.log("-->"+valorAfavor+" "+valor_contrato);
         valor_ingresado_conso=parseInt(valor_contrato);
-        //console.log(valorAfavor+" "+valor_ingresado_conso);
+        console.log(valorAfavor+" "+valor_ingresado_conso);
 
         if(Nom_Proyecto_inversion===''){
           $('#alert_actividad').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe seleccionar un fuente de financiación para poder realizar el registro.</div>');

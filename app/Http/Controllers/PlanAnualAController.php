@@ -375,12 +375,12 @@ class PlanAnualAController extends Controller
 
         $ModeloPa = Paa::with(['componentes' => function($query) use ($id_c,$id_f_p)
         {
-            $query->where('componente_id',$id_c)->where('fuente_id',$id_f_p)->where('actividadComponente.deleted_at','NULL');
+            $query->where('componente_id',$id_c)->where('fuente_id',$id_f_p)->whereNull('actividadComponente.deleted_at');
         }])->where('Estado','9')->get();
 
         $ModeloPa2 = Paa::with(['componentes' => function($query) use ($id_c,$id_f_p)
         {
-            $query->where('componente_id',$id_c)->where('fuente_id',$id_f_p)->where('actividadComponente.deleted_at','NULL');
+            $query->where('componente_id',$id_c)->where('fuente_id',$id_f_p)->whereNull('actividadComponente.deleted_at');
         }])->whereIn('Estado',[0,4,5,8,10])->get();
         //dd($ModeloPa2->count());
         $ModeloCompoente=Componente::find($id_c);
