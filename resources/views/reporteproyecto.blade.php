@@ -107,7 +107,7 @@
 							    <p id="mnjs"></p>
 							</div>						 
 							<div class="table-responsive">
-								<table  id="Tabla1" class="display nowrap table-bordered" width="780px" cellspacing="0">
+								<table  id="Tabla1" class="display responsive no-wrap table table-min" width="100%" cellspacing="0">
 								        <thead>
 											<tr class="success">
 								                <th>N°</th>

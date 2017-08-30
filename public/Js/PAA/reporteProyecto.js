@@ -142,7 +142,35 @@ $(function()
 	});
 
 
-    var tb1 = $('#Tabla1').DataTable( {responsive: true   } );
+
+
+    $('#Tabla1 tfoot th').each( function () {
+        var title = $(this).text();
+        if(title!="Menu" && title!="N°"){
+            $(this).html( '<input type="text" placeholder="Buscar"/>' );
+        }
+    } );
+
+    // DataTable
+    var tb1 = $('#Tabla1').DataTable( {responsive: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf'],
+        pageLength: 5
+    });
+
+    // Apply the search
+    tb1.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    });
+
 	$('body').delegate('button[data-funcion="paaAprobado"]','click',function (e) {   
       var id = $(this).data('rel'); 
 
