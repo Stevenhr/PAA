@@ -21,7 +21,7 @@ $(function(){
 	      {
 	          var dato = $(this).data('value');
 	          $(this).val(dato);
-	      }p''
+	      }
 	  }
 	});
 
