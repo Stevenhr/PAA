@@ -60,9 +60,16 @@ class PlanAnualAController extends Controller
         $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
         $paa_obs=Paa::with('observaciones')->where('IdPersona',$_SESSION['Id_Persona'])->get();
 
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area','componentes','proyecto','meta','persona','rubro_funcionamiento')->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
 
-        //dd($paa[0]->componentes->count());
+
+        $paa = Paa::with(['modalidad','tipocontrato','rubro','area','proyecto','meta','persona','rubro_funcionamiento','componentes' =>     function($query)
+            {
+               $query->with('actividadescomponetes.fuenteproyecto.fuente','actividadescomponetes.fuenteproyecto.proyecto');
+            }])
+            ->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])
+            ->get();
+
+        //dd($paa[0]->componentes[0]->actividadescomponetes);
         $datos = [        
             'modalidades' => $modalidadSeleccion,
             'proyectos' => $proyecto,
@@ -72,7 +79,7 @@ class PlanAnualAController extends Controller
             'paas' => $paa,
             'paa_obs' => $paa_obs,
             'subDirecciones' => $subDireccion,
-            'fuenteHaciendas'=>$fuenteHacienda 
+            'fuenteHaciendas'=>$fuenteHacienda,
         ];
         //dd($paa);
         //exit();
@@ -598,7 +605,7 @@ class PlanAnualAController extends Controller
         }else{
             $estado="0";
         }
-        
+       
         $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente','meta')->where('id_paa',$id)->get();
         return response()->json(array('status' => $estado, 'errors' => $validator->errors(),'ActividadComponente'=>$ActividadComponente));
     }

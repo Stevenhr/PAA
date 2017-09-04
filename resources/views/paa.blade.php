@@ -205,7 +205,14 @@
 								<td>{{$paa['RecursoHumano']}}</td>
 								<td>{{$paa['NumeroContratista']}}</td>
 								<td>{{$paa['DatosResponsable']}}</td>
-								<td>{{$nomProyRubro}}</td>
+								<td>
+									@foreach($paa->componentes as $componente)
+										@foreach($componente->actividadescomponetes as $actividadescomponet)
+											{{$actividadescomponet->fuenteproyecto->proyecto['Nombre']}}
+											<br>
+										@endforeach
+									@endforeach
+								</td>
 								<td>{{$nombrementa}}</td>
 
 								<td>
