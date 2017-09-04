@@ -206,12 +206,7 @@
 								<td>{{$paa['NumeroContratista']}}</td>
 								<td>{{$paa['DatosResponsable']}}</td>
 								<td>
-									@foreach($paa->componentes as $componente)
-										@foreach($componente->actividadescomponetes as $actividadescomponet)
-											{{$actividadescomponet->fuenteproyecto->proyecto['Nombre']}}
-											<br>
-										@endforeach
-									@endforeach
+									
 								</td>
 								<td>{{$nombrementa}}</td>
 
