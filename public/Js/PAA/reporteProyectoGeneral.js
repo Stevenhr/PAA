@@ -41,7 +41,8 @@ $(function()
 
 
   $('#form_reporte_general').on('submit', function(e){
-          
+
+          $("#contenido_reporte2").html("<img src='public/Img/loading.gif'/>");
           $.post(
             URL+'/validar_form',
             $(this).serialize(),
@@ -55,8 +56,7 @@ $(function()
               else 
                 {
                   validad_error(data.errors);
-                  $("#contenido_reporte2").html("<img src='public/Img/loading.gif'/>");
-                  
+                                    
                   // DataTable
                   $('#contenido_reporte2').html(data.tabla);
                   $('#Tabla_Reporte2 tfoot th').each( function () {

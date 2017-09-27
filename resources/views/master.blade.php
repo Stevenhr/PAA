@@ -91,6 +91,9 @@
                   @if($_SESSION['Usuario']['Permisos']['Gestion_operador'])
                     <li class=”{{ Request::is( 'GestionarPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'GestionarPaa') }}">Gestionar PAA</a></li>
                   @endif
+                  @if($_SESSION['Usuario']['Permisos']['Reporte_Sin_Aprobacion'])
+                    <li class=”{{ Request::is( 'reporteGeneralOperario') ? 'active' : '' }}”><a href="{{ URL::to( 'reporteGeneralOperario') }}">Planes Finanzas sin aprobar</a></li>
+                  @endif
                 </ul>
               </li>
               @endif

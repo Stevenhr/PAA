@@ -142,7 +142,7 @@
 								@endif
 
 
-								@if ($paa['DuracionContrato']>0)
+								@if ($paa['vinculada']>0)
                                     <?php $var1 = 'V'; ?>
                                     <?php $var11 = $paa['vinculada']; ?>
 								@else

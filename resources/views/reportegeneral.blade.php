@@ -11,7 +11,13 @@
     	
     	<div class="row">
     	    <div class="col-xs-12 col-md-12">
-				<h4>Reporte General</h4>
+				
+				@if($vista==0)
+					<h4>Reporte General</h4>
+				@elseif($vista==1)
+					<h4>Reporte Planes Sin Aprobación.</h4>
+				@endif
+
 				<br><br>
     		</div>
     	</div>
@@ -19,6 +25,7 @@
 	    	<div class="row">
 	    	    <div class="col-xs-12 col-md-4">
 			    	<div class="form-group">	
+			    		<input type="hidden" name="vista" value="{{$vista}}">
 					    <label for="planDesarrollo">1. Plan de desarrollo</label>
 					    <select class="form-control" id="planDesarrollo" name="planDesarrollo">
 						      <option value="">Seleccionar</option>

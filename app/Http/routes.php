@@ -184,5 +184,6 @@ Route::get('/reporteProyecto/service/obtenerPaaAprobado/{id}', 'ControllerReport
 Route::get('/reporteProyecto/service/obtenerPaaReservado/{id}', 'ControllerReporteProyecto@obtenerPaaReservado');
 
 Route::get('reporteGeneral', 'ControllerReporteGeneral@index');
+Route::get('reporteGeneralOperario', 'ControllerReporteGeneral@index_operario');
 Route::post('/reporteProyectoGeneral/validar_form', 'ControllerReporteGeneral@validar_form');
 });
