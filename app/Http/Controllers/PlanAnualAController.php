@@ -29,6 +29,7 @@ use App\FuenteProyecto;
 use App\Persona;
 use App\RubroFuncionamiento;
 use App\Datos;
+use App\Estado;
 use App\ActividadFuncionamiento;
 use Idrd\Usuarios\Repo\PersonaInterface;
 use App\Presupuesto;
@@ -474,7 +475,7 @@ class PlanAnualAController extends Controller
         if($id==1){ //Proyecto
             $grupovigencia[]="";
             $grupovigencia_paso=1;
-            $presupuesto = Presupuesto::where('vigencia',2018)->get();
+            $presupuesto = Presupuesto::where('vigencia',Estado::VIGENCIA)->get();
                 foreach($presupuesto as $eee){
                   if($eee!=''){
                        if($eee['Id']!=''){

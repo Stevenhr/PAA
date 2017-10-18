@@ -16,6 +16,8 @@ class Estado {
 	const EstudioCorregido = 10;
 	const EstudioCancelado = 11;
 
+	const VIGENCIA = 2018;
+
 	static function toString($codigo)
 	{
 		$estado = '';
