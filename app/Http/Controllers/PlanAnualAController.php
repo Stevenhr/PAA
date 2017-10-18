@@ -31,7 +31,7 @@ use App\RubroFuncionamiento;
 use App\Datos;
 use App\ActividadFuncionamiento;
 use Idrd\Usuarios\Repo\PersonaInterface;
-
+use App\Presupuesto;
 
 class PlanAnualAController extends Controller
 {
@@ -472,7 +472,23 @@ class PlanAnualAController extends Controller
     public function select_ProyectOrubro(Request $request, $id)
     {
         if($id==1){ //Proyecto
-            $proyecto = Proyecto::all();
+            $grupovigencia[]="";
+            $grupovigencia_paso=1;
+            $presupuesto = Presupuesto::where('vigencia',2018)->get();
+                foreach($presupuesto as $eee){
+                  if($eee!=''){
+                       if($eee['Id']!=''){
+                            if($grupovigencia_paso==1){
+                                $grupovigencia[]=$eee['Id'];
+                            }
+                            else{
+                                $grupovigencia[]=$grupovigencia +","+ $eee['Id'];
+                            }
+
+                       }
+                  }
+                }
+            $proyecto = Proyecto::whereIn('Id_Presupuesto',$grupovigencia)->get();
             return response()->json($proyecto);
         }
         if($id==2){//Rubro

@@ -10,7 +10,7 @@ class Presupuesto extends Model
     //
     protected $table = 'presupuesto';
 	protected $primaryKey = 'Id';
-	protected $fillable = ['Nombre_Actividad','fecha_inicio','fecha_fin','vigencia','presupuesto','Id_proyectoDesarrollo'];
+	protected $fillable = ['Nombre_Actividad','fecha_inicio','fecha_fin','vigencia','presupuesto','Id_proyectoDesarrollo','vigencia'];
 	protected $connection = ''; 
 	public $timestamps = true;
 
