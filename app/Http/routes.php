@@ -24,7 +24,7 @@ Route::any('/', 'MainController@index');
 Route::any('/logout', 'MainController@logout');
 
 	// Rutas paquete usuario
-Route::get('/personas', '\Idrd\Usuarios\Controllers\PersonaController@index');
+
 //Route::get('/personas/service/obtener/{id}', '\Idrd\Usuarios\Controllers\PersonaController@obtener');
 Route::get('/personas/service/buscar/{key}', '\Idrd\Usuarios\Controllers\PersonaController@buscar');
 Route::get('/personas/service/ciudad/{id_pais}', '\Idrd\Usuarios\Controllers\LocalizacionController@buscarCiudades');
@@ -48,6 +48,7 @@ Route::any('/', 'MainController@index');
 Route::group(['middleware' => ['web']], function () {
 	//Route::get('/welcome', 'MainController@welcome');
 
+Route::get('/personas', '\Idrd\Usuarios\Controllers\PersonaController@index');
 // Rutas proyecto local
 
 Route::post('/personas/service/procesar/', 'PaaController@procesar');

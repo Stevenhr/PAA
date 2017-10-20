@@ -91,9 +91,10 @@ class PaaController extends Controller
 		$persona = $this->repositorio_personas->obtener($id);
 		$datos = Datos::where('Id_Persona',$id)->first();
 		$personapaa = PersonaPaa::find($id);
+		//dd($personapaa);
 		if($datos){
 			$persona['email'] = $datos->Email;
-			$persona['area'] =  $personapaa->id_area;
+			$persona['area'] =  $personapaa ? $personapaa->id_area : '';
 		}else{
 
 			$persona['email'] = '';
