@@ -225,11 +225,7 @@
 												  <div class="btn-group">
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="AprobacionFinal" data-rol="{{$var2}}" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion" {{$disable}}><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
 												  </div>
-												  @if($var2==1)
-												  <div class="btn-group">
-												  	  <button type="button" data-rel="{{$paa['Id']}}" data-funcion="CabiosPendientes" class="btn btn-danger btn-xs2 btn-xs"  title="Cambios Pendientes" disabled><span class="glyphicon glyphicon-alert" aria-hidden="true"></span></button>
-												  </div>
-												  @endif
+												  
 												</div>
 
 												<br>
