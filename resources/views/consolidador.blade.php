@@ -214,10 +214,7 @@
 												  <div class="btn-group">
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 												  </div>
-												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Aprobacion" class="btn btn-warning btn-xs2 btn-xs"  title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
-												  </div>
-												  
+											
 												  <?php $var2 = 0;?>
 												  @foreach($paas2 as $paa2)	
 											  		@if($paa2['Registro']==$paa['Registro'])
