@@ -503,6 +503,10 @@ class PlanAnualAController extends Controller
     public function select_ProyectOrubro(Request $request, $id)
     {
         if($id==1){ //Proyecto
+
+            $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
+            $subdirecion=Area::with('subdirecion')->find($personapaa['id_area']);
+                 
             $grupovigencia[]="";
             $grupovigencia_paso=1;
             $presupuesto = Presupuesto::where('vigencia',Estado::VIGENCIA)->get();
@@ -519,9 +523,10 @@ class PlanAnualAController extends Controller
                        }
                   }
                 }
-            $proyecto = Proyecto::whereIn('Id_Presupuesto',$grupovigencia)->get();
+            $proyecto = Proyecto::whereIn('Id_Presupuesto',$grupovigencia)->where('id_subdireccion',$subdirecion['id_subdireccion'])->get();
             return response()->json($proyecto);
         }
+        
         if($id==2){//Rubro
             $rubro = RubroFuncionamiento::all();
             return response()->json($rubro);
