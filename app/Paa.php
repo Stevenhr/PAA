@@ -9,7 +9,7 @@ use Idrd\Usuarios\Seguridad\TraitSeguridad;
 class Paa extends Model
 {
     //
-    protected $table = 'paa';
+    protected $table = 'paa_2018';
 	protected $primaryKey = 'Id';
 	protected $fillable = [
 	'Id_paa',
