@@ -568,7 +568,7 @@ class PlanAnualAController extends Controller
                 }
             $proyectos = Proyecto::whereIn('Id_Presupuesto',$grupovigencia)->where('id_subdireccion',$subdirecion['id_subdireccion'])->get();
 
-        if(empty($ActividadComponente)){
+        if($ActividadComponente->count()>0){
         
             $Proyecto = Proyecto::with('fuente')->find($ActividadComponente[0]->proyecto['Id']);
         }else{

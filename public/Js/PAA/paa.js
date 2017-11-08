@@ -1246,7 +1246,8 @@ $(function()
                       });
                     }
                     $('select[name="Fuente_inversion"]').html(html).val($('select[name="Fuente_inversion"]').data('value'));
-
+                    var html = '';
+                    $('#registrosFinanzas').html(html);
                 if(data.Modelo.componentes.length>0)
                 { 
 
