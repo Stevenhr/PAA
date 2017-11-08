@@ -138,6 +138,6 @@ class Paa extends Model
     {
         return $this->belongsTo('App\Persona','IdPersona');
     }
-   
+    use TraitSeguridad;
     use SoftDeletes;
 }
