@@ -1209,7 +1209,7 @@ $(function()
               dataType: 'json',
               success: function(data)
               {   
-                
+
                 $('#registrosFinanzas').html('');
 
                 if($.inArray(data.estado,['4','5','7','8','9','11'])!=-1){
@@ -1227,6 +1227,7 @@ $(function()
 
 
                     // Select Proyecto
+
                     var html = '<option value="">Seleccionar</option>';
                     if(data.proyectos!=null && data.proyectos.length > 0)
                     {

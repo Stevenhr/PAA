@@ -136,7 +136,7 @@ class PlanAnualAController extends Controller
     public function modificar_Paa($input)
     {
         $model_A = Paa::find($input["id_Paa"]);
-        $estado=1;
+        $estado=2;
         $estadoObservo=1;
         $Modifica=1;
         $input['estudio_conveniencia']=$model_A['FechaEstudioConveniencia'];
@@ -215,6 +215,7 @@ class PlanAnualAController extends Controller
             $ModiRegi=0;
             $id_paa=$modeloPA->Id;
             $id_paa2=$modeloPA->Id;
+
             $modeloP = Paa::find($id_paa);
             $modeloP['Id_paa'] = $id_paa;
             $modeloP['Registro'] = $id_paa;
@@ -291,8 +292,37 @@ class PlanAnualAController extends Controller
         else
         {
             $ModiRegi=1;
-            $id_paa2=$model->Id;
-            $id_paa=$modeloPA->Id;
+            $id_paa2=$model->Id;//Paa que estan modificando
+
+            $modeloPA_m = Paa::find($id_paa2);
+            $modeloPA_m['CodigosU'] = $cod;
+            $modeloPA_m['Id_ModalidadSeleccion'] = $input['modalidad_seleccion'];
+            $modeloPA_m['Id_TipoContrato'] = $input['tipo_contrato'];
+            $modeloPA_m['ObjetoContractual'] = $input['objeto_contrato'];
+            $modeloPA_m['FuenteRecurso'] = $input['fuente_recurso'];
+            $modeloPA_m['ValorEstimado'] = str_replace('.','',$input['valor_estimado']);
+            $modeloPA_m['ValorEstimadoVigencia'] = str_replace('.','',$input['valor_estimado_actualVigencia']);
+            $modeloPA_m['VigenciaFutura'] = $input['vigencias_futuras'];
+            $modeloPA_m['EstadoVigenciaFutura'] = $input['estado_solicitud'];
+            $modeloPA_m['FechaEstudioConveniencia'] = $input['estudio_conveniencia'];
+            $modeloPA_m['FechaInicioProceso'] = $input['fecha_inicio'];
+            $modeloPA_m['FechaSuscripcionContrato'] = $input['fecha_suscripcion'];
+            $modeloPA_m['DuracionContrato'] = $input['duracion_estimada'];
+            $modeloPA_m['MetaPlan'] = $input['meta'];
+            $modeloPA_m['RecursoHumano'] = $input['recurso_humano'];
+            $modeloPA_m['NumeroContratista'] = $input['numero_contratista'];
+            $modeloPA_m['DatosResponsable'] = $input['datos_contacto'];
+            $modeloPA_m['Id_Proyecto'] = $Id_Proyecto;
+            $modeloPA_m['Id_Rubro'] = $Id_Rubro;
+            $modeloPA_m['Proyecto1Rubro2'] = $input['ProyectOrubro'];
+            $modeloPA_m['IdPersona'] = $_SESSION['Id_Persona'];
+            $modeloPA_m['Id_Area'] = $personapaa['id_area'];
+            $modeloPA_m['unidad_tiempo'] = $input['unidad_tiempo'];
+            $modeloPA_m->save();
+
+
+            $id_paa=$modeloPA->Id;//Nuevo registro
+
             $modeloP = Paa::find($id_paa);
             $modeloP['Registro'] = $model->Registro;
             //$modeloP['Observacion'] =$id_paa2;
@@ -473,6 +503,10 @@ class PlanAnualAController extends Controller
     public function select_ProyectOrubro(Request $request, $id)
     {
         if($id==1){ //Proyecto
+
+            $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
+            $subdirecion=Area::with('subdirecion')->find($personapaa['id_area']);
+                 
             $grupovigencia[]="";
             $grupovigencia_paso=1;
             $presupuesto = Presupuesto::where('vigencia',Estado::VIGENCIA)->get();
@@ -489,9 +523,10 @@ class PlanAnualAController extends Controller
                        }
                   }
                 }
-            $proyecto = Proyecto::whereIn('Id_Presupuesto',$grupovigencia)->get();
+            $proyecto = Proyecto::whereIn('Id_Presupuesto',$grupovigencia)->where('id_subdireccion',$subdirecion['id_subdireccion'])->get();
             return response()->json($proyecto);
         }
+        
         if($id==2){//Rubro
             $rubro = RubroFuncionamiento::all();
             return response()->json($rubro);

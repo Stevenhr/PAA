@@ -25,16 +25,18 @@ use Idrd\Usuarios\Repo\PersonaInterface;
 use App\Area;
 use App\Persona;
 use App\Datos;
+use App\Estado;
 
 class ConsolidadoController extends Controller
 {
-    //
-    protected $repositorio_personas;
+  //
+  protected $repositorio_personas;
 
-    public function __construct(PersonaInterface $repositorio_personas)
-    {
-        $this->repositorio_personas = $repositorio_personas;
-    }
+  public function __construct(PersonaInterface $repositorio_personas)
+  {
+      $this->repositorio_personas = $repositorio_personas;
+  }
+  
   public function index()
   {
     $modalidadSeleccion = ModalidadSeleccion::all();
@@ -74,7 +76,12 @@ class ConsolidadoController extends Controller
     $PersonaPaa = PersonaPaa::with('area')->where('id',$_SESSION['Id_Persona'])->get();
     $idSub=$PersonaPaa[0]->area['id_subdireccion'];
 
-    $proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos','presupuestos.proyectos.metas','presupuestos.proyectos.metas.actividades','presupuestos.proyectos.metas.actividades','presupuestos.proyectos.subDireccion')->get();
+    $proyectoDesarrollo = ProyectoDesarrollo::with(['presupuestos' => function($query){
+        return $query->with('proyectos.metas.actividades', 'proyectos.subDireccion')
+                    ->where('vigencia', Estado::VIGENCIA);
+    }])->get();
+
+
     $fuente = Fuente::all();
     $componente = Componente::with('fuente')->get();
 

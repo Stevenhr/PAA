@@ -1062,9 +1062,6 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                                 '<button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs" title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>'+
                               '</div>'+
                               '<div class="btn-group">'+
-                                '<button type="button" data-rel="'+e['Id']+'" data-funcion="Aprobacion" class="btn btn-warning  btn-xs2 btn-xs" title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>'+
-                              '</div>'+
-                              '<div class="btn-group">'+
                                 '<button type="button" data-rel="'+e['Id']+'" data-rol="'+var2+'" data-funcion="AprobacionFinal" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion" '+disable+'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
                               '</div>'+
                                $btn_Cabmb+
