@@ -1202,7 +1202,8 @@ $(function()
           $('#id_act_agre').val(id_act);
           $('#id_act_agre2').val(id_act);
 
-
+                var html = '<br><h3>Cargando....</h3>';
+                $('#registrosFinanzas').html(html);
           $.ajax({
               url: URL+'/service/VerFinanciamiento/'+id_act,
               data: {},
@@ -1212,16 +1213,19 @@ $(function()
 
                 $('#registrosFinanzas').html('');
 
-                if($.inArray(data.estado,['4','5','7','8','9','11'])!=-1){
+                  if($.inArray(data.estado,['4','5','7','8','9','11'])!=-1)
+                  {
                     desactivo="none";
                     $('#btn_agregar_finaza_rubro').hide();
                     $('#btn_agregar_finaza').hide();
                   }
-                  else{
+                  else
+                  {
                     desactivo="block";
                     $('#btn_agregar_finaza_rubro').show();
                     $('#btn_agregar_finaza').show();
                   }
+
                   $('#registrosFinanzas').html('');
                   $('#registrosFinanzasRubro').html('');
 
@@ -1246,8 +1250,7 @@ $(function()
                       });
                     }
                     $('select[name="Fuente_inversion"]').html(html).val($('select[name="Fuente_inversion"]').data('value'));
-                    var html = '';
-                    $('#registrosFinanzas').html(html);
+                    
                 if(data.Modelo.componentes.length>0)
                 { 
 
