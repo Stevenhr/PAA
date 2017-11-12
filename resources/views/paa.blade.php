@@ -101,7 +101,9 @@
 					</tr>
 					</tfoot>
 					<tbody id="registros_actividades_responsable">
-                    <?php $var=1; ?>
+                    <?php $var=1; 
+                    	  $disableC="";
+                    ?>
 					@foreach($paas as $paa)
 
                         <?php $disable=""; $estado=""; $estudioComve="1"?>
@@ -136,9 +138,14 @@
 
 
 								@if ($paa['compartida']>0)
-                                    <?php $var0 = 'C'; ?>
+                                    <?php 	$var0 = 'C'; ?>
+                                    @if ($paa->area['id']!=$id_area)
+                                    	<?php   $disableC="disabled";?>
+                                    @else
+                                    	<?php   $disableC="";?>
+                                    @endif
 								@else
-                                    <?php $var0 = ''; ?>
+                                    <?php 	$var0 = '';  ?>
 								@endif
 
 
@@ -236,17 +243,17 @@
 										</button>
 										<ul class="dropdown-menu" style="padding-left: 2px;">
 
-											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>
+											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}} {{$disableC}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>
 
-											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-link btn-xs"  title="Editar Paa" {{$disable}}><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>   Modificación</button></li>
+											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-link btn-xs"  title="Editar Paa" {{$disable}} {{$disableC}}><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>   Modificación</button></li>
 
-											<li><button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-link  btn-xs" title="Historial" ><span class="glyphicon glyphicon-header" aria-hidden="true"></span>   Historial</button></li>
+											<li><button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-link  btn-xs" title="Historial" {{$disableC}}><span class="glyphicon glyphicon-header" aria-hidden="true" ></span>   Historial</button></li>
 
-											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-link  btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span>   Financiación</button>  </li>
+											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-link  btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion" {{$disableC}}><span class="glyphicon glyphicon-usd" aria-hidden="true" ></span>   Financiación</button>  </li>
 
-											<li><button type="button" data-rel="{{$paa['Id']}}" data-estado="{{$estudioComve}}" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>   Est. Conveniencia</button>  </li>
+											<li><button type="button" data-rel="{{$paa['Id']}}" data-estado="{{$estudioComve}}" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia"  {{$disableC}}><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>   Est. Conveniencia</button>  </li>
 
-											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modal_Compartida" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_Compartida" ><span class="glyphicon glyphicon-share" aria-hidden="true"></span>   Compartida</button></li>
+											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modal_Compartida" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_Compartida" {{$disableC}}><span class="glyphicon glyphicon-share" aria-hidden="true" ></span>   Compartida</button></li>
 
 											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modal_Vinculada" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_Vinculada" ><span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>   Vinculada</button></li>
 

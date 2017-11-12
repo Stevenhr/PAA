@@ -67,7 +67,9 @@ class PlanAnualAController extends Controller
             {
                $query->with('actividadescomponetes.fuenteproyecto.fuente','actividadescomponetes.fuenteproyecto.proyecto');
             }])
-            ->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->orderby('Id','desc')
+            ->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])
+            ->orwhere('compartida',1)
+            ->orderby('Id','desc')
             ->get();
 
         //dd($paa[0]->componentes[0]->actividadescomponetes);
@@ -79,6 +81,7 @@ class PlanAnualAController extends Controller
             'fuentes'=>$fuente,
             'paas' => $paa,
             'paa_obs' => $paa_obs,
+            'id_area'=> $personapaa['id_area'],
             'subDirecciones' => $subDireccion,
             'fuenteHaciendas'=>$fuenteHacienda,
         ];
