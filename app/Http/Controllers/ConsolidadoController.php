@@ -25,18 +25,25 @@ use Idrd\Usuarios\Repo\PersonaInterface;
 use App\Area;
 use App\Persona;
 use App\Datos;
+use App\Estado;
 
 class ConsolidadoController extends Controller
 {
-    //
-    protected $repositorio_personas;
+  //
+  protected $repositorio_personas;
 
-    public function __construct(PersonaInterface $repositorio_personas)
-    {
-        $this->repositorio_personas = $repositorio_personas;
-    }
+  public function __construct(PersonaInterface $repositorio_personas)
+  {
+      $this->repositorio_personas = $repositorio_personas;
+  }
+  
   public function index()
   {
+
+    if (!isset($_SESSION['Id_Persona']))
+            return redirect()->away('http://www.idrd.gov.co/SIM/Presentacion/');
+
+          
     $modalidadSeleccion = ModalidadSeleccion::all();
     $proyecto = Proyecto::all();
     $tipoContrato = TipoContrato::all();
@@ -52,7 +59,7 @@ class ConsolidadoController extends Controller
           $arreglo1[]=$value['id'];
         }
 
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta','persona','observaciones','rubro_funcionamiento','componentes')->whereIn('Id_Area',$arreglo1)->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta','persona','observaciones','rubro_funcionamiento','componentes')->whereIn('Id_Area',$arreglo1)->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->orderby('Id','desc')->get();
 
         $paa2 = Paa::whereIn('Id_Area',$arreglo1)->where('Estado','1')->get();
 
@@ -74,7 +81,12 @@ class ConsolidadoController extends Controller
     $PersonaPaa = PersonaPaa::with('area')->where('id',$_SESSION['Id_Persona'])->get();
     $idSub=$PersonaPaa[0]->area['id_subdireccion'];
 
-    $proyectoDesarrollo = ProyectoDesarrollo::with('presupuestos','presupuestos.proyectos','presupuestos.proyectos.metas','presupuestos.proyectos.metas.actividades','presupuestos.proyectos.metas.actividades','presupuestos.proyectos.subDireccion')->get();
+    $proyectoDesarrollo = ProyectoDesarrollo::with(['presupuestos' => function($query){
+        return $query->with('proyectos.metas.actividades', 'proyectos.subDireccion')
+                    ->where('vigencia', Estado::VIGENCIA);
+    }])->get();
+
+
     $fuente = Fuente::all();
     $componente = Componente::with('fuente')->get();
 

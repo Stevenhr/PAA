@@ -214,10 +214,7 @@
 												  <div class="btn-group">
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-success btn-xs2 btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
 												  </div>
-												  <div class="btn-group">
-												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="Aprobacion" class="btn btn-warning btn-xs2 btn-xs"  title="Aprobar Cambios" id="Btn_modal_Aprobacion"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
-												  </div>
-												  
+											
 												  <?php $var2 = 0;?>
 												  @foreach($paas2 as $paa2)	
 											  		@if($paa2['Registro']==$paa['Registro'])
@@ -228,11 +225,7 @@
 												  <div class="btn-group">
 												    <button type="button" data-rel="{{$paa['Id']}}" data-funcion="AprobacionFinal" data-rol="{{$var2}}" class="btn btn-default btn-xs2 btn-xs"  title="Aprobación Final" id="Btn_modal_Aprobacion" {{$disable}}><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
 												  </div>
-												  @if($var2==1)
-												  <div class="btn-group">
-												  	  <button type="button" data-rel="{{$paa['Id']}}" data-funcion="CabiosPendientes" class="btn btn-danger btn-xs2 btn-xs"  title="Cambios Pendientes" disabled><span class="glyphicon glyphicon-alert" aria-hidden="true"></span></button>
-												  </div>
-												  @endif
+												  
 												</div>
 
 												<br>
