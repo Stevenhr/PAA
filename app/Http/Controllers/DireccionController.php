@@ -43,7 +43,7 @@ class DireccionController extends BaseController
 
 		$paas = Paa::with('modalidad', 'tipocontrato', 'rubro','area','persona','observaciones','rubro_funcionamiento','componentes')->whereIn('Estado', [Estado::Subdireccion, Estado::Aprobado, Estado::Rechazado, Estado::Cancelado,Estado::EstudioConveniencia,Estado::EstudioAprobado,Estado::EstudioCorregido,Estado::EstudioCancelado])
 						->whereIn('Id_Area', $subdireccion->areas->pluck('id'))
-						->orderBy('id')
+						->orderby('Id','desc')
 						->get();
 		//dd($paas);
 		$datos = [
