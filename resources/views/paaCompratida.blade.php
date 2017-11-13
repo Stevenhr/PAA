@@ -252,7 +252,7 @@
 							<b><p>Registré su finaciación:</p></b>
 					    </div>
 						<div class="col-xs-12 col-sm-12">
-							<table class="table table-bordered" id="datos_actividad2" >
+							<table class="table table-bordered" id="tabla_proyecto_compratido" >
 								<thead class="thead-inverse table-success">
 								<tr class="success">
 									<th>#</th>
@@ -353,7 +353,7 @@
 							<b><p>Registré su finaciación:</p></b>
 					    </div>
 						<div class="col-xs-12 col-sm-12">
-							<table class="table table-bordered" id="datos_actividad3" >
+							<table class="table table-bordered" id="tabla_finanza_rubros" >
 								<thead class="thead-inverse">
 								<tr class="warning">
 									<th>#</th>
