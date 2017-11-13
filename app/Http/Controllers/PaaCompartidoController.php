@@ -152,12 +152,13 @@ class PaaCompartidoController extends Controller
         return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
 
         $id=$request['id_act_agre'];
-        dd($id);
+
         $proyecto_Finanza=$request['Proyecto_Finanza'];
         $meta_Finanza=$request['Meta_Finanza'];
         $id_componente=$request['Componnente_Finanza'];
         $Fuente_inversion=$request['Fuente_Finanza'];
         $valor=str_replace('.','',$request['valor_contrato']);
+
 
         $ModeloCompoente=Presupuestado::find($id_componente);
         $compo_id=$ModeloCompoente['componente_id'];
@@ -203,20 +204,26 @@ class PaaCompartidoController extends Controller
         //dd($ModeloCompoente['valor']."   -   ".$suma_aprobado." - ".$valor2." - ".$valorAfavor);
         //echo $valorAfavor." - ".$valor."";
         if($valorAfavor>=$valor2){
-            $paa = Paa::find($id);
-            $paa->componentes()->attach($compo_id,[
-                        'valor'=>$valor,
-                        'fuente_id'=>$Fuente_inversion,
-                        'proyecto_id'=>$FuenteProyecto['proyecto_id'],
-                        'estado'=>1,
-                        'id_fk_meta'=>$meta_Finanza,
-                    ]);
             $estado="1";
         }else{
             $estado="0";
         }
        
-        $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente','meta')->where('id_paa',$id)->get();
-        return response()->json(array('status' => $estado, 'errors' => $validator->errors(),'ActividadComponente'=>$ActividadComponente));
+        return response()->json(array('status' => $estado));
+    }
+
+    public function agregar_rubro(Request $request)
+    {   
+        $validator = Validator::make($request->all(),
+            [
+                'Fuente_funcionamiento' =>'required',
+                'valor_contrato_rubro' =>'required',
+            ]
+        );
+
+        if ($validator->fails())
+            return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+        else    
+            return response()->json(array('status' => 'ok'));   
     }
 }

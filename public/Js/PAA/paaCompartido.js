@@ -1,6 +1,8 @@
 $(function()
 {
   var URL = $('#main_paa_').data('url');
+  vector_financiacion = new Array();
+  vector_financiacion_rubro = new Array();
   $('#TablaPAA tfoot th').each( function () {
         var title = $(this).text();
         if(title!="Menu" && title!="N°"){
@@ -69,6 +71,10 @@ $(function()
         formatCurrency(this);
     });
 
+    $('input[name="valor_contrato_rubro"]').on('keyup', function(e){
+        formatCurrency(this);
+    });
+
     $('#TablaPAA').delegate('a[data-funcion="Observaciones"]','click',function (e)
     {
         var id = $(this).data('rel');
@@ -134,6 +140,12 @@ $(function()
     $('#TablaPAA').delegate('button[data-funcion="Financiacion"]','click',function (e){   
           var id_act = $(this).data('rel'); 
           var desactivo="";
+            vector_financiacion.length =0;
+  			vector_financiacion_rubro.length =0;
+  			$('#registrosFinanzasCompartida').html('');
+			$('#registrosFinanzasRubroCompartida').html('');
+			
+          $('#id_p').text("Id: "+id_act);
           $('#id_act_agre').val(id_act);
           $('#id_act_agre2').val(id_act);
 
@@ -328,9 +340,10 @@ $(function()
 
                         if(data.status == 0)
                         {
-                            $('.mjs_componente').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> La sumatoria de los valores ingresados superan el valor del presupuesto disponible.</div>');
+                        	
+                            $('#mjs_componente').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> La sumatoria de los valores ingresados superan el valor del presupuesto disponible.</div>');
                             setTimeout(function(){
-                                $('.mjs_componente').html('');
+                                $('#mjs_componente').html('');
                             }, 2000)
                             validad_error_agre(data.errors);
                         }else{
@@ -348,21 +361,55 @@ $(function()
                             $('#btn_agregar_finaza').show();
                           }
 
-                          var html = '';
-                          $.each(data.ActividadComponente, function(i, dato){
-                            html += '<tr>'+
-                                    '<th scope="row" class="text-center">'+num+'</th>'+
-                                    '<td>'+dato.proyecto['Nombre']+'</td>'+
-                                    '<td>'+dato.fuenteproyecto.fuente['nombre']+'</td>'+
-                                    '<td>'+dato.componente['Nombre']+'</td>'+
-                                    '<td>'+dato.meta['Nombre']+'</td>'+
-                                    '<td> $ '+number_format(dato['valor'])+'</td>'+
-                                    '<td class="text-center"><button type="button" data-id="'+dato['id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
-                            num++;
+                          var id_proyecto_Finanza=$('#Proyecto_Finanza').find(':selected').val();
+                          var id_meta_Finanza=$('#Meta_Finanza').find(':selected').val();
+                          var id_fuente_Finanza=$('#Fuente_Finanza').find(':selected').val();
+                          var id_componnente_Finanza=$('#Componnente_Finanza').find(':selected').val();
+                          var valor_contrato=$('#valor_contrato').val();
+
+                          var text_proyecto_Finanza=$('#Proyecto_Finanza').find(':selected').text();
+                          var text_meta_Finanza=$('#Meta_Finanza').find(':selected').text();
+                          var text_fuente_Finanza=$('#Fuente_Finanza').find(':selected').text();
+                          var text_componnente_Finanza=$('#Componnente_Finanza').find(':selected').text();
+
+
+                          vector_financiacion.push({
+                            "id_proyecto_Finanza":id_proyecto_Finanza,
+                            "text_proyecto_Finanza":text_proyecto_Finanza,
+                            "id_meta_Finanza":id_meta_Finanza,
+                            "text_meta_Finanza":text_meta_Finanza,
+                            "id_fuente_Finanza":id_fuente_Finanza,
+                            "text_fuente_Finanza":text_fuente_Finanza,
+                            "id_componnente_Finanza":id_componnente_Finanza,
+                            "text_componnente_Finanza": text_componnente_Finanza,
+                            "valor_contrato": valor_contrato,
+                            "id_paa":id_act_agre
                           });
 
-                          $('#registrosFinanzasCompartida').html(html);
-                          document.getElementById("form_agregar_finza").reset();
+                          html='';
+                            if(vector_financiacion.length > 0)
+					        {
+					            var num=1;
+					            $.each(vector_financiacion, function(i, e){
+					                html += '<tr class="warning"><th scope="row" class="text-center">'+num+'</th>'+
+					                    '<td>'+e['text_proyecto_Finanza']+'</td>'+
+					                    '<td>'+e['text_meta_Finanza']+'</td>'+
+					                    '<td>'+e['text_fuente_Finanza']+'</td>'+
+					                    '<td>'+e['text_componnente_Finanza']+'</td>'+
+					                    '<td> $'+e['valor_contrato']+'</td>'+
+					                    '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminar" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+					                num++;
+					            });
+					        }
+
+					        $('#registrosFinanzasCompartida').html(html);
+
+                            $('#mjs_componente').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Datos agregados exitosamente.</div>');
+                           	 setTimeout(function(){
+                                $('#mjs_componente').html('');
+                            }, 2000)
+
+                           document.getElementById("form_agregar_finza").reset();
                        }
                     }
                   }
@@ -392,6 +439,85 @@ $(function()
                 
                 }
                 $('#form_agregar_finza '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
+            }
+        }
+    }
+
+
+    $('#form_agregar_finza_2').on('submit', function(e){
+          var id_act=$('#id_act_agre2').val();
+           $.ajax({
+                  type: "POST",
+                  url: URL+'/service/agregar_rubro',
+                  data: $(this).serialize(),
+                  dataType: 'json',
+                  success: function(data)
+                  { 
+                    if(data.status == 'error')
+                    {
+                        validad_error_agre_rubro(data.errors);
+                    } else {
+                        validad_error_agre_rubro(data.errors);
+
+                          var id_fuente_funcionamiento=$('#Fuente_funcionamiento').find(':selected').val();
+                          var text_fuente_funcionamiento=$('#Fuente_funcionamiento').find(':selected').text();
+                          var valor_contrato_rubro=$('#valor_contrato_rubro').val();
+
+
+                          vector_financiacion_rubro.push({
+                            "id_fuente_funcionamiento":id_fuente_funcionamiento,
+                            "text_fuente_funcionamiento":text_fuente_funcionamiento,
+                            "valor_contrato_rubro":valor_contrato_rubro,
+                            "id_paa":id_act
+                          });
+
+                            var html = '';
+                            if(vector_financiacion_rubro.length > 0)
+					        {
+					            var num=1;
+					            $.each(vector_financiacion_rubro, function(i, e){
+					                html += '<tr class="warning"><th scope="row" class="text-center">'+num+'</th>'+
+					                    '<td>'+e['text_fuente_funcionamiento']+'</td>'+
+					                    '<td>Otros distritos</td>'+
+					                    '<td>'+e['valor_contrato_rubro']+'</td>'+
+					                    '<td class="text-center"><button type="button" data-rel="'+i+'" data-funcion="eliminar" class="eliminar_dato_actividad"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+					                num++;
+					            });
+					        }
+
+					        $('#registrosFinanzasRubroCompartida').html(html);
+
+        					$('#mjs_componente_2').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Datos agregados exitosamente.</div>');
+                           	 setTimeout(function(){
+                                $('#mjs_componente_2').html('');
+                            }, 2000)
+
+                            document.getElementById("form_agregar_finza_2").reset();
+                    }
+                  }
+              });
+
+           return false;
+    });
+
+    var validad_error_agre_rubro = function(data)
+    {
+        $('#form_agregar_finza_2 .form-group').removeClass('has-error');
+        var selector = '';
+        for (var error in data){
+            if (typeof data[error] !== 'function') {
+                switch(error)
+                {
+                    case 'Fuente_inversion':
+                    selector = 'select';
+                    break;
+
+                    case 'valor_contrato':
+                    selector = 'input';
+                    break;
+                
+                }
+                $('#form_agregar_finza_2 '+selector+'[name="'+error+'"]').closest('.form-group').addClass('has-error');
             }
         }
     }

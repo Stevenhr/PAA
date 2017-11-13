@@ -224,7 +224,8 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title text-success" id="myModalLabel">Listado de Financiación Proyecto de Inversión.</h4>
+					<h4 class="modal-title text-success" id="myModalLabel">Listado de Financiación PAA compartida. <p id="id_p"></p></h4>
+
 				</div>
 				<div class="modal-body">
 					<div class="row">
@@ -313,11 +314,12 @@
 								</div>
 								<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza">Agregar Proyecto</button>
 							  </div>
-							  <div class="col-xs-12 col-sm-8">
-							  	<div class="mjs_componente"></div>
-							  </div>
+							  
 						</div>
 					</form>
+					  <div class="col-xs-12 col-sm-12">
+					  	<div id="mjs_componente"></div>
+					  </div>
      			 </div>
 
      			<div class="row">
@@ -372,7 +374,7 @@
 						<div class="row"  >
 							<div class="col-xs-12 col-sm-12">
 								<div class="form-group">
-									<label class="text-warning" >Fuente de funcionamiento</label>
+									<label class="text-warning" >Rubro de funcionamiento</label>
 									<input type="hidden" name="id_act_agre2" id="id_act_agre2">
 									<select class="form-control" name="Fuente_funcionamiento" id="Fuente_funcionamiento">
 										<option value="" >Selecionar</option>
@@ -383,7 +385,7 @@
 							<div class="col-xs-12 col-md-4">
 								<div class="form-group">
 								  		<label class="text-warning">Valor</label>
-										<input type="text" class="form-control " name="valor_contrato" id="valor_contrato" autocomplete="off">
+										<input type="text" class="form-control " name="valor_contrato_rubro" id="valor_contrato_rubro" autocomplete="off">
 										<input type="hidden" class="form-control" name="proyectorubro" autocomplete="off">
 								</div>
 								<button type="submit" class="btn btn-block btn-sm btn-warning" id="btn_agregar_finaza_rubro">Agregar Rubro</button>
@@ -391,6 +393,9 @@
 							<div class="col-xs-12 col-md-8"></div>
 						</div>
 					</form>
+					<div class="col-xs-12 col-sm-12">
+					  	<div id="mjs_componente_2"></div>
+					</div>
      			 </div>
       
 			      <div class="modal-footer">
