@@ -229,6 +229,28 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12">
+							<p>Finaciación registrada por otra áreas:</p>
+					    </div>
+						<div class="col-xs-12 col-sm-12">
+							<table class="table table-bordered" id="datos_actividad2" >
+								<thead class="thead-inverse table-success">
+								<tr class="success">
+									<th>#</th>
+									<th>Proyecto de Inversión</th>
+									<th>Fuente</th>
+									<th>Componente</th>
+									<th>Meta</th>
+									<th>Valor</th>
+								</tr>
+								</thead>
+								<tbody id="registrosFinanzas">
+								</tbody>
+							</table>
+						</div>
+						<div class="col-xs-12 col-sm-12">
+							<b><p>Registré su finaciación:</p></b>
+					    </div>
+						<div class="col-xs-12 col-sm-12">
 							<table class="table table-bordered" id="datos_actividad2" >
 								<thead class="thead-inverse table-success">
 								<tr class="success">
@@ -241,7 +263,7 @@
 									<th>Eliminar</th>
 								</tr>
 								</thead>
-								<tbody id="registrosFinanzas">
+								<tbody id="registrosFinanzasCompartida">
 								</tbody>
 							</table>
 						</div>
@@ -309,6 +331,26 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12">
+							<p>Finaciación registrada por otra áreas:</p>
+					    </div>
+						<div class="col-xs-12 col-sm-12">
+							<table class="table table-bordered" id="datos_actividad3" >
+								<thead class="thead-inverse">
+								<tr class="warning">
+									<th>#</th>
+									<th>Rubro de funcionamiento.</th>
+									<th>Fuente</th>
+									<th>Valor</th>
+								</tr>
+								</thead>
+								<tbody id="registrosFinanzasRubro">
+								</tbody>
+							</table>
+						</div>
+						<div class="col-xs-12 col-sm-12">
+							<b><p>Registré su finaciación:</p></b>
+					    </div>
+						<div class="col-xs-12 col-sm-12">
 							<table class="table table-bordered" id="datos_actividad3" >
 								<thead class="thead-inverse">
 								<tr class="warning">
@@ -319,7 +361,7 @@
 									<th>Eliminar</th>
 								</tr>
 								</thead>
-								<tbody id="registrosFinanzasRubro">
+								<tbody id="registrosFinanzasRubroCompartida">
 								</tbody>
 							</table>
 						</div>

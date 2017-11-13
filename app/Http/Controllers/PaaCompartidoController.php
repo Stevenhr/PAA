@@ -134,4 +134,89 @@ class PaaCompartidoController extends Controller
         }
         return response()->json(array('estado' => $model_A['Estado'],'proyecto'=>$Proyecto,'proyectos'=>$proyectos, 'ActividadComponente'=>$ActividadComponente,'Rubro'=>$RubroFuncionamiento,'Modelo'=>$model_A, 'rubros_all'=>$RubroFuncionamiento1) );
     }
+
+
+    public function agregar_finza(Request $request)
+    {   
+        $validator = Validator::make($request->all(),
+            [
+                'valor_contrato' =>'required',
+                'Proyecto_Finanza' =>'required',
+                'Meta_Finanza' =>'required',
+                'Fuente_Finanza' =>'required',
+                'Componnente_Finanza' =>'required',
+            ]
+        );
+
+        if ($validator->fails())
+        return response()->json(array('status' => 'error', 'errors' => $validator->errors()));
+
+        $id=$request['id_act_agre'];
+        dd($id);
+        $proyecto_Finanza=$request['Proyecto_Finanza'];
+        $meta_Finanza=$request['Meta_Finanza'];
+        $id_componente=$request['Componnente_Finanza'];
+        $Fuente_inversion=$request['Fuente_Finanza'];
+        $valor=str_replace('.','',$request['valor_contrato']);
+
+        $ModeloCompoente=Presupuestado::find($id_componente);
+        $compo_id=$ModeloCompoente['componente_id'];
+
+        $FuenteProyecto=FuenteProyecto::find($Fuente_inversion);
+        
+        $ModeloPa = Paa::with(['componentes' => function($query) use ($compo_id,$Fuente_inversion)
+        {
+            $query->where('componente_id',$compo_id)->where('fuente_id',$Fuente_inversion)->get();
+        }])->where('Estado','9')->get();
+            
+        $suma_aprobado=0;
+        $valorCocenpto=0;
+        $suma_por_aprobar=0;
+
+        foreach($ModeloPa as $eee){
+          if($eee->componentes!=''){
+            foreach($eee->componentes as $eeee){
+               if($eeee->pivot['valor']!=''){
+                   $suma_aprobado=$suma_aprobado + $eeee->pivot['valor'];
+               }
+            }
+          }
+        }
+        $valorCocenpto=$ModeloCompoente['valor'];
+
+        $ModeloAprobado = Paa::with(['componentes' => function($query) use ($compo_id)
+        {
+            $query->where('componente_id',$compo_id)->get();
+        }])->find($id);
+        
+        if($ModeloAprobado!=''){
+            foreach($ModeloAprobado->componentes as $componente){
+               if($componente->pivot['valor']!=''){
+                   $suma_por_aprobar=$suma_por_aprobar + $componente->pivot['valor'];
+               }
+            }
+        }
+         
+        $valor2=$valor+$suma_por_aprobar;
+        $valorAfavor=$valorCocenpto-$suma_aprobado;
+        $estado="";
+        //dd($ModeloCompoente['valor']."   -   ".$suma_aprobado." - ".$valor2." - ".$valorAfavor);
+        //echo $valorAfavor." - ".$valor."";
+        if($valorAfavor>=$valor2){
+            $paa = Paa::find($id);
+            $paa->componentes()->attach($compo_id,[
+                        'valor'=>$valor,
+                        'fuente_id'=>$Fuente_inversion,
+                        'proyecto_id'=>$FuenteProyecto['proyecto_id'],
+                        'estado'=>1,
+                        'id_fk_meta'=>$meta_Finanza,
+                    ]);
+            $estado="1";
+        }else{
+            $estado="0";
+        }
+       
+        $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','componente','meta')->where('id_paa',$id)->get();
+        return response()->json(array('status' => $estado, 'errors' => $validator->errors(),'ActividadComponente'=>$ActividadComponente));
+    }
 }

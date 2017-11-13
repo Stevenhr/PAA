@@ -463,6 +463,10 @@ $(function()
 
     var select_Meta_Fin = function(id)
     { 
+        var html = '<option value="">Cargando...</option>';
+        $('select[name="Meta_Finanza"]').html(html);
+        var html = '<option value="">Seleccionar</option>';
+        $('select[name="Componnente_Finanza"]').html(html)
         $.ajax({
             url: URL+'/service/select_meta_fuente/'+id,
             data: {},
@@ -470,7 +474,7 @@ $(function()
             success: function(data)
             {
                 var datos=data.Proyecto;
-                var html = '<option value="">Seleccionar</option>';
+                html = '<option value="">Seleccionar</option>';
                 $.each(datos.metas, function(i, eee){
                       html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
                 });   
@@ -571,12 +575,14 @@ $(function()
     var select_fuente_finan = function(fuenteProyecto)
     { 
         $('.mjs_componente').html('');
+        var html = '<option value="">Cargando....</option>';
+        $('select[name="Componnente_Finanza"]').html(html);
         $.post(
           URL+'/service/fuenteComponente',
           {fuenteProyecto:fuenteProyecto},
           function(data)
           {
-                var html = '<option value="">Seleccionar componente</option>';
+                html = '<option value="">Seleccionar componente</option>';
                 $.each(data, function(i, eee){
                             html += '<option value="'+eee['id']+'">'+eee.componente['Nombre'].toLowerCase()+'</option>';
                 });
@@ -1482,7 +1488,7 @@ $(function()
                             '<th scope="row" class="text-center">'+num+'</th>'+
                             '<td>'+e['nombre']+'</td>'+
                             '<td>Otros Distrito</td>'+
-                            '<td>'+e.pivot['valor']+'</td>'+
+                            '<td>'+number_format(e.pivot['valor'])+'</td>'+
                             '<td class="text-center"><button type="button" data-id="'+e.pivot['rubro_id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza_rubro" class="eliminar_dato_actividad" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                           num++;
                         });

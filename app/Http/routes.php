@@ -171,6 +171,9 @@ Route::any('/GestionarPaaCompartida/', 'PaaCompartidoController@index');
 Route::get('/paacompartida/service/historialObservaciones/{id}', 'PlanAnualAController@historialObservaciones');
 Route::post('/paacompartida/service/RegistrarObservacion', 'PlanAnualAController@RegistrarObservacion');
 Route::get('/paacompartida/service/VerFinanciamiento/{id}', 'PaaCompartidoController@verFinanciacion');
+Route::get('/paacompartida/service/select_meta_fuente/{id}', 'PlanAnualAController@select_meta_fuente');
+Route::post('/paacompartida/service/fuenteComponente', 'PlanAnualAController@fuenteComponente');
+Route::post('/paacompartida/service/agregar_finza/', 'PaaCompartidoController@agregar_finza');
 
 Route::get('AprobacionDireccion', 'DireccionGeneralController@index');
 Route::get('/direccion/service/historialObservaciones/{id}', 'DireccionGeneralController@historialObservaciones');
