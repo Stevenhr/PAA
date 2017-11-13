@@ -68,7 +68,6 @@ class PlanAnualAController extends Controller
                $query->with('actividadescomponetes.fuenteproyecto.fuente','actividadescomponetes.fuenteproyecto.proyecto');
             }])
             ->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])
-            ->orwhere('compartida',1)
             ->orderby('Id','desc')
             ->get();
 
@@ -1045,13 +1044,12 @@ class PlanAnualAController extends Controller
         }
 
         $mensaje="PAA ID. ".$request['id'].": Observación";
-        //dd($DatosEmail);
+        
         if(!empty($emails))
         {
             //dd($emails);
-            Mail::send('mail', ['mensaje'=>$request['observacion'],'persona'=>$persona,'area'=>$area], function ($m) use ($paa,$mensaje,$emails)  {
+            Mail::send('mail', ['mensaje'=>$request['observacion'],'persona'=>$persona,'area'=>$area, 'objeto'=>$paa['ObjetoContractual']], function ($m) use ($paa,$mensaje,$emails)  {
                 $m->from('no-reply_Paa@idrd.gov.co', $mensaje);
-
                 $m->to($emails, 'Estevenhr')->subject($mensaje."!");
             });
         }

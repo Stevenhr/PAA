@@ -89,8 +89,13 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Operativo<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
                   @if($_SESSION['Usuario']['Permisos']['Gestion_operador'])
-                    <li class=”{{ Request::is( 'GestionarPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'GestionarPaa') }}">Gestionar PAA</a></li>
+                    <li class=”{{ Request::is( 'GestionarPaa') ? 'active' : '' }}”><a href="{{ URL::to( 'GestionarPaa') }}">Gestionar Paa</a></li>
                   @endif
+
+                  @if($_SESSION['Usuario']['Permisos']['Gestion_operador'])
+                    <li class=”{{ Request::is( 'GestionarPaaCompartida') ? 'active' : '' }}”><a href="{{ URL::to( 'GestionarPaaCompartida') }}">Gestionar Paa Compartida</a></li>
+                  @endif
+
                   @if($_SESSION['Usuario']['Permisos']['Reporte_Sin_Aprobacion'])
                     <li class=”{{ Request::is( 'reporteGeneralOperario') ? 'active' : '' }}”><a href="{{ URL::to( 'reporteGeneralOperario') }}">Planes Finanzas sin aprobar</a></li>
                   @endif

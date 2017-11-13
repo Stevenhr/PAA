@@ -167,6 +167,11 @@ Route::post('/aprobar/service/RegistrarObservacionSubD', 'DireccionController@Re
 Route::get('/aprobar/service/historialObservacionessubD/{id}', 'DireccionController@historialObservaciones');
 Route::get('AprobacionPlaneacion', 'PlaneacionController@index');
 
+Route::any('/GestionarPaaCompartida/', 'PaaCompartidoController@index'); 
+Route::get('/paacompartida/service/historialObservaciones/{id}', 'PlanAnualAController@historialObservaciones');
+Route::post('/paacompartida/service/RegistrarObservacion', 'PlanAnualAController@RegistrarObservacion');
+Route::get('/paacompartida/service/VerFinanciamiento/{id}', 'PaaCompartidoController@verFinanciacion');
+
 Route::get('AprobacionDireccion', 'DireccionGeneralController@index');
 Route::get('/direccion/service/historialObservaciones/{id}', 'DireccionGeneralController@historialObservaciones');
 Route::get('/direccion/service/obtenerHistorialPaaTodo/{id}', 'DireccionGeneralController@obtenerHistorialPaaTodo');
