@@ -246,8 +246,10 @@
 
 											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-link  btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span>   Financiación</button>  </li>
 
+											@if($paa['vinculada']==0)
 											<li><button type="button" data-rel="{{$paa['Id']}}" data-estado="{{$estudioComve}}" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>   Est. Conveniencia</button>  </li>
-
+											@endif
+											
 											@if($paa['vinculada']==0)
 											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modal_Compartida" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_Compartida" ><span class="glyphicon glyphicon-share" aria-hidden="true"></span>   Compartida</button></li>
 											@endif

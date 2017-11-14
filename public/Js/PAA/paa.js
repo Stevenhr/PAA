@@ -2400,6 +2400,7 @@ $(function()
 
     function tabla_opciones(e, num){
                           var disable="";
+                          var disable2="";
                           var estado="";
                           var clase="";
                           var var0="";
@@ -2458,10 +2459,13 @@ $(function()
                             var0 = '';
 
 
-                          if (e['vinculada']>0)
+                          if (e['vinculada']>0){
                               var1 = 'V';
-                          else
+                              disable2="disabled";
+                          }else{
                               var1 = '';
+                              disable2="";
+                          }
 
                           nombrementa="";
                           nomProyRubro="";
@@ -2501,9 +2505,9 @@ $(function()
                             else
                                 uni_t = "";
                           
-                          var $tr1 =   $('<tr '+clase+'></tr>').html(
-                            '<th scope="row" class="text-center">'+num+'</th>'+
-                                '<td><b><p class="text-info text-center" style="font-size: 15px">'+e['Registro']+'<br>'+var0+var1+'<br>'+Proyecto1Rubro2+'</p></b></td>'+
+                          
+                            var htm='<th scope="row" class="text-center">'+num+'</th>'+
+                                '<td><b><p class="text-info text-center" style="font-size: 15px">'+e['Registro']+'<br>'+var0+var1+e['vinculada']+'<br>'+Proyecto1Rubro2+'</p></b></td>'+
                                 '<td><b>'+e.persona['Primer_Apellido']+' '+e.persona['Primer_Nombre']+'</b></td>'+
                                 '<td><b>'+estado+'</b></td>'+
                                 '<td>'+e['CodigosU']+'</td>'+
@@ -2525,23 +2529,28 @@ $(function()
                                 '<td>'+nombrementa+'</td>'+
                                 '<td>'+
                                   '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+
-                                    '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>'+
-                                    '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-link btn-xs"  title="Editar Paa" {{$disable}}><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>   Modificación</button></li>'+
-                                    '<li><button type="button" data-rel="'+e['Registro']+'" data-funcion="Historial" class="btn btn-link  btn-xs" title="Historial" ><span class="glyphicon glyphicon-header" aria-hidden="true"></span>   Historial</button></li>'+
+                                    '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" '+disable+'><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>';
                                     
-                                    '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-link  btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span>   Financiación</button>  </li>'+
+                                    if(disable2!="disabled")
+                                    htm=htm+'<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Modificacion" class="btn btn-link btn-xs"  title="Editar Paa" '+disable+' '+disable2+'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>   Modificación</button></li>';
                                     
-                                    '<li><button type="button" data-rel="'+e['Id']+'" data-estado="'+estudioComve+'" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" ><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>   Est. Conveniencia</button>  </li>'+
+                                    htm=htm+'<li><button type="button" data-rel="'+e['Registro']+'" data-funcion="Historial" class="btn btn-link  btn-xs" title="Historial" ><span class="glyphicon glyphicon-header" aria-hidden="true"></span>   Historial</button></li>';
+                                    
+                                    htm=htm+'<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Financiacion" class="btn btn-link  btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span>   Financiación</button>  </li>';
+                                    
+                                    if(disable2!="disabled")
+                                    htm=htm+'<li><button type="button" data-rel="'+e['Id']+'" data-estado="'+estudioComve+'" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia" '+disable2+' ><span class="glyphicon glyphicon-duplicate" aria-hidden="true" ></span>   Est. Conveniencia</button>  </li>';
 
-                                    '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Modal_Compartida" class="btn btn-link btn-xs"  title="Compartir Paa" data-toggle="modal" data-target="#Modal_Compartida" ><span class="glyphicon glyphicon-share" aria-hidden="true"></span>   Compartida</button></li>'+
+                                    if(disable2!="disabled")
+                                    htm=htm+'<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Modal_Compartida" class="btn btn-link btn-xs"  title="Compartir Paa" data-toggle="modal" data-target="#Modal_Compartida" '+disable2+'><span class="glyphicon glyphicon-share" aria-hidden="true"></span>   Compartida</button></li>';
 
-                                  '</div>'+
+                                  htm=htm+'</div>'+
                                   '<div>'+
                                     '<a href="#" class="btn btn-xs btn-default" style="width: 100%;    margin-top: 20px;" data-rel="'+e['Registro']+'" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a>'+
                                   '</div>'+
                                   '<div id=""></div>'+
-                                '</td>'
-                          );
+                                '</td>';
+                          var $tr1 =   $('<tr '+clase+'></tr>').html(htm);
                   return $tr1 ;
     }
 
