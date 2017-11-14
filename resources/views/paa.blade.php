@@ -238,7 +238,9 @@
 
 											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>
 
+											@if($paa['vinculada']==0)
 											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modificacion" class="btn btn-link btn-xs"  title="Editar Paa" {{$disable}}><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>   Modificación</button></li>
+											@endif
 
 											<li><button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-link  btn-xs" title="Historial" ><span class="glyphicon glyphicon-header" aria-hidden="true"></span>   Historial</button></li>
 
@@ -246,9 +248,10 @@
 
 											<li><button type="button" data-rel="{{$paa['Id']}}" data-estado="{{$estudioComve}}" data-funcion="EstudioComveniencia" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_EstudioComveniencia"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>   Est. Conveniencia</button>  </li>
 
+											@if($paa['vinculada']==0)
 											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modal_Compartida" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_Compartida" ><span class="glyphicon glyphicon-share" aria-hidden="true"></span>   Compartida</button></li>
-
-											<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modal_Vinculada" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_Vinculada" ><span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>   Vinculada</button></li>
+											@endif
+											<!--<li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Modal_Vinculada" class="btn btn-link btn-xs"  title="Estudio Conveniencia" data-toggle="modal" data-target="#Modal_Vinculada" ><span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>   Vinculada</button></li>-->
 
 										</ul>
 									</div>

@@ -1249,11 +1249,13 @@ $(function()
 
                     //Select Fuente
                     var html = '<option value="">Seleccionar</option>';
-                    if(data.proyecto!=null && data.proyecto.fuente.length > 0)
-                    {
-                      $.each(data.proyecto.fuente, function(i, e){
-                          html += '<option value="'+e.pivot['id']+'">'+e['nombre']+'</option>';
-                      });
+                    if(data.proyecto.fuente){
+                      if(data.proyecto!=null && data.proyecto.fuente.length > 0)
+                      {
+                        $.each(data.proyecto.fuente, function(i, e){
+                            html += '<option value="'+e.pivot['id']+'">'+e['nombre']+'</option>';
+                        });
+                      }
                     }
                     $('select[name="Fuente_inversion"]').html(html).val($('select[name="Fuente_inversion"]').data('value'));
                     
@@ -2533,7 +2535,6 @@ $(function()
 
                                     '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Modal_Compartida" class="btn btn-link btn-xs"  title="Compartir Paa" data-toggle="modal" data-target="#Modal_Compartida" ><span class="glyphicon glyphicon-share" aria-hidden="true"></span>   Compartida</button></li>'+
 
-                                    '<li><button type="button" data-rel="'+e['Id']+'" data-funcion="Modal_Vinculada" class="btn btn-link btn-xs"  title="Vincular Paa" data-toggle="modal" data-target="#Modal_Vinculada" ><span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>   Vinculada</button></li>'+
                                   '</div>'+
                                   '<div>'+
                                     '<a href="#" class="btn btn-xs btn-default" style="width: 100%;    margin-top: 20px;" data-rel="'+e['Registro']+'" data-funcion="Observaciones"><span class="glyphicon glyphicon-info-sign"></span> Observaciones</a>'+

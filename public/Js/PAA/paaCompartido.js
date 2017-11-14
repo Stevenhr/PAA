@@ -139,15 +139,18 @@ $(function()
 
     $('#TablaPAA').delegate('button[data-funcion="Financiacion"]','click',function (e){   
           var id_act = $(this).data('rel'); 
+
           var desactivo="";
             vector_financiacion.length =0;
   			vector_financiacion_rubro.length =0;
   			$('#registrosFinanzasCompartida').html('');
 			$('#registrosFinanzasRubroCompartida').html('');
-			
-          $('#id_p').text("Id: "+id_act);
-          $('#id_act_agre').val(id_act);
-          $('#id_act_agre2').val(id_act);
+
+			  $('#id_estudio3').val(id_act);
+	          $('#id_paa_comp').text(id_act);
+	          $('#id_p').text("Id: "+id_act);
+	          $('#id_act_agre').val(id_act);
+	          $('#id_act_agre2').val(id_act);
 
                 var html = '<br><h3>Cargando....</h3>';
                 $('#registrosFinanzas').html(html);
@@ -191,12 +194,14 @@ $(function()
 
                     //Select Fuente
                     var html = '<option value="">Seleccionar</option>';
-                    if(data.proyecto!=null && data.proyecto.fuente.length > 0)
-                    {
-                      $.each(data.proyecto.fuente, function(i, e){
-                          html += '<option value="'+e.pivot['id']+'">'+e['nombre']+'</option>';
-                      });
-                    }
+                    if(data.proyecto.fuente){
+	                    if(data.proyecto!=null && data.proyecto.fuente.length > 0)
+	                    {
+	                      $.each(data.proyecto.fuente, function(i, e){
+	                          html += '<option value="'+e.pivot['id']+'">'+e['nombre']+'</option>';
+	                      });
+	                    }
+	                }
                     $('select[name="Fuente_inversion"]').html(html).val($('select[name="Fuente_inversion"]').data('value'));
                     
                 if(data.Modelo.componentes.length>0)
@@ -402,6 +407,9 @@ $(function()
 					            });
 					        }
 
+					        var datos_vector_financiacion = JSON.stringify(vector_financiacion);
+     						$('input[name="datos_vector_financiacion"]').val(datos_vector_financiacion);
+
 					        $('#registrosFinanzasCompartida').html(html);
 
                             $('#mjs_componente').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Datos agregados exitosamente.</div>');
@@ -511,6 +519,9 @@ $(function()
 					            });
 					        }
 
+					        var datos_vector_financiacion_rubro = JSON.stringify(vector_financiacion_rubro);
+     						$('input[name="datos_vector_financiacion_rubro"]').val(datos_vector_financiacion_rubro);
+
 					        $('#registrosFinanzasRubroCompartida').html(html);
 
         					$('#mjs_componente_2').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Datos agregados exitosamente.</div>');
@@ -567,6 +578,40 @@ $(function()
 	        }
 	        $('#registrosFinanzasRubroCompartida').html(html);
      }); 
+
+
+
+     $('#form_crear_paa_compartido').on('submit', function(e){
+           	
+           	if(vector_financiacion.length!=0 || vector_financiacion_rubro.length!=0){
+           		$.post(
+	            URL+'/crear/paaCompartido',
+	            $(this).serialize(),
+	            function(data){
+	           		
+	           		if(data.status == 'ok')
+              		{
+		           		$('#mjs_componente_paa_compartido').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Datos agregados exitosamente.</div>');
+			           	 setTimeout(function(){
+			                $('#mjs_componente_paa_compartido').html('');
+			            }, 2000)
+			        }else{
+			        	$('#mjs_componente_paa_compartido').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe registrar algun tipo de financiacion.</div>');
+			           	 setTimeout(function(){
+			                $('#mjs_componente_paa_compartido').html('');
+			            }, 2000)
+			        }
+
+		        },'json');
+
+           	}else{
+	     		$('#mjs_componente_paa_compartido').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe registrar algun tipo de financiacion.</div>');
+	           	 setTimeout(function(){
+	                $('#mjs_componente_paa_compartido').html('');
+	            }, 2000)
+           	}
+            return false;
+    });
 
 
 

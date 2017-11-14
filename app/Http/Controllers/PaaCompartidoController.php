@@ -226,4 +226,134 @@ class PaaCompartidoController extends Controller
         else    
             return response()->json(array('status' => 'ok'));   
     }
+
+
+    public function crear_paa_compartido(Request $request)
+    {
+
+        if (!isset($_SESSION['Id_Persona']))
+            return redirect()->away('http://www.idrd.gov.co/SIM/Presentacion/');
+
+        $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
+        $Modifica=0;
+        $id_paa=$request["id_estudio3"];
+        $paaRequest = Paa::find($id_paa);
+        
+        $modeloPA = new Paa;
+        $modeloPA['Id_paa'] = 0;
+        $modeloPA['Registro'] = $paaRequest['Registro'];
+        $modeloPA['CodigosU'] = $paaRequest['CodigosU'];
+        $modeloPA['Id_ModalidadSeleccion'] = $paaRequest['Id_ModalidadSeleccion'];
+        $modeloPA['Id_TipoContrato'] = $paaRequest['Id_TipoContrato'];
+        $modeloPA['ObjetoContractual'] = $paaRequest['ObjetoContractual'];
+        $modeloPA['FuenteRecurso'] = $paaRequest['FuenteRecurso'];
+        $modeloPA['ValorEstimado'] = $paaRequest['ValorEstimado'];
+        $modeloPA['ValorEstimadoVigencia'] = $paaRequest['ValorEstimadoVigencia'];
+        $modeloPA['VigenciaFutura'] = $paaRequest['VigenciaFutura'];
+        $modeloPA['EstadoVigenciaFutura'] = $paaRequest['EstadoVigenciaFutura'];
+        $modeloPA['FechaEstudioConveniencia'] = $paaRequest['FechaEstudioConveniencia'];
+        $modeloPA['FechaInicioProceso'] = $paaRequest['FechaInicioProceso'];
+        $modeloPA['FechaSuscripcionContrato'] = $paaRequest['FechaSuscripcionContrato'];
+        $modeloPA['DuracionContrato'] = $paaRequest['DuracionContrato'];
+        $modeloPA['MetaPlan'] = $paaRequest['MetaPlan'];
+        $modeloPA['RecursoHumano'] = $paaRequest['RecursoHumano'];
+        $modeloPA['NumeroContratista'] = $paaRequest['NumeroContratista'];
+        $modeloPA['DatosResponsable'] = $paaRequest['DatosResponsable'];
+        $modeloPA['Id_Proyecto'] = $paaRequest['Id_Proyecto'];
+        $modeloPA['Id_Rubro'] = $paaRequest['Id_Rubro'];
+        $modeloPA['Proyecto1Rubro2'] = $paaRequest['Proyecto1Rubro2'];
+        $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
+        $modeloPA['Estado'] = 0;
+        $modeloPA['IdPersonaObservo'] = '';
+        $modeloPA['EsatdoObservo'] = 0;
+        $modeloPA['Observacion'] = '';
+        $modeloPA['Id_Area'] = $personapaa['id_area'];
+        $modeloPA['unidad_tiempo'] = $paaRequest['unidad_tiempo'];
+        $modeloPA['vinculada'] = $paaRequest['Id'];
+        $modeloPA->save();
+        
+        if($Modifica==0)
+        {
+            $ModiRegi=0;
+            $id_paa=$modeloPA->Id;
+            $id_paa2=$modeloPA->Id;
+
+            $modeloP = Paa::find($id_paa);
+            $modeloP['Id_paa'] = $id_paa;
+            $modeloP['Registro'] = $id_paa;
+            $modeloP->save();
+
+            $modeloPA = new Paa;
+            $modeloPA['Id_paa'] = 0;
+            $modeloPA['Registro'] = $paaRequest['Registro'];
+            $modeloPA['CodigosU'] = $paaRequest['CodigosU'];
+            $modeloPA['Id_ModalidadSeleccion'] = $paaRequest['Id_ModalidadSeleccion'];
+            $modeloPA['Id_TipoContrato'] = $paaRequest['Id_TipoContrato'];
+            $modeloPA['ObjetoContractual'] = $paaRequest['ObjetoContractual'];
+            $modeloPA['FuenteRecurso'] = $paaRequest['FuenteRecurso'];
+            $modeloPA['ValorEstimado'] = $paaRequest['ValorEstimado'];
+            $modeloPA['ValorEstimadoVigencia'] = $paaRequest['ValorEstimadoVigencia'];
+            $modeloPA['VigenciaFutura'] = $paaRequest['VigenciaFutura'];
+            $modeloPA['EstadoVigenciaFutura'] = $paaRequest['EstadoVigenciaFutura'];
+            $modeloPA['FechaEstudioConveniencia'] = $paaRequest['FechaEstudioConveniencia'];
+            $modeloPA['FechaInicioProceso'] = $paaRequest['FechaInicioProceso'];
+            $modeloPA['FechaSuscripcionContrato'] = $paaRequest['FechaSuscripcionContrato'];
+            $modeloPA['DuracionContrato'] = $paaRequest['DuracionContrato'];
+            $modeloPA['MetaPlan'] = $paaRequest['MetaPlan'];
+            $modeloPA['RecursoHumano'] = $paaRequest['RecursoHumano'];
+            $modeloPA['NumeroContratista'] = $paaRequest['NumeroContratista'];
+            $modeloPA['DatosResponsable'] = $paaRequest['DatosResponsable'];
+            $modeloPA['Id_Proyecto'] = $paaRequest['Id_Proyecto'];
+            $modeloPA['Id_Rubro'] = $paaRequest['Id_Rubro'];
+            $modeloPA['Proyecto1Rubro2'] = $paaRequest['Proyecto1Rubro2'];
+            $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
+            $modeloPA['Estado'] = 2;
+            $modeloPA['IdPersonaObservo'] = '';
+            $modeloPA['EsatdoObservo'] = 2;
+            $modeloPA['Observacion'] = '';
+            $modeloPA['Id_Area'] = $personapaa['id_area'];
+            $modeloPA['unidad_tiempo'] = $paaRequest['unidad_tiempo'];
+            $modeloPA['vinculada'] = $paaRequest['Id'];
+            $modeloPA->save();
+
+            $id_paa=$modeloPA->Id;
+            $modeloP = Paa::find($id_paa);
+            $modeloP['Id_paa'] = $id_paa2;
+            $modeloP['Registro'] = $id_paa2;
+            $id_reg_def=$id_paa2;
+            $modeloP->save();
+
+            $data0 = json_decode($request['datos_vector_financiacion']);
+            if($data0){
+                foreach($data0 as $obj){
+                    $presupuestado= Presupuestado::find($obj->id_componnente_Finanza);
+                    $id_com=$presupuestado['componente_id'];
+                    $modeloPA->componentes()->attach($id_com,[
+                        'id_paa'=>$id_paa2,
+                        'valor'=>str_replace('.','',$obj->valor_contrato),
+                        'fuente_id'=>$obj->id_fuente_Finanza,
+                        'proyecto_id'=>$paaRequest['Id_Proyecto'],
+                        'estado'=>1,
+                        'id_fk_meta'=>$obj->id_meta_Finanza,
+                    ]);
+                }
+            }
+
+            $data_r = json_decode($request['datos_vector_financiacion_rubro']);
+            if($data_r){
+                if($data_r[0] != null){
+                    foreach($data_r as $obj){
+                        $modeloPA->rubro_funcionamiento()->attach($obj->id_fuente_funcionamiento,[
+                            'paa_id'=>$id_paa2, 'valor'=>str_replace('.','',$obj->valor_contrato_rubro)
+                        ]);
+                    }
+                }
+            }
+
+        }
+
+        return response()->json(array('status' => 'ok'));
+
+    }
+
 }

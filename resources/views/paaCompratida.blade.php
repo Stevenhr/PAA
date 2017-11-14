@@ -400,8 +400,16 @@
       
 			      <div class="modal-footer">
 			      	<div class="row">
+			      		<div id="mjs_componente_paa_compartido"></div>
 			        	<div class="col-xs-12 col-sm-12">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			        		<form id="form_crear_paa_compartido">
+								<input type="hidden" name="id_estudio3" id="id_estudio3">
+								<input type="hidden" name="datos_vector_financiacion" id="datos_vector_financiacion">
+								<input type="hidden" name="datos_vector_financiacion_rubro" id="datos_vector_financiacion_rubro">
+
+				        		<button type="submit" class="btn btn-success"><strong>CREAR NUEVO</strong> item Vinculado al item:<label id="id_paa_comp"></label></button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+							</form>
 						</div>
 			        </div>
 			      </div>
@@ -410,77 +418,6 @@
 	</div>
 
 
-
-
-	<!-- MODAL VINCULADA-->
-	<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Vinculada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Plan de adquisición vinculada</h4>
-					PAA N°: <label id="id_Fin3">
-
-				</div>
-				<form id="form_vinvular">
-					<div class="modal-body">
-						<div class="row"  >
-							<div class="col-xs-12 col-sm-6">
-								<div class="form-group">
-									<div class="form-group">
-										<label>SubDirección:</label>
-										<select class="form-control" name="selectSubdirecion">
-											<option value="" >Selecionar</option>
-											@foreach($subDirecciones as $subDireccion)
-												<option value="{{ $subDireccion['id'] }}" >{{ $subDireccion['nombre'] }}</option>
-											@endforeach
-										</select>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-xs-12 col-sm-6">
-								<div class="form-group">
-									<div class="form-group">
-										<label>Área:</label>
-										<select class="form-control" name="selectArea">
-											<option value="" >Selecionar</option>
-										</select>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-xs-12 col-sm-12">
-								<div class="form-group">
-									<div class="form-group">
-										<label>Área:</label>
-										<select class="form-control" name="selectPaa">
-											<option value="" >Selecionar</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-xs-12 col-sm-12">
-								<div id="mjs_Observa_vinvula" class="alert alert-success" style="display: none"></div>
-							</div>
-						</div>
-					</div>
-
-					<div class="modal-footer">
-						<div class="row">
-							<div class="col-xs-12 col-sm-12">
-								<input type="hidden" name="id_estudio3" id="id_estudio3"></input>
-								<button type="submit" class="btn btn-success" >Agregar</button>
-								<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-							</div>
-						</div>
-					</div>
-				</form>
-
-			</div>
-		</div>
-	</div>
 
 
 
