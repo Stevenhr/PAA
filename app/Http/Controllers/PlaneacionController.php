@@ -20,7 +20,18 @@ class PlaneacionController extends BaseController
 	{
 		$subdirecciones = SubDireccion::with(['areas', 'areas.paas' => function($query)
 			{
-				$query->whereIn('Estado', [Estado::EstudioAprobado,Estado::EstudioCancelado]);
+				$query->whereIn('Estado', [Estado::EstudioAprobado,Estado::EstudioCancelado])
+					  ->whereHas('fuentesproyectos', function($query)
+                        {
+                            $query->whereHas('proyecto', function($query_proyecto)
+                            {
+                                $query_proyecto->whereHas('presupuesto', function($query_presupuesto)
+                                {
+                                    $query_presupuesto->where('vigencia', Estado::VIGENCIA);
+                                });
+                            });
+                        })
+                      ->get();
 			}, 'areas.paas.modalidad', 'areas.paas.tipocontrato', 'areas.paas.rubro'])->get();
 
 
@@ -31,3 +42,5 @@ class PlaneacionController extends BaseController
 		return view('aprobacion-planeacion-paa', $datos);
 	}
 }
+
+

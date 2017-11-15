@@ -385,7 +385,7 @@ $(function()
                 { //Proyecto
                   var html = '<option value="">Seleccionar Proyecto</option>';
                   $.each(data, function(i, eee){
-                        html += '<option value="'+eee['Id']+'">'+eee['Nombre'].toLowerCase()+'</option>';
+                        html += '<option value="'+eee['Id']+'">'+eee['codigo']+" - "+eee['Nombre'].toLowerCase()+'</option>';
                   });   
                   $('select[name="Proyecto_inversion"]').html(html).val($('select[name="Proyecto_inversion"]').data('value'));
                   $('.hide_meta').show();
@@ -446,7 +446,7 @@ $(function()
                 var datos2=data.FuenteProyecto;
                 var html2 = '<option value="">Seleccionar</option>';
                 $.each(datos2, function(i, eee){
-                      html2 += '<option value="'+eee['id']+'">'+eee.fuente['nombre'].toLowerCase()+'</option>';
+                      html2 += '<option value="'+eee['id']+'">'+eee.fuente['codigo']+' - '+eee.fuente['nombre'].toLowerCase()+'</option>';
                 });   
                 $('select[name="Fuente_inversion"]').html(html2).val($('select[name="Fuente_inversion"]').data('value'));
             }
@@ -558,7 +558,7 @@ $(function()
           {
                 var html = '<option value="">Seleccionar componente</option>';
                 $.each(data, function(i, eee){
-                            html += '<option value="'+eee['id']+'">'+eee.componente['Nombre'].toLowerCase()+'</option>';
+                            html += '<option value="'+eee['id']+'">'+eee.componente['codigo']+' - '+eee.componente['Nombre'].toLowerCase()+'</option>';
                 });
                 
                 $('select[name="componnente"]').html(html).val($('select[name="componnente"]').data('value'));

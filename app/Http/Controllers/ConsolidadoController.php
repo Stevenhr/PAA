@@ -59,7 +59,21 @@ class ConsolidadoController extends Controller
           $arreglo1[]=$value['id'];
         }
 
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta','persona','observaciones','rubro_funcionamiento','componentes')->whereIn('Id_Area',$arreglo1)->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->orderby('Id','desc')->get();
+        $paa = Paa::with('modalidad','tipocontrato','rubro','area','proyecto','meta','persona','observaciones','rubro_funcionamiento','componentes','fuentesproyectos')
+               ->whereIn('Id_Area',$arreglo1)
+               ->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])
+               ->whereHas('fuentesproyectos', function($query)
+                        {
+                            $query->whereHas('proyecto', function($query_proyecto)
+                            {
+                                $query_proyecto->whereHas('presupuesto', function($query_presupuesto)
+                                {
+                                    $query_presupuesto->where('vigencia', Estado::VIGENCIA);
+                                });
+                            });
+                        })
+               ->orderby('Id','desc')
+               ->get();
 
         $paa2 = Paa::whereIn('Id_Area',$arreglo1)->where('Estado','1')->get();
 

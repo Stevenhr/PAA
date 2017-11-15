@@ -206,39 +206,81 @@
 		</div>
 	</div>
 </div>
-<!-- modal financiacion -->
-<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Financiacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Financiación PAA</h4>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-xs-12 col-sm-12">
-				  		<table class="table table-bordered" id="datos_actividad" > 
-						<thead>
-						<tr>
-						<th>#</th>
-						<th>Proyecto</th>
-						<th>Fuente</th>
-						<th>Componente</th>
-						<th>Valor</th>
-						</tr>
-						</thead>
-						<tbody id="registrosFinanzas"> 
-						</tbody> 
-					</table>
+
+
+
+
+
+<!-- MODAL FIANANCIACION-->
+	<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Financiacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title text-success" id="myModalLabel">Listado de Financiación Proyecto de Inversión.</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12">
+							<table class="table table-bordered" id="datos_actividad2" >
+								<thead class="thead-inverse table-success">
+								<tr class="success">
+									<th>#</th>
+									<th>Proyecto de Inversión</th>
+									<th>Fuente</th>
+									<th>Componente</th>
+									<th>Meta</th>
+									<th>Valor</th>
+								</tr>
+								</thead>
+								<tbody id="registrosFinanzas">
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			</div>
-		</div>
+
+     			<div class="row">
+					<div class="col-xs-12 col-sm-12"><hr style="border-color: #178acc;"></div>
+				</div>
+
+     			 <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title text-warning" id="myModalLabel">Listado de Financiación Rubros de Funcionamiento.</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12">
+							<table class="table table-bordered" id="datos_actividad3" >
+								<thead class="thead-inverse">
+								<tr class="warning">
+									<th>#</th>
+									<th>Rubro de funcionamiento.</th>
+									<th>Fuente</th>
+									<th>Valor</th>
+								</tr>
+								</thead>
+								<tbody id="registrosFinanzasRubro">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>      
+			      <div class="modal-footer">
+			      	<div class="row">
+			        	<div class="col-xs-12 col-sm-12">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						</div>
+			        </div>
+			      </div>
+    		</div>
+  		</div>
 	</div>
-</div>
+
+
+
+
+
 <!-- modal historial -->
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Historial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   	<div class="modal-dialog modal-lg" role="document">

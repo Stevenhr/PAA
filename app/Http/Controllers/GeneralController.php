@@ -13,6 +13,7 @@ use App\Paa;
 use App\Proyecto;
 use App\SubDireccion;
 use App\FuenteHacienda;
+use App\Estado;
 
 class GeneralController extends Controller
 {
@@ -26,7 +27,19 @@ class GeneralController extends Controller
         $fuente = Fuente::all();
         $subDireccion = SubDireccion::all();
         $fuenteHacienda = FuenteHacienda::all();
-        $paa = Paa::with('modalidad','tipocontrato','rubro','area','area.subdirecion','componentes','proyecto','meta')->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])->get();
+        $paa = Paa::with(['modalidad','tipocontrato','rubro','area','area.subdirecion','componentes','proyecto','meta','fuentesproyectos'])
+                        ->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])
+                        ->whereHas('fuentesproyectos', function($query)
+                        {
+                            $query->whereHas('proyecto', function($query_proyecto)
+                            {
+                                $query_proyecto->whereHas('presupuesto', function($query_presupuesto)
+                                {
+                                    $query_presupuesto->where('vigencia', Estado::VIGENCIA);
+                                });
+                            });
+                        })
+                        ->get();
 
         $datos = [        
             'modalidades' => $modalidadSeleccion,

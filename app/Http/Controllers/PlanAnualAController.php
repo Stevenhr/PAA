@@ -63,10 +63,20 @@ class PlanAnualAController extends Controller
 
 
 
-        $paa = Paa::with(['modalidad','tipocontrato','rubro','area','proyecto','meta','persona','rubro_funcionamiento','componentes' =>     function($query)
+        $paa = Paa::with(['modalidad','tipocontrato','rubro','area','proyecto','meta','persona','rubro_funcionamiento','fuentesproyectos','componentes' =>     function($query)
             {
                $query->with('actividadescomponetes.fuenteproyecto.fuente','actividadescomponetes.fuenteproyecto.proyecto');
             }])
+            ->whereHas('fuentesproyectos', function($query)
+                        {
+                            $query->whereHas('proyecto', function($query_proyecto)
+                            {
+                                $query_proyecto->whereHas('presupuesto', function($query_presupuesto)
+                                {
+                                    $query_presupuesto->where('vigencia', Estado::VIGENCIA);
+                                });
+                            });
+                        })
             ->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])
             ->orderby('Id','desc')
             ->get();

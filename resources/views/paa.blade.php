@@ -193,7 +193,7 @@
 								<td>{{$paa->modalidad['Nombre']}}</td>
 								<td>{{$paa->tipocontrato['Nombre']}}</td>
 								<td><div  class="campoArea">{{$paa['ObjetoContractual']}}</div></td>
-								<td>{{number_format ($paa['ValorEstimado'])}}</td>
+								<td>{{number_format($paa['ValorEstimado'])}}</td>
 								<td>{{$paa['DuracionContrato']}} - {{$uni_t}}</td>
 							<!--<td>{{$paa['FuenteRecurso']}}</td>-->
 								<td>{{number_format($paa['ValorEstimadoVigencia'])}}</td>
