@@ -153,7 +153,6 @@ $(function()
 
   $('input[data-role="datepicker"]').datepicker({
       dateFormat: 'yy-mm-dd',
-      yearRange: "-100:+0",
       changeMonth: true,
       changeYear: true,
       minDate: 0 ,
@@ -161,7 +160,6 @@ $(function()
 
   $('input[data-role1="datepicker"]').datepicker({
       dateFormat: 'yy-mm-dd',
-      yearRange: "-100:+0",
       changeMonth: true,
       changeYear: true,
       minDate: 0 ,
@@ -1067,11 +1065,8 @@ $(function()
            $('input[data-role1="datepicker"]').datepicker('destroy');
            $('input[data-role1="datepicker"]').datepicker({
             dateFormat: 'yy-mm-dd',
-            yearRange: "-100:+0",
             changeMonth: true,
             changeYear: true,
-            minDate: n+'-01-01',
-            maxDate: n+'-12-31',
             minDate: 0 });
         }
 
@@ -1079,7 +1074,6 @@ $(function()
            $('input[data-role1="datepicker"]').datepicker('destroy');
            $('input[data-role1="datepicker"]').datepicker({
             dateFormat: 'yy-mm-dd',
-            yearRange: "-100:+0",
             changeMonth: true,
             minDate: 0,
             changeYear: true});
