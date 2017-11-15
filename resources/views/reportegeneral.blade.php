@@ -44,7 +44,7 @@
 	    		<div class="col-xs-12 col-md-4">
 			    	<div class="form-group">	
 					    <label for="proyecto">4. Fecha final</label>
-					    <input class="form-control" type="date" name="fecha_final" id="fecha_final" data-role="datepicker">
+					    <input class="form-control" type="date" name="fecha_final" id="fecha_final" data-role1="datepicker">
 					</div>
 	    		</div>
 	    	</div>

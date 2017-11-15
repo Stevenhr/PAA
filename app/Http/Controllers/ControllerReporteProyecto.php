@@ -24,7 +24,7 @@ class ControllerReporteProyecto extends Controller
 
 	public function select_vigencia(Request $request, $id)
     {
-        $vigencias = Presupuesto::find($id);
+        $vigencias = Presupuesto::where('Id_proyectoDesarrollo',$id)->get();
         return response()->json(array('vigencias'=>$vigencias ));
     }
 

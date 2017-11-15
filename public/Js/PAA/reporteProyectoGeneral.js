@@ -4,14 +4,12 @@ $(function()
 
   $('input[data-role1="datepicker"]').datepicker({
       dateFormat: 'yy-mm-dd',
-      yearRange: "-100:+0",
       changeMonth: true,
       changeYear: true,
     });
 
   $('input[data-role="datepicker"]').datepicker({
       dateFormat: 'yy-mm-dd',
-      yearRange: "-100:+0",
       changeMonth: true,
       changeYear: true,
   });

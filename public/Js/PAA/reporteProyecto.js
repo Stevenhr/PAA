@@ -42,7 +42,8 @@ $(function()
 					var html = '<option value="">Seleccionar</option>';
 					if(data.vigencias)
 					{
-						$.each(data, function(i, e){
+            console.log(data);
+						$.each(data.vigencias, function(i, e){
 							html += '<option value="'+e['Id']+'">'+e['vigencia']+'</option>';
 						});
 					}
@@ -76,7 +77,7 @@ $(function()
 					{
             console.log(data);
 						$.each(data.proyecto, function(i, e){
-							html += '<option value="'+e['Id']+'">'+e['Nombre']+'</option>';
+							html += '<option value="'+e['Id']+'">'+e['codigo']+" - "+e['Nombre']+'</option>';
 						});
 					}
 					$('select[name="proyecto"]').html(html).val($('select[name="proyecto"]').data('value'));

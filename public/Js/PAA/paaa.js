@@ -21,7 +21,39 @@ $(function()
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf'],
-        pageLength: 5
+        pageLength: 5,
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column( 8 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Total over this page
+            pageTotal = api
+                .column( 8, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column( 8 ).footer() ).html(
+                'P: $'+number_format(pageTotal) +'<br>T: $'+ number_format(total) +''
+            );
+        }
     });
  
     // Apply the search
@@ -224,8 +256,9 @@ $(function()
             $('#meta').val("1");
            }
              
-          $('#crear_paa_btn').html('Registrando...'); 
-          $('#crear_paa_btn').prop('disabled',true);
+          $('#crear_paa_btn').html('Esperé un momento...');                 
+          $('#crear_paa_btn').attr('disabled',true);
+
           $.post(
             URL+'/validar/paa',
             $(this).serialize(),
@@ -234,6 +267,9 @@ $(function()
               {
                   validad_error(data.errors);
                   var mej="Campos vacios.";
+
+                  $('#crear_paa_btn').html('CREAR');                 
+                  $('#crear_paa_btn').attr('disabled',false);
 
                   $('#mjs_registroPaa').hide();
                   $('#mjs_registroPaa2').html('<center><strong>Error!</strong> '+mej+'</center>');
@@ -246,15 +282,13 @@ $(function()
               } 
               else 
               {
-                
-                $('#crear_paa_btn').attr('disabled',true);
+
                 validad_error(data.errors);
 
                 if(data.status == 'modelo')
                 {
                     document.getElementById("form_paa").reset(); 
-                    $('#crear_paa_btn').html("CREAR");
-                    $('#crear_paa_btn').prop('disabled',false);
+                    
                     vector_datos_actividad=[];
                     $('#registros').html('');               
                     var num=1;
@@ -272,10 +306,12 @@ $(function()
                       $('#mjs_registroPaa').html(' <strong>Registro Exitoso!</strong> Se realizo el resgistro de su PAA.');
                       $('#mjs_registroPaa').show();
                       setTimeout(function(){
+                          $('#crear_paa_btn').html("CREAR");
+                          $('#crear_paa_btn').prop('disabled',false);
                           $('#mjs_registroPaa').hide();
                           $('#Modal_AgregarNuevo').modal('hide');
-                          $('#crear_paa_btn').prop('disabled',false);
-                      }, 4000)
+                          window.location.reload(true);
+                      }, 3000)
                       
                     }
                     else
@@ -283,17 +319,20 @@ $(function()
                       $('#mjs_registroPaa').html(' <strong>Se Registro la Modificación!</strong> Entra en cola de espera para la aprobación de los cambios.');
                       $('#mjs_registroPaa').show();
                       setTimeout(function(){
+                          $('#crear_paa_btn').html("CREAR");
+                          $('#crear_paa_btn').prop('disabled',false);
                           $('#mjs_registroPaa').hide();
                           $('#Modal_AgregarNuevo').modal('hide');
-                          $('#crear_paa_btn').prop('disabled',false);
-                      }, 4000) 
+                          window.location.reload(true);
+                      }, 3000) 
                     }
                 }else{
                     $('#mensaje_presupuesto2').html('<strong>Error!</strong> el valor del presupuesto que intenta modificar es menor a la suma de los proyectos: $'+data.sum_proyectos);
                     $('#mensaje_presupuesto2').show();
                     setTimeout(function(){
-                        $('#mensaje_presupuesto2').hide();
+                        $('#crear_paa_btn').html("CREAR");
                         $('#crear_paa_btn').prop('disabled',false);
+                        $('#mensaje_presupuesto2').hide();
                     }, 6000)
                 }
                 
