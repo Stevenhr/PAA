@@ -29,6 +29,13 @@ class FuenteProyecto extends Model
         return $this->belongsTo('App\Proyecto','proyecto_id');
     }
 
+
+    public function paas()
+    {
+        return $this->belongsToMany('\App\Paa','actividadComponente','fuente_id','id_paa')
+            ->withPivot('actividad_id','estado','valor','created_at');
+    }
+
 	/*public function componentes()
     {
         return $this->hasMany('App\Componente','Id_fuente');

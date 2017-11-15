@@ -135,7 +135,7 @@
 					                        <td class="text-center"><b><p class="text-info text-center" style="font-size: 15px">{{$paa['Registro']}}<BR>{{$var0}}{{$var1}}</p>{{$var11}}</b></td>
 					                        <td><?php echo "<b>".$estado."</b>" ?></td>
 					                        <td>{{$paa->area->subdirecion['nombre']}} <br> - <b>{{$paa->area->subdirecion['Iniciales']}}</b></td>
-					                        <td>{{$paa->area['nombre']}}</td>
+					                        <td>{{$paa->area['nombre']}} <br> <?php echo "<b>".strtoupper($paa->persona['Primer_Nombre']." ".$paa->persona['Primer_Apellido'])."" ?></td>
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
