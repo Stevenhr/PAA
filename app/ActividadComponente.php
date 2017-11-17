@@ -14,6 +14,10 @@ class ActividadComponente extends Model
 	protected $connection = ''; 
 	public $timestamps = true;
 
+    public function paa()
+    {
+        return $this->hasMany('App\Paa','id_paa');
+    }
 
 	public function paas()
     {
