@@ -1373,7 +1373,16 @@ class PaaController extends Controller
 		
 		$valor_dispo=$Sum_Proye_fuente-$valorSumFC;
 
-		$actividadComponente=ActividadComponente::where('componente_id',$compoennte_f_c)->where('fuente_id',$fuente_f_c)->where('proyecto_id',$proyecto_f_c)->get();
+		$actividadComponente=ActividadComponente::with('paa')
+							 ->where('componente_id',$compoennte_f_c)
+							 ->where('fuente_id',$fuente_f_c)
+							 ->where('proyecto_id',$proyecto_f_c)
+							 ->whereDoesntHave('paa', function($query_paa)
+                                {
+                                    $query_paa->where('Estado','<>',3);
+                                })
+							 ->get();
+
 		$sum = $actividadComponente->sum( 'valor' );
 
 		//var_dump($sum." ".$valor_f_c);
@@ -1486,7 +1495,14 @@ class PaaController extends Controller
       	$componente_id=$request['componente_id'];
       	$id_fuenteProyecto=$request['id_fuenteProyecto'];
 
-		$actividadComponente=ActividadComponente::where('componente_id',$componente_id)->where('fuente_id',$id_fuenteProyecto)->get();
+		$actividadComponente=ActividadComponente::with('paa')
+							 ->where('componente_id',$componente_id)
+							 ->where('fuente_id',$id_fuenteProyecto)
+							 ->whereDoesntHave('paa', function($query_paa)
+                                {
+                                    $query_paa->where('Estado','<>',3);
+                                })
+							 ->get();
 		$sum = $actividadComponente->sum( 'valor' );
 
       	if($sum>0){
