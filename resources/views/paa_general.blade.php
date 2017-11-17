@@ -32,6 +32,7 @@
 						                <th>Estado</th>
 						                <th>Sub Dirección</th>
 						                <th>Área</th>
+						                <th>Fecha <br>inicio </th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
@@ -43,7 +44,7 @@
 										<th>¿Se requieren <br>vigencias futuras?	</th>
 										<th>Estado de solicitud <br> vigencias futuras	</th>
 										<th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
-										<th>Fecha estimada de inicio de <br>proceso de selección - Fecha  (dd/mm/aaaa)	</th>
+										
 										<th>Fecha suscripción <br>Contrato (dd/mm/aaaa)	</th>
 										<th>Recurso Humano (Si / No)</th>
 										<th>Numero de Contratistas	</th>
@@ -60,6 +61,7 @@
 						                <th>Estado</th>
 						                <th>Sub Dirección</th>
 						                <th>Área</th>
+						                <th>Fecha <br>inicio </th>
 										<th>Códigos<br>UNSPSC</th>
 										<th>Modalidad<br>Selección</th>
 										<th>Tipo<br>Contrato</th>
@@ -71,7 +73,7 @@
 										<th>¿Se requieren <br>vigencias futuras?	</th>
 										<th>Estado de solicitud <br> vigencias futuras	</th>
 										<th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
-										<th>Fecha estimada de inicio de <br>proceso de selección - Fecha  (dd/mm/aaaa)	</th>
+										
 										<th>Fecha suscripción <br>Contrato (dd/mm/aaaa)	</th>
 										<th>Recurso Humano (Si / No)</th>
 										<th>Numero de Contratistas	</th>
@@ -136,6 +138,7 @@
 					                        <td><?php echo "<b>".$estado."</b>" ?></td>
 					                        <td>{{$paa->area->subdirecion['nombre']}} <br> - <b>{{$paa->area->subdirecion['Iniciales']}}</b></td>
 					                        <td>{{$paa->area['nombre']}} <br> <?php echo "<b>".strtoupper($paa->persona['Primer_Nombre']." ".$paa->persona['Primer_Apellido'])."" ?></td>
+					                        <td>{{$paa['FechaInicioProceso']}}</td>
 					                        <td>{{$paa['CodigosU']}}</td>
 					                        <td>{{$paa->modalidad['Nombre']}}</td>
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
@@ -147,7 +150,7 @@
 					                        <td>{{$paa['VigenciaFutura']}}</td>
 					                        <td>{{$paa['EstadoVigenciaFutura']}}</td>
 					                        <td>{{$paa['FechaEstudioConveniencia']}}</td>
-					                        <td>{{$paa['FechaInicioProceso']}}</td>
+					                        
 					                        <td>{{$paa['FechaSuscripcionContrato']}}</td>
 					                        <td>{{$paa['RecursoHumano']}}</td>
 					                        <td>{{$paa['NumeroContratista']}}</td>
@@ -184,7 +187,6 @@
 												    <li><button type="button" data-rel="{{$paa['Registro']}}" data-funcion="Historial" class="btn btn-link  btn-xs" title="Historial" ><span class="glyphicon glyphicon-header" aria-hidden="true"></span>   Historial</button></li>
 												    
 												    <li><button type="button" data-rel="{{$paa['Id']}}" data-funcion="Financiacion" class="btn btn-link  btn-xs"  title="Financiación" data-toggle="modal" data-target="#Modal_Financiacion"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span>   Financiación</button>  </li>
-											
 
 												  </ul>
 												</div>
@@ -538,43 +540,79 @@
 
 
 
-<!-- MODAL FIANANCIACION-->
-<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Financiacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Listado de Financiación</h4>
-      </div>
-      <div class="modal-body">
-      		<div class="row">
-				<div class="col-xs-12 col-sm-12">
-			  		<table class="table table-bordered" id="datos_actividad2" > 
-						<thead>
-						<tr>
-						<th>#</th>
-						<th>Fuente</th>
-						<th>Componente</th>
-						<th>Valor</th>					
-						</tr>
-						</thead>
-						<tbody id="registrosFinanzas"> 
-						</tbody> 
-					</table>
+	<!-- MODAL FIANANCIACION-->
+	<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modal_Financiacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title text-success" id="myModalLabel">Listado de Financiación Proyecto de Inversión.</h4>
 				</div>
-			</div>
-		</div>
-        <div class="modal-footer">
-      	  <div class="row">
-        	<div class="col-xs-12 col-sm-12">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-		    </div>
-          </div>
-      </div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12">
+							<table class="table table-bordered" id="datos_actividad2" >
+								<thead class="thead-inverse table-success">
+								<tr class="success">
+									<th>#</th>
+									<th>Proyecto de Inversión</th>
+									<th>Fuente</th>
+									<th>Componente</th>
+									<th>Meta</th>
+									<th>Valor</th>
+								</tr>
+								</thead>
+								<tbody id="registrosFinanzas">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 
-    </div>
-  </div>
-</div>
+     			<div class="row">
+					<div class="col-xs-12 col-sm-12"><hr style="border-color: #178acc;"></div>
+				</div>
+
+     			 <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title text-warning" id="myModalLabel">Listado de Financiación Rubros de Funcionamiento.</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12">
+							<table class="table table-bordered" id="datos_actividad3" >
+								<thead class="thead-inverse">
+								<tr class="warning">
+									<th>#</th>
+									<th>Rubro de funcionamiento.</th>
+									<th>Fuente</th>
+									<th>Valor</th>
+								</tr>
+								</thead>
+								<tbody id="registrosFinanzasRubro">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>      
+			      <div class="modal-footer">
+			      	<div class="row">
+			        	<div class="col-xs-12 col-sm-12">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						</div>
+			        </div>
+			      </div>
+    		</div>
+  		</div>
+	</div>
+
+
+
+
+
+
+
+
 
 
 <!-- MODAL FIANANCIACION-->
@@ -595,7 +633,7 @@
 							    <p>Registro que actualmente es valido para todos los usuarios.</p>
 							</div>						 
 							<div class="table-responsive">
-								<table  id="Tabla1" class="display nowrap table-bordered" width="780px" cellspacing="0">
+								<table  id="Tabla1" class="table display nowrap table-bordered" width="780px" cellspacing="0">
 								        <thead>
 											<tr class="success">
 								                <th>N°</th>
@@ -604,7 +642,6 @@
 												<th>Modalidad de selección</th>
 												<th>Tipo de contrato</th>
 												<th>Descripción/Objeto</th>
-												<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
 												<th>Valor total estimado	</th>
 												<th>Valor estimado en la vigencia actual	</th>
 												<th>¿Se requieren vigencias futuras?	</th>
@@ -613,11 +650,11 @@
 												<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 												<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
 												<th>Duración estimada del contrato (meses)	</th>
-												<th>Meta plan	</th>
 												<th>Recurso Humano (Si / No)</th>
 												<th>Numero de Contratistas	</th>
 												<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 												<th>Proyecto de inversión o rubro de funcionamiento</th>
+												<th>Meta plan	</th>
 								            </tr>
 								        </thead>						       
 								        <tbody id="registrosHtml">
@@ -625,6 +662,7 @@
 								</table>
 							</div>
 						</div>
+						<div id="mensaje_justi" class="alert alert-success" style="display: none"></div>
 					</div>
 
 					<div class="col-xs-12 col-sm-12">
@@ -639,7 +677,7 @@
 							    <p>Los siguientes registros son el historial de cambios aprobados por los difrentes usuarios durante el actual proceso.</p>
 							</div>	
 					  		<div class="table-responsive"> 
-						  		<table  id="Tabla2" class="display nowrap table-bordered" width="780px" cellspacing="0">
+						  		<table  id="Tabla2" class="table display nowrap table-bordered" width="780px" cellspacing="0">
 								        <thead>
 											<tr class="success">
 								                <th>N°</th>
@@ -648,7 +686,6 @@
 												<th>Modalidad de selección</th>
 												<th>Tipo de contrato</th>
 												<th>Descripción/Objeto</th>
-												<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>
 												<th>Valor total estimado	</th>
 												<th>Valor estimado en la vigencia actual	</th>
 												<th>¿Se requieren vigencias futuras?	</th>
@@ -657,11 +694,11 @@
 												<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)	</th>
 												<th>Fecha suscripción Contrato (dd/mm/aaaa)	</th>
 												<th>Duración estimada del contrato (meses)	</th>
-												<th>Meta plan	</th>
 												<th>Recurso Humano (Si / No)</th>
 												<th>Numero de Contratistas	</th>
 												<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 												<th>Proyecto de inversión o rubro de funcionamiento</th>
+												<th>Meta plan	</th>
 								            </tr>
 								        </thead>	
 								        <tbody id="registrosHtml1">
@@ -676,12 +713,12 @@
 					<div class="col-xs-12 col-sm-12">
 						<div class="panel panel-danger">
 						  <!-- Default panel contents -->
-							<div class="panel-heading">Registros pendientes por aprobación</div>
+							<div class="panel-heading">Registros pendientes por revisión</div>
 							<div class="panel-body">
-							    <p>Los siguientes registros estan pedintes de aprobación.</p>
-							</div>	
-							<div class="table-responsive"> 
-						  		<table  id="Tabla3" class="display nowrap table-bordered" width="780px" cellspacing="0">
+							    <p>Los siguientes registros están pendientes de revisión.</p>
+							</div>
+							<div class="table-responsive">
+						  		<table  id="Tabla3" class="table display nowrap table-bordered" width="780px" cellspacing="0">
 							        <thead>
 										<tr class="success">
 							                <th>N°</th>
@@ -690,7 +727,6 @@
 											<th>Modalidad de selección</th>
 											<th>Tipo de contrato</th>
 											<th>Descripción/Objeto</th>
-											<th>Fuente de los recursos (Nombre de la Fuente (s))</th>
 											<th>Valor total estimado</th>
 											<th>Valor estimado en la vigencia actual</th>
 											<th>¿Se requieren vigencias futuras?</th>
@@ -699,11 +735,11 @@
 											<th>Fecha estimada de inicio de proceso de selección - Fecha  (dd/mm/aaaa)</th>
 											<th>Fecha suscripción Contrato (dd/mm/aaaa)</th>
 											<th>Duración estimada del contrato (meses)</th>
-											<th>Meta plan</th>
 											<th>Recurso Humano (Si / No)</th>
 											<th>Numero de Contratistas</th>
 											<th>Datos de contacto del responsable (Ordenador del Gasto)</th>
 											<th>Proyecto de inversión o rubro de funcionamiento</th>
+											<th>Meta plan	</th>
 							            </tr>
 							        </thead>	
 							        <tbody id="registrosHtml1">
@@ -721,6 +757,13 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
 
 
 <!-- MODAL EDITAR-->

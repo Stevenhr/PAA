@@ -108,8 +108,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
           $('#id_act_agre').val(id_act);
           $('#id_act_agre2').val(id_act);
 
-          $('#registrosFinanzas').html('');
-          $('#registrosFinanzasRubro').html('');
+           $('#registrosFinanzas').html('<h4>Esperé un momento por favor...</h4>');
+          $('#registrosFinanzasRubro').html('<h4>Esperé un momento por favor...</h4>');
 
           $.ajax({
               url: URL+'/service/VerFinanciamiento/'+id_act,
@@ -1309,7 +1309,9 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                 'excelHtml5',
                 'csvHtml5',
                 'pdfHtml5'
-            ]
+            ],
+            pageLength: 8
+
     });
 
     Tabla_componentes_fuentes_financia.columns().every( function () {
@@ -1329,6 +1331,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
         var nombre = $(this).data('nombre');
         $('#id_Nom_proy_fin_c').text(nombre);          
         $('#id_proyect_fina_c').val(id_prty);    
+       
         Tabla_componentes_fuentes_financia.clear().draw();  
         $.get(
             URL+'/validar/consultacomponenteFinanza/'+id_prty,
@@ -1369,8 +1372,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
 
              var $tr1 =   $('<tr></tr>').html(
                 '<th scope="row" class="text-center">'+num+'</th>'+
-                    '<td><b><p class="text-info">'+e.fuente['nombre']+'<br></p></b></td>'+
-                    '<td><b><p class="text-info">'+ee.componente_c['Nombre']+'<br></p></b></td>'+
+                    '<td><b><p class="text-info">'+e.fuente['codigo']+" - "+e.fuente['nombre']+'<br></p></b></td>'+
+                    '<td><b><p class="text-info">'+ee.componente_c['codigo']+" - "+ee.componente_c['Nombre']+'<br></p></b></td>'+
                     '<td><b> $'+number_format(ee['valor'])+'</b></td>'+
                     '<td>'+
                       '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+

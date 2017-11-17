@@ -67,6 +67,7 @@ class PlanAnualAController extends Controller
             {
                $query->with('actividadescomponetes.fuenteproyecto.fuente','actividadescomponetes.fuenteproyecto.proyecto');
             }])
+
             ->whereHas('fuentesproyectos', function($query)
                         {
                             $query->whereHas('proyecto', function($query_proyecto)
@@ -77,7 +78,11 @@ class PlanAnualAController extends Controller
                                 });
                             });
                         })
+
+            
             ->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])
+            ->orwhere('Proyecto1Rubro2',2)
+            ->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])
             ->orderby('Id','desc')
             ->get();
 

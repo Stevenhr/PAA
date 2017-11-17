@@ -1376,7 +1376,8 @@ class PaaController extends Controller
 		$actividadComponente=ActividadComponente::where('componente_id',$compoennte_f_c)->where('fuente_id',$fuente_f_c)->where('proyecto_id',$proyecto_f_c)->get();
 		$sum = $actividadComponente->sum( 'valor' );
 
-
+		//var_dump($sum." ".$valor_f_c);
+		
 		if($sum>$valor_f_c){
 			return response()->json(array('status' => 'modelo', 'proyecto' => '','upd'=>5));
 		}
