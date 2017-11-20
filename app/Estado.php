@@ -6,7 +6,7 @@ class Estado {
 	const Consolidacion = 0;
 	const Uno = 1;
 	const Dos = 2;
-	const Tres = 3;
+	const Tres = 3;//Eliminado
 	const Subdireccion = 4;
 	const Aprobado = 5;
 	const Rechazado = 6;

@@ -169,7 +169,8 @@
                     <li class=”{{ Request::is('reporteProyecto') ? 'active' : '' }}”><a href="{{ URL::to('reporteProyecto') }}">Proyecto</a></li>
                   @endif
                   @if($_SESSION['Usuario']['Permisos']['Reporte_general'])
-                    <li class=”{{ Request::is('reporteGeneral') ? 'active' : '' }}”><a href="{{ URL::to('reporteGeneral') }}">General</a></li>
+                    <li class=”{{ Request::is('reporteGeneral') ? 'active' : '' }}”><a href="{{ URL::to('reporteGeneral') }}">Estudio aprobado</a></li>
+                    <li class=”{{ Request::is('reporteGeneral2') ? 'active' : '' }}”><a href="{{ URL::to('reporteGeneral2') }}">Estudio en espera</a></li>
                   @endif
                 </ul>
               </li>
