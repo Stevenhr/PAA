@@ -96,7 +96,7 @@
                     <li class=”{{ Request::is( 'GestionarPaaCompartida') ? 'active' : '' }}”><a href="{{ URL::to( 'GestionarPaaCompartida') }}">Paa Compartida</a></li>
                   @endif
 
-                  @if($_SESSION['Usuario']['Permisos']['Reporte_Sin_Aprobacion'])
+                  @if($_SESSION['Usuario']['Permisos']['Gestion_operador'])
                     <li class=”{{ Request::is( 'reporteGeneralOperario') ? 'active' : '' }}”><a href="{{ URL::to( 'reporteGeneralOperario') }}">Planes Finanzas sin aprobar</a></li>
                   @endif
                 </ul>
