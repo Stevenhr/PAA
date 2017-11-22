@@ -673,9 +673,9 @@ class PlanAnualAController extends Controller
         }
         $valorCocenpto=$ModeloCompoente['valor'];
 
-        $ModeloAprobado = Paa::with(['componentes' => function($query) use ($compo_id)
+        $ModeloAprobado = Paa::with(['componentes' => function($query) use ($compo_id,$Fuente_inversion)
         {
-            $query->where('componente_id',$compo_id)->get();
+            $query->where('componente_id',$compo_id)->where('fuente_id',$Fuente_inversion)->wherePivot('deleted_at',NULL)->get();
         }])->find($id);
         
         if($ModeloAprobado!=''){
@@ -689,8 +689,9 @@ class PlanAnualAController extends Controller
         $valor2=$valor+$suma_por_aprobar;
         $valorAfavor=$valorCocenpto-$suma_aprobado;
         $estado="";
-        //dd($ModeloCompoente['valor']."   -   ".$suma_aprobado." - ".$valor2." - ".$valorAfavor);
-        //echo $valorAfavor." - ".$valor."";
+        //echo $ModeloCompoente['valor']."   -   ".$suma_aprobado." - ".$valor2." - ".$suma_por_aprobar."<br>";
+        //echo $valorAfavor." - ".$valor2." - ".$id_componente."<br>";
+        
         if($valorAfavor>=$valor2){
             $paa = Paa::find($id);
             $paa->componentes()->attach($compo_id,[

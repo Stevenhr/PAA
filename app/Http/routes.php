@@ -179,7 +179,7 @@ Route::post('/paacompartida/service/fuenteComponente', 'PlanAnualAController@fue
 Route::post('/paacompartida/service/agregar_finza/', 'PaaCompartidoController@agregar_finza');
 Route::post('/paacompartida/service/agregar_rubro/', 'PaaCompartidoController@agregar_rubro');
 Route::post('/paacompartida/crear/paaCompartido/', 'PaaCompartidoController@crear_paa_compartido');
-
+Route::post('/paacompartida/service/PresupuestoComponente', 'PlanAnualAController@PresupuestoComponente');
 
 
 Route::get('AprobacionDireccion', 'DireccionGeneralController@index');

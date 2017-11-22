@@ -326,6 +326,91 @@ $(function()
     };
 
 
+    $('select[name="Componnente_Finanza"]').on('change', function(e){
+        var id_presupuestado=$(this).find(':selected').val();
+        presupuesto_vista(id_presupuestado);
+    });
+
+
+    
+
+    
+    function presupuesto_vista(id_presupuestado){
+ 
+      $.ajax({
+            type: "POST",
+            url: URL+'/service/PresupuestoComponente',
+            data: {id_presupuestado:id_presupuestado},
+            dataType: 'json',
+            success: function(data)
+            {
+                var valorCocenpto=0;
+                var suma=0;
+                var suma2=0;
+                
+                // valor de la suma de los paa con estudio aprobado.
+                $.each(data.ModeloPa, function(i, eee){
+                  if(eee.componentes!=''){
+                    $.each(eee.componentes, function(ii, eeee){
+                       if(eeee.pivot['valor']!='')
+                       suma=suma + parseInt(eeee.pivot['valor']);
+                    });
+                  }
+                });
+               
+
+                //valor de la suma de los paa pendientes
+                console.log(data.ModeloPaPendi);
+                $.each(data.ModeloPaPendi, function(i, eee){
+                  if(eee.componentes!=''){
+                    $.each(eee.componentes, function(ii, eeee){
+                       if(eeee.pivot['valor']!='') {
+                           suma2 = suma2 + parseInt(eeee.pivot['valor']);
+                           //console.log(eeee.pivot['id_paa']);
+                       }
+                    });
+                  }
+                });
+
+                /*$.each(data.ModeloPaPendi, function(i, eee){
+                    if(eee.componentes!=''){
+                        $.each(eee.componentes, function(ii, eeee){
+                            if(eeee.pivot['valor']!='')
+                                suma2=suma2 + parseInt(eeee.pivot['valor']);
+                            if(eeee.pivot['valor']!='') {
+                                suma2 = suma2 + parseInt(eeee.pivot['valor']);
+                                console.log(eeee.pivot['id_paa']);
+                            }
+                        });
+                    }
+                });*/
+
+
+                valorCocenpto=data.presupuestado['valor'];
+                valorAfavor=parseInt(valorCocenpto)-parseInt(suma)-parseInt(suma2);
+        
+               // console.log(valorAfavor+" - "+valorCocenpto+" - "+suma);
+                valor_ingresado_conso=0;
+                if(vector_financiacion.length > 0)
+                {
+                  $.each(vector_financiacion, function(i, e){
+                    //if(e['id_componente']==texto){
+                      valor_ingresado_conso=parseInt(valor_ingresado_conso)+parseInt(e['valor']);
+                    //}
+                  });
+                }
+               
+                $('#mjs_componente_finanza').html('<div class="alert "><table class="table table-bordered">'+
+                 '<tr class="info"><td>Presupuesto total:</td><td><center><strong>  $'+number_format(valorCocenpto)+'</strong>.<br></td></tr>'+
+                 '<tr class="success"><td>Presupuesto aprobado:</td><td><center><strong>                 $'+number_format(suma)+'</strong>.<br></td></tr>'+
+                 '<tr class="warning"><td>Presupuesto reservado por aprobar:</td><td><center><strong>                 $'+number_format(suma2)+'</strong>.<br></td></tr>'+
+                 '<tr class="active"><td>Presupuesto libre: </td><td><center><strong>  $'+number_format(valorAfavor)+'</strong>.<br>'+'</td></tr></table></div>');
+            }
+        });
+
+    }
+
+
     $('#form_agregar_finza').on('submit', function(e){
           var id_act=$('#id_act_agre').val();
           $('.mjs_componente').html('');

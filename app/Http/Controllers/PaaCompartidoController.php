@@ -185,9 +185,9 @@ class PaaCompartidoController extends Controller
         }
         $valorCocenpto=$ModeloCompoente['valor'];
 
-        $ModeloAprobado = Paa::with(['componentes' => function($query) use ($compo_id)
+        $ModeloAprobado = Paa::with(['componentes' => function($query) use ($compo_id,$Fuente_inversion)
         {
-            $query->where('componente_id',$compo_id)->get();
+            $query->where('componente_id',$compo_id)->where('fuente_id',$Fuente_inversion)->wherePivot('deleted_at',NULL)->get();
         }])->find($id);
         
         if($ModeloAprobado!=''){

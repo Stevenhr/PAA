@@ -987,7 +987,6 @@ $(function()
     
   $('#agregarFinanciacion').on('click', function(e)
     {
-        
         var id_pivot_comp=$('input[name="id_pivot_comp"]').val();
         
         var Fuente_inversion=$('select[name="Fuente_inversion"]').find(':selected').val();

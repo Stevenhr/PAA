@@ -312,12 +312,13 @@
 								</div>
 								<button type="submit" class="btn btn-block btn-sm btn-success" id="btn_agregar_finaza">Agregar Proyecto</button>
 							  </div>
-							  
+
+							  <div class="col-xs-12 col-sm-8">
+					  			<div id="mjs_componente_finanza"></div>
+					  		  </div>
 						</div>
 					</form>
-					  <div class="col-xs-12 col-sm-12">
-					  	<div id="mjs_componente"></div>
-					  </div>
+					  
      			 </div>
 
      			<div class="row">
