@@ -48,9 +48,12 @@ class ControllerReporteGeneral2 extends Controller
                 
              
 
-                    $proyecto = Paa::with('componentes')->get();
+                   $proyecto = Paa::with('componentes')->get();
                     $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
-                    $finanzas_r = Paa::with('componentes')->whereBetween('FechaEstudioConveniencia',array($request['fecha_inicial'], $request['fecha_final']))->whereIn('Estado',[Estado::Consolidacion,Estado::Subdireccion,Estado::Aprobado,Estado::Rechazado,Estado::EstudioConveniencia,Estado::EstudioCorregido])->get();
+                    $finanzas_r = Paa::with(['componentes' => function($query)
+                    {
+                        $query->wherePivot('deleted_at',NULL)->get();
+                    }])->whereBetween('FechaEstudioConveniencia',array($request['fecha_inicial'], $request['fecha_final']))->whereIn('Estado',[Estado::Consolidacion,Estado::Subdireccion,Estado::Aprobado,Estado::Rechazado,Estado::EstudioConveniencia,Estado::EstudioCorregido])->get();
                     
                     if($finanzas_r)
                     {

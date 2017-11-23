@@ -14,15 +14,15 @@ use App\Paa;
 class ControllerReporteProyecto extends Controller
 {
     public function index()
-	{
-		$proyectoDesarrollo = ProyectoDesarrollo::all();
-		$datos = [        
+  {
+    $proyectoDesarrollo = ProyectoDesarrollo::all();
+    $datos = [        
             'planDesarrollo' => $proyectoDesarrollo
         ];
-		return view('reporteproyecto',$datos);
-	}
+    return view('reporteproyecto',$datos);
+  }
 
-	public function select_vigencia(Request $request, $id)
+  public function select_vigencia(Request $request, $id)
     {
         $vigencias = Presupuesto::where('Id_proyectoDesarrollo',$id)->get();
         return response()->json(array('vigencias'=>$vigencias ));
@@ -40,10 +40,13 @@ class ControllerReporteProyecto extends Controller
      */
     public function proyecto_finanza(Request $request)
     {
-    	
-    	$proyecto = Proyecto::find($request['proyecto']);
+      
+      $proyecto = Proyecto::find($request['proyecto']);
 
-        $paa = Paa::with('componentes')->where('Id_Proyecto',$request['proyecto'])->whereIn('Estado',['9'])->get();
+        $paa = Paa::with(['componentes' => function($query)
+                    {
+                        $query->wherePivot('deleted_at',NULL)->get();
+                    }])->where('Id_Proyecto',$request['proyecto'])->whereIn('Estado',['9'])->get();
 
         $Fuenteproyecto= FuenteProyecto::where('proyecto_id',$request['proyecto'])->get();
 
@@ -65,7 +68,10 @@ class ControllerReporteProyecto extends Controller
           }
         }
 
-        $paa2 = Paa::with('componentes')->where('Id_Proyecto',$request['proyecto'])->whereIn('Estado',['0','4','5','8','10'])->get();
+        $paa2 = Paa::with(['componentes' => function($query)
+                    {
+                        $query->wherePivot('deleted_at',NULL)->get();
+                    }])->where('Id_Proyecto',$request['proyecto'])->whereIn('Estado',['0','4','5','8','10'])->get();
         $reservado_por_aprobar=0;
         
         foreach($paa2 as $eee){
@@ -82,13 +88,13 @@ class ControllerReporteProyecto extends Controller
     
         $Saldo_libre=$proyecto['valor']-($suma_aprobado+$reservado_por_aprobar);
         $datos=[
-	        "Id_Proyecto"=>$proyecto['Id'],
-	        "Proyecto"=>$proyecto['Nombre'],
-	        "Codigo"=>$proyecto['codigo'],
-	        "aprobado"=>$suma_aprobado,
-	        "reservado_por_aprobar"=>$reservado_por_aprobar,
-	        "Saldo_libre"=>$Saldo_libre,
-	        "Total"=>$proyecto['valor']
+          "Id_Proyecto"=>$proyecto['Id'],
+          "Proyecto"=>$proyecto['Nombre'],
+          "Codigo"=>$proyecto['codigo'],
+          "aprobado"=>$suma_aprobado,
+          "reservado_por_aprobar"=>$reservado_por_aprobar,
+          "Saldo_libre"=>$Saldo_libre,
+          "Total"=>$proyecto['valor']
         ];
 
         return response()->json($datos);
@@ -97,16 +103,16 @@ class ControllerReporteProyecto extends Controller
 
     public function obtenerPaaAprobado(Request $request, $id)
     {
-    	
-    	$model_A = Paa::with('modalidad','tipocontrato','meta','proyecto','cambiosPaa','rubro_funcionamiento')->where('Id_Proyecto',$id)->whereIn('Estado',['9'])->get();
+      
+      $model_A = Paa::with('modalidad','tipocontrato','meta','proyecto','cambiosPaa','rubro_funcionamiento')->where('Id_Proyecto',$id)->whereIn('Estado',['9'])->get();
         return response()->json($model_A);
     }
 
     
     public function obtenerPaaReservado(Request $request, $id)
     {
-    	
-    	$model_A = Paa::with('modalidad','tipocontrato','meta','proyecto','cambiosPaa','rubro_funcionamiento')->where('Id_Proyecto',$id)->whereIn('Estado',['0','4','5','8','10'])->get();
+      
+      $model_A = Paa::with('modalidad','tipocontrato','meta','proyecto','cambiosPaa','rubro_funcionamiento')->where('Id_Proyecto',$id)->whereIn('Estado',['0','4','5','8','10'])->get();
         return response()->json($model_A);
     }
 }
