@@ -81,6 +81,20 @@ class ControllerReporteGeneral2 extends Controller
                             <th>Actividad</th>
                             <th>Concepto</th>
                             <th>Fuente</th>
+                            <th>Compartida <br> Vinculada <br> Individual</th>
+                            <th>Id Item</th>
+                            <th>Códigos<br>UNSPSC</th>
+                            <th>Modalidad</th>
+                            <th>Tipo<br>Contrato</th>
+                            <th>Duración<br>Estimada</th>
+                            <th>Valor estimado <br> vigencia actual </th>
+                            <th>¿Se requieren <br>vigencias futuras?    </th>
+                            <th>Estado de solicitud <br> vigencias futuras  </th>
+                            <th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
+                            <th>Fecha estimada de inicio de <br>proceso de selección - Fecha  (dd/mm/aaaa)  </th>
+                            <th>Fecha suscripción <br>Contrato (dd/mm/aaaa) </th>
+                            <th>Recurso Humano (Si / No)</th>
+                            <th>Número de Contratistas  </th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -94,11 +108,26 @@ class ControllerReporteGeneral2 extends Controller
                             <th>Actividad</th>
                             <th>Concepto</th>
                             <th>Fuente</th>
+                            <th>Compartida <br> Vinculada <br> Individual</th>
+                            <th>Id Item</th>
+                            <th>Códigos<br>UNSPSC</th>
+                            <th>Modalidad</th>
+                            <th>Tipo<br>Contrato</th>
+                            <th>Duración<br>Estimada</th>
+                            <th>Valor estimado <br> vigencia actual </th>
+                            <th>¿Se requieren <br>vigencias futuras?    </th>
+                            <th>Estado de solicitud <br> vigencias futuras  </th>
+                            <th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
+                            <th>Fecha estimada de inicio de <br>proceso de selección - Fecha  (dd/mm/aaaa)  </th>
+                            <th>Fecha suscripción <br>Contrato (dd/mm/aaaa) </th>
+                            <th>Recurso Humano (Si / No)</th>
+                            <th>Número de Contratistas  </th>
                         </tr>
                     </tfoot>
                     <tbody>";
                        $num=1;
-                        
+                       $c_v_i="";
+                       $c_v_i_id="";
                           foreach ($finanzas_r as $key => $value) {
                             foreach ($value->componentes as $key => $componente) {
                                     //dd($componente);
@@ -111,8 +140,46 @@ class ControllerReporteGeneral2 extends Controller
                                             <td>".$componente->Meta['Nombre']."</td>
                                             <td>N.R</td>
                                             <td>".$componente['Nombre']."</td>
-                                            <td>".$componente->FuenteProyecto->fuente['nombre']."</td>
-                                        </tr>";
+                                            <td>".$componente->FuenteProyecto->fuente['nombre']."</td>";
+                                            if($value['compartida']==1){
+                                                $c_v_i="Compartida";
+                                                $c_v_i_id=$value['Id'];
+                                            }elseif($value['vinculada']!=""){
+                                                $c_v_i="Vinculada";
+                                                $c_v_i_id=$value['vinculada'];
+                                            }else{
+                                                $c_v_i="Individual";
+                                                $c_v_i_id="";
+                                            }
+                                            $tabla=$tabla."<td>".$c_v_i."</td>";
+                                            $tabla=$tabla."<td>".$c_v_i_id."</td>";
+                                            $tabla=$tabla."<td>".$value['CodigosU']."</td>";
+                                            $tabla=$tabla."<td>".$value->modalidad['Nombre']."</td>";
+                                            $tabla=$tabla."<td>".$value->tipocontrato['Nombre']."</td>";
+
+                                            if ($value['unidad_tiempo']==0){
+                                                $uni_t = "Dias"; 
+                                            }
+                                            elseif($value['unidad_tiempo']==1){
+                                                $uni_t = "Mes";
+                                            }
+                                            elseif($value['unidad_tiempo']==2){
+                                                $uni_t = "Años";
+                                            }
+                                            else{
+                                                $uni_t = "";
+                                            }
+                                            $tabla=$tabla."<td>".$value['DuracionContrato']." ".$uni_t."</td>";
+                                            $tabla=$tabla."<td> $".number_format ($value['ValorEstimadoVigencia'])."</td>";
+                                            $tabla=$tabla."<td>".$value['VigenciaFutura']."</td>";
+                                            $tabla=$tabla."<td>".$value['EstadoVigenciaFutura']."</td>";
+                                            $tabla=$tabla."<td>".$value['FechaEstudioConveniencia']."</td>";
+                                            $tabla=$tabla."<td>".$value['FechaInicioProceso']."</td>";
+                                            $tabla=$tabla."<td>".$value['FechaSuscripcionContrato']."</td>";
+                                            $tabla=$tabla."<td>".$value['RecursoHumano']."</td>";
+                                            $tabla=$tabla."<td>".$value['NumeroContratista']."</td>";
+
+                                        $tabla=$tabla."</tr>";
                                         $num++;
                                 
                             }                        
