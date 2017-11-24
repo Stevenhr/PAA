@@ -1256,8 +1256,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
        function tabla_opciones(e, num){
 
              var $tr1 =   $('<tr></tr>').html(
-                '<th scope="row" class="text-center">'+num+'</th>'+
-                    '<td><b><p class="text-info">'+e['nombre']+'<br></p></b></td>'+
+                    '<th scope="row" class="text-center">'+num+'</th>'+
+                    '<td><b><p class="text-info">'+e['codigo']+' - '+e['nombre']+'<br></p></b></td>'+
                     '<td><b> $'+number_format(e.pivot['valor'])+'</b></td>'
               );
               return $tr1 ;

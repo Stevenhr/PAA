@@ -2,7 +2,7 @@
 
 @section('script')
 	@parent
-    <script src="{{ asset('public/Js/PAA/reporteProyectoGeneral.js') }}"></script>
+    <script src="{{ asset('public/Js/PAA/reporteProyectoGeneral.js?n=2') }}"></script>
 @stop
 
 @section('content')          
@@ -15,7 +15,7 @@
 				@if($vista==0)
 					<h4>Reporte General</h4>
 				@elseif($vista==1)
-					<h4>Reporte Planes Sin Aprobación.</h4>
+					<h4>Mis Reporte Planes Sin Aprobación (OPERARIO).</h4>
 				@endif
 
 				<br><br>
