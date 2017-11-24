@@ -27,7 +27,10 @@ class GeneralController extends Controller
         $fuente = Fuente::all();
         $subDireccion = SubDireccion::all();
         $fuenteHacienda = FuenteHacienda::all();
-        $paa = Paa::with(['modalidad','tipocontrato','rubro','area','area.subdirecion','componentes','proyecto','meta','fuentesproyectos'])
+        $paa = Paa::with(['modalidad','tipocontrato','rubro','area','area.subdirecion','proyecto','meta','fuentesproyectos','componentes' => function($query) 
+                        {
+                            $query->wherePivot('deleted_at',NULL)->get();
+                        }])
                         ->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])
                         ->whereHas('fuentesproyectos', function($query)
                         {

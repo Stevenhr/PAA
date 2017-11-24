@@ -305,6 +305,10 @@ class PlanAnualAController extends Controller
                     }
                 }
             }
+
+          
+
+
         }
         else
         {
@@ -350,6 +354,40 @@ class PlanAnualAController extends Controller
             $modeloP->save();
             $id_reg_def=$model->Id;
             $id_area_def=$model->Id_Area;
+
+                if($model['compartida']==1){
+
+                    $paa_vinculadas = Paa::where('vinculada',$model['Id'])->get();
+
+                    foreach ($paa_vinculadas as &$paa_vinculada) 
+                    {
+                        $modeloVinculado =  Paa::find($paa_vinculada['Id']);
+                        $modeloVinculado['CodigosU'] = $cod;
+                        $modeloVinculado['Id_ModalidadSeleccion'] = $input['modalidad_seleccion'];
+                        $modeloVinculado['Id_TipoContrato'] = $input['tipo_contrato'];
+                        $modeloVinculado['ObjetoContractual'] = $input['objeto_contrato'];
+                        $modeloVinculado['FuenteRecurso'] = $input['fuente_recurso'];
+                        $modeloVinculado['ValorEstimado'] = str_replace('.','',$input['valor_estimado']);
+                        $modeloVinculado['ValorEstimadoVigencia'] = str_replace('.','',$input['valor_estimado_actualVigencia']);
+                        $modeloVinculado['VigenciaFutura'] = $input['vigencias_futuras'];
+                        $modeloVinculado['EstadoVigenciaFutura'] = $input['estado_solicitud'];
+                        $modeloVinculado['FechaEstudioConveniencia'] = $input['estudio_conveniencia'];
+                        $modeloVinculado['FechaInicioProceso'] = $input['fecha_inicio'];
+                        $modeloVinculado['FechaSuscripcionContrato'] = $input['fecha_suscripcion'];
+                        $modeloVinculado['DuracionContrato'] = $input['duracion_estimada'];
+                        $modeloVinculado['MetaPlan'] = $input['meta'];
+                        $modeloVinculado['RecursoHumano'] = $input['recurso_humano'];
+                        $modeloVinculado['NumeroContratista'] = $input['numero_contratista'];
+                        $modeloVinculado['DatosResponsable'] = $input['datos_contacto'];
+                        $modeloVinculado['Id_Proyecto'] = $Id_Proyecto;
+                        $modeloVinculado['Id_Rubro'] = $Id_Rubro;
+                        $modeloVinculado['Proyecto1Rubro2'] = $input['ProyectOrubro'];
+                        $modeloVinculado['unidad_tiempo'] = $input['unidad_tiempo'];
+                        $modeloVinculado->save();
+                    }
+
+                }
+
         }
 
 
