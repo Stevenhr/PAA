@@ -136,11 +136,11 @@ class ControllerReporteGeneral2 extends Controller
                                             <td><center><h4>".$value['Id']."</h4></center></td>
                                             <td ><div  class='campoArea'>".$value['ObjetoContractual']."</div></td>
                                             <td> $".number_format ($componente->pivot['valor'])."</td>
-                                            <td>".$componente->FuenteProyecto->proyecto['Nombre']."</td>
+                                            <td><b>".$componente->FuenteProyecto->proyecto['codigo']."</b><br>".$componente->FuenteProyecto->proyecto['Nombre']."</td>
                                             <td>".$componente->Meta['Nombre']."</td>
                                             <td>N.R</td>
-                                            <td>".$componente['Nombre']."</td>
-                                            <td>".$componente->FuenteProyecto->fuente['nombre']."</td>";
+                                            <td><b>".$componente['codigo']."</b><br>".$componente['Nombre']."</td>
+                                            <td><b>".$componente->FuenteProyecto->fuente['codigo']."</b><br>".$componente->FuenteProyecto->fuente['nombre']."</td>";
                                             if($value['compartida']==1){
                                                 $c_v_i="Compartida";
                                                 $c_v_i_id=$value['Id'];
@@ -149,7 +149,7 @@ class ControllerReporteGeneral2 extends Controller
                                                 $c_v_i_id=$value['vinculada'];
                                             }else{
                                                 $c_v_i="Individual";
-                                                $c_v_i_id="";
+                                                $c_v_i_id="n.a";
                                             }
                                             $tabla=$tabla."<td>".$c_v_i."</td>";
                                             $tabla=$tabla."<td>".$c_v_i_id."</td>";
