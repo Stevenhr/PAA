@@ -90,7 +90,7 @@ $(function()
                
                           // Total over this page
                           pageTotal = api
-                              .column( 3, { page: 'current'} )
+                              .column( 3, { filter: 'applied'} )
                               .data()
                               .reduce( function (a, b) {
                                   return intVal(a) + intVal(b);
@@ -98,7 +98,7 @@ $(function()
                
                           // Update footer
                           $( api.column( 3 ).footer() ).html(
-                              'P: $'+number_format(pageTotal) +'<br>T: $'+ number_format(total) +''
+                              'Parcial: $'+number_format(pageTotal) +'<br>Total: $'+ number_format(total) +''
                           );
                       }
                   });
