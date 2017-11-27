@@ -2,7 +2,7 @@
 
 @section('script')
 	@parent
-	<script src="{{ asset('public/Js/PAA/paaa.js') }}"></script>
+	<script src="{{ asset('public/Js/PAA/paa.js?n=1') }}"></script>
 @stop
 
 @section('content')
@@ -10,7 +10,6 @@
 	<div class="content" id="main_paa_" class="row" data-url="paa" ></div>
 	<div class="content">
 		<div class="row">
-
 			@foreach($paa_obs as $paa_ob)
 				@foreach($paa_ob->observaciones as $observarcion)
 					@if(!$observarcion['check'])

@@ -676,10 +676,11 @@ $(function()
 	           		
 	           		if(data.status == 'ok')
               		{
-		           		$('#mjs_componente_paa_compartido').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Datos agregados exitosamente.</div>');
+		           		$('#mjs_componente_paa_compartido').html('<div class="alert alert-dismissible alert-success" ><strong>Bien!</strong> Datos vinculados exitosamente.</div>');
 			           	 setTimeout(function(){
 			                $('#mjs_componente_paa_compartido').html('');
-			            }, 2000)
+			            }, 1000)
+                    window.location.reload(true);
 			        }else{
 			        	$('#mjs_componente_paa_compartido').html('<div class="alert alert-dismissible alert-danger" ><strong>Error!</strong> Debe registrar algun tipo de financiacion.</div>');
 			           	 setTimeout(function(){

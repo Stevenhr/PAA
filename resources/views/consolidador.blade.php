@@ -2,7 +2,7 @@
 
 @section('script')
 	@parent
-    <script src="{{ asset('public/Js/PAA/aprobar.js') }}"></script>	
+    <script src="{{ asset('public/Js/PAA/aprobar.js?n=1') }}"></script>	
 @stop
 
 @section('content') 

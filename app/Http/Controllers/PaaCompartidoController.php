@@ -98,14 +98,10 @@ class PaaCompartidoController extends Controller
 
         $ActividadComponente = ActividadComponente::with('proyecto','fuenteproyecto','fuenteproyecto.fuente','fuenteproyecto.proyecto','componente','meta')->where('id_paa',$id)->get();
 
-
         $model_A = Paa::with('componentes','componentes.fuente','rubro_funcionamiento')->find($id);
         
-
         $RubroFuncionamiento = RubroFuncionamiento::find($model_A['Id_Rubro']);
         $RubroFuncionamiento1 = RubroFuncionamiento::all();
-
-        //exit();
 
         $grupovigencia[]="";
             $grupovigencia_paso=1;
@@ -126,10 +122,8 @@ class PaaCompartidoController extends Controller
             $proyectos = Proyecto::whereIn('Id_Presupuesto',$grupovigencia)->where('id_subdireccion',$subdirecion['id_subdireccion'])->get();
 
         if($ActividadComponente->count()>0){
-        
             $Proyecto = Proyecto::with('fuente')->find($ActividadComponente[0]->proyecto['Id']);
         }else{
-         
             $Proyecto = Proyecto::with('fuente')->where('id_subdireccion',$subdirecion['id_subdireccion'])->get();
         }
         return response()->json(array('estado' => $model_A['Estado'],'proyecto'=>$Proyecto,'proyectos'=>$proyectos, 'ActividadComponente'=>$ActividadComponente,'Rubro'=>$RubroFuncionamiento,'Modelo'=>$model_A, 'rubros_all'=>$RubroFuncionamiento1) );

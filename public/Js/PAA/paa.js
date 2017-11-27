@@ -43,7 +43,7 @@ $(function()
  
             // Total over this page
             pageTotal = api
-                .column( 8, { page: 'current'} )
+                .column( 8, { filter: 'applied' } )
                 .data()
                 .reduce( function (a, b) {
                     return intVal(a) + intVal(b);
@@ -2393,7 +2393,6 @@ $(function()
     
     $('#ElimianrPAA_btn').on('click', function(e)
     {
-       
        var id = $('#idRegist_inpt').val();
 
        $.get(
@@ -2418,7 +2417,8 @@ $(function()
                       setTimeout(function(){
                           $('#mjs_ElimRegistro').hide();
                           $('#Modal_Eliminar').modal('hide'); 
-                      }, 3000)
+                          window.location.reload(true);
+                      }, 2000)
                   }else{
                       $('#mjs_ElimRegistro').html('<strong>Error!</strong> el valor del presupuesto que intenta eliminar tiene problemas.');
                       $('#mjs_ElimRegistro').show();
