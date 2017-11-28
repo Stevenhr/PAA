@@ -329,7 +329,7 @@
 									<select class="form-control" name="modalidad_seleccion">
 										<option value="" >Selecionar</option>
 										@foreach($modalidades as $modalidad)
-											<option value="{{ $modalidad['Id'] }}" >{{ $modalidad['Nombre'] }}</option>
+											<option value="{{ $modalidad['Id'] }}" >{{ $modalidad['Codigo'] }} - {{ $modalidad['Nombre'] }}</option>
 										@endforeach
 									</select>
 								</div>
