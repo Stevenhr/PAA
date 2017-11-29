@@ -67,7 +67,6 @@ class PlanAnualAController extends Controller
             {
                $query->with('actividadescomponetes.fuenteproyecto.fuente','actividadescomponetes.fuenteproyecto.proyecto');
             }])
-
             ->whereHas('fuentesproyectos', function($query)
                         {
                             $query->whereHas('proyecto', function($query_proyecto)
@@ -78,15 +77,16 @@ class PlanAnualAController extends Controller
                                 });
                             });
                         })
-
-            
-            ->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])
-            ->orwhere('Proyecto1Rubro2',2)
+            ->where('Id_Area',$personapaa['id_area'])
             ->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])
+            ->orWhere(function($query) use ($personapaa){
+                $query->where('Proyecto1Rubro2',2)
+                    ->where('Id_Area',$personapaa['id_area'])
+                    ->whereIn('Estado',['0','4','5','6','7','8','9','10','11']);
+            })
             ->orderby('Id','asc')
             ->get();
-
-        //dd($paa[0]->componentes[0]->actividadescomponetes);
+            //dd($paa);
         $datos = [        
             'modalidades' => $modalidadSeleccion,
             'proyectos' => $proyecto,
@@ -99,8 +99,7 @@ class PlanAnualAController extends Controller
             'subDirecciones' => $subDireccion,
             'fuenteHaciendas'=>$fuenteHacienda,
         ];
-        //dd($paa);
-        //exit();
+
 		return view('paa',$datos);
 	}
     

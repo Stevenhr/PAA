@@ -72,7 +72,12 @@ class ConsolidadoController extends Controller
                                 });
                             });
                         })
-               ->orderby('Id','desc')
+                ->orWhere(function($query) use ($arreglo1){
+                    $query->where('Proyecto1Rubro2',2)
+                        ->whereIn('Id_Area',$arreglo1)
+                        ->whereIn('Estado',['0','4','5','6','7','8','9','10','11']);
+                })
+                ->orderby('Id','asc')
                ->get();
 
         $paa2 = Paa::whereIn('Id_Area',$arreglo1)->where('Estado','1')->get();

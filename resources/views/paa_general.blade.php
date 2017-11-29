@@ -133,8 +133,33 @@
 									        	<?php $var11 = ''; ?>
 									        @endif
 
+									        <?php $nombrementa="";
+			                                $nomProyRubro="";
+			                                $Proyecto1Rubro2="";?>
+
+											@if ($paa->rubro_funcionamiento->count()>0 && $paa->componentes->count()>0)
+			                                    <?php
+			                                    $nomProyRubro="Arreglar";//$paa->rubro_funcionamiento['nombre'];
+			                                    $nombrementa="N.A";
+			                                    $Proyecto1Rubro2="P-R";
+			                                    ?>
+											@elseif ($paa->componentes->count()>0)
+			                                    <?php
+			                                    $nomProyRubro=$paa->proyecto['Nombre'];
+			                                    $nombrementa=$paa->meta['Nombre'];
+			                                    $Proyecto1Rubro2="P";
+			                                    ?>
+			                                @elseif ($paa->rubro_funcionamiento->count()>0)
+			                                    <?php
+			                                    $nomProyRubro="";
+			                                    $nombrementa="N.A";
+			                                    $Proyecto1Rubro2="R";
+			                                    ?>
+			                                @endif
+
+
 			        						<th scope="row" class="text-center">{{$var}}</th>
-					                        <td class="text-center"><b><p class="text-info text-center" style="font-size: 15px">{{$paa['Registro']}}<BR>{{$var0}}{{$var1}}</p>{{$var11}}</b></td>
+					                        <td class="text-center"><b><p class="text-info text-center" style="font-size: 15px">{{$paa['Registro']}}<BR>{{$var0}}{{$var1}}</p>{{$var11}}<br>{{$Proyecto1Rubro2}}</b></td>
 					                        <td><?php echo "<b>".$estado."</b>" ?></td>
 					                        <td>{{$paa->area->subdirecion['nombre']}} <br> - <b>{{$paa->area->subdirecion['Iniciales']}}</b></td>
 					                        <td>{{$paa->area['nombre']}} <br> <?php echo "<b>".strtoupper($paa->persona['Primer_Nombre']." ".$paa->persona['Primer_Apellido'])."" ?></td>
@@ -156,7 +181,7 @@
 					                        <td>{{$paa['NumeroContratista']}}</td>
 					                        <td>{{$paa['DatosResponsable']}}</td>
 					                        <td>{{$paa->proyecto['Nombre']}}</td>
-					                        <td>{{$paa->meta['Nombre']}}</td>
+					                        <td>{{$nombrementa}}</td>
 					                        <td>
 												<!--
 												<div class="btn-group tama">

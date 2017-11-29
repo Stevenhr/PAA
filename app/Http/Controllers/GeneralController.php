@@ -42,6 +42,11 @@ class GeneralController extends Controller
                                 });
                             });
                         })
+                        ->orWhere(function($query){
+                            $query->where('Proyecto1Rubro2',2)
+                                  ->whereIn('Estado',['0','4','5','6','7','8','9','10','11']);
+                        })
+                        ->orderby('Id','asc')
                         ->get();
 
         $datos = [        

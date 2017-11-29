@@ -166,7 +166,7 @@
 
 								@if ($paa->rubro_funcionamiento->count()>0 && $paa->componentes->count()>0)
                                     <?php
-                                    $nomProyRubro="Areglar";//$paa->rubro_funcionamiento['nombre'];
+                                    $nomProyRubro="Arreglar";//$paa->rubro_funcionamiento['nombre'];
                                     $nombrementa="N.A";
                                     $Proyecto1Rubro2="P-R";
                                     ?>
@@ -529,7 +529,7 @@
 									<label>Selecione proyecto de inversión o rubro de funcionamiento.</label>
 									<select class="form-control" id="ProyectOrubro" name="ProyectOrubro">
 										<option value="" >Selecionar</option>
-										<option value="1" >Poyecto de inversión</option>
+										<option value="1" >Proyecto de inversión</option>
 										<option value="2" >Rubro de funcionamiento</option>
 									</select>
 								</div>

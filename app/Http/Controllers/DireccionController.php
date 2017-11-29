@@ -53,7 +53,12 @@ class DireccionController extends BaseController
                                 });
                             });
                         })
-						->orderby('Id','desc')
+		                ->orWhere(function($query) use ($subdireccion){
+		                    $query->where('Proyecto1Rubro2',2)
+		                        ->whereIn('Id_Area',$subdireccion->areas->pluck('id'))
+		                        ->whereIn('Estado',[Estado::Subdireccion, Estado::Aprobado, Estado::Rechazado, Estado::Cancelado,Estado::EstudioConveniencia,Estado::EstudioAprobado,Estado::EstudioCorregido,Estado::EstudioCancelado]);
+		                })
+		                ->orderby('Id','asc')
 						->get();
 		//dd($paas);
 		$datos = [
