@@ -61,8 +61,9 @@ class PlanAnualAController extends Controller
         $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
         $paa_obs=Paa::with('observaciones')->where('IdPersona',$_SESSION['Id_Persona'])->get();
 
-
-
+        $area = Area::find($personapaa['id_area']);
+        $areasSubdirec=Area::where('id_subdireccion',$area['id_subdireccion'])->get();
+//dd($areasSubdirec->pluck('id')->toArray());
         $paa = Paa::with(['modalidad','tipocontrato','rubro','area','proyecto','meta','persona','rubro_funcionamiento','fuentesproyectos','componentes' =>     function($query)
             {
                $query->with('actividadescomponetes.fuenteproyecto.fuente','actividadescomponetes.fuenteproyecto.proyecto');
@@ -77,11 +78,11 @@ class PlanAnualAController extends Controller
                                 });
                             });
                         })
-            ->where('Id_Area',$personapaa['id_area'])
+            ->whereIn('Id_Area',$areasSubdirec->pluck('id')->toArray())
             ->whereIn('Estado',['0','4','5','6','7','8','9','10','11'])
-            ->orWhere(function($query) use ($personapaa){
+            ->orWhere(function($query) use ($personapaa,$areasSubdirec){
                 $query->where('Proyecto1Rubro2',2)
-                    ->where('Id_Area',$personapaa['id_area'])
+                    ->whereIn('Id_Area',$areasSubdirec->pluck('id')->toArray())
                     ->whereIn('Estado',['0','4','5','6','7','8','9','10','11']);
             })
             ->orderby('Id','asc')
