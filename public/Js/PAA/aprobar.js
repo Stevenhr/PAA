@@ -748,8 +748,8 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
                   setTimeout(function(){
                      $('#mensaje_aprobacion_final').hide();
                      $('#aprobacion_Sub_Direccion').prop('disabled',false);
-                      $('#Modal_AprobarCambiosFinal').modal('hide');
-
+                     $('#Modal_AprobarCambiosFinal').modal('hide');
+                     window.location.reload();
                   }, 6000)
               }
           });

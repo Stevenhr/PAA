@@ -60,7 +60,9 @@ class ControllerReporteGeneral extends Controller
                     $finanzas_r = Paa::with(['componentes' => function($query) 
                         {
                             $query->wherePivot('deleted_at',NULL)->get();
-                        }])->whereBetween('FechaEstudioConveniencia',array($request['fecha_inicial'], $request['fecha_final']))->where('Estado',Estado::EstudioAprobado)->get();
+                        }])->whereBetween('FechaEstudioConveniencia',array($request['fecha_inicial'], $request['fecha_final']))
+                           ->where('Estado',Estado::EstudioAprobado)
+                           ->get();
 
                     if($finanzas_r)
                     {
@@ -75,14 +77,22 @@ class ControllerReporteGeneral extends Controller
                             }
                         }
                     }
+
                 }elseif ($request['vista']==1) {
 
                     $proyecto = Paa::with('componentes')->get();
                     $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
+                    
+
+
                     $finanzas_r = Paa::with(['componentes' => function($query) 
                         {
                             $query->wherePivot('deleted_at',NULL)->get();
-                        }])->whereBetween('FechaEstudioConveniencia',array($request['fecha_inicial'], $request['fecha_final']))->where('Id_Area',$personapaa['id_area'])->whereIn('Estado',[Estado::Consolidacion,Estado::Subdireccion,Estado::Aprobado,Estado::Rechazado,Estado::EstudioConveniencia,Estado::EstudioCorregido])->get();
+                        }])->whereBetween('FechaEstudioConveniencia',array($request['fecha_inicial'], $request['fecha_final']))
+                           ->where('Id_Area',$personapaa['id_area'])
+                           ->whereIn('Estado',[Estado::Consolidacion,Estado::Subdireccion,Estado::Aprobado,Estado::Rechazado,Estado::EstudioConveniencia,Estado::EstudioCorregido])
+                           ->get();
+
                     
                     if($finanzas_r)
                     {

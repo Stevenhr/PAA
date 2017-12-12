@@ -76,6 +76,7 @@ class ControllerReporteGeneral2 extends Controller
                             <th><center>Id</center></th>
                             <th>Objeto</th>
                             <th>Valor</th> 
+                            <th>Valor estimado <br> vigencia actual </th>
                             <th>Proyecto</th>
                             <th>Meta</th>
                             <th>Actividad</th>
@@ -87,7 +88,7 @@ class ControllerReporteGeneral2 extends Controller
                             <th>Modalidad</th>
                             <th>Tipo<br>Contrato</th>
                             <th>Duración<br>Estimada</th>
-                            <th>Valor estimado <br> vigencia actual </th>
+                            
                             <th>¿Se requieren <br>vigencias futuras?    </th>
                             <th>Estado de solicitud <br> vigencias futuras  </th>
                             <th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
@@ -103,6 +104,7 @@ class ControllerReporteGeneral2 extends Controller
                             <th><center>Id</center></th>
                             <th>Objeto</th>
                             <th>Valor</th> 
+                            <th>Valor estimado <br> vigencia actual </th>
                             <th>Proyecto</th>
                             <th>Meta</th>
                             <th>Actividad</th>
@@ -114,7 +116,7 @@ class ControllerReporteGeneral2 extends Controller
                             <th>Modalidad</th>
                             <th>Tipo<br>Contrato</th>
                             <th>Duración<br>Estimada</th>
-                            <th>Valor estimado <br> vigencia actual </th>
+                            
                             <th>¿Se requieren <br>vigencias futuras?    </th>
                             <th>Estado de solicitud <br> vigencias futuras  </th>
                             <th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
@@ -128,15 +130,34 @@ class ControllerReporteGeneral2 extends Controller
                        $num=1;
                        $c_v_i="";
                        $c_v_i_id="";
-                          foreach ($finanzas_r as $key => $value) {
-                            foreach ($value->componentes as $key => $componente) {
-                                    //dd($componente);
+                           foreach ($finanzas_r as $key => $value) 
+                            {
+                                foreach ($value->componentes as $key => $componente) 
+                                {
+                                       $individual = Paa::with(['componentes' => function($query) use($componente,$value)
+                                        {
+                                            $query->where('id_paa',$value['Id'])                                                  
+                                                  ->whereNull('actividadComponente.deleted_at');
+                                        }])->find($value['Id']);
+
+                                        $sumValroesEspecificos=0;
+
+                                        foreach ($individual->componentes as $key => $compon) 
+                                        {
+                                                $sumValroesEspecificos=$sumValroesEspecificos+$compon->pivot['valor'];
+                                            
+                                        }
+                                        $error="";
+                                        if($value['ValorEstimadoVigencia']!=$sumValroesEspecificos)
+                                            $error="Incompleto";
+
                                         $tabla=$tabla."<tr>
                                             <td>".$num."</td>
                                             <td><center><h4>".$value['Id']."</h4></center></td>
                                             <td ><div  class='campoArea'>".$value['ObjetoContractual']."</div></td>
-                                            <td> $".number_format ($componente->pivot['valor'])."</td>
-                                            <td><b>".$componente->FuenteProyecto->proyecto['codigo']."</b><br>".$componente->FuenteProyecto->proyecto['Nombre']."</td>
+                                            <td > $".number_format ($componente->pivot['valor'])."</td>";
+                                            $tabla=$tabla."<td> $".number_format ($value['ValorEstimadoVigencia'])." <br> ".$error."</td>";
+                                            $tabla=$tabla."<td><b>".$componente->FuenteProyecto->proyecto['codigo']."</b><br>".$componente->FuenteProyecto->proyecto['Nombre']."</td>
                                             <td>".$componente->Meta['Nombre']."</td>
                                             <td>N.R</td>
                                             <td><b>".$componente['codigo']."</b><br>".$componente['Nombre']."</td>
@@ -170,7 +191,7 @@ class ControllerReporteGeneral2 extends Controller
                                                 $uni_t = "";
                                             }
                                             $tabla=$tabla."<td>".$value['DuracionContrato']." ".$uni_t."</td>";
-                                            $tabla=$tabla."<td> $".number_format ($value['ValorEstimadoVigencia'])."</td>";
+                                            
                                             $tabla=$tabla."<td>".$value['VigenciaFutura']."</td>";
                                             $tabla=$tabla."<td>".$value['EstadoVigenciaFutura']."</td>";
                                             $tabla=$tabla."<td>".$value['FechaEstudioConveniencia']."</td>";
@@ -181,9 +202,8 @@ class ControllerReporteGeneral2 extends Controller
 
                                         $tabla=$tabla."</tr>";
                                         $num++;
-                                
-                            }                        
-                          } 
+                                }                        
+                            } 
                         
                                              
                 $tabla=$tabla."</tbody>
