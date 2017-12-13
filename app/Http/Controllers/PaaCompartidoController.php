@@ -227,6 +227,11 @@ class PaaCompartidoController extends Controller
 
         if (!isset($_SESSION['Id_Persona']))
             return redirect()->away('http://www.idrd.gov.co/SIM/Presentacion/');
+        
+
+        $data0 = json_decode($request['datos_vector_financiacion']);
+        $data_r = json_decode($request['datos_vector_financiacion_rubro']);
+        
 
         $personapaa = PersonaPaa::find($_SESSION['Id_Persona']);
         $Modifica=0;
@@ -255,7 +260,12 @@ class PaaCompartidoController extends Controller
         $modeloPA['DatosResponsable'] = $paaRequest['DatosResponsable'];
         $modeloPA['Id_Proyecto'] = $paaRequest['Id_Proyecto'];
         $modeloPA['Id_Rubro'] = $paaRequest['Id_Rubro'];
-        $modeloPA['Proyecto1Rubro2'] = $paaRequest['Proyecto1Rubro2'];
+        if($data_r)
+        {
+            $modeloPA['Proyecto1Rubro2'] = 2;
+        }else{
+            $modeloPA['Proyecto1Rubro2'] = $paaRequest['Proyecto1Rubro2'];
+        }
         $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
         $modeloPA['Estado'] = 0;
         $modeloPA['IdPersonaObservo'] = '';
@@ -299,7 +309,12 @@ class PaaCompartidoController extends Controller
             $modeloPA['DatosResponsable'] = $paaRequest['DatosResponsable'];
             $modeloPA['Id_Proyecto'] = $paaRequest['Id_Proyecto'];
             $modeloPA['Id_Rubro'] = $paaRequest['Id_Rubro'];
-            $modeloPA['Proyecto1Rubro2'] = $paaRequest['Proyecto1Rubro2'];
+            if($data_r)
+            {
+                $modeloPA['Proyecto1Rubro2'] = 2;
+            }else{
+                $modeloPA['Proyecto1Rubro2'] = $paaRequest['Proyecto1Rubro2'];
+            }
             $modeloPA['IdPersona'] = $_SESSION['Id_Persona'];
             $modeloPA['Estado'] = 2;
             $modeloPA['IdPersonaObservo'] = '';
@@ -317,8 +332,9 @@ class PaaCompartidoController extends Controller
             $id_reg_def=$id_paa2;
             $modeloP->save();
 
-            $data0 = json_decode($request['datos_vector_financiacion']);
+            
             if($data0){
+
                 foreach($data0 as $obj){
                     $presupuestado= Presupuestado::find($obj->id_componnente_Finanza);
                     $id_com=$presupuestado['componente_id'];
@@ -333,8 +349,9 @@ class PaaCompartidoController extends Controller
                 }
             }
 
-            $data_r = json_decode($request['datos_vector_financiacion_rubro']);
+           
             if($data_r){
+
                 if($data_r[0] != null){
                     foreach($data_r as $obj){
                         $modeloPA->rubro_funcionamiento()->attach($obj->id_fuente_funcionamiento,[
