@@ -1074,10 +1074,16 @@ class PaaController extends Controller
 	{
 		
 		$id=$input["Id_fuente_crear"];
-		$Fuente = Fuente::with('actividadcomponentes')->find($id);
-		$suma=$Fuente->actividadcomponentes->sum('valor');
+		$fuentes = FuenteProyecto::with('paas')->where('fuente_id',$id)->get();
+		$suma=0;
 
-		if($input['valor_fuente_crear']>=$suma){
+		foreach ($fuentes as $fuente) {
+			$suma += $fuente->paas->sum('pivot.valor');
+		}
+
+		$valor_ingresado=str_replace('.', '',$input['valor_fuente_crear']);
+
+		if($valor_ingresado>=$suma){
 			$fuente=Fuente::find($input["Id_fuente_crear"]);
 			return $this->crear_fuente($fuente, $input);
 		}else{

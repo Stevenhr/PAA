@@ -42,7 +42,6 @@ class ConsolidadoController extends Controller
 
     if (!isset($_SESSION['Id_Persona']))
             return redirect()->away('http://www.idrd.gov.co/SIM/Presentacion/');
-
           
     $modalidadSeleccion = ModalidadSeleccion::all();
     $proyecto = Proyecto::all();

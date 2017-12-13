@@ -53,7 +53,7 @@ class ControllerReporteGeneral2 extends Controller
                     $finanzas_r = Paa::with(['componentes' => function($query)
                     {
                         $query->wherePivot('deleted_at',NULL)->get();
-                    }])->whereBetween('FechaEstudioConveniencia',array($request['fecha_inicial'], $request['fecha_final']))->whereIn('Estado',[Estado::Consolidacion,Estado::Subdireccion,Estado::Aprobado,Estado::Rechazado,Estado::EstudioConveniencia,Estado::EstudioCorregido])->get();
+                    }],'persona')->whereBetween('FechaEstudioConveniencia',array($request['fecha_inicial'], $request['fecha_final']))->whereIn('Estado',[Estado::Consolidacion,Estado::Subdireccion,Estado::Aprobado,Estado::Rechazado,Estado::EstudioConveniencia,Estado::EstudioCorregido])->get();
                     
                     if($finanzas_r)
                     {
@@ -76,7 +76,8 @@ class ControllerReporteGeneral2 extends Controller
                             <th><center>Id</center></th>
                             <th>Objeto</th>
                             <th>Valor</th> 
-                            <th>Valor estimado <br> vigencia actual </th>
+                            <th>Valor estimado </th>
+                            <th>Usuario</th> 
                             <th>Proyecto</th>
                             <th>Meta</th>
                             <th>Actividad</th>
@@ -104,7 +105,8 @@ class ControllerReporteGeneral2 extends Controller
                             <th><center>Id</center></th>
                             <th>Objeto</th>
                             <th>Valor</th> 
-                            <th>Valor estimado <br> vigencia actual </th>
+                            <th>Valor estimado </th>
+                            <th>Usuario</th> 
                             <th>Proyecto</th>
                             <th>Meta</th>
                             <th>Actividad</th>
@@ -148,15 +150,32 @@ class ControllerReporteGeneral2 extends Controller
                                             
                                         }
                                         $error="";
-                                        if($value['ValorEstimadoVigencia']!=$sumValroesEspecificos)
+                                        if($value['ValorEstimado']!=$sumValroesEspecificos)
                                             $error="Incompleto";
+
+                                        $var0='';
+                                        if ($value['compartida']>0)
+                                            $var0 = 'C'; 
+                                        else
+                                            $var0 = ''; 
+
+                                        $var1='';
+                                        if ($value['vinculada']>0){
+                                            $var1 = 'V'; 
+                                            $var11 = $paa['vinculada']; 
+                                        }else{
+                                            $var1 = ''; 
+                                            $var11 = ''; 
+                                        }
 
                                         $tabla=$tabla."<tr>
                                             <td>".$num."</td>
-                                            <td><center><h4>".$value['Id']."</h4></center></td>
+                                            <td><center><h4>".$value['Id']." ".$var0." ".$var1."</h4></center></td>
                                             <td ><div  class='campoArea'>".$value['ObjetoContractual']."</div></td>
+                                            
                                             <td > $".number_format ($componente->pivot['valor'])."</td>";
-                                            $tabla=$tabla."<td> $".number_format ($value['ValorEstimadoVigencia'])." <br> ".$error."</td>";
+                                            $tabla=$tabla."<td> $".number_format ($value['ValorEstimado'])." <br> ".$error."</td>";
+                                            $tabla=$tabla."<td >".$value->persona['Primer_Apellido']." ".$value->persona['Primer_Nombre']."</td>";
                                             $tabla=$tabla."<td><b>".$componente->FuenteProyecto->proyecto['codigo']."</b><br>".$componente->FuenteProyecto->proyecto['Nombre']."</td>
                                             <td>".$componente->Meta['Nombre']."</td>
                                             <td>N.R</td>

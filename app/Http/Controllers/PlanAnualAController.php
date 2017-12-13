@@ -64,7 +64,8 @@ class PlanAnualAController extends Controller
         $area = Area::find($personapaa['id_area']);
         $areasSubdirec=Area::where('id_subdireccion',$area['id_subdireccion'])->get();
 //dd($areasSubdirec->pluck('id')->toArray());
-        $paa = Paa::with(['modalidad','tipocontrato','rubro','area','proyecto','meta','persona','rubro_funcionamiento','fuentesproyectos','componentes' =>     function($query)
+        
+            $paa = Paa::with(['modalidad','tipocontrato','rubro','area','proyecto','meta','persona','rubro_funcionamiento','fuentesproyectos','componentes' =>     function($query)
             {
                $query->with('actividadescomponetes.fuenteproyecto.fuente','actividadescomponetes.fuenteproyecto.proyecto');
             }])
@@ -87,6 +88,7 @@ class PlanAnualAController extends Controller
             })
             ->orderby('Id','asc')
             ->get();
+
             //dd($paa);
         $datos = [        
             'modalidades' => $modalidadSeleccion,
