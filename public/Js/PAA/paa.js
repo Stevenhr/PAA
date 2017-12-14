@@ -708,9 +708,9 @@ $(function()
                 
                 $('.mjs_componente').html('<div class="alert "><table class="table table-bordered">'+
                  '<tr class="info"><td>Presupuesto total:</td><td><center><strong>  $'+number_format(valorCocenpto)+'</strong>.<br></td></tr>'+
-                 '<tr class="success"><td>Presupuesto aprobado:</td><td><center><strong>                 $'+number_format(suma)+'</strong>.<br></td></tr>'+
-                 '<tr class="warning"><td>Presupuesto reservado por aprobar:</td><td><center><strong>                 $'+number_format(suma2)+'</strong>.<br></td></tr>'+
-                 '<tr class="active"><td>Presupuesto libre: </td><td><center><strong>  $'+number_format(valorAfavor)+'</strong>.<br>'+'</td></tr></table></div>');
+                 '<tr class="success"><td>Aprobado por el ordenador del gasto:</td><td><center><strong>                 $'+number_format(suma)+'</strong>.<br></td></tr>'+
+                 '<tr class="warning"><td>En aprobación por el ordenador del gasto:</td><td><center><strong>                 $'+number_format(suma2)+'</strong>.<br></td></tr>'+
+                 '<tr class="active"><td>Recursos por cargar al PAA: </td><td><center><strong>  $'+number_format(valorAfavor)+'</strong>.<br>'+'</td></tr></table></div>');
             }
         });
 

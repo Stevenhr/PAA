@@ -344,15 +344,15 @@ $(function()
 	            name: 'Porcentaje',
 	            colorByPoint: true,
 	            data: [{
-	                name: 'Aprobado',
+	                name: 'Estudios aprobados por el ordenador',
 	                y: datos.aprobado,
 	            }, {
-	                name: 'Reservado por aprobación',
+	                name: 'Pendiente por aprobación del ordenador',
 	                y: datos.reservado_por_aprobar,
 	                sliced: true,
 	                selected: true
 	            }, {
-	                name: 'Saldo Libre',
+	                name: 'Recursos pendientes cargar al PAA',
 	                y: datos.Saldo_libre,
 	            }]
 	        }]
