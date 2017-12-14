@@ -431,6 +431,7 @@ class PaaController extends Controller
 	public function modificar_proyect($model, $input)
 	{
 		$precio_proyecto=str_replace('.', '', $input['precio_proyecto']);
+
 		if($precio_proyecto<=$model['valor']){
 			$metas = Meta::where('Id_proyecto',$input["Id_proyecto"])->get();
 		    $sum = $metas->sum( 'valor' );
@@ -451,14 +452,14 @@ class PaaController extends Controller
 			}
 		}else{
 			$proyectos = Proyecto::where('Id_presupuesto',$input['idPresupuesto'])->get();
-			$sum = $proyectos->sum( 'valor' );
-
+			$sum_proyectos = $proyectos->sum( 'valor' );// suma de los valores de los proyectos tabla proyectos 
+		
 			$presupuestos = Presupuesto::find($input['idPresupuesto']);
-			$sum_proyectos = $proyectos->sum( 'valor' );
-
 			$sum_presupuesto = $presupuestos['presupuesto'];
+			
 			$valor_nuevProyecto=str_replace('.', '', $input['precio_proyecto']);
 			$Saldo=$sum_presupuesto-$sum_proyectos;
+			//var_dump($model['valor']);
 			$Saldo2=$Saldo+$model['valor'];
 
 			if($valor_nuevProyecto<=$Saldo2){
