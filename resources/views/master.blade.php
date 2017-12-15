@@ -171,6 +171,7 @@
                   @if($_SESSION['Usuario']['Permisos']['Reporte_general'])
                     <li class=”{{ Request::is('reporteGeneral') ? 'active' : '' }}”><a href="{{ URL::to('reporteGeneral') }}">Estudio aprobado</a></li>
                     <li class=”{{ Request::is('reporteGeneral2') ? 'active' : '' }}”><a href="{{ URL::to('reporteGeneral2') }}">Estudio en espera</a></li>
+                    <li class=”{{ Request::is('reporteRubro') ? 'active' : '' }}”><a href="{{ URL::to('reporteRubro') }}">Rubro</a></li>
                     <li class=”{{ Request::is('reporteGeneralRubro') ? 'active' : '' }}”><a href="{{ URL::to('reporteGeneralRubro') }}">Rubros en espera</a></li>
                   @endif
                 </ul>
