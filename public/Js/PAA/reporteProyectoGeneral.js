@@ -50,6 +50,7 @@ $(function()
               if(data.status == 'error')
                 {
                     validad_error(data.errors);
+                    $("#contenido_reporte2").html("");
                 } 
               else 
                 {

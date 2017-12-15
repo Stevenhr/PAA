@@ -1,24 +1,27 @@
+
 @extends('master')                              
 
 @section('script')
 	@parent
-    <script src="{{ asset('public/Js/PAA/reporteProyecto.js?n=1') }}"></script>	
+    <script src="{{ asset('public/Js/PAA/reporteRubro.js?n=3') }}"></script>
 @stop
 
 @section('content')          
     <div class="content">
-    	<div class="content" id="main_reporte" class="row" data-url="reporteProyecto" ></div>
+    	<div class="content" id="main_reporte" class="row" data-url="reporteRubro" ></div>
     	
     	<div class="row">
     	    <div class="col-xs-12 col-md-12">
-				<h4>Reporte Proyecto</h4>
+					<h4>Reporte Rubros Planes Sin Aprobación del Estudio.</h4>
 				<br><br>
     		</div>
     	</div>
-    	<form id="form_reporte_proyecto" method="post">
+
+    	<form id="form_reporte_general" method="post">
 	    	<div class="row">
 	    	    <div class="col-xs-12 col-md-4">
 			    	<div class="form-group">	
+			    		<input type="hidden" name="vista" value="{{$vista}}">
 					    <label for="planDesarrollo">1. Plan de desarrollo</label>
 					    <select class="form-control" id="planDesarrollo" name="planDesarrollo">
 						      <option value="">Seleccionar</option>
@@ -30,18 +33,14 @@
 	    		</div>
 	    		<div class="col-xs-12 col-md-4">
 			    	<div class="form-group">	
-					    <label for="vigencia">2. Vigencias</label>
-					    <select class="form-control" id="vigencia" name="vigencia">
-						  <option value="">Seleccionar</option>
-						</select>
+					    <label for="proyecto">3. Fecha inicial</label>
+					    <input class="form-control" type="date" name="fecha_inicial" id="fecha_inicial" data-role1="datepicker">
 					</div>
 	    		</div>
 	    		<div class="col-xs-12 col-md-4">
 			    	<div class="form-group">	
-					    <label for="proyecto">3. Proyecto de Inversión</label>
-					    <select class="form-control" id="proyecto" name="proyecto">
-						  <option value="">Seleccionar</option>
-						</select>
+					    <label for="proyecto">4. Fecha final</label>
+					    <input class="form-control" type="date" name="fecha_final" id="fecha_final" data-role1="datepicker">
 					</div>
 	    		</div>
 	    	</div>
@@ -59,31 +58,25 @@
 	    		<div class="col-xs-12 col-md-4">
 	    		</div>
 	    	</div>
-    	</form>
 
-    	<div class="row" style="display: none; padding-top: 50px; " id="panel_grafico">
-    	    <div class="col-xs-12 col-md-12">
-    	    	<div class="page-header">
-				  <h1 id="NomPro"></h1>
-				</div>
-			</div>
-    	    <div class="col-xs-12 col-md-6">
-    	    	<div class="panel panel-default" >
-				  <div class="panel-heading">Grafica:</div>
-				  <div class="panel-body">
-				    <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-				  </div>
-				</div>
-    		</div>
-    		<div class="col-xs-12 col-md-6">
-    	    	<div class="panel panel-default" >
-				  <div class="panel-heading">Datos:</div>
-				  <div class="panel-body">
-				  <div class="table-responsive" id="datosproyecto"></div>
-				  </div>
-				</div>
-    		</div>
-    	</div>
+	    	<div class="row">
+	    		<div class="col-xs-12 col-md-12"></div>
+	    		<div class="col-xs-12 col-md-12"><br><hr><br></div>
+	    		<div class="col-xs-12 col-md-12"></div>
+	    	</div>
+
+	    	<div class="row">
+	    	    <div class="col-xs-12 col-md-12">
+	    			<div id="contenido_reporte2"></div>
+	    		</div>
+	    	</div>	
+
+	    	<div class="row">
+	    		<div class="col-xs-12 col-md-12"></div>
+	    		<div class="col-xs-12 col-md-12"><br><hr><br></div>
+	    		<div class="col-xs-12 col-md-12"></div>
+	    	</div>
+    	</form>
 
     </div>
 
@@ -107,7 +100,7 @@
 							    <p id="mnjs"></p>
 							</div>						 
 							<div class="table-responsive">
-								<table  id="Tabla1" class="display responsive no-wrap table table-min" width="100%" cellspacing="0">
+								<table  id="Tabla1" class="display nowrap table-bordered" width="780px" cellspacing="0">
 								        <thead>
 											<tr class="success">
 								                <th>N°</th>

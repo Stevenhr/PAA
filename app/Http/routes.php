@@ -206,4 +206,8 @@ Route::post('/reporteProyectoGeneral/validar_form', 'ControllerReporteGeneral@va
 Route::get('reporteGeneral2', 'ControllerReporteGeneral2@index');
 Route::post('/reporteProyectoGeneral2/validar_form', 'ControllerReporteGeneral2@validar_form');
 
+Route::get('reporteGeneralRubro', 'ControllerReporteRubro@index');
+Route::post('/reporteRubro/validar_form', 'ControllerReporteRubro@validar_form');
+
+
 });
