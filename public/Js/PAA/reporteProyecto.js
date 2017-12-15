@@ -343,18 +343,23 @@ $(function()
 	        series: [{
 	            name: 'Porcentaje',
 	            colorByPoint: true,
-	            data: [{
-	                name: 'Estudios aprobados por el ordenador',
-	                y: datos.aprobado,
-	            }, {
-	                name: 'Pendiente por aprobación del ordenador',
-	                y: datos.reservado_por_aprobar,
-	                sliced: true,
-	                selected: true
-	            }, {
-	                name: 'Recursos pendientes cargar al PAA',
-	                y: datos.Saldo_libre,
-	            }]
+	            data: 
+              [
+                {
+  	                name: 'Estudios aprobados por el ordenador',
+  	                y: datos.aprobado,
+  	            }, 
+                {
+  	                name: 'Pendiente por aprobación del ordenador',
+  	                y: datos.reservado_por_aprobar,
+  	                sliced: true,
+  	                selected: true
+  	            }, 
+                {
+  	                name: 'Recursos pendientes cargar al PAA',
+  	                y: datos.Saldo_libre,
+  	            }
+              ]
 	        }]
 	    });
 	}
