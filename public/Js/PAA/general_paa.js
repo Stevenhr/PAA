@@ -52,6 +52,28 @@ $(function()
             $( api.column( 10 ).footer() ).html(
                 'Parcial: $'+number_format(pageTotal) +'<br>Total: $'+ number_format(total) +''
             );
+
+
+
+            total2 = api
+                .column( 11 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Total over this page
+            pageTotal2 = api
+                .column( 11, { filter: 'applied' } )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column( 11 ).footer() ).html(
+                'Parcial: $'+number_format(pageTotal2) +'<br>Total: $'+ number_format(total2) +''
+            );
         }
     });
  

@@ -76,7 +76,8 @@ class ControllerReporteGeneral2 extends Controller
                             <th><center>Id</center></th>
                             <th>Objeto</th>
                             <th>Valor</th> 
-                            <th>Valor estimado </th>
+                            <th>Valor estimado <br> vigencia actual</th>
+                            <th>Valor total estimado    </th>
                             <th>Usuario</th> 
                             <th>Proyecto</th>
                             <th>Meta</th>
@@ -105,7 +106,8 @@ class ControllerReporteGeneral2 extends Controller
                             <th><center>Id</center></th>
                             <th>Objeto</th>
                             <th>Valor</th> 
-                            <th>Valor estimado </th>
+                            <th>Valor estimado <br> vigencia actual</th>
+                            <th>Valor total estimado    </th>
                             <th>Usuario</th> 
                             <th>Proyecto</th>
                             <th>Meta</th>
@@ -174,7 +176,8 @@ class ControllerReporteGeneral2 extends Controller
                                             <td ><div  class='campoArea'>".$value['ObjetoContractual']."</div></td>
                                             
                                             <td > $".number_format ($componente->pivot['valor'])."</td>";
-                                            $tabla=$tabla."<td> $".number_format ($value['ValorEstimado'])." <br> ".$error."</td>";
+                                            $tabla=$tabla."<td> $".number_format ($value['ValorEstimadoVigencia'])." <br> ".$error."</td>";
+                                            $tabla=$tabla."<td> $".number_format ($value['ValorEstimado'])."</td>";
                                             $tabla=$tabla."<td >".$value->persona['Primer_Apellido']." ".$value->persona['Primer_Nombre']."</td>";
                                             $tabla=$tabla."<td><b>".$componente->FuenteProyecto->proyecto['codigo']."</b><br>".$componente->FuenteProyecto->proyecto['Nombre']."</td>
                                             <td>".$componente->Meta['Nombre']."</td>
