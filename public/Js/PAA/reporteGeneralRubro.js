@@ -58,14 +58,15 @@ $(function()
 
 
   $('select[name="vigencia"]').on('change', function(e){
-    select_proyecto($(this).val());
+    select_proyecto($('select[name="vigencia"] option:selected').text());
   });
 
   var select_proyecto = function(id)
   { 
+
     if(id!=''){
       $.ajax({
-        url: URL+'/service/proyecto/'+id,
+        url: URL+'/service/rubro/'+id,
         data: {},
         dataType: 'json',
         success: function(data)
@@ -73,11 +74,11 @@ $(function()
           
           var html = '<option value="">Seleccionar</option>';
           
-          if(data.proyecto)
+          if(data.rubro)
           {
             console.log(data);
-            $.each(data.proyecto, function(i, e){
-              html += '<option value="'+e['Id']+'">'+e['codigo']+" - "+e['Nombre']+'</option>';
+            $.each(data.rubro, function(i, e){
+              html += '<option value="'+e['id']+'">'+e['codigo']+" - "+e['nombre']+'</option>';
             });
           }
           $('select[name="proyecto"]').html(html).val($('select[name="proyecto"]').data('value'));
@@ -92,7 +93,7 @@ $(function()
 
     // Build the chart
 
-    $('#form_reporte_proyecto').on('submit', function(e){
+  $('#form_reporte_proyecto').on('submit', function(e){
       $.ajax({
         type: "POST",
       url: URL+'/service/proyecto_finanza',

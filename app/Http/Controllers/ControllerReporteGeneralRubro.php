@@ -8,6 +8,7 @@ use App\Presupuesto;
 use App\Proyecto;
 use App\FuenteProyecto;
 use App\Paa;
+use App\RubroFuncionamiento;
 
 class ControllerReporteGeneralRubro extends Controller
 {
@@ -26,10 +27,11 @@ class ControllerReporteGeneralRubro extends Controller
         return response()->json(array('vigencias'=>$vigencias ));
     }
 
-    public function select_proyecto(Request $request, $id)
+    public function select_rubro(Request $request, $id)
     {
-        $proyecto = Proyecto::where('Id_presupuesto',$id)->get();
-        return response()->json(array('proyecto'=>$proyecto ));
+        $year = date('Y',strtotime("$id-1-1"));
+        $rubro = RubroFuncionamiento::whereYear('fecha_inicio','=',$year)->get();
+        return response()->json(array('rubro'=>$rubro ));
     }
 
     /**
@@ -39,33 +41,24 @@ class ControllerReporteGeneralRubro extends Controller
     public function proyecto_finanza(Request $request)
     {
       
-      $proyecto = Proyecto::find($request['proyecto']);
+      $proyecto = RubroFuncionamiento::find($request['proyecto']);
 
-        $paa = Paa::with(['componentes' => function($query)
+        $paa = Paa::with(['rubro_funcionamiento' => function($query) use ($request)
                     {
-                        $query->wherePivot('deleted_at',NULL)->get();
-                    }])->where('Id_Proyecto',$request['proyecto'])->whereIn('Estado',['9'])->get();
-
-        $Fuenteproyecto= FuenteProyecto::where('proyecto_id',$request['proyecto'])->get();
-
-        $id_fp;
-        $i=0;
-        foreach($Fuenteproyecto as $Fuentep){
-            $id_fp[$i]=$Fuentep['id'];
-            $i++;
-        }
+                        $query->wherePivot('deleted_at',NULL)->wherePivot('rubro_id',2)->get();
+                    }])->whereIn('Estado',['9'])->get();
 
         $suma_aprobado=0;
-        foreach($paa as $eee){
-          if($eee->componentes!=''){
-            foreach($eee->componentes as $eeee){
-               if($eeee->pivot['valor']!='' && $eeee->pivot['proyecto_id']==$request['proyecto'] && $eeee->pivot['deleted_at']==""  && in_array($eeee->pivot['fuente_id'],$id_fp)){
-                   $suma_aprobado=$suma_aprobado + $eeee->pivot['valor'];
-               }
+        foreach ($paa as $key => $value) 
+            {
+                foreach ($value->rubro_funcionamiento as $key => $componente) 
+                {
+                    var_dump($componente->pivot['valor']);
+                }
             }
-          }
-        }
 
+        var_dump($suma_aprobado);
+        dd("->> ".$suma_aprobado);
         $paa2 = Paa::with(['componentes' => function($query)
                     {
                         $query->wherePivot('deleted_at',NULL)->get();
@@ -76,7 +69,7 @@ class ControllerReporteGeneralRubro extends Controller
           if($eee->componentes!=''){
             foreach($eee->componentes as $eeee){
                //dd($eee->componentes);
-                if($eeee->pivot['valor']!='' && $eeee->pivot['proyecto_id']==$request['proyecto'] && $eeee->pivot['deleted_at']=="" && in_array($eeee->pivot['fuente_id'],$id_fp)){
+                if($eeee->pivot['valor']!='' && $eeee->pivot['proyecto_id']==$request['proyecto'] && $eeee->pivot['deleted_at']=="" ){
                    $reservado_por_aprobar=$reservado_por_aprobar + $eeee->pivot['valor'];
                    //var_dump($eeee->pivot['valor']);
                }

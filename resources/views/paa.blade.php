@@ -2,7 +2,7 @@
 
 @section('script')
 	@parent
-	<script src="{{ asset('public/Js/PAA/paa.js?n=2') }}"></script>
+	<script src="{{ asset('public/Js/PAA/paa.js?n=3') }}"></script>
 @stop
 
 @section('content')
@@ -56,9 +56,9 @@
 						<th>Tipo<br>Contrato</th>
 						<th data-priority="3">Descripción<br>Objeto</th>
 						<th>Valor<br>Estimado</th>
+						<th>Valor estimado <br> vigencia actual	</th>
 						<th>Duración<br>Estimada</th>
 						<!--<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>-->
-						<th>Valor estimado <br> vigencia actual	</th>
 						<th>¿Se requieren <br>vigencias futuras?	</th>
 						<th>Estado de solicitud <br> vigencias futuras	</th>
 						<th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
@@ -193,9 +193,9 @@
 								<td>{{$paa->tipocontrato['Nombre']}}</td>
 								<td><div  class="campoArea">{{$paa['ObjetoContractual']}}</div></td>
 								<td>{{number_format($paa['ValorEstimado'])}}</td>
+								<td>{{number_format($paa['ValorEstimadoVigencia'])}}</td>
 								<td>{{$paa['DuracionContrato']}} - {{$uni_t}}</td>
 							<!--<td>{{$paa['FuenteRecurso']}}</td>-->
-								<td>{{number_format($paa['ValorEstimadoVigencia'])}}</td>
 								<td>{{$paa['VigenciaFutura']}}</td>
 								<td>{{$paa['EstadoVigenciaFutura']}}</td>
 								<td>{{$paa['FechaEstudioConveniencia']}}</td>

@@ -158,7 +158,13 @@
 
 
               @if($_SESSION['Usuario']['Permisos']['General'])
-                <li class=”{{ Request::is( 'Generalpaa') ? 'active' : '' }}”><a href="{{ URL::to( 'Generalpaa') }}">General</a></li>
+                
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">General<span class="caret"></span></a>
+                  <ul class="dropdown-menu" aria-labelledby="download">
+                      <li class=”{{ Request::is( 'Generalpaa') ? 'active' : '' }}”><a href="{{ URL::to( 'Generalpaa') }}">Paa General</a></li>
+                  </ul>
+                </li>
               @endif
                 
               @if($_SESSION['Usuario']['Permisos']['Reporte_proyecto'] || $_SESSION['Usuario']['Permisos']['Reporte_general'])
@@ -228,6 +234,7 @@
       <div class="container">
           @yield('content')
       </div>        
+
       <!-- FIN Contenedor panel principal -->
   </body>
 

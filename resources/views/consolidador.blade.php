@@ -2,7 +2,7 @@
 
 @section('script')
 	@parent
-    <script src="{{ asset('public/Js/PAA/aprobar.js?n=1') }}"></script>	
+    <script src="{{ asset('public/Js/PAA/aprobar.js?n=2') }}"></script>	
 @stop
 
 @section('content') 
@@ -49,10 +49,11 @@
 										<th>Tipo<br>Contrato</th>
 										<th data-priority="3">Descripción<br>Objeto</th>
 										<th>Valor<br>Estimado</th>
+										<th>Valor estimado <br> vigencia actual	</th>
 										<th>Área</th>
 										<th>Duración<br>Estimada (mes)</th>
 										<!--<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>-->
-										<th>Valor estimado <br> vigencia actual	</th>
+										
 										<th>¿Se requieren <br>vigencias futuras?	</th>
 										<th>Estado de solicitud <br> vigencias futuras	</th>
 										<th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
@@ -77,10 +78,10 @@
 										<th>Tipo<br>Contrato</th>
 										<th>Descripción<br>Objeto</th>
 										<th>Valor<br>Estimado</th>
+										<th>Valor estimado <br> vigencia actual	</th>
 										<th>Área</th>
 										<th>Duración<br>Estimada (mes)</th>
 										<!--<th>Fuente de los recursos (Nombre de la Fuente (s))	</th>-->
-										<th>Valor estimado <br> vigencia actual	</th>
 										<th>¿Se requieren <br>vigencias futuras?	</th>
 										<th>Estado de solicitud <br> vigencias futuras	</th>
 										<th>Estudio de  conveniencia<br> (dd/mm/aaaa)</th>
@@ -188,10 +189,11 @@
 					                        <td>{{$paa->tipocontrato['Nombre']}}</td>
 					                        <td><div style="width:500px;text-align: justify; height: 100px; overflow-y: scroll;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); padding: 10px">{{$paa['ObjetoContractual']}}</div></td>
 					                        <td>{{number_format($paa['ValorEstimado'])}}</td>
+					                        <td>{{number_format ($paa['ValorEstimadoVigencia'])}}</td>
 					                        <td>{{$paa->area['nombre']}} <br> <?php echo "<b>".$paa->persona['Primer_Nombre']." ".$paa->persona['Primer_Apellido']."" ?></td>
 					                        <td>{{$paa['DuracionContrato']}} - {{$uni_t}}</td>
 					                        <!--<td>{{$paa['FuenteRecurso']}}</td>-->
-					                        <td>{{number_format ($paa['ValorEstimadoVigencia'])}}</td>
+					                        
 					                        <td>{{$paa['VigenciaFutura']}}</td>
 					                        <td>{{$paa['EstadoVigenciaFutura']}}</td>
 					                        <td>{{$paa['FechaEstudioConveniencia']}}</td>
