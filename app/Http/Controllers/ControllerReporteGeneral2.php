@@ -152,7 +152,7 @@ class ControllerReporteGeneral2 extends Controller
                                             
                                         }
                                         $error="";
-                                        if($value['ValorEstimado']!=$sumValroesEspecificos)
+                                        if($value['ValorEstimadoVigencia']!=$sumValroesEspecificos)
                                             $error="Incompleto";
 
                                         $var0='';
