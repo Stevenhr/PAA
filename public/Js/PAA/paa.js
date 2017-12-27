@@ -542,7 +542,7 @@ $(function()
                 var datos2=data.FuenteProyecto;
                 var html2 = '<option value="">Seleccionar</option>';
                 $.each(datos2, function(i, eee){
-                      html2 += '<option value="'+eee['id']+'">'+eee.fuente['nombre'].toLowerCase()+'</option>';
+                      html2 += '<option value="'+eee['id']+'">'+eee.fuente['codigo']+' - '+eee.fuente['nombre'].toLowerCase()+'</option>';
                 });   
                 $('select[name="Fuente_Finanza"]').html(html2).val($('select[name="Fuente_Finanza"]').data('value'));
             }
@@ -1296,7 +1296,7 @@ $(function()
                     if(data.proyectos!=null && data.proyectos.length > 0)
                     {
                       $.each(data.proyectos, function(i, e){
-                          html += '<option value="'+e['Id']+'">'+e['Nombre']+'</option>';
+                          html += '<option value="'+e['Id']+'">'+e['codigo']+' - '+e['Nombre']+'</option>';
                       });
                     }
                     $('select[name="Proyecto_Finanza"]').html(html).val($('select[name="Proyecto_Finanza"]').data('value'));
