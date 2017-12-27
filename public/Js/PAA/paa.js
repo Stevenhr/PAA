@@ -1319,6 +1319,7 @@ $(function()
                     $('input[name="proyectorubro"]').val(data.Modelo['Proyecto1Rubro2']);
 
                     var num=1;
+                    var sum=0;
                     var html = '';
                     $.each(data.ActividadComponente, function(i, dato){
                       html += '<tr>'+
@@ -1330,7 +1331,17 @@ $(function()
                               '<td> $ '+number_format(dato['valor'])+'</td>'+
                               '<td class="text-center"><button type="button" data-id="'+dato['id']+'"  data-rel="'+id_act+'" data-funcion="eliminar_finanza" class="eliminar_dato_actividad" style="display:'+desactivo+'""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                       num++;
+                      sum=sum+dato['valor'];
                     });
+
+                    html += '<tr>'+
+                              '<th scope="row" class="text-center">Total</th>'+
+                              '<td></td>'+
+                              '<td></td>'+
+                              '<td></td>'+
+                              '<td></td>'+
+                              '<td> $ '+number_format(sum)+'</td>'+
+                              '<td class="text-center"></td></tr>';
 
                     var html1 ='<option value="1">Seleccionar</option>';
                     $('select[name="componnente"]').html(html1);
@@ -2423,7 +2434,7 @@ $(function()
             function(data){
                   if(data.status == 'modelo')
                   {           
-                      var num=1;
+                      /*var num=1;
                       t.clear().draw();
                       $.each(data.datos, function(i, e){
                           
@@ -2433,7 +2444,7 @@ $(function()
 
                           t.row.add($tr1).draw( false );
                           num++;
-                      });
+                      });*/
                       $('#mjs_ElimRegistro').html(' <strong>Registro Eliminado con Exitoso!</strong> Se realizo la eliminación del resgistro de su PAA.');
                       $('#mjs_ElimRegistro').show();
                       setTimeout(function(){
