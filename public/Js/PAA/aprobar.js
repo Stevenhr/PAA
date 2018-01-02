@@ -1381,7 +1381,7 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
         } );
     });
 
-
+    var sum=0;
     $('#tb_componente').delegate('button[data-funcion="Modal_Finanza_Componente"]','click',function (e){  
         var id_prty = $(this).data('rel'); 
         var nombre = $(this).data('nombre');
@@ -1405,12 +1405,13 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
               $('select[name="id_componente_finza_f"]').html(html).val($('select[name="id_componente_finza_f"]').data('value'));
 
               var num=1;
-              
+              sum=0;
+
               $.each(data.FuenteProyecto, function(i, e){
                   if(e.presupuestados.length){
                      $.each(e.presupuestados, function(i, ee){
-
-                          var $tr1 = tabla_presupuestado(e,ee,num); 
+                          sum=sum+(+ee['valor']);
+                          var $tr1 = tabla_presupuestado(e,ee,num,sum); 
                           Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
                           num++;
                       
@@ -1424,13 +1425,14 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
     }); 
 
 
-    function tabla_presupuestado(e, ee, num){
-
+    function tabla_presupuestado(e, ee, num,sum){
+            
              var $tr1 =   $('<tr></tr>').html(
                 '<th scope="row" class="text-center">'+num+'</th>'+
                     '<td><b><p class="text-info">'+e.fuente['codigo']+" - "+e.fuente['nombre']+'<br></p></b></td>'+
                     '<td><b><p class="text-info">'+ee.componente_c['codigo']+" - "+ee.componente_c['Nombre']+'<br></p></b></td>'+
                     '<td><b> $'+number_format(ee['valor'])+'</b></td>'+
+                    '<td><b> $'+number_format(sum)+'</b></td>'+
                     '<td>'+
                       '<div class="btn-group" ><button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 170px;">Acciones<span class="caret"></span></button><ul class="dropdown-menu" style="padding-left: 2px;">'+
                         '<li><button type="button" data-rel="'+ee['id']+'" data-rel2="'+ee['componente_id']+'" data-rel3="'+e['proyecto_id']+'" data-rel4="'+e['id']+'" data-funcion="ver_eli" class="btn btn-link btn btn-xs" title="Eliminar Paa" {{$disable}}><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>   Eliminar</button>  </li>'+

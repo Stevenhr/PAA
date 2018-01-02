@@ -2,7 +2,7 @@
 
 @section('script')
 	@parent
-    <script src="{{ asset('public/Js/PAA/aprobar.js?n=1') }}"></script>	
+    <script src="{{ asset('public/Js/PAA/aprobar.js?n=2') }}"></script>	
 @stop
 
 @section('content') 
@@ -237,6 +237,7 @@
 						                <th>Fuente</th>
 						                <th>Componente</th>
 						                <th>Valor</th>
+						                <th>Sumatoria</th>
 						                <th>Opción</th>
 						            </tr>
 						        </thead>
@@ -246,6 +247,7 @@
 						                <th>Fuente</th>
 						                <th>Componente</th>
 						                <th>Valor</th>
+						                <th>Sumatoria</th>
 						                <th>Opción</th>
 						            </tr>						       
 						        </tfoot>
