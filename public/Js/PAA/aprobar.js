@@ -1406,12 +1406,15 @@ $('body').delegate('#Tabla5 tbody input:radio','click',function(){
 
               var num=1;
               sum=0;
-
+              var acum=0;
               $.each(data.FuenteProyecto, function(i, e){
                   if(e.presupuestados.length){
+                    
                      $.each(e.presupuestados, function(i, ee){
-                          sum=sum+(+ee['valor']);
-                          var $tr1 = tabla_presupuestado(e,ee,num,sum); 
+
+                         // sum=sum+(+ee['valor']);
+                          acum = parseInt(acum + parseInt( ee['valor']));
+                          var $tr1 = tabla_presupuestado(e,ee,num,acum); 
                           Tabla_componentes_fuentes_financia.row.add($tr1).draw(false);
                           num++;
                       
